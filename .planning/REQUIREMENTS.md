@@ -126,22 +126,22 @@ Items explicitly excluded from v1 with reasoning:
 
 | Req ID | Phase | Status |
 |--------|-------|--------|
-| AUTH-01 | Phase 1 | — |
-| AUTH-02 | Phase 1 | — |
-| AUTH-03 | Phase 1 | — |
-| AI-01 | Phase 3 | — |
-| AI-02 | Phase 3 | — |
-| AI-03 | Phase 3 | — |
-| ED-01 | Phase 2 | — |
-| ED-02 | Phase 2 | — |
-| ED-03 | Phase 2 | — |
-| ED-04 | Phase 2 | — |
-| EX-01 | Phase 4 | — |
-| EX-02 | Phase 4 | — |
-| EX-03 | Phase 4 | — |
-| HIS-01 | Phase 5 | — |
-| HIS-02 | Phase 5 | — |
-| HIS-03 | Phase 5 | — |
-| HIS-04 | Phase 5 | — |
+| AUTH-01 | Phase 1 | Pending |
+| AUTH-02 | Phase 1 | Pending |
+| AUTH-03 | Phase 1 | Pending |
+| ED-01 | Phase 2 | Pending |
+| ED-02 | Phase 2 | Pending |
+| ED-03 | Phase 2 | Pending |
+| ED-04 | Phase 2 | Pending |
+| AI-01 | Phase 3 | Pending |
+| AI-02 | Phase 3 | Pending |
+| AI-03 | Phase 3 | Pending |
+| EX-01 | Phase 4 | Pending |
+| EX-02 | Phase 4 | Pending |
+| EX-03 | Phase 4 | Pending |
+| HIS-01 | Phase 5 | Pending |
+| HIS-02 | Phase 5 | Pending |
+| HIS-03 | Phase 5 | Pending |
+| HIS-04 | Phase 5 | Pending |
 
-*Phases are estimates — roadmap agent will confirm final assignments.*
+*Confirmed by roadmap agent — 2026-05-18. 17/17 v1 requirements mapped.*
