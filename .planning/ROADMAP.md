@@ -36,10 +36,18 @@
 **Plans**: 4 plans
 
 Plans:
+
+**Wave 1:**
 - [ ] 01-01-PLAN.md — Walking Skeleton: scaffold Next.js 15.3.9, wire auth infrastructure, install Wave 0 test stubs
+
+**Wave 2** *(blocked on Wave 1 completion)*:
 - [ ] 01-02-PLAN.md — Registration flow: POST /api/auth/register + /login page + LoginRegisterCard register tab (AUTH-01)
 - [ ] 01-03-PLAN.md — Login + Session flow: login tab + LogoutButton + editor stub + auth tests (AUTH-02, AUTH-03)
+
+**Wave 3** *(blocked on Wave 2 completion)*:
 - [ ] 01-04-PLAN.md — Integration + Verification: unit tests green, full suite green, manual smoke test sign-off
+
+**Cross-cutting constraints:** `auth()` not `getServerSession()` · `export const runtime = 'nodejs'` on all DB routes · `dbConnect()` singleton · bcryptjs ≥ 12 rounds
 
 ### Phase 2: GrapesJS Editor Shell
 **Goal**: Users can interact with a fully functional visual editor canvas with mock content
