@@ -11,7 +11,7 @@
 
 ## Phases
 
-- [ ] **Phase 1: Auth + Database Foundation** - Users can register, log in, and stay logged in securely
+- [x] **Phase 1: Auth + Database Foundation** - Users can register, log in, and stay logged in securely
 - [ ] **Phase 2: GrapesJS Editor Shell** - Users can see and interact with a working visual editor canvas using mock content
 - [ ] **Phase 3: AI Generation Pipeline** - Users can enter a Vietnamese prompt and receive a rendered content block
 - [ ] **Phase 4: CSS Isolation Engine + Copy HTML** - Users can copy a zero-JS inline-CSS HTML string to their clipboard
