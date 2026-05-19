@@ -9,16 +9,16 @@
 
 ### Authentication
 
-- [ ] **AUTH-01**: User can register with email + password
+- [x] **AUTH-01**: User can register with email + password
   - Accepts valid email + password (min 8 chars)
   - Password stored as bcrypt hash (salt rounds ≥ 12)
   - Duplicate email returns a clear error
 
-- [ ] **AUTH-02**: User can log in and stay logged in across sessions
+- [x] **AUTH-02**: User can log in and stay logged in across sessions
   - JWT session persists across browser refreshes
   - Invalid credentials return a Vietnamese-language error
 
-- [ ] **AUTH-03**: User can log out from any page
+- [x] **AUTH-03**: User can log out from any page
   - Session is cleared on log out
   - Redirects to login page
 
@@ -126,9 +126,9 @@ Items explicitly excluded from v1 with reasoning:
 
 | Req ID | Phase | Status |
 |--------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
+| AUTH-03 | Phase 1 | Complete |
 | ED-01 | Phase 2 | Pending |
 | ED-02 | Phase 2 | Pending |
 | ED-03 | Phase 2 | Pending |
