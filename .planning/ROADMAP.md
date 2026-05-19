@@ -33,7 +33,13 @@
   3. A logged-in user can log out from any page and is redirected to the login page
   4. Attempting to register with an already-used email shows a clear error message
   5. Entering wrong credentials at login shows a Vietnamese-language error message
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Walking Skeleton: scaffold Next.js 15.3.9, wire auth infrastructure, install Wave 0 test stubs
+- [ ] 01-02-PLAN.md — Registration flow: POST /api/auth/register + /login page + LoginRegisterCard register tab (AUTH-01)
+- [ ] 01-03-PLAN.md — Login + Session flow: login tab + LogoutButton + editor stub + auth tests (AUTH-02, AUTH-03)
+- [ ] 01-04-PLAN.md — Integration + Verification: unit tests green, full suite green, manual smoke test sign-off
 
 ### Phase 2: GrapesJS Editor Shell
 **Goal**: Users can interact with a fully functional visual editor canvas with mock content
@@ -105,7 +111,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Auth + Database Foundation | 0/? | Not started | - |
+| 1. Auth + Database Foundation | 0/4 | Planned | - |
 | 2. GrapesJS Editor Shell | 0/? | Not started | - |
 | 3. AI Generation Pipeline | 0/? | Not started | - |
 | 4. CSS Isolation Engine + Copy HTML | 0/? | Not started | - |
@@ -149,4 +155,4 @@
 
 ---
 
-*Last updated: 2026-05-18 — initial roadmap creation*
+*Last updated: 2026-05-19 — Phase 1 planned: 4 plans across 3 waves*
