@@ -48,11 +48,11 @@
   - Drag handles visible on component hover
   - Components can be moved within the canvas layout
 
-- [ ] **ED-03**: User can undo and redo canvas changes
+- [x] **ED-03**: User can undo and redo canvas changes
   - Undo/Redo buttons or keyboard shortcut (Ctrl+Z / Ctrl+Y)
   - Works for text edits and drag-drop reorders
 
-- [ ] **ED-04**: User can toggle desktop/mobile responsive preview
+- [x] **ED-04**: User can toggle desktop/mobile responsive preview
   - Desktop and Mobile toggle buttons visible in editor toolbar
   - Canvas resizes to reflect each breakpoint
 
@@ -131,8 +131,8 @@ Items explicitly excluded from v1 with reasoning:
 | AUTH-03 | Phase 1 | Complete |
 | ED-01 | Phase 2 | Complete |
 | ED-02 | Phase 2 | Complete |
-| ED-03 | Phase 2 | Pending |
-| ED-04 | Phase 2 | Pending |
+| ED-03 | Phase 2 | Complete |
+| ED-04 | Phase 2 | Complete |
 | AI-01 | Phase 3 | Pending |
 | AI-02 | Phase 3 | Pending |
 | AI-03 | Phase 3 | Pending |

@@ -68,7 +68,7 @@ Plans:
 - [x] 02-01-PLAN.md — GrapesJS setup: install grapesjs + @grapesjs/react, create lib/mockBlock.ts with Vietnamese banner JSON
 
 **Wave 2** *(blocked on Wave 1 completion)*:
-- [ ] 02-02-PLAN.md — GrapesEditor component: 'use client', @grapesjs/react canvas, device manager, panel-free config, load MOCK_BLOCK (ED-01, ED-02, ED-03, ED-04)
+- [x] 02-02-PLAN.md — GrapesEditor component: 'use client', @grapesjs/react canvas, device manager, panel-free config, load MOCK_BLOCK (ED-01, ED-02, ED-03, ED-04)
 - [ ] 02-03-PLAN.md — TopBar + PromptPlaceholder: undo/redo buttons, device toggle buttons, user email, LogoutButton, disabled Phase-3 prompt bar (ED-03, ED-04)
 
 **Wave 3** *(blocked on Wave 2 completion)*:
@@ -134,7 +134,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Auth + Database Foundation | 1/4 | In Progress|  |
-| 2. GrapesJS Editor Shell | 1/4 | In Progress|  |
+| 2. GrapesJS Editor Shell | 2/4 | In Progress|  |
 | 3. AI Generation Pipeline | 0/? | Not started | - |
 | 4. CSS Isolation Engine + Copy HTML | 0/? | Not started | - |
 | 5. Project History + Persistence | 0/? | Not started | - |
