@@ -12,7 +12,7 @@
 ## Phases
 
 - [x] **Phase 1: Auth + Database Foundation** - Users can register, log in, and stay logged in securely
-- [ ] **Phase 2: GrapesJS Editor Shell** - Users can see and interact with a working visual editor canvas using mock content
+- [x] **Phase 2: GrapesJS Editor Shell** - Users can see and interact with a working visual editor canvas using mock content
 - [ ] **Phase 3: AI Generation Pipeline** - Users can enter a Vietnamese prompt and receive a rendered content block
 - [ ] **Phase 4: CSS Isolation Engine + Copy HTML** - Users can copy a zero-JS inline-CSS HTML string to their clipboard
 - [ ] **Phase 5: Project History + Persistence** - Users can save, browse, re-open, and delete their content blocks
@@ -69,10 +69,10 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*:
 - [x] 02-02-PLAN.md — GrapesEditor component: 'use client', @grapesjs/react canvas, device manager, panel-free config, load MOCK_BLOCK (ED-01, ED-02, ED-03, ED-04)
-- [ ] 02-03-PLAN.md — TopBar + PromptPlaceholder: undo/redo buttons, device toggle buttons, user email, LogoutButton, disabled Phase-3 prompt bar (ED-03, ED-04)
+- [x] 02-03-PLAN.md — TopBar + PromptPlaceholder: undo/redo buttons, device toggle buttons, user email, LogoutButton, disabled Phase-3 prompt bar (ED-03, ED-04)
 
 **Wave 3** *(blocked on Wave 2 completion)*:
-- [ ] 02-04-PLAN.md — Wire EditorClientWrapper + update editor page + integration smoke test all 4 success criteria (ED-01, ED-02, ED-03, ED-04)
+- [x] 02-04-PLAN.md — Wire EditorClientWrapper + update editor page + integration smoke test all 4 success criteria (ED-01, ED-02, ED-03, ED-04)
 
 **Cross-cutting constraints:** `dynamic({ ssr: false })` on GrapesEditor · `auth()` guard kept on editor page · no new API routes · no `export const runtime` on editor page
 
@@ -133,8 +133,8 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Auth + Database Foundation | 1/4 | In Progress|  |
-| 2. GrapesJS Editor Shell | 2/4 | In Progress|  |
+| 1. Auth + Database Foundation | 4/4 | Complete | 2026-05-19 |
+| 2. GrapesJS Editor Shell | 4/4 | Complete | 2026-05-20 |
 | 3. AI Generation Pipeline | 0/? | Not started | - |
 | 4. CSS Isolation Engine + Copy HTML | 0/? | Not started | - |
 | 5. Project History + Persistence | 0/? | Not started | - |
@@ -177,4 +177,4 @@ Plans:
 
 ---
 
-*Last updated: 2026-05-19 — Phase 1 planned: 4 plans across 3 waves*
+*Last updated: 2026-05-20 — Phase 2 complete: all 4 plans executed, all ED-* success criteria verified*
