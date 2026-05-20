@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: In Progress
-stopped_at: Completed 02-01-PLAN.md — grapesjs packages installed + lib/mockBlock.ts created
-last_updated: "2026-05-20T16:30:42.550Z"
+stopped_at: Completed 02-03-PLAN.md — TopBar toolbar + PromptPlaceholder components created
+last_updated: "2026-05-20T16:35:00Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 8
-  completed_plans: 6
+  completed_plans: 7
   percent: 17
 ---
 
@@ -88,6 +88,9 @@ Phase 1 [✓] → Phase 2 [ ] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] �
 | `auth.config.ts` Edge split pattern | NextAuth v5 with Credentials provider requires splitting config: auth.config.ts (no DB, Edge-safe) used by middleware.ts; auth.ts (full config with mongoose) used by route handlers and Server Components |
 | `@grapesjs/react` v2 export is `Editor` not `GjsEditor` | Confirmed from installed package index.d.ts — Wave 2 must import `{ Editor }` from `@grapesjs/react`; context doc D-04 had an outdated component name |
 | GrapesJS 0.22 ships built-in TypeScript types | @types/grapesjs must NOT be installed — targets older GrapesJS and conflicts with built-in types |
+| `LogoutButton` is a named export | `{ LogoutButton }` destructuring required — not a default export; confirmed from components/auth/LogoutButton.tsx |
+| TopBar uses optional chaining for editorRef | `editorRef.current?.runCommand(...)` and `editorRef.current?.setDevice(...)` — safe before editor mounts |
+| No keyboard listeners in TopBar | GrapesJS UndoManager handles Ctrl+Z/Y natively; toolbar buttons are additive not replacements |
 
 ### Research Flags (Open)
 
@@ -113,9 +116,9 @@ Phase 1 [✓] → Phase 2 [ ] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] �
 
 ## Session Continuity
 
-**Last session:** 2026-05-20T16:30:42.540Z
-**Stopped at:** Completed 02-01-PLAN.md — grapesjs packages installed + lib/mockBlock.ts created
-**Next action:** Execute 02-02-PLAN.md (GrapesJS Editor component)
+**Last session:** 2026-05-20T16:35:00Z
+**Stopped at:** Completed 02-03-PLAN.md — TopBar toolbar + PromptPlaceholder components created
+**Next action:** Execute 02-04-PLAN.md (EditorClientWrapper + editor page assembly)
 
 ---
 
@@ -135,4 +138,4 @@ Phase 1 [✓] → Phase 2 [ ] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] �
 
 ---
 
-*Last updated: 2026-05-20 — Plan 02-01 complete: grapesjs installed, lib/mockBlock.ts created*
+*Last updated: 2026-05-20 — Plan 02-03 complete: TopBar.tsx + PromptPlaceholder.tsx created; build clean*
