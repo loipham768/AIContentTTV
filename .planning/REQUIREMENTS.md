@@ -40,11 +40,11 @@
 
 ### Editor
 
-- [ ] **ED-01**: User can edit text inline in the GrapesJS canvas
+- [x] **ED-01**: User can edit text inline in the GrapesJS canvas
   - Double-click any text element to edit it directly
   - Changes are reflected in the canvas immediately
 
-- [ ] **ED-02**: User can drag and drop components to reorder them
+- [x] **ED-02**: User can drag and drop components to reorder them
   - Drag handles visible on component hover
   - Components can be moved within the canvas layout
 
@@ -129,8 +129,8 @@ Items explicitly excluded from v1 with reasoning:
 | AUTH-01 | Phase 1 | Complete |
 | AUTH-02 | Phase 1 | Complete |
 | AUTH-03 | Phase 1 | Complete |
-| ED-01 | Phase 2 | Pending |
-| ED-02 | Phase 2 | Pending |
+| ED-01 | Phase 2 | Complete |
+| ED-02 | Phase 2 | Complete |
 | ED-03 | Phase 2 | Pending |
 | ED-04 | Phase 2 | Pending |
 | AI-01 | Phase 3 | Pending |

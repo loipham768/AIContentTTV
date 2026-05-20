@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: In Progress
-stopped_at: Phase 2 context gathered (2026-05-20)
-last_updated: "2026-05-20T00:00:00.000Z"
+stopped_at: Phase 2 planned — 4 plans across 3 waves
+last_updated: "2026-05-20T16:25:12.152Z"
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 4
-  completed_plans: 4
+  total_plans: 8
+  completed_plans: 5
   percent: 17
 ---
 
@@ -34,8 +34,8 @@ progress:
 | Field | Value |
 |-------|-------|
 | Phase | 2 — GrapesJS Editor Shell |
-| Plan | Ready to plan |
-| Status | Phase 1 complete — Phase 2 next |
+| Plan | 4 plans written — ready to execute |
+| Status | Phase 2 planned — execute next |
 | Mode | mvp |
 
 **Progress:**
@@ -67,8 +67,8 @@ Phase 1 [✓] → Phase 2 [ ] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] �
 | Phases complete | 1 |
 | Requirements total | 17 |
 | Requirements complete | 3 |
-| Plans created | 4 |
-| Plans complete | 1 |
+| Plans created | 8 |
+| Plans complete | 4 |
 
 ---
 
@@ -85,6 +85,8 @@ Phase 1 [✓] → Phase 2 [ ] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] �
 | MongoDB connection singleton in `lib/mongodb.ts` | Prevents connection pool exhaustion in Next.js serverless context |
 | `export const runtime = 'nodejs'` on all DB API routes | Edge Runtime cannot connect to MongoDB |
 | `auth.config.ts` Edge split pattern | NextAuth v5 with Credentials provider requires splitting config: auth.config.ts (no DB, Edge-safe) used by middleware.ts; auth.ts (full config with mongoose) used by route handlers and Server Components |
+| `@grapesjs/react` v2 export is `Editor` not `GjsEditor` | Confirmed from installed package index.d.ts — Wave 2 must import `{ Editor }` from `@grapesjs/react`; context doc D-04 had an outdated component name |
+| GrapesJS 0.22 ships built-in TypeScript types | @types/grapesjs must NOT be installed — targets older GrapesJS and conflicts with built-in types |
 
 ### Research Flags (Open)
 
@@ -110,9 +112,9 @@ Phase 1 [✓] → Phase 2 [ ] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] �
 
 ## Session Continuity
 
-**Last session:** 2026-05-20T00:00:00.000Z
-**Stopped at:** Phase 2 context gathered
-**Next action:** Plan Phase 2 — /gsd:plan-phase 2
+**Last session:** 2026-05-20T16:25:12.142Z
+**Stopped at:** Completed 02-01-PLAN.md — grapesjs packages installed + lib/mockBlock.ts created
+**Next action:** Execute 02-02-PLAN.md (GrapesJS Editor component)
 
 ---
 
@@ -132,4 +134,4 @@ Phase 1 [✓] → Phase 2 [ ] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] �
 
 ---
 
-*Last updated: 2026-05-19 — Plan 01-01 Walking Skeleton complete*
+*Last updated: 2026-05-20 — Plan 02-01 complete: grapesjs installed, lib/mockBlock.ts created*

@@ -59,8 +59,22 @@ Plans:
   2. A user can drag a block to a new position within the canvas and the layout updates immediately
   3. A user can undo and redo edits using Ctrl+Z / Ctrl+Y or toolbar buttons
   4. A user can switch between Desktop and Mobile preview modes and see the canvas resize accordingly
-**Plans**: TBD
+**Plans**: 4 plans
 **UI hint**: yes
+
+Plans:
+
+**Wave 1:**
+- [x] 02-01-PLAN.md — GrapesJS setup: install grapesjs + @grapesjs/react, create lib/mockBlock.ts with Vietnamese banner JSON
+
+**Wave 2** *(blocked on Wave 1 completion)*:
+- [ ] 02-02-PLAN.md — GrapesEditor component: 'use client', @grapesjs/react canvas, device manager, panel-free config, load MOCK_BLOCK (ED-01, ED-02, ED-03, ED-04)
+- [ ] 02-03-PLAN.md — TopBar + PromptPlaceholder: undo/redo buttons, device toggle buttons, user email, LogoutButton, disabled Phase-3 prompt bar (ED-03, ED-04)
+
+**Wave 3** *(blocked on Wave 2 completion)*:
+- [ ] 02-04-PLAN.md — Wire EditorClientWrapper + update editor page + integration smoke test all 4 success criteria (ED-01, ED-02, ED-03, ED-04)
+
+**Cross-cutting constraints:** `dynamic({ ssr: false })` on GrapesEditor · `auth()` guard kept on editor page · no new API routes · no `export const runtime` on editor page
 
 ### Phase 3: AI Generation Pipeline
 **Goal**: Users can submit a Vietnamese prompt and receive a live-rendered content block in the editor
@@ -120,7 +134,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Auth + Database Foundation | 1/4 | In Progress|  |
-| 2. GrapesJS Editor Shell | 0/? | Not started | - |
+| 2. GrapesJS Editor Shell | 1/4 | In Progress|  |
 | 3. AI Generation Pipeline | 0/? | Not started | - |
 | 4. CSS Isolation Engine + Copy HTML | 0/? | Not started | - |
 | 5. Project History + Persistence | 0/? | Not started | - |
