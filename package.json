@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.97.1",
     "@grapesjs/react": "^2.0.0",
     "bcryptjs": "^3.0.3",
     "grapesjs": "^0.22.16",
