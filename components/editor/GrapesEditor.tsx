@@ -19,7 +19,7 @@ export default function GrapesEditor({ onEditor }: GrapesEditorProps) {
   }
 
   return (
-    <div className="flex-1 overflow-hidden relative">
+    <div className="h-full overflow-hidden relative">
       {/* Hidden containers for GrapesJS panel managers (keeps them out of visible UI) */}
       <div id="gjs-hidden-blocks" style={{ display: 'none' }} />
       <div id="gjs-hidden-layers" style={{ display: 'none' }} />
