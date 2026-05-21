@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: In Progress
-stopped_at: Phase 2 complete — all 4 ED-* success criteria verified
-last_updated: "2026-05-20T16:50:50Z"
+stopped_at: Phase 3 Wave 1 (03-01) complete — Wave 2 (03-02, 03-03) ready
+last_updated: "2026-05-21T12:22:01Z"
 progress:
   total_phases: 6
   completed_phases: 2
-  total_plans: 8
+  total_plans: 12
   completed_plans: 8
   percent: 33
 ---
@@ -34,8 +34,8 @@ progress:
 | Field | Value |
 |-------|-------|
 | Phase | 3 — AI Generation Pipeline |
-| Plan | Planning next |
-| Status | Phase 2 complete — Phase 3 ready to plan |
+| Plan | 03-02 — Wave 2 ready to execute |
+| Status | Phase 3 Wave 1 complete — Wave 2 (03-02 API route, 03-03 PromptBar) unblocked |
 | Mode | mvp |
 
 **Progress:**
@@ -91,6 +91,9 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] 
 | `LogoutButton` is a named export | `{ LogoutButton }` destructuring required — not a default export; confirmed from components/auth/LogoutButton.tsx |
 | TopBar uses optional chaining for editorRef | `editorRef.current?.runCommand(...)` and `editorRef.current?.setDevice(...)` — safe before editor mounts |
 | No keyboard listeners in TopBar | GrapesJS UndoManager handles Ctrl+Z/Y natively; toolbar buttons are additive not replacements |
+| zodOutputFormat accepts 1 argument in @anthropic-ai/sdk 0.97+ | Plan showed 2 args (v3 pattern); actual SDK type declaration accepts only schema — name arg removed |
+| z.record requires 2 args in Zod v4 | Zod v4 breaking change: `z.record(keyType, valueType)` — plan used Zod v3 single-arg syntax |
+| generateBlock has no try/catch | Errors propagate to route handler for HTTP mapping (D-05); no swallowing |
 
 ### Research Flags (Open)
 
@@ -105,7 +108,7 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] 
 - [ ] Configure MongoDB Atlas connection (MONGODB_URI placeholder — developer must replace with real Atlas URI)
 - [x] Install and configure NextAuth v5 with bcryptjs
 - [x] Scaffold GrapesJS with `@grapesjs/react` using `dynamic({ ssr: false })`
-- [ ] Integrate `@anthropic-ai/sdk` with Zod schema validation
+- [x] Integrate `@anthropic-ai/sdk` with Zod schema validation
 - [ ] Build CSS Isolation Engine (juice-based client-side transform)
 
 ### Blockers
@@ -116,9 +119,9 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] 
 
 ## Session Continuity
 
-**Last session:** 2026-05-20T16:50:50Z
-**Stopped at:** Phase 2 complete — all 4 ED-* success criteria verified
-**Next action:** Plan Phase 3 — AI Generation Pipeline (/gsd:discuss-phase 3 or /gsd:plan-phase 3)
+**Last session:** 2026-05-21T12:22:01Z
+**Stopped at:** Phase 3 Wave 1 (03-01) complete — @anthropic-ai/sdk installed, RateLimit model, generateBlock() with TDD
+**Next action:** Execute Phase 3 Wave 2 — 03-02 (API route) and 03-03 (PromptBar component)
 
 ---
 
@@ -138,4 +141,4 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] 
 
 ---
 
-*Last updated: 2026-05-20 — Phase 2 complete: EditorClientWrapper wired, editor page assembled, all 4 ED-* criteria verified, build clean*
+*Last updated: 2026-05-21 — Phase 3 planned: 4 PLAN.md files created and verified (plan-checker PASS), ready for /gsd:execute-phase 3*

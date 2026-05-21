@@ -86,7 +86,21 @@ Plans:
   2. A loading indicator or progress feedback is visible from the moment the user submits the prompt until the block appears
   3. When the AI API returns a rate-limit or server error, the user sees a Vietnamese-language message describing what happened
   4. A generated block contains Vietnamese-language copy that matches the intent of the prompt
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+
+**Wave 1:**
+- [x] 03-01-PLAN.md — Foundation: install @anthropic-ai/sdk, create RateLimit TTL model, create lib/ai/generate-block.ts with GrapesBlockSchema + generateBlock()
+
+**Wave 2** *(blocked on Wave 1 completion)*:
+- [ ] 03-02-PLAN.md — API Route: POST /api/generate with auth, rate-limit, Claude call, error mapping (AI-01, AI-03)
+- [ ] 03-03-PLAN.md — PromptBar component: replaces PromptPlaceholder stub, manages isLoading/error state, calls loadProjectData() on success (AI-01, AI-02, AI-03)
+
+**Wave 3** *(blocked on Wave 2 completion)*:
+- [ ] 03-04-PLAN.md — Wire EditorClientWrapper + build check + human verification of all 4 success criteria (AI-01, AI-02, AI-03)
+
+**Cross-cutting constraints:** `zodOutputFormat(GrapesBlockSchema)` + `client.messages.parse()` before `loadProjectData()` · `export const runtime = 'nodejs'` on /api/generate · `dbConnect()` singleton · `auth()` from `@/auth` for userId · inline error display (no toast — Phase 4)
 
 ### Phase 4: CSS Isolation Engine + Copy HTML
 **Goal**: Users can export a production-ready, zero-JS inline-CSS HTML string to their clipboard
@@ -135,7 +149,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Auth + Database Foundation | 4/4 | Complete | 2026-05-19 |
 | 2. GrapesJS Editor Shell | 4/4 | Complete | 2026-05-20 |
-| 3. AI Generation Pipeline | 0/? | Not started | - |
+| 3. AI Generation Pipeline | 1/4 | In Progress | - |
 | 4. CSS Isolation Engine + Copy HTML | 0/? | Not started | - |
 | 5. Project History + Persistence | 0/? | Not started | - |
 | 6. UI Polish + Vietnamese Localization | 0/? | Not started | - |
@@ -177,4 +191,4 @@ Plans:
 
 ---
 
-*Last updated: 2026-05-20 — Phase 2 complete: all 4 plans executed, all ED-* success criteria verified*
+*Last updated: 2026-05-21 — Phase 3 Wave 1 (03-01) complete: @anthropic-ai/sdk installed, RateLimit model, generateBlock() with 9 passing TDD tests*
