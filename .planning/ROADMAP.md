@@ -13,7 +13,7 @@
 
 - [x] **Phase 1: Auth + Database Foundation** - Users can register, log in, and stay logged in securely
 - [x] **Phase 2: GrapesJS Editor Shell** - Users can see and interact with a working visual editor canvas using mock content
-- [ ] **Phase 3: AI Generation Pipeline** - Users can enter a Vietnamese prompt and receive a rendered content block
+- [x] **Phase 3: AI Generation Pipeline** - Users can enter a Vietnamese prompt and receive a rendered content block
 - [ ] **Phase 4: CSS Isolation Engine + Copy HTML** - Users can copy a zero-JS inline-CSS HTML string to their clipboard
 - [ ] **Phase 5: Project History + Persistence** - Users can save, browse, re-open, and delete their content blocks
 - [ ] **Phase 6: UI Polish + Vietnamese Localization** - The full user journey feels polished and communicates in Vietnamese throughout
@@ -98,7 +98,7 @@ Plans:
 - [x] 03-03-PLAN.md — PromptBar component: replaces PromptPlaceholder stub, manages isLoading/error state, calls loadProjectData() on success (AI-01, AI-02, AI-03)
 
 **Wave 3** *(blocked on Wave 2 completion)*:
-- [ ] 03-04-PLAN.md — Wire EditorClientWrapper + build check + human verification of all 4 success criteria (AI-01, AI-02, AI-03)
+- [x] 03-04-PLAN.md — Wire EditorClientWrapper + build check + human verification of all 4 success criteria (AI-01, AI-02, AI-03)
 
 **Cross-cutting constraints:** `zodOutputFormat(GrapesBlockSchema)` + `client.messages.parse()` before `loadProjectData()` · `export const runtime = 'nodejs'` on /api/generate · `dbConnect()` singleton · `auth()` from `@/auth` for userId · inline error display (no toast — Phase 4)
 
@@ -149,7 +149,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Auth + Database Foundation | 4/4 | Complete | 2026-05-19 |
 | 2. GrapesJS Editor Shell | 4/4 | Complete | 2026-05-20 |
-| 3. AI Generation Pipeline | 3/4 | In Progress | - |
+| 3. AI Generation Pipeline | 4/4 | Complete | 2026-05-21 |
 | 4. CSS Isolation Engine + Copy HTML | 0/? | Not started | - |
 | 5. Project History + Persistence | 0/? | Not started | - |
 | 6. UI Polish + Vietnamese Localization | 0/? | Not started | - |
@@ -191,4 +191,4 @@ Plans:
 
 ---
 
-*Last updated: 2026-05-21 — Phase 3 Wave 2 (03-02, 03-03) complete: POST /api/generate route and PromptBar component built. npm run build exits 0. Wave 3 (03-04) next.*
+*Last updated: 2026-05-21 — Phase 3 complete: all 4 plans executed; all AI-01/AI-02/AI-03 success criteria human-verified at /editor. Phase 4 (CSS Isolation Engine + Copy HTML) is next.*

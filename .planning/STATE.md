@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: In Progress
-stopped_at: Phase 3 Wave 2 (03-02, 03-03) complete — Wave 3 (03-04) next
-last_updated: "2026-05-21T12:45:00Z"
+stopped_at: Phase 3 complete — all 4 plans done, all AI-0* success criteria human-verified
+last_updated: "2026-05-21T13:00:00Z"
 progress:
   total_phases: 6
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 12
-  completed_plans: 8
-  percent: 33
+  completed_plans: 9
+  percent: 50
 ---
 
 # STATE — AI Content Booster
@@ -33,16 +33,16 @@ progress:
 
 | Field | Value |
 |-------|-------|
-| Phase | 3 — AI Generation Pipeline |
-| Plan | 03-04 — Wave 3 ready to execute |
-| Status | Phase 3 Wave 2 complete — Wave 3 (03-04 wire + human verify) unblocked |
+| Phase | 4 — CSS Isolation Engine + Copy HTML |
+| Plan | 04-01 — next to execute |
+| Status | Phase 3 complete — all AI-01, AI-02, AI-03 criteria verified |
 | Mode | mvp |
 
 **Progress:**
 
-[████████████████░░░░] 8/8 plans complete
-[███░░░░░░░░] 33%
-Phase 1 [✓] → Phase 2 [✓] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] → Phase 6 [ ]
+[████████████████░░░░] 9/12 plans complete
+[█████░░░░░░] 50%
+Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [ ] → Phase 5 [ ] → Phase 6 [ ]
 0%                                                                              100%
 
 ```
@@ -53,7 +53,7 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] 
 
 - [x] Phase 1: Auth + Database Foundation ✓ (2026-05-19 — 15/15 tests, smoke test approved)
 - [x] Phase 2: GrapesJS Editor Shell ✓ (2026-05-20 — all 4 ED-* success criteria verified, build clean)
-- [ ] Phase 3: AI Generation Pipeline
+- [x] Phase 3: AI Generation Pipeline ✓ (2026-05-21 — all 4 AI-0* success criteria human-verified at /editor)
 - [ ] Phase 4: CSS Isolation Engine + Copy HTML
 - [ ] Phase 5: Project History + Persistence
 - [ ] Phase 6: UI Polish + Vietnamese Localization
@@ -65,11 +65,11 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] 
 | Metric | Value |
 |--------|-------|
 | Phases total | 6 |
-| Phases complete | 2 |
+| Phases complete | 3 |
 | Requirements total | 17 |
-| Requirements complete | 7 |
-| Plans created | 8 |
-| Plans complete | 8 |
+| Requirements complete | 10 |
+| Plans created | 12 |
+| Plans complete | 9 |
 
 ---
 
@@ -119,9 +119,9 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] 
 
 ## Session Continuity
 
-**Last session:** 2026-05-21T12:22:01Z
-**Stopped at:** Phase 3 Wave 1 (03-01) complete — @anthropic-ai/sdk installed, RateLimit model, generateBlock() with TDD
-**Next action:** Execute Phase 3 Wave 2 — 03-02 (API route) and 03-03 (PromptBar component)
+**Last session:** 2026-05-21T13:00:00Z
+**Stopped at:** Phase 3 complete — all 4 plans executed, all AI-01/AI-02/AI-03 success criteria human-verified at /editor
+**Next action:** Execute Phase 4 — CSS Isolation Engine + Copy HTML (EX-01, EX-02, EX-03)
 
 ---
 
@@ -141,4 +141,4 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [ ] → Phase 4 [ ] → Phase 5 [ ] 
 
 ---
 
-*Last updated: 2026-05-21 — Phase 3 planned: 4 PLAN.md files created and verified (plan-checker PASS), ready for /gsd:execute-phase 3*
+*Last updated: 2026-05-21 — Phase 3 complete: all 4 plans executed; AI-01/AI-02/AI-03 criteria human-verified. Phase 4 (CSS Isolation Engine) is next.*
