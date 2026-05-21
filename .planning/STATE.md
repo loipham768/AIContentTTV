@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: In Progress
-stopped_at: Phase 4 plan 04-01 complete — juice installed, lib/cssIsolation.ts created and TypeScript-clean
-last_updated: "2026-05-21T14:45:00.000Z"
+stopped_at: Phase 4 plan 04-02 complete — TopBar Copy HTML button and toast wired
+last_updated: "2026-05-21T15:00:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 3
@@ -34,8 +34,8 @@ progress:
 | Field | Value |
 |-------|-------|
 | Phase | 4 — CSS Isolation Engine + Copy HTML |
-| Plan | 04-02 — next to execute (Wave 2) |
-| Status | 04-01 complete — CSS Isolation Engine installed; execute 04-02 next |
+| Plan | 04-03 — next to execute (Wave 3) |
+| Status | 04-02 complete — execute 04-03 (build + verify) next |
 | Mode | mvp |
 
 **Progress:**
@@ -121,9 +121,9 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [ ] → Phase 5 [ 
 
 ## Session Continuity
 
-**Last session:** 2026-05-21T14:45:00Z
-**Stopped at:** 04-01 complete — juice@11.1.1 installed, lib/cssIsolation.ts created, npx tsc --noEmit passes
-**Next action:** Execute 04-02 (TopBar Copy HTML button — wire isolateCss into UI)
+**Last session:** 2026-05-21T15:00:00Z
+**Stopped at:** 04-02 complete — TopBar Copy HTML button and toast wired; isolateCss called on click; "Sao chép thành công!" toast renders
+**Next action:** Execute 04-03 (build + end-to-end verify Phase 4)
 
 ---
 
@@ -143,4 +143,4 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [ ] → Phase 5 [ 
 
 ---
 
-*Last updated: 2026-05-21 — Phase 4 plan 04-01 complete: juice installed, lib/cssIsolation.ts created. Execute 04-02 (Copy HTML button) next.*
+*Last updated: 2026-05-21 — Phase 4 plan 04-02 complete: TopBar Copy HTML button and toast wired. Execute 04-03 (build + verify) next.*
