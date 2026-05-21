@@ -1,7 +1,7 @@
 /**
  * TDD tests for lib/ai/generate-block.ts
  *
- * RED phase: tests written before implementation.
+ * GREEN phase: tests that must pass after implementation.
  * These tests cover:
  *   - GrapesBlockSchema validates MOCK_BLOCK correctly
  *   - generateBlock calls client.messages.parse with zodOutputFormat
@@ -14,14 +14,17 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { GrapesBlockSchema, generateBlock } from '@/lib/ai/generate-block'
 import { MOCK_BLOCK } from '@/lib/mockBlock'
 
-// Mock the entire @anthropic-ai/sdk module
+// vi.hoisted ensures mockParseFn is available inside the vi.mock factory
+// (vi.mock calls are hoisted to the top of the file by Vitest)
+const mockParseFn = vi.hoisted(() => vi.fn())
+
+// Mock the entire @anthropic-ai/sdk module using a class constructor pattern
 vi.mock('@anthropic-ai/sdk', () => {
   return {
-    default: vi.fn().mockImplementation(() => ({
-      messages: {
-        parse: vi.fn(),
-      },
-    })),
+    default: class MockAnthropic {
+      messages = { parse: mockParseFn }
+      constructor(_opts?: unknown) {}
+    },
   }
 })
 
@@ -50,25 +53,20 @@ describe('GrapesBlockSchema', () => {
 })
 
 describe('generateBlock', () => {
-  let mockParse: ReturnType<typeof vi.fn>
-
-  beforeEach(async () => {
+  beforeEach(() => {
     vi.clearAllMocks()
-    const Anthropic = (await import('@anthropic-ai/sdk')).default as ReturnType<typeof vi.fn>
-    const instance = Anthropic.mock.results[0]?.value ?? Anthropic()
-    mockParse = instance.messages.parse
   })
 
   it('returns parsed_output when client.messages.parse succeeds', async () => {
     const fakeBlock = { ...MOCK_BLOCK }
-    mockParse.mockResolvedValueOnce({ parsed_output: fakeBlock })
+    mockParseFn.mockResolvedValueOnce({ parsed_output: fakeBlock })
 
     const result = await generateBlock('Banner khuyến mãi Flash Sale 50%')
     expect(result).toEqual(fakeBlock)
   })
 
   it('throws when parsed_output is null', async () => {
-    mockParse.mockResolvedValueOnce({ parsed_output: null })
+    mockParseFn.mockResolvedValueOnce({ parsed_output: null })
 
     await expect(generateBlock('test prompt')).rejects.toThrow(
       'Claude returned null parsed_output — Zod validation failed'
@@ -77,7 +75,7 @@ describe('generateBlock', () => {
 
   it('propagates errors thrown by client.messages.parse', async () => {
     const apiError = new Error('API rate limit exceeded')
-    mockParse.mockRejectedValueOnce(apiError)
+    mockParseFn.mockRejectedValueOnce(apiError)
 
     await expect(generateBlock('test prompt')).rejects.toThrow(
       'API rate limit exceeded'
@@ -86,11 +84,11 @@ describe('generateBlock', () => {
 
   it('calls client.messages.parse with correct model and max_tokens', async () => {
     const fakeBlock = { ...MOCK_BLOCK }
-    mockParse.mockResolvedValueOnce({ parsed_output: fakeBlock })
+    mockParseFn.mockResolvedValueOnce({ parsed_output: fakeBlock })
 
     await generateBlock('test prompt')
 
-    expect(mockParse).toHaveBeenCalledWith(
+    expect(mockParseFn).toHaveBeenCalledWith(
       expect.objectContaining({
         model: 'claude-sonnet-4-6',
         max_tokens: 4096,
@@ -100,12 +98,12 @@ describe('generateBlock', () => {
 
   it('calls client.messages.parse with the user prompt in messages', async () => {
     const fakeBlock = { ...MOCK_BLOCK }
-    mockParse.mockResolvedValueOnce({ parsed_output: fakeBlock })
+    mockParseFn.mockResolvedValueOnce({ parsed_output: fakeBlock })
     const userPrompt = 'Banner bán hàng mùa hè'
 
     await generateBlock(userPrompt)
 
-    expect(mockParse).toHaveBeenCalledWith(
+    expect(mockParseFn).toHaveBeenCalledWith(
       expect.objectContaining({
         messages: [{ role: 'user', content: userPrompt }],
       })
@@ -114,11 +112,11 @@ describe('generateBlock', () => {
 
   it('system prompt contains MOCK_BLOCK JSON as few-shot example', async () => {
     const fakeBlock = { ...MOCK_BLOCK }
-    mockParse.mockResolvedValueOnce({ parsed_output: fakeBlock })
+    mockParseFn.mockResolvedValueOnce({ parsed_output: fakeBlock })
 
     await generateBlock('test prompt')
 
-    const callArgs = mockParse.mock.calls[0][0]
+    const callArgs = mockParseFn.mock.calls[0][0]
     expect(callArgs.system).toContain(JSON.stringify(MOCK_BLOCK, null, 2))
   })
 })
