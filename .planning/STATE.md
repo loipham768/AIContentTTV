@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: In Progress
-stopped_at: Phase 4 plan 04-02 complete — TopBar Copy HTML button and toast wired
-last_updated: "2026-05-21T15:00:00.000Z"
+stopped_at: Phase 4 complete — all 3 plans done, all EX-01/EX-02/EX-03 success criteria human-verified
+last_updated: "2026-05-21T15:30:00Z"
 progress:
   total_phases: 6
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 15
-  completed_plans: 14
-  percent: 53
+  completed_plans: 12
+  percent: 67
 ---
 
 # STATE — AI Content Booster
@@ -33,16 +33,16 @@ progress:
 
 | Field | Value |
 |-------|-------|
-| Phase | 4 — CSS Isolation Engine + Copy HTML |
-| Plan | 04-03 — next to execute (Wave 3) |
-| Status | 04-02 complete — execute 04-03 (build + verify) next |
+| Phase | 5 — Project History + Persistence |
+| Plan | 05-01 — next to plan/execute |
+| Status | Phase 4 complete — all EX-01/EX-02/EX-03 criteria human-verified |
 | Mode | mvp |
 
 **Progress:**
 
-[████████████████░░░░] 10/13 plans complete
-[█████░░░░░░] 53%
-Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [ ] → Phase 5 [ ] → Phase 6 [ ]
+[████████████████████░░░░] 12/15 plans complete
+[████████░░░░] 67%
+Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [✓] → Phase 5 [ ] → Phase 6 [ ]
 0%                                                                              100%
 
 ```
@@ -54,7 +54,7 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [ ] → Phase 5 [ 
 - [x] Phase 1: Auth + Database Foundation ✓ (2026-05-19 — 15/15 tests, smoke test approved)
 - [x] Phase 2: GrapesJS Editor Shell ✓ (2026-05-20 — all 4 ED-* success criteria verified, build clean)
 - [x] Phase 3: AI Generation Pipeline ✓ (2026-05-21 — all 4 AI-0* success criteria human-verified at /editor)
-- [ ] Phase 4: CSS Isolation Engine + Copy HTML
+- [x] Phase 4: CSS Isolation Engine + Copy HTML ✓ (2026-05-21 — all 3 EX-* success criteria human-verified, build clean)
 - [ ] Phase 5: Project History + Persistence
 - [ ] Phase 6: UI Polish + Vietnamese Localization
 
@@ -121,9 +121,9 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [ ] → Phase 5 [ 
 
 ## Session Continuity
 
-**Last session:** 2026-05-21T15:00:00Z
-**Stopped at:** 04-02 complete — TopBar Copy HTML button and toast wired; isolateCss called on click; "Sao chép thành công!" toast renders
-**Next action:** Execute 04-03 (build + end-to-end verify Phase 4)
+**Last session:** 2026-05-21T15:30:00Z
+**Stopped at:** Phase 4 complete — all 3 plans executed; EX-01/EX-02/EX-03 human-verified; npm run build exits 0
+**Next action:** Plan + execute Phase 5 — Project History + Persistence (HIS-01, HIS-02, HIS-03, HIS-04)
 
 ---
 

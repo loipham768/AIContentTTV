@@ -112,8 +112,21 @@ Plans:
   2. The copied HTML can be pasted into a CKEditor or TinyMCE on Haravan/Sapo and renders visually correctly
   3. Any `<script>` blocks that GrapesJS may produce are automatically stripped before the clipboard write — zero-JS output is guaranteed
   4. A "Sao chép thành công!" toast notification appears immediately after copying and auto-dismisses after 3 seconds
-**Plans**: TBD
+**Plans**: 3 plans
 **UI hint**: yes
+
+Plans:
+
+**Wave 1:**
+- [x] 04-01-PLAN.md — CSS Isolation Engine: install juice + create lib/cssIsolation.ts (EX-01, EX-02)
+
+**Wave 2** *(blocked on Wave 1 completion)*:
+- [x] 04-02-PLAN.md — Copy HTML button + Toast: update TopBar with handleCopyHtml, copied state, toast notification (EX-01, EX-03)
+
+**Wave 3** *(blocked on Wave 2 completion)*:
+- [x] 04-03-PLAN.md — Build check + human verification of all 4 success criteria (EX-01, EX-02, EX-03)
+
+**Cross-cutting constraints:** `lib/cssIsolation.ts` browser-only (DOMParser) — import only from client components · `juice.inlineContent()` for CSS inlining · strip `<script>`, `class=`, `data-*` attrs before clipboard write · no new API routes · no database changes
 
 ### Phase 5: Project History + Persistence
 **Goal**: Users can save, revisit, and manage their previously generated content blocks
@@ -150,7 +163,7 @@ Plans:
 | 1. Auth + Database Foundation | 4/4 | Complete | 2026-05-19 |
 | 2. GrapesJS Editor Shell | 4/4 | Complete | 2026-05-20 |
 | 3. AI Generation Pipeline | 4/4 | Complete | 2026-05-21 |
-| 4. CSS Isolation Engine + Copy HTML | 0/? | Not started | - |
+| 4. CSS Isolation Engine + Copy HTML | 3/3 | Complete | 2026-05-21 |
 | 5. Project History + Persistence | 0/? | Not started | - |
 | 6. UI Polish + Vietnamese Localization | 0/? | Not started | - |
 

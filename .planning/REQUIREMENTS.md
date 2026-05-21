@@ -58,18 +58,18 @@
 
 ### Export
 
-- [ ] **EX-01**: User can copy inline-CSS HTML to clipboard (zero JS, no `<style>` tags)
+- [x] **EX-01**: User can copy inline-CSS HTML to clipboard (zero JS, no `<style>` tags)
   - "Copy HTML" button compiles the entire canvas
   - All CSS merged into `style=""` attributes (inline only)
   - No `<script>` tags, no `<style>` blocks, no JavaScript
   - No GrapesJS internal `class=` or `data-gjs-*` attributes in output
   - Output is a valid, self-contained HTML string
 
-- [ ] **EX-02**: Export auto-strips any script tags before copy
+- [x] **EX-02**: Export auto-strips any script tags before copy
   - Any `<script>` blocks in GrapesJS output are removed automatically
   - Zero-JS output guaranteed regardless of component configuration
 
-- [ ] **EX-03**: User sees a "Sao chép thành công!" toast after copying
+- [x] **EX-03**: User sees a "Sao chép thành công!" toast after copying
   - Success toast appears immediately after clipboard write
   - Toast auto-dismisses after 3 seconds
 
@@ -136,9 +136,9 @@ Items explicitly excluded from v1 with reasoning:
 | AI-01 | Phase 3 | Pending |
 | AI-02 | Phase 3 | Pending |
 | AI-03 | Phase 3 | Pending |
-| EX-01 | Phase 4 | Pending |
-| EX-02 | Phase 4 | Pending |
-| EX-03 | Phase 4 | Pending |
+| EX-01 | Phase 4 | Complete |
+| EX-02 | Phase 4 | Complete |
+| EX-03 | Phase 4 | Complete |
 | HIS-01 | Phase 5 | Pending |
 | HIS-02 | Phase 5 | Pending |
 | HIS-03 | Phase 5 | Pending |
