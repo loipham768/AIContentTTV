@@ -18,9 +18,12 @@ vi.mock('@/lib/mongodb', () => ({
   dbConnect: mockDbConnect,
 }))
 
+// RateLimit mock — findOne returns a chainable object with .lean()
 vi.mock('@/models/RateLimit', () => ({
   default: {
-    findOne: mockRateLimitFindOne,
+    findOne: (...args: unknown[]) => ({
+      lean: () => mockRateLimitFindOne(...args),
+    }),
     findOneAndUpdate: mockRateLimitFindOneAndUpdate,
   },
 }))

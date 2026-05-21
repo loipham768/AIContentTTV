@@ -24,7 +24,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '.'),
-      'next/server': path.resolve(__dirname, 'node_modules/next/server.js'),
+      'next/server': require.resolve('next/server', { paths: [path.resolve(__dirname, '../../..')] }),
     },
   },
 })
