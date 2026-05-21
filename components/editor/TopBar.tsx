@@ -18,7 +18,7 @@ export default function TopBar({ editorRef, userEmail }: TopBarProps) {
     const editor = editorRef.current
     if (!editor) return
     try {
-      const html = isolateCss(editor.getHtml(), editor.getCss() ?? '')
+      const html = await isolateCss(editor.getHtml(), editor.getCss() ?? '')
       await navigator.clipboard.writeText(html)
       setCopied(true)
       setTimeout(() => setCopied(false), 3000)

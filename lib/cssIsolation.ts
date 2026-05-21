@@ -1,7 +1,7 @@
-import juice from 'juice'
-
 // Browser-only: uses DOMParser — import only from 'use client' components
-export function isolateCss(html: string, css: string): string {
+export async function isolateCss(html: string, css: string): Promise<string> {
+  // Dynamic import keeps juice out of the initial bundle; fixes Turbopack dev compatibility
+  const { default: juice } = await import('juice')
   const inlined = juice.inlineContent(html, css)
 
   const parser = new DOMParser()
