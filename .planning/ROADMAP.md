@@ -94,8 +94,8 @@ Plans:
 - [x] 03-01-PLAN.md — Foundation: install @anthropic-ai/sdk, create RateLimit TTL model, create lib/ai/generate-block.ts with GrapesBlockSchema + generateBlock()
 
 **Wave 2** *(blocked on Wave 1 completion)*:
-- [ ] 03-02-PLAN.md — API Route: POST /api/generate with auth, rate-limit, Claude call, error mapping (AI-01, AI-03)
-- [ ] 03-03-PLAN.md — PromptBar component: replaces PromptPlaceholder stub, manages isLoading/error state, calls loadProjectData() on success (AI-01, AI-02, AI-03)
+- [x] 03-02-PLAN.md — API Route: POST /api/generate with auth, rate-limit, Claude call, error mapping (AI-01, AI-03)
+- [x] 03-03-PLAN.md — PromptBar component: replaces PromptPlaceholder stub, manages isLoading/error state, calls loadProjectData() on success (AI-01, AI-02, AI-03)
 
 **Wave 3** *(blocked on Wave 2 completion)*:
 - [ ] 03-04-PLAN.md — Wire EditorClientWrapper + build check + human verification of all 4 success criteria (AI-01, AI-02, AI-03)
@@ -149,7 +149,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Auth + Database Foundation | 4/4 | Complete | 2026-05-19 |
 | 2. GrapesJS Editor Shell | 4/4 | Complete | 2026-05-20 |
-| 3. AI Generation Pipeline | 1/4 | In Progress | - |
+| 3. AI Generation Pipeline | 3/4 | In Progress | - |
 | 4. CSS Isolation Engine + Copy HTML | 0/? | Not started | - |
 | 5. Project History + Persistence | 0/? | Not started | - |
 | 6. UI Polish + Vietnamese Localization | 0/? | Not started | - |
@@ -191,4 +191,4 @@ Plans:
 
 ---
 
-*Last updated: 2026-05-21 — Phase 3 Wave 1 (03-01) complete: @anthropic-ai/sdk installed, RateLimit model, generateBlock() with 9 passing TDD tests*
+*Last updated: 2026-05-21 — Phase 3 Wave 2 (03-02, 03-03) complete: POST /api/generate route and PromptBar component built. npm run build exits 0. Wave 3 (03-04) next.*
