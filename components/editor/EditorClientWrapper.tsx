@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import dynamic from 'next/dynamic'
 import type { Editor } from 'grapesjs'
 import TopBar from '@/components/editor/TopBar'
-import PromptPlaceholder from '@/components/editor/PromptPlaceholder'
+import PromptBar from '@/components/editor/PromptBar'
 
 // MANDATORY per CLAUDE.md: GrapesJS must always be dynamically imported with ssr: false
 const GrapesEditor = dynamic(() => import('@/components/editor/GrapesEditor'), { ssr: false })
@@ -26,7 +26,7 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
       <div className="flex-1 overflow-hidden">
         <GrapesEditor onEditor={handleEditor} />
       </div>
-      <PromptPlaceholder />
+      <PromptBar editorRef={editorRef} />
     </div>
   )
 }
