@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: In Progress
-stopped_at: Phase 3 complete — all 4 plans done, all AI-0* success criteria human-verified
-last_updated: "2026-05-21T13:00:00Z"
+stopped_at: Phase 4 plan 04-01 complete — juice installed, lib/cssIsolation.ts created and TypeScript-clean
+last_updated: "2026-05-21T14:45:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 3
-  total_plans: 12
-  completed_plans: 9
-  percent: 50
+  total_plans: 15
+  completed_plans: 14
+  percent: 53
 ---
 
 # STATE — AI Content Booster
@@ -34,14 +34,14 @@ progress:
 | Field | Value |
 |-------|-------|
 | Phase | 4 — CSS Isolation Engine + Copy HTML |
-| Plan | 04-01 — next to execute |
-| Status | Phase 3 complete — all AI-01, AI-02, AI-03 criteria verified |
+| Plan | 04-02 — next to execute (Wave 2) |
+| Status | 04-01 complete — CSS Isolation Engine installed; execute 04-02 next |
 | Mode | mvp |
 
 **Progress:**
 
-[████████████████░░░░] 9/12 plans complete
-[█████░░░░░░] 50%
+[████████████████░░░░] 10/13 plans complete
+[█████░░░░░░] 53%
 Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [ ] → Phase 5 [ ] → Phase 6 [ ]
 0%                                                                              100%
 
@@ -68,8 +68,8 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [ ] → Phase 5 [ 
 | Phases complete | 3 |
 | Requirements total | 17 |
 | Requirements complete | 10 |
-| Plans created | 12 |
-| Plans complete | 9 |
+| Plans created | 13 |
+| Plans complete | 10 |
 
 ---
 
@@ -94,6 +94,8 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [ ] → Phase 5 [ 
 | zodOutputFormat accepts 1 argument in @anthropic-ai/sdk 0.97+ | Plan showed 2 args (v3 pattern); actual SDK type declaration accepts only schema — name arg removed |
 | z.record requires 2 args in Zod v4 | Zod v4 breaking change: `z.record(keyType, valueType)` — plan used Zod v3 single-arg syntax |
 | generateBlock has no try/catch | Errors propagate to route handler for HTTP mapping (D-05); no swallowing |
+| juice bundles own TypeScript types at juice.d.ts | @types/juice does not exist on npm; juice v11 ships types natively; esModuleInterop:true enables `import juice from 'juice'` despite CJS export= pattern |
+| CSS Isolation Engine is browser-only | Uses DOMParser — import only from 'use client' components; no 'use client' directive in the library file itself |
 
 ### Research Flags (Open)
 
@@ -109,7 +111,7 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [ ] → Phase 5 [ 
 - [x] Install and configure NextAuth v5 with bcryptjs
 - [x] Scaffold GrapesJS with `@grapesjs/react` using `dynamic({ ssr: false })`
 - [x] Integrate `@anthropic-ai/sdk` with Zod schema validation
-- [ ] Build CSS Isolation Engine (juice-based client-side transform)
+- [x] Build CSS Isolation Engine (juice-based client-side transform) — lib/cssIsolation.ts created
 
 ### Blockers
 
@@ -119,9 +121,9 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [ ] → Phase 5 [ 
 
 ## Session Continuity
 
-**Last session:** 2026-05-21T13:00:00Z
-**Stopped at:** Phase 3 complete — all 4 plans executed, all AI-01/AI-02/AI-03 success criteria human-verified at /editor
-**Next action:** Execute Phase 4 — CSS Isolation Engine + Copy HTML (EX-01, EX-02, EX-03)
+**Last session:** 2026-05-21T14:45:00Z
+**Stopped at:** 04-01 complete — juice@11.1.1 installed, lib/cssIsolation.ts created, npx tsc --noEmit passes
+**Next action:** Execute 04-02 (TopBar Copy HTML button — wire isolateCss into UI)
 
 ---
 
@@ -135,10 +137,10 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [ ] → Phase 5 [ 
 | AI | `@anthropic-ai/sdk` + Zod | 0.96.x / 4.x |
 | Database | MongoDB Atlas + Mongoose | 9.x |
 | Auth | NextAuth.js v5 + `bcryptjs` | beta / 3.x |
-| CSS Inliner | `juice` | latest |
+| CSS Inliner | `juice` | 11.1.1 |
 
 **Do NOT use:** GrapesJS default `storageManager`, Edge Runtime for DB routes, `next-auth@4`, `<script>` components in AI-generated blocks.
 
 ---
 
-*Last updated: 2026-05-21 — Phase 3 complete: all 4 plans executed; AI-01/AI-02/AI-03 criteria human-verified. Phase 4 (CSS Isolation Engine) is next.*
+*Last updated: 2026-05-21 — Phase 4 plan 04-01 complete: juice installed, lib/cssIsolation.ts created. Execute 04-02 (Copy HTML button) next.*
