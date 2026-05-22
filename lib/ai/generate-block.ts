@@ -1,39 +1,11 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod'
-import { z } from 'zod'
 import { MOCK_BLOCK } from '@/lib/mockBlock'
+import { GrapesBlockSchema, type GrapesBlock } from '@/lib/ai/schema'
 
-// Recursive component schema — matches MOCK_BLOCK structure
-// Using 'any' annotation to allow z.lazy() recursive self-reference without TypeScript cycle errors
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const GrapesComponentSchema: z.ZodType<any, any, any> = z.lazy(() =>
-  z.object({
-    tagName: z.string().optional(),
-    type: z.string().optional(),
-    draggable: z.boolean().optional(),
-    droppable: z.boolean().optional(),
-    // Zod v4: z.record requires both key and value types
-    style: z.record(z.string(), z.string()).optional(),
-    components: z.array(GrapesComponentSchema).optional(),
-    content: z.string().optional(),
-  })
-)
-
-export const GrapesBlockSchema = z.object({
-  assets: z.array(z.any()),
-  styles: z.array(z.any()),
-  pages: z.array(
-    z.object({
-      frames: z.array(
-        z.object({
-          component: GrapesComponentSchema,
-        })
-      ),
-    })
-  ),
-})
-
-export type GrapesBlock = z.infer<typeof GrapesBlockSchema>
+// Re-export schema and type so existing server-side imports remain unchanged
+export { GrapesBlockSchema } from '@/lib/ai/schema'
+export type { GrapesBlock } from '@/lib/ai/schema'
 
 const SYSTEM_PROMPT = `Bạn là một công cụ tạo nội dung HTML cho CMS Việt Nam.
 
@@ -54,13 +26,18 @@ ${JSON.stringify(MOCK_BLOCK, null, 2)}
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 export async function generateBlock(prompt: string): Promise<GrapesBlock> {
+  // DEV MOCK: returns MOCK_BLOCK until a real ANTHROPIC_API_KEY is configured
+  if (!process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY.startsWith('your-')) {
+    await new Promise(r => setTimeout(r, 1500)) // simulate network delay
+    return MOCK_BLOCK as unknown as GrapesBlock
+  }
+
   const response = await client.messages.parse({
     model: 'claude-sonnet-4-6',
     max_tokens: 4096,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: prompt }],
     output_config: {
-      // Zod v4 SDK: zodOutputFormat accepts only the schema (no name argument)
       format: zodOutputFormat(GrapesBlockSchema),
     },
   })

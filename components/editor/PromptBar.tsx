@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import type { Editor } from 'grapesjs'
 import { Loader2 } from 'lucide-react'
-import { GrapesBlockSchema } from '@/lib/ai/generate-block'
+import { GrapesBlockSchema } from '@/lib/ai/schema'
 
 interface PromptBarProps {
   editorRef: React.RefObject<Editor | null>

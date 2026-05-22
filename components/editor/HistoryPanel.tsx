@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import type { Editor } from 'grapesjs'
-import { GrapesBlockSchema } from '@/lib/ai/generate-block'
+import { GrapesBlockSchema } from '@/lib/ai/schema'
 import { ConfirmModal } from '@/components/ui/ConfirmModal'
 
 interface Project { _id: string; name: string; prompt: string; blockData: Record<string, unknown>; createdAt: string }
