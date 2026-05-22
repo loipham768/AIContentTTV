@@ -147,7 +147,7 @@ Plans:
 - [x] 05-01-PLAN.md — Project model + /api/projects GET+POST + auto-save in /api/generate (HIS-01, HIS-02)
 
 **Wave 2** *(blocked on Wave 1 completion)*:
-- [ ] 05-02-PLAN.md — DELETE /api/projects/[id] endpoint (HIS-04)
+- [x] 05-02-PLAN.md — DELETE /api/projects/[id] endpoint (HIS-04)
 - [ ] 05-03-PLAN.md — HistoryPanel component: fetch, display, re-open, delete (HIS-02, HIS-03, HIS-04)
 
 **Wave 3** *(blocked on Wave 2 completion)*:
@@ -176,7 +176,7 @@ Plans:
 | 2. GrapesJS Editor Shell | 4/4 | Complete | 2026-05-20 |
 | 3. AI Generation Pipeline | 4/4 | Complete | 2026-05-21 |
 | 4. CSS Isolation Engine + Copy HTML | 3/3 | Complete | 2026-05-21 |
-| 5. Project History + Persistence | 1/4 | In Progress | - |
+| 5. Project History + Persistence | 2/4 | In Progress | - |
 | 6. UI Polish + Vietnamese Localization | 0/? | Not started | - |
 
 ---
@@ -216,4 +216,4 @@ Plans:
 
 ---
 
-*Last updated: 2026-05-22 — Phase 5 plan 05-01 complete: Project model, /api/projects GET+POST, auto-save wired in /api/generate. Phase 5 plan 05-02 (DELETE /api/projects/[id]) is next.*
+*Last updated: 2026-05-22 — Phase 5 plan 05-02 complete: DELETE /api/projects/[id] with auth + ObjectId guard + ownership-scoped delete. Phase 5 plan 05-03 (HistoryPanel component) is next.*

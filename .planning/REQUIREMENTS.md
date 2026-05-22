@@ -89,7 +89,7 @@
   - Clicking a history entry loads the block's GrapesJS project data
   - Confirmation prompt if editor has unsaved changes ("Replace current block?")
 
-- [ ] **HIS-04**: User can delete a saved block from history
+- [x] **HIS-04**: User can delete a saved block from history
   - Delete action with confirmation ("Xoá khối này?")
   - Deleted blocks are permanently removed from the user's history
 
@@ -142,6 +142,6 @@ Items explicitly excluded from v1 with reasoning:
 | HIS-01 | Phase 5 | Complete |
 | HIS-02 | Phase 5 | Pending |
 | HIS-03 | Phase 5 | Pending |
-| HIS-04 | Phase 5 | Pending |
+| HIS-04 | Phase 5 | Complete |
 
 *Confirmed by roadmap agent — 2026-05-18. 17/17 v1 requirements mapped.*

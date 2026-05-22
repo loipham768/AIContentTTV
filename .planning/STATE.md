@@ -34,14 +34,14 @@ progress:
 | Field | Value |
 |-------|-------|
 | Phase | 5 — Project History + Persistence |
-| Plan | 05-02 — next to plan/execute |
-| Status | 05-01 complete — Project model, /api/projects GET+POST, auto-save wired |
+| Plan | 05-03 — next to plan/execute |
+| Status | 05-02 complete — DELETE /api/projects/[id] with ownership check |
 | Mode | mvp |
 
 **Progress:**
 
-[█████████████████████░░░] 13/16 plans complete
-[████████░░░░] 70%
+[█████████████████████░░░] 14/16 plans complete
+[████████░░░░] 75%
 Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [✓] → Phase 5 [░] → Phase 6 [ ]
 0%                                                                              100%
 
@@ -125,8 +125,8 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [✓] → Phase 5 
 ## Session Continuity
 
 **Last session:** 2026-05-22
-**Stopped at:** 05-01 complete
-**Next action:** Execute Phase 5 — 05-02 (DELETE /api/projects/[id])
+**Stopped at:** 05-02 complete
+**Next action:** Execute Phase 5 — 05-03 (HistoryPanel component)
 
 ---
 
@@ -146,4 +146,4 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [✓] → Phase 5 
 
 ---
 
-*Last updated: 2026-05-21 — Phase 4 plan 04-02 complete: TopBar Copy HTML button and toast wired. Execute 04-03 (build + verify) next.*
+*Last updated: 2026-05-22 — Phase 5 plan 05-02 complete: DELETE /api/projects/[id] with ownership check. Execute 05-03 (HistoryPanel component) next.*
