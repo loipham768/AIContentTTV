@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import type { Editor } from 'grapesjs'
 import { Loader2 } from 'lucide-react'
+import { GrapesBlockSchema } from '@/lib/ai/generate-block'
 
 interface PromptBarProps {
   editorRef: React.RefObject<Editor | null>
@@ -39,7 +40,12 @@ export default function PromptBar({ editorRef, onSuccess }: PromptBarProps) {
         return
       }
 
-      editorRef.current?.loadProjectData(data.block)
+      const parsed = GrapesBlockSchema.safeParse(data.block)
+      if (!parsed.success) {
+        setError('Dữ liệu nhận được không hợp lệ. Vui lòng thử lại.')
+        return
+      }
+      editorRef.current?.loadProjectData(parsed.data as Parameters<typeof editorRef.current.loadProjectData>[0])
       onSuccess?.()
     } catch {
       setError('Đã xảy ra lỗi. Vui lòng thử lại.')
