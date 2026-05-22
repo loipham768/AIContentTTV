@@ -6,9 +6,10 @@ import { Loader2 } from 'lucide-react'
 
 interface PromptBarProps {
   editorRef: React.RefObject<Editor | null>
+  onSuccess?: () => void
 }
 
-export default function PromptBar({ editorRef }: PromptBarProps) {
+export default function PromptBar({ editorRef, onSuccess }: PromptBarProps) {
   const [prompt, setPrompt] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -39,6 +40,7 @@ export default function PromptBar({ editorRef }: PromptBarProps) {
       }
 
       editorRef.current?.loadProjectData(data.block)
+      onSuccess?.()
     } catch {
       setError('Đã xảy ra lỗi. Vui lòng thử lại.')
     } finally {
