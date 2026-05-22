@@ -23,7 +23,7 @@ export async function GET() {
 
 const createSchema = z.object({
   name: z.string().min(1).max(50),
-  prompt: z.string().min(1),
+  prompt: z.string().min(1).max(500),
   blockData: z.record(z.string(), z.unknown()),
 })
 
