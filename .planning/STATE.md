@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: In Progress
-stopped_at: 05-04 complete
+stopped_at: 06-01 complete
 last_updated: "2026-05-22T12:00:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 5
-  total_plans: 19
+  total_plans: 22
   completed_plans: 19
-  percent: 83
+  percent: 86
 ---
 
 # STATE — AI Content Booster
@@ -33,9 +33,9 @@ progress:
 
 | Field | Value |
 |-------|-------|
-| Phase | 5 — Project History + Persistence |
-| Plan | 05-04 — complete |
-| Status | 05-04 complete — all HIS-* human-verified; Phase 5 done |
+| Phase | 6 — UI Polish + Vietnamese Localization |
+| Plan | 06-02 — ready |
+| Status | Phase 6 in progress — 06-01 complete; 06-02 (ConfirmModal + HistoryPanel) next |
 | Mode | mvp |
 
 **Progress:**
@@ -68,8 +68,8 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [✓] → Phase 5 
 | Phases complete | 5 |
 | Requirements total | 17 |
 | Requirements complete | 17 |
-| Plans created | 19 |
-| Plans complete | 19 |
+| Plans created | 22 |
+| Plans complete | 20 |
 
 ---
 
@@ -99,6 +99,9 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [✓] → Phase 5 
 | generateBlock has no try/catch | Errors propagate to route handler for HTTP mapping (D-05); no swallowing |
 | juice bundles own TypeScript types at juice.d.ts | @types/juice does not exist on npm; juice v11 ships types natively; esModuleInterop:true enables `import juice from 'juice'` despite CJS export= pattern |
 | CSS Isolation Engine is browser-only | Uses DOMParser — import only from 'use client' components; no 'use client' directive in the library file itself |
+| TopBar receives editor instance as prop for UndoManager subscription | editorInstance state in EditorClientWrapper flows to TopBar via editor prop; enables editor.on('undo redo update') subscription after mount |
+| Canvas loading placeholder reuses Loader2 from lucide-react | Consistent with PromptBar spinner; no additional icon dependency needed |
+| Login page flex-col wrapper moves max-w-md to outer container | Heading + card share same max-w-md alignment without needing separate width constraints |
 
 ### Research Flags (Open)
 
@@ -125,8 +128,8 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [✓] → Phase 5 
 ## Session Continuity
 
 **Last session:** 2026-05-22T12:00:00.000Z
-**Stopped at:** 05-04 complete — Phase 5 fully done
-**Next action:** Verify Phase 5 goals via /gsd:verify-work 5, then plan Phase 6 (UI Polish + Vietnamese Localization)
+**Stopped at:** 06-01 complete — TopBar Vietnamese translations, Undo/Redo disabled state, clipboard error toast, canvas loading placeholder, login page branding
+**Next action:** Execute 06-02 (ConfirmModal component + HistoryPanel window.confirm replacement + fetch error state)
 
 ---
 
