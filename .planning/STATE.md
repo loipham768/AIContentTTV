@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: In Progress
-stopped_at: 06-01 complete
+stopped_at: 06-02 complete
 last_updated: "2026-05-22T12:00:00.000Z"
 progress:
   total_phases: 6
@@ -34,8 +34,8 @@ progress:
 | Field | Value |
 |-------|-------|
 | Phase | 6 — UI Polish + Vietnamese Localization |
-| Plan | 06-02 — ready |
-| Status | Phase 6 in progress — 06-01 complete; 06-02 (ConfirmModal + HistoryPanel) next |
+| Plan | 06-03 — ready |
+| Status | Phase 6 in progress — 06-02 complete; 06-03 (build check + human verification) next |
 | Mode | mvp |
 
 **Progress:**
@@ -102,6 +102,10 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [✓] → Phase 5 
 | TopBar receives editor instance as prop for UndoManager subscription | editorInstance state in EditorClientWrapper flows to TopBar via editor prop; enables editor.on('undo redo update') subscription after mount |
 | Canvas loading placeholder reuses Loader2 from lucide-react | Consistent with PromptBar spinner; no additional icon dependency needed |
 | Login page flex-col wrapper moves max-w-md to outer container | Heading + card share same max-w-md alignment without needing separate width constraints |
+| ConfirmModal renders null when isOpen=false — no portal needed, renders at end of HistoryPanel JSX | Simple conditional render avoids portal complexity for modal at this scale |
+| Discriminated union ModalState keeps modal type and target project co-located | Type-safe access to project in handlers without separate projectToDelete/projectToReopen state |
+| handleConfirmDelete clears modal before awaiting fetch | Avoids stale modal on slow network — modal closes immediately on user confirm |
+| fetchError state replaces silent empty state on API failure | Vietnamese red error message instead of empty list when /api/projects fetch fails |
 
 ### Research Flags (Open)
 
@@ -127,9 +131,9 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [✓] → Phase 5 
 
 ## Session Continuity
 
-**Last session:** 2026-05-22T12:00:00.000Z
-**Stopped at:** 06-01 complete — TopBar Vietnamese translations, Undo/Redo disabled state, clipboard error toast, canvas loading placeholder, login page branding
-**Next action:** Execute 06-02 (ConfirmModal component + HistoryPanel window.confirm replacement + fetch error state)
+**Last session:** 2026-05-22T13:00:00.000Z
+**Stopped at:** 06-02 complete — ConfirmModal component created, HistoryPanel window.confirm() replaced with ConfirmModal, fetchError state added
+**Next action:** Execute 06-03 (build check + human verification of all 4 Phase 6 success criteria)
 
 ---
 

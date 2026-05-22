@@ -172,7 +172,7 @@ Plans:
 - [x] 06-01-PLAN.md — TopBar: translations (D-01–D-05), typography (D-09), Undo/Redo disabled state (D-15), clipboard error toast (D-16); EditorClientWrapper: editorInstance state + canvas loading (D-14); LoginRegisterCard: heading + tagline (D-06, D-07, D-08)
 
 **Wave 2** *(blocked on Wave 1 completion)*:
-- [ ] 06-02-PLAN.md — ConfirmModal component (D-10, D-13) + HistoryPanel: replace window.confirm() (D-11, D-12) + fetch error state (D-17)
+- [x] 06-02-PLAN.md — ConfirmModal component (D-10, D-13) + HistoryPanel: replace window.confirm() (D-11, D-12) + fetch error state (D-17)
 
 **Wave 3** *(blocked on Wave 2 completion)*:
 - [ ] 06-03-PLAN.md — Build check (tsc + npm run build) + human verification of all 4 success criteria
@@ -190,7 +190,7 @@ Plans:
 | 3. AI Generation Pipeline | 4/4 | Complete | 2026-05-21 |
 | 4. CSS Isolation Engine + Copy HTML | 3/3 | Complete | 2026-05-21 |
 | 5. Project History + Persistence | 4/4 | Complete | 2026-05-22 |
-| 6. UI Polish + Vietnamese Localization | 1/3 | In Progress | - |
+| 6. UI Polish + Vietnamese Localization | 2/3 | In Progress | - |
 
 ---
 
@@ -229,4 +229,4 @@ Plans:
 
 ---
 
-*Last updated: 2026-05-22 — Phase 6 in progress: 06-01 complete (TopBar Vietnamese translations, Undo/Redo disabled state, clipboard error toast, canvas loading placeholder, login page branding). Next: 06-02 ConfirmModal.*
+*Last updated: 2026-05-22 — Phase 6 in progress: 06-02 complete (ConfirmModal component, HistoryPanel window.confirm() replaced, fetchError state). Next: 06-03 build check + human verification.*
