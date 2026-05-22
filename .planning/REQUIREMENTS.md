@@ -80,7 +80,7 @@
   - Name derived from first 50 characters of the original prompt
   - Full prompt stored for display in history
 
-- [ ] **HIS-02**: User can view their list of saved blocks
+- [x] **HIS-02**: User can view their list of saved blocks
   - History panel or page shows all saved blocks for the authenticated user
   - Each entry shows name, creation date, and a preview or prompt text
   - Sorted by most recent first
@@ -140,7 +140,7 @@ Items explicitly excluded from v1 with reasoning:
 | EX-02 | Phase 4 | Complete |
 | EX-03 | Phase 4 | Complete |
 | HIS-01 | Phase 5 | Complete |
-| HIS-02 | Phase 5 | Pending |
+| HIS-02 | Phase 5 | Complete |
 | HIS-03 | Phase 5 | Complete |
 | HIS-04 | Phase 5 | Complete |
 
