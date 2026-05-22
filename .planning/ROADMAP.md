@@ -148,7 +148,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*:
 - [x] 05-02-PLAN.md — DELETE /api/projects/[id] endpoint (HIS-04)
-- [ ] 05-03-PLAN.md — HistoryPanel component: fetch, display, re-open, delete (HIS-02, HIS-03, HIS-04)
+- [x] 05-03-PLAN.md — HistoryPanel component: fetch, display, re-open, delete (HIS-02, HIS-03, HIS-04)
 
 **Wave 3** *(blocked on Wave 2 completion)*:
 - [ ] 05-04-PLAN.md — Wire EditorClientWrapper + historyKey refresh + human verification of all 4 success criteria (HIS-01, HIS-02, HIS-03, HIS-04)
@@ -176,7 +176,7 @@ Plans:
 | 2. GrapesJS Editor Shell | 4/4 | Complete | 2026-05-20 |
 | 3. AI Generation Pipeline | 4/4 | Complete | 2026-05-21 |
 | 4. CSS Isolation Engine + Copy HTML | 3/3 | Complete | 2026-05-21 |
-| 5. Project History + Persistence | 2/4 | In Progress | - |
+| 5. Project History + Persistence | 3/4 | In Progress|  |
 | 6. UI Polish + Vietnamese Localization | 0/? | Not started | - |
 
 ---

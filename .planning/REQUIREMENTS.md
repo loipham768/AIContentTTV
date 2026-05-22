@@ -85,7 +85,7 @@
   - Each entry shows name, creation date, and a preview or prompt text
   - Sorted by most recent first
 
-- [ ] **HIS-03**: User can re-open a saved block in the editor
+- [x] **HIS-03**: User can re-open a saved block in the editor
   - Clicking a history entry loads the block's GrapesJS project data
   - Confirmation prompt if editor has unsaved changes ("Replace current block?")
 
@@ -141,7 +141,7 @@ Items explicitly excluded from v1 with reasoning:
 | EX-03 | Phase 4 | Complete |
 | HIS-01 | Phase 5 | Complete |
 | HIS-02 | Phase 5 | Pending |
-| HIS-03 | Phase 5 | Pending |
+| HIS-03 | Phase 5 | Complete |
 | HIS-04 | Phase 5 | Complete |
 
 *Confirmed by roadmap agent — 2026-05-18. 17/17 v1 requirements mapped.*
