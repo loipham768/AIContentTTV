@@ -74,8 +74,11 @@ export default function HistoryPanel({ editorRef, refreshKey }: HistoryPanelProp
             <p className="text-xs font-medium text-gray-800 truncate mb-1" title={project.name}>
               {project.name}
             </p>
-            <p className="text-xs text-gray-400 mb-2">
+            <p className="text-xs text-gray-400 mb-1">
               {new Date(project.createdAt).toLocaleDateString('vi-VN')}
+            </p>
+            <p className="text-xs text-gray-500 truncate mb-2" title={project.prompt}>
+              {project.prompt}
             </p>
             <div className="flex gap-2">
               <button
