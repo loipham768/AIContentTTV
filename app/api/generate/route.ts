@@ -36,27 +36,25 @@ export async function POST(req: NextRequest) {
   }
   const { prompt } = parsed.data
 
-  // 3. Rate limit check (T-03-04) — per-user MongoDB TTL document
+  // 3. Rate limit — atomic test-and-set BEFORE calling Claude (CR-02)
+  //    RateLimit has a unique index on userId; a duplicate-key error (11000) means
+  //    a TTL doc already exists → user is still within the cooldown window.
   await dbConnect()
-  const existing = await RateLimit.findOne({ userId }).lean()
-  if (existing) {
-    return NextResponse.json(
-      { error: 'Vui lòng đợi vài giây trước khi tạo nội dung mới.' },
-      { status: 429 }
-    )
+  try {
+    await RateLimit.create({ userId, createdAt: new Date() })
+  } catch (dupErr: any) {
+    if (dupErr?.code === 11000) {
+      return NextResponse.json(
+        { error: 'Vui lòng đợi vài giây trước khi tạo nội dung mới.' },
+        { status: 429 }
+      )
+    }
+    throw dupErr
   }
 
   // 4. Call Claude — generateBlock propagates all errors (D-05)
   try {
     const block = await generateBlock(prompt)
-
-    // 5. Upsert rate limit TTL doc ONLY after successful generation
-    //    If Claude fails, no rate limit is written — user can retry immediately (intentional)
-    await RateLimit.findOneAndUpdate(
-      { userId },
-      { $set: { createdAt: new Date() } },
-      { upsert: true, new: true }
-    )
 
     // Auto-save to history — failure does not block the generation response
     try {
@@ -67,7 +65,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ block }, { status: 200 })
   } catch (err) {
-    // Log raw error server-side for debugging (D-05); return Vietnamese string to client (T-03-05)
+    // On Claude failure, remove the rate-limit doc so the user can retry immediately
+    await RateLimit.deleteOne({ userId }).catch(() => {})
     console.error('[/api/generate] generateBlock error:', err)
     return NextResponse.json(
       { error: 'Đã xảy ra lỗi. Vui lòng thử lại.' },
