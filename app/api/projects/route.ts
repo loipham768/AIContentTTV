@@ -48,6 +48,11 @@ export async function POST(req: NextRequest) {
     )
   }
 
+  const raw = JSON.stringify(parsed.data.blockData)
+  if (raw.length > 500_000) {
+    return NextResponse.json({ error: 'blockData exceeds size limit' }, { status: 413 })
+  }
+
   await dbConnect()
   const project = await Project.create({
     userId: session.user.id,
