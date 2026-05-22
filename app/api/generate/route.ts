@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { auth } from '@/auth'
 import { dbConnect } from '@/lib/mongodb'
 import RateLimit from '@/models/RateLimit'
+import Project from '@/models/Project'
 import { generateBlock } from '@/lib/ai/generate-block'
 
 export const runtime = 'nodejs'
@@ -56,6 +57,13 @@ export async function POST(req: NextRequest) {
       { $set: { createdAt: new Date() } },
       { upsert: true, new: true }
     )
+
+    // Auto-save to history — failure does not block the generation response
+    try {
+      await Project.create({ userId, name: prompt.slice(0, 50), prompt, blockData: block })
+    } catch (saveErr) {
+      console.error('[/api/generate] auto-save failed:', saveErr)
+    }
 
     return NextResponse.json({ block }, { status: 200 })
   } catch (err) {
