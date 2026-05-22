@@ -15,7 +15,7 @@
 - [x] **Phase 2: GrapesJS Editor Shell** - Users can see and interact with a working visual editor canvas using mock content
 - [x] **Phase 3: AI Generation Pipeline** - Users can enter a Vietnamese prompt and receive a rendered content block
 - [x] **Phase 4: CSS Isolation Engine + Copy HTML** - Users can copy a zero-JS inline-CSS HTML string to their clipboard
-- [ ] **Phase 5: Project History + Persistence** - Users can save, browse, re-open, and delete their content blocks
+- [x] **Phase 5: Project History + Persistence** - Users can save, browse, re-open, and delete their content blocks
 - [ ] **Phase 6: UI Polish + Vietnamese Localization** - The full user journey feels polished and communicates in Vietnamese throughout
 
 ---
@@ -151,7 +151,7 @@ Plans:
 - [x] 05-03-PLAN.md — HistoryPanel component: fetch, display, re-open, delete (HIS-02, HIS-03, HIS-04)
 
 **Wave 3** *(blocked on Wave 2 completion)*:
-- [ ] 05-04-PLAN.md — Wire EditorClientWrapper + historyKey refresh + human verification of all 4 success criteria (HIS-01, HIS-02, HIS-03, HIS-04)
+- [x] 05-04-PLAN.md — Wire EditorClientWrapper + historyKey refresh + human verification of all 4 success criteria (HIS-01, HIS-02, HIS-03, HIS-04)
 
 ### Phase 6: UI Polish + Vietnamese Localization
 **Goal**: The complete user journey is polished, visually consistent, and communicates entirely in Vietnamese
@@ -176,7 +176,7 @@ Plans:
 | 2. GrapesJS Editor Shell | 4/4 | Complete | 2026-05-20 |
 | 3. AI Generation Pipeline | 4/4 | Complete | 2026-05-21 |
 | 4. CSS Isolation Engine + Copy HTML | 3/3 | Complete | 2026-05-21 |
-| 5. Project History + Persistence | 3/4 | In Progress|  |
+| 5. Project History + Persistence | 4/4 | Complete | 2026-05-22 |
 | 6. UI Polish + Vietnamese Localization | 0/? | Not started | - |
 
 ---
@@ -216,4 +216,4 @@ Plans:
 
 ---
 
-*Last updated: 2026-05-22 — Phase 5 plan 05-02 complete: DELETE /api/projects/[id] with auth + ObjectId guard + ownership-scoped delete. Phase 5 plan 05-03 (HistoryPanel component) is next.*
+*Last updated: 2026-05-22 — Phase 5 complete: all 4 HIS-* criteria human-verified at /editor. Phase 6 (UI Polish + Vietnamese Localization) is next.*
