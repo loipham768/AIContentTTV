@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import type { Editor } from 'grapesjs'
+import { GrapesBlockSchema } from '@/lib/ai/generate-block'
 
 interface Project {
   _id: string
@@ -33,19 +34,32 @@ export default function HistoryPanel({ editorRef, refreshKey }: HistoryPanelProp
     const editor = editorRef.current
     if (!editor) return
 
+    // Validate before loading — CLAUDE.md requirement
+    const parsed = GrapesBlockSchema.safeParse(project.blockData)
+    if (!parsed.success) {
+      console.error('[HistoryPanel] invalid blockData, refusing to load', parsed.error)
+      alert('Khối dữ liệu không hợp lệ, không thể mở.')
+      return
+    }
+
     if (editor.getDirtyCount() > 0) {
       if (!window.confirm('Thay thế nội dung hiện tại?')) return
     }
 
-    editor.loadProjectData(project.blockData as Parameters<typeof editor.loadProjectData>[0])
+    editor.loadProjectData(parsed.data as Parameters<typeof editor.loadProjectData>[0])
   }
 
   async function handleDelete(project: Project) {
     if (!window.confirm('Xoá khối này?')) return
-
-    const res = await fetch(`/api/projects/${project._id}`, { method: 'DELETE' })
-    if (res.ok) {
-      setProjects(prev => prev.filter(p => p._id !== project._id))
+    try {
+      const res = await fetch(`/api/projects/${project._id}`, { method: 'DELETE' })
+      if (res.ok) {
+        setProjects(prev => prev.filter(p => p._id !== project._id))
+      } else {
+        alert('Xoá thất bại. Vui lòng thử lại.')
+      }
+    } catch {
+      alert('Lỗi kết nối. Vui lòng thử lại.')
     }
   }
 
