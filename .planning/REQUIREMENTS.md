@@ -75,7 +75,7 @@
 
 ### History
 
-- [ ] **HIS-01**: Generated blocks auto-save to user history, named from prompt text
+- [x] **HIS-01**: Generated blocks auto-save to user history, named from prompt text
   - Block saved automatically after successful AI generation
   - Name derived from first 50 characters of the original prompt
   - Full prompt stored for display in history
@@ -139,7 +139,7 @@ Items explicitly excluded from v1 with reasoning:
 | EX-01 | Phase 4 | Complete |
 | EX-02 | Phase 4 | Complete |
 | EX-03 | Phase 4 | Complete |
-| HIS-01 | Phase 5 | Pending |
+| HIS-01 | Phase 5 | Complete |
 | HIS-02 | Phase 5 | Pending |
 | HIS-03 | Phase 5 | Pending |
 | HIS-04 | Phase 5 | Pending |

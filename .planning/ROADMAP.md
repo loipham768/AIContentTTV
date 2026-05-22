@@ -14,7 +14,7 @@
 - [x] **Phase 1: Auth + Database Foundation** - Users can register, log in, and stay logged in securely
 - [x] **Phase 2: GrapesJS Editor Shell** - Users can see and interact with a working visual editor canvas using mock content
 - [x] **Phase 3: AI Generation Pipeline** - Users can enter a Vietnamese prompt and receive a rendered content block
-- [ ] **Phase 4: CSS Isolation Engine + Copy HTML** - Users can copy a zero-JS inline-CSS HTML string to their clipboard
+- [x] **Phase 4: CSS Isolation Engine + Copy HTML** - Users can copy a zero-JS inline-CSS HTML string to their clipboard
 - [ ] **Phase 5: Project History + Persistence** - Users can save, browse, re-open, and delete their content blocks
 - [ ] **Phase 6: UI Polish + Vietnamese Localization** - The full user journey feels polished and communicates in Vietnamese throughout
 
@@ -138,8 +138,20 @@ Plans:
   2. A user can open the history panel and see all their saved blocks sorted by most recent first, each showing a name, creation date, and prompt text
   3. A user can click a history entry to re-open that block in the editor; if the canvas has unsaved changes a confirmation prompt ("Replace current block?") appears first
   4. A user can delete a saved block via a confirmation dialog ("Xoá khối này?") and the block is permanently removed from the list
-**Plans**: TBD
+**Plans**: 4 planned
 **UI hint**: yes
+
+Plans:
+
+**Wave 1:**
+- [x] 05-01-PLAN.md — Project model + /api/projects GET+POST + auto-save in /api/generate (HIS-01, HIS-02)
+
+**Wave 2** *(blocked on Wave 1 completion)*:
+- [ ] 05-02-PLAN.md — DELETE /api/projects/[id] endpoint (HIS-04)
+- [ ] 05-03-PLAN.md — HistoryPanel component: fetch, display, re-open, delete (HIS-02, HIS-03, HIS-04)
+
+**Wave 3** *(blocked on Wave 2 completion)*:
+- [ ] 05-04-PLAN.md — Wire EditorClientWrapper + historyKey refresh + human verification of all 4 success criteria (HIS-01, HIS-02, HIS-03, HIS-04)
 
 ### Phase 6: UI Polish + Vietnamese Localization
 **Goal**: The complete user journey is polished, visually consistent, and communicates entirely in Vietnamese
@@ -164,7 +176,7 @@ Plans:
 | 2. GrapesJS Editor Shell | 4/4 | Complete | 2026-05-20 |
 | 3. AI Generation Pipeline | 4/4 | Complete | 2026-05-21 |
 | 4. CSS Isolation Engine + Copy HTML | 3/3 | Complete | 2026-05-21 |
-| 5. Project History + Persistence | 0/? | Not started | - |
+| 5. Project History + Persistence | 1/4 | In Progress | - |
 | 6. UI Polish + Vietnamese Localization | 0/? | Not started | - |
 
 ---
@@ -204,4 +216,4 @@ Plans:
 
 ---
 
-*Last updated: 2026-05-21 — Phase 3 complete: all 4 plans executed; all AI-01/AI-02/AI-03 success criteria human-verified at /editor. Phase 4 (CSS Isolation Engine + Copy HTML) is next.*
+*Last updated: 2026-05-22 — Phase 5 plan 05-01 complete: Project model, /api/projects GET+POST, auto-save wired in /api/generate. Phase 5 plan 05-02 (DELETE /api/projects/[id]) is next.*

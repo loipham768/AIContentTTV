@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: In Progress
-stopped_at: Phase 4 complete — all 3 plans done, all EX-01/EX-02/EX-03 success criteria human-verified
-last_updated: "2026-05-21T15:30:00Z"
+stopped_at: context exhaustion at 76% (2026-05-21)
+last_updated: "2026-05-21T17:08:54.324Z"
 progress:
   total_phases: 6
   completed_phases: 4
-  total_plans: 15
-  completed_plans: 12
+  total_plans: 16
+  completed_plans: 15
   percent: 67
 ---
 
@@ -34,15 +34,15 @@ progress:
 | Field | Value |
 |-------|-------|
 | Phase | 5 — Project History + Persistence |
-| Plan | 05-01 — next to plan/execute |
-| Status | Phase 4 complete — all EX-01/EX-02/EX-03 criteria human-verified |
+| Plan | 05-02 — next to plan/execute |
+| Status | 05-01 complete — Project model, /api/projects GET+POST, auto-save wired |
 | Mode | mvp |
 
 **Progress:**
 
-[████████████████████░░░░] 12/15 plans complete
-[████████░░░░] 67%
-Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [✓] → Phase 5 [ ] → Phase 6 [ ]
+[█████████████████████░░░] 13/16 plans complete
+[████████░░░░] 70%
+Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [✓] → Phase 5 [░] → Phase 6 [ ]
 0%                                                                              100%
 
 ```
@@ -83,6 +83,9 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [✓] → Phase 5 
 | CSS Isolation Engine uses `juice` library | GrapesJS exports class-based CSS; `juice` merges into `style=""` attributes — CMS XSS filters strip `<style>` tags |
 | Claude 3.5 Sonnet with Zod + `zodOutputFormat` | Structured JSON output enforced before `loadProjectData()` — silent blank canvas otherwise |
 | Store GrapesJS project JSON in MongoDB (never HTML) | HTML is computed on demand at export; storing HTML would be stale after edits |
+| Project.blockData uses Schema.Types.Mixed | GrapesJS project JSON has variable shape; Mixed avoids schema mismatches while preserving full fidelity |
+| Auto-save wrapped in inner try/catch | MongoDB write failure must never block user from receiving generated block (D-03) |
+| name computed server-side as prompt.slice(0,50) | Client cannot supply arbitrary name — prevents prompt injection through name field (D-02) |
 | MongoDB connection singleton in `lib/mongodb.ts` | Prevents connection pool exhaustion in Next.js serverless context |
 | `export const runtime = 'nodejs'` on all DB API routes | Edge Runtime cannot connect to MongoDB |
 | `auth.config.ts` Edge split pattern | NextAuth v5 with Credentials provider requires splitting config: auth.config.ts (no DB, Edge-safe) used by middleware.ts; auth.ts (full config with mongoose) used by route handlers and Server Components |
@@ -121,9 +124,9 @@ Phase 1 [✓] → Phase 2 [✓] → Phase 3 [✓] → Phase 4 [✓] → Phase 5 
 
 ## Session Continuity
 
-**Last session:** 2026-05-21T15:30:00Z
-**Stopped at:** Phase 4 complete — all 3 plans executed; EX-01/EX-02/EX-03 human-verified; npm run build exits 0
-**Next action:** Plan + execute Phase 5 — Project History + Persistence (HIS-01, HIS-02, HIS-03, HIS-04)
+**Last session:** 2026-05-22
+**Stopped at:** 05-01 complete
+**Next action:** Execute Phase 5 — 05-02 (DELETE /api/projects/[id])
 
 ---
 
