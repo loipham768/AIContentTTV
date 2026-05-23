@@ -66,7 +66,7 @@ export default function HistoryPanel({ editorRef, refreshKey }: HistoryPanelProp
   }
 
   return (
-    <div className="w-72 flex flex-col border-l border-gray-200 bg-gray-50 overflow-hidden">
+    <div className="flex flex-col bg-gray-50 overflow-hidden w-full min-h-0">
       <div className="px-4 py-3 border-b border-gray-200 bg-white">
         <h2 className="text-sm font-semibold text-gray-700">Lịch sử</h2>
       </div>
