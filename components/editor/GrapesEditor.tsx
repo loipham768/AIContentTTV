@@ -33,6 +33,13 @@ export default function GrapesEditor({ onEditor }: GrapesEditorProps) {
             sectors: styleSectors,
           },
           panels: { defaults: [] },
+          assetManager: {
+            upload: '/api/upload',
+            uploadName: 'files',
+            multiUpload: false,
+            autoAdd: true,
+            assets: [],
+          },
           deviceManager: {
             devices: [
               { id: 'desktop', name: 'Desktop', width: '' },
