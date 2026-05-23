@@ -14,7 +14,8 @@ export const authConfig: NextAuthConfig = {
       const isLoggedIn = !!auth?.user
       const isProtected =
         nextUrl.pathname.startsWith('/editor') ||
-        nextUrl.pathname.startsWith('/api/')
+        nextUrl.pathname.startsWith('/admin') ||
+        (nextUrl.pathname.startsWith('/api/') && !nextUrl.pathname.startsWith('/api/auth/'))
       if (isProtected && !isLoggedIn) return false
       return true
     },

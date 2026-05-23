@@ -23,6 +23,8 @@ export async function authorize(
   const valid = await bcrypt.compare(parsed.data.password, user.passwordHash);
   if (!valid) return null;
 
+  if (user.isActive === false) return null;
+
   return { id: user._id.toString(), email: user.email as string };
 }
 
