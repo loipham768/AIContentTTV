@@ -16,7 +16,7 @@
 - [x] **Phase 3: AI Generation Pipeline** - Users can enter a Vietnamese prompt and receive a rendered content block
 - [x] **Phase 4: CSS Isolation Engine + Copy HTML** - Users can copy a zero-JS inline-CSS HTML string to their clipboard
 - [x] **Phase 5: Project History + Persistence** - Users can save, browse, re-open, and delete their content blocks
-- [ ] **Phase 6: UI Polish + Vietnamese Localization** - The full user journey feels polished and communicates in Vietnamese throughout
+- [x] **Phase 6: UI Polish + Vietnamese Localization** - The full user journey feels polished and communicates in Vietnamese throughout
 
 ---
 
@@ -175,7 +175,7 @@ Plans:
 - [x] 06-02-PLAN.md — ConfirmModal component (D-10, D-13) + HistoryPanel: replace window.confirm() (D-11, D-12) + fetch error state (D-17)
 
 **Wave 3** *(blocked on Wave 2 completion)*:
-- [ ] 06-03-PLAN.md — Build check (tsc + npm run build) + human verification of all 4 success criteria
+- [x] 06-03-PLAN.md — Build check (tsc + npm run build) + human verification of all 4 success criteria
 
 **Cross-cutting constraints:** Front-end only — no new API routes, no new DB models, no auth changes · Tailwind-only modal (no headlessui or radix) · GrapesJS `dynamic({ ssr: false })` preserved · `editor.UndoManager.hasUndo()/hasRedo()` for disabled state
 
@@ -190,7 +190,7 @@ Plans:
 | 3. AI Generation Pipeline | 4/4 | Complete | 2026-05-21 |
 | 4. CSS Isolation Engine + Copy HTML | 3/3 | Complete | 2026-05-21 |
 | 5. Project History + Persistence | 4/4 | Complete | 2026-05-22 |
-| 6. UI Polish + Vietnamese Localization | 2/3 | In Progress | - |
+| 6. UI Polish + Vietnamese Localization | 3/3 | Complete | 2026-05-23 |
 
 ---
 
