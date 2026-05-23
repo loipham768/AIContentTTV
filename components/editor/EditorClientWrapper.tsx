@@ -1,8 +1,8 @@
 "use client";
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import type { Editor, Component } from "grapesjs";
-import { Loader2, LayoutGrid, Palette, Layers, History, Trash2, Copy, ArrowUp, ArrowDown } from "lucide-react";
+import { Loader2, LayoutGrid, Palette, Layers, History, Trash2, Copy, ArrowUp, ArrowDown, EyeOff } from "lucide-react";
 import TopBar from "@/components/editor/TopBar";
 import PromptBar from "@/components/editor/PromptBar";
 
@@ -38,17 +38,33 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
     editor.on('component:deselected', () => setSelectedComponent(null));
   }, []);
 
+  function exitPreview() {
+    const editor = editorRef.current;
+    if (!editor) return;
+    editor.stopCommand('core:preview');
+    setIsPreview(false);
+  }
+
   function handleTogglePreview() {
     const editor = editorRef.current;
     if (!editor) return;
     if (isPreview) {
-      editor.stopCommand('core:preview');
-      setIsPreview(false);
+      exitPreview();
     } else {
       editor.runCommand('core:preview');
       setIsPreview(true);
     }
   }
+
+  // Escape key always exits preview regardless of GrapesJS z-index
+  useEffect(() => {
+    if (!isPreview) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') exitPreview();
+    }
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isPreview]);
 
   function handleDeleteComponent() {
     if (!selectedComponent) return;
@@ -207,6 +223,18 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
 
       {!isPreview && (
         <PromptBar editorRef={editorRef} onSuccess={() => setHistoryKey(k => k + 1)} />
+      )}
+
+      {/* Floating exit button — fixed above GrapesJS canvas overlay when in preview */}
+      {isPreview && (
+        <button
+          onClick={exitPreview}
+          className="fixed bottom-6 right-6 z-[9999] flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-full shadow-lg hover:bg-indigo-700 transition-colors"
+          title="Thoát xem trước (Esc)"
+        >
+          <EyeOff className="w-4 h-4" />
+          Thoát xem trước
+        </button>
       )}
     </div>
   );
