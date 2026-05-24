@@ -15,6 +15,7 @@ const UserSchema = new mongoose.Schema(
     },
     isActive: { type: Boolean, default: true },
     isAdmin: { type: Boolean, default: false },
+    paidUntil: { type: Date, default: null },
   },
   { timestamps: true }
 )

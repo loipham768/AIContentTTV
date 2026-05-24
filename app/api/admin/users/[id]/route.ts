@@ -30,6 +30,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   const update: Record<string, unknown> = {}
   if (typeof body.isActive === 'boolean') update.isActive = body.isActive
   if (typeof body.isAdmin === 'boolean') update.isAdmin = body.isAdmin
+  if ('paidUntil' in body) update.paidUntil = body.paidUntil ? new Date(body.paidUntil) : null
 
   if (!Object.keys(update).length) {
     return NextResponse.json({ error: 'No valid fields' }, { status: 400 })

@@ -8,8 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +22,445 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), "Be Vietnam Pro", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Scroll reveal ─────────────────────────────────────────────── */
+.sr-init {
+  opacity: 0;
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sr-from-bottom {
+  transform: translateY(40px);
+}
+.sr-from-left {
+  transform: translateX(-50px);
+}
+.sr-from-right {
+  transform: translateX(50px);
+}
+
+.sr-init.sr-visible {
+  opacity: 1;
+  transform: translate(0);
+}
+
+/* ── Keyframes ─────────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  40% {
+    transform: translateY(-14px) rotate(1deg);
+  }
+  70% {
+    transform: translateY(-7px) rotate(-0.5deg);
+  }
+}
+@keyframes blobPulse {
+  0%,
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: scale(1);
+  }
+  30% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: scale(1.06);
+  }
+  60% {
+    border-radius: 50% 50% 40% 70% / 40% 50% 60% 50%;
+    transform: scale(0.96);
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(124, 58, 237, 0);
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ── Hero entrance ─────────────────────────────────────────────── */
+.hero-badge {
+  animation: fadeInUp 0.55s ease both;
+}
+.hero-title {
+  animation: fadeInUp 0.65s ease 0.12s both;
+}
+.hero-subtitle {
+  animation: fadeInUp 0.65s ease 0.24s both;
+}
+.hero-cta {
+  animation: fadeInUp 0.65s ease 0.38s both;
+}
+.hero-stats {
+  animation: fadeInUp 0.65s ease 0.52s both;
+}
+.hero-mockup {
+  animation: fadeInScale 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+}
+
+/* ── Utility animations ────────────────────────────────────────── */
+.animate-float {
+  animation: float 7s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: float 10s ease-in-out 1.5s infinite;
+}
+.animate-blob {
+  animation: blobPulse 9s ease-in-out infinite;
+}
+.animate-blob-2 {
+  animation: blobPulse 12s ease-in-out 3s infinite;
+}
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-out infinite;
+}
+.animate-marquee {
+  animation: marquee 22s linear infinite;
+}
+
+/* ── Editor: responsive panel layout ──────────────────────────── */
+
+/* Remove 300ms tap delay on all buttons */
+button {
+  touch-action: manipulation;
+}
+
+/* Desktop default: panels are always visible as columns */
+/* Mobile override: panels become slide-in overlays driven by data-mtab attribute */
+.gjs-mob-only {
+  display: none;
+}
+.gjs-mob-close {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .gjs-panel-left,
+  .gjs-panel-right {
+    position: absolute !important;
+    top: 0;
+    bottom: 0;
+    width: 100% !important;
+    z-index: 20;
+  }
+  .gjs-panel-left {
+    left: 0;
+    display: none;
+  }
+  .gjs-panel-right {
+    right: 0;
+    display: none;
+  }
+
+  [data-mtab="blocks"] .gjs-panel-left {
+    display: flex;
+    animation: panelSlideLeft 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-mtab="panel"] .gjs-panel-right {
+    display: flex;
+    animation: panelSlideRight 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .gjs-mob-only {
+    display: flex;
+  }
+  .gjs-mob-close {
+    display: flex;
+  }
+}
+
+/* Preview mode: hide panels, mobile nav, and prompt bar regardless of device */
+[data-preview] .gjs-panel-left,
+[data-preview] .gjs-panel-right,
+[data-preview] .gjs-mob-only,
+[data-preview] .gjs-prompt-bar {
+  display: none !important;
+}
+
+@keyframes panelSlideLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes panelSlideRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ── Typography ────────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #4f46e5 0%, #9333ea 45%, #0891b2 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease infinite;
+}
+
+.gradient-text-warm {
+  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #ec4899 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3.5s ease infinite;
+}
+
+/* ── Card & interactive ────────────────────────────────────────── */
+.card-lift {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px -8px rgba(99, 102, 241, 0.28);
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, #4338ca 0%, #7c3aed 60%, #9333ea 100%);
+  transition:
+    filter 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.btn-gradient:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px -4px rgba(124, 58, 237, 0.55);
+}
+/* ── GrapesJS canvas sizing ────────────────────────────────────── */
+
+/* Override GrapesJS's dynamic top/width/height so the canvas always
+   fills its container when we use panels: { defaults: [] } */
+.gjs-cv-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+}
+
+/* ── GrapesJS block panel ──────────────────────────────────────── */
+
+#gjs-blocks-panel {
+  background: #ffffff;
+}
+
+/* Category row */
+#gjs-blocks-panel .gjs-block-category {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* Category title — correct class is .gjs-category-title */
+#gjs-blocks-panel .gjs-category-title {
+  padding: 9px 14px !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+  color: #475569 !important;
+  background: #f8fafc !important;
+  transition: color 0.15s, background 0.15s;
+}
+#gjs-blocks-panel .gjs-category-title:hover {
+  color: #4f46e5 !important;
+  background: #f1f0ff !important;
+}
+
+/* Blocks grid: force 2-column wrapping flex */
+#gjs-blocks-panel .gjs-blocks-c {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-content: flex-start !important;
+  padding: 8px !important;
+  gap: 6px !important;
+  background: #ffffff !important;
+}
+
+/* Individual block */
+#gjs-blocks-panel .gjs-block {
+  padding: 12px 8px 10px !important;
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  transition: background 0.18s, border-color 0.18s, box-shadow 0.18s, transform 0.18s !important;
+  text-align: center !important;
+  box-shadow: none !important;
+  width: calc(50% - 3px) !important;
+}
+#gjs-blocks-panel .gjs-block:hover {
+  background: #eef2ff !important;
+  border-color: #a5b4fc !important;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.12) !important;
+  transform: translateY(-1px) !important;
+}
+#gjs-blocks-panel .gjs-block:active {
+  transform: scale(0.97) !important;
+}
+
+/* Block icon — correct class is .gjs-block__media */
+#gjs-blocks-panel .gjs-block__media svg {
+  width: 22px !important;
+  height: 22px !important;
+  stroke: #6366f1 !important;
+}
+#gjs-blocks-panel .gjs-block:hover .gjs-block__media svg {
+  stroke: #4338ca !important;
+}
+
+/* Block label — correct class is .gjs-block-label */
+#gjs-blocks-panel .gjs-block-label {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #475569 !important;
+  line-height: 1.2 !important;
+  font-family: 'Segoe UI', system-ui, sans-serif !important;
+}
+#gjs-blocks-panel .gjs-block:hover .gjs-block-label {
+  color: #4338ca !important;
+}
+
+/* ── GrapesJS right panels ─────────────────────────────────────── */
+#gjs-styles-panel,
+#gjs-traits-panel,
+#gjs-layers-panel {
+  background: #ffffff;
+}
+
+/* Style sector titles — correct class is .gjs-sm-sector-title */
+.gjs-sm-sector-title {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+  color: #475569 !important;
+  background: #f8fafc !important;
+  padding: 8px 14px !important;
+}
+
+/* Traits label */
+.gjs-traits-label {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+  color: #475569 !important;
+  background: #f8fafc !important;
+  padding: 8px 14px !important;
+}
+
+/* Style inputs */
+.gjs-field {
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 7px !important;
+  color: #0f172a !important;
+  font-size: 12px !important;
+}
+
+/* Layer manager — correct classes */
+.gjs-layer-item {
+  border-bottom: 1px solid #f1f5f9 !important;
+  /* Prevent GrapesJS's drag-related transforms from shifting rows */
+  transform: none !important;
+  transition: background 0.12s !important;
+}
+.gjs-layer-title {
+  /* Lock the row in place — GrapesJS can add translate on drag */
+  transform: none !important;
+  transition: background 0.12s !important;
+}
+.gjs-layer-name {
+  font-size: 12px !important;
+  color: #334155 !important;
+  font-family: 'Segoe UI', system-ui, sans-serif !important;
+}
+/* Keep text readable on hover */
+.gjs-layer-title:hover {
+  background: #f0f4ff !important;
+}
+.gjs-layer-title:hover .gjs-layer-name {
+  color: #1e3a5f !important;
+}
+.gjs-layer-item.gjs-selected {
+  background: #eef2ff !important;
+}
+.gjs-layer-item.gjs-selected .gjs-layer-name {
+  color: #4338ca !important;
+}
+
+/* ── Custom scrollbars ─────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
 }

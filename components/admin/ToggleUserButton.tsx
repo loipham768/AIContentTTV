@@ -7,9 +7,10 @@ interface Props {
   currentValue: boolean
   label: [string, string] // [true label, false label]
   variant: 'danger' | 'neutral'
+  onToggle?: (newValue: boolean) => void
 }
 
-export default function ToggleUserButton({ userId, field, currentValue, label, variant }: Props) {
+export default function ToggleUserButton({ userId, field, currentValue, label, variant, onToggle }: Props) {
   const [value, setValue] = useState(currentValue)
   const [loading, setLoading] = useState(false)
 
@@ -21,7 +22,7 @@ export default function ToggleUserButton({ userId, field, currentValue, label, v
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ [field]: !value }),
       })
-      if (res.ok) setValue(v => !v)
+      if (res.ok) { const next = !value; setValue(next); onToggle?.(next) }
       else alert('Cập nhật thất bại. Vui lòng thử lại.')
     } finally {
       setLoading(false)

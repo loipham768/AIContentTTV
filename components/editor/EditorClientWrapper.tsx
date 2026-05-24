@@ -2,24 +2,30 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import type { Editor, Component } from "grapesjs";
-import { Loader2, LayoutGrid, Palette, Layers, History, Trash2, Copy, ArrowUp, ArrowDown, EyeOff } from "lucide-react";
+import {
+  Loader2, LayoutGrid, Palette, Layers, History,
+  Trash2, Copy, ArrowUp, ArrowDown, EyeOff, Monitor, X,
+} from "lucide-react";
 import TopBar from "@/components/editor/TopBar";
 import PromptBar from "@/components/editor/PromptBar";
 
 const GrapesEditor = dynamic(() => import("@/components/editor/GrapesEditor"), {
   ssr: false,
   loading: () => (
-    <div className="flex flex-1 items-center justify-center">
-      <div className="flex flex-col items-center gap-3 text-gray-400">
-        <Loader2 className="w-8 h-8 animate-spin" />
-        <p className="text-sm">Đang tải trình soạn thảo...</p>
+    <div className="flex flex-1 items-center justify-center bg-slate-50">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
+          <Loader2 className="w-6 h-6 text-white animate-spin" />
+        </div>
+        <p className="text-sm text-slate-500 font-medium">Đang khởi động trình soạn thảo...</p>
       </div>
     </div>
   ),
 });
 const HistoryPanel = dynamic(() => import("@/components/editor/HistoryPanel"), { ssr: false });
 
-type RightTab = "style" | "layers" | "history";
+type RightTab  = "style" | "layers" | "history";
+type MobileTab = "canvas" | "blocks" | "panel";
 
 interface EditorClientWrapperProps { userEmail: string; }
 
@@ -30,28 +36,48 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
   const [rightTab, setRightTab] = useState<RightTab>("style");
   const [selectedComponent, setSelectedComponent] = useState<Component | null>(null);
   const [isPreview, setIsPreview] = useState(false);
+  const [mobileTab, setMobileTab] = useState<MobileTab>("canvas");
 
   const handleEditor = useCallback((editor: Editor) => {
     editorRef.current = editor;
     setEditorInstance(editor);
-    editor.on('component:selected', (component: Component) => setSelectedComponent(component));
+    editor.on('component:selected',   (c: Component) => setSelectedComponent(c));
     editor.on('component:deselected', () => setSelectedComponent(null));
+
+    // Click-to-add: mobile only (< 1024px). Desktop keeps drag-and-drop.
+    editor.on('block:click', (block: any) => {
+      if (typeof window === 'undefined' || window.innerWidth >= 1024) return;
+
+      const content = block.get('content');
+      if (content == null) return;
+
+      const wrapper = editor.getWrapper();
+      if (!wrapper) return;
+
+      const selected = editor.getSelected();
+      if (selected && selected !== wrapper) {
+        const parent = selected.parent() || wrapper;
+        const idx = parent.components().indexOf(selected);
+        parent.components().add(content as any, { at: idx + 1 });
+      } else {
+        wrapper.append(content as any);
+      }
+
+      // Close blocks panel so the user can see the result on canvas
+      setMobileTab('canvas');
+    });
   }, []);
 
   function exitPreview() {
-    const editor = editorRef.current;
-    if (!editor) return;
-    editor.stopCommand('core:preview');
+    editorRef.current?.stopCommand('core:preview');
     setIsPreview(false);
   }
 
   function handleTogglePreview() {
-    const editor = editorRef.current;
-    if (!editor) return;
     if (isPreview) {
       exitPreview();
     } else {
-      editor.runCommand('core:preview');
+      editorRef.current?.runCommand('core:preview');
       setIsPreview(true);
     }
   }
@@ -59,11 +85,9 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
   // Escape key always exits preview regardless of GrapesJS z-index
   useEffect(() => {
     if (!isPreview) return;
-    function onKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') exitPreview();
-    }
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') exitPreview(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [isPreview]);
 
   function handleDeleteComponent() {
@@ -73,10 +97,10 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
   }
 
   function handleCloneComponent() {
-    const editor = editorRef.current;
-    if (!editor || !selectedComponent) return;
-    editor.runCommand('core:copy');
-    editor.runCommand('core:paste');
+    const ed = editorRef.current;
+    if (!ed || !selectedComponent) return;
+    ed.runCommand('core:copy');
+    ed.runCommand('core:paste');
   }
 
   function handleMoveUp() {
@@ -84,40 +108,63 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
     const parent = selectedComponent.parent();
     if (!parent) return;
     const idx = parent.components().indexOf(selectedComponent);
-    if (idx > 0) {
-      selectedComponent.move(parent, { at: idx - 1 });
-    }
+    if (idx > 0) selectedComponent.move(parent, { at: idx - 1 });
   }
 
   function handleMoveDown() {
     if (!selectedComponent) return;
     const parent = selectedComponent.parent();
     if (!parent) return;
-    const components = parent.components();
-    const idx = components.indexOf(selectedComponent);
-    if (idx < components.length - 1) {
-      selectedComponent.move(parent, { at: idx + 2 });
-    }
+    const comps = parent.components();
+    const idx   = comps.indexOf(selectedComponent);
+    if (idx < comps.length - 1) selectedComponent.move(parent, { at: idx + 2 });
   }
 
-  const tabBtn = (tab: RightTab, icon: React.ReactNode, label: string) => (
+  const rightTabBtn = (tab: RightTab, icon: React.ReactNode, label: string) => (
     <button
+      key={tab}
       onClick={() => setRightTab(tab)}
-      className={`flex-1 flex items-center justify-center gap-1 py-2 text-xs font-medium transition-colors border-b-2 ${
+      className={`flex-1 flex items-center justify-center gap-1 py-2.5 text-xs font-semibold transition-all border-b-2 ${
         rightTab === tab
-          ? "text-blue-600 border-blue-600 bg-white"
-          : "text-gray-500 border-transparent hover:text-gray-700 hover:bg-gray-50"
+          ? "text-blue-600 border-blue-500 bg-white"
+          : "text-slate-500 border-transparent hover:text-slate-700 hover:bg-slate-50"
       }`}
     >
-      {icon}
-      {label}
+      {icon}{label}
     </button>
   );
 
-  const actionBtn = "p-1.5 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors";
+  const mobileNavBtn = (
+    tab: MobileTab,
+    icon: React.ReactNode,
+    label: string,
+    onClick?: () => void,
+    active?: boolean,
+  ) => {
+    const isActive = active ?? mobileTab === tab;
+    return (
+      <button
+        key={label}
+        onClick={onClick ?? (() => setMobileTab(tab))}
+        className={`flex-1 flex flex-col items-center justify-center py-2.5 gap-1 text-xs font-medium transition-all relative ${
+          isActive ? 'text-blue-600' : 'text-slate-500 active:bg-slate-50'
+        }`}
+      >
+        {isActive && <span className="absolute top-0 left-1/4 right-1/4 h-0.5 bg-blue-500 rounded-b-full" />}
+        {icon}
+        <span>{label}</span>
+      </button>
+    );
+  };
+
+  const actionBtn = "p-1.5 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors";
 
   return (
-    <div className="flex flex-col h-screen">
+    // data-preview attribute triggers CSS to hide panels / prompt bar in preview mode
+    <div
+      className="flex flex-col h-screen"
+      data-preview={isPreview ? "" : undefined}
+    >
       <TopBar
         editorRef={editorRef}
         editor={editorInstance}
@@ -126,44 +173,50 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
         onTogglePreview={handleTogglePreview}
       />
 
-      {/* Component action bar — visible only when a component is selected and not in preview */}
+      {/* Component action bar */}
       {selectedComponent && !isPreview && (
-        <div className="flex items-center gap-1 px-3 py-1 bg-blue-50 border-b border-blue-200 flex-shrink-0">
-          <span className="text-xs text-blue-600 font-medium mr-2">
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-white border-b border-slate-200 shadow-sm flex-shrink-0">
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold border border-blue-100 truncate max-w-[160px]">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />
             {selectedComponent.getName() || selectedComponent.get('tagName') || 'Phần tử'}
           </span>
           <div className="flex items-center gap-0.5 ml-auto">
-            <button onClick={handleMoveUp} className={actionBtn} title="Di chuyển lên">
-              <ArrowUp className="w-3.5 h-3.5" />
-            </button>
-            <button onClick={handleMoveDown} className={actionBtn} title="Di chuyển xuống">
-              <ArrowDown className="w-3.5 h-3.5" />
-            </button>
-            <div className="w-px h-4 bg-blue-200 mx-1" />
-            <button onClick={handleCloneComponent} className={actionBtn} title="Nhân đôi">
-              <Copy className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={handleDeleteComponent}
-              className="p-1.5 rounded text-red-500 hover:bg-red-50 hover:text-red-600 transition-colors"
-              title="Xóa phần tử"
-            >
+            <button onClick={handleMoveUp}   className={actionBtn} title="Di chuyển lên"><ArrowUp   className="w-3.5 h-3.5" /></button>
+            <button onClick={handleMoveDown} className={actionBtn} title="Di chuyển xuống"><ArrowDown className="w-3.5 h-3.5" /></button>
+            <div className="w-px h-4 bg-slate-200 mx-1" />
+            <button onClick={handleCloneComponent} className={actionBtn} title="Nhân đôi"><Copy className="w-3.5 h-3.5" /></button>
+            <button onClick={handleDeleteComponent} className="p-1.5 rounded-lg text-red-400 hover:bg-red-50 hover:text-red-600 transition-colors" title="Xóa phần tử">
               <Trash2 className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
       )}
 
-      <div className="flex flex-1 overflow-hidden">
+      {/*
+        Main editor area.
+        data-mtab drives CSS: which panel is visible on mobile (< 1024px).
+        Panels use class gjs-panel-left / gjs-panel-right so CSS can control them.
+      */}
+      <div className="flex flex-1 overflow-hidden relative" data-mtab={mobileTab}>
 
         {/* ── Left: Blocks panel — always mounted so GrapesJS keeps its render target ── */}
-        <div
-          className="w-56 flex-shrink-0 border-r border-gray-200 bg-white flex flex-col overflow-hidden"
-          style={{ display: isPreview ? 'none' : 'flex' }}
-        >
-          <div className="px-3 py-2 border-b border-gray-200 bg-gray-50 flex items-center gap-2">
-            <LayoutGrid className="w-3.5 h-3.5 text-gray-500" />
-            <span className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Khối nội dung</span>
+        <div className="gjs-panel-left flex-shrink-0 w-56 border-r border-slate-200 bg-white flex flex-col overflow-hidden">
+          <div className="px-3 py-2.5 border-b border-slate-200 bg-slate-50 flex items-center gap-2 min-h-[44px]">
+            <div className="w-6 h-6 rounded-md bg-blue-100 flex items-center justify-center flex-shrink-0">
+              <LayoutGrid className="w-3.5 h-3.5 text-blue-600" />
+            </div>
+            <span className="text-xs font-semibold text-slate-700 uppercase tracking-wider">Khối</span>
+            <button
+              onClick={() => setMobileTab('canvas')}
+              className="gjs-mob-close ml-auto items-center justify-center w-7 h-7 rounded-lg hover:bg-slate-200 text-slate-400 hover:text-slate-700"
+              title="Đóng"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+          {/* Mobile hint */}
+          <div className="gjs-mob-only px-3 py-2 bg-blue-50 border-b border-blue-100">
+            <p className="text-xs text-blue-600">Nhấn vào khối để thêm vào canvas</p>
           </div>
           <div id="gjs-blocks-panel" className="flex-1 overflow-y-auto" />
         </div>
@@ -173,16 +226,21 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
           <GrapesEditor onEditor={handleEditor} />
         </div>
 
-        {/* ── Right: Style / Layers / History tabs — always mounted so GrapesJS keeps its render targets ── */}
-        <div
-          className="w-64 flex-shrink-0 border-l border-gray-200 bg-white flex flex-col overflow-hidden"
-          style={{ display: isPreview ? 'none' : 'flex' }}
-        >
+        {/* ── Right: Style / Layers / History — always mounted so GrapesJS keeps its render targets ── */}
+        <div className="gjs-panel-right flex-shrink-0 w-64 border-l border-slate-200 bg-white flex flex-col overflow-hidden">
           {/* Tab bar */}
-          <div className="flex border-b border-gray-200 bg-gray-50">
-            {tabBtn("style",   <Palette className="w-3 h-3" />,  "Kiểu dáng")}
-            {tabBtn("layers",  <Layers  className="w-3 h-3" />,  "Lớp")}
-            {tabBtn("history", <History className="w-3 h-3" />,  "Lịch sử")}
+          <div className="flex border-b border-slate-200 bg-slate-50">
+            {rightTabBtn("style",   <Palette className="w-3 h-3" />, "Kiểu dáng")}
+            {rightTabBtn("layers",  <Layers  className="w-3 h-3" />, "Lớp")}
+            {rightTabBtn("history", <History className="w-3 h-3" />, "Lịch sử")}
+            {/* gjs-mob-close: hidden on desktop, shown on mobile via CSS */}
+            <button
+              onClick={() => setMobileTab('canvas')}
+              className="gjs-mob-close items-center justify-center px-3 border-b-2 border-transparent text-slate-400 hover:text-slate-700 hover:bg-slate-50"
+              title="Đóng"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
 
           {/* Panel content */}
@@ -194,7 +252,7 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
               style={{ display: rightTab === "style" ? "block" : "none" }}
             >
               {!selectedComponent && (
-                <p className="px-4 py-6 text-xs text-gray-400 text-center leading-relaxed">
+                <p className="px-4 py-6 text-xs text-slate-400 text-center leading-relaxed">
                   Chọn một phần tử trên canvas để chỉnh sửa kiểu dáng.
                 </p>
               )}
@@ -223,15 +281,49 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
 
       </div>
 
-      <div style={{ display: isPreview ? 'none' : 'block' }}>
-        <PromptBar editorRef={editorRef} onSuccess={() => setHistoryKey(k => k + 1)} />
+      {/*
+        Mobile bottom tab bar.
+        gjs-mob-only: hidden on desktop, shown as flex row on mobile via CSS.
+        Must sit ABOVE the PromptBar so the prompt input stays at the very bottom.
+      */}
+      <div className="gjs-mob-only flex-shrink-0 border-t border-slate-200 bg-white min-h-[52px]">
+        {mobileNavBtn('blocks', <LayoutGrid className="w-5 h-5" />, 'Khối')}
+        {mobileNavBtn('canvas', <Monitor   className="w-5 h-5" />, 'Canvas')}
+        {mobileNavBtn(
+          'panel',
+          <Palette className="w-5 h-5" />,
+          'Kiểu dáng',
+          () => { setMobileTab('panel'); setRightTab('style'); },
+          mobileTab === 'panel' && rightTab === 'style',
+        )}
+        {mobileNavBtn(
+          'panel',
+          <Layers className="w-5 h-5" />,
+          'Lớp',
+          () => { setMobileTab('panel'); setRightTab('layers'); },
+          mobileTab === 'panel' && rightTab === 'layers',
+        )}
+      </div>
+
+      {/*
+        PromptBar wrapper.
+        gjs-prompt-bar: hidden in preview mode via CSS ([data-preview] .gjs-prompt-bar).
+      */}
+      <div className="gjs-prompt-bar">
+        <PromptBar
+          editorRef={editorRef}
+          onSuccess={() => {
+            setHistoryKey(k => k + 1);
+            setMobileTab('canvas');
+          }}
+        />
       </div>
 
       {/* Floating exit button — fixed above GrapesJS canvas overlay when in preview */}
       {isPreview && (
         <button
           onClick={exitPreview}
-          className="fixed bottom-6 right-6 z-[9999] flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-full shadow-lg hover:bg-indigo-700 transition-colors"
+          className="fixed bottom-6 right-6 z-[9999] flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-full shadow-lg hover:bg-indigo-700 active:bg-indigo-800 transition-colors"
           title="Thoát xem trước (Esc)"
         >
           <EyeOff className="w-4 h-4" />
