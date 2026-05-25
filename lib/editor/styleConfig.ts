@@ -269,13 +269,13 @@ export const styleSectors: any[] = [
     open: false,
     properties: [
       { property: 'border-radius', label: 'Bo góc', type: 'integer', units: ['px', '%', 'em'], default: '' },
-      { property: 'border-width', label: 'Độ dày', type: 'integer', units: ['px'], default: '' },
       {
         property: 'border-style',
-        label: 'Kiểu viền',
+        label: 'Kiểu viền (chọn trước)',
         type: 'select',
-        default: 'none',
+        default: '',
         options: [
+          { id: '', label: 'Mặc định' },
           { id: 'none', label: 'Không' },
           { id: 'solid', label: 'Liền nét' },
           { id: 'dashed', label: 'Đứt nét' },
@@ -283,6 +283,7 @@ export const styleSectors: any[] = [
           { id: 'double', label: 'Đôi' },
         ],
       },
+      { property: 'border-width', label: 'Độ dày', type: 'integer', units: ['px'], default: '' },
       { property: 'border-color', label: 'Màu viền', type: 'color', default: '' },
     ],
   },

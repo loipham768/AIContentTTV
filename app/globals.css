@@ -316,21 +316,23 @@ button {
   text-transform: uppercase !important;
   color: #475569 !important;
   background: #f8fafc !important;
-  transition: color 0.15s, background 0.15s;
+  transition:
+    color 0.15s,
+    background 0.15s;
 }
 #gjs-blocks-panel .gjs-category-title:hover {
   color: #4f46e5 !important;
   background: #f1f0ff !important;
 }
 
-/* Blocks grid: force 2-column wrapping flex */
+/* Blocks grid: 2-column wrapping flex.
+   Do NOT override display — GrapesJS sets display:none inline when collapsing categories,
+   and !important would break the toggle. GrapesJS already sets display:flex natively. */
 #gjs-blocks-panel .gjs-blocks-c {
-  display: flex !important;
   flex-wrap: wrap !important;
   align-content: flex-start !important;
-  padding: 8px !important;
+  padding: 30px 8px !important;
   gap: 6px !important;
-  background: #ffffff !important;
 }
 
 /* Individual block */
@@ -339,10 +341,15 @@ button {
   background: #f8fafc !important;
   border: 1.5px solid #e2e8f0 !important;
   border-radius: 10px !important;
-  transition: background 0.18s, border-color 0.18s, box-shadow 0.18s, transform 0.18s !important;
+  transition:
+    background 0.18s,
+    border-color 0.18s,
+    box-shadow 0.18s,
+    transform 0.18s !important;
   text-align: center !important;
   box-shadow: none !important;
   width: calc(50% - 3px) !important;
+  margin: 0 !important;
 }
 #gjs-blocks-panel .gjs-block:hover {
   background: #eef2ff !important;
@@ -358,7 +365,7 @@ button {
 #gjs-blocks-panel .gjs-block__media svg {
   width: 22px !important;
   height: 22px !important;
-  stroke: #6366f1 !important;
+  stroke: #333 !important;
 }
 #gjs-blocks-panel .gjs-block:hover .gjs-block__media svg {
   stroke: #4338ca !important;
@@ -370,7 +377,7 @@ button {
   font-weight: 600 !important;
   color: #475569 !important;
   line-height: 1.2 !important;
-  font-family: 'Segoe UI', system-ui, sans-serif !important;
+  font-family: "Segoe UI", system-ui, sans-serif !important;
 }
 #gjs-blocks-panel .gjs-block:hover .gjs-block-label {
   color: #4338ca !important;
@@ -414,35 +421,50 @@ button {
   font-size: 12px !important;
 }
 
-/* Layer manager — correct classes */
+/* Layer manager — light-theme override.
+   GrapesJS defaults: --gjs-font-color:#ddd (light), font-weight:lighter on .gjs-layer,
+   background:rgba(0,0,0,.1) on items — all designed for dark theme. Override everything. */
 .gjs-layer-item {
+  background-color: #ffffff !important;
   border-bottom: 1px solid #f1f5f9 !important;
-  /* Prevent GrapesJS's drag-related transforms from shifting rows */
   transform: none !important;
-  transition: background 0.12s !important;
+  transition: background-color 0.12s !important;
 }
 .gjs-layer-title {
-  /* Lock the row in place — GrapesJS can add translate on drag */
   transform: none !important;
-  transition: background 0.12s !important;
 }
 .gjs-layer-name {
   font-size: 12px !important;
+  font-weight: 500 !important;
   color: #334155 !important;
-  font-family: 'Segoe UI', system-ui, sans-serif !important;
+  font-family: "Segoe UI", system-ui, sans-serif !important;
 }
-/* Keep text readable on hover */
-.gjs-layer-title:hover {
-  background: #f0f4ff !important;
+/* Caret & count — override #ddd default */
+.gjs-layer-caret {
+  color: #94a3b8 !important;
+  fill: #94a3b8 !important;
 }
-.gjs-layer-title:hover .gjs-layer-name {
+.gjs-layer-caret svg {
+  fill: #94a3b8 !important;
+}
+.gjs-layer-count {
+  color: #94a3b8 !important;
+  font-size: 10px !important;
+}
+/* Hover: GrapesJS adds .gjs-hovered to .gjs-layer, NOT to .gjs-layer-item */
+.gjs-layer.gjs-hovered .gjs-layer-item {
+  background-color: #f0f4ff !important;
+}
+.gjs-layer.gjs-hovered .gjs-layer-name {
   color: #1e3a5f !important;
 }
-.gjs-layer-item.gjs-selected {
-  background: #eef2ff !important;
+/* Selected: GrapesJS adds .gjs-selected to .gjs-layer, NOT to .gjs-layer-item */
+.gjs-layer.gjs-selected .gjs-layer-item {
+  background-color: #eef2ff !important;
 }
-.gjs-layer-item.gjs-selected .gjs-layer-name {
+.gjs-layer.gjs-selected .gjs-layer-name {
   color: #4338ca !important;
+  font-weight: 600 !important;
 }
 
 /* ── Custom scrollbars ─────────────────────────────────────────── */
@@ -463,4 +485,42 @@ button {
 * {
   scrollbar-width: thin;
   scrollbar-color: #cbd5e1 transparent;
+}
+.gjs-title,
+.gjs-sm-sector-title,
+.gjs-traits-label {
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+  color: #475569 !important;
+  background: #f8fafc !important;
+  padding: 15px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+.gjs-two-color,
+.gjs-two-color-h:hover {
+  color: #333 !important;
+}
+.gjs-sm-properties,
+.gjs-blocks-c,
+.gjs-one-bg {
+  background-color: #f8f8f8 !important;
+}
+.gjs-sm-sector-title {
+  background-color: #edefef !important;
+}
+.gjs-category-open,
+.gjs-block-category.gjs-open,
+.gjs-sm-sector.gjs-sm-open,
+.gjs-trait-category.gjs-open {
+  border-bottom: 1px solid #ccc !important;
+}
+#gjs-blocks-panel {
+  background-color: #f8f8f8 !important;
+}
+span.text-xs.font-semibold.text-slate-700.uppercase.tracking-wider {
+  font-weight: bold;
+}
+.gjs-trt-trait .gjs-label {
+  font-size: 12px;
 }

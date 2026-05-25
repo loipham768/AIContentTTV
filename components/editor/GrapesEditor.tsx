@@ -32,6 +32,7 @@ export default function GrapesEditor({ onEditor }: GrapesEditorProps) {
             appendTo: '#gjs-styles-panel',
             sectors: styleSectors,
           },
+          allowScripts: 1,
           panels: { defaults: [] },
           assetManager: {
             upload: '/api/upload',

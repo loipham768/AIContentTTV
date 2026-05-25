@@ -13,7 +13,7 @@ export async function sendOtpEmail(to: string, otp: string) {
         <div style="text-align:center;margin-bottom:28px;">
           <div style="display:inline-block;">
             <div style="display:inline-block;vertical-align:middle;width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#4f46e5,#7c3aed,#db2777);line-height:36px;text-align:center;">
-              <span style="color:white;font-size:18px;font-weight:bold;>⚡</span>
+              <span style="color:white;font-size:18px;font-weight:bold;">⚡</span>
             </div>
             <span style="display:inline-block;vertical-align:middle;font-weight:800;font-size:1rem;color:#1e293b;margin-left:10px;">AI Content Booster</span>
           </div>
