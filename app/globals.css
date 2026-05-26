@@ -222,8 +222,7 @@ button {
 /* Preview mode: hide panels, mobile nav, and prompt bar regardless of device */
 [data-preview] .gjs-panel-left,
 [data-preview] .gjs-panel-right,
-[data-preview] .gjs-mob-only,
-[data-preview] .gjs-prompt-bar {
+[data-preview] .gjs-mob-only {
   display: none !important;
 }
 
@@ -523,4 +522,9 @@ span.text-xs.font-semibold.text-slate-700.uppercase.tracking-wider {
 }
 .gjs-trt-trait .gjs-label {
   font-size: 12px;
+}
+.gjs-sm-field input,
+.gjs-clm-field input,
+.gjs-clm-select input {
+  color: #000;
 }

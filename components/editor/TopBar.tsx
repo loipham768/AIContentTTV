@@ -6,7 +6,7 @@ import { LogoutButton } from '@/components/auth/LogoutButton'
 import { isolateCss } from '@/lib/cssIsolation'
 import {
   Eye, EyeOff, ZoomIn, ZoomOut, Trash2,
-  Undo2, Redo2, Monitor, Smartphone, Code2,
+  Undo2, Redo2, Monitor, Smartphone, Code2, Plus,
 } from 'lucide-react'
 import Logo from '@/components/Logo'
 
@@ -87,10 +87,18 @@ export default function TopBar({ editorRef, editor, userEmail, isPreview, onTogg
     <>
       <div className="flex items-center justify-between px-3 md:px-4 bg-slate-900 h-13 gap-3 flex-shrink-0 border-b border-slate-800 overflow-hidden" style={{ height: '52px' }}>
 
-        {/* ── Brand ── */}
-        <div className="flex-shrink-0">
+        {/* ── Brand + New content ── */}
+        <div className="flex items-center gap-3 flex-shrink-0">
           <Logo iconSize={28} uid="topbar-d" dark className="hidden md:inline-flex" />
           <Logo iconSize={28} uid="topbar-m" dark iconOnly className="md:hidden" />
+          <a
+            href="/create"
+            className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:bg-slate-700 hover:text-white transition-all"
+            title="Tạo nội dung mới với AI"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span className="hidden lg:inline">Tạo mới</span>
+          </a>
         </div>
 
         {/* ── Center controls ── */}

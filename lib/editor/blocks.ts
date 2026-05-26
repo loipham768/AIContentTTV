@@ -102,7 +102,7 @@ export function registerBlocks(editor: Editor) {
     label: 'Nút bấm',
     category: 'Cơ bản',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="5"/><path d="M8 12h8"/></svg>`,
-    content: `<a href="#" style="display:inline-block;padding:13px 30px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;text-decoration:none;border-radius:10px;font-size:15px;font-weight:600;letter-spacing:0.01em;box-shadow:0 4px 12px rgba(79,70,229,0.35);${FONT}">Nút bấm</a>`,
+    content: `<a href="#" style="display:inline-block;padding:13px 30px;background-color:#4f46e5;color:#fff;text-decoration:none;border-radius:10px;font-size:15px;font-weight:600;letter-spacing:0.01em;box-shadow:0 4px 12px rgba(79,70,229,0.35);${FONT}">Nút bấm</a>`,
   })
 
   bm.add('divider', {
@@ -143,7 +143,7 @@ export function registerBlocks(editor: Editor) {
     label: 'Thông báo',
     category: 'Cơ bản',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>`,
-    content: `<div style="background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#db2777 100%);padding:12px 24px;width:100%;box-sizing:border-box;${FONT}">
+    content: `<div style="background-color:#4f46e5;padding:12px 24px;width:100%;box-sizing:border-box;${FONT}">
   <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;">
     <span style="color:rgba(255,255,255,0.9);font-size:14px;text-align:center;">🎉 Ưu đãi đặc biệt — Giảm <strong style="color:#fff;">20%</strong> cho khách hàng mới. Kết thúc ngày 31/12!</span>
     <a href="#" style="display:inline-block;padding:4px 14px;background:rgba(255,255,255,0.18);color:#fff;text-decoration:none;border-radius:9999px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,0.35);white-space:nowrap;">Đặt ngay →</a>
@@ -156,7 +156,7 @@ export function registerBlocks(editor: Editor) {
     label: 'Hero',
     category: 'Marketing',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M7 10h10M7 14h6"/></svg>`,
-    content: `<section style="background:linear-gradient(135deg,#1e1b4b 0%,#3730a3 40%,#4f46e5 75%,#7c3aed 100%);padding:80px 24px;text-align:center;color:#fff;width:100%;box-sizing:border-box;position:relative;overflow:hidden;${FONT}">
+    content: `<section style="background-color:#1e1b4b;padding:80px 24px;text-align:center;color:#fff;width:100%;box-sizing:border-box;position:relative;overflow:hidden;${FONT}">
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(255,255,255,0.14) 0%,transparent 65%);pointer-events:none;"></div>
   <div style="position:absolute;top:10%;right:8%;width:180px;height:180px;background:rgba(167,139,250,0.15);border-radius:50%;filter:blur(48px);pointer-events:none;"></div>
   <div style="position:absolute;bottom:10%;left:6%;width:140px;height:140px;background:rgba(99,102,241,0.2);border-radius:50%;filter:blur(40px);pointer-events:none;"></div>
@@ -208,7 +208,7 @@ export function registerBlocks(editor: Editor) {
     label: 'Kêu gọi',
     category: 'Marketing',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.77 19.79 19.79 0 01.1 1.18 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09"/></svg>`,
-    content: `<section style="background:linear-gradient(135deg,#312e81 0%,#4f46e5 50%,#7c3aed 100%);padding:80px 24px;text-align:center;color:#fff;width:100%;box-sizing:border-box;position:relative;overflow:hidden;${FONT}">
+    content: `<section style="background-color:#312e81;padding:80px 24px;text-align:center;color:#fff;width:100%;box-sizing:border-box;position:relative;overflow:hidden;${FONT}">
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(167,139,250,0.25) 0%,transparent 60%);pointer-events:none;"></div>
   <div style="position:relative;max-width:580px;margin:0 auto;">
     <h2 style="font-size:clamp(28px,6vw,40px);font-weight:800;margin:0 0 16px;line-height:1.2;letter-spacing:-0.02em;${FONT}">Sẵn sàng bắt đầu?</h2>
@@ -225,14 +225,14 @@ export function registerBlocks(editor: Editor) {
     content: `<div style="background:#fff;border-radius:18px;box-shadow:0 2px 8px rgba(0,0,0,0.06),0 12px 32px rgba(79,70,229,0.09);overflow:hidden;max-width:320px;${FONT}">
   <div style="position:relative;overflow:hidden;">
     <img src="https://placehold.co/320x200/e0e7ff/6366f1?text=Hình+ảnh" alt="" style="width:100%;height:200px;object-fit:cover;display:block;"/>
-    <span style="position:absolute;top:12px;left:12px;padding:4px 12px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border-radius:9999px;font-size:12px;font-weight:600;">Mới</span>
+    <span style="position:absolute;top:12px;left:12px;padding:4px 12px;background-color:#4f46e5;color:#fff;border-radius:9999px;font-size:12px;font-weight:600;">Mới</span>
   </div>
   <div style="padding:22px;">
     <h3 style="${H3}margin-bottom:8px;font-size:17px;">Tên sản phẩm</h3>
     <p style="${BODY}font-size:14px;margin-bottom:18px;">Mô tả ngắn về sản phẩm hoặc dịch vụ của bạn một cách hấp dẫn</p>
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
       <span style="font-size:22px;font-weight:800;color:#4f46e5;${FONT}">299.000đ</span>
-      <a href="#" style="padding:9px 20px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:600;${FONT}">Mua ngay</a>
+      <a href="#" style="padding:9px 20px;background-color:#4f46e5;color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:600;${FONT}">Mua ngay</a>
     </div>
   </div>
 </div>`,
@@ -274,12 +274,12 @@ export function registerBlocks(editor: Editor) {
       <li style="padding:9px 0;display:flex;align-items:center;gap:8px;"><span style="color:#cbd5e1;font-size:16px;">✗</span> <span style="color:#cbd5e1;">Tính năng C</span></li>
     </ul>
   </div>
-  <div style="flex:1;min-width:260px;border:2px solid #4f46e5;border-radius:18px;padding:32px 24px;text-align:center;background:linear-gradient(160deg,#faf5ff,#eef2ff);position:relative;">
-    <span style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);padding:5px 16px;background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;border-radius:9999px;font-size:11px;font-weight:700;letter-spacing:0.05em;white-space:nowrap;${FONT}">★ Phổ biến nhất</span>
+  <div style="flex:1;min-width:260px;border:2px solid #4f46e5;border-radius:18px;padding:32px 24px;text-align:center;background-color:#faf5ff;position:relative;">
+    <span style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);padding:5px 16px;background-color:#f59e0b;color:#fff;border-radius:9999px;font-size:11px;font-weight:700;letter-spacing:0.05em;white-space:nowrap;${FONT}">★ Phổ biến nhất</span>
     <p style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6d28d9;margin:0 0 12px;">Pro</p>
     <div style="font-size:42px;font-weight:800;color:#0f172a;margin:0 0 4px;letter-spacing:-0.02em;${FONT}">499k</div>
     <p style="font-size:14px;color:#94a3b8;margin:0 0 24px;">/tháng</p>
-    <a href="#" style="display:block;padding:12px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;text-decoration:none;border-radius:10px;font-size:14px;font-weight:700;margin-bottom:28px;box-shadow:0 4px 12px rgba(79,70,229,0.35);${FONT}">Chọn ngay</a>
+    <a href="#" style="display:block;padding:12px;background-color:#4f46e5;color:#fff;text-decoration:none;border-radius:10px;font-size:14px;font-weight:700;margin-bottom:28px;box-shadow:0 4px 12px rgba(79,70,229,0.35);${FONT}">Chọn ngay</a>
     <ul style="list-style:none;padding:0;margin:0;text-align:left;font-size:14px;color:#475569;line-height:1;">
       <li style="padding:9px 0;border-bottom:1px solid #ede9fe;display:flex;align-items:center;gap:8px;"><span style="color:#4f46e5;font-size:16px;">✓</span> Tính năng A</li>
       <li style="padding:9px 0;border-bottom:1px solid #ede9fe;display:flex;align-items:center;gap:8px;"><span style="color:#4f46e5;font-size:16px;">✓</span> Tính năng B</li>
@@ -330,7 +330,7 @@ export function registerBlocks(editor: Editor) {
             </tr>
             <tr>
               <td style="padding:18px 20px;border-bottom:1px solid #ede9fe;background:#faf5ff;position:relative;">
-                <div style="display:inline-block;padding:2px 10px;background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;border-radius:9999px;font-size:10px;font-weight:700;letter-spacing:0.05em;margin-bottom:6px;${FONT}">★ Phổ biến</div>
+                <div style="display:inline-block;padding:2px 10px;background-color:#f59e0b;color:#fff;border-radius:9999px;font-size:10px;font-weight:700;letter-spacing:0.05em;margin-bottom:6px;${FONT}">★ Phổ biến</div>
                 <div style="font-weight:700;color:#0f172a;font-size:15px;margin-bottom:4px;${FONT}">Gói Chuyên Nghiệp</div>
                 <div style="font-size:12px;color:#94a3b8;${FONT}">Cho doanh nghiệp SME</div>
               </td>
@@ -341,7 +341,7 @@ export function registerBlocks(editor: Editor) {
                 <div style="font-size:11px;color:#94a3b8;">/tháng</div>
               </td>
               <td style="padding:18px 20px;border-bottom:1px solid #ede9fe;background:#faf5ff;text-align:center;">
-                <a href="#" style="display:inline-block;padding:8px 16px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(79,70,229,0.35);white-space:nowrap;${FONT}">Chọn gói</a>
+                <a href="#" style="display:inline-block;padding:8px 16px;background-color:#4f46e5;color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(79,70,229,0.35);white-space:nowrap;${FONT}">Chọn gói</a>
               </td>
             </tr>
             <tr>
@@ -381,7 +381,7 @@ export function registerBlocks(editor: Editor) {
     label: 'Nhãn',
     category: 'Media',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`,
-    content: `<span style="display:inline-block;padding:5px 16px;background:linear-gradient(135deg,#ede9fe,#ddd6fe);color:#5b21b6;border-radius:9999px;font-size:13px;font-weight:600;${FONT}">✨ Nhãn mới</span>`,
+    content: `<span style="display:inline-block;padding:5px 16px;background-color:#ede9fe;color:#5b21b6;border-radius:9999px;font-size:13px;font-weight:600;${FONT}">✨ Nhãn mới</span>`,
   })
 
   bm.add('icon-text', {
@@ -594,8 +594,8 @@ export function registerBlocks(editor: Editor) {
     category: 'Media',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M8 12h8M15 9l3 3-3 3"/></svg>`,
     content: `<div data-carousel style="width:100%;position:relative;overflow:hidden;border-radius:18px;background:#0f172a;user-select:none;-webkit-user-select:none;${FONT}">
-  <div data-track style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:24px;margin-bottom:-24px;">
-    <div data-slide style="flex:0 0 100%;scroll-snap-align:start;position:relative;flex-shrink:0;">
+  <div data-track style="display:flex;will-change:transform;transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);">
+    <div data-slide style="flex:0 0 100%;min-width:100%;position:relative;">
       <img src="https://placehold.co/900x480/e0e7ff/4f46e5?text=Slide+1" alt="" style="width:100%;height:420px;object-fit:cover;display:block;"/>
       <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 55%,transparent 100%);pointer-events:none;"></div>
       <div style="position:absolute;bottom:52px;left:0;right:0;padding:0 32px;">
@@ -603,7 +603,7 @@ export function registerBlocks(editor: Editor) {
         <p style="font-size:15px;color:rgba(255,255,255,0.82);margin:0;line-height:1.6;${FONT}">Mô tả ngắn hấp dẫn về nội dung của slide này để thu hút người xem</p>
       </div>
     </div>
-    <div data-slide style="flex:0 0 100%;scroll-snap-align:start;position:relative;flex-shrink:0;">
+    <div data-slide style="flex:0 0 100%;min-width:100%;position:relative;">
       <img src="https://placehold.co/900x480/ede9fe/7c3aed?text=Slide+2" alt="" style="width:100%;height:420px;object-fit:cover;display:block;"/>
       <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 55%,transparent 100%);pointer-events:none;"></div>
       <div style="position:absolute;bottom:52px;left:0;right:0;padding:0 32px;">
@@ -611,7 +611,7 @@ export function registerBlocks(editor: Editor) {
         <p style="font-size:15px;color:rgba(255,255,255,0.82);margin:0;line-height:1.6;${FONT}">Mô tả ngắn hấp dẫn về nội dung của slide này để thu hút người xem</p>
       </div>
     </div>
-    <div data-slide style="flex:0 0 100%;scroll-snap-align:start;position:relative;flex-shrink:0;">
+    <div data-slide style="flex:0 0 100%;min-width:100%;position:relative;">
       <img src="https://placehold.co/900x480/dcfce7/059669?text=Slide+3" alt="" style="width:100%;height:420px;object-fit:cover;display:block;"/>
       <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 55%,transparent 100%);pointer-events:none;"></div>
       <div style="position:absolute;bottom:52px;left:0;right:0;padding:0 32px;">
@@ -631,9 +631,8 @@ export function registerBlocks(editor: Editor) {
     if(!c||c.getAttribute('data-init'))return;
     c.setAttribute('data-init','1');
     var track=c.querySelector('[data-track]');
-    var slides=Array.from(c.querySelectorAll('[data-slide]'));
     var dots=Array.from(c.querySelectorAll('[data-dot]'));
-    var n=slides.length,idx=0,timer,scrolling=false;
+    var n=dots.length,idx=0,timer;
     function setDot(i){
       dots.forEach(function(d,j){
         d.style.width=j===i?'28px':'7px';
@@ -643,10 +642,8 @@ export function registerBlocks(editor: Editor) {
     }
     function goTo(i){
       idx=(i%n+n)%n;
-      scrolling=true;
-      track.scrollTo({left:slides[idx].offsetLeft,behavior:'smooth'});
+      track.style.transform='translateX(-'+(idx*100)+'%)';
       setDot(idx);
-      setTimeout(function(){scrolling=false;},600);
     }
     dots.forEach(function(d,i){
       d.addEventListener('click',function(e){
@@ -656,20 +653,16 @@ export function registerBlocks(editor: Editor) {
         startAuto();
       });
     });
-    var st;
-    track.addEventListener('scroll',function(){
-      if(scrolling)return;
-      clearTimeout(st);
-      st=setTimeout(function(){
-        var i=Math.round(track.scrollLeft/track.offsetWidth);
-        if(i!==idx){idx=i;setDot(idx);}
-      },80);
-    });
-    function startAuto(){timer=setInterval(function(){goTo(idx+1);},4000);}
+    var txStart;
+    c.addEventListener('touchstart',function(e){clearInterval(timer);txStart=e.touches[0].clientX;},{passive:true});
+    c.addEventListener('touchend',function(e){
+      var dx=e.changedTouches[0].clientX-txStart;
+      if(Math.abs(dx)>40)goTo(dx<0?idx+1:idx-1);
+      startAuto();
+    },{passive:true});
+    function startAuto(){timer=setInterval(function(){goTo(idx+1);},6000);}
     c.addEventListener('mouseenter',function(){clearInterval(timer);});
     c.addEventListener('mouseleave',startAuto);
-    c.addEventListener('touchstart',function(){clearInterval(timer);},{passive:true});
-    c.addEventListener('touchend',function(){clearTimeout(st);st=setTimeout(function(){var i=Math.round(track.scrollLeft/track.offsetWidth);idx=i;setDot(idx);startAuto();},200);},{passive:true});
     startAuto();
   })();</script>
 </div>`,

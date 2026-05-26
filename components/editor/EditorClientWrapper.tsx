@@ -2,12 +2,12 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import type { Editor, Component } from "grapesjs";
+import { resolveCssVariables } from "@/lib/cssIsolation";
 import {
   Loader2, LayoutGrid, Palette, Layers, History,
   Trash2, Copy, ArrowUp, ArrowDown, EyeOff, Monitor, X,
 } from "lucide-react";
 import TopBar from "@/components/editor/TopBar";
-import PromptBar from "@/components/editor/PromptBar";
 
 const GrapesEditor = dynamic(() => import("@/components/editor/GrapesEditor"), {
   ssr: false,
@@ -27,9 +27,12 @@ const HistoryPanel = dynamic(() => import("@/components/editor/HistoryPanel"), {
 type RightTab  = "style" | "layers" | "history";
 type MobileTab = "canvas" | "blocks" | "panel";
 
-interface EditorClientWrapperProps { userEmail: string; }
+interface EditorClientWrapperProps {
+  userEmail: string
+  initialData?: object | null
+}
 
-export default function EditorClientWrapper({ userEmail }: EditorClientWrapperProps) {
+export default function EditorClientWrapper({ userEmail, initialData }: EditorClientWrapperProps) {
   const editorRef = useRef<Editor | null>(null);
   const [historyKey, setHistoryKey] = useState(0);
   const [editorInstance, setEditorInstance] = useState<Editor | null>(null);
@@ -43,6 +46,35 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
     setEditorInstance(editor);
     editor.on('component:selected',   (c: Component) => setSelectedComponent(c));
     editor.on('component:deselected', () => setSelectedComponent(null));
+
+    if (initialData) {
+      const data = initialData as Record<string, unknown>;
+      if (data.type === 'html' && typeof data.html === 'string') {
+        // Parse the full Gemini HTML to separate <style> from body content.
+        // GrapesJS setComponents() drops <head>/<style>, so we must extract CSS
+        // manually and inject it via setStyle() so editor.getCss() returns it
+        // and the juice css-isolation step can inline it correctly on export.
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data.html, 'text/html');
+
+        const rawCss = Array.from(doc.querySelectorAll('style'))
+          .map(s => s.textContent ?? '')
+          .join('\n');
+
+        // Resolve var() before loading into GrapesJS — GrapesJS may drop :root
+        // declarations through setStyle()/getCss(), leaving var() unresolvable on export.
+        const styleContent = rawCss.trim() ? resolveCssVariables(rawCss) : rawCss;
+
+        editor.setComponents(doc.body.innerHTML);
+        if (styleContent.trim()) {
+          editor.setStyle(styleContent);
+        }
+      } else {
+        // GrapesJS project JSON (legacy Claude format)
+        editor.loadProjectData(initialData as Parameters<typeof editor.loadProjectData>[0]);
+      }
+      setHistoryKey(k => k + 1);
+    }
 
     // Click-to-add: mobile only (< 1024px). Desktop keeps drag-and-drop.
     editor.on('block:click', (block: any) => {
@@ -66,7 +98,7 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
       // Close blocks panel so the user can see the result on canvas
       setMobileTab('canvas');
     });
-  }, []);
+  }, [initialData]);
 
   function exitPreview() {
     editorRef.current?.stopCommand('core:preview');
@@ -284,7 +316,7 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
       {/*
         Mobile bottom tab bar.
         gjs-mob-only: hidden on desktop, shown as flex row on mobile via CSS.
-        Must sit ABOVE the PromptBar so the prompt input stays at the very bottom.
+        Mobile bottom nav bar.
       */}
       <div className="gjs-mob-only flex-shrink-0 border-t border-slate-200 bg-white min-h-[52px]">
         {mobileNavBtn('blocks', <LayoutGrid className="w-5 h-5" />, 'Khối')}
@@ -303,20 +335,6 @@ export default function EditorClientWrapper({ userEmail }: EditorClientWrapperPr
           () => { setMobileTab('panel'); setRightTab('layers'); },
           mobileTab === 'panel' && rightTab === 'layers',
         )}
-      </div>
-
-      {/*
-        PromptBar wrapper.
-        gjs-prompt-bar: hidden in preview mode via CSS ([data-preview] .gjs-prompt-bar).
-      */}
-      <div className="gjs-prompt-bar">
-        <PromptBar
-          editorRef={editorRef}
-          onSuccess={() => {
-            setHistoryKey(k => k + 1);
-            setMobileTab('canvas');
-          }}
-        />
       </div>
 
       {/* Floating exit button — fixed above GrapesJS canvas overlay when in preview */}

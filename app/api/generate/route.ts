@@ -56,14 +56,16 @@ export async function POST(req: NextRequest) {
   try {
     const block = await generateBlock(prompt)
 
-    // Auto-save to history — failure does not block the generation response
+    // Auto-save to history; capture projectId so the client can navigate directly to the editor
+    let projectId: string | null = null
     try {
-      await Project.create({ userId, name: prompt.slice(0, 50), prompt, blockData: block })
+      const saved = await Project.create({ userId, name: prompt.slice(0, 50), prompt, blockData: block })
+      projectId = saved._id.toString()
     } catch (saveErr) {
       console.error('[/api/generate] auto-save failed:', saveErr)
     }
 
-    return NextResponse.json({ block }, { status: 200 })
+    return NextResponse.json({ block, projectId }, { status: 200 })
   } catch (err) {
     // On Claude failure, remove the rate-limit doc so the user can retry immediately
     await RateLimit.deleteOne({ userId }).catch(() => {})
