@@ -4,6 +4,7 @@ import { auth } from '@/auth'
 import { dbConnect } from '@/lib/mongodb'
 import Project from '@/models/Project'
 import { chatWithGemini, type GeminiMessage } from '@/lib/ai/gemini'
+import { checkAndIncrementLandingPage } from '@/lib/planGate'
 
 export const runtime = 'nodejs'
 
@@ -15,6 +16,7 @@ const messageSchema = z.object({
 const chatSchema = z.object({
   messages: z.array(messageSchema).min(1).max(40),
   initialPrompt: z.string().max(500).optional(),
+  isFinal: z.boolean().optional(), // true only when the conversation produces HTML
 })
 
 export async function POST(req: NextRequest) {
@@ -38,18 +40,27 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const { messages, initialPrompt } = parsed.data
+  const { messages, initialPrompt, isFinal } = parsed.data
 
   try {
     const result = await chatWithGemini(messages as GeminiMessage[])
 
     if (result.type === 'html') {
-      await dbConnect()
+      // Plan gate — only when AI actually produces the final HTML output
+      const gate = await checkAndIncrementLandingPage(session.user.id)
+      if (!gate.allowed) {
+        return NextResponse.json(
+          { error: gate.reason, code: gate.code, upgradeRequired: gate.upgradeRequired },
+          { status: 402 }
+        )
+      }
+
       const name = (initialPrompt ?? 'Trang web').slice(0, 50)
       const prompt = (initialPrompt ?? 'Generated via Gemini chat').slice(0, 500)
       let projectId: string | null = null
 
       try {
+        await dbConnect()
         const project = await Project.create({
           userId: session.user.id,
           name,

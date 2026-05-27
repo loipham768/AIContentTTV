@@ -5,6 +5,7 @@ import { dbConnect } from '@/lib/mongodb'
 import RateLimit from '@/models/RateLimit'
 import Project from '@/models/Project'
 import { generateBlock } from '@/lib/ai/generate-block'
+import { checkAndIncrementHtmlBlock } from '@/lib/planGate'
 
 export const runtime = 'nodejs'
 
@@ -13,7 +14,7 @@ const generateSchema = z.object({
 })
 
 export async function POST(req: NextRequest) {
-  // 1. Auth check — runs before any DB connection (T-03-03)
+  // 1. Auth
   const session = await auth()
   if (!session?.user?.id) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -36,9 +37,16 @@ export async function POST(req: NextRequest) {
   }
   const { prompt } = parsed.data
 
-  // 3. Rate limit — atomic test-and-set BEFORE calling Claude (CR-02)
-  //    RateLimit has a unique index on userId; a duplicate-key error (11000) means
-  //    a TTL doc already exists → user is still within the cooldown window.
+  // 3. Plan gate — check quota before calling AI
+  const gate = await checkAndIncrementHtmlBlock(userId)
+  if (!gate.allowed) {
+    return NextResponse.json(
+      { error: gate.reason, code: gate.code, upgradeRequired: gate.upgradeRequired },
+      { status: 402 }
+    )
+  }
+
+  // 4. Rate limit — cooldown between requests
   await dbConnect()
   try {
     await RateLimit.create({ userId, createdAt: new Date() })
@@ -52,11 +60,10 @@ export async function POST(req: NextRequest) {
     throw dupErr
   }
 
-  // 4. Call Claude — generateBlock propagates all errors (D-05)
+  // 5. Call Claude
   try {
     const block = await generateBlock(prompt)
 
-    // Auto-save to history; capture projectId so the client can navigate directly to the editor
     let projectId: string | null = null
     try {
       const saved = await Project.create({ userId, name: prompt.slice(0, 50), prompt, blockData: block })
@@ -67,7 +74,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ block, projectId }, { status: 200 })
   } catch (err) {
-    // On Claude failure, remove the rate-limit doc so the user can retry immediately
     await RateLimit.deleteOne({ userId }).catch(() => {})
     console.error('[/api/generate] generateBlock error:', err)
     return NextResponse.json(

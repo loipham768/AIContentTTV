@@ -32,6 +32,7 @@ export default function GrapesEditor({ onEditor }: GrapesEditorProps) {
             appendTo: '#gjs-styles-panel',
             sectors: styleSectors,
           },
+          // @ts-expect-error — allowScripts is a valid GrapesJS option not in older type defs
           allowScripts: 1,
           panels: { defaults: [] },
           assetManager: {

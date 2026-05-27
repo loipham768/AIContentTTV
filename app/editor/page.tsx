@@ -4,6 +4,9 @@ import mongoose from 'mongoose'
 import { dbConnect } from '@/lib/mongodb'
 import Project from '@/models/Project'
 import EditorClientWrapper from '@/components/editor/EditorClientWrapper'
+import { getUserPlanInfo } from '@/lib/planGate'
+
+export const runtime = 'nodejs'
 
 export default async function EditorPage({
   searchParams,
@@ -25,10 +28,14 @@ export default async function EditorPage({
     if (project) initialData = project.blockData as object
   }
 
+  const planInfo = await getUserPlanInfo(session.user.id)
+
   return (
     <EditorClientWrapper
       userEmail={session.user.email!}
       initialData={initialData}
+      canExport={planInfo?.canExport ?? false}
+      plan={planInfo?.plan ?? 'free'}
     />
   )
 }

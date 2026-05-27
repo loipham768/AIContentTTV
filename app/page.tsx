@@ -165,6 +165,12 @@ export default async function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Logo iconSize={32} uid="nav" />
           <nav className="flex items-center gap-2">
+            <Link href="/kien-thuc" className="hidden md:block px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
+              Kiến thức
+            </Link>
+            <Link href="/#pricing" className="hidden md:block px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
+              Bảng giá
+            </Link>
             {isLoggedIn ? (
               <Link href="/editor" className="px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold btn-gradient text-white rounded-lg whitespace-nowrap">
                 <span className="sm:hidden">Soạn thảo →</span>
@@ -496,53 +502,75 @@ export default async function LandingPage() {
       {/* ── Pricing ────────────────────────────────────────────────── */}
       <section id="pricing" className="py-24" style={{ background: 'linear-gradient(135deg, #e0e7ff 0%, #faf5ff 50%, #ede9fe 100%)' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <ScrollReveal className="text-center mb-16">
+          <ScrollReveal className="text-center mb-4">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Bảng giá</h2>
-            <p className="text-gray-500">Lựa chọn gói phù hợp với nhu cầu của bạn</p>
+            <p className="text-gray-500">Bắt đầu miễn phí — nâng cấp khi bạn cần nhiều hơn</p>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch pt-6">
+          {/* Toggle Monthly/Yearly — static display */}
+          <ScrollReveal className="flex justify-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-white border border-indigo-100 rounded-xl px-4 py-2 text-sm text-gray-600 shadow-sm">
+              <span className="font-medium text-indigo-700">Mua theo năm tiết kiệm ~20%</span>
+              <span className="text-xs text-gray-400">· Thanh toán chuyển khoản ngân hàng</span>
+            </div>
+          </ScrollReveal>
+
+          {/* Subscription plans */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch pt-2 mb-16">
             {/* Free */}
             <ScrollReveal from="left" className="h-full">
-              <div className="rounded-2xl border border-gray-200 bg-white p-8 card-lift h-full flex flex-col">
-                <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Miễn phí</p>
-                <div className="mt-4 flex items-end gap-1">
+              <div className="rounded-2xl border border-gray-200 bg-white p-7 card-lift h-full flex flex-col">
+                <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide">Miễn phí</p>
+                <div className="mt-3 flex items-end gap-1">
                   <span className="text-4xl font-extrabold text-gray-900">0đ</span>
-                  <span className="text-gray-500 mb-1">/tháng</span>
+                  <span className="text-gray-400 mb-1 text-sm">/tháng</span>
                 </div>
-                <p className="mt-2 text-sm text-gray-600">Dùng thử không giới hạn thời gian</p>
-                <Link href="/login" className="mt-6 block text-center py-2.5 text-sm font-semibold text-indigo-600 border border-indigo-300 rounded-xl hover:bg-indigo-50 transition-colors">
+                <p className="mt-1.5 text-sm text-gray-500">Không cần thẻ ngân hàng</p>
+                <Link href="/login" className="mt-5 block text-center py-2.5 text-sm font-semibold text-indigo-600 border border-indigo-300 rounded-xl hover:bg-indigo-50 transition-colors">
                   Bắt đầu miễn phí
                 </Link>
-                <ul className="mt-8 space-y-3 flex-1">
-                  {['5 khối nội dung/tháng', 'Lưu tối đa 10 dự án', 'Xuất HTML inline CSS', 'Hỗ trợ cộng đồng'].map(f => (
-                    <li key={f} className="flex items-center gap-2 text-sm text-gray-700">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> {f}
+                <ul className="mt-6 space-y-2.5 flex-1">
+                  {[
+                    '3 bài viết HTML/tháng',
+                    '1 landing page/tháng',
+                    'Chỉnh sửa trong editor',
+                    '3 template mẫu',
+                    'Không xuất được HTML',
+                  ].map((f, i) => (
+                    <li key={f} className="flex items-center gap-2 text-sm text-gray-600">
+                      <CheckCircle2 className={`w-4 h-4 shrink-0 ${i < 3 ? 'text-emerald-500' : 'text-gray-300'}`} /> {f}
                     </li>
                   ))}
                 </ul>
               </div>
             </ScrollReveal>
 
-            {/* Pro — full gradient fill */}
+            {/* Basic — featured */}
             <ScrollReveal delay={80} className="h-full">
-              <div className="rounded-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 p-8 shadow-2xl relative card-lift text-white h-full flex flex-col">
+              <div className="rounded-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 p-7 shadow-2xl relative card-lift text-white h-full flex flex-col">
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                   <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-bold bg-amber-400 text-gray-900 rounded-full shadow">
                     <Star className="w-3 h-3 fill-gray-900" /> Phổ biến nhất
                   </span>
                 </div>
-                <p className="text-sm font-semibold text-indigo-200 uppercase tracking-wide">Pro</p>
-                <div className="mt-4 flex items-end gap-1">
-                  <span className="text-4xl font-extrabold text-white">199.000đ</span>
-                  <span className="text-indigo-200 mb-1">/tháng</span>
+                <p className="text-sm font-semibold text-indigo-200 uppercase tracking-wide">Basic</p>
+                <div className="mt-3 flex items-end gap-1">
+                  <span className="text-4xl font-extrabold text-white">99.000đ</span>
+                  <span className="text-indigo-200 mb-1 text-sm">/tháng</span>
                 </div>
-                <p className="mt-2 text-sm text-indigo-200">Dành cho cá nhân &amp; freelancer</p>
-                <Link href="/login" className="mt-6 block text-center py-2.5 text-sm font-bold bg-white text-indigo-700 rounded-xl hover:bg-indigo-50 transition-colors shadow-md">
-                  Nâng cấp ngay
+                <p className="mt-1.5 text-sm text-indigo-300">hoặc 79.000đ/tháng khi mua năm</p>
+                <Link href="/login" className="mt-5 block text-center py-2.5 text-sm font-bold bg-white text-indigo-700 rounded-xl hover:bg-indigo-50 transition-colors shadow-md">
+                  Nâng cấp Basic
                 </Link>
-                <ul className="mt-8 space-y-3 flex-1">
-                  {['100 khối nội dung/tháng', 'Lưu không giới hạn dự án', 'Xuất HTML inline CSS', 'Lịch sử 6 tháng', 'Ưu tiên hỗ trợ', '20+ mẫu khối có sẵn'].map(f => (
+                <ul className="mt-6 space-y-2.5 flex-1">
+                  {[
+                    '20 bài viết HTML/tháng',
+                    '5 landing page/tháng',
+                    'Sao chép & xuất HTML',
+                    'Toàn bộ template mẫu',
+                    'Lưu lịch sử 30 ngày',
+                    'Hỗ trợ qua email',
+                  ].map(f => (
                     <li key={f} className="flex items-center gap-2 text-sm text-white/90">
                       <CheckCircle2 className="w-4 h-4 text-indigo-200 shrink-0" /> {f}
                     </li>
@@ -551,20 +579,27 @@ export default async function LandingPage() {
               </div>
             </ScrollReveal>
 
-            {/* Business */}
+            {/* Pro */}
             <ScrollReveal from="right" className="h-full">
-              <div className="rounded-2xl border border-gray-200 bg-white p-8 card-lift h-full flex flex-col">
-                <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Business</p>
-                <div className="mt-4 flex items-end gap-1">
-                  <span className="text-4xl font-extrabold text-gray-900">499.000đ</span>
-                  <span className="text-gray-500 mb-1">/tháng</span>
+              <div className="rounded-2xl border-2 border-indigo-200 bg-white p-7 card-lift h-full flex flex-col relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-50 to-violet-50 rounded-bl-full" />
+                <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide">Pro</p>
+                <div className="mt-3 flex items-end gap-1">
+                  <span className="text-4xl font-extrabold text-gray-900">199.000đ</span>
+                  <span className="text-gray-500 mb-1 text-sm">/tháng</span>
                 </div>
-                <p className="mt-2 text-sm text-gray-600">Dành cho đội nhóm &amp; doanh nghiệp</p>
-                <a href="mailto:support@aicontentbooster.vn" className="mt-6 block text-center py-2.5 text-sm font-semibold text-gray-700 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">
-                  Liên hệ tư vấn
-                </a>
-                <ul className="mt-8 space-y-3 flex-1">
-                  {['Không giới hạn khối/tháng', 'Lưu không giới hạn', 'Nhiều tài khoản thành viên', 'API access', 'Lịch sử không giới hạn', 'Hỗ trợ riêng 24/7'].map(f => (
+                <p className="mt-1.5 text-sm text-gray-500">hoặc 159.000đ/tháng khi mua năm</p>
+                <Link href="/login" className="mt-5 block text-center py-2.5 text-sm font-semibold text-indigo-700 border-2 border-indigo-400 rounded-xl hover:bg-indigo-50 transition-colors">
+                  Nâng cấp Pro
+                </Link>
+                <ul className="mt-6 space-y-2.5 flex-1">
+                  {[
+                    'Không giới hạn bài viết HTML',
+                    'Không giới hạn landing page',
+                    'Toàn bộ tính năng Basic',
+                    'Lưu lịch sử không giới hạn',
+                    'Hỗ trợ Zalo ưu tiên trong 4h',
+                  ].map(f => (
                     <li key={f} className="flex items-center gap-2 text-sm text-gray-700">
                       <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> {f}
                     </li>
@@ -573,6 +608,40 @@ export default async function LandingPage() {
               </div>
             </ScrollReveal>
           </div>
+
+          {/* Credits section */}
+          <ScrollReveal className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Hoặc nạp credits</h3>
+            <p className="text-gray-500 text-sm">Không cần đăng ký tháng — dùng tới đâu tính tiền tới đó. Credits không hết hạn.</p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { amount: '20.000đ', desc: '4 bài viết HTML', highlight: false },
+              { amount: '50.000đ', desc: '10 bài viết + 2 landing page', highlight: false },
+              { amount: '100.000đ', desc: '25 bài viết + 5 landing page', highlight: true, badge: 'Tiết kiệm nhất' },
+              { amount: '200.000đ', desc: '60 bài viết + 12 landing page', highlight: false },
+            ].map(({ amount, desc, highlight, badge }) => (
+              <ScrollReveal key={amount} className="h-full">
+                <div className={`rounded-2xl p-5 h-full flex flex-col gap-3 relative ${highlight ? 'bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/20' : 'bg-white border border-gray-200'}`}>
+                  {badge && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-0.5 bg-amber-400 text-gray-900 rounded-full shadow whitespace-nowrap">
+                      {badge}
+                    </span>
+                  )}
+                  <p className={`text-2xl font-extrabold ${highlight ? 'text-white' : 'text-gray-900'}`}>{amount}</p>
+                  <p className={`text-sm flex-1 ${highlight ? 'text-emerald-50' : 'text-gray-600'}`}>{desc}</p>
+                  <Link href="/login" className={`block text-center py-2 text-xs font-semibold rounded-xl transition-colors ${highlight ? 'bg-white text-emerald-700 hover:bg-emerald-50' : 'text-indigo-600 border border-indigo-200 hover:bg-indigo-50'}`}>
+                    Nạp ngay
+                  </Link>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal className="text-center mt-8">
+            <p className="text-sm text-gray-400">Chúng tôi rất fair — bạn xài tới đâu tính tiền tới đó. Không có phí ẩn.</p>
+          </ScrollReveal>
         </div>
       </section>
 
