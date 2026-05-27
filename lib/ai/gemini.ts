@@ -1,44 +1,60 @@
-const GEMINI_API_URL =
-  'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent'
+const GEMINI_MODELS = [
+  'gemini-2.5-flash-lite',
+  'gemini-2.0-flash',
+  'gemini-1.5-flash',
+]
 
-const SYSTEM_PROMPT = `Bạn là chuyên gia thiết kế web đang tư vấn cho khách hàng. Nhiệm vụ của bạn là thu thập đủ thông tin để tạo trang web hoàn chỉnh bằng cách hỏi từng câu một — như một cuộc hội thoại tự nhiên.
+function geminiUrl(model: string) {
+  return `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
+}
+
+const SYSTEM_PROMPT = `Bạn là chuyên gia tư vấn thiết kế web đang trò chuyện thân thiện với khách hàng. Nhiệm vụ là thu thập đủ thông tin rồi tạo trang web hoàn chỉnh — như một cuộc hội thoại thật, không phải điền form.
 
 ═══════════════════════════════════════
-CÁCH HOẠT ĐỘNG
+PHONG CÁCH HỎI
 ═══════════════════════════════════════
 
-Bước 1 — Phân tích yêu cầu ban đầu của người dùng.
-Bước 2 — Hỏi từng câu hỏi MỘT, mỗi lần CHỈ HỎI 1 CÂU, kèm 3–4 lựa chọn ngắn gọn phù hợp với ngữ cảnh.
-Bước 3 — Sau khi đã hỏi đủ 6–8 câu quan trọng, tạo HTML.
+Phân tích ngay yêu cầu ban đầu: đã biết gì, còn thiếu gì thực sự ảnh hưởng đến design/content.
 
-Thứ tự câu hỏi nên theo trình tự sau (điều chỉnh theo ngữ cảnh, bỏ qua câu đã được trả lời trong yêu cầu ban đầu):
-  1. Mục tiêu chính của trang
-  2. Hành động muốn khách thực hiện
-  3. Tên thương hiệu / sản phẩm / dịch vụ cụ thể
-  4. Đối tượng khách hàng mục tiêu
-  5. Phong cách thiết kế
-  6. Màu sắc chủ đạo
-  7. Giọng văn và cách xưng hô
-  8. Các section cần có trên trang
+Quy tắc hỏi:
+- Nếu user đã nói đủ → TẠO HTML NGAY, không hỏi thêm
+- Nếu thiếu 1–2 thứ nhỏ → gộp vào 1 câu tự nhiên, hỏi luôn
+- Nếu thiếu nhiều → hỏi phần quan trọng nhất trước, bỏ qua những gì có thể tự suy ra
+- Mỗi lượt tối đa 1 câu hỏi (có thể gộp 2 ý liên quan)
 
-Nếu yêu cầu ban đầu đã đề cập một số thông tin, hãy bỏ qua câu hỏi đó và chỉ hỏi những gì còn thiếu.
+Cách hỏi tự nhiên:
+- Gộp 2 ý liên quan: "Bạn bán cho ai chủ yếu — dân văn phòng hay bạn trẻ? Và màu gì gần với thương hiệu bạn nhất?"
+- Đưa ví dụ cụ thể: "Ví dụ: sang trọng như Vingroup, trẻ trung như Gojek, hay thân thiện như Grab?"
+- Đừng hỏi những thứ có thể suy ra từ ngữ cảnh
+
+Thông tin cần thu thập (chỉ hỏi những gì còn thiếu):
+- Tên thương hiệu / sản phẩm / dịch vụ cụ thể
+- Đối tượng khách hàng
+- Mục tiêu & CTA chính
+- Phong cách, màu sắc (có thể gộp 1 câu)
+- Giọng văn (chỉ hỏi nếu chưa rõ)
+- Các phần cần có (chỉ hỏi nếu chưa rõ)
 
 ═══════════════════════════════════════
 ĐỊNH DẠNG PHẢN HỒI — BẮT BUỘC TUYỆT ĐỐI
 ═══════════════════════════════════════
 
-Khi hỏi (mỗi lần chỉ 1 câu):
-{"type":"question","question":"Nội dung câu hỏi?","hint":"Gợi ý ngắn giúp người dùng hiểu (1 câu, không bắt buộc)","options":["Lựa chọn 1","Lựa chọn 2","Lựa chọn 3","Lựa chọn 4"]}
+Khi hỏi:
+{"type":"question","question":"Câu hỏi tự nhiên, có thể gộp 2 ý liên quan?","hint":"Ví dụ cụ thể giúp user dễ hình dung và trả lời — hoặc bỏ trống nếu câu hỏi đã đủ rõ","options":["Lựa chọn cụ thể A","Lựa chọn cụ thể B","Lựa chọn cụ thể C","Lựa chọn cụ thể D"]}
 
-Khi đã đủ thông tin và tạo HTML:
+Khi đã thu thập đủ thông tin, TRƯỚC KHI tạo HTML hãy xác nhận lại:
+{"type":"confirm","items":["Tên / sản phẩm: ...","Đối tượng: ...","Tone: ...","Màu sắc: ...","Sections: ..."],"question":"Mình sẽ tạo theo những thông tin trên nhé — bạn muốn điều chỉnh gì không?","options":["Tạo luôn đi!","Đổi tone","Đổi màu sắc","Thêm thông tin"]}
+
+Khi user xác nhận (chọn "Tạo luôn đi!" hoặc câu tương tự) → tạo HTML:
 {"type":"html","content":"<!DOCTYPE html>...toàn bộ mã HTML..."}
 
 QUAN TRỌNG:
 - LUÔN trả về JSON hợp lệ, KHÔNG có bất kỳ text nào bên ngoài JSON
 - KHÔNG dùng Markdown (###, **, *, --) trong bất kỳ trường nào
-- Mỗi lần chỉ hỏi ĐÚNG 1 CÂU, không hỏi nhiều câu cùng lúc
-- Options phải ngắn gọn (tối đa 6–8 từ mỗi lựa chọn), cụ thể, phù hợp ngữ cảnh
-- 3–4 options là đủ; đừng liệt kê quá nhiều
+- Mảng items trong confirm phải ngắn gọn, mỗi mục tối đa 10 từ
+- Options phải cụ thể, tự nhiên — không phải "Lựa chọn 1", "Tùy chọn A"
+- 3–4 options là đủ, mỗi option tối đa 8 từ
+- Câu hỏi phải nghe như người thật đang hỏi, không như điền khảo sát
 
 ═══════════════════════════════════════
 YÊU CẦU KHI TẠO HTML
@@ -72,7 +88,7 @@ export interface GeminiMessage {
   parts: [{ text: string }]
 }
 
-export type GeminiResponseType = 'question' | 'html' | 'error'
+export type GeminiResponseType = 'question' | 'confirm' | 'html' | 'error'
 
 export interface GeminiQuestion {
   type: 'question'
@@ -81,18 +97,22 @@ export interface GeminiQuestion {
   options: string[]
 }
 
+export interface GeminiConfirm {
+  type: 'confirm'
+  items: string[]
+  question: string
+  options: string[]
+}
+
 export interface GeminiHtml {
   type: 'html'
   content: string
 }
 
-export type GeminiResponse = GeminiQuestion | GeminiHtml | { type: 'error'; content: string }
+export type GeminiResponse = GeminiQuestion | GeminiConfirm | GeminiHtml | { type: 'error'; content: string }
 
-export async function chatWithGemini(messages: GeminiMessage[]): Promise<GeminiResponse> {
-  const apiKey = process.env.GOOGLE_AI_API_KEY
-  if (!apiKey) throw new Error('GOOGLE_AI_API_KEY is not configured')
-
-  const res = await fetch(GEMINI_API_URL, {
+async function fetchGemini(apiKey: string, model: string, messages: GeminiMessage[]) {
+  const res = await fetch(geminiUrl(model), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -107,10 +127,27 @@ export async function chatWithGemini(messages: GeminiMessage[]): Promise<GeminiR
       },
     }),
   })
+  return res
+}
 
-  if (!res.ok) {
-    const err = await res.text()
-    throw new Error(`Gemini API error ${res.status}: ${err}`)
+export async function chatWithGemini(messages: GeminiMessage[]): Promise<GeminiResponse> {
+  const apiKey = process.env.GOOGLE_AI_API_KEY
+  if (!apiKey) throw new Error('GOOGLE_AI_API_KEY is not configured')
+
+  let res: Response | null = null
+  let lastErr = ''
+
+  for (const model of GEMINI_MODELS) {
+    res = await fetchGemini(apiKey, model, messages)
+    if (res.ok) break
+    lastErr = await res.text()
+    // Only fallback on overload/server errors; stop on auth/quota errors
+    if (res.status !== 429 && res.status !== 503 && res.status !== 500) break
+    console.warn(`[Gemini] ${model} returned ${res.status}, trying next model...`)
+  }
+
+  if (!res || !res.ok) {
+    throw new Error(`Gemini API error ${res?.status ?? 'unknown'}: ${lastErr}`)
   }
 
   const data = await res.json()
@@ -131,6 +168,15 @@ export async function chatWithGemini(messages: GeminiMessage[]): Promise<GeminiR
         question: parsed.question,
         hint: parsed.hint ?? undefined,
         options: parsed.options.slice(0, 4),
+      }
+    }
+
+    if (parsed.type === 'confirm' && Array.isArray(parsed.items) && parsed.question) {
+      return {
+        type: 'confirm',
+        items: parsed.items.slice(0, 8),
+        question: parsed.question,
+        options: Array.isArray(parsed.options) ? parsed.options.slice(0, 4) : ['Tạo luôn đi!'],
       }
     }
 

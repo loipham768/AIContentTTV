@@ -528,3 +528,9 @@ span.text-xs.font-semibold.text-slate-700.uppercase.tracking-wider {
 .gjs-clm-select input {
   color: #000;
 }
+#gjs-blocks-panel .gjs-block-category {
+  border-bottom: 0 !important;
+}
+/* .gjs-block-category:last-child .gjs-title {
+  border-bottom: 0 !important;
+} */

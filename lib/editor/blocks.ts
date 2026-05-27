@@ -593,79 +593,52 @@ export function registerBlocks(editor: Editor) {
     label: 'Slider',
     category: 'Media',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M8 12h8M15 9l3 3-3 3"/></svg>`,
-    content: `<div data-carousel style="width:100%;position:relative;overflow:hidden;border-radius:18px;background:#0f172a;user-select:none;-webkit-user-select:none;${FONT}">
-  <div data-track style="display:flex;will-change:transform;transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);">
-    <div data-slide style="flex:0 0 100%;min-width:100%;position:relative;">
+    content: (() => {
+      // Unique prefix so anchor links work when multiple sliders appear on one page
+      const sid = 's' + Math.random().toString(36).slice(2, 7)
+      const SLIDE = `flex:0 0 100%;min-width:100%;scroll-snap-align:start;position:relative;`
+      const OVERLAY = `position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 55%,transparent 100%);pointer-events:none;`
+      const CAPTION = `position:absolute;bottom:52px;left:0;right:0;padding:0 32px;`
+      const H3 = `font-size:clamp(18px,4vw,26px);font-weight:800;color:#fff;margin:0 0 8px;line-height:1.25;${FONT}`
+      const P = `font-size:15px;color:rgba(255,255,255,0.82);margin:0;line-height:1.6;${FONT}`
+      const DOT_ACTIVE = `display:block;width:28px;height:7px;background:rgba(255,255,255,0.95);border-radius:9999px;text-decoration:none;`
+      const DOT_IDLE = `display:block;width:7px;height:7px;background:rgba(255,255,255,0.45);border-radius:50%;text-decoration:none;`
+      return `<div style="width:100%;position:relative;border-radius:18px;background:#0f172a;overflow:hidden;${FONT}">
+  <!-- scroll-snap track; padding-bottom+margin-bottom hides the horizontal scrollbar -->
+  <div id="${sid}" style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;padding-bottom:20px;margin-bottom:-20px;">
+    <div id="${sid}-1" style="${SLIDE}">
       <img src="https://placehold.co/900x480/e0e7ff/4f46e5?text=Slide+1" alt="" style="width:100%;height:420px;object-fit:cover;display:block;"/>
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 55%,transparent 100%);pointer-events:none;"></div>
-      <div style="position:absolute;bottom:52px;left:0;right:0;padding:0 32px;">
-        <h3 style="font-size:clamp(18px,4vw,26px);font-weight:800;color:#fff;margin:0 0 8px;line-height:1.25;${FONT}">Tiêu đề slide 1</h3>
-        <p style="font-size:15px;color:rgba(255,255,255,0.82);margin:0;line-height:1.6;${FONT}">Mô tả ngắn hấp dẫn về nội dung của slide này để thu hút người xem</p>
+      <div style="${OVERLAY}"></div>
+      <div style="${CAPTION}">
+        <h3 style="${H3}">Tiêu đề slide 1</h3>
+        <p style="${P}">Mô tả ngắn hấp dẫn về nội dung của slide này để thu hút người xem</p>
       </div>
     </div>
-    <div data-slide style="flex:0 0 100%;min-width:100%;position:relative;">
+    <div id="${sid}-2" style="${SLIDE}">
       <img src="https://placehold.co/900x480/ede9fe/7c3aed?text=Slide+2" alt="" style="width:100%;height:420px;object-fit:cover;display:block;"/>
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 55%,transparent 100%);pointer-events:none;"></div>
-      <div style="position:absolute;bottom:52px;left:0;right:0;padding:0 32px;">
-        <h3 style="font-size:clamp(18px,4vw,26px);font-weight:800;color:#fff;margin:0 0 8px;line-height:1.25;${FONT}">Tiêu đề slide 2</h3>
-        <p style="font-size:15px;color:rgba(255,255,255,0.82);margin:0;line-height:1.6;${FONT}">Mô tả ngắn hấp dẫn về nội dung của slide này để thu hút người xem</p>
+      <div style="${OVERLAY}"></div>
+      <div style="${CAPTION}">
+        <h3 style="${H3}">Tiêu đề slide 2</h3>
+        <p style="${P}">Mô tả ngắn hấp dẫn về nội dung của slide này để thu hút người xem</p>
       </div>
     </div>
-    <div data-slide style="flex:0 0 100%;min-width:100%;position:relative;">
+    <div id="${sid}-3" style="${SLIDE}">
       <img src="https://placehold.co/900x480/dcfce7/059669?text=Slide+3" alt="" style="width:100%;height:420px;object-fit:cover;display:block;"/>
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 55%,transparent 100%);pointer-events:none;"></div>
-      <div style="position:absolute;bottom:52px;left:0;right:0;padding:0 32px;">
-        <h3 style="font-size:clamp(18px,4vw,26px);font-weight:800;color:#fff;margin:0 0 8px;line-height:1.25;${FONT}">Tiêu đề slide 3</h3>
-        <p style="font-size:15px;color:rgba(255,255,255,0.82);margin:0;line-height:1.6;${FONT}">Mô tả ngắn hấp dẫn về nội dung của slide này để thu hút người xem</p>
+      <div style="${OVERLAY}"></div>
+      <div style="${CAPTION}">
+        <h3 style="${H3}">Tiêu đề slide 3</h3>
+        <p style="${P}">Mô tả ngắn hấp dẫn về nội dung của slide này để thu hút người xem</p>
       </div>
     </div>
   </div>
-  <div data-dots style="position:absolute;bottom:18px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:6px;">
-    <a data-dot href="#" style="display:block;width:28px;height:7px;background:rgba(255,255,255,0.95);border-radius:9999px;text-decoration:none;transition:width 0.25s,background 0.25s;"></a>
-    <a data-dot href="#" style="display:block;width:7px;height:7px;background:rgba(255,255,255,0.45);border-radius:50%;text-decoration:none;transition:width 0.25s,background 0.25s;"></a>
-    <a data-dot href="#" style="display:block;width:7px;height:7px;background:rgba(255,255,255,0.45);border-radius:50%;text-decoration:none;transition:width 0.25s,background 0.25s;"></a>
+  <!-- Dot navigation: anchor links scroll the snap container to the target slide -->
+  <div style="position:absolute;bottom:18px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:6px;z-index:10;">
+    <a href="#${sid}-1" style="${DOT_ACTIVE}"></a>
+    <a href="#${sid}-2" style="${DOT_IDLE}"></a>
+    <a href="#${sid}-3" style="${DOT_IDLE}"></a>
   </div>
-  <script>(function(){
-    var all=document.querySelectorAll('[data-carousel]');
-    var c=all[all.length-1];
-    if(!c||c.getAttribute('data-init'))return;
-    c.setAttribute('data-init','1');
-    var track=c.querySelector('[data-track]');
-    var dots=Array.from(c.querySelectorAll('[data-dot]'));
-    var n=dots.length,idx=0,timer;
-    function setDot(i){
-      dots.forEach(function(d,j){
-        d.style.width=j===i?'28px':'7px';
-        d.style.borderRadius=j===i?'9999px':'50%';
-        d.style.background=j===i?'rgba(255,255,255,0.95)':'rgba(255,255,255,0.45)';
-      });
-    }
-    function goTo(i){
-      idx=(i%n+n)%n;
-      track.style.transform='translateX(-'+(idx*100)+'%)';
-      setDot(idx);
-    }
-    dots.forEach(function(d,i){
-      d.addEventListener('click',function(e){
-        e.preventDefault();
-        clearInterval(timer);
-        goTo(i);
-        startAuto();
-      });
-    });
-    var txStart;
-    c.addEventListener('touchstart',function(e){clearInterval(timer);txStart=e.touches[0].clientX;},{passive:true});
-    c.addEventListener('touchend',function(e){
-      var dx=e.changedTouches[0].clientX-txStart;
-      if(Math.abs(dx)>40)goTo(dx<0?idx+1:idx-1);
-      startAuto();
-    },{passive:true});
-    function startAuto(){timer=setInterval(function(){goTo(idx+1);},6000);}
-    c.addEventListener('mouseenter',function(){clearInterval(timer);});
-    c.addEventListener('mouseleave',startAuto);
-    startAuto();
-  })();</script>
-</div>`,
+</div>`
+    })(),
   })
 
   bm.add('table', {
@@ -726,5 +699,235 @@ export function registerBlocks(editor: Editor) {
     content: `<div style="width:100%;height:360px;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);">
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125418.4534827254!2d106.62873!3d10.8230989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529292e8d3dd1%3A0xf15f5aad773c112b!2zVHAuIEhDTQ!5e0!3m2!1svi!2svn!4v1635000000000" style="width:100%;height:100%;border:0;" allowfullscreen loading="lazy"></iframe>
 </div>`,
+  })
+
+  // ── SEO & Content ────────────────────────────────────────────────────────
+
+  bm.add('h1-heading', {
+    label: 'Tiêu đề H1',
+    category: 'SEO & Content',
+    media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h8M4 18h12"/><text x="14" y="19" font-size="8" fill="currentColor" stroke="none">H1</text></svg>`,
+    content: `<h1 style="${H1}padding:8px 0;">Tiêu đề chính của trang (H1 — SEO quan trọng)</h1>`,
+  })
+
+  bm.add('blockquote', {
+    label: 'Trích dẫn',
+    category: 'SEO & Content',
+    media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1zm12 0c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>`,
+    content: `<blockquote style="margin:0;padding:24px 28px;border-left:4px solid #4f46e5;background:#f5f3ff;border-radius:0 12px 12px 0;">
+  <p style="font-size:18px;font-style:italic;color:#3730a3;line-height:1.7;margin:0 0 12px;${FONT}">"Sản phẩm này đã thay đổi hoàn toàn cách chúng tôi làm việc. Kết quả vượt mọi kỳ vọng."</p>
+  <footer style="${FONT}font-size:14px;color:#6d28d9;font-weight:600;">— Nguyễn Văn A, CEO tại Công ty XYZ</footer>
+</blockquote>`,
+  })
+
+  bm.add('logo-cloud', {
+    label: 'Logo đối tác',
+    category: 'SEO & Content',
+    media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 12h.01M10 12h.01M14 12h.01M18 12h.01"/></svg>`,
+    content: `<div style="padding:40px 24px;text-align:center;${FONT}">
+  <p style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#94a3b8;margin:0 0 28px;">Được tin dùng bởi</p>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:32px 40px;">
+    <div style="padding:10px 20px;background:#f1f5f9;border-radius:8px;font-size:15px;font-weight:800;color:#64748b;letter-spacing:-0.02em;${FONT}">BRAND A</div>
+    <div style="padding:10px 20px;background:#f1f5f9;border-radius:8px;font-size:15px;font-weight:800;color:#64748b;letter-spacing:-0.02em;${FONT}">BRAND B</div>
+    <div style="padding:10px 20px;background:#f1f5f9;border-radius:8px;font-size:15px;font-weight:800;color:#64748b;letter-spacing:-0.02em;${FONT}">BRAND C</div>
+    <div style="padding:10px 20px;background:#f1f5f9;border-radius:8px;font-size:15px;font-weight:800;color:#64748b;letter-spacing:-0.02em;${FONT}">BRAND D</div>
+    <div style="padding:10px 20px;background:#f1f5f9;border-radius:8px;font-size:15px;font-weight:800;color:#64748b;letter-spacing:-0.02em;${FONT}">BRAND E</div>
+  </div>
+</div>`,
+  })
+
+  bm.add('image-text', {
+    label: 'Ảnh + Nội dung',
+    category: 'SEO & Content',
+    media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="9" height="18" rx="1"/><rect x="13" y="3" width="9" height="4" rx="1"/><rect x="13" y="10" width="9" height="2" rx="1"/><rect x="13" y="15" width="6" height="2" rx="1"/></svg>`,
+    content: `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:40px;padding:48px 24px;${FONT}">
+  <div style="flex:1;min-width:280px;">
+    <img src="https://placehold.co/520x380/e0e7ff/4f46e5?text=Hình+ảnh" alt="" style="width:100%;border-radius:16px;object-fit:cover;display:block;"/>
+  </div>
+  <div style="flex:1;min-width:280px;">
+    <span style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4f46e5;margin-bottom:14px;${FONT}">Tính năng nổi bật</span>
+    <h2 style="${H2}margin-bottom:16px;">Tiêu đề mô tả lợi ích chính</h2>
+    <p style="${BODY}margin-bottom:20px;">Mô tả chi tiết về tính năng hoặc lợi ích của sản phẩm/dịch vụ. Hãy tập trung vào giá trị thực mà khách hàng nhận được.</p>
+    <ul style="list-style:none;padding:0;margin:0 0 28px;display:flex;flex-direction:column;gap:10px;">
+      <li style="display:flex;align-items:center;gap:10px;font-size:15px;color:#334155;${FONT}"><span style="width:20px;height:20px;background:#4f46e5;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:11px;font-weight:700;">✓</span>Lợi ích thứ nhất rõ ràng</li>
+      <li style="display:flex;align-items:center;gap:10px;font-size:15px;color:#334155;${FONT}"><span style="width:20px;height:20px;background:#4f46e5;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:11px;font-weight:700;">✓</span>Lợi ích thứ hai rõ ràng</li>
+      <li style="display:flex;align-items:center;gap:10px;font-size:15px;color:#334155;${FONT}"><span style="width:20px;height:20px;background:#4f46e5;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:11px;font-weight:700;">✓</span>Lợi ích thứ ba rõ ràng</li>
+    </ul>
+    <a href="#" style="display:inline-block;padding:13px 28px;background:#4f46e5;color:#fff;font-weight:700;font-size:15px;border-radius:10px;text-decoration:none;${FONT}">Tìm hiểu thêm →</a>
+  </div>
+</div>`,
+  })
+
+  bm.add('contact-info', {
+    label: 'Thông tin liên hệ',
+    category: 'SEO & Content',
+    media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12 19.79 19.79 0 011.61 3.4 2 2 0 013.61 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.9a16 16 0 006.06 6.06l.97-.95a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>`,
+    content: `<div style="padding:48px 24px;background:#f8fafc;${FONT}">
+  <div style="max-width:900px;margin:0 auto;">
+    <h2 style="${H2}text-align:center;margin-bottom:40px;">Liên hệ với chúng tôi</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:center;">
+      <div style="flex:1;min-width:200px;background:#fff;border-radius:16px;padding:28px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+        <div style="font-size:28px;margin-bottom:12px;">📍</div>
+        <div style="font-weight:700;color:#0f172a;margin-bottom:6px;${FONT}">Địa chỉ</div>
+        <div style="${BODY}text-align:center;">123 Đường ABC, Quận 1<br>TP. Hồ Chí Minh</div>
+      </div>
+      <div style="flex:1;min-width:200px;background:#fff;border-radius:16px;padding:28px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+        <div style="font-size:28px;margin-bottom:12px;">📞</div>
+        <div style="font-weight:700;color:#0f172a;margin-bottom:6px;${FONT}">Điện thoại</div>
+        <a href="tel:+84901234567" style="color:#4f46e5;text-decoration:none;font-weight:600;font-size:15px;${FONT}">0901 234 567</a>
+      </div>
+      <div style="flex:1;min-width:200px;background:#fff;border-radius:16px;padding:28px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+        <div style="font-size:28px;margin-bottom:12px;">✉️</div>
+        <div style="font-weight:700;color:#0f172a;margin-bottom:6px;${FONT}">Email</div>
+        <a href="mailto:hello@brand.vn" style="color:#4f46e5;text-decoration:none;font-weight:600;font-size:15px;${FONT}">hello@brand.vn</a>
+      </div>
+      <div style="flex:1;min-width:200px;background:#fff;border-radius:16px;padding:28px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+        <div style="font-size:28px;margin-bottom:12px;">🕐</div>
+        <div style="font-weight:700;color:#0f172a;margin-bottom:6px;${FONT}">Giờ làm việc</div>
+        <div style="${BODY}text-align:center;">T2–T6: 8:00 – 17:30<br>T7: 8:00 – 12:00</div>
+      </div>
+    </div>
+  </div>
+</div>`,
+  })
+
+  bm.add('newsletter', {
+    label: 'Đăng ký nhận tin',
+    category: 'SEO & Content',
+    media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
+    content: `<div style="padding:56px 24px;background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);text-align:center;${FONT}">
+  <p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin:0 0 12px;">Newsletter</p>
+  <h2 style="font-size:clamp(22px,4vw,32px);font-weight:800;color:#fff;margin:0 0 12px;line-height:1.2;${FONT}">Nhận ưu đãi & cập nhật mới nhất</h2>
+  <p style="font-size:15px;color:rgba(255,255,255,0.8);margin:0 0 32px;line-height:1.6;max-width:480px;display:inline-block;${FONT}">Đăng ký để nhận thông tin sản phẩm, khuyến mãi và nội dung hữu ích hàng tuần.</p>
+  <form action="#" method="post" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:480px;margin:0 auto;">
+    <input type="email" name="email" placeholder="Nhập email của bạn..." required style="flex:1;min-width:220px;padding:14px 18px;border-radius:10px;border:none;font-size:14px;outline:none;${FONT}"/>
+    <button type="submit" style="padding:14px 24px;background:#fff;color:#4f46e5;font-weight:700;font-size:14px;border:none;border-radius:10px;cursor:pointer;white-space:nowrap;${FONT}">Đăng ký ngay</button>
+  </form>
+  <p style="font-size:12px;color:rgba(255,255,255,0.55);margin:16px 0 0;${FONT}">Không spam. Hủy đăng ký bất kỳ lúc nào.</p>
+</div>`,
+  })
+
+  bm.add('social-links', {
+    label: 'Mạng xã hội',
+    category: 'SEO & Content',
+    media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>`,
+    content: `<div style="padding:32px 24px;text-align:center;${FONT}">
+  <p style="${BODY}margin-bottom:20px;">Theo dõi chúng tôi trên mạng xã hội</p>
+  <div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;">
+    <a href="#" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:#1877f2;border-radius:50%;text-decoration:none;font-size:18px;">📘</a>
+    <a href="#" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:linear-gradient(135deg,#f58529,#dd2a7b,#515bd4);border-radius:50%;text-decoration:none;font-size:18px;">📷</a>
+    <a href="#" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:#000;border-radius:50%;text-decoration:none;font-size:18px;">🎵</a>
+    <a href="#" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:#ff0000;border-radius:50%;text-decoration:none;font-size:18px;">▶️</a>
+    <a href="#" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:#0a66c2;border-radius:50%;text-decoration:none;font-size:18px;">💼</a>
+  </div>
+</div>`,
+  })
+
+  bm.add('timeline', {
+    label: 'Lịch sử / Timeline',
+    category: 'SEO & Content',
+    media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22"/><circle cx="12" cy="6" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="18" r="2"/><line x1="12" y1="6" x2="18" y2="6"/><line x1="12" y1="12" x2="6" y2="12"/><line x1="12" y1="18" x2="18" y2="18"/></svg>`,
+    content: `<div style="padding:48px 24px;${FONT}">
+  <h2 style="${H2}text-align:center;margin-bottom:40px;">Hành trình của chúng tôi</h2>
+  <div style="max-width:640px;margin:0 auto;position:relative;">
+    <div style="position:absolute;left:20px;top:0;bottom:0;width:2px;background:#e2e8f0;"></div>
+    ${['2020 — Thành lập công ty với đội ngũ 5 người và ý tưởng đột phá','2021 — Ra mắt sản phẩm đầu tiên, đạt 1.000 khách hàng trong 6 tháng','2022 — Mở rộng đội ngũ lên 30 người, nhận vòng đầu tư Series A','2023 — Phục vụ hơn 50.000 khách hàng trên toàn quốc'].map((item, i) => {
+      const [year, ...rest] = item.split(' — ')
+      return `<div style="display:flex;gap:20px;margin-bottom:28px;position:relative;">
+      <div style="width:40px;height:40px;background:#4f46e5;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;box-shadow:0 0 0 4px #fff;">
+        <span style="color:#fff;font-size:11px;font-weight:800;">${year}</span>
+      </div>
+      <div style="background:#f8fafc;border-radius:12px;padding:16px 20px;flex:1;border:1px solid #e2e8f0;">
+        <p style="margin:0;font-size:15px;color:#334155;line-height:1.6;${FONT}">${rest.join(' — ')}</p>
+      </div>
+    </div>`}).join('')}
+  </div>
+</div>`,
+  })
+
+  bm.add('breadcrumb', {
+    label: 'Breadcrumb',
+    category: 'SEO & Content',
+    media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>`,
+    content: `<nav aria-label="Breadcrumb" style="padding:12px 24px;${FONT}">
+  <ol style="list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px;">
+    <li><a href="/" style="font-size:13px;color:#4f46e5;text-decoration:none;font-weight:500;${FONT}">Trang chủ</a></li>
+    <li style="color:#94a3b8;font-size:13px;">/</li>
+    <li><a href="#" style="font-size:13px;color:#4f46e5;text-decoration:none;font-weight:500;${FONT}">Danh mục</a></li>
+    <li style="color:#94a3b8;font-size:13px;">/</li>
+    <li style="font-size:13px;color:#64748b;font-weight:500;${FONT}" aria-current="page">Trang hiện tại</li>
+  </ol>
+</nav>`,
+  })
+
+  bm.add('blog-header', {
+    label: 'Đầu bài viết',
+    category: 'SEO & Content',
+    media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`,
+    content: `<header style="padding:48px 24px 32px;max-width:800px;margin:0 auto;${FONT}">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+    <span style="display:inline-block;padding:4px 12px;background:#ede9fe;color:#7c3aed;font-size:12px;font-weight:700;border-radius:9999px;${FONT}">Marketing</span>
+    <span style="font-size:13px;color:#94a3b8;${FONT}">•</span>
+    <span style="font-size:13px;color:#94a3b8;${FONT}">5 phút đọc</span>
+  </div>
+  <h1 style="${H1}margin-bottom:16px;font-size:clamp(26px,5vw,40px);">Tiêu đề bài viết chính — quan trọng nhất cho SEO</h1>
+  <p style="font-size:17px;color:#475569;line-height:1.7;margin:0 0 24px;${FONT}">Mô tả ngắn tóm tắt nội dung bài viết, xuất hiện trong meta description và giúp người đọc quyết định có đọc tiếp không.</p>
+  <div style="display:flex;align-items:center;gap:12px;padding-top:20px;border-top:1px solid #e2e8f0;">
+    <img src="https://placehold.co/44x44/4f46e5/fff?text=A" alt="" style="width:44px;height:44px;border-radius:50%;object-fit:cover;"/>
+    <div>
+      <div style="font-weight:600;font-size:14px;color:#0f172a;${FONT}">Nguyễn Văn A</div>
+      <div style="font-size:12px;color:#94a3b8;${FONT}">27 tháng 5, 2025</div>
+    </div>
+  </div>
+</header>`,
+  })
+
+  bm.add('countdown', {
+    label: 'Đếm ngược',
+    category: 'SEO & Content',
+    media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    content: `<div style="padding:40px 24px;text-align:center;background:#0f172a;border-radius:16px;${FONT}">
+  <p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin:0 0 16px;">Ưu đãi kết thúc sau</p>
+  <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+    ${[['02','Ngày'],['18','Giờ'],['45','Phút'],['30','Giây']].map(([n,l]) =>
+      `<div style="text-align:center;">
+        <div style="width:72px;height:72px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#fff;${FONT}">${n}</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:6px;font-weight:500;${FONT}">${l}</div>
+      </div>`).join('')}
+  </div>
+  <p style="font-size:12px;color:rgba(255,255,255,0.35);margin:20px 0 0;${FONT}">* Thay số bên trên theo thời gian thực tế của chiến dịch</p>
+</div>`,
+  })
+
+  bm.add('footer', {
+    label: 'Footer',
+    category: 'SEO & Content',
+    media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="17" width="20" height="5" rx="1"/><line x1="2" y1="13" x2="22" y2="13"/><line x1="6" y1="9" x2="6" y2="13"/><line x1="12" y1="7" x2="12" y2="13"/><line x1="18" y1="9" x2="18" y2="13"/></svg>`,
+    content: `<footer style="background:#0f172a;padding:48px 24px 24px;${FONT}">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="display:flex;flex-wrap:wrap;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.08);">
+      <div style="flex:2;min-width:200px;">
+        <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:12px;${FONT}">Tên Thương Hiệu</div>
+        <p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;margin:0 0 20px;max-width:260px;${FONT}">Mô tả ngắn về thương hiệu và sứ mệnh của bạn.</p>
+      </div>
+      <div style="flex:1;min-width:130px;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:14px;${FONT}">Sản phẩm</div>
+        ${['Tính năng','Bảng giá','Hỗ trợ'].map(t=>`<div style="margin-bottom:8px;"><a href="#" style="font-size:14px;color:rgba(255,255,255,0.6);text-decoration:none;${FONT}">${t}</a></div>`).join('')}
+      </div>
+      <div style="flex:1;min-width:130px;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:14px;${FONT}">Công ty</div>
+        ${['Về chúng tôi','Blog','Liên hệ'].map(t=>`<div style="margin-bottom:8px;"><a href="#" style="font-size:14px;color:rgba(255,255,255,0.6);text-decoration:none;${FONT}">${t}</a></div>`).join('')}
+      </div>
+      <div style="flex:1;min-width:130px;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:14px;${FONT}">Pháp lý</div>
+        ${['Điều khoản','Chính sách','Cookies'].map(t=>`<div style="margin-bottom:8px;"><a href="#" style="font-size:14px;color:rgba(255,255,255,0.6);text-decoration:none;${FONT}">${t}</a></div>`).join('')}
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:24px;">
+      <p style="font-size:13px;color:rgba(255,255,255,0.3);margin:0;${FONT}">© 2025 Tên Thương Hiệu. All rights reserved.</p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.3);margin:0;${FONT}">Made in Vietnam 🇻🇳</p>
+    </div>
+  </div>
+</footer>`,
   })
 }
