@@ -119,19 +119,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <div className="space-y-6">
             <div className="rounded-2xl border border-gray-200 shadow-sm p-8 sm:p-10" style={{ background: '#fff' }}>
               <article
-                className="prose prose-lg max-w-none
-                  prose-headings:font-extrabold prose-headings:text-gray-900
-                  prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:pb-3 prose-h2:border-b prose-h2:border-gray-100
-                  prose-h3:text-xl prose-h3:mt-7 prose-h3:mb-3 prose-h3:text-gray-800
-                  prose-p:text-gray-700 prose-p:leading-relaxed prose-p:text-base
-                  prose-li:text-gray-700 prose-li:leading-relaxed
-                  prose-a:text-indigo-600 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
-                  prose-strong:text-gray-900 prose-strong:font-bold
-                  prose-blockquote:not-italic prose-blockquote:border-l-4 prose-blockquote:border-indigo-400 prose-blockquote:bg-indigo-50 prose-blockquote:rounded-r-xl prose-blockquote:py-2 prose-blockquote:px-5
-                  prose-code:bg-gray-100 prose-code:text-indigo-700 prose-code:rounded-md prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-mono
-                  prose-pre:bg-gray-900 prose-pre:rounded-2xl prose-pre:shadow-lg
-                  prose-ol:my-5 prose-ul:my-5
-                  prose-img:rounded-2xl prose-img:shadow-md"
+                className="article-body"
                 dangerouslySetInnerHTML={{ __html: article.content }}
               />
             </div>

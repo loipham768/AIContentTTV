@@ -52,7 +52,7 @@ export const ARTICLES: Record<string, Article> = {
 </ol>
 
 <h2>Checklist landing page bán hàng trước khi ra mắt</h2>
-<ul>
+<ul class="checklist">
 <li>☑ Headline tập trung vào lợi ích (không phải tính năng)</li>
 <li>☑ Có ít nhất 3 testimonial thực từ khách hàng</li>
 <li>☑ Nút CTA rõ ràng, màu nổi bật</li>
@@ -193,7 +193,7 @@ export const ARTICLES: Record<string, Article> = {
 
 <h2>Cách dùng AI tạo content Facebook Ads</h2>
 <p>Thay vì nhìn màn hình trống và không biết bắt đầu từ đâu, hãy mô tả sản phẩm và đối tượng mục tiêu cho AI:</p>
-<blockquote style="border-left:4px solid #6366f1;padding:12px 16px;background:#f5f3ff;border-radius:0 8px 8px 0;margin:16px 0">
+<blockquote>
 <em>"Tạo 3 phiên bản content quảng cáo Facebook cho kem dưỡng da tinh chất nghệ, dành cho phụ nữ 25–40 tuổi, giá 280.000đ/hộp. Nhấn mạnh: da sáng sau 2 tuần, chiết xuất thiên nhiên, không paraben. Tone: gần gũi, thân thiện."</em>
 </blockquote>
 <p>AI sẽ tạo ra nhiều phiên bản với hook khác nhau để bạn A/B test.</p>
@@ -254,7 +254,7 @@ export const ARTICLES: Record<string, Article> = {
 
 <h2>Inline CSS giải quyết vấn đề này như thế nào?</h2>
 <p>Khi CSS được viết trực tiếp vào thuộc tính <code>style=""</code> của từng thẻ, CMS không thể xóa nó mà không phá vỡ HTML. Ví dụ:</p>
-<pre style="background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;overflow-x:auto;font-size:13px"><code>&lt;!-- ❌ Sẽ bị CMS xóa CSS --&gt;
+<pre><code>&lt;!-- ❌ Sẽ bị CMS xóa CSS --&gt;
 &lt;style&gt;.banner { background: #4338ca; color: white; }&lt;/style&gt;
 &lt;div class="banner"&gt;Nội dung&lt;/div&gt;
 
@@ -318,7 +318,7 @@ export const ARTICLES: Record<string, Article> = {
 
 <h2>Cách dùng AI tạo mô tả sản phẩm</h2>
 <p>Prompt hiệu quả cho AI:</p>
-<blockquote style="border-left:4px solid #6366f1;padding:12px 16px;background:#f5f3ff;border-radius:0 8px 8px 0;margin:16px 0">
+<blockquote>
 <em>"Viết mô tả sản phẩm cho: Kem dưỡng ẩm ban đêm, thành phần chính là retinol 0.1% + vitamin C, dành cho da khô 25–40 tuổi, giá 350.000đ. Nhấn mạnh: không gây kích ứng, thấy kết quả sau 4 tuần. Tone: chuyên nghiệp nhưng gần gũi. Bao gồm: headline, 3 lợi ích chính, cách dùng, cam kết."</em>
 </blockquote>
 
