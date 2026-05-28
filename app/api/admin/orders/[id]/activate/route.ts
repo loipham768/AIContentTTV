@@ -4,6 +4,7 @@ import { auth } from '@/auth'
 import { dbConnect } from '@/lib/mongodb'
 import Order from '@/models/Order'
 import User from '@/models/User'
+import { sendOrderActivatedEmail } from '@/lib/email'
 
 export const runtime = 'nodejs'
 
@@ -64,6 +65,15 @@ export async function POST(
   order.adminNote = note
 
   await Promise.all([user.save(), order.save()])
+
+  // Notify user (fire-and-forget)
+  sendOrderActivatedEmail(user.email, {
+    orderId: order.orderId,
+    type: order.type,
+    plan: order.plan ?? null,
+    billing: order.billing,
+    amount: order.amount,
+  }).catch(console.error)
 
   return NextResponse.json({ success: true })
 }

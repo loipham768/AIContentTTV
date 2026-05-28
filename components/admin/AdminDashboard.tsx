@@ -5,6 +5,7 @@ import ActivateUserButton from './ActivateUserButton'
 import ToggleUserButton from './ToggleUserButton'
 import DeleteProjectButton from './DeleteProjectButton'
 import ActivateOrderButton from './ActivateOrderButton'
+import RejectOrderButton from './RejectOrderButton'
 
 export interface UserRow {
   _id: string
@@ -161,13 +162,20 @@ export default function AdminDashboard({ initialUsers, initialProjects, initialO
                       {new Date(order.createdAt).toLocaleString('vi-VN', { hour12: false, day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}
                     </td>
                     <td className="px-4 py-3.5">
-                      {order.status === 'pending' && (
-                        <ActivateOrderButton
-                          orderId={order.orderId}
-                          onActivated={() => updateOrder(order.orderId, { status: 'paid', activatedAt: new Date().toISOString() })}
-                        />
+                      {order.status === 'pending' ? (
+                        <div className="flex items-start gap-1.5 flex-wrap">
+                          <ActivateOrderButton
+                            orderId={order.orderId}
+                            onActivated={() => updateOrder(order.orderId, { status: 'paid', activatedAt: new Date().toISOString() })}
+                          />
+                          <RejectOrderButton
+                            orderId={order.orderId}
+                            onRejected={() => updateOrder(order.orderId, { status: 'cancelled' })}
+                          />
+                        </div>
+                      ) : (
+                        <span className="text-xs text-gray-300">—</span>
                       )}
-                      {order.status !== 'pending' && <span className="text-xs text-gray-300">—</span>}
                     </td>
                   </tr>
                 ))}

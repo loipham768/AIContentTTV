@@ -4,20 +4,31 @@ import { useState, useRef, useEffect } from 'react'
 import { signIn } from 'next-auth/react'
 import { z } from 'zod'
 import Logo from '@/components/Logo'
-import { Loader2, Mail, Lock, Eye, EyeOff, ArrowLeft, ShieldCheck } from 'lucide-react'
+import { Loader2, Mail, Lock, Eye, EyeOff, ArrowLeft, ShieldCheck, CheckCircle2, Crown } from 'lucide-react'
 
 const emailSchema = z.string().email()
 const passwordSchema = z.string().min(8)
 
+type PlanOption = 'free' | 'basic' | 'pro'
+
+const PLAN_OPTIONS: { id: PlanOption; label: string; price: string; desc: string }[] = [
+  { id: 'free',  label: 'Miễn phí', price: '0đ',        desc: '3 bài viết/tháng' },
+  { id: 'basic', label: 'Basic',    price: '99.000đ',   desc: '20 bài viết/tháng' },
+  { id: 'pro',   label: 'Pro',      price: '199.000đ',  desc: 'Không giới hạn' },
+]
+
 interface LoginRegisterCardProps {
   callbackUrl?: string
+  initialPlan?: string
 }
 
 type Tab  = 'login' | 'register'
 type Step = 'form' | 'otp'
 
-export function LoginRegisterCard({ callbackUrl = '/editor' }: LoginRegisterCardProps) {
-  const [tab,      setTab]      = useState<Tab>('login')
+export function LoginRegisterCard({ callbackUrl = '/editor', initialPlan = '' }: LoginRegisterCardProps) {
+  const validInitial: PlanOption = (initialPlan === 'basic' || initialPlan === 'pro') ? initialPlan : 'free'
+
+  const [tab,      setTab]      = useState<Tab>(validInitial !== 'free' ? 'register' : 'login')
   const [step,     setStep]     = useState<Step>('form')
   const [email,    setEmail]    = useState('')
   const [password, setPassword] = useState('')
@@ -27,6 +38,7 @@ export function LoginRegisterCard({ callbackUrl = '/editor' }: LoginRegisterCard
   const [loading,  setLoading]  = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [resendCooldown, setResendCooldown] = useState(0)
+  const [selectedPlan, setSelectedPlan] = useState<PlanOption>(validInitial)
   const otpRef = useRef<HTMLInputElement>(null)
 
   // Countdown for resend button
@@ -43,6 +55,7 @@ export function LoginRegisterCard({ callbackUrl = '/editor' }: LoginRegisterCard
 
   function switchTab(t: Tab) {
     setTab(t); setStep('form'); setError(''); setFieldErrors({}); setOtp('')
+    if (t === 'register') setSelectedPlan(validInitial)
   }
 
   function validateFields() {
@@ -97,8 +110,13 @@ export function LoginRegisterCard({ callbackUrl = '/editor' }: LoginRegisterCard
       }
       // Account created — auto login
       const result = await signIn('credentials', { email, password, redirect: false })
-      if (result?.error) setError('Tài khoản đã tạo. Vui lòng đăng nhập.')
-      else window.location.href = callbackUrl
+      if (result?.error) {
+        setError('Tài khoản đã tạo. Vui lòng đăng nhập.')
+      } else if (selectedPlan === 'basic' || selectedPlan === 'pro') {
+        window.location.href = `/upgrade?plan=${selectedPlan}`
+      } else {
+        window.location.href = callbackUrl
+      }
     } finally { setLoading(false) }
   }
 
@@ -241,6 +259,45 @@ export function LoginRegisterCard({ callbackUrl = '/editor' }: LoginRegisterCard
               </div>
 
               <div className="space-y-4">
+
+                {/* Plan selector (register tab only) */}
+                {tab === 'register' && (
+                  <div>
+                    <p className="text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wide">Chọn gói của bạn</p>
+                    <div className="grid grid-cols-3 gap-2">
+                      {PLAN_OPTIONS.map(opt => (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => setSelectedPlan(opt.id)}
+                          className={`relative flex flex-col items-center gap-0.5 rounded-xl border-2 py-3 px-2 text-center transition-all ${
+                            selectedPlan === opt.id
+                              ? opt.id === 'free'
+                                ? 'border-slate-400 bg-slate-50'
+                                : 'border-indigo-500 bg-indigo-50'
+                              : 'border-slate-200 bg-white hover:border-slate-300'
+                          }`}
+                        >
+                          {opt.id !== 'free' && (
+                            <Crown className={`w-3 h-3 mb-0.5 ${selectedPlan === opt.id ? 'text-indigo-500' : 'text-slate-400'}`} />
+                          )}
+                          <span className={`text-xs font-bold ${selectedPlan === opt.id && opt.id !== 'free' ? 'text-indigo-700' : 'text-slate-800'}`}>{opt.label}</span>
+                          <span className={`text-[10px] font-semibold ${selectedPlan === opt.id && opt.id !== 'free' ? 'text-indigo-600' : 'text-slate-500'}`}>{opt.price}</span>
+                          <span className="text-[9px] text-slate-400 leading-tight">{opt.desc}</span>
+                          {selectedPlan === opt.id && (
+                            <CheckCircle2 className={`absolute top-1.5 right-1.5 w-3 h-3 ${opt.id === 'free' ? 'text-slate-500' : 'text-indigo-500'}`} />
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                    {(selectedPlan === 'basic' || selectedPlan === 'pro') && (
+                      <p className="mt-2 text-[11px] text-indigo-600 bg-indigo-50 rounded-lg px-3 py-1.5 border border-indigo-100">
+                        Sau đăng ký bạn sẽ được chuyển đến trang thanh toán để kích hoạt gói {selectedPlan === 'basic' ? 'Basic' : 'Pro'}.
+                      </p>
+                    )}
+                  </div>
+                )}
+
                 {/* Email */}
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1.5">Email</label>

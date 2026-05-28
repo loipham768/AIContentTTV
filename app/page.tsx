@@ -4,6 +4,7 @@ import {
   Zap, LayoutTemplate, Code2, Globe, History,
   CheckCircle2, ArrowRight, Star, Sparkles, Copy, MousePointer2,
   MessageSquare, ShieldCheck, FileDown, Layers, Crown,
+  BookOpen, Tag, LogIn,
 } from 'lucide-react'
 import ScrollReveal from '@/components/ScrollReveal'
 import TestimonialsCarousel from '@/components/TestimonialsCarousel'
@@ -244,25 +245,24 @@ export default async function LandingPage() {
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Logo iconSize={32} uid="nav" />
-          <nav className="flex items-center gap-2">
-            <Link href="/kien-thuc" className="hidden md:block px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
-              Kiến thức
+          <nav className="flex items-center gap-1">
+            <Link href="/kien-thuc" className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
+              <BookOpen className="w-4 h-4" /> Kiến thức
             </Link>
-            <Link href="/#pricing" className="hidden md:block px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
-              Bảng giá
+            <Link href="/#pricing" className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
+              <Tag className="w-4 h-4" /> Bảng giá
             </Link>
             {isLoggedIn ? (
-              <Link href="/create" className="px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold btn-gradient text-white rounded-lg whitespace-nowrap">
-                <span className="sm:hidden">Tạo nội dung →</span>
-                <span className="hidden sm:inline">Tạo nội dung →</span>
+              <Link href="/create" className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold btn-gradient text-white rounded-lg whitespace-nowrap">
+                <Zap className="w-3.5 h-3.5" /> Tạo nội dung
               </Link>
             ) : (
               <>
-                <Link href="/login" className="hidden sm:block px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-                  Đăng nhập
+                <Link href="/login" className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                  <LogIn className="w-4 h-4" /> Đăng nhập
                 </Link>
-                <Link href="/login" className="px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold btn-gradient text-white rounded-lg shadow-sm whitespace-nowrap">
-                  <span className="hidden sm:inline">Dùng thử </span>miễn phí
+                <Link href="/login" className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold btn-gradient text-white rounded-lg shadow-sm whitespace-nowrap">
+                  <Sparkles className="w-3.5 h-3.5" /><span className="hidden sm:inline">Dùng thử </span>miễn phí
                 </Link>
               </>
             )}
@@ -366,7 +366,7 @@ export default async function LandingPage() {
                         <div className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
                           <Sparkles className="w-3 h-3 text-white" />
                         </div>
-                        <span className="text-xs font-semibold text-gray-700">AI Content Booster</span>
+                        <span className="text-xs font-semibold text-gray-700">AITaoPage</span>
                       </div>
                       <div className="bg-violet-50 rounded-lg p-2.5 text-xs text-gray-700 border border-violet-100">
                         Bạn muốn tạo loại nội dung nào?
@@ -646,7 +646,7 @@ export default async function LandingPage() {
                   <span className="text-gray-400 mb-1 text-sm">/tháng</span>
                 </div>
                 <p className="mt-1.5 text-sm text-gray-500">Không cần thẻ ngân hàng</p>
-                <Link href="/login" className="mt-5 block text-center py-2.5 text-sm font-semibold text-indigo-600 border border-indigo-300 rounded-xl hover:bg-indigo-50 transition-colors">
+                <Link href="/login?plan=free" className="mt-5 block text-center py-2.5 text-sm font-semibold text-indigo-600 border border-indigo-300 rounded-xl hover:bg-indigo-50 transition-colors">
                   Bắt đầu miễn phí
                 </Link>
                 <ul className="mt-6 space-y-2.5 flex-1">
@@ -680,7 +680,7 @@ export default async function LandingPage() {
                   <span className="text-indigo-200 mb-1 text-sm">/tháng</span>
                 </div>
                 <p className="mt-1.5 text-sm text-indigo-300">hoặc 79.000đ/tháng khi mua năm</p>
-                <Link href="/login" className="mt-5 block text-center py-2.5 text-sm font-bold bg-white text-indigo-700 rounded-xl hover:bg-indigo-50 transition-colors shadow-md">
+                <Link href="/upgrade?plan=basic" className="mt-5 block text-center py-2.5 text-sm font-bold bg-white text-indigo-700 rounded-xl hover:bg-indigo-50 transition-colors shadow-md">
                   Nâng cấp Basic
                 </Link>
                 <ul className="mt-6 space-y-2.5 flex-1">
@@ -710,7 +710,7 @@ export default async function LandingPage() {
                   <span className="text-gray-500 mb-1 text-sm">/tháng</span>
                 </div>
                 <p className="mt-1.5 text-sm text-gray-500">hoặc 159.000đ/tháng khi mua năm</p>
-                <Link href="/login" className="mt-5 block text-center py-2.5 text-sm font-semibold text-indigo-700 border-2 border-indigo-400 rounded-xl hover:bg-indigo-50 transition-colors">
+                <Link href="/upgrade?plan=pro" className="mt-5 block text-center py-2.5 text-sm font-semibold text-indigo-700 border-2 border-indigo-400 rounded-xl hover:bg-indigo-50 transition-colors">
                   Nâng cấp Pro
                 </Link>
                 <ul className="mt-6 space-y-2.5 flex-1">
@@ -845,7 +845,7 @@ export default async function LandingPage() {
               <a href="mailto:support@aicontentbooster.vn" className="hover:text-white transition-colors">Liên hệ</a>
               <Link href="/login" className="hover:text-white transition-colors">Đăng nhập</Link>
             </div>
-            <p className="text-xs text-center text-gray-600">© 2026 AI Content Booster</p>
+            <p className="text-xs text-center text-gray-600">© 2026 AITaoPage</p>
           </div>
         </div>
       </footer>
