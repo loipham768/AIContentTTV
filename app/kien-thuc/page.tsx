@@ -216,57 +216,67 @@ export default function KienThucPage() {
           </div>
         </section>
 
-        {/* ── Kiến thức AI Marketing ── */}
-        <section>
-          <h2 className="text-lg font-extrabold text-gray-900 mb-5 flex items-center gap-3">
-            <span
-              className="inline-block w-1 h-5 rounded-full"
-              style={{ background: "linear-gradient(to bottom,#6366f1,#8b5cf6)" }}
-            />
-            Kiến thức AI Marketing
-            <span className="text-sm font-medium text-gray-400 ml-1">
-              {knowledge.length} bài
-            </span>
-          </h2>
+        {/* ── Kiến thức AI Marketing (grouped by category) ── */}
+        {(() => {
+          const order: CategoryKey[] = ["Landing Page", "Content", "Quảng cáo", "SEO", "Kỹ thuật", "So sánh"];
+          const grouped = order
+            .map((cat) => ({ cat, items: knowledge.filter((a) => a.category === cat) }))
+            .filter((g) => g.items.length > 0);
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {knowledge.map((article) => {
-              const c = getCat(article.category);
-              return (
-                <Link
-                  key={article.slug}
-                  href={`/kien-thuc/${article.slug}`}
-                  className="group flex flex-col p-5 rounded-2xl border border-gray-200 bg-white hover:border-indigo-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
-                >
-                  {/* Category + time */}
-                  <div className="flex items-center justify-between mb-3">
-                    <span
-                      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold ${c.bg} ${c.text}`}
-                    >
-                      {c.icon}&nbsp;{article.category}
-                    </span>
-                    <span className="flex items-center gap-1 text-xs text-gray-400">
-                      <Clock className="w-3 h-3" /> {article.readTime}
-                    </span>
+          return (
+            <section className="space-y-8">
+              <h2 className="text-lg font-extrabold text-gray-900 flex items-center gap-3">
+                <span
+                  className="inline-block w-1 h-5 rounded-full"
+                  style={{ background: "linear-gradient(to bottom,#6366f1,#8b5cf6)" }}
+                />
+                Kiến thức AI Marketing
+                <span className="text-sm font-medium text-gray-400">{knowledge.length} bài</span>
+              </h2>
+
+              {grouped.map(({ cat, items }) => {
+                const c = getCat(cat);
+                return (
+                  <div key={cat}>
+                    {/* Category header */}
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${c.grad} flex items-center justify-center text-white shadow-sm`}>
+                        {c.icon}
+                      </div>
+                      <h3 className={`text-sm font-extrabold ${c.text}`}>{cat}</h3>
+                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${c.bg} ${c.text}`}>
+                        {items.length}
+                      </span>
+                    </div>
+
+                    {/* Articles */}
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {items.map((article) => (
+                        <Link
+                          key={article.slug}
+                          href={`/kien-thuc/${article.slug}`}
+                          className="group flex flex-col p-4 rounded-xl border border-gray-200 bg-white hover:border-indigo-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                        >
+                          <h4 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2 group-hover:text-indigo-700 transition-colors flex-1">
+                            {article.title}
+                          </h4>
+                          <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-gray-100">
+                            <span className="flex items-center gap-1 text-xs text-gray-400">
+                              <Clock className="w-3 h-3" /> {article.readTime}
+                            </span>
+                            <span className={`flex items-center gap-0.5 text-xs font-bold ${c.text} group-hover:gap-1 transition-all`}>
+                              Đọc <ArrowRight className="w-3 h-3" />
+                            </span>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-
-                  {/* Title */}
-                  <h3 className="font-extrabold text-gray-900 text-sm leading-snug line-clamp-2 group-hover:text-indigo-700 transition-colors flex-1">
-                    {article.title}
-                  </h3>
-
-                  {/* Footer */}
-                  <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-                    <span className="text-xs text-gray-400">{formatDate(article.publishedDate)}</span>
-                    <span className={`flex items-center gap-1 text-xs font-bold ${c.text} group-hover:gap-1.5 transition-all`}>
-                      Đọc <ArrowRight className="w-3 h-3" />
-                    </span>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
+                );
+              })}
+            </section>
+          );
+        })()}
 
         {/* ── CTA ── */}
         <section
