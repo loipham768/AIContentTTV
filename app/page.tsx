@@ -738,12 +738,12 @@ export default async function LandingPage() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { amount: '20.000đ', desc: '4 bài viết HTML', highlight: false },
-              { amount: '50.000đ', desc: '10 bài viết + 2 landing page', highlight: false },
-              { amount: '100.000đ', desc: '25 bài viết + 5 landing page', highlight: true, badge: 'Tiết kiệm nhất' },
-              { amount: '200.000đ', desc: '60 bài viết + 12 landing page', highlight: false },
-            ].map(({ amount, desc, highlight, badge }) => (
-              <ScrollReveal key={amount} className="h-full">
+              { packId: 'c1', amount: '20.000đ', desc: '4 bài viết HTML', highlight: false },
+              { packId: 'c2', amount: '50.000đ', desc: '10 bài viết + 2 landing page', highlight: false },
+              { packId: 'c3', amount: '100.000đ', desc: '25 bài viết + 5 landing page', highlight: true, badge: 'Tiết kiệm nhất' },
+              { packId: 'c4', amount: '200.000đ', desc: '60 bài viết + 12 landing page', highlight: false },
+            ].map(({ packId, amount, desc, highlight, badge }) => (
+              <ScrollReveal key={packId} className="h-full">
                 <div className={`rounded-2xl p-5 h-full flex flex-col gap-3 relative ${highlight ? 'bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/20' : 'bg-white border border-gray-200'}`}>
                   {badge && (
                     <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-0.5 bg-amber-400 text-gray-900 rounded-full shadow whitespace-nowrap">
@@ -752,7 +752,7 @@ export default async function LandingPage() {
                   )}
                   <p className={`text-2xl font-extrabold ${highlight ? 'text-white' : 'text-gray-900'}`}>{amount}</p>
                   <p className={`text-sm flex-1 ${highlight ? 'text-emerald-50' : 'text-gray-600'}`}>{desc}</p>
-                  <Link href="/login" className={`block text-center py-2 text-xs font-semibold rounded-xl transition-colors ${highlight ? 'bg-white text-emerald-700 hover:bg-emerald-50' : 'text-indigo-600 border border-indigo-200 hover:bg-indigo-50'}`}>
+                  <Link href={`/upgrade?type=credits&pack=${packId}`} className={`block text-center py-2 text-xs font-semibold rounded-xl transition-colors ${highlight ? 'bg-white text-emerald-700 hover:bg-emerald-50' : 'text-indigo-600 border border-indigo-200 hover:bg-indigo-50'}`}>
                     Nạp ngay
                   </Link>
                 </div>

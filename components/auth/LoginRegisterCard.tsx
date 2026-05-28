@@ -26,9 +26,11 @@ type Tab  = 'login' | 'register'
 type Step = 'form' | 'otp'
 
 export function LoginRegisterCard({ callbackUrl = '/editor', initialPlan = '' }: LoginRegisterCardProps) {
+  const isCreditsIntent = initialPlan.startsWith('credits:')
+  const creditsPackId   = isCreditsIntent ? initialPlan.split(':')[1] : ''
   const validInitial: PlanOption = (initialPlan === 'basic' || initialPlan === 'pro') ? initialPlan : 'free'
 
-  const [tab,      setTab]      = useState<Tab>(validInitial !== 'free' ? 'register' : 'login')
+  const [tab,      setTab]      = useState<Tab>((validInitial !== 'free' || isCreditsIntent) ? 'register' : 'login')
   const [step,     setStep]     = useState<Step>('form')
   const [email,    setEmail]    = useState('')
   const [password, setPassword] = useState('')
@@ -112,6 +114,8 @@ export function LoginRegisterCard({ callbackUrl = '/editor', initialPlan = '' }:
       const result = await signIn('credentials', { email, password, redirect: false })
       if (result?.error) {
         setError('Tài khoản đã tạo. Vui lòng đăng nhập.')
+      } else if (isCreditsIntent && creditsPackId) {
+        window.location.href = `/upgrade?type=credits&pack=${creditsPackId}`
       } else if (selectedPlan === 'basic' || selectedPlan === 'pro') {
         window.location.href = `/upgrade?plan=${selectedPlan}`
       } else {

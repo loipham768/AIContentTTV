@@ -3,16 +3,20 @@ import { redirect } from 'next/navigation'
 import { LoginRegisterCard } from '@/components/auth/LoginRegisterCard'
 
 interface LoginPageProps {
-  searchParams: Promise<{ callbackUrl?: string; plan?: string }>
+  searchParams: Promise<{ callbackUrl?: string; plan?: string; type?: string; pack?: string }>
 }
 
 export default async function LoginPage({ searchParams }: LoginPageProps) {
   const session = await auth()
   const params = await searchParams
   const plan = params.plan ?? ''
+  const isCredits = params.type === 'credits'
+  const pack = params.pack ?? ''
 
   if (session) {
-    // Logged-in user with a paid plan selected → create order via /upgrade
+    if (isCredits && pack) {
+      redirect(`/upgrade?type=credits&pack=${pack}`)
+    }
     if (plan === 'basic' || plan === 'pro') {
       redirect(`/upgrade?plan=${plan}`)
     }
@@ -20,6 +24,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   }
 
   const callbackUrl = params.callbackUrl || '/editor'
+  // Pass credits intent via initialPlan so card can redirect after register
+  const initialPlan = isCredits ? `credits:${pack}` : plan
 
-  return <LoginRegisterCard callbackUrl={callbackUrl} initialPlan={plan} />
+  return <LoginRegisterCard callbackUrl={callbackUrl} initialPlan={initialPlan} />
 }
