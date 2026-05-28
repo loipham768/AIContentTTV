@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 interface LogoIconProps {
   size?: number
   /** unique suffix to avoid duplicate SVG gradient IDs on same page */
@@ -5,7 +7,8 @@ interface LogoIconProps {
 }
 
 export function LogoIcon({ size = 36, uid = 'a' }: LogoIconProps) {
-  const id = `aicb-g-${uid}`
+  const id = `tp-g-${uid}`
+  const id2 = `tp-g2-${uid}`
   return (
     <svg
       width={size}
@@ -17,38 +20,43 @@ export function LogoIcon({ size = 36, uid = 'a' }: LogoIconProps) {
     >
       <defs>
         <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#4f46e5" />
-          <stop offset="55%" stopColor="#7c3aed" />
-          <stop offset="100%" stopColor="#db2777" />
+          <stop offset="0%"   stopColor="#4f46e5" />
+          <stop offset="50%"  stopColor="#7c3aed" />
+          <stop offset="100%" stopColor="#0ea5e9" />
+        </linearGradient>
+        <linearGradient id={id2} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stopColor="#ffffff" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0.05" />
         </linearGradient>
       </defs>
 
-      {/* Rounded square background */}
+      {/* Background */}
       <rect width="40" height="40" rx="10" fill={`url(#${id})`} />
 
-      {/* Outer decorative ring (subtle) */}
-      <rect x="1" y="1" width="38" height="38" rx="9.5" stroke="white" strokeOpacity="0.12" strokeWidth="1" />
+      {/* Subtle inner shine */}
+      <rect x="1" y="1" width="38" height="19" rx="9.5" fill={`url(#${id2})`} />
 
-      {/* Lightning bolt — the "Booster" symbol */}
+      {/* Outer border */}
+      <rect x="0.5" y="0.5" width="39" height="39" rx="9.5" stroke="white" strokeOpacity="0.15" strokeWidth="1" />
+
+      {/* T monogram */}
       <path
-        d="M22.5 6 L12 22 H18.5 L17 34 L28 18 H21.5 L22.5 6Z"
+        d="M7 9.5 H33 V15 H24.5 V32.5 H15.5 V15 H7 Z"
         fill="white"
         fillOpacity="0.95"
       />
 
-      {/* Small accent sparkle dots */}
-      <circle cx="9"  cy="11" r="1.8" fill="white" fillOpacity="0.35" />
-      <circle cx="31" cy="29" r="1.4" fill="white" fillOpacity="0.28" />
-      <circle cx="7"  cy="30" r="1"   fill="white" fillOpacity="0.2"  />
+      {/* AI sparkle accent — three dots top-right */}
+      <circle cx="32" cy="6.5" r="2"   fill="white" fillOpacity="0.75" />
+      <circle cx="36.5" cy="10" r="1.3" fill="white" fillOpacity="0.45" />
+      <circle cx="29.5" cy="3.5" r="1"  fill="white" fillOpacity="0.35" />
     </svg>
   )
 }
 
 interface LogoProps {
   iconSize?: number
-  /** hide the text wordmark, show icon only */
   iconOnly?: boolean
-  /** white text for dark backgrounds */
   dark?: boolean
   className?: string
   uid?: string
@@ -56,16 +64,16 @@ interface LogoProps {
 
 export default function Logo({ iconSize = 36, iconOnly = false, dark = false, className = '', uid = 'a' }: LogoProps) {
   return (
-    <span className={`inline-flex items-center gap-2.5 select-none ${className}`}>
+    <Link href="/" className={`inline-flex items-center gap-2.5 select-none ${className}`}>
       <LogoIcon size={iconSize} uid={uid} />
       {!iconOnly && (
         <span className="font-extrabold text-[1.05rem] leading-none tracking-tight whitespace-nowrap">
-          <span className={`bg-gradient-to-r ${dark ? 'from-indigo-300 to-violet-300' : 'from-indigo-600 to-violet-600'} bg-clip-text text-transparent`}>
+          <span className={`bg-gradient-to-r ${dark ? 'from-indigo-300 to-sky-300' : 'from-indigo-600 to-violet-500'} bg-clip-text text-transparent`}>
             AI
           </span>
-          <span className={dark ? 'text-white' : 'text-gray-800'}> Content Booster</span>
+          <span className={dark ? 'text-white' : 'text-gray-800'}>TaoPage</span>
         </span>
       )}
-    </span>
+    </Link>
   )
 }

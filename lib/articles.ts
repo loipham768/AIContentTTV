@@ -18,7 +18,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Landing Page',
     readTime:      '8 phút',
     publishedDate: '2026-05-20',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['tạo landing page', 'landing page bán hàng', 'landing page hiệu quả 2026', 'landing page Haravan', 'trang bán hàng AI'],
     content: `
 <h2>Landing page bán hàng là gì và tại sao quan trọng?</h2>
@@ -44,7 +44,7 @@ export const ARTICLES: Record<string, Article> = {
 <p>53% người dùng di động rời trang nếu load hơn 3 giây. Dùng HTML inline CSS thay vì file CSS riêng giúp trang tải nhanh hơn đáng kể khi dán vào CMS.</p>
 
 <h2>Cách tạo landing page bằng AI trong 60 giây</h2>
-<p>Trước đây tạo landing page mất 2–3 ngày: thiết kế mockup, code HTML/CSS, test trên nhiều thiết bị. Với AI Content Booster, quy trình rút ngắn xuống dưới 1 phút:</p>
+<p>Trước đây tạo landing page mất 2–3 ngày: thiết kế mockup, code HTML/CSS, test trên nhiều thiết bị. Với AITaoPage, quy trình rút ngắn xuống dưới 1 phút:</p>
 <ol>
 <li><strong>Mô tả sản phẩm/dịch vụ</strong> bằng tiếng Việt tự nhiên</li>
 <li><strong>AI hỏi thêm</strong> về màu sắc, phong cách, đối tượng mục tiêu</li>
@@ -70,11 +70,11 @@ export const ARTICLES: Record<string, Article> = {
   'so-sanh-cong-cu-viet-content-ai-tot-nhat': {
     slug:          'so-sanh-cong-cu-viet-content-ai-tot-nhat',
     title:         'So sánh 5 công cụ viết content AI tốt nhất cho người Việt 2026',
-    description:   'Đánh giá chi tiết ChatGPT, Claude, Gemini, Jasper và AI Content Booster. Công cụ nào phù hợp nhất cho thị trường Việt Nam?',
+    description:   'Đánh giá chi tiết ChatGPT, Claude, Gemini, Jasper và AITaoPage. Công cụ nào phù hợp nhất cho thị trường Việt Nam?',
     category:      'So sánh',
     readTime:      '12 phút',
     publishedDate: '2026-05-18',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['công cụ viết content AI', 'so sánh AI content', 'ChatGPT vs Claude', 'AI viết bài tiếng Việt', 'tool AI marketing'],
     content: `
 <h2>Thị trường công cụ AI viết content năm 2026</h2>
@@ -100,7 +100,7 @@ export const ARTICLES: Record<string, Article> = {
 <p><strong>Điểm yếu:</strong> Giá cao ($49+/tháng), tiếng Việt không phải thế mạnh, output thường cần chỉnh sửa nhiều.</p>
 <p><strong>Giá:</strong> Từ $49/tháng</p>
 
-<h2>5. AI Content Booster (Chuyên biệt cho Việt Nam)</h2>
+<h2>5. AITaoPage (Chuyên biệt cho Việt Nam)</h2>
 <p><strong>Điểm mạnh:</strong> Thiết kế riêng cho thị trường Việt Nam. Tạo HTML inline CSS sẵn sàng dán vào Haravan, Sapo, WordPress. Có giao diện kéo thả để chỉnh sửa. AI hỏi từng bước để hiểu đúng yêu cầu.</p>
 <p><strong>Điểm yếu:</strong> Chuyên cho việc tạo nội dung HTML, không phải công cụ đa năng.</p>
 <p><strong>Giá:</strong> Miễn phí / 99.000đ/tháng (Basic) / 199.000đ/tháng (Pro)</p>
@@ -114,7 +114,7 @@ export const ARTICLES: Record<string, Article> = {
 <th style="padding:8px;text-align:center;border:1px solid #e2e8f0">Claude</th>
 <th style="padding:8px;text-align:center;border:1px solid #e2e8f0">Gemini</th>
 <th style="padding:8px;text-align:center;border:1px solid #e2e8f0">Jasper</th>
-<th style="padding:8px;text-align:center;border:1px solid #e2e8f0;background:#ede9fe">AI Content Booster</th>
+<th style="padding:8px;text-align:center;border:1px solid #e2e8f0;background:#ede9fe">AITaoPage</th>
 </tr>
 </thead>
 <tbody>
@@ -154,9 +154,9 @@ export const ARTICLES: Record<string, Article> = {
 </table>
 
 <h2>Kết luận: Chọn công cụ nào?</h2>
-<p>Nếu bạn cần tạo <strong>landing page, banner, hay block nội dung HTML</strong> để dán trực tiếp vào Haravan, Sapo, hay WordPress — <strong>AI Content Booster</strong> là lựa chọn chuyên biệt nhất, tiết kiệm thời gian nhất.</p>
+<p>Nếu bạn cần tạo <strong>landing page, banner, hay block nội dung HTML</strong> để dán trực tiếp vào Haravan, Sapo, hay WordPress — <strong>AITaoPage</strong> là lựa chọn chuyên biệt nhất, tiết kiệm thời gian nhất.</p>
 <p>Nếu bạn cần viết blog, email, hay nội dung đa dạng — ChatGPT hoặc Claude là lựa chọn tốt.</p>
-<p>Kết hợp cả hai: dùng ChatGPT/Claude để brainstorm ý tưởng, rồi dùng AI Content Booster để biến ý tưởng thành HTML production-ready.</p>
+<p>Kết hợp cả hai: dùng ChatGPT/Claude để brainstorm ý tưởng, rồi dùng AITaoPage để biến ý tưởng thành HTML production-ready.</p>
     `.trim(),
   },
 
@@ -167,7 +167,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Quảng cáo',
     readTime:      '7 phút',
     publishedDate: '2026-05-15',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['viết content facebook ads', 'quảng cáo facebook AI', 'content facebook hiệu quả', 'copywriting AI', 'facebook ads tiếng Việt'],
     content: `
 <h2>Tại sao content quảng cáo Facebook quan trọng?</h2>
@@ -228,11 +228,11 @@ export const ARTICLES: Record<string, Article> = {
   'html-inline-css-la-gi-tai-sao-quan-trong-voi-cms': {
     slug:          'html-inline-css-la-gi-tai-sao-quan-trong-voi-cms',
     title:         'HTML inline CSS là gì? Tại sao quan trọng với Haravan, Sapo, WordPress?',
-    description:   'Giải thích kỹ thuật inline CSS, lý do các CMS thương mại Việt Nam lọc bỏ <style> tags và cách AI Content Booster giải quyết vấn đề này tự động.',
+    description:   'Giải thích kỹ thuật inline CSS, lý do các CMS thương mại Việt Nam lọc bỏ <style> tags và cách AITaoPage giải quyết vấn đề này tự động.',
     category:      'Kỹ thuật',
     readTime:      '6 phút',
     publishedDate: '2026-05-12',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['html inline css', 'inline style CSS', 'haravan html', 'sapo block html', 'wordpress custom html css'],
     content: `
 <h2>CSS là gì và 3 cách viết CSS?</h2>
@@ -261,9 +261,9 @@ export const ARTICLES: Record<string, Article> = {
 &lt;!-- ✓ An toàn với mọi CMS --&gt;
 &lt;div style="background:#4338ca;color:white;padding:24px"&gt;Nội dung&lt;/div&gt;</code></pre>
 
-<h2>Nhược điểm của inline CSS và cách AI Content Booster xử lý</h2>
+<h2>Nhược điểm của inline CSS và cách AITaoPage xử lý</h2>
 <p>Inline CSS có một nhược điểm: <strong>code rất dài và khó viết tay</strong>. Thay vì viết <code>class="hero-banner"</code>, bạn phải viết toàn bộ style vào từng thẻ.</p>
-<p>AI Content Booster giải quyết điều này bằng engine tự động:</p>
+<p>AITaoPage giải quyết điều này bằng engine tự động:</p>
 <ol>
 <li>AI tạo HTML với class và style sheet bình thường</li>
 <li>Engine "juice" đọc CSS và nhúng vào từng thẻ HTML tương ứng</li>
@@ -272,7 +272,7 @@ export const ARTICLES: Record<string, Article> = {
 <p>Toàn bộ quá trình xảy ra tự động khi bạn nhấn "Sao chép HTML".</p>
 
 <h2>Kết luận</h2>
-<p>HTML inline CSS là chuẩn bắt buộc khi làm việc với CMS thương mại tại Việt Nam. Thay vì học kỹ thuật phức tạp này, hãy để AI Content Booster xử lý tự động — bạn chỉ cần dán HTML vào CMS và nó hoạt động hoàn hảo ngay lập tức.</p>
+<p>HTML inline CSS là chuẩn bắt buộc khi làm việc với CMS thương mại tại Việt Nam. Thay vì học kỹ thuật phức tạp này, hãy để AITaoPage xử lý tự động — bạn chỉ cần dán HTML vào CMS và nó hoạt động hoàn hảo ngay lập tức.</p>
     `.trim(),
   },
 
@@ -283,7 +283,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Content',
     readTime:      '9 phút',
     publishedDate: '2026-05-10',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['viết mô tả sản phẩm', 'product description AI', 'mô tả sản phẩm bán hàng', 'content shop online', 'haravan product description'],
     content: `
 <h2>Mô tả sản phẩm ảnh hưởng bao nhiêu đến doanh số?</h2>
@@ -334,7 +334,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'SEO',
     readTime:      '11 phút',
     publishedDate: '2026-05-08',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['SEO content AI', 'viết bài chuẩn SEO', 'tối ưu bài viết Google', 'AI SEO tiếng Việt', 'content marketing SEO 2026'],
     content: `
 <h2>AI đã thay đổi SEO như thế nào?</h2>
@@ -401,7 +401,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Landing Page',
     readTime:      '9 phút',
     publishedDate: '2026-05-25',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['tạo landing page không cần code', 'landing page miễn phí', 'tạo landing page online', 'landing page không cần lập trình', 'công cụ tạo landing page Việt Nam'],
     content: `
 <h2>Landing page không cần code — có thực sự làm được không?</h2>
@@ -472,7 +472,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Landing Page',
     readTime:      '10 phút',
     publishedDate: '2026-05-24',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['cấu trúc landing page', 'landing page bán hàng chuẩn', 'thành phần landing page', 'thiết kế landing page', 'layout landing page hiệu quả'],
     content: `
 <h2>Tại sao cấu trúc landing page quan trọng hơn thiết kế?</h2>
@@ -542,7 +542,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Content',
     readTime:      '9 phút',
     publishedDate: '2026-05-23',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['viết content bán hàng online', 'content bán hàng hiệu quả', 'cách viết bài bán hàng', 'content marketing shop online', 'viết bài bán hàng facebook'],
     content: `
 <h2>Tại sao content bán hàng online của bạn không hiệu quả?</h2>
@@ -624,7 +624,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Content',
     readTime:      '7 phút',
     publishedDate: '2026-05-22',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['mẫu headline bán hàng', 'headline thu hút khách hàng', 'tiêu đề quảng cáo hay', 'mẫu tiêu đề landing page', 'headline facebook ads hiệu quả'],
     content: `
 <h2>Headline quan trọng đến mức nào?</h2>
@@ -731,7 +731,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Kỹ thuật',
     readTime:      '6 phút',
     publishedDate: '2026-05-21',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['dán html vào haravan', 'html vào sapo web', 'custom html wordpress', 'html block haravan page', 'dán code vào sapo'],
     content: `
 <h2>Tại sao dán HTML vào CMS thường bị mất định dạng?</h2>
@@ -801,7 +801,7 @@ export const ARTICLES: Record<string, Article> = {
 </ul>
 
 <h2>Kết luận</h2>
-<p>Dán HTML vào CMS Việt Nam không khó khi bạn hiểu nguyên tắc cốt lõi: luôn dùng inline CSS, không dùng file CSS riêng hay thẻ <code>&lt;style&gt;</code>. Với AI Content Booster, quá trình này được tự động hóa — bạn nhận được HTML sẵn sàng dán, tương thích 100% với Haravan, Sapo, và WordPress mà không cần xử lý thêm.</p>
+<p>Dán HTML vào CMS Việt Nam không khó khi bạn hiểu nguyên tắc cốt lõi: luôn dùng inline CSS, không dùng file CSS riêng hay thẻ <code>&lt;style&gt;</code>. Với AITaoPage, quá trình này được tự động hóa — bạn nhận được HTML sẵn sàng dán, tương thích 100% với Haravan, Sapo, và WordPress mà không cần xử lý thêm.</p>
     `.trim(),
   },
 
@@ -812,7 +812,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Quảng cáo',
     readTime:      '8 phút',
     publishedDate: '2026-05-19',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['content tiktok shop', 'bán hàng tiktok shop', 'viết mô tả sản phẩm tiktok', 'tiktok shop việt nam', 'script video tiktok bán hàng'],
     content: `
 <h2>TikTok Shop — Kênh bán hàng tăng trưởng nhanh nhất Việt Nam 2026</h2>
@@ -881,7 +881,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Landing Page',
     readTime:      '8 phút',
     publishedDate: '2026-05-17',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['tăng tỷ lệ chuyển đổi landing page', 'tối ưu landing page', 'conversion rate optimization', 'CRO landing page', 'landing page hiệu quả hơn'],
     content: `
 <h2>Tỷ lệ chuyển đổi trung bình của landing page là bao nhiêu?</h2>
@@ -937,7 +937,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'So sánh',
     readTime:      '11 phút',
     publishedDate: '2026-05-16',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['AI marketing Việt Nam', 'ứng dụng AI marketing', 'AI cho doanh nghiệp nhỏ', 'xu hướng marketing 2026', 'AI content marketing Việt Nam'],
     content: `
 <h2>AI đã thay đổi marketing Việt Nam như thế nào?</h2>
@@ -1015,7 +1015,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Quảng cáo',
     readTime:      '8 phút',
     publishedDate: '2026-05-14',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['email marketing tiếng Việt', 'viết email bán hàng', 'email marketing hiệu quả', 'subject line email', 'AI viết email marketing'],
     content: `
 <h2>Email marketing vẫn còn hiệu quả năm 2026?</h2>
@@ -1091,15 +1091,15 @@ export const ARTICLES: Record<string, Article> = {
   'huong-dan-bat-dau-ai-content-booster': {
     slug:          'huong-dan-bat-dau-ai-content-booster',
     title:         'Hướng dẫn bắt đầu: Tạo block nội dung AI đầu tiên trong 60 giây',
-    description:   'Từng bước sử dụng AI Content Booster — đăng ký, nhập prompt, chỉnh sửa trên editor và sao chép HTML dán vào CMS. Hướng dẫn dành cho người dùng mới.',
+    description:   'Từng bước sử dụng AITaoPage — đăng ký, nhập prompt, chỉnh sửa trên editor và sao chép HTML dán vào CMS. Hướng dẫn dành cho người dùng mới.',
     category:      'Hướng dẫn',
     readTime:      '5 phút',
     publishedDate: '2026-05-28',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['hướng dẫn ai content booster', 'cách dùng ai content booster', 'tạo block nội dung ai', 'bắt đầu ai content', 'hướng dẫn sử dụng'],
     content: `
 <h2>Tổng quan — Bạn sẽ làm được gì trong 60 giây?</h2>
-<p>AI Content Booster giúp bạn đi từ ý tưởng đến một block nội dung HTML hoàn chỉnh — sẵn sàng dán vào Haravan, Sapo, hay WordPress — chỉ trong 60 giây. Không cần biết code, không cần Photoshop, không cần thuê designer.</p>
+<p>AITaoPage giúp bạn đi từ ý tưởng đến một block nội dung HTML hoàn chỉnh — sẵn sàng dán vào Haravan, Sapo, hay WordPress — chỉ trong 60 giây. Không cần biết code, không cần Photoshop, không cần thuê designer.</p>
 <p>Quy trình gồm 4 bước chính:</p>
 <ol>
 <li>Nhập mô tả nội dung bằng tiếng Việt</li>
@@ -1113,6 +1113,10 @@ export const ARTICLES: Record<string, Article> = {
 
 <h2>Bước 2: Nhập prompt mô tả nội dung</h2>
 <p>Ở thanh trên cùng của editor, bạn sẽ thấy ô nhập liệu với placeholder <em>"Mô tả nội dung bạn muốn tạo..."</em>. Đây là nơi bạn nói chuyện với AI.</p>
+<figure>
+<img src="/images/tutorials/bat-dau/02-prompt-bar.png" alt="Thanh nhập prompt trong editor AITaoPage" />
+<figcaption>Ô nhập prompt nằm ở thanh trên cùng — nhập mô tả bằng tiếng Việt rồi nhấn "Tạo nội dung"</figcaption>
+</figure>
 <p><strong>Ví dụ prompt đơn giản để bắt đầu:</strong></p>
 <blockquote>
 <em>Tạo banner giới thiệu sản phẩm kem dưỡng da nghệ, dành cho phụ nữ 25–40 tuổi, màu vàng ấm, có nút "Mua ngay"</em>
@@ -1127,9 +1131,17 @@ export const ARTICLES: Record<string, Article> = {
 <li><strong>Dùng thanh toolbar</strong> để Undo (Ctrl+Z) hoặc Redo (Ctrl+Y)</li>
 <li><strong>Chuyển chế độ xem</strong> Desktop / Mobile để kiểm tra responsive</li>
 </ul>
+<figure>
+<img src="/images/tutorials/bat-dau/03-editor-canvas.png" alt="Canvas editor hiển thị block nội dung vừa được AI tạo" />
+<figcaption>Block nội dung hiển thị ngay trên canvas — click để chọn, double-click để sửa text</figcaption>
+</figure>
 
 <h2>Bước 4: Sao chép HTML và dán vào CMS</h2>
 <p>Khi hài lòng với nội dung, nhấn nút <strong>"Sao chép HTML"</strong> ở góc trên phải. Thông báo <em>"Sao chép thành công!"</em> xuất hiện — HTML đã vào clipboard.</p>
+<figure>
+<img src="/images/tutorials/bat-dau/04-sao-chep-html.png" alt="Nút Sao chép HTML và thông báo sao chép thành công" />
+<figcaption>Nhấn "Sao chép HTML" — thông báo xanh xuất hiện xác nhận HTML đã vào clipboard</figcaption>
+</figure>
 <p>Mở CMS của bạn (Haravan, Sapo, WordPress...), vào vị trí muốn chèn block, chuyển sang chế độ <strong>Source Code / HTML</strong>, dán HTML vào. Nội dung hiển thị đúng định dạng ngay lập tức vì đã dùng inline CSS.</p>
 
 <h2>Lịch sử tự động lưu</h2>
@@ -1151,18 +1163,22 @@ export const ARTICLES: Record<string, Article> = {
   'cach-viet-prompt-hieu-qua-cho-ai-content-booster': {
     slug:          'cach-viet-prompt-hieu-qua-cho-ai-content-booster',
     title:         'Cách viết prompt hiệu quả — Nhận block nội dung đúng ý ngay lần đầu',
-    description:   'Công thức viết prompt cho AI Content Booster. 5 yếu tố quan trọng và 10 ví dụ prompt thực tế giúp AI tạo ra block nội dung chính xác theo ý muốn.',
+    description:   'Công thức viết prompt cho AITaoPage. 5 yếu tố quan trọng và 10 ví dụ prompt thực tế giúp AI tạo ra block nội dung chính xác theo ý muốn.',
     category:      'Hướng dẫn',
     readTime:      '6 phút',
     publishedDate: '2026-05-27',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['viết prompt ai content', 'prompt ai content booster', 'cách nhập prompt', 'prompt tạo nội dung', 'hướng dẫn prompt ai'],
     content: `
 <h2>Tại sao cùng một yêu cầu, AI cho kết quả khác nhau?</h2>
-<p>AI Content Booster sử dụng ngôn ngữ tự nhiên để hiểu yêu cầu của bạn. Prompt càng cụ thể, kết quả càng khớp ý. Prompt mơ hồ dẫn đến block generic — prompt chi tiết dẫn đến block tailored hoàn toàn cho sản phẩm và đối tượng của bạn.</p>
+<p>AITaoPage sử dụng ngôn ngữ tự nhiên để hiểu yêu cầu của bạn. Prompt càng cụ thể, kết quả càng khớp ý. Prompt mơ hồ dẫn đến block generic — prompt chi tiết dẫn đến block tailored hoàn toàn cho sản phẩm và đối tượng của bạn.</p>
 <p>Thực tế đo được: người dùng có prompt chi tiết thường hài lòng ngay lần đầu tạo (không cần thử lại) với tỷ lệ <strong>78%</strong>, so với chỉ <strong>31%</strong> với prompt một câu ngắn.</p>
 
 <h2>Công thức 5 yếu tố của prompt hiệu quả</h2>
+<figure>
+<img src="/images/tutorials/viet-prompt/01-prompt-input.png" alt="Ô nhập prompt trong AITaoPage với ví dụ prompt chi tiết" />
+<figcaption>Prompt càng mô tả rõ loại block, đối tượng, màu sắc — kết quả AI càng chính xác</figcaption>
+</figure>
 <h3>Yếu tố 1: Loại block muốn tạo</h3>
 <p>Nói rõ bạn muốn loại block nào: banner hero, bảng giá, block testimonial, section tính năng sản phẩm, v.v. AI sẽ dùng bố cục phù hợp cho từng loại.</p>
 <ul>
@@ -1219,6 +1235,10 @@ export const ARTICLES: Record<string, Article> = {
 <li><strong>Quên CTA:</strong> Block không có nút kêu gọi hành động thường kém hiệu quả hơn</li>
 </ul>
 
+<figure>
+<img src="/images/tutorials/viet-prompt/02-ket-qua-block.png" alt="Block nội dung được tạo ra từ prompt chi tiết" />
+<figcaption>Kết quả khi dùng prompt đầy đủ 5 yếu tố — block có bố cục, màu sắc và CTA đúng ý ngay lần đầu</figcaption>
+</figure>
 <h2>Khi kết quả chưa đúng ý — thử lại thế nào?</h2>
 <p>Thay vì sửa từng pixel trên editor, hãy thử lại với prompt được cải thiện. Thêm thông tin về màu sắc cụ thể hơn, mô tả layout rõ hơn ("2 cột: ảnh trái, text phải"), hoặc chỉ rõ tone ("chuyên nghiệp, không quá hoa văn"). Thường chỉ cần 2–3 lần thử là ra kết quả ưng ý.</p>
 
@@ -1230,15 +1250,19 @@ export const ARTICLES: Record<string, Article> = {
   'huong-dan-su-dung-editor-keo-tha': {
     slug:          'huong-dan-su-dung-editor-keo-tha',
     title:         'Hướng dẫn dùng editor kéo thả — Chỉnh sửa nội dung không cần code',
-    description:   'Toàn bộ tính năng của GrapesJS editor trong AI Content Booster: double-click chỉnh text, kéo block, undo/redo, preview mobile và desktop.',
+    description:   'Toàn bộ tính năng của GrapesJS editor trong AITaoPage: double-click chỉnh text, kéo block, undo/redo, preview mobile và desktop.',
     category:      'Hướng dẫn',
     readTime:      '5 phút',
     publishedDate: '2026-05-26',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['editor kéo thả', 'grapesjs hướng dẫn', 'chỉnh sửa nội dung không code', 'drag drop editor', 'hướng dẫn editor ai content'],
     content: `
 <h2>Editor kéo thả là gì?</h2>
-<p>Sau khi AI tạo block nội dung, bạn có thể chỉnh sửa trực tiếp trên canvas mà không cần chạm vào một dòng code nào. Editor sử dụng GrapesJS — một trong những visual editor mạnh nhất hiện nay — được tối ưu hóa riêng cho AI Content Booster với giao diện tiếng Việt đơn giản.</p>
+<p>Sau khi AI tạo block nội dung, bạn có thể chỉnh sửa trực tiếp trên canvas mà không cần chạm vào một dòng code nào. Editor sử dụng GrapesJS — một trong những visual editor mạnh nhất hiện nay — được tối ưu hóa riêng cho AITaoPage với giao diện tiếng Việt đơn giản.</p>
+<figure>
+<img src="/images/tutorials/editor/01-editor-overview.png" alt="Giao diện tổng quan của editor AITaoPage" />
+<figcaption>Giao diện editor: thanh prompt trên cùng, canvas ở giữa, sidebar lịch sử bên phải</figcaption>
+</figure>
 
 <h2>Chỉnh sửa text — Double-click để sửa trực tiếp</h2>
 <p>Tính năng hay nhất và dùng nhiều nhất: <strong>double-click vào bất kỳ đoạn text nào</strong> để chỉnh sửa ngay tại chỗ (inline editing). Không cần popup, không cần sidebar — cứ như đang gõ vào Word.</p>
@@ -1250,6 +1274,10 @@ export const ARTICLES: Record<string, Article> = {
 <li>Click ra ngoài để xác nhận — xong</li>
 </ol>
 <p>Mọi text trên canvas đều có thể sửa theo cách này: headline, subheadline, đoạn văn, text trên nút CTA, v.v.</p>
+<figure>
+<img src="/images/tutorials/editor/02-double-click-edit.png" alt="Double-click để chỉnh sửa text trực tiếp trên canvas" />
+<figcaption>Double-click vào text để vào chế độ sửa trực tiếp — con trỏ nhấp nháy như trong Word</figcaption>
+</figure>
 
 <h2>Kéo thả các khối nội dung</h2>
 <p>Để di chuyển một section hoặc element, <strong>click và giữ</strong> rồi kéo đến vị trí mới. Đường guide màu xanh xuất hiện để chỉ vị trí drop. Thả ra để element đến vị trí mới.</p>
@@ -1266,6 +1294,10 @@ export const ARTICLES: Record<string, Article> = {
 <h2>Chuyển đổi Desktop / Mobile Preview</h2>
 <p>Trước khi sao chép HTML, hãy kiểm tra giao diện trên điện thoại. Click nút <strong>Desktop</strong> hoặc <strong>Mobile</strong> ở thanh toolbar để xem canvas co lại như màn hình điện thoại.</p>
 <p><strong>Tại sao quan trọng:</strong> Hơn 60% người dùng Việt Nam xem web trên điện thoại. Block đẹp trên desktop nhưng vỡ layout trên mobile = mất khách hàng. AI đã tạo ra nội dung responsive, nhưng kiểm tra trực quan giúp bạn yên tâm hơn trước khi dán vào CMS.</p>
+<figure>
+<img src="/images/tutorials/editor/03-mobile-preview.png" alt="Chế độ preview mobile trong editor" />
+<figcaption>Canvas co lại theo kích thước điện thoại — kiểm tra bố cục mobile trước khi sao chép HTML</figcaption>
+</figure>
 
 <h2>Chọn và xóa element</h2>
 <p><strong>Click một lần</strong> vào element để chọn (viền xanh xuất hiện). Sau khi chọn:</p>
@@ -1290,15 +1322,15 @@ export const ARTICLES: Record<string, Article> = {
   'quan-ly-lich-su-va-du-an': {
     slug:          'quan-ly-lich-su-va-du-an',
     title:         'Quản lý lịch sử dự án — Lưu, mở lại và tổ chức block nội dung',
-    description:   'Cách sử dụng tính năng lưu tự động và lịch sử dự án trong AI Content Booster. Mở lại block cũ, tiếp tục chỉnh sửa và xóa dự án không cần.',
+    description:   'Cách sử dụng tính năng lưu tự động và lịch sử dự án trong AITaoPage. Mở lại block cũ, tiếp tục chỉnh sửa và xóa dự án không cần.',
     category:      'Hướng dẫn',
     readTime:      '4 phút',
     publishedDate: '2026-05-24',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['lưu nội dung ai', 'lịch sử dự án', 'mở lại block cũ', 'quản lý nội dung ai content', 'history ai content booster'],
     content: `
 <h2>Lưu tự động — Không lo mất nội dung</h2>
-<p>AI Content Booster tự động lưu mỗi block bạn tạo vào lịch sử ngay sau khi AI hoàn thành. Bạn không cần nhấn nút "Lưu" — hệ thống làm điều này trong nền sau mỗi lần generate thành công.</p>
+<p>AITaoPage tự động lưu mỗi block bạn tạo vào lịch sử ngay sau khi AI hoàn thành. Bạn không cần nhấn nút "Lưu" — hệ thống làm điều này trong nền sau mỗi lần generate thành công.</p>
 <p><strong>Tên dự án</strong> được tự động tạo từ 50 ký tự đầu của prompt bạn nhập. Ví dụ: nếu prompt là "Tạo banner giới thiệu sản phẩm kem dưỡng da nghệ...", tên lưu sẽ là "Tạo banner giới thiệu sản phẩm kem dưỡng da ngh..."</p>
 
 <h2>Mở panel lịch sử</h2>
@@ -1309,6 +1341,10 @@ export const ARTICLES: Record<string, Article> = {
 <li>Đoạn mô tả prompt đầy đủ</li>
 </ul>
 <p>Các dự án được sắp xếp theo thời gian, <strong>mới nhất ở trên đầu</strong>.</p>
+<figure>
+<img src="/images/tutorials/lich-su/01-history-panel.png" alt="Panel lịch sử dự án trong AITaoPage" />
+<figcaption>Panel lịch sử liệt kê tất cả block đã lưu — tên tự động lấy từ prompt, kèm ngày giờ tạo</figcaption>
+</figure>
 
 <h2>Mở lại block cũ để tiếp tục chỉnh sửa</h2>
 <p>Click vào một dự án trong danh sách để mở lại block đó trên canvas. <strong>Lưu ý quan trọng:</strong> nếu bạn đang chỉnh sửa một block chưa lưu trên canvas, hệ thống sẽ hiện hộp thoại xác nhận <em>"Thay thế block hiện tại?"</em> để tránh mất công sửa. Chọn:</p>
@@ -1324,6 +1360,10 @@ export const ARTICLES: Record<string, Article> = {
 <li>Nhấn <strong>"Huỷ"</strong> để giữ lại</li>
 </ul>
 <p>Block đã xóa không thể khôi phục — hệ thống không có thùng rác. Hãy chắc chắn trước khi xóa.</p>
+<figure>
+<img src="/images/tutorials/lich-su/02-xoa-xac-nhan.png" alt="Hộp thoại xác nhận xóa dự án" />
+<figcaption>Hộp thoại xác nhận trước khi xóa — nhấn "Xác nhận" để xóa vĩnh viễn, "Huỷ" để giữ lại</figcaption>
+</figure>
 
 <h2>Mẹo tổ chức dự án hiệu quả</h2>
 <ul>
@@ -1340,15 +1380,15 @@ export const ARTICLES: Record<string, Article> = {
   'mau-prompt-tao-noi-dung-hieu-qua': {
     slug:          'mau-prompt-tao-noi-dung-hieu-qua',
     title:         '20 mẫu prompt tạo nội dung hiệu quả — Copy và dùng ngay',
-    description:   '20 mẫu prompt sẵn sàng dùng cho AI Content Booster, phân loại theo loại block: banner, bảng giá, testimonial, tính năng sản phẩm và flash sale.',
+    description:   '20 mẫu prompt sẵn sàng dùng cho AITaoPage, phân loại theo loại block: banner, bảng giá, testimonial, tính năng sản phẩm và flash sale.',
     category:      'Hướng dẫn',
     readTime:      '7 phút',
     publishedDate: '2026-05-23',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['mẫu prompt ai content', 'prompt tạo landing page', 'ví dụ prompt ai', 'mẫu prompt banner', 'prompt bảng giá ai'],
     content: `
 <h2>Cách sử dụng các mẫu prompt này</h2>
-<p>Copy mẫu prompt phù hợp, dán vào ô nhập liệu của AI Content Booster, thay thế các thông tin trong <strong>[ngoặc vuông]</strong> bằng thông tin thực của sản phẩm bạn. Nhấn "Tạo nội dung" và nhận block HTML trong vài giây.</p>
+<p>Copy mẫu prompt phù hợp, dán vào ô nhập liệu của AITaoPage, thay thế các thông tin trong <strong>[ngoặc vuông]</strong> bằng thông tin thực của sản phẩm bạn. Nhấn "Tạo nội dung" và nhận block HTML trong vài giây.</p>
 <p>Mỗi mẫu đã được tối ưu để tạo ra block có bố cục rõ ràng, nội dung tiếng Việt tự nhiên và inline CSS tương thích CMS.</p>
 
 <h2>Nhóm 1: Banner Hero Section (4 mẫu)</h2>
@@ -1477,7 +1517,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Landing Page',
     readTime:      '7 phút',
     publishedDate: '2026-05-29',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['lỗi landing page', 'landing page không hiệu quả', 'sửa landing page', 'tối ưu landing page', 'landing page chuyển đổi thấp'],
     content: `
 <h2>Tại sao landing page có traffic nhưng không có đơn?</h2>
@@ -1541,7 +1581,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Landing Page',
     readTime:      '6 phút',
     publishedDate: '2026-05-28',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['mobile landing page', 'landing page điện thoại', 'mobile-first design', 'responsive landing page', 'landing page mobile Việt Nam'],
     content: `
 <h2>Tại sao mobile-first quan trọng hơn bao giờ hết?</h2>
@@ -1566,7 +1606,7 @@ export const ARTICLES: Record<string, Article> = {
 <p>Text sát mép màn hình rất khó đọc trên mobile. Padding ngang tối thiểu 16–20px cho mọi section. Container chính nên có <code>padding: 0 16px</code>.</p>
 
 <h2>Kiểm tra mobile trước khi publish</h2>
-<p>Sau khi tạo block với AI Content Booster, click nút <strong>Mobile</strong> trên toolbar để preview. Kiểm tra:</p>
+<p>Sau khi tạo block với AITaoPage, click nút <strong>Mobile</strong> trên toolbar để preview. Kiểm tra:</p>
 <ul>
 <li>Text có đọc được không? (không cần zoom)</li>
 <li>Nút CTA có đủ to và dễ bấm không?</li>
@@ -1585,7 +1625,7 @@ export const ARTICLES: Record<string, Article> = {
 </ul>
 
 <h2>Kết luận</h2>
-<p>Mobile-first không có nghĩa là bỏ qua desktop — mà là thiết kế cho mobile trước, rồi mở rộng cho desktop. Với AI Content Booster, block được tạo ra đã responsive sẵn. Nhiệm vụ của bạn là kiểm tra nhanh trên preview mobile trước khi copy HTML, đảm bảo trải nghiệm tốt cho phần lớn khách hàng của mình.</p>
+<p>Mobile-first không có nghĩa là bỏ qua desktop — mà là thiết kế cho mobile trước, rồi mở rộng cho desktop. Với AITaoPage, block được tạo ra đã responsive sẵn. Nhiệm vụ của bạn là kiểm tra nhanh trên preview mobile trước khi copy HTML, đảm bảo trải nghiệm tốt cho phần lớn khách hàng của mình.</p>
     `.trim(),
   },
 
@@ -1598,7 +1638,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'So sánh',
     readTime:      '9 phút',
     publishedDate: '2026-05-29',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['haravan vs sapo', 'haravan vs woocommerce', 'nền tảng bán hàng online Việt Nam', 'so sánh haravan sapo', 'chọn nền tảng thương mại điện tử'],
     content: `
 <h2>Tổng quan 3 nền tảng</h2>
@@ -1654,7 +1694,7 @@ export const ARTICLES: Record<string, Article> = {
 <li><strong>Có cửa hàng vật lý + online:</strong> Sapo — POS và quản lý kho là thế mạnh vượt trội</li>
 <li><strong>Cần SEO mạnh và kiểm soát toàn diện:</strong> WooCommerce — nhưng cần có người kỹ thuật</li>
 </ul>
-<p>Với AI Content Booster, cả 3 nền tảng đều hỗ trợ tốt việc dán HTML inline CSS. Bất kể bạn chọn nền tảng nào, quy trình tạo block → copy HTML → dán vào CMS đều hoạt động hoàn hảo.</p>
+<p>Với AITaoPage, cả 3 nền tảng đều hỗ trợ tốt việc dán HTML inline CSS. Bất kể bạn chọn nền tảng nào, quy trình tạo block → copy HTML → dán vào CMS đều hoạt động hoàn hảo.</p>
     `.trim(),
   },
 
@@ -1667,7 +1707,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'Kỹ thuật',
     readTime:      '6 phút',
     publishedDate: '2026-05-28',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['tốc độ tải trang', 'pagespeed landing page', 'tối ưu html block', 'ảnh webp cms', 'tăng tốc website haravan sapo'],
     content: `
 <h2>Tốc độ tải ảnh hưởng trực tiếp đến doanh thu</h2>
@@ -1698,7 +1738,7 @@ export const ARTICLES: Record<string, Article> = {
 <h2>Tránh blocking resources trong HTML block</h2>
 <ul>
 <li><strong>Không nhúng Google Fonts:</strong> Dùng font stack có sẵn (Arial, system-ui) hoặc kế thừa font từ CMS host</li>
-<li><strong>Không có script tag:</strong> AI Content Booster đã strip script khi xuất HTML — đây cũng là lý do block tải nhanh hơn so với builder có JavaScript</li>
+<li><strong>Không có script tag:</strong> AITaoPage đã strip script khi xuất HTML — đây cũng là lý do block tải nhanh hơn so với builder có JavaScript</li>
 <li><strong>Dùng CDN cho ảnh:</strong> Upload ảnh lên CDN (Cloudflare Images, imgix) thay vì server riêng để giảm latency</li>
 </ul>
 
@@ -1725,7 +1765,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'SEO',
     readTime:      '7 phút',
     publishedDate: '2026-05-29',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['từ khóa đuôi dài', 'long tail keyword', 'SEO từ khóa dài', 'chiến lược SEO website mới', 'tìm từ khóa SEO tiếng Việt'],
     content: `
 <h2>Từ khóa đuôi dài là gì?</h2>
@@ -1773,7 +1813,7 @@ export const ARTICLES: Record<string, Article> = {
     category:      'SEO',
     readTime:      '8 phút',
     publishedDate: '2026-05-27',
-    author:        'AI Content Booster',
+    author:        'AITaoPage',
     keywords:      ['local seo việt nam', 'google maps ranking', 'seo địa phương', 'google business profile', 'seo cửa hàng địa phương việt nam'],
     content: `
 <h2>Local SEO quan trọng với ai?</h2>

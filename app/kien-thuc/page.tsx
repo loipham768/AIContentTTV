@@ -17,7 +17,7 @@ import Logo from "@/components/Logo";
 import { ARTICLES } from "@/lib/articles";
 
 export const metadata = {
-  title: "Kiến thức AI Content | AI Content Booster",
+  title: "Kiến thức AI Content | AITaoPage",
   description:
     "Hướng dẫn, mẹo và chiến lược tạo nội dung bằng AI cho thị trường Việt Nam.",
   alternates: { canonical: "https://aicontentbooster.vn/kien-thuc" },
@@ -112,6 +112,7 @@ function getCat(category: string) {
   return CAT[category as CategoryKey] ?? CAT["Content"];
 }
 
+
 function formatDate(iso: string) {
   const d = new Date(iso);
   return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
@@ -205,7 +206,7 @@ export default function KienThucPage() {
               </div>
               <div>
                 <h2 className="text-base font-extrabold text-gray-900">Bắt đầu từ đây</h2>
-                <p className="text-xs text-gray-500 mt-0.5">Hướng dẫn sử dụng AI Content Booster</p>
+                <p className="text-xs text-gray-500 mt-0.5">Hướng dẫn sử dụng AITaoPage</p>
               </div>
             </div>
             <span className="text-xs font-bold text-teal-600 bg-teal-100 px-2.5 py-1 rounded-full">
@@ -218,20 +219,22 @@ export default function KienThucPage() {
               <Link
                 key={article.slug}
                 href={`/kien-thuc/${article.slug}`}
-                className="group flex items-start gap-3 p-4 rounded-xl bg-white border border-teal-100 hover:border-teal-300 hover:shadow-md transition-all duration-200"
+                className="group flex items-start gap-3 p-4 rounded-xl bg-white border border-teal-100 hover:border-teal-300 hover:shadow-lg transition-all duration-200"
               >
-                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center text-white text-xs font-extrabold shadow-sm">
+                <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-teal-500 to-cyan-600 text-white text-xs font-extrabold flex items-center justify-center shadow-sm">
                   {i + 1}
-                </div>
+                </span>
                 <div className="flex-1 min-w-0">
                   <h3 className="text-sm font-bold text-gray-900 group-hover:text-teal-700 transition-colors leading-snug line-clamp-2">
                     {article.title}
                   </h3>
-                  <span className="flex items-center gap-1 text-xs text-gray-400 mt-1.5">
-                    <Clock className="w-3 h-3" /> {article.readTime}
-                  </span>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="flex items-center gap-1 text-xs text-gray-400">
+                      <Clock className="w-3 h-3" /> {article.readTime}
+                    </span>
+                    <ChevronRight className="w-3.5 h-3.5 text-teal-400 group-hover:text-teal-600 group-hover:translate-x-0.5 transition-all" />
+                  </div>
                 </div>
-                <ChevronRight className="flex-shrink-0 w-4 h-4 text-teal-300 group-hover:text-teal-500 group-hover:translate-x-0.5 transition-all self-center" />
               </Link>
             ))}
           </div>
@@ -354,7 +357,7 @@ export default function KienThucPage() {
       >
         <Logo iconSize={22} uid="kb-footer" className="inline-flex mb-3 brightness-75" />
         <p className="mt-1">
-          © 2026 AI Content Booster ·{" "}
+          © 2026 AITaoPage ·{" "}
           <Link href="/" className="hover:text-gray-300 transition-colors">Trang chủ</Link>{" "}
           ·{" "}
           <Link href="/kien-thuc" className="hover:text-gray-300 transition-colors">Kiến thức</Link>

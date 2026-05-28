@@ -10,6 +10,7 @@ import {
 
 type CategoryKey = 'Landing Page' | 'So sánh' | 'Quảng cáo' | 'Kỹ thuật' | 'Content' | 'SEO' | 'Hướng dẫn'
 
+
 const CAT: Record<CategoryKey, { text: string; bg: string; grad: string; heroGrad: string; icon: React.ReactNode }> = {
   'Landing Page': { text: 'text-indigo-700', bg: 'bg-indigo-100', grad: 'from-indigo-500 to-violet-600',  heroGrad: 'from-indigo-700 via-indigo-800 to-violet-900', icon: <Layers className="w-4 h-4" /> },
   'So sánh':     { text: 'text-violet-700', bg: 'bg-violet-100', grad: 'from-violet-500 to-purple-600',  heroGrad: 'from-violet-700 via-purple-800 to-fuchsia-900', icon: <BarChart2 className="w-4 h-4" /> },
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const article = ARTICLES[slug]
   if (!article) return {}
   return {
-    title: `${article.title} | AI Content Booster`,
+    title: `${article.title} | AITaoPage`,
     description: article.description,
     keywords: article.keywords.join(', '),
     alternates: { canonical: `https://aicontentbooster.vn/kien-thuc/${slug}` },
@@ -147,7 +148,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <div className="relative">
                   <div className="flex items-center gap-1.5 mb-2">
                     <Sparkles className="w-3.5 h-3.5 text-white/70" />
-                    <span className="text-xs font-bold text-white/70">AI Content Booster</span>
+                    <span className="text-xs font-bold text-white/70">AITaoPage</span>
                   </div>
                   <h3 className="text-base font-extrabold text-white mb-2 leading-snug">
                     Áp dụng ngay những gì bạn học được
@@ -204,7 +205,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
         {/* ── Mobile CTA ── */}
         <div className={`mt-8 lg:hidden relative overflow-hidden rounded-2xl bg-gradient-to-br ${c.grad} p-7 text-center text-white shadow-xl`}>
-          <h2 className="text-lg font-extrabold mb-2">Áp dụng ngay với AI Content Booster</h2>
+          <h2 className="text-lg font-extrabold mb-2">Áp dụng ngay với AITaoPage</h2>
           <p className="text-white/80 text-sm mb-5">Tạo landing page, content bán hàng và quảng cáo chuyên nghiệp — chỉ cần nhập mô tả bằng tiếng Việt.</p>
           <Link href="/login" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-indigo-700 font-extrabold rounded-xl hover:bg-indigo-50 transition-colors shadow-lg text-sm">
             Dùng thử miễn phí <ArrowRight className="w-4 h-4" />
@@ -247,7 +248,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <footer className="py-10 text-center text-xs mt-6" style={{ background: '#0f0f11', color: '#6b7280' }}>
         <Logo iconSize={22} uid="art-footer" className="inline-flex mb-3 brightness-75" />
         <p className="mt-1">
-          © 2026 AI Content Booster ·{' '}
+          © 2026 AITaoPage ·{' '}
           <Link href="/" className="hover:text-gray-300 transition-colors">Trang chủ</Link> ·{' '}
           <Link href="/kien-thuc" className="hover:text-gray-300 transition-colors">Kiến thức</Link>
         </p>
