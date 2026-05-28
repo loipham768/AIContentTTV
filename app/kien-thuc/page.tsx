@@ -11,6 +11,7 @@ import {
   Megaphone,
   FileText,
   BarChart2,
+  GraduationCap,
 } from "lucide-react";
 import Logo from "@/components/Logo";
 import { ARTICLES } from "@/lib/articles";
@@ -28,7 +29,8 @@ type CategoryKey =
   | "Quảng cáo"
   | "Kỹ thuật"
   | "Content"
-  | "SEO";
+  | "SEO"
+  | "Hướng dẫn";
 
 const CAT: Record<
   CategoryKey,
@@ -88,6 +90,14 @@ const CAT: Record<
     icon: <Search className="w-3.5 h-3.5" />,
     grad: "from-blue-500 to-indigo-600",
     light: "bg-blue-50",
+  },
+  "Hướng dẫn": {
+    text: "text-teal-700",
+    bg: "bg-teal-100",
+    dot: "bg-teal-500",
+    icon: <GraduationCap className="w-3.5 h-3.5" />,
+    grad: "from-teal-500 to-cyan-600",
+    light: "bg-teal-50",
   },
 };
 

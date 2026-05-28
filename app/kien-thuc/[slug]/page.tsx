@@ -5,10 +5,10 @@ import Logo from '@/components/Logo'
 import {
   ArrowLeft, Clock, Calendar, ArrowRight,
   Layers, BarChart2, Megaphone, Code2, FileText, Search,
-  User, BookOpen, Sparkles,
+  User, BookOpen, Sparkles, GraduationCap,
 } from 'lucide-react'
 
-type CategoryKey = 'Landing Page' | 'So sánh' | 'Quảng cáo' | 'Kỹ thuật' | 'Content' | 'SEO'
+type CategoryKey = 'Landing Page' | 'So sánh' | 'Quảng cáo' | 'Kỹ thuật' | 'Content' | 'SEO' | 'Hướng dẫn'
 
 const CAT: Record<CategoryKey, { text: string; bg: string; grad: string; heroGrad: string; icon: React.ReactNode }> = {
   'Landing Page': { text: 'text-indigo-700', bg: 'bg-indigo-100', grad: 'from-indigo-500 to-violet-600',  heroGrad: 'from-indigo-700 via-indigo-800 to-violet-900', icon: <Layers className="w-4 h-4" /> },
@@ -17,6 +17,7 @@ const CAT: Record<CategoryKey, { text: string; bg: string; grad: string; heroGra
   'Kỹ thuật':    { text: 'text-emerald-700', bg: 'bg-emerald-100', grad: 'from-emerald-500 to-teal-600', heroGrad: 'from-emerald-700 via-teal-800 to-cyan-900',   icon: <Code2 className="w-4 h-4" /> },
   'Content':     { text: 'text-amber-700',   bg: 'bg-amber-100',   grad: 'from-amber-500 to-orange-500', heroGrad: 'from-amber-700 via-orange-800 to-red-900',    icon: <FileText className="w-4 h-4" /> },
   'SEO':         { text: 'text-blue-700',    bg: 'bg-blue-100',    grad: 'from-blue-500 to-indigo-600',  heroGrad: 'from-blue-700 via-blue-800 to-indigo-900',    icon: <Search className="w-4 h-4" /> },
+  'Hướng dẫn':  { text: 'text-teal-700',    bg: 'bg-teal-100',    grad: 'from-teal-500 to-cyan-600',    heroGrad: 'from-teal-700 via-teal-800 to-cyan-900',      icon: <GraduationCap className="w-4 h-4" /> },
 }
 
 function getCat(category: string) {

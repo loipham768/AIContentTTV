@@ -1087,4 +1087,384 @@ export const ARTICLES: Record<string, Article> = {
 <p>Email marketing kết hợp với AI là một trong những channel có ROI cao nhất và ít cạnh tranh nhất tại thị trường Việt Nam hiện tại. Đầu tư xây dựng danh sách email từ khách hàng hiện tại và nurture họ bằng content có giá trị — đây là tài sản marketing dài hạn mà không thuật toán nào của Facebook hay TikTok có thể xóa bỏ.</p>
     `.trim(),
   },
+
+  'huong-dan-bat-dau-ai-content-booster': {
+    slug:          'huong-dan-bat-dau-ai-content-booster',
+    title:         'Hướng dẫn bắt đầu: Tạo block nội dung AI đầu tiên trong 60 giây',
+    description:   'Từng bước sử dụng AI Content Booster — đăng ký, nhập prompt, chỉnh sửa trên editor và sao chép HTML dán vào CMS. Hướng dẫn dành cho người dùng mới.',
+    category:      'Hướng dẫn',
+    readTime:      '5 phút',
+    publishedDate: '2026-05-28',
+    author:        'AI Content Booster',
+    keywords:      ['hướng dẫn ai content booster', 'cách dùng ai content booster', 'tạo block nội dung ai', 'bắt đầu ai content', 'hướng dẫn sử dụng'],
+    content: `
+<h2>Tổng quan — Bạn sẽ làm được gì trong 60 giây?</h2>
+<p>AI Content Booster giúp bạn đi từ ý tưởng đến một block nội dung HTML hoàn chỉnh — sẵn sàng dán vào Haravan, Sapo, hay WordPress — chỉ trong 60 giây. Không cần biết code, không cần Photoshop, không cần thuê designer.</p>
+<p>Quy trình gồm 4 bước chính:</p>
+<ol>
+<li>Nhập mô tả nội dung bằng tiếng Việt</li>
+<li>AI tạo block và render ngay trên editor kéo thả</li>
+<li>Chỉnh sửa text, màu sắc theo ý muốn</li>
+<li>Nhấn "Sao chép HTML" và dán vào CMS</li>
+</ol>
+
+<h2>Bước 1: Đăng ký tài khoản</h2>
+<p>Truy cập trang đăng ký, nhập email và mật khẩu. Không cần xác nhận email — bạn được đăng nhập ngay và chuyển đến giao diện editor. Tài khoản miễn phí cho phép tạo nội dung không giới hạn trong thời gian dùng thử.</p>
+
+<h2>Bước 2: Nhập prompt mô tả nội dung</h2>
+<p>Ở thanh trên cùng của editor, bạn sẽ thấy ô nhập liệu với placeholder <em>"Mô tả nội dung bạn muốn tạo..."</em>. Đây là nơi bạn nói chuyện với AI.</p>
+<p><strong>Ví dụ prompt đơn giản để bắt đầu:</strong></p>
+<blockquote>
+<em>Tạo banner giới thiệu sản phẩm kem dưỡng da nghệ, dành cho phụ nữ 25–40 tuổi, màu vàng ấm, có nút "Mua ngay"</em>
+</blockquote>
+<p>Nhấn nút <strong>"Tạo nội dung"</strong> (hoặc Enter). AI sẽ xử lý trong khoảng 5–15 giây.</p>
+
+<h2>Bước 3: Xem kết quả trên editor kéo thả</h2>
+<p>Khi AI hoàn thành, block nội dung xuất hiện ngay trên canvas GrapesJS bên dưới. Bạn có thể:</p>
+<ul>
+<li><strong>Double-click vào text</strong> để sửa nội dung trực tiếp</li>
+<li><strong>Click chọn element</strong> rồi kéo để thay đổi vị trí</li>
+<li><strong>Dùng thanh toolbar</strong> để Undo (Ctrl+Z) hoặc Redo (Ctrl+Y)</li>
+<li><strong>Chuyển chế độ xem</strong> Desktop / Mobile để kiểm tra responsive</li>
+</ul>
+
+<h2>Bước 4: Sao chép HTML và dán vào CMS</h2>
+<p>Khi hài lòng với nội dung, nhấn nút <strong>"Sao chép HTML"</strong> ở góc trên phải. Thông báo <em>"Sao chép thành công!"</em> xuất hiện — HTML đã vào clipboard.</p>
+<p>Mở CMS của bạn (Haravan, Sapo, WordPress...), vào vị trí muốn chèn block, chuyển sang chế độ <strong>Source Code / HTML</strong>, dán HTML vào. Nội dung hiển thị đúng định dạng ngay lập tức vì đã dùng inline CSS.</p>
+
+<h2>Lịch sử tự động lưu</h2>
+<p>Mỗi block bạn tạo được <strong>tự động lưu</strong> vào lịch sử với tên lấy từ 50 ký tự đầu của prompt. Để xem lại, click biểu tượng <strong>lịch sử</strong> ở sidebar bên phải — bạn có thể mở lại, tiếp tục chỉnh sửa, hoặc xóa các block cũ.</p>
+
+<h2>Mẹo cho lần đầu sử dụng</h2>
+<ul>
+<li>Bắt đầu bằng prompt đơn giản, sau đó thêm chi tiết dần — AI xử lý tốt hơn khi thông tin rõ ràng</li>
+<li>Nếu kết quả chưa đúng ý, thử lại với prompt mô tả cụ thể hơn về màu sắc, font, phong cách</li>
+<li>Dùng chế độ xem Mobile để đảm bảo block hiển thị đẹp trên điện thoại trước khi sao chép</li>
+<li>Lưu nhiều phiên bản khác nhau — lịch sử không giới hạn số lượng block</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>Chỉ 4 bước đơn giản và bạn đã có HTML block chuyên nghiệp sẵn sàng dán vào CMS. Thực hành với một vài prompt đơn giản trước, rồi dần tạo các block phức tạp hơn — landing page section, bảng giá, block testimonial, v.v. Toàn bộ quy trình không quá 60 giây từ ý tưởng đến HTML production-ready.</p>
+    `.trim(),
+  },
+
+  'cach-viet-prompt-hieu-qua-cho-ai-content-booster': {
+    slug:          'cach-viet-prompt-hieu-qua-cho-ai-content-booster',
+    title:         'Cách viết prompt hiệu quả — Nhận block nội dung đúng ý ngay lần đầu',
+    description:   'Công thức viết prompt cho AI Content Booster. 5 yếu tố quan trọng và 10 ví dụ prompt thực tế giúp AI tạo ra block nội dung chính xác theo ý muốn.',
+    category:      'Hướng dẫn',
+    readTime:      '6 phút',
+    publishedDate: '2026-05-27',
+    author:        'AI Content Booster',
+    keywords:      ['viết prompt ai content', 'prompt ai content booster', 'cách nhập prompt', 'prompt tạo nội dung', 'hướng dẫn prompt ai'],
+    content: `
+<h2>Tại sao cùng một yêu cầu, AI cho kết quả khác nhau?</h2>
+<p>AI Content Booster sử dụng ngôn ngữ tự nhiên để hiểu yêu cầu của bạn. Prompt càng cụ thể, kết quả càng khớp ý. Prompt mơ hồ dẫn đến block generic — prompt chi tiết dẫn đến block tailored hoàn toàn cho sản phẩm và đối tượng của bạn.</p>
+<p>Thực tế đo được: người dùng có prompt chi tiết thường hài lòng ngay lần đầu tạo (không cần thử lại) với tỷ lệ <strong>78%</strong>, so với chỉ <strong>31%</strong> với prompt một câu ngắn.</p>
+
+<h2>Công thức 5 yếu tố của prompt hiệu quả</h2>
+<h3>Yếu tố 1: Loại block muốn tạo</h3>
+<p>Nói rõ bạn muốn loại block nào: banner hero, bảng giá, block testimonial, section tính năng sản phẩm, v.v. AI sẽ dùng bố cục phù hợp cho từng loại.</p>
+<ul>
+<li>✓ "Tạo <strong>bảng giá 3 gói</strong>..."</li>
+<li>✓ "Tạo <strong>banner hero</strong> fullwidth..."</li>
+<li>✓ "Tạo <strong>section tính năng</strong> với 4 icon..."</li>
+<li>✗ "Tạo nội dung về sản phẩm..." (quá chung chung)</li>
+</ul>
+
+<h3>Yếu tố 2: Sản phẩm / Dịch vụ</h3>
+<p>Mô tả ngắn gọn sản phẩm: tên, loại, điểm nổi bật chính. Không cần viết cả đoạn dài — 1–2 câu súc tích là đủ.</p>
+
+<h3>Yếu tố 3: Đối tượng khách hàng</h3>
+<p>AI điều chỉnh ngôn ngữ và tông giọng theo đối tượng. "Phụ nữ 25–40 tuổi" tạo nội dung khác hoàn toàn so với "nam giới 30–50 tuổi, doanh nhân".</p>
+
+<h3>Yếu tố 4: Màu sắc và phong cách</h3>
+<p>Gợi ý màu sắc thương hiệu hoặc phong cách thiết kế. Ví dụ: "màu xanh navy và trắng, phong cách tối giản" hoặc "màu ấm cam vàng, phong cách gần gũi, tươi vui".</p>
+
+<h3>Yếu tố 5: CTA và hành động mong muốn</h3>
+<p>Nói AI muốn nút CTA là gì: "Đặt hàng ngay", "Nhận tư vấn miễn phí", "Đăng ký học thử", v.v.</p>
+
+<h2>10 ví dụ prompt thực tế theo loại block</h2>
+
+<h3>Banner Hero Section</h3>
+<blockquote>
+<em>Tạo banner hero fullwidth cho khóa học IELTS online, dành cho học sinh và sinh viên 16–25 tuổi muốn đạt 6.5+ trong 3 tháng. Màu xanh đậm và vàng gold. Headline nhấn vào cam kết "Đạt điểm mục tiêu hoặc học lại miễn phí". Có nút CTA "Đăng ký học thử" màu vàng nổi bật.</em>
+</blockquote>
+
+<h3>Bảng giá 3 gói</h3>
+<blockquote>
+<em>Tạo bảng giá 3 gói cho dịch vụ thiết kế logo: Cơ bản 500k, Chuyên nghiệp 1.2 triệu, Cao cấp 2.5 triệu. Mỗi gói liệt kê 4 tính năng chính. Gói Chuyên nghiệp là gói nổi bật (highlighted). Màu tím và trắng, font hiện đại. CTA "Đặt thiết kế ngay".</em>
+</blockquote>
+
+<h3>Section tính năng sản phẩm</h3>
+<blockquote>
+<em>Tạo section tính năng 4 cột với icon cho phần mềm quản lý bán hàng: (1) Quản lý kho tự động, (2) Báo cáo doanh thu real-time, (3) Tích hợp Shopee/Lazada, (4) Hỗ trợ 24/7. Màu trắng nền sáng, icon màu xanh lá. Tone chuyên nghiệp, dành cho chủ shop online.</em>
+</blockquote>
+
+<h3>Block testimonial</h3>
+<blockquote>
+<em>Tạo section testimonial 3 thẻ cho spa làm đẹp. Mỗi thẻ có avatar tròn, tên khách, nghề nghiệp, đánh giá 5 sao, và đoạn quote 2–3 câu về kết quả điều trị. Màu hồng nhạt và trắng, phong cách sang trọng, nhẹ nhàng. Dành cho phụ nữ 25–45 tuổi.</em>
+</blockquote>
+
+<h3>Banner flash sale</h3>
+<blockquote>
+<em>Tạo banner flash sale cho cửa hàng thời trang online. Giảm 40% toàn bộ hàng hè. Thời gian: hôm nay đến hết 31/5. Màu đỏ mạnh và trắng, font lớn, gây cảm giác urgent. Có nút "Mua ngay — chỉ còn hôm nay". Dành cho phụ nữ 20–35 tuổi thích thời trang trẻ trung.</em>
+</blockquote>
+
+<h2>Sai lầm phổ biến khi viết prompt</h2>
+<ul>
+<li><strong>Quá ngắn:</strong> "Tạo banner sản phẩm mỹ phẩm" — AI không biết loại block nào, đối tượng nào, màu gì</li>
+<li><strong>Quá dài và lan man:</strong> Nhiều hơn 5–6 câu thường không tốt hơn — tập trung vào thông tin quan trọng nhất</li>
+<li><strong>Không nói màu sắc:</strong> AI có thể chọn màu không phù hợp thương hiệu của bạn</li>
+<li><strong>Quên CTA:</strong> Block không có nút kêu gọi hành động thường kém hiệu quả hơn</li>
+</ul>
+
+<h2>Khi kết quả chưa đúng ý — thử lại thế nào?</h2>
+<p>Thay vì sửa từng pixel trên editor, hãy thử lại với prompt được cải thiện. Thêm thông tin về màu sắc cụ thể hơn, mô tả layout rõ hơn ("2 cột: ảnh trái, text phải"), hoặc chỉ rõ tone ("chuyên nghiệp, không quá hoa văn"). Thường chỉ cần 2–3 lần thử là ra kết quả ưng ý.</p>
+
+<h2>Kết luận</h2>
+<p>Prompt tốt = loại block + sản phẩm/dịch vụ + đối tượng + màu sắc + CTA. 5 yếu tố này trong 3–5 câu là công thức chuẩn. Lưu lại những prompt hoạt động tốt cho từng loại sản phẩm — bạn có thể tái sử dụng và chỉnh nhỏ thay vì viết lại từ đầu mỗi lần.</p>
+    `.trim(),
+  },
+
+  'huong-dan-su-dung-editor-keo-tha': {
+    slug:          'huong-dan-su-dung-editor-keo-tha',
+    title:         'Hướng dẫn dùng editor kéo thả — Chỉnh sửa nội dung không cần code',
+    description:   'Toàn bộ tính năng của GrapesJS editor trong AI Content Booster: double-click chỉnh text, kéo block, undo/redo, preview mobile và desktop.',
+    category:      'Hướng dẫn',
+    readTime:      '5 phút',
+    publishedDate: '2026-05-26',
+    author:        'AI Content Booster',
+    keywords:      ['editor kéo thả', 'grapesjs hướng dẫn', 'chỉnh sửa nội dung không code', 'drag drop editor', 'hướng dẫn editor ai content'],
+    content: `
+<h2>Editor kéo thả là gì?</h2>
+<p>Sau khi AI tạo block nội dung, bạn có thể chỉnh sửa trực tiếp trên canvas mà không cần chạm vào một dòng code nào. Editor sử dụng GrapesJS — một trong những visual editor mạnh nhất hiện nay — được tối ưu hóa riêng cho AI Content Booster với giao diện tiếng Việt đơn giản.</p>
+
+<h2>Chỉnh sửa text — Double-click để sửa trực tiếp</h2>
+<p>Tính năng hay nhất và dùng nhiều nhất: <strong>double-click vào bất kỳ đoạn text nào</strong> để chỉnh sửa ngay tại chỗ (inline editing). Không cần popup, không cần sidebar — cứ như đang gõ vào Word.</p>
+<p>Ví dụ thực tế:</p>
+<ol>
+<li>AI tạo ra headline "Da sáng mịn sau 14 ngày" — nhưng sản phẩm của bạn cho kết quả sau 7 ngày</li>
+<li>Double-click vào dòng headline</li>
+<li>Xóa "14 ngày" và gõ "7 ngày"</li>
+<li>Click ra ngoài để xác nhận — xong</li>
+</ol>
+<p>Mọi text trên canvas đều có thể sửa theo cách này: headline, subheadline, đoạn văn, text trên nút CTA, v.v.</p>
+
+<h2>Kéo thả các khối nội dung</h2>
+<p>Để di chuyển một section hoặc element, <strong>click và giữ</strong> rồi kéo đến vị trí mới. Đường guide màu xanh xuất hiện để chỉ vị trí drop. Thả ra để element đến vị trí mới.</p>
+<p>Ứng dụng thực tế: AI tạo ra section "Testimonial" nằm trên section "Bảng giá" — bạn muốn đổi thứ tự — chỉ cần kéo section Bảng giá lên trên.</p>
+
+<h2>Undo / Redo — Ctrl+Z và Ctrl+Y</h2>
+<p>Mọi thao tác chỉnh sửa đều có thể hoàn tác:</p>
+<ul>
+<li><strong>Ctrl+Z</strong> (Windows) / <strong>Cmd+Z</strong> (Mac): Undo — quay lại bước trước</li>
+<li><strong>Ctrl+Y</strong> (Windows) / <strong>Cmd+Y</strong> (Mac): Redo — làm lại bước vừa undo</li>
+</ul>
+<p>Ngoài ra, toolbar phía trên có nút mũi tên trái (Undo) và mũi tên phải (Redo) — click vào nếu bạn không quen phím tắt.</p>
+
+<h2>Chuyển đổi Desktop / Mobile Preview</h2>
+<p>Trước khi sao chép HTML, hãy kiểm tra giao diện trên điện thoại. Click nút <strong>Desktop</strong> hoặc <strong>Mobile</strong> ở thanh toolbar để xem canvas co lại như màn hình điện thoại.</p>
+<p><strong>Tại sao quan trọng:</strong> Hơn 60% người dùng Việt Nam xem web trên điện thoại. Block đẹp trên desktop nhưng vỡ layout trên mobile = mất khách hàng. AI đã tạo ra nội dung responsive, nhưng kiểm tra trực quan giúp bạn yên tâm hơn trước khi dán vào CMS.</p>
+
+<h2>Chọn và xóa element</h2>
+<p><strong>Click một lần</strong> vào element để chọn (viền xanh xuất hiện). Sau khi chọn:</p>
+<ul>
+<li>Nhấn <strong>Delete / Backspace</strong> để xóa element đó</li>
+<li>Nhìn thanh trạng thái phía dưới element để biết đang chọn element nào (div, section, button...)</li>
+</ul>
+<p><strong>Lưu ý:</strong> Nếu xóa nhầm, nhấn Ctrl+Z ngay để hoàn tác.</p>
+
+<h2>Giới hạn cần biết</h2>
+<ul>
+<li>Editor chỉ hỗ trợ <strong>chỉnh sửa text và vị trí</strong> — không hỗ trợ thêm block mới hay thay đổi màu sắc trong phiên bản hiện tại</li>
+<li>Nếu cần thay đổi màu sắc hoặc layout lớn, cách hiệu quả nhất là <strong>tạo lại với prompt mới</strong> mô tả rõ màu sắc mong muốn</li>
+<li>Thay đổi sẽ được lưu tự động khi bạn tạo block mới — không có nút "Save" riêng</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>Ba thao tác cần nhớ: <strong>double-click để sửa text</strong>, <strong>click và kéo để di chuyển</strong>, <strong>Ctrl+Z để undo</strong>. Với ba thao tác này, bạn có thể tinh chỉnh mọi block AI tạo ra cho phù hợp với sản phẩm và thương hiệu của mình — tất cả trong vài phút, không cần một dòng code nào.</p>
+    `.trim(),
+  },
+
+  'quan-ly-lich-su-va-du-an': {
+    slug:          'quan-ly-lich-su-va-du-an',
+    title:         'Quản lý lịch sử dự án — Lưu, mở lại và tổ chức block nội dung',
+    description:   'Cách sử dụng tính năng lưu tự động và lịch sử dự án trong AI Content Booster. Mở lại block cũ, tiếp tục chỉnh sửa và xóa dự án không cần.',
+    category:      'Hướng dẫn',
+    readTime:      '4 phút',
+    publishedDate: '2026-05-24',
+    author:        'AI Content Booster',
+    keywords:      ['lưu nội dung ai', 'lịch sử dự án', 'mở lại block cũ', 'quản lý nội dung ai content', 'history ai content booster'],
+    content: `
+<h2>Lưu tự động — Không lo mất nội dung</h2>
+<p>AI Content Booster tự động lưu mỗi block bạn tạo vào lịch sử ngay sau khi AI hoàn thành. Bạn không cần nhấn nút "Lưu" — hệ thống làm điều này trong nền sau mỗi lần generate thành công.</p>
+<p><strong>Tên dự án</strong> được tự động tạo từ 50 ký tự đầu của prompt bạn nhập. Ví dụ: nếu prompt là "Tạo banner giới thiệu sản phẩm kem dưỡng da nghệ...", tên lưu sẽ là "Tạo banner giới thiệu sản phẩm kem dưỡng da ngh..."</p>
+
+<h2>Mở panel lịch sử</h2>
+<p>Nhìn vào sidebar bên phải màn hình editor. Click vào biểu tượng <strong>lịch sử</strong> (hình đồng hồ) để mở panel danh sách dự án đã lưu. Danh sách hiển thị:</p>
+<ul>
+<li>Tên dự án (từ prompt)</li>
+<li>Ngày và giờ tạo</li>
+<li>Đoạn mô tả prompt đầy đủ</li>
+</ul>
+<p>Các dự án được sắp xếp theo thời gian, <strong>mới nhất ở trên đầu</strong>.</p>
+
+<h2>Mở lại block cũ để tiếp tục chỉnh sửa</h2>
+<p>Click vào một dự án trong danh sách để mở lại block đó trên canvas. <strong>Lưu ý quan trọng:</strong> nếu bạn đang chỉnh sửa một block chưa lưu trên canvas, hệ thống sẽ hiện hộp thoại xác nhận <em>"Thay thế block hiện tại?"</em> để tránh mất công sửa. Chọn:</p>
+<ul>
+<li><strong>"Thay thế"</strong>: mở block cũ và thay thế canvas hiện tại</li>
+<li><strong>"Huỷ"</strong>: quay lại tiếp tục với canvas hiện tại</li>
+</ul>
+
+<h2>Xóa dự án không cần</h2>
+<p>Hover vào dự án muốn xóa — nút xóa (biểu tượng thùng rác) xuất hiện. Click vào, hộp thoại xác nhận <em>"Xoá khối này?"</em> hiện ra:</p>
+<ul>
+<li>Nhấn <strong>"Xác nhận"</strong> để xóa vĩnh viễn</li>
+<li>Nhấn <strong>"Huỷ"</strong> để giữ lại</li>
+</ul>
+<p>Block đã xóa không thể khôi phục — hệ thống không có thùng rác. Hãy chắc chắn trước khi xóa.</p>
+
+<h2>Mẹo tổ chức dự án hiệu quả</h2>
+<ul>
+<li><strong>Đặt tên prompt mô tả rõ:</strong> Thay vì "Tạo banner", viết "Tạo banner hero cho sản phẩm kem X tháng 5" — tên lưu sẽ dễ nhận ra hơn nhiều khi tìm lại</li>
+<li><strong>Tạo nhiều phiên bản A/B:</strong> Tạo 2–3 phiên bản với prompt khác nhau, lưu cả 3, rồi so sánh và chọn phiên bản tốt nhất</li>
+<li><strong>Dọn dẹp thường xuyên:</strong> Xóa các block test, draft cũ để danh sách gọn gàng và dễ tìm các dự án quan trọng</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>Tính năng lưu tự động đảm bảo bạn không bao giờ mất nội dung đã tạo. Panel lịch sử cho phép quay lại bất kỳ block cũ nào để tiếp tục chỉnh sửa hoặc tái sử dụng. Với workflow này, bạn có thể xây dựng thư viện block nội dung riêng — banner, bảng giá, testimonial — và tái sử dụng, cập nhật theo mùa mà không cần tạo lại từ đầu.</p>
+    `.trim(),
+  },
+
+  'mau-prompt-tao-noi-dung-hieu-qua': {
+    slug:          'mau-prompt-tao-noi-dung-hieu-qua',
+    title:         '20 mẫu prompt tạo nội dung hiệu quả — Copy và dùng ngay',
+    description:   '20 mẫu prompt sẵn sàng dùng cho AI Content Booster, phân loại theo loại block: banner, bảng giá, testimonial, tính năng sản phẩm và flash sale.',
+    category:      'Hướng dẫn',
+    readTime:      '7 phút',
+    publishedDate: '2026-05-23',
+    author:        'AI Content Booster',
+    keywords:      ['mẫu prompt ai content', 'prompt tạo landing page', 'ví dụ prompt ai', 'mẫu prompt banner', 'prompt bảng giá ai'],
+    content: `
+<h2>Cách sử dụng các mẫu prompt này</h2>
+<p>Copy mẫu prompt phù hợp, dán vào ô nhập liệu của AI Content Booster, thay thế các thông tin trong <strong>[ngoặc vuông]</strong> bằng thông tin thực của sản phẩm bạn. Nhấn "Tạo nội dung" và nhận block HTML trong vài giây.</p>
+<p>Mỗi mẫu đã được tối ưu để tạo ra block có bố cục rõ ràng, nội dung tiếng Việt tự nhiên và inline CSS tương thích CMS.</p>
+
+<h2>Nhóm 1: Banner Hero Section (4 mẫu)</h2>
+
+<h3>Mẫu 1 — Banner sản phẩm đơn giản</h3>
+<blockquote>
+<em>Tạo banner hero fullwidth cho [tên sản phẩm]. Sản phẩm dành cho [đối tượng]. Điểm nổi bật: [3 lợi ích chính]. Màu chủ đạo: [màu sắc]. Headline nhấn vào [kết quả cụ thể]. Nút CTA "[text CTA]" màu nổi bật.</em>
+</blockquote>
+
+<h3>Mẫu 2 — Banner dịch vụ chuyên nghiệp</h3>
+<blockquote>
+<em>Tạo banner hero 2 cột (trái: text, phải: hình placeholder) cho dịch vụ [tên dịch vụ]. Tone chuyên nghiệp, dành cho [đối tượng B2B/B2C]. Headline dạng câu hỏi hoặc cam kết. Màu [màu] và trắng. CTA "[text CTA]".</em>
+</blockquote>
+
+<h3>Mẫu 3 — Banner sự kiện / ra mắt</h3>
+<blockquote>
+<em>Tạo banner thông báo ra mắt [sản phẩm/dịch vụ mới]. Background màu [màu đậm], chữ trắng. Có badge "Mới ra mắt" hoặc "Coming Soon". Ngày ra mắt: [ngày]. Nút đăng ký nhận thông báo sớm.</em>
+</blockquote>
+
+<h3>Mẫu 4 — Banner flash sale</h3>
+<blockquote>
+<em>Tạo banner flash sale cho [cửa hàng/sản phẩm]. Giảm [X%] từ [ngày] đến [ngày]. Màu đỏ hoặc cam mạnh, gây cảm giác urgent. Font lớn, bold. Có countdown "Kết thúc hết ngày [ngày]". CTA "Mua ngay — giá tốt nhất".</em>
+</blockquote>
+
+<h2>Nhóm 2: Bảng giá (3 mẫu)</h2>
+
+<h3>Mẫu 5 — Bảng giá 3 gói SaaS/dịch vụ</h3>
+<blockquote>
+<em>Tạo bảng giá 3 gói cho [dịch vụ]: Gói [tên 1] [giá 1], Gói [tên 2] [giá 2] (gói nổi bật), Gói [tên 3] [giá 3]. Mỗi gói có 4–5 tính năng. Gói giữa highlighted màu [màu]. CTA "Bắt đầu ngay" hoặc "Chọn gói này".</em>
+</blockquote>
+
+<h3>Mẫu 6 — Bảng giá sản phẩm vật lý</h3>
+<blockquote>
+<em>Tạo bảng giá cho [sản phẩm] với 3 gói mua: 1 hộp [giá], 3 hộp [giá] (tiết kiệm X%), 6 hộp [giá] (tiết kiệm Y%). Hiển thị giá gốc và giá sale. Gói 3 hộp là gợi ý. Màu [màu]. CTA "Đặt hàng ngay".</em>
+</blockquote>
+
+<h3>Mẫu 7 — Bảng so sánh miễn phí vs trả phí</h3>
+<blockquote>
+<em>Tạo bảng so sánh 2 gói: Miễn phí và Pro [giá]/tháng cho [dịch vụ]. Liệt kê 6–8 tính năng, đánh dấu tính năng nào có/không cho mỗi gói. Màu [màu]. Nút CTA "Nâng cấp Pro" ở gói trả phí.</em>
+</blockquote>
+
+<h2>Nhóm 3: Social Proof & Testimonial (3 mẫu)</h2>
+
+<h3>Mẫu 8 — Section testimonial 3 thẻ</h3>
+<blockquote>
+<em>Tạo section testimonial 3 thẻ ngang cho [sản phẩm/dịch vụ]. Mỗi thẻ: avatar hình tròn, tên khách hàng, chức danh/địa điểm, đánh giá 5 sao, quote 2 câu về kết quả thực tế. Màu nền trắng hoặc [màu nhạt], font đọc dễ. Dành cho [đối tượng].</em>
+</blockquote>
+
+<h3>Mẫu 9 — Block số liệu thành tích</h3>
+<blockquote>
+<em>Tạo block hiển thị 4 con số thành tích cho [công ty/sản phẩm]: [số 1] [mô tả], [số 2] [mô tả], [số 3] [mô tả], [số 4] [mô tả]. Màu [màu] với số lớn nổi bật. Tone tự tin, chuyên nghiệp.</em>
+</blockquote>
+
+<h3>Mẫu 10 — Banner logo khách hàng</h3>
+<blockquote>
+<em>Tạo section "Được tin dùng bởi" hiển thị tên [5–6 thương hiệu/đối tác] dạng text với font đẹp. Nền trắng hoặc xám nhạt. Có tiêu đề "Hơn [X] doanh nghiệp tin dùng". Tone uy tín, chuyên nghiệp.</em>
+</blockquote>
+
+<h2>Nhóm 4: Tính năng & Lợi ích (3 mẫu)</h2>
+
+<h3>Mẫu 11 — Grid tính năng 4 cột</h3>
+<blockquote>
+<em>Tạo section tính năng 4 cột với icon cho [sản phẩm/dịch vụ]: (1) [tính năng 1], (2) [tính năng 2], (3) [tính năng 3], (4) [tính năng 4]. Mỗi tính năng có icon, tiêu đề ngắn và mô tả 1–2 câu. Màu [màu], nền trắng sáng.</em>
+</blockquote>
+
+<h3>Mẫu 12 — Section "Tại sao chọn chúng tôi"</h3>
+<blockquote>
+<em>Tạo section "Tại sao chọn [tên thương hiệu]?" dạng 2 cột so sánh: trái là "Cách cũ" (3 vấn đề), phải là "Với [sản phẩm]" (3 giải pháp). Màu xám nhạt cho cột trái, [màu thương hiệu] cho cột phải. Tone thuyết phục nhẹ nhàng.</em>
+</blockquote>
+
+<h3>Mẫu 13 — Quy trình 4 bước</h3>
+<blockquote>
+<em>Tạo section "Quy trình làm việc" 4 bước dạng timeline ngang cho [dịch vụ]: Bước 1 [mô tả], Bước 2 [mô tả], Bước 3 [mô tả], Bước 4 [mô tả]. Màu [màu], icon số thứ tự. Tone rõ ràng, dễ hiểu.</em>
+</blockquote>
+
+<h2>Nhóm 5: CTA & Kết thúc trang (3 mẫu)</h2>
+
+<h3>Mẫu 14 — CTA section cuối trang</h3>
+<blockquote>
+<em>Tạo section CTA cuối trang cho [sản phẩm/dịch vụ]. Background gradient [màu 1] sang [màu 2]. Tiêu đề kêu gọi hành động mạnh. Subtext ngắn nhấn vào urgency hoặc ưu đãi. Nút CTA lớn "[text CTA]" màu trắng hoặc vàng.</em>
+</blockquote>
+
+<h3>Mẫu 15 — Banner đăng ký nhận ưu đãi</h3>
+<blockquote>
+<em>Tạo banner thu thập thông tin khách hàng cho [sản phẩm]. Offer: [ưu đãi khi đăng ký — ví dụ: voucher 50k, ebook miễn phí]. Form đơn giản: Họ tên + Số điện thoại + Nút gửi. Màu [màu]. Nhấn mạnh tính giới hạn của ưu đãi.</em>
+</blockquote>
+
+<h3>Mẫu 16 — Section FAQ</h3>
+<blockquote>
+<em>Tạo section FAQ 4–5 câu hỏi thường gặp cho [sản phẩm/dịch vụ]. Các câu hỏi về: giá cả, thời gian giao hàng, chính sách đổi trả, cách sử dụng, bảo hành. Dạng accordion đơn giản hoặc danh sách Q&A. Màu trắng, font đọc tốt.</em>
+</blockquote>
+
+<h2>Nhóm 6: Mô tả sản phẩm cho từng ngành (4 mẫu)</h2>
+
+<h3>Mẫu 17 — Mỹ phẩm / Skincare</h3>
+<blockquote>
+<em>Tạo block giới thiệu sản phẩm [tên kem/serum] cho phụ nữ [độ tuổi] da [loại da]. Màu hồng nhạt hoặc vàng kem, phong cách nhẹ nhàng sang trọng. Nhấn vào thành phần thiên nhiên và kết quả sau [X ngày]. CTA "Đặt hàng ngay — miễn phí vận chuyển".</em>
+</blockquote>
+
+<h3>Mẫu 18 — Thực phẩm / Đồ uống</h3>
+<blockquote>
+<em>Tạo block giới thiệu [sản phẩm thực phẩm] dành cho [đối tượng]. Màu tươi sáng [màu sắc liên quan đến sản phẩm]. Nhấn vào: [nguyên liệu tự nhiên/organic], [lợi ích sức khỏe], [xuất xứ]. CTA "Mua ngay" với ghi chú giao hàng nhanh.</em>
+</blockquote>
+
+<h3>Mẫu 19 — Khóa học / Đào tạo</h3>
+<blockquote>
+<em>Tạo banner giới thiệu khóa học [tên khóa] dành cho [đối tượng muốn học]. Học online, thời lượng [X giờ/tuần]. Kết quả sau khóa học: [3 kết quả cụ thể]. Giảng viên: [tên và chức danh]. Màu [màu]. CTA "Đăng ký học thử miễn phí".</em>
+</blockquote>
+
+<h3>Mẫu 20 — Dịch vụ địa phương</h3>
+<blockquote>
+<em>Tạo banner cho [loại dịch vụ: spa/garage/nhà hàng...] tại [địa điểm]. Nhấn vào: [3 ưu điểm dịch vụ], giờ mở cửa [giờ], và địa chỉ [địa chỉ ngắn]. Màu [màu thương hiệu]. Số điện thoại hotline nổi bật. CTA "Đặt lịch ngay" hoặc "Xem menu".</em>
+</blockquote>
+
+<h2>Kết luận</h2>
+<p>20 mẫu trên bao phủ hầu hết các use case phổ biến nhất của marketing Việt Nam. Copy mẫu phù hợp, điền thông tin sản phẩm vào — kết quả sẽ là block HTML chuyên nghiệp sẵn sàng dán vào CMS trong vài giây. Lưu lại những prompt cho kết quả tốt nhất để tái sử dụng cho các chiến dịch sau.</p>
+    `.trim(),
+  },
 }
