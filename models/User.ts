@@ -13,9 +13,14 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    isActive:  { type: Boolean, default: true },
-    isAdmin:   { type: Boolean, default: false },
-    paidUntil: { type: Date, default: null },
+    isActive:   { type: Boolean, default: true },
+    isAdmin:    { type: Boolean, default: false },
+    paidUntil:  { type: Date, default: null },
+
+    // Profile
+    fullName:   { type: String, default: '' },
+    phone:      { type: String, default: '' },
+    avatarUrl:  { type: String, default: '' },
 
     // ── Plan & billing ──────────────────────────────────────────────
     plan:          { type: String, enum: ['free', 'basic', 'pro'], default: 'free' },

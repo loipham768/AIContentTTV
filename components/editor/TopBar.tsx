@@ -268,7 +268,13 @@ ${body}
             <span className="hidden md:inline">{copied ? 'Đã sao chép!' : 'Sao chép'}</span>
           </button>
 
-          <span className="text-xs text-slate-500 hidden xl:block truncate max-w-[120px]">{userEmail}</span>
+          <Link
+            href="/profile"
+            title="Hồ sơ cá nhân"
+            className="hidden xl:flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors truncate max-w-[120px]"
+          >
+            {userEmail}
+          </Link>
           <LogoutButton />
         </div>
       </div>
