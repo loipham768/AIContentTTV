@@ -3,7 +3,6 @@ import {
   BookOpen,
   Clock,
   ArrowRight,
-  TrendingUp,
   Sparkles,
   Search,
   Layers,
@@ -12,6 +11,7 @@ import {
   FileText,
   BarChart2,
   GraduationCap,
+  ChevronRight,
 } from "lucide-react";
 import Logo from "@/components/Logo";
 import { ARTICLES } from "@/lib/articles";
@@ -34,14 +34,7 @@ type CategoryKey =
 
 const CAT: Record<
   CategoryKey,
-  {
-    text: string;
-    bg: string;
-    dot: string;
-    icon: React.ReactNode;
-    grad: string;
-    light: string;
-  }
+  { text: string; bg: string; dot: string; icon: React.ReactNode; grad: string }
 > = {
   "Landing Page": {
     text: "text-indigo-700",
@@ -49,7 +42,6 @@ const CAT: Record<
     dot: "bg-indigo-500",
     icon: <Layers className="w-3.5 h-3.5" />,
     grad: "from-indigo-500 to-violet-600",
-    light: "bg-indigo-50",
   },
   "So sánh": {
     text: "text-violet-700",
@@ -57,7 +49,6 @@ const CAT: Record<
     dot: "bg-violet-500",
     icon: <BarChart2 className="w-3.5 h-3.5" />,
     grad: "from-violet-500 to-purple-600",
-    light: "bg-violet-50",
   },
   "Quảng cáo": {
     text: "text-rose-700",
@@ -65,7 +56,6 @@ const CAT: Record<
     dot: "bg-rose-500",
     icon: <Megaphone className="w-3.5 h-3.5" />,
     grad: "from-rose-500 to-pink-600",
-    light: "bg-rose-50",
   },
   "Kỹ thuật": {
     text: "text-emerald-700",
@@ -73,7 +63,6 @@ const CAT: Record<
     dot: "bg-emerald-500",
     icon: <Code2 className="w-3.5 h-3.5" />,
     grad: "from-emerald-500 to-teal-600",
-    light: "bg-emerald-50",
   },
   Content: {
     text: "text-amber-700",
@@ -81,7 +70,6 @@ const CAT: Record<
     dot: "bg-amber-500",
     icon: <FileText className="w-3.5 h-3.5" />,
     grad: "from-amber-500 to-orange-500",
-    light: "bg-amber-50",
   },
   SEO: {
     text: "text-blue-700",
@@ -89,7 +77,6 @@ const CAT: Record<
     dot: "bg-blue-500",
     icon: <Search className="w-3.5 h-3.5" />,
     grad: "from-blue-500 to-indigo-600",
-    light: "bg-blue-50",
   },
   "Hướng dẫn": {
     text: "text-teal-700",
@@ -97,26 +84,26 @@ const CAT: Record<
     dot: "bg-teal-500",
     icon: <GraduationCap className="w-3.5 h-3.5" />,
     grad: "from-teal-500 to-cyan-600",
-    light: "bg-teal-50",
   },
 };
+
+function getCat(category: string) {
+  return CAT[category as CategoryKey] ?? CAT["Content"];
+}
 
 function formatDate(iso: string) {
   const d = new Date(iso);
   return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
 }
 
-function getCat(category: string) {
-  return CAT[category as CategoryKey] ?? CAT["Content"];
-}
-
 export default function KienThucPage() {
-  const allArticles = Object.values(ARTICLES).sort(
+  const all = Object.values(ARTICLES).sort(
     (a, b) =>
       new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
   );
-  const featured = allArticles.slice(0, 2);
-  const rest = allArticles.slice(2);
+
+  const tutorials = all.filter((a) => a.category === "Hướng dẫn");
+  const knowledge = all.filter((a) => a.category !== "Hướng dẫn");
 
   return (
     <div className="min-h-screen" style={{ background: "#f4f6fb" }}>
@@ -146,182 +133,135 @@ export default function KienThucPage() {
 
       {/* ── Hero ── */}
       <section
-        className="relative overflow-hidden py-20"
+        className="relative overflow-hidden py-16"
         style={{
           background:
             "linear-gradient(135deg,#4338ca 0%,#7c3aed 55%,#9333ea 100%)",
         }}
       >
-        {/* Decorative orbs */}
         <div
-          className="absolute top-0 left-0 w-80 h-80 rounded-full opacity-20"
+          className="absolute top-0 left-0 w-72 h-72 rounded-full opacity-20 pointer-events-none"
           style={{
             background: "radial-gradient(circle,#fff 0%,transparent 70%)",
             transform: "translate(-40%,-40%)",
           }}
         />
         <div
-          className="absolute bottom-0 right-0 w-80 h-80 rounded-full opacity-20"
+          className="absolute bottom-0 right-0 w-72 h-72 rounded-full opacity-20 pointer-events-none"
           style={{
             background: "radial-gradient(circle,#fff 0%,transparent 70%)",
             transform: "translate(40%,40%)",
           }}
         />
-
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <div
-            className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 text-xs font-bold rounded-full border border-white/30"
+            className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 text-xs font-bold rounded-full border border-white/30"
             style={{ background: "rgba(255,255,255,0.15)", color: "#e0e7ff" }}
           >
             <BookOpen className="w-3.5 h-3.5" /> Kiến thức AI Content
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4 leading-tight">
-            Hướng dẫn &amp; Chiến lược
-            <br className="hidden sm:block" />
-            <span className="opacity-90"> tạo nội dung với AI</span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-3 leading-tight">
+            Hướng dẫn &amp; Chiến lược tạo nội dung với AI
           </h1>
-          <p className="text-indigo-200 text-lg max-w-2xl mx-auto leading-relaxed mb-10">
-            Từ landing page đến quảng cáo Facebook — học cách dùng AI để tạo nội
-            dung chuyên nghiệp, tối ưu chuyển đổi cho thị trường Việt Nam.
+          <p className="text-indigo-200 text-base max-w-xl mx-auto leading-relaxed">
+            Từ landing page đến quảng cáo Facebook — học cách dùng AI tạo nội
+            dung chuyên nghiệp cho thị trường Việt Nam.
           </p>
-
-          {/* Category pills */}
-          <div className="flex flex-wrap justify-center gap-2">
-            {(
-              Object.entries(CAT) as [CategoryKey, (typeof CAT)[CategoryKey]][]
-            ).map(([cat, c]) => (
-              <span
-                key={cat}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border border-white/20"
-                style={{ background: "rgba(255,255,255,0.15)", color: "#fff" }}
-              >
-                <span className={`w-1.5 h-1.5 rounded-full ${c.dot}`} /> {cat}
-              </span>
-            ))}
-          </div>
         </div>
       </section>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12 space-y-12">
-        {/* ── Featured ── */}
-        <section>
-          <div className="flex items-center gap-2 mb-6">
-            <div
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-200"
-              style={{ background: "#fffbeb" }}
-            >
-              <TrendingUp className="w-4 h-4 text-amber-600" />
-              <span className="text-sm font-bold text-amber-700">
-                Bài viết mới nhất
-              </span>
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-10">
+
+        {/* ── Hướng dẫn sử dụng ── */}
+        <section
+          className="rounded-2xl overflow-hidden border border-teal-100"
+          style={{ background: "linear-gradient(135deg,#f0fdfa 0%,#e0f2fe 100%)" }}
+        >
+          <div className="px-6 pt-6 pb-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center text-white shadow-sm">
+                <GraduationCap className="w-4.5 h-4.5" />
+              </div>
+              <div>
+                <h2 className="text-base font-extrabold text-gray-900">Bắt đầu từ đây</h2>
+                <p className="text-xs text-gray-500 mt-0.5">Hướng dẫn sử dụng AI Content Booster</p>
+              </div>
             </div>
+            <span className="text-xs font-bold text-teal-600 bg-teal-100 px-2.5 py-1 rounded-full">
+              {tutorials.length} bài
+            </span>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {featured.map((article, i) => {
-              const c = getCat(article.category);
-              return (
-                <Link
-                  key={article.slug}
-                  href={`/kien-thuc/${article.slug}`}
-                  className="group block rounded-2xl overflow-hidden border border-gray-200 hover:border-indigo-300 hover:shadow-xl hover:-translate-y-1 transition-all duration-200"
-                  style={{ background: "#fff" }}
-                >
-                  {/* Gradient header band */}
-                  <div
-                    className={`h-32 bg-gradient-to-br ${c.grad} flex items-end p-5`}
-                  >
-                    <div className="flex items-center justify-between w-full">
-                      <span
-                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border border-white/30 text-white"
-                        style={{ background: "rgba(255,255,255,0.2)" }}
-                      >
-                        {c.icon} {article.category}
-                      </span>
-                      {i === 0 && (
-                        <span className="text-xs font-bold text-white bg-amber-500 px-2.5 py-1 rounded-full">
-                          ⭐ Mới nhất
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Text */}
-                  <div className="p-6">
-                    <h2 className="text-lg font-extrabold text-gray-900 mb-2 group-hover:text-indigo-700 transition-colors leading-snug">
-                      {article.title}
-                    </h2>
-                    <p className="text-sm text-gray-600 leading-relaxed mb-5 line-clamp-2">
-                      {article.description}
-                    </p>
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                      <div className="flex items-center gap-3 text-xs text-gray-500 font-medium">
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-3.5 h-3.5" /> {article.readTime}
-                        </span>
-                        <span>{formatDate(article.publishedDate)}</span>
-                      </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs font-bold ${c.text} group-hover:gap-2 transition-all`}
-                      >
-                        Đọc tiếp <ArrowRight className="w-3.5 h-3.5" />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
+          <div className="px-4 pb-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {tutorials.map((article, i) => (
+              <Link
+                key={article.slug}
+                href={`/kien-thuc/${article.slug}`}
+                className="group flex items-start gap-3 p-4 rounded-xl bg-white border border-teal-100 hover:border-teal-300 hover:shadow-md transition-all duration-200"
+              >
+                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center text-white text-xs font-extrabold shadow-sm">
+                  {i + 1}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-bold text-gray-900 group-hover:text-teal-700 transition-colors leading-snug line-clamp-2">
+                    {article.title}
+                  </h3>
+                  <span className="flex items-center gap-1 text-xs text-gray-400 mt-1.5">
+                    <Clock className="w-3 h-3" /> {article.readTime}
+                  </span>
+                </div>
+                <ChevronRight className="flex-shrink-0 w-4 h-4 text-teal-300 group-hover:text-teal-500 group-hover:translate-x-0.5 transition-all self-center" />
+              </Link>
+            ))}
           </div>
         </section>
 
-        {/* ── All articles ── */}
+        {/* ── Kiến thức AI Marketing ── */}
         <section>
-          <h2 className="text-xl font-extrabold text-gray-900 mb-6 flex items-center gap-3">
+          <h2 className="text-lg font-extrabold text-gray-900 mb-5 flex items-center gap-3">
             <span
-              className="inline-block w-1 h-6 rounded-full"
-              style={{
-                background: "linear-gradient(to bottom,#6366f1,#8b5cf6)",
-              }}
+              className="inline-block w-1 h-5 rounded-full"
+              style={{ background: "linear-gradient(to bottom,#6366f1,#8b5cf6)" }}
             />
-            Tất cả bài viết
+            Kiến thức AI Marketing
+            <span className="text-sm font-medium text-gray-400 ml-1">
+              {knowledge.length} bài
+            </span>
           </h2>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {rest.map((article) => {
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {knowledge.map((article) => {
               const c = getCat(article.category);
               return (
                 <Link
                   key={article.slug}
                   href={`/kien-thuc/${article.slug}`}
-                  className="group flex gap-4 p-5 rounded-2xl border border-gray-200 hover:border-indigo-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
-                  style={{ background: "#fff" }}
+                  className="group flex flex-col p-5 rounded-2xl border border-gray-200 bg-white hover:border-indigo-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
                 >
-                  {/* Icon block */}
-                  <div
-                    className={`flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-white shadow-sm bg-gradient-to-br ${c.grad}`}
-                  >
-                    {c.icon}
+                  {/* Category + time */}
+                  <div className="flex items-center justify-between mb-3">
+                    <span
+                      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold ${c.bg} ${c.text}`}
+                    >
+                      {c.icon}&nbsp;{article.category}
+                    </span>
+                    <span className="flex items-center gap-1 text-xs text-gray-400">
+                      <Clock className="w-3 h-3" /> {article.readTime}
+                    </span>
                   </div>
 
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                      <span
-                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold ${c.bg} ${c.text}`}
-                      >
-                        {article.category}
-                      </span>
-                      <span className="flex items-center gap-1 text-xs font-medium text-gray-500">
-                        <Clock className="w-3 h-3" /> {article.readTime}
-                      </span>
-                    </div>
-                    <h3 className="font-extrabold text-gray-900 text-sm leading-snug line-clamp-2 group-hover:text-indigo-700 transition-colors mb-1">
-                      {article.title}
-                    </h3>
-                    <p className="text-xs text-gray-500 line-clamp-1 leading-relaxed">
-                      {article.description}
-                    </p>
-                  </div>
+                  {/* Title */}
+                  <h3 className="font-extrabold text-gray-900 text-sm leading-snug line-clamp-2 group-hover:text-indigo-700 transition-colors flex-1">
+                    {article.title}
+                  </h3>
 
-                  <ArrowRight className="flex-shrink-0 w-4 h-4 text-gray-300 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all self-center" />
+                  {/* Footer */}
+                  <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+                    <span className="text-xs text-gray-400">{formatDate(article.publishedDate)}</span>
+                    <span className={`flex items-center gap-1 text-xs font-bold ${c.text} group-hover:gap-1.5 transition-all`}>
+                      Đọc <ArrowRight className="w-3 h-3" />
+                    </span>
+                  </div>
                 </Link>
               );
             })}
@@ -337,16 +277,12 @@ export default function KienThucPage() {
           }}
         >
           <div
-            className="absolute -top-16 -right-16 w-56 h-56 rounded-full opacity-20"
-            style={{
-              background: "radial-gradient(circle,#fff,transparent 70%)",
-            }}
+            className="absolute -top-16 -right-16 w-56 h-56 rounded-full opacity-20 pointer-events-none"
+            style={{ background: "radial-gradient(circle,#fff,transparent 70%)" }}
           />
           <div
-            className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full opacity-20"
-            style={{
-              background: "radial-gradient(circle,#fff,transparent 70%)",
-            }}
+            className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full opacity-20 pointer-events-none"
+            style={{ background: "radial-gradient(circle,#fff,transparent 70%)" }}
           />
           <div className="relative">
             <div
@@ -377,23 +313,12 @@ export default function KienThucPage() {
         className="py-10 text-center text-xs"
         style={{ background: "#0f0f11", color: "#6b7280" }}
       >
-        <Logo
-          iconSize={22}
-          uid="kb-footer"
-          className="inline-flex mb-3 brightness-75"
-        />
+        <Logo iconSize={22} uid="kb-footer" className="inline-flex mb-3 brightness-75" />
         <p className="mt-1">
           © 2026 AI Content Booster ·{" "}
-          <Link href="/" className="hover:text-gray-300 transition-colors">
-            Trang chủ
-          </Link>{" "}
+          <Link href="/" className="hover:text-gray-300 transition-colors">Trang chủ</Link>{" "}
           ·{" "}
-          <Link
-            href="/kien-thuc"
-            className="hover:text-gray-300 transition-colors"
-          >
-            Kiến thức
-          </Link>
+          <Link href="/kien-thuc" className="hover:text-gray-300 transition-colors">Kiến thức</Link>
         </p>
       </footer>
     </div>
