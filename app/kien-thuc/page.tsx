@@ -34,7 +34,7 @@ type CategoryKey =
 
 const CAT: Record<
   CategoryKey,
-  { text: string; bg: string; dot: string; icon: React.ReactNode; grad: string }
+  { text: string; bg: string; dot: string; icon: React.ReactNode; grad: string; sectionBg: string; headerBg: string; border: string }
 > = {
   "Landing Page": {
     text: "text-indigo-700",
@@ -42,6 +42,9 @@ const CAT: Record<
     dot: "bg-indigo-500",
     icon: <Layers className="w-3.5 h-3.5" />,
     grad: "from-indigo-500 to-violet-600",
+    sectionBg: "#f5f3ff",
+    headerBg: "linear-gradient(135deg,#ede9fe 0%,#f5f3ff 100%)",
+    border: "#ddd6fe",
   },
   "So sánh": {
     text: "text-violet-700",
@@ -49,6 +52,9 @@ const CAT: Record<
     dot: "bg-violet-500",
     icon: <BarChart2 className="w-3.5 h-3.5" />,
     grad: "from-violet-500 to-purple-600",
+    sectionBg: "#faf5ff",
+    headerBg: "linear-gradient(135deg,#f3e8ff 0%,#faf5ff 100%)",
+    border: "#e9d5ff",
   },
   "Quảng cáo": {
     text: "text-rose-700",
@@ -56,6 +62,9 @@ const CAT: Record<
     dot: "bg-rose-500",
     icon: <Megaphone className="w-3.5 h-3.5" />,
     grad: "from-rose-500 to-pink-600",
+    sectionBg: "#fff1f2",
+    headerBg: "linear-gradient(135deg,#ffe4e6 0%,#fff1f2 100%)",
+    border: "#fecdd3",
   },
   "Kỹ thuật": {
     text: "text-emerald-700",
@@ -63,6 +72,9 @@ const CAT: Record<
     dot: "bg-emerald-500",
     icon: <Code2 className="w-3.5 h-3.5" />,
     grad: "from-emerald-500 to-teal-600",
+    sectionBg: "#f0fdf4",
+    headerBg: "linear-gradient(135deg,#dcfce7 0%,#f0fdf4 100%)",
+    border: "#bbf7d0",
   },
   Content: {
     text: "text-amber-700",
@@ -70,6 +82,9 @@ const CAT: Record<
     dot: "bg-amber-500",
     icon: <FileText className="w-3.5 h-3.5" />,
     grad: "from-amber-500 to-orange-500",
+    sectionBg: "#fffbeb",
+    headerBg: "linear-gradient(135deg,#fef3c7 0%,#fffbeb 100%)",
+    border: "#fde68a",
   },
   SEO: {
     text: "text-blue-700",
@@ -77,6 +92,9 @@ const CAT: Record<
     dot: "bg-blue-500",
     icon: <Search className="w-3.5 h-3.5" />,
     grad: "from-blue-500 to-indigo-600",
+    sectionBg: "#eff6ff",
+    headerBg: "linear-gradient(135deg,#dbeafe 0%,#eff6ff 100%)",
+    border: "#bfdbfe",
   },
   "Hướng dẫn": {
     text: "text-teal-700",
@@ -84,6 +102,9 @@ const CAT: Record<
     dot: "bg-teal-500",
     icon: <GraduationCap className="w-3.5 h-3.5" />,
     grad: "from-teal-500 to-cyan-600",
+    sectionBg: "#f0fdfa",
+    headerBg: "linear-gradient(135deg,#ccfbf1 0%,#f0fdfa 100%)",
+    border: "#99f6e4",
   },
 };
 
@@ -237,27 +258,35 @@ export default function KienThucPage() {
               {grouped.map(({ cat, items }) => {
                 const c = getCat(cat);
                 return (
-                  <div key={cat}>
-                    {/* Category header */}
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${c.grad} flex items-center justify-center text-white shadow-sm`}>
+                  <div
+                    key={cat}
+                    className="rounded-2xl overflow-hidden"
+                    style={{ border: `1px solid ${c.border}`, background: c.sectionBg }}
+                  >
+                    {/* Category header strip */}
+                    <div
+                      className="flex items-center gap-2.5 px-5 py-3.5 border-b"
+                      style={{ background: c.headerBg, borderColor: c.border }}
+                    >
+                      <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${c.grad} flex items-center justify-center text-white shadow-sm flex-shrink-0`}>
                         {c.icon}
                       </div>
-                      <h3 className={`text-sm font-extrabold ${c.text}`}>{cat}</h3>
+                      <h3 className={`text-sm font-extrabold ${c.text} flex-1`}>{cat}</h3>
                       <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${c.bg} ${c.text}`}>
-                        {items.length}
+                        {items.length} bài
                       </span>
                     </div>
 
-                    {/* Articles */}
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {/* Articles grid */}
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4">
                       {items.map((article) => (
                         <Link
                           key={article.slug}
                           href={`/kien-thuc/${article.slug}`}
-                          className="group flex flex-col p-4 rounded-xl border border-gray-200 bg-white hover:border-indigo-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                          className="group flex flex-col p-4 rounded-xl bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                          style={{ border: `1px solid ${c.border}` }}
                         >
-                          <h4 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2 group-hover:text-indigo-700 transition-colors flex-1">
+                          <h4 className={`font-bold text-gray-900 text-sm leading-snug line-clamp-2 group-hover:${c.text} transition-colors flex-1`}>
                             {article.title}
                           </h4>
                           <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-gray-100">
