@@ -1467,4 +1467,358 @@ export const ARTICLES: Record<string, Article> = {
 <p>20 mẫu trên bao phủ hầu hết các use case phổ biến nhất của marketing Việt Nam. Copy mẫu phù hợp, điền thông tin sản phẩm vào — kết quả sẽ là block HTML chuyên nghiệp sẵn sàng dán vào CMS trong vài giây. Lưu lại những prompt cho kết quả tốt nhất để tái sử dụng cho các chiến dịch sau.</p>
     `.trim(),
   },
+
+  // ── Landing Page +2 ──────────────────────────────────────────────────────
+
+  'loi-pho-bien-landing-page-khien-mat-khach': {
+    slug:          'loi-pho-bien-landing-page-khien-mat-khach',
+    title:         '8 lỗi phổ biến của landing page khiến bạn mất khách hàng mỗi ngày',
+    description:   'Phân tích 8 lỗi thiết kế và nội dung landing page phổ biến nhất. Từ headline mờ nhạt đến form quá dài — và cách sửa nhanh từng lỗi không cần redesign lại.',
+    category:      'Landing Page',
+    readTime:      '7 phút',
+    publishedDate: '2026-05-29',
+    author:        'AI Content Booster',
+    keywords:      ['lỗi landing page', 'landing page không hiệu quả', 'sửa landing page', 'tối ưu landing page', 'landing page chuyển đổi thấp'],
+    content: `
+<h2>Tại sao landing page có traffic nhưng không có đơn?</h2>
+<p>Nhiều shop online đổ tiền chạy quảng cáo nhưng tỷ lệ chuyển đổi vẫn dưới 1%. Vấn đề thường không phải ở quảng cáo — mà ở landing page. Dưới đây là 8 lỗi phổ biến nhất và cách sửa từng lỗi mà không cần thiết kế lại từ đầu.</p>
+
+<h2>Lỗi 1: Headline không nói rõ lợi ích</h2>
+<p>Headline là thứ đầu tiên người dùng đọc. Nếu nó chỉ là tên sản phẩm hoặc slogan chung chung, người dùng không biết được gì và rời trang.</p>
+<p><strong>Sai:</strong> "Kem dưỡng da cao cấp từ thiên nhiên"<br>
+<strong>Đúng:</strong> "Da sáng mịn sau 14 ngày — cam kết hoàn tiền nếu không hiệu quả"</p>
+<p><strong>Cách sửa:</strong> Thêm kết quả cụ thể + thời gian + cam kết vào headline.</p>
+
+<h2>Lỗi 2: Không có CTA above the fold</h2>
+<p>Nếu người dùng phải cuộn xuống mới thấy nút mua hàng, phần lớn sẽ rời đi trước khi đến đó. Nút CTA phải xuất hiện ngay trong vùng nhìn thấy đầu tiên (above the fold).</p>
+<p><strong>Cách sửa:</strong> Đặt nút CTA ngay trong hero section, màu tương phản cao, text cụ thể.</p>
+
+<h2>Lỗi 3: Quá nhiều thông tin cùng lúc</h2>
+<p>Landing page không phải trang catalog. Nhồi nhét quá nhiều sản phẩm, quá nhiều ưu đãi và quá nhiều CTA khác nhau khiến người dùng bị overwhelmed và không quyết định được gì.</p>
+<p><strong>Cách sửa:</strong> Một trang = một mục tiêu = một CTA chính. Loại bỏ mọi thứ không dẫn đến hành động đó.</p>
+
+<h2>Lỗi 4: Không có social proof</h2>
+<p>Người Việt Nam mua hàng theo đám đông — testimonial, số lượng đơn hàng, và đánh giá sao ảnh hưởng rất lớn đến quyết định mua. Landing page không có social proof = mất tín nhiệm.</p>
+<p><strong>Cách sửa:</strong> Thêm ít nhất 3 testimonial có ảnh thật, tên thật, và kết quả cụ thể.</p>
+
+<h2>Lỗi 5: Form quá nhiều trường</h2>
+<p>Mỗi trường thêm vào form làm giảm tỷ lệ điền khoảng 11%. Form 5 trường → tỷ lệ điền dưới 20%. Form 2 trường (SĐT + Tên) → tỷ lệ điền có thể đạt 60–70%.</p>
+<p><strong>Cách sửa:</strong> Chỉ hỏi thông tin thực sự cần thiết ở bước đầu. Thu thập thêm sau.</p>
+
+<h2>Lỗi 6: Tốc độ tải chậm</h2>
+<p>53% người dùng mobile rời trang nếu load hơn 3 giây. Ảnh nặng, file CSS riêng, và JavaScript không tối ưu là nguyên nhân phổ biến nhất.</p>
+<p><strong>Cách sửa khi dùng HTML block:</strong> Dùng ảnh WebP, compress trước khi upload, dùng URL ảnh từ CDN, tránh nhúng font tùy chỉnh.</p>
+
+<h2>Lỗi 7: Không tối ưu cho mobile</h2>
+<p>Hơn 60% traffic tại Việt Nam đến từ điện thoại. Landing page đẹp trên desktop nhưng vỡ layout trên mobile = mất hơn nửa khách hàng tiềm năng.</p>
+<p><strong>Cách sửa:</strong> Luôn kiểm tra trên màn hình 375px trước khi publish. Ưu tiên thiết kế mobile-first.</p>
+
+<h2>Lỗi 8: Không có urgency</h2>
+<p>Nếu không có lý do để hành động ngay, khách hàng sẽ "để sau" và quên. "Để sau" thường có nghĩa là không bao giờ mua.</p>
+<p><strong>Cách sửa:</strong> Thêm deadline thực (không giả tạo): "Ưu đãi kết thúc 23:59 hôm nay", "Chỉ còn 20 hộp", "Giao hàng miễn phí cho 50 đơn đầu tiên".</p>
+
+<h2>Checklist kiểm tra nhanh trước khi chạy quảng cáo</h2>
+<ul class="checklist">
+<li>☑ Headline nói rõ lợi ích cụ thể (không phải tên sản phẩm)</li>
+<li>☑ CTA visible above the fold, màu tương phản</li>
+<li>☑ Chỉ có một mục tiêu và một CTA chính</li>
+<li>☑ Có ít nhất 3 testimonial có ảnh thật</li>
+<li>☑ Form tối đa 2–3 trường</li>
+<li>☑ Tải dưới 3 giây trên 4G</li>
+<li>☑ Hiển thị đúng trên iPhone màn hình 375px</li>
+<li>☑ Có urgency thực sự (deadline hoặc số lượng giới hạn)</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>8 lỗi này có thể sửa mà không cần redesign lại toàn bộ trang. Ưu tiên sửa từng lỗi một, đo kết quả sau mỗi thay đổi. Thường chỉ cần sửa 2–3 lỗi đầu tiên là đã thấy tỷ lệ chuyển đổi tăng rõ rệt.</p>
+    `.trim(),
+  },
+
+  'mobile-first-landing-page': {
+    slug:          'mobile-first-landing-page',
+    title:         'Mobile-first landing page: Thiết kế tối ưu cho 60% traffic điện thoại',
+    description:   'Hướng dẫn thiết kế landing page ưu tiên mobile cho thị trường Việt Nam. Từ kích thước font, CTA dễ bấm đến tốc độ tải — áp dụng ngay không cần lập trình.',
+    category:      'Landing Page',
+    readTime:      '6 phút',
+    publishedDate: '2026-05-28',
+    author:        'AI Content Booster',
+    keywords:      ['mobile landing page', 'landing page điện thoại', 'mobile-first design', 'responsive landing page', 'landing page mobile Việt Nam'],
+    content: `
+<h2>Tại sao mobile-first quan trọng hơn bao giờ hết?</h2>
+<p>Tại Việt Nam, <strong>hơn 62% lượt truy cập web đến từ điện thoại</strong> (StatCounter 2026). Với thương mại điện tử, con số này còn cao hơn — đặc biệt traffic từ Facebook Ads và TikTok hầu hết là mobile. Thiết kế landing page bắt đầu từ desktop rồi "co lại" cho mobile là cách tiếp cận ngược chiều, dẫn đến trải nghiệm mobile kém.</p>
+
+<h2>5 nguyên tắc mobile-first landing page</h2>
+
+<h3>Nguyên tắc 1: Font tối thiểu 16px cho body text</h3>
+<p>Font dưới 16px trên mobile khiến người dùng phải zoom để đọc — dấu hiệu chắc chắn họ sẽ rời trang. Headline nên từ 24px trở lên, body text tối thiểu 16px.</p>
+<p>Với HTML inline CSS: <code>font-size: clamp(16px, 4vw, 18px)</code> — tự động scale theo màn hình.</p>
+
+<h3>Nguyên tắc 2: Nút CTA tối thiểu 48px chiều cao</h3>
+<p>Ngón tay cái trung bình có diện tích tiếp xúc khoảng 44–48px. Nút nhỏ hơn → tỷ lệ nhấn nhầm cao, trải nghiệm tệ. Nút CTA trên mobile nên rộng toàn màn hình (width: 100%) và cao ít nhất 48–56px.</p>
+
+<h3>Nguyên tắc 3: Hero section không quá 100vh</h3>
+<p>Trên màn hình điện thoại 667px chiều cao (iPhone SE), hero section quá cao sẽ đẩy CTA xuống below the fold. Giữ hero section vừa đủ để CTA vẫn nhìn thấy hoặc gần visible ngay khi load.</p>
+
+<h3>Nguyên tắc 4: Ảnh không rộng hơn màn hình</h3>
+<p>Ảnh tràn ra ngoài màn hình là lỗi mobile phổ biến nhất. Luôn thêm <code>max-width: 100%; height: auto</code> vào inline style của mọi thẻ img.</p>
+
+<h3>Nguyên tắc 5: Khoảng cách (padding) đủ rộng</h3>
+<p>Text sát mép màn hình rất khó đọc trên mobile. Padding ngang tối thiểu 16–20px cho mọi section. Container chính nên có <code>padding: 0 16px</code>.</p>
+
+<h2>Kiểm tra mobile trước khi publish</h2>
+<p>Sau khi tạo block với AI Content Booster, click nút <strong>Mobile</strong> trên toolbar để preview. Kiểm tra:</p>
+<ul>
+<li>Text có đọc được không? (không cần zoom)</li>
+<li>Nút CTA có đủ to và dễ bấm không?</li>
+<li>Ảnh có bị cắt hoặc tràn không?</li>
+<li>Có phải cuộn ngang không? (không được)</li>
+</ul>
+
+<h2>Tốc độ tải trên mobile — yếu tố quyết định</h2>
+<p>Mạng 4G tại Việt Nam trung bình 20–30 Mbps, nhưng nhiều người dùng ở khu vực ngoại thành chỉ có 10 Mbps hoặc 3G. Target: tải xong trong 3 giây trên 4G thông thường.</p>
+<p><strong>Checklist tốc độ cho HTML block:</strong></p>
+<ul class="checklist">
+<li>☑ Ảnh dưới 200KB mỗi file (dùng công cụ compress như Squoosh)</li>
+<li>☑ Dùng định dạng WebP thay vì PNG/JPG (nhỏ hơn 30–40%)</li>
+<li>☑ URL ảnh từ CDN có sẵn (Cloudflare, imgix) — không dùng server riêng</li>
+<li>☑ Không nhúng Google Fonts vào HTML block (kế thừa font từ trang CMS)</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>Mobile-first không có nghĩa là bỏ qua desktop — mà là thiết kế cho mobile trước, rồi mở rộng cho desktop. Với AI Content Booster, block được tạo ra đã responsive sẵn. Nhiệm vụ của bạn là kiểm tra nhanh trên preview mobile trước khi copy HTML, đảm bảo trải nghiệm tốt cho phần lớn khách hàng của mình.</p>
+    `.trim(),
+  },
+
+  // ── So sánh +1 ───────────────────────────────────────────────────────────
+
+  'haravan-vs-sapo-vs-woocommerce': {
+    slug:          'haravan-vs-sapo-vs-woocommerce',
+    title:         'Haravan vs Sapo vs WooCommerce: Nên chọn nền tảng nào cho shop Việt Nam?',
+    description:   'So sánh chi tiết 3 nền tảng thương mại điện tử phổ biến nhất Việt Nam. Giá cả, tính năng, khả năng tùy chỉnh HTML và phù hợp với từng quy mô kinh doanh.',
+    category:      'So sánh',
+    readTime:      '9 phút',
+    publishedDate: '2026-05-29',
+    author:        'AI Content Booster',
+    keywords:      ['haravan vs sapo', 'haravan vs woocommerce', 'nền tảng bán hàng online Việt Nam', 'so sánh haravan sapo', 'chọn nền tảng thương mại điện tử'],
+    content: `
+<h2>Tổng quan 3 nền tảng</h2>
+<p>Với hơn 80% shop online Việt Nam chọn một trong ba nền tảng này, việc chọn đúng từ đầu ảnh hưởng lớn đến chi phí và khả năng mở rộng về sau. Mỗi nền tảng có điểm mạnh riêng — không có lựa chọn nào đúng cho tất cả mọi trường hợp.</p>
+
+<h2>Haravan</h2>
+<p><strong>Phù hợp nhất với:</strong> Shop vừa và nhỏ muốn setup nhanh, ưu tiên tích hợp sẵn với các kênh Việt Nam (Shopee, Lazada, TikTok Shop, VNPay).</p>
+<ul>
+<li><strong>Ưu điểm:</strong> Giao diện quản trị tiếng Việt, hỗ trợ local 24/7, tích hợp đa kênh tốt nhất trong 3 nền tảng, không cần kỹ thuật để vận hành</li>
+<li><strong>Nhược điểm:</strong> Tùy chỉnh giao diện bị giới hạn hơn WooCommerce, phụ thuộc vào hệ sinh thái Haravan</li>
+<li><strong>Giá:</strong> Từ 299.000đ/tháng (Basic) đến 1.499.000đ/tháng (Pro)</li>
+<li><strong>Dán HTML block:</strong> Hỗ trợ tốt qua Page Builder hoặc trình soạn thảo HTML của sản phẩm</li>
+</ul>
+
+<h2>Sapo</h2>
+<p><strong>Phù hợp nhất với:</strong> Shop có cả kênh online lẫn offline (cửa hàng vật lý), cần quản lý kho và POS tích hợp.</p>
+<ul>
+<li><strong>Ưu điểm:</strong> Hệ thống POS mạnh, quản lý kho đa chi nhánh, tích hợp tốt với kênh offline</li>
+<li><strong>Nhược điểm:</strong> Giao diện web builder ít linh hoạt hơn Haravan, phí cao hơn khi cần đầy đủ tính năng</li>
+<li><strong>Giá:</strong> Từ 299.000đ/tháng (Web) đến gói tích hợp POS 699.000đ+/tháng</li>
+<li><strong>Dán HTML block:</strong> Hỗ trợ qua block HTML tùy chỉnh trong Page Builder</li>
+</ul>
+
+<h2>WooCommerce (WordPress)</h2>
+<p><strong>Phù hợp nhất với:</strong> Doanh nghiệp cần tùy chỉnh sâu, có đội kỹ thuật, muốn toàn quyền kiểm soát dữ liệu và không bị phụ thuộc vendor.</p>
+<ul>
+<li><strong>Ưu điểm:</strong> Miễn phí (chỉ trả hosting), tùy chỉnh không giới hạn, hàng nghìn plugin, SEO mạnh nhất trong 3</li>
+<li><strong>Nhược điểm:</strong> Cần kỹ thuật để cài đặt và bảo trì, tự chịu trách nhiệm bảo mật và backup, không có hỗ trợ local</li>
+<li><strong>Giá:</strong> Hosting từ 100.000–500.000đ/tháng + chi phí plugin/theme</li>
+<li><strong>Dán HTML block:</strong> Hỗ trợ tốt nhất — Gutenberg Custom HTML block hoặc Classic Editor Text tab</li>
+</ul>
+
+<h2>Bảng so sánh tổng hợp</h2>
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+<thead><tr style="background:#f1f5f9">
+<th style="padding:8px;border:1px solid #e2e8f0;text-align:left">Tiêu chí</th>
+<th style="padding:8px;border:1px solid #e2e8f0;text-align:center">Haravan</th>
+<th style="padding:8px;border:1px solid #e2e8f0;text-align:center">Sapo</th>
+<th style="padding:8px;border:1px solid #e2e8f0;text-align:center">WooCommerce</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:8px;border:1px solid #e2e8f0">Setup nhanh</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★★★</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★★☆</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★☆☆☆</td></tr>
+<tr style="background:#f8fafc"><td style="padding:8px;border:1px solid #e2e8f0">Tùy chỉnh giao diện</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★☆☆</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★☆☆</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★★★</td></tr>
+<tr><td style="padding:8px;border:1px solid #e2e8f0">Tích hợp đa kênh VN</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★★★</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★★☆</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★☆☆</td></tr>
+<tr style="background:#f8fafc"><td style="padding:8px;border:1px solid #e2e8f0">Quản lý kho / POS</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★☆☆</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★★★</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★☆☆</td></tr>
+<tr><td style="padding:8px;border:1px solid #e2e8f0">SEO</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★☆☆</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★☆☆</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★★★</td></tr>
+<tr style="background:#f8fafc"><td style="padding:8px;border:1px solid #e2e8f0">Chi phí hàng tháng</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">Trung bình</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">Trung bình</td><td style="padding:8px;text-align:center;border:1px solid #e2e8f0">Thấp nhất</td></tr>
+</tbody></table>
+
+<h2>Kết luận: Chọn gì?</h2>
+<ul>
+<li><strong>Mới bắt đầu, bán online:</strong> Haravan — setup nhanh, hỗ trợ tốt, tích hợp kênh VN mạnh</li>
+<li><strong>Có cửa hàng vật lý + online:</strong> Sapo — POS và quản lý kho là thế mạnh vượt trội</li>
+<li><strong>Cần SEO mạnh và kiểm soát toàn diện:</strong> WooCommerce — nhưng cần có người kỹ thuật</li>
+</ul>
+<p>Với AI Content Booster, cả 3 nền tảng đều hỗ trợ tốt việc dán HTML inline CSS. Bất kể bạn chọn nền tảng nào, quy trình tạo block → copy HTML → dán vào CMS đều hoạt động hoàn hảo.</p>
+    `.trim(),
+  },
+
+  // ── Kỹ thuật +1 ──────────────────────────────────────────────────────────
+
+  'toi-uu-toc-do-tai-trang-html-block': {
+    slug:          'toi-uu-toc-do-tai-trang-html-block',
+    title:         'Tối ưu tốc độ tải trang cho HTML block — Tăng điểm PageSpeed không cần dev',
+    description:   'Hướng dẫn tối ưu tốc độ tải cho HTML block dán vào CMS. Compress ảnh, lazy load, và các kỹ thuật không cần code giúp trang tải nhanh hơn 40%.',
+    category:      'Kỹ thuật',
+    readTime:      '6 phút',
+    publishedDate: '2026-05-28',
+    author:        'AI Content Booster',
+    keywords:      ['tốc độ tải trang', 'pagespeed landing page', 'tối ưu html block', 'ảnh webp cms', 'tăng tốc website haravan sapo'],
+    content: `
+<h2>Tốc độ tải ảnh hưởng trực tiếp đến doanh thu</h2>
+<p>Google đã chứng minh: mỗi giây tải chậm thêm làm giảm tỷ lệ chuyển đổi khoảng <strong>7%</strong>. Với trang bán hàng 100 đơn/ngày, chậm 1 giây = mất 7 đơn mỗi ngày, khoảng 2.500 đơn mỗi năm. Tối ưu tốc độ là đầu tư có ROI cao nhất trong tất cả các cải tiến kỹ thuật.</p>
+
+<h2>Công cụ đo tốc độ miễn phí</h2>
+<p>Trước khi tối ưu, hãy đo điểm baseline. Hai công cụ miễn phí tốt nhất:</p>
+<ul>
+<li><strong>Google PageSpeed Insights</strong> (pagespeed.web.dev): Cho điểm 0–100 và danh sách cụ thể cần cải thiện</li>
+<li><strong>GTmetrix</strong> (gtmetrix.com): Hiển thị waterfall chi tiết, cho thấy file nào load chậm nhất</li>
+</ul>
+<p>Target cho trang bán hàng: <strong>điểm Mobile ≥ 70</strong>, LCP (Largest Contentful Paint) dưới 2.5 giây.</p>
+
+<h2>Nguyên nhân #1: Ảnh quá nặng</h2>
+<p>Ảnh chiếm 60–80% dung lượng tải của hầu hết trang web. Đây là nơi tối ưu dễ nhất và hiệu quả nhất.</p>
+<h3>Bước 1: Compress ảnh trước khi upload</h3>
+<p>Dùng <strong>Squoosh</strong> (squoosh.app — miễn phí, chạy trên trình duyệt): Upload ảnh, chọn định dạng WebP, kéo quality xuống 75–80%. Ảnh 1MB thường giảm còn 100–200KB mà mắt thường không phân biệt được.</p>
+<h3>Bước 2: Dùng định dạng WebP</h3>
+<p>WebP nhỏ hơn JPEG 25–34% và nhỏ hơn PNG 26% với cùng chất lượng. Tất cả trình duyệt hiện đại (Chrome, Safari, Firefox) đều hỗ trợ WebP.</p>
+<h3>Bước 3: Đặt kích thước đúng với display size</h3>
+<p>Nếu ảnh chỉ hiển thị 400px trên trang, không cần upload ảnh 2000px. Resize trước khi upload: chiều rộng hiển thị × 2 (cho màn hình Retina) là đủ.</p>
+
+<h2>Lazy loading ảnh — 5 giây để implement</h2>
+<p>Lazy loading trì hoãn việc tải ảnh nằm ngoài vùng nhìn thấy cho đến khi người dùng cuộn đến. Thêm thuộc tính này vào thẻ img trong HTML block:</p>
+<pre><code>&lt;img src="..." loading="lazy" alt="..." style="max-width:100%"&gt;</code></pre>
+<p>Một attribute duy nhất, không cần JavaScript. Được hỗ trợ bởi 95%+ trình duyệt hiện đại.</p>
+
+<h2>Tránh blocking resources trong HTML block</h2>
+<ul>
+<li><strong>Không nhúng Google Fonts:</strong> Dùng font stack có sẵn (Arial, system-ui) hoặc kế thừa font từ CMS host</li>
+<li><strong>Không có script tag:</strong> AI Content Booster đã strip script khi xuất HTML — đây cũng là lý do block tải nhanh hơn so với builder có JavaScript</li>
+<li><strong>Dùng CDN cho ảnh:</strong> Upload ảnh lên CDN (Cloudflare Images, imgix) thay vì server riêng để giảm latency</li>
+</ul>
+
+<h2>Kết quả thực tế sau tối ưu</h2>
+<p>Một trang product landing page điển hình sau khi áp dụng đầy đủ:</p>
+<ul>
+<li>Dung lượng trang: 2.3MB → 480KB (giảm 79%)</li>
+<li>Thời gian tải mobile: 4.2 giây → 1.8 giây</li>
+<li>PageSpeed Mobile: 42 → 87</li>
+<li>Tỷ lệ bounce giảm 23%</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>Tối ưu tốc độ không cần kỹ năng lập trình. Compress ảnh + chuyển sang WebP + thêm lazy loading = 80% hiệu quả tối ưu với 20% công sức. Làm điều này cho mọi HTML block trước khi dán vào CMS — kết quả thấy được ngay trên điểm PageSpeed và tỷ lệ chuyển đổi.</p>
+    `.trim(),
+  },
+
+  // ── SEO +2 ───────────────────────────────────────────────────────────────
+
+  'tu-khoa-duoi-dai-long-tail-seo': {
+    slug:          'tu-khoa-duoi-dai-long-tail-seo',
+    title:         'Từ khóa đuôi dài (Long-tail): Chiến lược SEO hiệu quả cho website mới',
+    description:   'Tại sao từ khóa đuôi dài dễ lên top hơn và chuyển đổi tốt hơn từ khóa ngắn. Hướng dẫn tìm và khai thác long-tail keywords cho shop online Việt Nam.',
+    category:      'SEO',
+    readTime:      '7 phút',
+    publishedDate: '2026-05-29',
+    author:        'AI Content Booster',
+    keywords:      ['từ khóa đuôi dài', 'long tail keyword', 'SEO từ khóa dài', 'chiến lược SEO website mới', 'tìm từ khóa SEO tiếng Việt'],
+    content: `
+<h2>Từ khóa đuôi dài là gì?</h2>
+<p>Từ khóa đuôi dài (long-tail keywords) là cụm từ tìm kiếm cụ thể, thường từ 3 từ trở lên. Ví dụ:</p>
+<ul>
+<li><strong>Từ khóa ngắn (head keyword):</strong> "kem dưỡng da" — lượng tìm kiếm 50.000/tháng, cạnh tranh cực cao</li>
+<li><strong>Từ khóa đuôi dài:</strong> "kem dưỡng da ban đêm cho da khô dưới 300k" — lượng tìm kiếm 200/tháng, cạnh tranh thấp</li>
+</ul>
+<p>Mặc dù từng từ khóa đuôi dài có lượng tìm kiếm nhỏ, nhưng tổng hợp lại chúng chiếm <strong>70% tổng lượng tìm kiếm trên Google</strong>. Và quan trọng hơn: người tìm kiếm từ khóa đuôi dài thường có ý định mua cao hơn rõ rệt.</p>
+
+<h2>Tại sao website mới nên tập trung vào long-tail?</h2>
+<p>Với website mới (Domain Authority thấp), cạnh tranh từ khóa ngắn gần như vô vọng — trang 1 Google đã bị chiếm bởi các thương hiệu lớn đầu tư SEO nhiều năm. Long-tail keywords cho phép website mới:</p>
+<ul>
+<li>Lên top 3 trong vòng 2–4 tháng thay vì 1–2 năm</li>
+<li>Thu hút traffic có intent mua hàng cao</li>
+<li>Xây dựng domain authority dần qua các bài viết nhỏ</li>
+</ul>
+
+<h2>3 cách tìm long-tail keywords cho shop Việt Nam</h2>
+<h3>Cách 1: Google Autocomplete (miễn phí)</h3>
+<p>Gõ từ khóa chính vào Google và xem gợi ý autocomplete. Mỗi gợi ý là một long-tail keyword thực tế người dùng đang tìm. Ví dụ gõ "kem dưỡng da" → gợi ý: "kem dưỡng da cho da dầu mụn", "kem dưỡng da ban đêm tốt nhất", "kem dưỡng da không gây kích ứng". Kéo xuống dưới cùng trang 1 Google để thấy phần "Tìm kiếm liên quan" — thêm nhiều long-tail nữa.</p>
+
+<h3>Cách 2: Google Search Console (miễn phí, cần cài)</h3>
+<p>Nếu website đã có traffic, vào Search Console → Performance → xem các query người dùng đang tìm để đến trang của bạn. Nhiều long-tail keyword bạn chưa biết mình đang rank cho sẽ xuất hiện ở đây — chỉ cần tạo bài viết tập trung hơn cho những từ khóa đó.</p>
+
+<h3>Cách 3: Ahrefs / Semrush Free Tools</h3>
+<p>Ahrefs Keyword Generator (miễn phí, giới hạn 10 từ/ngày) và Semrush Magic Tool (10 từ/ngày miễn phí) cho Keyword Difficulty score để biết từ khóa nào khả thi với website mới.</p>
+
+<h2>Cách khai thác long-tail để viết nội dung</h2>
+<p>Mỗi long-tail keyword quan trọng nên có <strong>một trang/bài viết riêng</strong> tập trung vào keyword đó. Không nhồi nhiều keyword vào một trang — Google hiểu ngữ nghĩa và ưu tiên trang chuyên sâu về một chủ đề hơn trang viết chung chung về nhiều thứ.</p>
+<p>Cấu trúc URL chuẩn: <code>/kem-duong-da-ban-dem-cho-da-kho</code> — chứa keyword chính, ngắn, không dấu.</p>
+
+<h2>Đo kết quả — Khi nào thấy traffic?</h2>
+<p>Long-tail keyword cạnh tranh thấp thường thấy kết quả trong 6–12 tuần sau khi publish. Kiên nhẫn là yếu tố quan trọng nhất trong SEO. Theo dõi ranking bằng Google Search Console (miễn phí) thay vì Ahrefs trả phí — đủ dùng cho website vừa và nhỏ.</p>
+
+<h2>Kết luận</h2>
+<p>Long-tail keywords là con đường thực tế nhất để website mới có traffic SEO trong năm đầu tiên. Thay vì cố rank từ khóa ngắn cạnh tranh cao, hãy tạo 20–30 bài viết chuyên sâu cho 20–30 long-tail keywords cụ thể. Tổng traffic từ 30 bài mỗi bài 50 lượt/tháng = 1.500 lượt khách hàng có intent mua hàng cao — hiệu quả hơn rất nhiều so với 1 bài rank từ khóa ngắn.</p>
+    `.trim(),
+  },
+
+  'local-seo-viet-nam-google-maps': {
+    slug:          'local-seo-viet-nam-google-maps',
+    title:         'Local SEO Việt Nam: Lên top Google Maps và tìm kiếm địa phương',
+    description:   'Hướng dẫn tối ưu Local SEO cho cửa hàng và doanh nghiệp tại Việt Nam. Từ Google Business Profile đến NAP consistency — thu hút khách hàng trong bán kính gần.',
+    category:      'SEO',
+    readTime:      '8 phút',
+    publishedDate: '2026-05-27',
+    author:        'AI Content Booster',
+    keywords:      ['local seo việt nam', 'google maps ranking', 'seo địa phương', 'google business profile', 'seo cửa hàng địa phương việt nam'],
+    content: `
+<h2>Local SEO quan trọng với ai?</h2>
+<p>Nếu doanh nghiệp của bạn phục vụ khách hàng theo địa lý — spa, nhà hàng, garage, phòng khám, trung tâm đào tạo, cửa hàng bán lẻ — Local SEO là kênh marketing chi phí thấp, hiệu quả cao nhất. Khi ai đó tìm "spa quận 7" hoặc "sửa xe máy gần đây", bạn muốn tên cửa hàng của mình xuất hiện đầu tiên.</p>
+<p><strong>Thống kê quan trọng:</strong> 46% tất cả tìm kiếm trên Google có ý định local. 88% người tìm kiếm local trên điện thoại sẽ đến thăm cửa hàng hoặc gọi điện trong vòng 24 giờ.</p>
+
+<h2>Bước 1: Tối ưu Google Business Profile (GBP)</h2>
+<p>Google Business Profile (trước đây là Google My Business) là yếu tố quan trọng nhất cho Local SEO. Đây là hồ sơ xuất hiện trong Google Maps và Local Pack (3 kết quả bản đồ trên trang 1).</p>
+<p><strong>Checklist tối ưu GBP:</strong></p>
+<ul class="checklist">
+<li>☑ Điền đầy đủ tên, địa chỉ, số điện thoại (chính xác 100%, đồng nhất mọi nơi)</li>
+<li>☑ Chọn đúng danh mục chính (primary category) — đây là yếu tố ảnh hưởng nhất</li>
+<li>☑ Thêm giờ mở cửa chính xác, cập nhật ngày lễ</li>
+<li>☑ Upload 10+ ảnh chất lượng cao (ảnh nội thất, sản phẩm, đội ngũ)</li>
+<li>☑ Viết mô tả doanh nghiệp 750 ký tự có chứa từ khóa địa phương</li>
+<li>☑ Trả lời mọi review — cả tốt lẫn xấu, trong vòng 24 giờ</li>
+</ul>
+
+<h2>Bước 2: NAP Consistency — Đồng nhất thông tin trên web</h2>
+<p>NAP = Name (Tên), Address (Địa chỉ), Phone (Số điện thoại). Google sử dụng sự đồng nhất của thông tin NAP trên toàn web để xác nhận tính hợp lệ của doanh nghiệp. Thông tin NAP phải <strong>giống hệt nhau</strong> trên:</p>
+<ul>
+<li>Website chính thức của bạn</li>
+<li>Google Business Profile</li>
+<li>Facebook, Zalo OA</li>
+<li>Các directory địa phương (Foody, Diadiemanuong...)</li>
+</ul>
+<p>Sai lệnh nhỏ ("Đường Nguyễn Trãi" vs "Đ. Nguyễn Trãi") cũng ảnh hưởng tiêu cực đến Local SEO.</p>
+
+<h2>Bước 3: Review — Vũ khí quan trọng nhất</h2>
+<p>Số lượng và chất lượng review Google là yếu tố xếp hạng Local SEO quan trọng thứ 2 (sau Google Business Profile). <strong>Cách khuyến khích review một cách tự nhiên:</strong></p>
+<ul>
+<li>Sau khi khách hài lòng, hỏi thẳng: "Anh/chị có thể để lại review Google giúp shop em không?"</li>
+<li>Tạo QR code dẫn thẳng đến trang review Google — dán ở quầy thu ngân hoặc in trên hóa đơn</li>
+<li>Gửi link review qua Zalo sau khi giao hàng thành công</li>
+</ul>
+<p><strong>Không làm:</strong> Mua review giả — Google phát hiện và phạt nặng, có thể xóa toàn bộ hồ sơ GBP.</p>
+
+<h2>Bước 4: Local Content trên website</h2>
+<p>Tạo trang và bài viết nhắm vào từ khóa địa phương cụ thể. Ví dụ: thay vì chỉ có trang "Dịch vụ chăm sóc da", thêm trang "Chăm sóc da tại quận Bình Thạnh" hoặc "Spa uy tín tại TP.HCM". Trang này chứa địa chỉ, Google Maps embed, và nội dung liên quan đến khu vực.</p>
+
+<h2>Bước 5: Backlink địa phương</h2>
+<p>Link từ website địa phương uy tín (báo địa phương, hiệp hội ngành, directory địa phương) có giá trị cao hơn backlink từ website toàn quốc trong Local SEO. Liên hệ các blog địa phương, tham gia hiệp hội doanh nhân địa phương, và đăng ký vào các directory uy tín như Foody, Diadiemanuong (cho F&B), hay Muaban.net.</p>
+
+<h2>Kết luận</h2>
+<p>Local SEO không tốn nhiều tiền nhưng cần sự kiên trì. Tối ưu Google Business Profile và thu thập review là 80% công việc cho 80% kết quả. Bắt đầu với 2 bước này, duy trì đều đặn 3–6 tháng — kết quả sẽ là dòng khách hàng địa phương ổn định mà không cần chạy quảng cáo.</p>
+    `.trim(),
+  },
 }
