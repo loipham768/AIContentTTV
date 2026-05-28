@@ -393,4 +393,698 @@ export const ARTICLES: Record<string, Article> = {
 <p>SEO content AI năm 2026 = AI tăng tốc + con người đảm bảo chất lượng. Không thể dùng AI thay thế hoàn toàn việc nghiên cứu và kinh nghiệm thực tế. Nhưng kết hợp đúng cách, bạn có thể sản xuất nội dung SEO chất lượng nhanh gấp 5–10 lần so với viết tay.</p>
     `.trim(),
   },
+
+  'cach-tao-landing-page-khong-can-code-2026': {
+    slug:          'cach-tao-landing-page-khong-can-code-2026',
+    title:         'Cách tạo landing page không cần code năm 2026 — 3 công cụ tốt nhất',
+    description:   'Hướng dẫn chi tiết cách tạo landing page chuyên nghiệp không cần biết lập trình. So sánh 3 phương pháp phù hợp nhất cho shop online Việt Nam năm 2026.',
+    category:      'Landing Page',
+    readTime:      '9 phút',
+    publishedDate: '2026-05-25',
+    author:        'AI Content Booster',
+    keywords:      ['tạo landing page không cần code', 'landing page miễn phí', 'tạo landing page online', 'landing page không cần lập trình', 'công cụ tạo landing page Việt Nam'],
+    content: `
+<h2>Landing page không cần code — có thực sự làm được không?</h2>
+<p>Câu trả lời là <strong>có</strong> — và năm 2026, điều này trở nên dễ dàng hơn bao giờ hết. Với sự xuất hiện của AI và các công cụ drag-and-drop, bất kỳ ai cũng có thể tạo landing page chuyên nghiệp mà không cần biết một dòng code. Đặc biệt với người bán hàng trên Haravan, Sapo, hay WordPress tại Việt Nam.</p>
+
+<h2>3 phương pháp tạo landing page không cần code</h2>
+<h3>Phương pháp 1: AI tạo HTML tự động (Nhanh nhất)</h3>
+<p>Mô tả sản phẩm bằng tiếng Việt → AI tạo HTML hoàn chỉnh → Dán vào CMS. Toàn bộ quá trình dưới 60 giây. Phù hợp nhất cho người bán hàng trên Haravan, Sapo, hay WordPress vì output là HTML inline CSS — tương thích 100% với mọi CMS.</p>
+<p><strong>Ưu điểm:</strong> Cực nhanh, HTML inline CSS không bị CMS lọc, nội dung tiếng Việt tự nhiên.</p>
+<p><strong>Nhược điểm:</strong> Cần mô tả đủ chi tiết để AI hiểu đúng yêu cầu.</p>
+
+<h3>Phương pháp 2: Page builder kéo thả (Canva, Elementor)</h3>
+<p>Kéo thả trực quan, có sẵn hàng trăm template đẹp. Tuy nhiên output thường là iframe hoặc file riêng — không dán được trực tiếp vào CMS Việt Nam như Haravan hay Sapo mà vẫn giữ nguyên định dạng.</p>
+
+<h3>Phương pháp 3: Builder có sẵn của CMS</h3>
+<p>Haravan và Sapo có sẵn page builder nhưng bị giới hạn bởi template định sẵn. Không linh hoạt bằng HTML tùy chỉnh và khó tạo được thiết kế độc đáo.</p>
+
+<h2>So sánh 3 phương pháp</h2>
+<table>
+<thead><tr><th>Tiêu chí</th><th>AI (HTML tự động)</th><th>Canva / Elementor</th><th>CMS Builder</th></tr></thead>
+<tbody>
+<tr><td>Tốc độ hoàn thành</td><td>⚡ &lt; 60 giây</td><td>30–60 phút</td><td>1–2 giờ</td></tr>
+<tr><td>Tương thích Haravan / Sapo</td><td>✓ 100%</td><td>✗ Không trực tiếp</td><td>✓ Có</td></tr>
+<tr><td>Linh hoạt thiết kế</td><td>★★★★☆</td><td>★★★★★</td><td>★★☆☆☆</td></tr>
+<tr><td>Tiếng Việt tự nhiên</td><td>★★★★★</td><td>★★★☆☆</td><td>★★★☆☆</td></tr>
+<tr><td>Chi phí</td><td>Miễn phí</td><td>$13–$25/tháng</td><td>Theo gói CMS</td></tr>
+</tbody>
+</table>
+
+<h2>Hướng dẫn tạo landing page bằng AI — từng bước</h2>
+<h3>Bước 1: Xác định mục tiêu landing page</h3>
+<p>Trước khi tạo, hãy xác định rõ: landing page này dùng để làm gì? Thu thập email? Bán sản phẩm cụ thể? Đăng ký webinar? Mỗi mục tiêu có cấu trúc và CTA khác nhau — AI cần biết mục tiêu để tạo đúng nội dung.</p>
+
+<h3>Bước 2: Mô tả chi tiết cho AI</h3>
+<p>Càng nhiều thông tin, AI càng tạo đúng ý bạn. Hãy cung cấp:</p>
+<ul>
+<li>Tên sản phẩm/dịch vụ và 3 lợi ích chính</li>
+<li>Đối tượng mục tiêu (tuổi, giới tính, vấn đề họ đang gặp)</li>
+<li>Phong cách thiết kế mong muốn (hiện đại, sang trọng, gần gũi...)</li>
+<li>Màu sắc thương hiệu nếu có</li>
+<li>Nút CTA muốn hiển thị ("Đặt hàng ngay", "Nhận tư vấn miễn phí"...)</li>
+</ul>
+
+<h3>Bước 3: Chỉnh sửa trong editor kéo thả</h3>
+<p>AI tạo xong, dùng editor để thay text, điều chỉnh màu sắc, thêm/bớt khối nội dung. Không cần code — mọi thứ trực quan trên canvas.</p>
+
+<h3>Bước 4: Xuất HTML và dán vào CMS</h3>
+<p>Nhấn "Sao chép HTML" → Mở trang quản trị Haravan/Sapo/WordPress → Dán vào block HTML. Landing page hiển thị đúng ngay lập tức vì đã dùng inline CSS.</p>
+
+<h2>5 mẹo tối ưu landing page không cần designer</h2>
+<ul>
+<li>Dùng màu tương phản cao cho nút CTA — đỏ hoặc cam trên nền trắng thu hút mắt nhất</li>
+<li>Giữ form đơn giản — chỉ yêu cầu tên + số điện thoại, không hỏi thêm</li>
+<li>Thêm số điện thoại hotline nổi bật — tăng độ tin tưởng ngay lập tức</li>
+<li>Dùng ảnh thực của sản phẩm, tránh ảnh stock nhìn giả tạo</li>
+<li>Test trên điện thoại trước khi đăng — hơn 60% khách hàng Việt Nam xem trên mobile</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>Tạo landing page không cần code năm 2026 hoàn toàn khả thi với nhiều công cụ. Nếu bạn bán hàng trên CMS Việt Nam (Haravan, Sapo, WordPress), lựa chọn AI tạo HTML trực tiếp là nhanh nhất và tương thích tốt nhất. Quan trọng hơn là có landing page hoạt động tốt — hơn là mất tuần làm landing page hoàn hảo mà không có khách nào xem.</p>
+    `.trim(),
+  },
+
+  'cau-truc-landing-page-ban-hang-chuan': {
+    slug:          'cau-truc-landing-page-ban-hang-chuan',
+    title:         'Cấu trúc landing page bán hàng chuẩn — 8 phần không thể thiếu',
+    description:   'Phân tích chi tiết 8 phần cốt lõi của landing page bán hàng chuyển đổi cao. Kèm ví dụ thực tế và mẫu copy áp dụng ngay cho shop online Việt Nam.',
+    category:      'Landing Page',
+    readTime:      '10 phút',
+    publishedDate: '2026-05-24',
+    author:        'AI Content Booster',
+    keywords:      ['cấu trúc landing page', 'landing page bán hàng chuẩn', 'thành phần landing page', 'thiết kế landing page', 'layout landing page hiệu quả'],
+    content: `
+<h2>Tại sao cấu trúc landing page quan trọng hơn thiết kế?</h2>
+<p>Nhiều người tập trung vào màu sắc đẹp, font chữ sang trọng — nhưng quên rằng <strong>cấu trúc nội dung mới là yếu tố quyết định tỷ lệ chuyển đổi</strong>. Một landing page có bố cục đúng sẽ dẫn dắt khách hàng từng bước từ "không biết gì" đến "quyết định mua" một cách tự nhiên.</p>
+<p>Nghiên cứu từ Unbounce cho thấy landing page có đủ 8 phần cốt lõi có tỷ lệ chuyển đổi trung bình cao hơn <strong>3,2 lần</strong> so với landing page thiếu cấu trúc.</p>
+
+<h2>8 phần không thể thiếu của landing page bán hàng</h2>
+<h3>Phần 1: Hero Section — Ấn tượng đầu tiên (0–3 giây)</h3>
+<p>Hero section là phần đầu trang, nằm "above the fold" — tức là phần người dùng nhìn thấy ngay mà không cần cuộn. Đây là nơi quyết định khách ở lại hay rời đi. Hero section cần có đủ 4 yếu tố: headline chính, subheadline, hình ảnh/video sản phẩm và nút CTA đầu tiên.</p>
+
+<h3>Phần 2: Headline thu hút — Bí quyết viết 1 câu bán được hàng</h3>
+<p>Headline tốt phải trả lời ngay: <em>"Tôi được gì? Trong bao lâu? Với điều kiện gì?"</em></p>
+<p><strong>Công thức:</strong> [Kết quả cụ thể] + [Thời gian] + [Bằng cách nào / Không cần gì]</p>
+<ul>
+<li>✓ "Da sáng mịn sau 14 ngày — không cần skincare phức tạp"</li>
+<li>✓ "Tăng doanh thu 30% trong tháng đầu — áp dụng được ngay cả khi chưa có kinh nghiệm"</li>
+<li>✗ "Sản phẩm chất lượng cao của chúng tôi" (không có lợi ích cụ thể)</li>
+</ul>
+
+<h3>Phần 3: Pain Points — Chứng minh bạn hiểu vấn đề của khách</h3>
+<p>Trước khi nói về giải pháp, hãy mô tả đúng vấn đề khách hàng đang gặp. Khi họ đọc và nghĩ "đúng, đó chính xác là vấn đề của mình!", họ sẽ tiếp tục đọc.</p>
+<blockquote>
+<em>"Bạn đã thử nhiều loại kem nhưng da vẫn thâm, sạm? Dùng đủ bước skincare mà vẫn không thấy kết quả? Chi hàng triệu cho spa mà chỉ trắng được vài ngày..."</em>
+</blockquote>
+
+<h3>Phần 4: Giải pháp — Sản phẩm như người hùng</h3>
+<p>Đây là lúc giới thiệu sản phẩm — nhưng không phải theo kiểu liệt kê tính năng. Hãy trình bày sản phẩm như "chìa khóa" giải quyết chính xác những pain points vừa đề cập. Mỗi tính năng phải được dịch sang lợi ích cụ thể.</p>
+
+<h3>Phần 5: Social Proof — Bằng chứng từ người thực</h3>
+<p>Đây là phần quan trọng nhất để xây dựng niềm tin. Khách hàng tin vào người khác hơn tin vào quảng cáo của bạn.</p>
+<ul>
+<li><strong>Testimonial có ảnh thật:</strong> Tên + ảnh + đánh giá cụ thể (không phải "sản phẩm tốt lắm")</li>
+<li><strong>Con số cụ thể:</strong> "1.847 khách hàng hài lòng", "Đánh giá 4.9/5 từ 320 đơn hàng"</li>
+<li><strong>Kết quả trước/sau:</strong> Nếu sản phẩm có thể so sánh được (da, cân nặng, doanh thu...)</li>
+</ul>
+
+<h3>Phần 6: Chi tiết sản phẩm và FAQ</h3>
+<p>Giải đáp trước những câu hỏi phổ biến nhất. Khách không hỏi được sẽ không mua. Các FAQ nên trả lời: giá, thời gian giao hàng, chính sách đổi trả, cách dùng, phù hợp với ai.</p>
+
+<h3>Phần 7: Offer và Urgency — Tại sao phải mua ngay hôm nay?</h3>
+<p>Nếu không có lý do để hành động ngay, khách sẽ "để sau" và quên. Tạo urgency bằng ưu đãi có thời hạn thực, giới hạn số lượng thực hoặc bonus có hạn.</p>
+
+<h3>Phần 8: CTA cuối trang và thông tin liên hệ</h3>
+<p>Nút CTA cần xuất hiện ít nhất 2–3 lần trên landing page (đầu, giữa, cuối). CTA cuối trang nên tóm tắt lại offer và đi kèm thông tin liên hệ để những khách cần tư vấn thêm có thể liên hệ ngay.</p>
+
+<h2>Thứ tự tối ưu của 8 phần</h2>
+<ol>
+<li>Hero (Headline + CTA + Ảnh sản phẩm)</li>
+<li>Pain points (Vấn đề của khách hàng)</li>
+<li>Giải pháp (Sản phẩm như người hùng)</li>
+<li>Social proof (Testimonial + con số thực)</li>
+<li>Chi tiết sản phẩm (Tính năng → Lợi ích)</li>
+<li>FAQ (Giải đáp lo ngại trước khi mua)</li>
+<li>Offer + Urgency (Lý do mua ngay hôm nay)</li>
+<li>CTA cuối + Thông tin liên hệ</li>
+</ol>
+
+<h2>Kết luận</h2>
+<p>Landing page bán hàng hiệu quả không phải là landing page đẹp nhất — mà là landing page dẫn dắt khách hàng đi đúng hành trình tâm lý từ "nhận biết vấn đề" đến "tin tưởng giải pháp" đến "hành động mua". Nắm vững 8 phần này, bạn có framework để tạo bất kỳ landing page nào hiệu quả — dù bán mỹ phẩm, khóa học, hay dịch vụ.</p>
+    `.trim(),
+  },
+
+  'bi-quyet-viet-content-ban-hang-online-hieu-qua': {
+    slug:          'bi-quyet-viet-content-ban-hang-online-hieu-qua',
+    title:         'Bí quyết viết content bán hàng online hiệu quả — tăng doanh số ngay',
+    description:   'Hướng dẫn viết content bán hàng online thuyết phục cho Facebook, Zalo, TikTok và website. Công thức thực chiến từ 1.000+ shop online Việt Nam.',
+    category:      'Content',
+    readTime:      '9 phút',
+    publishedDate: '2026-05-23',
+    author:        'AI Content Booster',
+    keywords:      ['viết content bán hàng online', 'content bán hàng hiệu quả', 'cách viết bài bán hàng', 'content marketing shop online', 'viết bài bán hàng facebook'],
+    content: `
+<h2>Tại sao content bán hàng online của bạn không hiệu quả?</h2>
+<p>Bạn đăng bài đều đặn nhưng ít người tương tác? Nhiều lượt xem nhưng ít đơn hàng? Vấn đề thường không phải ở sản phẩm — mà ở <strong>cách bạn trình bày sản phẩm đó</strong>. Content bán hàng online hiệu quả không phải là liệt kê tính năng hay chụp ảnh đẹp — nó là nghệ thuật kết nối đúng thông điệp với đúng người vào đúng thời điểm.</p>
+
+<h2>5 nguyên tắc vàng của content bán hàng online</h2>
+<h3>Nguyên tắc 1: Viết cho 1 người, không phải cho tất cả</h3>
+<p>Hình dung rõ ràng một khách hàng cụ thể — tuổi, nghề nghiệp, vấn đề họ đang gặp, điều họ sợ nhất, điều họ mong muốn. Viết content như đang viết thư cho chính người đó. Content viết cho "mọi người" thường không ai cảm thấy đang nói về mình. Content viết cho "chị Lan 32 tuổi, da nám sau sinh, muốn da sáng trước Tết" sẽ khiến hàng nghìn chị Lan cảm thấy được hiểu.</p>
+
+<h3>Nguyên tắc 2: Lợi ích trước, tính năng sau</h3>
+<p>Khách hàng không mua sản phẩm — họ mua kết quả sản phẩm đó mang lại. Hãy đặt câu hỏi "Điều này có nghĩa gì với khách hàng?" cho mỗi tính năng.</p>
+<ul>
+<li><strong>Tính năng:</strong> "Kem chứa SPF 50" → <strong>Lợi ích:</strong> "Bảo vệ da suốt 8 tiếng dưới nắng, không lo thâm sạm thêm"</li>
+<li><strong>Tính năng:</strong> "Vải thun 4 chiều" → <strong>Lợi ích:</strong> "Thoải mái vận động cả ngày, giặt xong không nhăn không co"</li>
+</ul>
+
+<h3>Nguyên tắc 3: Social Proof là vũ khí mạnh nhất</h3>
+<p>Con người tin vào người khác hơn tin vào thương hiệu. Số liệu cụ thể luôn thuyết phục hơn lời hứa chung chung:</p>
+<ul>
+<li>✓ "3.200 chị đã dùng và 94% hài lòng sau 30 ngày"</li>
+<li>✓ "Shop đã giao hơn 18.000 đơn — 100% feedback 5 sao"</li>
+<li>✗ "Sản phẩm chất lượng cao, được nhiều khách tin dùng"</li>
+</ul>
+
+<h3>Nguyên tắc 4: Tạo urgency thực sự — không giả tạo</h3>
+<p>Urgency hiệu quả phải có lý do thực. "Còn 15 hộp kho cuối" hoặc "Ưu đãi kết thúc lúc 23:59 hôm nay" khiến người ta hành động. "Ưu đãi có hạn" mà không nói hạn bao lâu — không ai tin.</p>
+
+<h3>Nguyên tắc 5: CTA rõ ràng và đơn giản</h3>
+<p>Luôn kết thúc content bằng một hành động duy nhất. Đừng đưa ra 3 lựa chọn ("comment, inbox, hoặc gọi điện") — chọn 1 và yêu cầu khách làm điều đó.</p>
+
+<h2>Công thức content bán hàng cho từng kênh</h2>
+<h3>Facebook / Zalo — Công thức PAS</h3>
+<ol>
+<li><strong>P (Problem):</strong> Nêu đúng vấn đề khách đang gặp — câu mở đầu phải "stop the scroll"</li>
+<li><strong>A (Agitate):</strong> Khuấy động cảm xúc — vấn đề này tệ hơn họ nghĩ như thế nào?</li>
+<li><strong>S (Solution):</strong> Giải pháp = sản phẩm của bạn + kết quả cụ thể + CTA</li>
+</ol>
+
+<h3>Website / Landing page — Công thức AIDA</h3>
+<ol>
+<li><strong>A (Attention):</strong> Headline thu hút ngay từ giây đầu</li>
+<li><strong>I (Interest):</strong> Số liệu, câu chuyện, hoặc vấn đề quen thuộc</li>
+<li><strong>D (Desire):</strong> Lợi ích + social proof + hình ảnh kết quả</li>
+<li><strong>A (Action):</strong> Offer rõ ràng + urgency + CTA nổi bật</li>
+</ol>
+
+<h2>10 từ và cụm từ mạnh nhất trong content bán hàng tiếng Việt</h2>
+<ul>
+<li><strong>"Miễn phí"</strong> — tăng click rate trung bình 30%</li>
+<li><strong>"Ngay hôm nay / Ngay bây giờ"</strong> — tạo urgency tức thời</li>
+<li><strong>"Cam kết hoàn tiền"</strong> — giảm rủi ro cảm nhận của khách</li>
+<li><strong>"Chỉ còn X suất / X hộp"</strong> — scarcity thực sự</li>
+<li><strong>"Không cần... vẫn..."</strong> — giải quyết rào cản mua hàng</li>
+<li><strong>"Hơn X khách hàng đã..."</strong> — social proof có con số</li>
+<li><strong>"Đặc biệt dành cho..."</strong> — cá nhân hóa thông điệp</li>
+<li><strong>"Bí quyết / Bí mật"</strong> — kích thích sự tò mò</li>
+<li><strong>"Kết quả trong X ngày"</strong> — kỳ vọng cụ thể và đo được</li>
+<li><strong>"Giao hàng toàn quốc / Giao nhanh 2H"</strong> — giải quyết lo ngại logistics</li>
+</ul>
+
+<h2>Lỗi phổ biến nhất khi viết content bán hàng</h2>
+<ul>
+<li>Viết quá dài về lịch sử công ty — khách không quan tâm, họ quan tâm đến bản thân họ</li>
+<li>Dùng từ "chúng tôi" quá nhiều thay vì tập trung vào "bạn"</li>
+<li>Không có ảnh sản phẩm thực tế chất lượng cao</li>
+<li>CTA mơ hồ: "Liên hệ để biết thêm" thay vì "Inbox NGAY để đặt hàng — giao trong 2 giờ"</li>
+<li>Copy content của đối thủ — khách hàng nhận ra và mất tin tưởng ngay</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>Content bán hàng online hiệu quả bắt đầu từ việc hiểu sâu khách hàng hơn là biết nhiều kỹ thuật viết lách. Nắm vững 5 nguyên tắc và 2 công thức PAS/AIDA, kết hợp với AI để tạo nhiều phiên bản nhanh chóng — bạn sẽ tìm ra công thức phù hợp với shop của mình trong vài tuần thay vì vài tháng.</p>
+    `.trim(),
+  },
+
+  'mau-headline-ban-hang-thu-hut-khach-hang': {
+    slug:          'mau-headline-ban-hang-thu-hut-khach-hang',
+    title:         '30 mẫu headline bán hàng thu hút khách hàng — copy và dùng ngay',
+    description:   '30 mẫu headline bán hàng đã được kiểm chứng hiệu quả, phân loại theo ngành hàng và mục tiêu. Áp dụng ngay cho Facebook Ads, landing page và Zalo OA.',
+    category:      'Content',
+    readTime:      '7 phút',
+    publishedDate: '2026-05-22',
+    author:        'AI Content Booster',
+    keywords:      ['mẫu headline bán hàng', 'headline thu hút khách hàng', 'tiêu đề quảng cáo hay', 'mẫu tiêu đề landing page', 'headline facebook ads hiệu quả'],
+    content: `
+<h2>Headline quan trọng đến mức nào?</h2>
+<p>David Ogilvy — "ông tổ" của quảng cáo hiện đại — từng nói: <em>"Trung bình, 5 lần nhiều người đọc headline hơn đọc phần body copy. Khi bạn viết headline, bạn đã tiêu 80 cent trong mỗi dollar của mình."</em></p>
+<p>Với quảng cáo digital ngày nay, tầm quan trọng của headline còn cao hơn — người dùng cuộn feed với ngón tay cái và quyết định dừng hay tiếp tục chỉ trong 0.5 giây đầu tiên.</p>
+
+<h2>7 công thức headline bán hàng hiệu quả nhất</h2>
+<h3>Công thức 1: [Kết quả cụ thể] trong [Thời gian cụ thể]</h3>
+<ul>
+<li>"Da sáng rõ rệt chỉ sau <strong>14 ngày</strong> — không cần đến spa"</li>
+<li>"Tăng doanh thu <strong>30%</strong> trong tháng đầu tiên áp dụng"</li>
+<li>"Giảm <strong>5kg</strong> trong 30 ngày — không nhịn ăn, không tập gym cực đoan"</li>
+</ul>
+
+<h3>Công thức 2: Câu hỏi đánh vào nỗi đau</h3>
+<ul>
+<li>"Bạn đã thử <strong>bao nhiêu loại kem</strong> mà da vẫn thâm?"</li>
+<li>"Tại sao <strong>shop bạn có traffic</strong> mà vẫn không có đơn?"</li>
+<li>"Vì sao bạn <strong>làm việc 10 tiếng/ngày</strong> mà vẫn không giàu lên được?"</li>
+</ul>
+
+<h3>Công thức 3: Bí mật / Điều chưa ai nói</h3>
+<ul>
+<li>"Bí quyết da sáng mà <strong>các chuyên gia spa không muốn bạn biết</strong>"</li>
+<li>"Điều <strong>90% người bán hàng online làm sai</strong> khiến họ thua lỗ"</li>
+<li>"Phương pháp <strong>ít ai biết</strong> giúp landing page tăng chuyển đổi lên 300%"</li>
+</ul>
+
+<h3>Công thức 4: Không cần... vẫn có thể...</h3>
+<ul>
+<li>"<strong>Không cần biết code</strong>, vẫn tạo được landing page chuyên nghiệp"</li>
+<li>"<strong>Không cần vốn lớn</strong>, vẫn bắt đầu kinh doanh online thành công"</li>
+<li>"<strong>Không cần designer</strong>, vẫn có banner quảng cáo đẹp chuẩn chuyên nghiệp"</li>
+</ul>
+
+<h3>Công thức 5: Con số cụ thể</h3>
+<ul>
+<li>"<strong>3.247 khách hàng</strong> đã đặt hàng tuần này — bạn thì sao?"</li>
+<li>"<strong>7 bước</strong> để tạo landing page bán được hàng ngay tuần đầu tiên"</li>
+<li>"Tiết kiệm <strong>2 triệu đồng/tháng</strong> chi phí design với công cụ AI này"</li>
+</ul>
+
+<h3>Công thức 6: Đảo ngược rủi ro (Risk Reversal)</h3>
+<ul>
+<li>"Thử <strong>30 ngày miễn phí</strong> — hoàn tiền 100% nếu không hài lòng"</li>
+<li>"Không hiệu quả? <strong>Chúng tôi hoàn tiền toàn bộ</strong>, không hỏi lý do"</li>
+<li>"Dùng thử <strong>miễn phí 7 ngày</strong> — không cần thẻ tín dụng"</li>
+</ul>
+
+<h3>Công thức 7: Cảnh báo / Đừng làm điều này</h3>
+<ul>
+<li>"<strong>Đừng chạy quảng cáo Facebook</strong> khi chưa đọc bài này"</li>
+<li>"<strong>Cảnh báo:</strong> 80% kem dưỡng da rẻ đang hại da bạn theo cách này"</li>
+<li>"<strong>Sai lầm</strong> khiến landing page của bạn mất hàng triệu đồng mỗi tháng"</li>
+</ul>
+
+<h2>Mẫu headline theo ngành</h2>
+<h3>Mỹ phẩm / Skincare</h3>
+<ul>
+<li>"Da sáng mịn như gái Hàn — bí quyết chỉ cần 2 bước mỗi tối"</li>
+<li>"Tạm biệt nám, tàn nhang sau 21 ngày — cam kết hoàn tiền"</li>
+<li>"Kem dưỡng số 1 cho da Việt — 15.000 review 5 sao không nói dối"</li>
+</ul>
+
+<h3>Thời trang / Phụ kiện</h3>
+<ul>
+<li>"Mặc đẹp mọi dịp, tự tin mọi lúc — bộ sưu tập mới đã về"</li>
+<li>"Size 0–5XL có đủ — thời trang cho mọi vóc dáng"</li>
+<li>"Vải cao cấp như hàng hiệu — giá chỉ từ 290.000đ"</li>
+</ul>
+
+<h3>Khóa học / Đào tạo</h3>
+<ul>
+<li>"Từ 0 đến thu nhập 20 triệu/tháng từ bán hàng online — lộ trình 90 ngày"</li>
+<li>"Học kinh doanh online buổi tối, không ảnh hưởng công việc hiện tại"</li>
+<li>"500+ học viên đã có thu nhập thụ động sau khi học khóa này"</li>
+</ul>
+
+<h3>Dịch vụ B2B / Agency</h3>
+<ul>
+<li>"Landing page tăng tỷ lệ chuyển đổi lên 3× — bảo đảm hoặc không tính phí"</li>
+<li>"Tiết kiệm 40 giờ/tháng với hệ thống quản lý đơn hàng tự động"</li>
+<li>"1.000+ doanh nghiệp Việt Nam tin dùng — bắt đầu dùng thử miễn phí"</li>
+</ul>
+
+<h2>Checklist kiểm tra headline trước khi đăng</h2>
+<ul class="checklist">
+<li>☑ Có lợi ích hoặc kết quả cụ thể — không chỉ tên sản phẩm</li>
+<li>☑ Đủ ngắn để đọc trong 3 giây (dưới 12 từ là lý tưởng)</li>
+<li>☑ Gây cảm xúc: tò mò, hy vọng, hoặc sợ bỏ lỡ (FOMO)</li>
+<li>☑ Phù hợp với đối tượng mục tiêu — dùng ngôn ngữ họ dùng hàng ngày</li>
+<li>☑ Không phóng đại quá mức — dễ gây mất tin tưởng</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>30 mẫu headline trên là công cụ, không phải lời giải hoàn hảo. Hãy dùng chúng như điểm xuất phát, rồi tùy chỉnh theo sản phẩm, đối tượng và tone thương hiệu của bạn. Với AI, bạn có thể tạo 10–20 biến thể headline trong vài phút để A/B test và tìm ra công thức hiệu quả nhất cho riêng shop mình.</p>
+    `.trim(),
+  },
+
+  'huong-dan-dan-html-vao-haravan-sapo-wordpress': {
+    slug:          'huong-dan-dan-html-vao-haravan-sapo-wordpress',
+    title:         'Hướng dẫn dán HTML vào Haravan, Sapo, WordPress — không mất định dạng',
+    description:   'Từng bước dán HTML vào Haravan Page, Sapo Web, WooCommerce và WordPress. Lý do CMS lọc CSS và cách đảm bảo landing page hiển thị đúng 100%.',
+    category:      'Kỹ thuật',
+    readTime:      '6 phút',
+    publishedDate: '2026-05-21',
+    author:        'AI Content Booster',
+    keywords:      ['dán html vào haravan', 'html vào sapo web', 'custom html wordpress', 'html block haravan page', 'dán code vào sapo'],
+    content: `
+<h2>Tại sao dán HTML vào CMS thường bị mất định dạng?</h2>
+<p>Bạn tạo một block HTML đẹp trên máy tính, dán vào Haravan hay Sapo — và nhìn thấy một đống chữ không có format. Vấn đề này xảy ra vì <strong>hầu hết CMS đều có bộ lọc CSS bảo mật</strong> tự động xóa thẻ <code>&lt;style&gt;</code> và các attribute JavaScript để ngăn tấn công XSS.</p>
+<p>Giải pháp duy nhất: dùng <strong>HTML inline CSS</strong> — tức là viết tất cả style trực tiếp vào thuộc tính <code>style=""</code> của từng thẻ HTML. HTML loại này không bị lọc bỏ bởi bất kỳ CMS nào.</p>
+
+<h2>Hướng dẫn dán HTML vào Haravan</h2>
+<h3>Cách 1: Dùng Haravan Page Builder</h3>
+<ol>
+<li>Đăng nhập quản trị Haravan → <strong>Trang</strong> → <strong>Tạo trang mới</strong> hoặc mở trang có sẵn</li>
+<li>Trong editor, click nút <strong>"HTML"</strong> hoặc <strong>"&lt;&gt;"</strong> ở thanh công cụ</li>
+<li>Xóa nội dung cũ và <strong>dán HTML mới</strong> vào</li>
+<li>Click <strong>"OK"</strong> để đóng cửa sổ HTML</li>
+<li>Nhấn <strong>"Lưu"</strong> và kiểm tra trang trên trình duyệt</li>
+</ol>
+<p><strong>Lưu ý:</strong> Nếu dùng Haravan Page Builder (drag-and-drop), tìm block <strong>"HTML tùy chỉnh"</strong> và dán code vào đó.</p>
+
+<h3>Cách 2: Dán vào mô tả sản phẩm Haravan</h3>
+<ol>
+<li>Vào <strong>Sản phẩm</strong> → chọn sản phẩm cần chỉnh</li>
+<li>Ở phần <strong>Mô tả</strong>, click biểu tượng <strong>"&lt;&gt;"</strong> (Source code)</li>
+<li>Dán HTML vào — chỉ phần body, không có <code>&lt;html&gt;</code> hay <code>&lt;head&gt;</code></li>
+<li>Click <strong>"Lưu sản phẩm"</strong></li>
+</ol>
+
+<h2>Hướng dẫn dán HTML vào Sapo Web</h2>
+<ol>
+<li>Đăng nhập Sapo → <strong>Trang</strong> → chọn trang muốn chỉnh sửa</li>
+<li>Click <strong>"Chỉnh sửa"</strong> → chọn tab <strong>"HTML"</strong> trong editor</li>
+<li>Dán HTML inline CSS vào vị trí mong muốn</li>
+<li>Chuyển về tab <strong>"Trực quan"</strong> để kiểm tra layout</li>
+<li>Nhấn <strong>"Lưu thay đổi"</strong></li>
+</ol>
+<p><strong>Mẹo Sapo:</strong> Sapo Page Builder có block <strong>"Mã HTML"</strong> ở sidebar — kéo vào vị trí muốn và dán code. Linh hoạt hơn so với dán trực tiếp vào editor.</p>
+
+<h2>Hướng dẫn dán HTML vào WordPress</h2>
+<h3>WordPress Gutenberg (Block Editor)</h3>
+<ol>
+<li>Mở trang/bài viết → Click dấu <strong>"+"</strong> để thêm block</li>
+<li>Tìm block <strong>"Custom HTML"</strong> hoặc <strong>"HTML tùy chỉnh"</strong></li>
+<li>Dán HTML vào block đó</li>
+<li>Click <strong>"Preview"</strong> để xem trước, sau đó <strong>"Update"</strong></li>
+</ol>
+
+<h3>WordPress Classic Editor</h3>
+<ol>
+<li>Mở trang/bài viết → click tab <strong>"Text"</strong> (thay vì "Visual")</li>
+<li>Dán HTML trực tiếp vào vị trí muốn</li>
+<li>Nhấn <strong>"Update"</strong></li>
+</ol>
+
+<h2>Checklist trước khi dán HTML vào CMS</h2>
+<ul class="checklist">
+<li>☑ HTML dùng inline CSS (style="" trên từng thẻ) — không có thẻ &lt;style&gt; riêng</li>
+<li>☑ Không có thẻ &lt;script&gt; — sẽ bị CMS lọc hoặc gây lỗi bảo mật</li>
+<li>☑ Ảnh dùng URL tuyệt đối (https://...) — không dùng đường dẫn tương đối</li>
+<li>☑ Test trên điện thoại sau khi dán — kiểm tra responsive</li>
+<li>☑ Kiểm tra trên cả Chrome và Safari — đặc biệt quan trọng với iOS</li>
+</ul>
+
+<h2>Khi HTML dán xong vẫn lỗi — xử lý thế nào?</h2>
+<ul>
+<li><strong>Mất màu/font:</strong> CSS chưa inline — cần chạy qua bộ xử lý inline CSS trước khi dán</li>
+<li><strong>Ảnh không hiển thị:</strong> URL ảnh bị lỗi hoặc dùng đường dẫn tương đối</li>
+<li><strong>Layout vỡ trên mobile:</strong> Thiếu <code>max-width:100%</code> trên ảnh và container</li>
+<li><strong>Font khác với bản gốc:</strong> CMS override font — thêm <code>font-family</code> vào inline style của thẻ wrapper ngoài cùng</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>Dán HTML vào CMS Việt Nam không khó khi bạn hiểu nguyên tắc cốt lõi: luôn dùng inline CSS, không dùng file CSS riêng hay thẻ <code>&lt;style&gt;</code>. Với AI Content Booster, quá trình này được tự động hóa — bạn nhận được HTML sẵn sàng dán, tương thích 100% với Haravan, Sapo, và WordPress mà không cần xử lý thêm.</p>
+    `.trim(),
+  },
+
+  'cach-viet-content-tiktok-shop-ban-hang': {
+    slug:          'cach-viet-content-tiktok-shop-ban-hang',
+    title:         'Cách viết content TikTok Shop bán hàng hiệu quả năm 2026',
+    description:   'Hướng dẫn viết caption, script video và mô tả sản phẩm TikTok Shop thu hút người xem và tăng đơn hàng. Áp dụng thực tế cho shop Việt Nam.',
+    category:      'Quảng cáo',
+    readTime:      '8 phút',
+    publishedDate: '2026-05-19',
+    author:        'AI Content Booster',
+    keywords:      ['content tiktok shop', 'bán hàng tiktok shop', 'viết mô tả sản phẩm tiktok', 'tiktok shop việt nam', 'script video tiktok bán hàng'],
+    content: `
+<h2>TikTok Shop — Kênh bán hàng tăng trưởng nhanh nhất Việt Nam 2026</h2>
+<p>TikTok Shop đạt hơn 3,5 tỷ USD GMV tại Việt Nam, tăng trưởng 180% so với năm trước. Đây không còn là kênh "thử nghiệm" — đây là kênh bán hàng chủ lực mà mọi shop online không thể bỏ qua. Tuy nhiên, <strong>TikTok Shop có ngôn ngữ riêng</strong> — content hiệu quả trên Facebook thường không hiệu quả trên TikTok.</p>
+
+<h2>3 loại content TikTok Shop cần có</h2>
+<h3>Loại 1: Video sản phẩm (Product Demo)</h3>
+<p>Video cho thấy sản phẩm hoạt động trong thực tế — không phải quảng cáo studio bóng bẩy. TikTok ưu tiên video trông "tự nhiên" và "authentic". Format hiệu quả nhất: 15–30 giây, bắt đầu với kết quả ấn tượng nhất trong 3 giây đầu.</p>
+<p><strong>Script mẫu cho video demo 30 giây:</strong></p>
+<blockquote>
+<em>[0–3 giây] Hiện kết quả ngay từ đầu — "Trước vs Sau 2 tuần dùng"<br>
+[3–10 giây] Mô tả vấn đề: "Bao lâu nay da mình bị..."<br>
+[10–20 giây] Demo sản phẩm thực tế trên tay/mặt<br>
+[20–30 giây] CTA: "Link mua trong bio / Flash sale hôm nay"</em>
+</blockquote>
+
+<h3>Loại 2: Livestream bán hàng</h3>
+<p>Livestream TikTok Shop có tỷ lệ chuyển đổi cao nhất — 5–15% so với 1–3% của video thông thường. Content cho livestream cần hook mạnh ("5 phút nữa flash sale giảm 50%!"), tạo scarcity liên tục, tương tác câu hỏi trong comment, và demo sản phẩm thực tế liên tục.</p>
+
+<h3>Loại 3: Mô tả sản phẩm (Product Description)</h3>
+<p>Nhiều người bỏ qua mô tả sản phẩm TikTok Shop — đây là sai lầm lớn. Mô tả tốt giúp SEO trong TikTok Search và giải đáp câu hỏi của người mua trước khi họ hỏi, giảm tỷ lệ hoàn trả.</p>
+
+<h2>Cấu trúc mô tả sản phẩm TikTok Shop chuẩn</h2>
+<ol>
+<li><strong>Dòng đầu tiên:</strong> Từ khóa chính + lợi ích nổi bật nhất (hiển thị trước "Xem thêm")</li>
+<li><strong>Lợi ích chính:</strong> 3–5 bullet points, mỗi điểm = 1 lợi ích cụ thể và đo được</li>
+<li><strong>Thông số kỹ thuật:</strong> Kích thước, màu sắc, chất liệu, xuất xứ</li>
+<li><strong>Hướng dẫn sử dụng:</strong> Ngắn gọn, dễ hiểu cho người dùng lần đầu</li>
+<li><strong>Chính sách shop:</strong> Đổi trả, giao hàng, bảo hành</li>
+</ol>
+
+<h2>So sánh mô tả sản phẩm tốt và xấu</h2>
+<table>
+<thead><tr><th>Mô tả xấu ❌</th><th>Mô tả tốt ✓</th></tr></thead>
+<tbody>
+<tr><td>"Kem dưỡng da chất lượng cao, nhiều người dùng"</td><td>"Kem dưỡng nghệ — da sáng rõ sau 14 ngày, 500+ review 5⭐"</td></tr>
+<tr><td>"Sản phẩm tốt, mua ngay kẻo hết"</td><td>"✓ Sáng da 2 tuần ✓ Không kích ứng ✓ Hàng nội địa chất"</td></tr>
+<tr><td>Không có thông tin giao hàng</td><td>"Giao nhanh 1–3 ngày, đổi trả 7 ngày nếu lỗi shop"</td></tr>
+</tbody>
+</table>
+
+<h2>Caption TikTok — Ngắn nhưng cực kỳ quan trọng</h2>
+<p>Caption TikTok hiển thị tối đa 100 ký tự trước "Xem thêm". 100 ký tự đó phải: chứa từ khóa tìm kiếm, hook người xem vào video, và có hashtag liên quan (5–10 hashtag, mix trending + niche).</p>
+<p><strong>Mẫu caption hiệu quả:</strong></p>
+<blockquote>
+<em>Da sạm nám cả năm dùng đủ thứ không khỏi — thử cái này 2 tuần thấy ngay kết quả 😱 #kemduongda #skincarevietnam #danan #reviewskincare #tiktokshop</em>
+</blockquote>
+
+<h2>Hashtag chiến lược cho TikTok Shop Việt Nam</h2>
+<ul>
+<li><strong>Hashtag trending:</strong> #tiktokshop #muasamtiktok #reviewsanpham</li>
+<li><strong>Hashtag ngành hàng:</strong> #skincare #thoitrangnu #thucphamchucnang</li>
+<li><strong>Hashtag địa phương:</strong> #hanoishop #tphcm #shopvietnam</li>
+<li><strong>Hashtag branded:</strong> Tên shop của bạn để build audience riêng</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>Content TikTok Shop thành công đòi hỏi sự kết hợp giữa video authentic, mô tả sản phẩm chi tiết và caption tối ưu tìm kiếm. Bắt đầu với 1–2 video demo sản phẩm thực tế mỗi ngày, cải thiện dựa trên data xem và chuyển đổi — đừng cố gắng làm hoàn hảo ngay từ đầu. Với AI, bạn có thể tạo nhiều phiên bản script và mô tả sản phẩm nhanh hơn để test.</p>
+    `.trim(),
+  },
+
+  'cach-tang-ty-le-chuyen-doi-landing-page': {
+    slug:          'cach-tang-ty-le-chuyen-doi-landing-page',
+    title:         '7 cách tăng tỷ lệ chuyển đổi landing page — từ 1% lên 5%+',
+    description:   '7 phương pháp thực chiến để tăng tỷ lệ chuyển đổi landing page. Từ A/B testing đến tối ưu tốc độ tải — áp dụng ngay không cần kiến thức kỹ thuật.',
+    category:      'Landing Page',
+    readTime:      '8 phút',
+    publishedDate: '2026-05-17',
+    author:        'AI Content Booster',
+    keywords:      ['tăng tỷ lệ chuyển đổi landing page', 'tối ưu landing page', 'conversion rate optimization', 'CRO landing page', 'landing page hiệu quả hơn'],
+    content: `
+<h2>Tỷ lệ chuyển đổi trung bình của landing page là bao nhiêu?</h2>
+<p>Theo WordStream, tỷ lệ chuyển đổi trung bình của landing page là <strong>2,35%</strong> — nhưng top 25% đạt trên <strong>5,31%</strong> và top 10% đạt trên <strong>11,45%</strong>. Sự chênh lệch này đến từ tối ưu hóa liên tục, không phải may mắn.</p>
+<p>Nếu landing page của bạn đang ở mức 1%, tăng lên 3% có nghĩa là gấp 3 lần đơn hàng với <em>cùng lượng traffic và ngân sách quảng cáo</em>. Đây chính là lý do CRO (Conversion Rate Optimization) đáng đầu tư hơn tăng traffic trong nhiều trường hợp.</p>
+
+<h2>Cách 1: A/B test headline — thay đổi nhỏ, kết quả lớn</h2>
+<p>Headline là yếu tố ảnh hưởng lớn nhất đến tỷ lệ chuyển đổi. Một thay đổi nhỏ trong headline có thể tăng hoặc giảm tỷ lệ chuyển đổi đến 50%. Cách A/B test đơn giản: tạo 2 phiên bản landing page với headline khác nhau, chạy mỗi phiên bản 7 ngày với ít nhất 200 lượt truy cập mỗi bên, rồi giữ phiên bản có tỷ lệ chuyển đổi cao hơn. Dùng Google Optimize (miễn phí) để chạy A/B test.</p>
+
+<h2>Cách 2: Tối ưu nút CTA — màu sắc, vị trí, và text</h2>
+<p>3 yếu tố quyết định hiệu quả của nút CTA:</p>
+<ul>
+<li><strong>Màu sắc:</strong> Màu tương phản cao với background — cam/đỏ trên nền trắng thường hiệu quả nhất</li>
+<li><strong>Vị trí:</strong> Phải có above the fold. Lặp lại mỗi 500px scroll trên desktop</li>
+<li><strong>Text:</strong> Cụ thể và tạo value — "Nhận tư vấn miễn phí ngay" tốt hơn "Liên hệ" rất nhiều</li>
+</ul>
+<p>Test thực tế: đổi text CTA từ "Đặt hàng" sang "Bắt đầu ngay — giao miễn phí hôm nay" tăng tỷ lệ click trung bình 32%.</p>
+
+<h2>Cách 3: Thêm social proof có ảnh thật</h2>
+<p>Testimonial không có ảnh không có tác dụng nhiều — người dùng biết đó có thể là testimonial giả. Testimonial kèm ảnh thật, tên thật, và kết quả cụ thể tăng tỷ lệ chuyển đổi trung bình <strong>34%</strong>.</p>
+<p>Format testimonial hiệu quả nhất: [Ảnh thật] + [Tên + Thành phố] + [Kết quả cụ thể] + [Đánh giá sao]</p>
+
+<h2>Cách 4: Tăng tốc độ tải trang</h2>
+<p>53% người dùng mobile rời trang nếu load hơn 3 giây. Mỗi giây delay giảm tỷ lệ chuyển đổi khoảng 7% (Google). Để tối ưu tốc độ khi dùng HTML block: dùng ảnh WebP thay vì PNG/JPG, compress ảnh trước khi upload, dùng URL ảnh từ CDN, tránh nhúng Google Fonts tùy chỉnh vào HTML block.</p>
+
+<h2>Cách 5: Giảm số field trong form đến mức tối thiểu</h2>
+<p>Mỗi field thêm vào form làm giảm tỷ lệ điền khoảng 11%. Thực tế cho thấy: form 3 field đạt ~42% tỷ lệ điền, form 1 field (chỉ SĐT) đạt ~75%, form 5+ field chỉ đạt dưới 20%. Giải pháp: chỉ hỏi thông tin thực sự cần thiết ở bước đầu, thu thập thêm sau.</p>
+
+<h2>Cách 6: Thêm live chat hoặc số điện thoại nổi bật</h2>
+<p>Nhiều khách hàng Việt Nam có câu hỏi trước khi mua nhưng không muốn điền form. Thêm số điện thoại Zalo/hotline nổi bật và widget chat giúp "bắt" những khách này. Live chat tăng tỷ lệ chuyển đổi trung bình 20% cho e-commerce (Forrester).</p>
+
+<h2>Cách 7: Tạo urgency thực sự — không phải giả tạo</h2>
+<p>Countdown timer cho giảm giá thực sự tăng tỷ lệ chuyển đổi trung bình 147% (Instapage). Urgency hiệu quả phải genuine: countdown đến flash sale thực, "Chỉ còn X hàng" dựa trên inventory thực, "Đặt trong 2 giờ — giao hôm nay" nếu đúng với khả năng của shop.</p>
+<p><strong>Cảnh báo:</strong> Urgency giả tạo (countdown tự reset mỗi ngày) làm mất tin tưởng — khách hàng ngày nay rất tinh ý nhận ra điều này.</p>
+
+<h2>Kế hoạch tối ưu 30 ngày</h2>
+<ol>
+<li><strong>Tuần 1:</strong> Đo tỷ lệ chuyển đổi hiện tại bằng Google Analytics Goals</li>
+<li><strong>Tuần 2:</strong> A/B test headline + CTA text với 2 phiên bản</li>
+<li><strong>Tuần 3:</strong> Thêm testimonial có ảnh thật + social proof số liệu</li>
+<li><strong>Tuần 4:</strong> Tối ưu tốc độ tải + đơn giản hóa form</li>
+</ol>
+
+<h2>Kết luận</h2>
+<p>Tăng tỷ lệ chuyển đổi landing page không phải là may mắn — là quá trình tối ưu liên tục dựa trên dữ liệu. Bắt đầu với việc đo lường baseline, thử nghiệm từng yếu tố một, giữ lại những gì hoạt động. Chỉ cần tăng từ 1% lên 3%, bạn đã gấp 3 lần doanh thu mà không cần thêm đồng ngân sách marketing nào.</p>
+    `.trim(),
+  },
+
+  'ai-marketing-viet-nam-2026': {
+    slug:          'ai-marketing-viet-nam-2026',
+    title:         'AI Marketing Việt Nam 2026: Xu hướng và cách áp dụng thực tế cho doanh nghiệp nhỏ',
+    description:   'Tổng quan xu hướng AI Marketing tại Việt Nam năm 2026. Những ứng dụng AI nào thực sự hiệu quả cho SME, và lộ trình bắt đầu từ đầu trong 90 ngày.',
+    category:      'So sánh',
+    readTime:      '11 phút',
+    publishedDate: '2026-05-16',
+    author:        'AI Content Booster',
+    keywords:      ['AI marketing Việt Nam', 'ứng dụng AI marketing', 'AI cho doanh nghiệp nhỏ', 'xu hướng marketing 2026', 'AI content marketing Việt Nam'],
+    content: `
+<h2>AI đã thay đổi marketing Việt Nam như thế nào?</h2>
+<p>Năm 2023, AI marketing còn là khái niệm xa lạ với hầu hết doanh nghiệp SME Việt Nam. Năm 2026, <strong>73% doanh nghiệp vừa và nhỏ tại Việt Nam</strong> đã sử dụng ít nhất một công cụ AI trong hoạt động marketing. Thay đổi không đến từ các tập đoàn lớn — mà từ hàng nghìn shop online, cửa hàng nhỏ nhận ra rằng AI giúp họ cạnh tranh ngang ngửa với đội marketing chục người.</p>
+
+<h2>6 ứng dụng AI Marketing được dùng nhiều nhất tại Việt Nam</h2>
+<h3>1. AI tạo nội dung (Content Generation)</h3>
+<p>Đây là ứng dụng phổ biến nhất. AI viết bài blog, caption mạng xã hội, mô tả sản phẩm, email marketing — giảm 60–80% thời gian sản xuất content. Công cụ phổ biến: ChatGPT, Claude, Gemini, và các nền tảng chuyên biệt cho thị trường Việt Nam.</p>
+<p><strong>Case study thực tế:</strong> Shop bán mỹ phẩm tại TP.HCM giảm từ 4 giờ/ngày viết content xuống 45 phút sau khi dùng AI, đồng thời tăng tần suất đăng bài từ 2 lên 7 bài/ngày — dẫn đến tăng 45% tương tác organic.</p>
+
+<h3>2. AI tạo hình ảnh (Image Generation)</h3>
+<p>Midjourney, DALL-E, và Stable Diffusion đang được dùng để tạo banner quảng cáo, ảnh sản phẩm trong các scene khác nhau, và hình ảnh cho bài viết mà không cần thuê photographer. Với sản phẩm cần ảnh thực tế (mỹ phẩm, thực phẩm), ảnh AI chưa thể thay thế hoàn toàn — nhưng dùng cho banner background và infographic rất hiệu quả.</p>
+
+<h3>3. AI tối ưu quảng cáo tự động</h3>
+<p>Meta Advantage+, Google Performance Max, và TikTok Smart Campaign sử dụng AI để tự động tối ưu targeting, bidding, và creative rotation. Bạn không cần hiểu sâu về thuật toán — chỉ cần cung cấp đủ data (ảnh, video, copy) để AI học và tối ưu.</p>
+
+<h3>4. AI Chatbot chăm sóc khách hàng</h3>
+<p>Chatbot AI trên Zalo OA, Facebook Messenger và website đang xử lý 60–70% câu hỏi thường gặp tự động. Tiết kiệm 2–4 nhân sự CSKH, phản hồi khách 24/7 trong chưa đầy 30 giây.</p>
+
+<h3>5. AI SEO và nghiên cứu từ khóa</h3>
+<p>Ahrefs, Semrush và các công cụ AI SEO giúp tìm từ khóa tiềm năng, phân tích đối thủ, và đề xuất cải thiện content nhanh hơn nhiều so với làm thủ công. Đặc biệt hữu ích khi nghiên cứu từ khóa tiếng Việt — vốn ít công cụ chuyên biệt hỗ trợ.</p>
+
+<h3>6. AI phân tích sentiment khách hàng</h3>
+<p>AI đọc và phân loại hàng nghìn comment, review để xác định vấn đề phổ biến nhất khách hàng phản ánh — giúp cải thiện sản phẩm và dịch vụ dựa trên data thực tế, thay vì phỏng đoán.</p>
+
+<h2>AI Marketing phù hợp với quy mô nào?</h2>
+<table>
+<thead><tr><th>Quy mô doanh nghiệp</th><th>Ứng dụng AI phù hợp</th><th>ROI kỳ vọng</th></tr></thead>
+<tbody>
+<tr><td>Shop online 1–5 người</td><td>AI tạo content, AI tạo ảnh, chatbot đơn giản</td><td>Tiết kiệm 15–20 giờ/tuần</td></tr>
+<tr><td>SME 5–50 người</td><td>Tất cả trên + AI SEO + tối ưu quảng cáo AI</td><td>Giảm 30–40% chi phí marketing</td></tr>
+<tr><td>Doanh nghiệp 50+ người</td><td>AI phân tích dữ liệu + personalization + predictive analytics</td><td>Tăng 15–25% doanh thu</td></tr>
+</tbody>
+</table>
+
+<h2>Rào cản lớn nhất khi áp dụng AI Marketing tại Việt Nam</h2>
+<ul>
+<li><strong>Chất lượng tiếng Việt:</strong> Nhiều công cụ AI nước ngoài tạo tiếng Việt nghe máy móc — cần chỉnh sửa nhiều</li>
+<li><strong>Chi phí tổng hợp:</strong> Đăng ký 5–10 công cụ AI có thể lên đến 5–10 triệu đồng/tháng</li>
+<li><strong>Thiếu nhân sự biết dùng AI:</strong> Cần đào tạo team để khai thác hiệu quả</li>
+<li><strong>Dữ liệu đầu vào kém:</strong> AI tốt cần input tốt — nhiều doanh nghiệp chưa có hệ thống thu thập data khách hàng</li>
+</ul>
+
+<h2>Lộ trình áp dụng AI Marketing cho SME — 90 ngày</h2>
+<h3>Tháng 1: Nền tảng content AI</h3>
+<ol>
+<li>Chọn 1 công cụ AI tạo content phù hợp — bắt đầu với free plan trước khi trả phí</li>
+<li>Xây dựng thư viện prompt mẫu cho từng loại content của shop</li>
+<li>Thiết lập workflow: AI tạo → người review → đăng bài</li>
+</ol>
+
+<h3>Tháng 2: Tự động hóa tương tác khách hàng</h3>
+<ol>
+<li>Thiết lập chatbot Zalo OA cho FAQ và hỗ trợ đặt hàng</li>
+<li>Tạo quy trình follow-up khách hàng tự động qua Zalo/email</li>
+<li>Dùng AI phân tích comment để tìm insight sản phẩm và dịch vụ</li>
+</ol>
+
+<h3>Tháng 3: Tối ưu quảng cáo với AI</h3>
+<ol>
+<li>Thử nghiệm Meta Advantage+ Catalog Ads (AI tối ưu targeting tự động)</li>
+<li>Dùng AI tạo nhiều biến thể creative để A/B test hiệu quả</li>
+<li>Đo ROI từng kênh và phân bổ ngân sách dựa trên kết quả thực tế</li>
+</ol>
+
+<h2>Kết luận</h2>
+<p>AI Marketing không phải là xu hướng của tương lai — nó đang xảy ra ngay lúc này tại Việt Nam. Doanh nghiệp nào áp dụng sớm sẽ có lợi thế cạnh tranh đáng kể so với đối thủ vẫn đang làm thủ công. Bắt đầu nhỏ, đo lường kết quả, và mở rộng dần — đây là cách tiếp cận thực tế nhất cho SME Việt Nam năm 2026.</p>
+    `.trim(),
+  },
+
+  'viet-email-marketing-hieu-qua-bang-ai': {
+    slug:          'viet-email-marketing-hieu-qua-bang-ai',
+    title:         'Cách viết email marketing bằng AI — tỷ lệ mở tăng 40%',
+    description:   'Hướng dẫn viết email marketing hiệu quả bằng AI cho doanh nghiệp Việt Nam. Subject line thu hút, body copy thuyết phục và CTA tối ưu tỷ lệ chuyển đổi.',
+    category:      'Quảng cáo',
+    readTime:      '8 phút',
+    publishedDate: '2026-05-14',
+    author:        'AI Content Booster',
+    keywords:      ['email marketing tiếng Việt', 'viết email bán hàng', 'email marketing hiệu quả', 'subject line email', 'AI viết email marketing'],
+    content: `
+<h2>Email marketing vẫn còn hiệu quả năm 2026?</h2>
+<p>Câu trả lời ngắn gọn: <strong>có, và thậm chí còn hiệu quả hơn</strong>. Trong khi organic reach Facebook giảm xuống dưới 2% và TikTok ngày càng cạnh tranh, email vẫn đạt ROI trung bình <strong>$36 cho mỗi $1 đầu tư</strong> (Litmus 2025). Tại Việt Nam, email marketing đang bị underutilized — đây là cơ hội lớn cho những ai bắt đầu sớm.</p>
+
+<h2>Giải phẫu email marketing hiệu quả</h2>
+<h3>1. Subject Line — Yếu tố quyết định 47% tỷ lệ mở</h3>
+<p>Subject line là thứ duy nhất khách hàng thấy trước khi quyết định mở hay xóa email. 47% người nhận quyết định mở email chỉ dựa trên subject line (Convince & Convert). Đây là nơi đáng đầu tư thời gian viết nhất.</p>
+
+<h3>Công thức subject line hiệu quả</h3>
+<ul>
+<li><strong>Urgency:</strong> "⏰ Còn 3 giờ — Flash sale kết thúc lúc 23:59"</li>
+<li><strong>Curiosity:</strong> "Bí quyết tăng doanh thu 30% mà 90% shop bỏ qua"</li>
+<li><strong>Benefit:</strong> "Miễn phí vận chuyển cho đơn từ 200k — hôm nay thôi"</li>
+<li><strong>Personalization:</strong> "[Tên khách], sản phẩm bạn xem tuần trước giảm 20% rồi"</li>
+<li><strong>Question:</strong> "Da bạn cần gì để sáng khỏe trước Tết?"</li>
+</ul>
+
+<h3>Subject line cần tránh</h3>
+<ul>
+<li>❌ Viết hoa toàn bộ: "KHUYẾN MÃI KHỦNG THÁNG 5" → vào spam</li>
+<li>❌ Quá nhiều ký tự đặc biệt: "🔥💥❤️ Sale 50%!!!" → bộ lọc spam bắt</li>
+<li>❌ Mơ hồ: "Tin tức từ shop chúng tôi" → không ai muốn mở</li>
+<li>❌ Quá dài: hơn 50 ký tự bị cắt trên màn hình điện thoại</li>
+</ul>
+
+<h2>Cấu trúc body email bán hàng hiệu quả</h2>
+<h3>Phần 1: Opening — Hook trong 2 câu đầu</h3>
+<p>Người nhận đọc email bằng cách scan — 2 câu đầu phải đủ hấp dẫn để họ tiếp tục. Bắt đầu bằng câu hỏi, số liệu bất ngờ, hoặc câu chuyện ngắn về khách hàng thực.</p>
+<blockquote>
+<em>"Tuần trước, một khách hàng của chúng tôi đặt 3 đơn liên tiếp trong cùng 1 ngày. Khi hỏi lý do, chị nói: 'Tôi mua cho bản thân, mua tặng bạn thân, và mua dự phòng vì sợ hết hàng.' Hôm nay tôi muốn chia sẻ sản phẩm đó với bạn — kèm ưu đãi đặc biệt."</em>
+</blockquote>
+
+<h3>Phần 2: Body — Lợi ích, không phải tính năng</h3>
+<p>Giữ body ngắn gọn (150–250 từ cho email bán hàng). Dùng bullet points thay vì đoạn văn dài. Mỗi bullet = 1 lợi ích cụ thể và có thể đo được. Kết thúc body bằng 1–2 dòng testimonial ngắn từ khách hàng thực.</p>
+
+<h3>Phần 3: Offer và CTA</h3>
+<p>Trình bày offer rõ ràng: giảm bao nhiêu, thêm gì, deadline khi nào. Nút CTA phải nổi bật và chỉ có <em>một hành động duy nhất</em> — không cho khách chọn nhiều option.</p>
+
+<h2>Cách dùng AI viết email marketing</h2>
+<p>Prompt hiệu quả cho AI:</p>
+<blockquote>
+<em>"Viết email marketing bán hàng cho: kem dưỡng da nghệ, dành cho phụ nữ 30–45 tuổi tại Việt Nam. Offer: giảm 25% + tặng serum mini cho 50 đơn đầu tiên, deadline hết ngày mai. Tạo 5 phiên bản subject line khác nhau. Body 200 từ, tone thân thiện, nhấn vào kết quả da sáng sau 2 tuần. CTA: 'Đặt hàng ngay'."</em>
+</blockquote>
+<p>AI sẽ tạo ra email hoàn chỉnh với nhiều phiên bản subject line để bạn A/B test. Chỉ cần review và điều chỉnh cho phù hợp với giọng văn thương hiệu của mình.</p>
+
+<h2>Lịch gửi email tối ưu cho thị trường Việt Nam</h2>
+<table>
+<thead><tr><th>Thời điểm</th><th>Tỷ lệ mở</th><th>Phù hợp với</th></tr></thead>
+<tbody>
+<tr><td>Thứ 3–4, 9–11 giờ sáng</td><td>Cao nhất (~28%)</td><td>Email B2B, newsletter</td></tr>
+<tr><td>Thứ 5–6, 7–9 giờ tối</td><td>Cao (~24%)</td><td>Email bán hàng, flash sale</td></tr>
+<tr><td>Cuối tuần, 10 giờ sáng</td><td>Trung bình (~18%)</td><td>Content email, newsletter</td></tr>
+<tr><td>Thứ 2 đầu tuần</td><td>Thấp nhất (~12%)</td><td>Nên tránh gửi email bán hàng</td></tr>
+</tbody>
+</table>
+
+<h2>Checklist email marketing trước khi gửi</h2>
+<ul class="checklist">
+<li>☑ Subject line dưới 50 ký tự, không có spam trigger words</li>
+<li>☑ Preview text (preheader) rõ ràng và bổ sung cho subject line</li>
+<li>☑ Test hiển thị trên Gmail mobile trước khi gửi toàn bộ list</li>
+<li>☑ Tất cả link hoạt động và dẫn đúng trang đích</li>
+<li>☑ Có link unsubscribe — yêu cầu pháp lý và tránh spam report</li>
+<li>☑ Cá nhân hóa ít nhất tên người nhận trong lời chào</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>Email marketing kết hợp với AI là một trong những channel có ROI cao nhất và ít cạnh tranh nhất tại thị trường Việt Nam hiện tại. Đầu tư xây dựng danh sách email từ khách hàng hiện tại và nurture họ bằng content có giá trị — đây là tài sản marketing dài hạn mà không thuật toán nào của Facebook hay TikTok có thể xóa bỏ.</p>
+    `.trim(),
+  },
 }

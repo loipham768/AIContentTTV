@@ -13,6 +13,7 @@ import {
   BarChart2,
 } from "lucide-react";
 import Logo from "@/components/Logo";
+import { ARTICLES } from "@/lib/articles";
 
 export const metadata = {
   title: "Kiến thức AI Content | AI Content Booster",
@@ -90,68 +91,22 @@ const CAT: Record<
   },
 };
 
-const ARTICLES = [
-  {
-    slug: "cach-tao-landing-page-ban-hang-hieu-qua-2026",
-    title: "Cách tạo landing page bán hàng hiệu quả năm 2026",
-    desc: "Hướng dẫn từng bước xây dựng landing page bán hàng chuyên nghiệp, tối ưu chuyển đổi với AI. Áp dụng được ngay trên Haravan, Sapo và WordPress.",
-    category: "Landing Page" as CategoryKey,
-    readTime: "8 phút",
-    date: "20/05/2026",
-    featured: true,
-  },
-  {
-    slug: "so-sanh-cong-cu-viet-content-ai-tot-nhat",
-    title: "So sánh 5 công cụ viết content AI tốt nhất cho người Việt 2026",
-    desc: "Đánh giá chi tiết ChatGPT, Claude, Gemini, Jasper và AI Content Booster. Công cụ nào phù hợp nhất cho thị trường Việt Nam?",
-    category: "So sánh" as CategoryKey,
-    readTime: "12 phút",
-    date: "18/05/2026",
-    featured: true,
-  },
-  {
-    slug: "huong-dan-viet-content-quang-cao-facebook-bang-ai",
-    title:
-      "Hướng dẫn viết content quảng cáo Facebook bằng AI — không cần copywriter",
-    desc: "Từ hook thu hút đến CTA thuyết phục. Cách dùng AI tạo content Facebook Ads hiệu quả, tiết kiệm thời gian và ngân sách.",
-    category: "Quảng cáo" as CategoryKey,
-    readTime: "7 phút",
-    date: "15/05/2026",
-    featured: false,
-  },
-  {
-    slug: "html-inline-css-la-gi-tai-sao-quan-trong-voi-cms",
-    title:
-      "HTML inline CSS là gì? Tại sao quan trọng với Haravan, Sapo, WordPress?",
-    desc: "Giải thích kỹ thuật inline CSS, lý do các CMS thương mại Việt Nam lọc bỏ <style> tags và cách AI Content Booster giải quyết vấn đề này tự động.",
-    category: "Kỹ thuật" as CategoryKey,
-    readTime: "6 phút",
-    date: "12/05/2026",
-    featured: false,
-  },
-  {
-    slug: "cach-viet-mo-ta-san-pham-bang-ai-tang-ty-le-chuyen-doi",
-    title: "Cách viết mô tả sản phẩm bằng AI để tăng tỷ lệ chuyển đổi",
-    desc: "Công thức viết mô tả sản phẩm thuyết phục với AI. Tập trung vào lợi ích, không phải tính năng. Ứng dụng thực tế cho shop Haravan và Shopify.",
-    category: "Content" as CategoryKey,
-    readTime: "9 phút",
-    date: "10/05/2026",
-    featured: false,
-  },
-  {
-    slug: "seo-content-ai-cach-toi-uu-bai-viet-len-top-google",
-    title: "SEO Content AI: Cách tối ưu bài viết lên Top Google năm 2026",
-    desc: "Chiến lược kết hợp AI và SEO để tạo nội dung xếp hạng cao trên Google. Keyword research, E-E-A-T, và cách viết cho cả người đọc lẫn máy tìm kiếm.",
-    category: "SEO" as CategoryKey,
-    readTime: "11 phút",
-    date: "08/05/2026",
-    featured: false,
-  },
-];
+function formatDate(iso: string) {
+  const d = new Date(iso);
+  return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
+}
+
+function getCat(category: string) {
+  return CAT[category as CategoryKey] ?? CAT["Content"];
+}
 
 export default function KienThucPage() {
-  const featured = ARTICLES.filter((a) => a.featured);
-  const rest = ARTICLES.filter((a) => !a.featured);
+  const allArticles = Object.values(ARTICLES).sort(
+    (a, b) =>
+      new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
+  );
+  const featured = allArticles.slice(0, 2);
+  const rest = allArticles.slice(2);
 
   return (
     <div className="min-h-screen" style={{ background: "#f4f6fb" }}>
@@ -237,24 +192,6 @@ export default function KienThucPage() {
         </div>
       </section>
 
-      {/* ── Stats bar ── */}
-      {/* <div style={{ background: '#fff', borderBottom: '1px solid #e5e7eb' }}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
-          <div className="flex items-center justify-center gap-10 sm:gap-20">
-            {[
-              { value: '6', label: 'Bài viết' },
-              { value: '5', label: 'Chủ đề' },
-              { value: 'Hàng tuần', label: 'Cập nhật' },
-            ].map(s => (
-              <div key={s.label} className="text-center">
-                <div className="text-xl font-extrabold text-gray-900">{s.value}</div>
-                <div className="text-xs font-medium text-gray-500 mt-0.5">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div> */}
-
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12 space-y-12">
         {/* ── Featured ── */}
         <section>
@@ -265,14 +202,14 @@ export default function KienThucPage() {
             >
               <TrendingUp className="w-4 h-4 text-amber-600" />
               <span className="text-sm font-bold text-amber-700">
-                Bài viết nổi bật
+                Bài viết mới nhất
               </span>
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {featured.map((article, i) => {
-              const c = CAT[article.category];
+              const c = getCat(article.category);
               return (
                 <Link
                   key={article.slug}
@@ -293,7 +230,7 @@ export default function KienThucPage() {
                       </span>
                       {i === 0 && (
                         <span className="text-xs font-bold text-white bg-amber-500 px-2.5 py-1 rounded-full">
-                          ⭐ Phổ biến nhất
+                          ⭐ Mới nhất
                         </span>
                       )}
                     </div>
@@ -305,14 +242,14 @@ export default function KienThucPage() {
                       {article.title}
                     </h2>
                     <p className="text-sm text-gray-600 leading-relaxed mb-5 line-clamp-2">
-                      {article.desc}
+                      {article.description}
                     </p>
                     <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                       <div className="flex items-center gap-3 text-xs text-gray-500 font-medium">
                         <span className="flex items-center gap-1">
                           <Clock className="w-3.5 h-3.5" /> {article.readTime}
                         </span>
-                        <span>{article.date}</span>
+                        <span>{formatDate(article.publishedDate)}</span>
                       </div>
                       <span
                         className={`flex items-center gap-1 text-xs font-bold ${c.text} group-hover:gap-2 transition-all`}
@@ -340,7 +277,7 @@ export default function KienThucPage() {
           </h2>
           <div className="grid sm:grid-cols-2 gap-4">
             {rest.map((article) => {
-              const c = CAT[article.category];
+              const c = getCat(article.category);
               return (
                 <Link
                   key={article.slug}
@@ -370,7 +307,7 @@ export default function KienThucPage() {
                       {article.title}
                     </h3>
                     <p className="text-xs text-gray-500 line-clamp-1 leading-relaxed">
-                      {article.desc}
+                      {article.description}
                     </p>
                   </div>
 
