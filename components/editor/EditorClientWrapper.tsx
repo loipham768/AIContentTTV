@@ -29,12 +29,14 @@ type MobileTab = "canvas" | "blocks" | "panel";
 
 interface EditorClientWrapperProps {
   userEmail: string
+  fullName?: string
+  avatarUrl?: string
   initialData?: object | null
   canExport: boolean
   plan: string
 }
 
-export default function EditorClientWrapper({ userEmail, initialData, canExport, plan }: EditorClientWrapperProps) {
+export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, initialData, canExport, plan }: EditorClientWrapperProps) {
   const editorRef = useRef<Editor | null>(null);
   const [historyKey, setHistoryKey] = useState(0);
   const [editorInstance, setEditorInstance] = useState<Editor | null>(null);
@@ -203,6 +205,8 @@ export default function EditorClientWrapper({ userEmail, initialData, canExport,
         editorRef={editorRef}
         editor={editorInstance}
         userEmail={userEmail}
+        fullName={fullName}
+        avatarUrl={avatarUrl}
         isPreview={isPreview}
         onTogglePreview={handleTogglePreview}
         canExport={canExport}

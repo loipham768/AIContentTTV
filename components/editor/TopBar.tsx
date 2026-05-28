@@ -9,11 +9,14 @@ import {
 } from 'lucide-react'
 import Logo from '@/components/Logo'
 import Link from 'next/link'
+import UserAvatar from '@/components/UserAvatar'
 
 interface TopBarProps {
   editorRef: React.RefObject<Editor | null>
   editor?: Editor | null
   userEmail: string
+  fullName?: string
+  avatarUrl?: string
   isPreview: boolean
   onTogglePreview: () => void
   canExport: boolean
@@ -21,7 +24,7 @@ interface TopBarProps {
 }
 
 export default function TopBar({
-  editorRef, editor, userEmail, isPreview, onTogglePreview, canExport, plan,
+  editorRef, editor, userEmail, fullName, avatarUrl, isPreview, onTogglePreview, canExport, plan,
 }: TopBarProps) {
   const [activeDevice, setActiveDevice] = useState<'desktop' | 'mobile'>('desktop')
   const [copied, setCopied]     = useState(false)
@@ -270,10 +273,11 @@ ${body}
 
           <Link
             href="/profile"
-            title="Hồ sơ cá nhân"
-            className="hidden xl:flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors truncate max-w-[120px]"
+            title={fullName || userEmail}
+            className="flex items-center gap-1.5 hover:opacity-80 transition-opacity"
           >
-            {userEmail}
+            <UserAvatar avatarUrl={avatarUrl} fullName={fullName} email={userEmail} size={28} />
+            <span className="hidden xl:block text-xs text-slate-400 max-w-[100px] truncate">{fullName || userEmail}</span>
           </Link>
           <LogoutButton />
         </div>

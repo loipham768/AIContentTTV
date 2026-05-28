@@ -9,6 +9,9 @@ import {
 import ScrollReveal from '@/components/ScrollReveal'
 import TestimonialsCarousel from '@/components/TestimonialsCarousel'
 import Logo from '@/components/Logo'
+import UserAvatar from '@/components/UserAvatar'
+import { dbConnect } from '@/lib/mongodb'
+import User from '@/models/User'
 
 /* ── Tính năng thực tế đã xây dựng ─────────────────────────────── */
 
@@ -238,6 +241,13 @@ export default async function LandingPage() {
   const session = await auth()
   const isLoggedIn = !!session?.user
 
+  let userProfile: { fullName: string; avatarUrl: string } | null = null
+  if (session?.user?.id) {
+    await dbConnect()
+    const u = await User.findById(session.user.id, { fullName: 1, avatarUrl: 1 }).lean() as any
+    if (u) userProfile = { fullName: u.fullName ?? '', avatarUrl: u.avatarUrl ?? '' }
+  }
+
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
 
@@ -253,9 +263,26 @@ export default async function LandingPage() {
               <Tag className="w-4 h-4" /> Bảng giá
             </Link>
             {isLoggedIn ? (
-              <Link href="/create" className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold btn-gradient text-white rounded-lg whitespace-nowrap">
-                <Zap className="w-3.5 h-3.5" /> Tạo nội dung
-              </Link>
+              <div className="flex items-center gap-2">
+                {/* Profile pill */}
+                <Link
+                  href="/profile"
+                  className="hidden sm:flex items-center gap-2 px-2.5 py-1.5 rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all group"
+                >
+                  <UserAvatar
+                    avatarUrl={userProfile?.avatarUrl}
+                    fullName={userProfile?.fullName}
+                    email={session!.user!.email ?? ''}
+                    size={26}
+                  />
+                  <span className="text-sm text-gray-600 group-hover:text-indigo-700 max-w-[120px] truncate">
+                    {userProfile?.fullName || session!.user!.email}
+                  </span>
+                </Link>
+                <Link href="/create" className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold btn-gradient text-white rounded-lg whitespace-nowrap">
+                  <Zap className="w-3.5 h-3.5" /> Tạo nội dung
+                </Link>
+              </div>
             ) : (
               <>
                 <Link href="/login" className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">

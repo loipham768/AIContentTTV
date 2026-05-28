@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import mongoose from 'mongoose'
 import { dbConnect } from '@/lib/mongodb'
 import Project from '@/models/Project'
+import User from '@/models/User'
 import EditorClientWrapper from '@/components/editor/EditorClientWrapper'
 import { getUserPlanInfo } from '@/lib/planGate'
 
@@ -30,9 +31,13 @@ export default async function EditorPage({
 
   const planInfo = await getUserPlanInfo(session.user.id)
 
+  const userDoc = await User.findById(session.user.id, { fullName: 1, avatarUrl: 1 }).lean() as any
+
   return (
     <EditorClientWrapper
       userEmail={session.user.email!}
+      fullName={userDoc?.fullName ?? ''}
+      avatarUrl={userDoc?.avatarUrl ?? ''}
       initialData={initialData}
       canExport={planInfo?.canExport ?? false}
       plan={planInfo?.plan ?? 'free'}
