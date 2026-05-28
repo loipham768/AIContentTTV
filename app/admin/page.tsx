@@ -65,7 +65,6 @@ async function getAdminData(sessionUserId: string) {
     plan: o.plan ?? null,
     billing: o.billing ?? 'monthly',
     creditsHtml: o.creditsHtml ?? 0,
-    creditsLandingPages: o.creditsLandingPages ?? 0,
     amount: o.amount,
     status: o.status,
     expiresAt: (o.expiresAt as Date).toISOString(),

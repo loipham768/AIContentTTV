@@ -57,7 +57,6 @@ export async function POST(
   } else {
     // Credit pack — add credits
     user.credits += order.creditsHtml ?? 0
-    user.creditsLandingPages += order.creditsLandingPages ?? 0
   }
 
   order.status = 'paid'

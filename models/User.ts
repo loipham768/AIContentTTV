@@ -27,13 +27,14 @@ const UserSchema = new mongoose.Schema(
     planExpiresAt: { type: Date, default: null },
 
     // Pay-as-you-go credits (never expire)
-    credits:              { type: Number, default: 0 },   // HTML block credits
-    creditsLandingPages:  { type: Number, default: 0 },   // Landing page credits
+    credits: { type: Number, default: 0 },
 
-    // Monthly usage counters — reset lazily when usageMonth changes
-    usageMonth:         { type: String, default: '' },    // 'YYYY-MM'
-    htmlBlocksUsed:     { type: Number, default: 0 },
-    landingPagesUsed:   { type: Number, default: 0 },
+    // Deprecated: merged into credits via one-time migration in planGate
+    creditsLandingPages: { type: Number, default: 0 },
+
+    // Monthly usage counter — reset lazily when usageMonth changes
+    usageMonth:      { type: String, default: '' },  // 'YYYY-MM'
+    generationsUsed: { type: Number, default: 0 },
   },
   { timestamps: true }
 )

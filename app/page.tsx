@@ -264,23 +264,23 @@ export default async function LandingPage() {
             </Link>
             {isLoggedIn ? (
               <div className="flex items-center gap-2">
-                {/* Profile pill */}
+                <Link href="/create" className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold btn-gradient text-white rounded-lg shadow-sm whitespace-nowrap">
+                  <Zap className="w-3.5 h-3.5" /> Tạo nội dung
+                </Link>
                 <Link
                   href="/profile"
-                  className="hidden sm:flex items-center gap-2 px-2.5 py-1.5 rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all group"
+                  title={userProfile?.fullName || (session!.user!.email ?? '')}
+                  className="group flex items-center gap-2 p-1 sm:pr-3 rounded-full border border-gray-200 hover:border-indigo-300 hover:shadow-md hover:shadow-indigo-100 transition-all bg-white"
                 >
                   <UserAvatar
                     avatarUrl={userProfile?.avatarUrl}
                     fullName={userProfile?.fullName}
                     email={session!.user!.email ?? ''}
-                    size={26}
+                    size={30}
                   />
-                  <span className="text-sm text-gray-600 group-hover:text-indigo-700 max-w-[120px] truncate">
-                    {userProfile?.fullName || session!.user!.email}
+                  <span className="hidden sm:block text-sm font-medium text-gray-700 group-hover:text-indigo-700 max-w-[96px] truncate">
+                    {userProfile?.fullName?.split(' ').pop() || 'Profile'}
                   </span>
-                </Link>
-                <Link href="/create" className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold btn-gradient text-white rounded-lg whitespace-nowrap">
-                  <Zap className="w-3.5 h-3.5" /> Tạo nội dung
                 </Link>
               </div>
             ) : (
@@ -678,8 +678,7 @@ export default async function LandingPage() {
                 </Link>
                 <ul className="mt-6 space-y-2.5 flex-1">
                   {[
-                    { text: '3 bài viết HTML/tháng', ok: true },
-                    { text: '1 landing page/tháng', ok: true },
+                    { text: '4 lượt tạo nội dung/tháng', ok: true },
                     { text: 'Chỉnh sửa trong editor', ok: true },
                     { text: '3 template mẫu', ok: false },
                     { text: 'Sao chép / xuất HTML', ok: false },
@@ -712,8 +711,7 @@ export default async function LandingPage() {
                 </Link>
                 <ul className="mt-6 space-y-2.5 flex-1">
                   {[
-                    '20 bài viết HTML/tháng',
-                    '5 landing page/tháng',
+                    '25 lượt tạo nội dung/tháng',
                     'Sao chép & xuất file HTML',
                     'Toàn bộ template mẫu',
                     'Lưu lịch sử 30 ngày',
@@ -743,7 +741,7 @@ export default async function LandingPage() {
                 <ul className="mt-6 space-y-2.5 flex-1">
                   {[
                     'Không giới hạn bài viết HTML',
-                    'Không giới hạn landing page',
+                    'Không giới hạn lượt tạo nội dung',
                     'Toàn bộ tính năng Basic',
                     'Lưu lịch sử không giới hạn',
                     'Hỗ trợ Zalo ưu tiên trong 4h',
@@ -765,10 +763,10 @@ export default async function LandingPage() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { packId: 'c1', amount: '20.000đ', desc: '4 bài viết HTML', highlight: false },
-              { packId: 'c2', amount: '50.000đ', desc: '10 bài viết + 2 landing page', highlight: false },
-              { packId: 'c3', amount: '100.000đ', desc: '25 bài viết + 5 landing page', highlight: true, badge: 'Tiết kiệm nhất' },
-              { packId: 'c4', amount: '200.000đ', desc: '60 bài viết + 12 landing page', highlight: false },
+              { packId: 'c1', amount: '20.000đ', desc: '4 lượt tạo nội dung', highlight: false },
+              { packId: 'c2', amount: '50.000đ', desc: '12 lượt tạo nội dung', highlight: false },
+              { packId: 'c3', amount: '100.000đ', desc: '30 lượt tạo nội dung', highlight: true, badge: 'Tiết kiệm nhất' },
+              { packId: 'c4', amount: '200.000đ', desc: '72 lượt tạo nội dung', highlight: false },
             ].map(({ packId, amount, desc, highlight, badge }) => (
               <ScrollReveal key={packId} className="h-full">
                 <div className={`rounded-2xl p-5 h-full flex flex-col gap-3 relative ${highlight ? 'bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/20' : 'bg-white border border-gray-200'}`}>
@@ -813,7 +811,7 @@ export default async function LandingPage() {
               },
               {
                 q: 'Gói miễn phí bị giới hạn ở đâu?',
-                a: 'Gói Free: 3 bài viết HTML và 1 landing page mỗi tháng. Có thể chỉnh sửa trong editor nhưng không sao chép hay tải HTML. Giới hạn này được kiểm tra phía server — không thể vượt qua bằng DevTools.',
+                a: 'Gói Free: 4 lượt tạo nội dung mỗi tháng (landing page, bài viết hoặc quảng cáo). Có thể chỉnh sửa trong editor nhưng không sao chép hay tải HTML. Giới hạn này được kiểm tra phía server — không thể vượt qua bằng DevTools.',
                 accent: 'border-l-purple-400',
               },
               {

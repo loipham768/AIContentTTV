@@ -37,7 +37,6 @@ export interface OrderRow {
   plan: string | null
   billing: string
   creditsHtml: number
-  creditsLandingPages: number
   amount: number
   status: string
   expiresAt: string
@@ -147,7 +146,7 @@ export default function AdminDashboard({ initialUsers, initialProjects, initialO
                     <td className="px-4 py-3.5 text-xs text-gray-700">
                       {order.type === 'subscription'
                         ? `${PLAN_LABELS[order.plan ?? ''] ?? order.plan} — ${order.billing === 'yearly' ? 'Năm' : 'Tháng'}`
-                        : `${order.creditsHtml} HTML${order.creditsLandingPages ? ` + ${order.creditsLandingPages} LP` : ''}`}
+                        : `${order.creditsHtml} lượt`}
                     </td>
                     <td className="px-4 py-3.5 font-semibold text-gray-900 whitespace-nowrap">{formatVnd(order.amount)}</td>
                     <td className="px-4 py-3.5">

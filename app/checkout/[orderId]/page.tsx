@@ -46,7 +46,7 @@ export default async function CheckoutPage({
     if (order.type === 'subscription') {
       return `Gói ${PLAN_LABEL[order.plan]} — ${BILLING_LABEL[order.billing]}`
     }
-    return `Nạp credits (${order.creditsHtml} bài viết${order.creditsLandingPages ? ` + ${order.creditsLandingPages} landing page` : ''})`
+    return `Nạp ${order.creditsHtml} lượt tạo nội dung`
   }
 
   return (

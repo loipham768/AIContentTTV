@@ -35,18 +35,15 @@ export default async function ProfilePage() {
         <h1 className="text-2xl font-bold text-gray-900 mb-8">Hồ sơ cá nhân</h1>
         <ProfileClient
           initialData={{
-            email:               user.email as string,
-            fullName:            user.fullName  ?? '',
-            phone:               user.phone     ?? '',
-            avatarUrl:           user.avatarUrl ?? '',
-            plan:                planInfo?.plan ?? 'free',
-            planExpiresAt:       planInfo?.planExpiresAt ?? null,
-            htmlBlocksUsed:      planInfo?.htmlBlocksUsed ?? 0,
-            htmlBlocksLimit:     planInfo?.htmlBlocksLimit ?? 3,
-            landingPagesUsed:    planInfo?.landingPagesUsed ?? 0,
-            landingPagesLimit:   planInfo?.landingPagesLimit ?? 1,
-            credits:             planInfo?.credits ?? 0,
-            creditsLandingPages: planInfo?.creditsLandingPages ?? 0,
+            email:            user.email as string,
+            fullName:         user.fullName  ?? '',
+            phone:            user.phone     ?? '',
+            avatarUrl:        user.avatarUrl ?? '',
+            plan:             planInfo?.plan ?? 'free',
+            planExpiresAt:    planInfo?.planExpiresAt ?? null,
+            generationsUsed:  planInfo?.generationsUsed ?? 0,
+            generationsLimit: planInfo?.generationsLimit ?? 4,
+            credits:          planInfo?.credits ?? 0,
           }}
         />
       </main>

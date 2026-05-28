@@ -5,7 +5,7 @@ import { dbConnect } from '@/lib/mongodb'
 import RateLimit from '@/models/RateLimit'
 import Project from '@/models/Project'
 import { generateBlock } from '@/lib/ai/generate-block'
-import { checkAndIncrementHtmlBlock } from '@/lib/planGate'
+import { checkAndIncrementGeneration } from '@/lib/planGate'
 
 export const runtime = 'nodejs'
 
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
   const { prompt } = parsed.data
 
   // 3. Plan gate — check quota before calling AI
-  const gate = await checkAndIncrementHtmlBlock(userId)
+  const gate = await checkAndIncrementGeneration(userId)
   if (!gate.allowed) {
     return NextResponse.json(
       { error: gate.reason, code: gate.code, upgradeRequired: gate.upgradeRequired },

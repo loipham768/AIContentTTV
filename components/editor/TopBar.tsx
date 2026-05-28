@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import type { Editor } from 'grapesjs'
-import { LogoutButton } from '@/components/auth/LogoutButton'
 import {
   Eye, EyeOff, ZoomIn, ZoomOut, Trash2,
-  Undo2, Redo2, Monitor, Smartphone, Code2, Plus, Download, Crown, Lock,
+  Undo2, Redo2, Monitor, Smartphone, Code2, Plus, Download, Lock, Crown,
 } from 'lucide-react'
 import Logo from '@/components/Logo'
 import Link from 'next/link'
@@ -24,7 +23,7 @@ interface TopBarProps {
 }
 
 export default function TopBar({
-  editorRef, editor, userEmail, fullName, avatarUrl, isPreview, onTogglePreview, canExport, plan,
+  editorRef, editor, userEmail, fullName, avatarUrl, isPreview, onTogglePreview, canExport,
 }: TopBarProps) {
   const [activeDevice, setActiveDevice] = useState<'desktop' | 'mobile'>('desktop')
   const [copied, setCopied]     = useState(false)
@@ -155,12 +154,6 @@ ${body}
     </button>
   )
 
-  const planBadge = plan === 'free'
-    ? <span className="hidden xl:flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-slate-700 text-slate-400 font-medium">Free</span>
-    : plan === 'basic'
-    ? <span className="hidden xl:flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-blue-800/60 text-blue-300 font-medium"><Crown className="w-3 h-3" />Basic</span>
-    : <span className="hidden xl:flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-amber-700/40 text-amber-300 font-medium"><Crown className="w-3 h-3 fill-amber-300" />Pro</span>
-
   return (
     <>
       <div
@@ -173,13 +166,11 @@ ${body}
           <Logo iconSize={26} uid="topbar-m" dark iconOnly className="md:hidden" />
           <a
             href="/create"
-            className="flex items-center gap-1 p-1.5 text-xs font-medium rounded-lg text-slate-400 hover:bg-slate-700 hover:text-white transition-all"
+            className="p-1.5 rounded-lg text-slate-400 hover:bg-slate-700 hover:text-white transition-all"
             title="Tạo nội dung mới với AI"
           >
             <Plus className="w-3.5 h-3.5" />
-            <span className="hidden lg:inline">Tạo mới</span>
           </a>
-          {planBadge}
         </div>
 
         {/* Center controls */}
@@ -238,48 +229,46 @@ ${body}
         </div>
 
         {/* Right: export + copy + user */}
-        <div className="flex items-center gap-1.5 flex-shrink-0">
+        <div className="flex items-center gap-1 flex-shrink-0">
           <button
             onClick={handleExportHtml}
             disabled={loading}
-            title={canExport ? 'Tải file index.html' : 'Cần nâng cấp gói để xuất file'}
-            className={`flex items-center gap-1 px-2 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
+            title={canExport ? 'Xuất file index.html' : 'Nâng cấp gói để xuất file'}
+            className={`p-1.5 rounded-lg transition-colors ${
               !canExport
-                ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
+                ? 'text-slate-500 cursor-not-allowed'
                 : exported
-                ? 'bg-blue-500 text-white'
-                : 'bg-slate-700 hover:bg-slate-600 text-slate-200'
+                ? 'text-blue-400'
+                : 'text-slate-400 hover:text-white hover:bg-slate-700'
             }`}
           >
-            {canExport ? <Download className="w-3.5 h-3.5 flex-shrink-0" /> : <Lock className="w-3.5 h-3.5 flex-shrink-0" />}
-            <span className="hidden lg:inline">{exported ? 'Đã tải!' : 'Xuất HTML'}</span>
+            {canExport ? <Download className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
           </button>
 
           <button
             onClick={handleCopyHtml}
             disabled={loading}
-            title={canExport ? 'Sao chép HTML đã chuẩn hóa CSS' : 'Cần nâng cấp gói để sao chép HTML'}
-            className={`flex items-center gap-1 px-2 py-1.5 text-xs font-semibold rounded-lg transition-colors shadow ${
+            title={canExport ? 'Sao chép HTML' : 'Nâng cấp gói để sao chép HTML'}
+            className={`p-1.5 rounded-lg transition-colors ${
               !canExport
-                ? 'bg-slate-600 text-slate-400 cursor-not-allowed'
+                ? 'text-slate-500 cursor-not-allowed'
                 : copied
-                ? 'bg-emerald-600 text-white shadow-emerald-500/20'
-                : 'bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white shadow-emerald-500/20'
+                ? 'text-emerald-400'
+                : 'text-slate-400 hover:text-white hover:bg-slate-700'
             }`}
           >
-            {canExport ? <Code2 className="w-3.5 h-3.5 flex-shrink-0" /> : <Lock className="w-3.5 h-3.5 flex-shrink-0" />}
-            <span className="hidden md:inline">{copied ? 'Đã sao chép!' : 'Sao chép'}</span>
+            {canExport ? <Code2 className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
           </button>
+
+          <div className="w-px h-4 bg-slate-700 mx-0.5" />
 
           <Link
             href="/profile"
             title={fullName || userEmail}
-            className="flex items-center gap-1.5 hover:opacity-80 transition-opacity"
+            className="hover:opacity-80 transition-opacity"
           >
             <UserAvatar avatarUrl={avatarUrl} fullName={fullName} email={userEmail} size={28} />
-            <span className="hidden xl:block text-xs text-slate-400 max-w-[100px] truncate">{fullName || userEmail}</span>
           </Link>
-          <LogoutButton />
         </div>
       </div>
 

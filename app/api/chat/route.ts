@@ -4,7 +4,7 @@ import { auth } from '@/auth'
 import { dbConnect } from '@/lib/mongodb'
 import Project from '@/models/Project'
 import { chatWithGemini, type GeminiMessage } from '@/lib/ai/gemini'
-import { checkAndIncrementLandingPage } from '@/lib/planGate'
+import { checkAndIncrementGeneration } from '@/lib/planGate'
 
 export const runtime = 'nodejs'
 
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
 
     if (result.type === 'html') {
       // Plan gate — only when AI actually produces the final HTML output
-      const gate = await checkAndIncrementLandingPage(session.user.id)
+      const gate = await checkAndIncrementGeneration(session.user.id)
       if (!gate.allowed) {
         return NextResponse.json(
           { error: gate.reason, code: gate.code, upgradeRequired: gate.upgradeRequired },

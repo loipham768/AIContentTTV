@@ -10,8 +10,7 @@ const OrderSchema = new mongoose.Schema(
     billing: { type: String, enum: ['monthly', 'yearly'], default: 'monthly' },
 
     // Credits granted on activation (for credit packs)
-    creditsHtml:          { type: Number, default: 0 },
-    creditsLandingPages:  { type: Number, default: 0 },
+    creditsHtml: { type: Number, default: 0 },
 
     amount: { type: Number, required: true }, // VND
 

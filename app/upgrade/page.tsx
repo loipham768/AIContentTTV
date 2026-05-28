@@ -58,11 +58,10 @@ export default async function UpgradePage({
 
     await Order.create({
       orderId,
-      userId: session.user.id,
-      type: 'credits',
-      creditsHtml: pack!.html,
-      creditsLandingPages: pack!.landingPages,
-      amount: pack!.amount,
+      userId:      session.user.id,
+      type:        'credits',
+      creditsHtml: pack!.credits,
+      amount:      pack!.amount,
       expiresAt,
     })
 

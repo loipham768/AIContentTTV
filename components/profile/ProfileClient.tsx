@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react'
 import {
-  User, Phone, Lock, Crown, Zap, LayoutTemplate,
+  User, Phone, Lock, Crown, Zap,
   CheckCircle2, Loader2, Camera, Eye, EyeOff, ArrowRight,
 } from 'lucide-react'
 import Link from 'next/link'
@@ -42,9 +42,8 @@ function UsageBar({ used, limit, label }: { used: number; limit: number; label: 
 interface ProfileData {
   email: string; fullName: string; phone: string; avatarUrl: string
   plan: string; planExpiresAt: string | null
-  htmlBlocksUsed: number; htmlBlocksLimit: number
-  landingPagesUsed: number; landingPagesLimit: number
-  credits: number; creditsLandingPages: number
+  generationsUsed: number; generationsLimit: number
+  credits: number
 }
 
 export default function ProfileClient({ initialData }: { initialData: ProfileData }) {
@@ -180,18 +179,13 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
           )}
 
           <div className="space-y-3">
-            <UsageBar used={data.htmlBlocksUsed} limit={data.htmlBlocksLimit} label="Bài viết HTML tháng này" />
-            <UsageBar used={data.landingPagesUsed} limit={data.landingPagesLimit} label="Landing page tháng này" />
+            <UsageBar used={data.generationsUsed} limit={data.generationsLimit} label="Lượt tạo nội dung tháng này" />
           </div>
 
-          <div className="border-t border-gray-100 pt-3 space-y-2">
+          <div className="border-t border-gray-100 pt-3">
             <div className="flex justify-between text-xs">
-              <span className="flex items-center gap-1 text-gray-500"><Zap className="w-3.5 h-3.5 text-amber-500" />Credits HTML</span>
+              <span className="flex items-center gap-1 text-gray-500"><Zap className="w-3.5 h-3.5 text-amber-500" />Credits tích lũy</span>
               <span className="font-semibold text-gray-800">{data.credits} lượt</span>
-            </div>
-            <div className="flex justify-between text-xs">
-              <span className="flex items-center gap-1 text-gray-500"><LayoutTemplate className="w-3.5 h-3.5 text-indigo-500" />Credits Landing page</span>
-              <span className="font-semibold text-gray-800">{data.creditsLandingPages} lượt</span>
             </div>
           </div>
 

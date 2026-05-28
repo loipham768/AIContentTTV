@@ -80,11 +80,10 @@ export async function POST(req: NextRequest) {
     if (!pack) return NextResponse.json({ error: 'Invalid pack' }, { status: 400 })
     orderData = {
       orderId,
-      userId:              session.user.id,
-      type:                'credits',
-      creditsHtml:         pack.html,
-      creditsLandingPages: pack.landingPages,
-      amount:              pack.amount,
+      userId:      session.user.id,
+      type:        'credits',
+      creditsHtml: pack.credits,
+      amount:      pack.amount,
       expiresAt,
     }
   }
