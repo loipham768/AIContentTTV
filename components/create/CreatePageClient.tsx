@@ -10,6 +10,8 @@ import {
   RotateCcw,
   Send,
   Pencil,
+  LayoutTemplate,
+  Info,
 } from "lucide-react";
 import Logo from "@/components/Logo";
 
@@ -647,7 +649,7 @@ export default function CreatePageClient() {
       if (data.type === "confirm") {
         setCurrent({
           question: data.question,
-          options: data.options ?? ["Tạo luôn đi!"],
+          options: data.options ?? ["Hãy tạo nội dung ngay!"],
           items: data.items ?? [],
           isConfirm: true,
         });
@@ -734,13 +736,22 @@ export default function CreatePageClient() {
       {/* Nav */}
       <header className="flex items-center justify-between px-6 py-4 border-b border-white/5 flex-shrink-0">
         <Logo iconSize={28} uid="create-logo" dark />
-        <a
-          href="/editor"
-          className="text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1.5"
-        >
-          <Pencil className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Mở trình soạn thảo trống</span>
-        </a>
+        <div className="flex items-center gap-3">
+          <a
+            href="/templates"
+            className="text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1.5"
+          >
+            <LayoutTemplate className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Mẫu có sẵn</span>
+          </a>
+          <a
+            href="/editor"
+            className="text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1.5"
+          >
+            <Pencil className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Soạn thảo trống</span>
+          </a>
+        </div>
       </header>
 
       {/* Main */}
@@ -843,6 +854,16 @@ export default function CreatePageClient() {
                 </button>
               </div>
             </div>
+
+            {/* Disclaimer */}
+            <div className="w-full mt-3 flex items-start gap-2 px-1">
+              <Info className="w-3.5 h-3.5 text-slate-500 flex-shrink-0 mt-0.5" />
+              <p className="text-xs text-slate-500 leading-relaxed">
+                AI sẽ tạo khung nội dung dựa trên ý tưởng của bạn — chưa hoàn chỉnh 100%.
+                Sau khi tạo xong, bạn có thể kéo thả, chỉnh sửa từng đoạn văn, thay hình ảnh
+                và tinh chỉnh tự do trong trình soạn thảo để ra sản phẩm cuối cùng theo đúng ý mình.
+              </p>
+            </div>
           </div>
         )}
 
@@ -895,7 +916,7 @@ export default function CreatePageClient() {
                     </div>
                     {longWait && (
                       <p className="mt-2 text-xs text-slate-400 leading-relaxed">
-                        Bạn đợi xíu nha, nội dung của bạn đang được tạo...
+                        Bạn đợi xíu nha!., nội dung của bạn đang được tạo...
                       </p>
                     )}
                   </div>
@@ -909,9 +930,11 @@ export default function CreatePageClient() {
                     <div className="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center flex-shrink-0">
                       <Sparkles className="w-3.5 h-3.5 text-white" />
                     </div>
-                    <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm rounded-2xl rounded-tl-sm px-4 py-2.5">
-                      Trang web đã được tạo xong! Mở trình soạn thảo để chỉnh
-                      sửa từng phần.
+                    <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm rounded-2xl rounded-tl-sm px-4 py-3 space-y-1.5">
+                      <p className="font-medium">Khung nội dung đã được tạo xong!</p>
+                      <p className="text-emerald-400/80 text-xs leading-relaxed">
+                        Đây là bản thảo ~80% theo ý bạn. Mở trình soạn thảo để kéo thả, thay hình ảnh, chỉnh từng đoạn văn và hoàn thiện theo ý tưởng của bạn.
+                      </p>
                     </div>
                   </div>
                   <button
@@ -1014,32 +1037,40 @@ export default function CreatePageClient() {
                 )}
 
                 {/* Custom input */}
-                <form
-                  onSubmit={handleCustomSubmit}
-                  className="flex items-end gap-2 pl-9"
-                >
-                  <textarea
-                    ref={customInputRef}
-                    value={custom}
-                    onChange={(e) => setCustom(e.target.value)}
-                    onKeyDown={handleCustomKeyDown}
-                    placeholder={
-                      current.options.length > 0
-                        ? "Hoặc nhập câu trả lời của bạn..."
-                        : "Nhập câu trả lời..."
-                    }
-                    rows={1}
-                    maxLength={300}
-                    className="flex-1 resize-none bg-white/[0.05] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-all"
-                  />
-                  <button
-                    type="submit"
-                    disabled={!custom.trim()}
-                    className="w-9 h-9 flex items-center justify-center rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-30 disabled:cursor-not-allowed transition-all flex-shrink-0"
+                <div className="pl-9 space-y-1.5">
+                  {current.options.length > 0 && (
+                    <p className="text-xs text-slate-500 flex items-center gap-1">
+                      <span className="inline-block w-3 h-px bg-slate-600" />
+                      Hoặc tự nhập câu trả lời của bạn
+                    </p>
+                  )}
+                  <form
+                    onSubmit={handleCustomSubmit}
+                    className="flex items-end gap-2"
                   >
-                    <Send className="w-3.5 h-3.5 text-white" />
-                  </button>
-                </form>
+                    <textarea
+                      ref={customInputRef}
+                      value={custom}
+                      onChange={(e) => setCustom(e.target.value)}
+                      onKeyDown={handleCustomKeyDown}
+                      placeholder={
+                        current.options.length > 0
+                          ? "Nhập câu trả lời của bạn..."
+                          : "Nhập câu trả lời..."
+                      }
+                      rows={1}
+                      maxLength={300}
+                      className="flex-1 resize-none bg-white/[0.05] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-all"
+                    />
+                    <button
+                      type="submit"
+                      disabled={!custom.trim()}
+                      className="w-9 h-9 flex items-center justify-center rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-30 disabled:cursor-not-allowed transition-all flex-shrink-0"
+                    >
+                      <Send className="w-3.5 h-3.5 text-white" />
+                    </button>
+                  </form>
+                </div>
               </div>
             )}
           </div>

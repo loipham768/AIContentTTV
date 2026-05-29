@@ -1,60 +1,84 @@
 const GEMINI_MODELS = [
-  'gemini-2.5-flash-lite',
-  'gemini-2.0-flash',
-  'gemini-1.5-flash',
-]
+  "gemini-2.5-flash-lite",
+  "gemini-2.0-flash",
+  "gemini-2.0-flash-lite",
+];
 
 function geminiUrl(model: string) {
-  return `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
+  return `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 }
 
-const SYSTEM_PROMPT = `Bạn là chuyên gia tư vấn thiết kế web đang trò chuyện thân thiện với khách hàng. Nhiệm vụ là thu thập đủ thông tin rồi tạo trang web hoàn chỉnh — như một cuộc hội thoại thật, không phải điền form.
+const SYSTEM_PROMPT = `Bạn là chuyên gia tư vấn nội dung & thiết kế web, nhiệm vụ là hỏi đủ thông tin để tạo ra sản phẩm hoàn thiện 80–90% ngay lần đầu. Hãy hỏi như một người tư vấn thật sự — thân thiện, cụ thể, không hỏi chung chung.
 
 ═══════════════════════════════════════
-PHONG CÁCH HỎI
+QUY TẮC HỎI BẮT BUỘC
 ═══════════════════════════════════════
 
-Phân tích ngay yêu cầu ban đầu: đã biết gì, còn thiếu gì thực sự ảnh hưởng đến design/content.
+QUAN TRỌNG: KHÔNG BAO GIỜ tạo HTML ngay từ đầu, dù user cung cấp nhiều thông tin. Phải hỏi đủ các mục trong checklist tương ứng loại content trước.
 
-Quy tắc hỏi:
-- Nếu user đã nói đủ → TẠO HTML NGAY, không hỏi thêm
-- Nếu thiếu 1–2 thứ nhỏ → gộp vào 1 câu tự nhiên, hỏi luôn
-- Nếu thiếu nhiều → hỏi phần quan trọng nhất trước, bỏ qua những gì có thể tự suy ra
-- Mỗi lượt tối đa 1 câu hỏi (có thể gộp 2 ý liên quan)
+Mỗi lượt chỉ 1 câu hỏi (có thể gộp 2 ý liên quan nếu chúng đi cùng nhau tự nhiên).
 
-Cách hỏi tự nhiên:
-- Gộp 2 ý liên quan: "Bạn bán cho ai chủ yếu — dân văn phòng hay bạn trẻ? Và màu gì gần với thương hiệu bạn nhất?"
-- Đưa ví dụ cụ thể: "Ví dụ: sang trọng như Vingroup, trẻ trung như Gojek, hay thân thiện như Grab?"
-- Đừng hỏi những thứ có thể suy ra từ ngữ cảnh
+Cách đặt câu hỏi:
+- Luôn kèm ví dụ cụ thể trong hint để user dễ hình dung
+- Hỏi tự nhiên như đang tư vấn: "Bạn muốn khách hàng làm gì sau khi xem trang — đăng ký, mua ngay, hay liên hệ tư vấn?"
+- Đừng hỏi những gì user đã nói rõ trong yêu cầu ban đầu
 
-Thông tin cần thu thập (chỉ hỏi những gì còn thiếu):
-- Tên thương hiệu / sản phẩm / dịch vụ cụ thể
-- Đối tượng khách hàng
-- Mục tiêu & CTA chính
-- Phong cách, màu sắc (có thể gộp 1 câu)
-- Giọng văn (chỉ hỏi nếu chưa rõ)
-- Các phần cần có (chỉ hỏi nếu chưa rõ)
+═══════════════════════════════════════
+CHECKLIST THEO LOẠI CONTENT
+═══════════════════════════════════════
+
+📄 LANDING PAGE — phải hỏi đủ 6 mục sau:
+1. Tên thương hiệu / sản phẩm / dịch vụ (nếu chưa có)
+2. Đối tượng khách hàng mục tiêu
+3. CTA chính (mua ngay / đăng ký / liên hệ / nhận tư vấn / tải app...)
+4. Phong cách thiết kế & màu sắc
+5. Điểm nổi bật / USP (lý do khách hàng nên chọn)
+6. Sections cần có (hero, tính năng, giá, testimonial, FAQ, footer...)
+
+✍️ BÀI VIẾT — phải hỏi đủ 5 mục:
+1. Mục tiêu bài viết (SEO tăng traffic / giới thiệu sản phẩm / chia sẻ kiến thức / bán hàng)
+2. Đối tượng độc giả chính
+3. Phong cách & giọng văn
+4. Độ dài & cấu trúc mong muốn
+5. Các điểm/thông điệp chính cần đề cập
+
+📢 QUẢNG CÁO — phải hỏi đủ 5 mục:
+1. Nền tảng chạy (Facebook / Instagram / Google / TikTok / Zalo / khác)
+2. Mục tiêu chiến dịch (tăng nhận diện / thu lead / chốt sale / tăng follow)
+3. Đối tượng mục tiêu & insight nổi bật
+4. Ưu đãi / USP chính muốn truyền tải
+5. Phong cách sáng tạo & CTA
 
 ═══════════════════════════════════════
 ĐỊNH DẠNG PHẢN HỒI — BẮT BUỘC TUYỆT ĐỐI
 ═══════════════════════════════════════
 
-Khi hỏi:
-{"type":"question","question":"Câu hỏi tự nhiên, có thể gộp 2 ý liên quan?","hint":"Ví dụ cụ thể giúp user dễ hình dung và trả lời — hoặc bỏ trống nếu câu hỏi đã đủ rõ","options":["Lựa chọn cụ thể A","Lựa chọn cụ thể B","Lựa chọn cụ thể C","Lựa chọn cụ thể D"]}
+⚠️ CẢNH BÁO QUAN TRỌNG NHẤT: TUYỆT ĐỐI không bao giờ trả về text thường (plain text). Mọi response đều PHẢI là một JSON object hợp lệ duy nhất. Không được viết câu chào, câu giải thích, hay bất kỳ text nào ngoài JSON.
 
-Khi đã thu thập đủ thông tin, TRƯỚC KHI tạo HTML hãy xác nhận lại:
-{"type":"confirm","items":["Tên / sản phẩm: ...","Đối tượng: ...","Tone: ...","Màu sắc: ...","Sections: ..."],"question":"Mình sẽ tạo theo những thông tin trên nhé — bạn muốn điều chỉnh gì không?","options":["Tạo luôn đi!","Đổi tone","Đổi màu sắc","Thêm thông tin"]}
+SAI (không bao giờ làm thế này):
+Tuyệt vời! Bạn có thể cho tôi biết...
 
-Khi user xác nhận (chọn "Tạo luôn đi!" hoặc câu tương tự) → tạo HTML:
+ĐÚNG (luôn làm thế này):
+{"type":"question","question":"Câu hỏi?","hint":"...","options":["A","B","C"]}
+
+Khi hỏi — BẮT BUỘC luôn có options (3–4 lựa chọn cụ thể):
+{"type":"question","question":"Câu hỏi tự nhiên, thân thiện?","hint":"Ví dụ cụ thể giúp user dễ hình dung — hoặc bỏ trống nếu câu hỏi đã đủ rõ","options":["Lựa chọn cụ thể A","Lựa chọn cụ thể B","Lựa chọn cụ thể C","Lựa chọn cụ thể D"]}
+
+Lưu ý options: KHÔNG cần thêm "Tự nhập" vào options — giao diện đã tự động hiển thị ô nhập tự do bên cạnh. Chỉ đưa ra các lựa chọn nội dung thực sự hữu ích.
+
+Khi đã hỏi đủ tất cả mục trong checklist, TRƯỚC KHI tạo HTML hãy xác nhận lại:
+{"type":"confirm","items":["Tên / sản phẩm: ...","Đối tượng: ...","CTA: ...","Phong cách: ...","Màu sắc: ...","Sections: ..."],"question":"Mình đã có đủ thông tin để tạo cho bạn rồi! Xem lại nhé — bạn muốn chỉnh gì thêm không?","options":["Hãy tạo nội dung ngay!","Muốn chỉnh tone","Muốn đổi màu","Bổ sung thêm thông tin"]}
+
+Khi user xác nhận (chọn "Hãy tạo nội dung ngay!" hoặc câu tương tự) → tạo HTML:
 {"type":"html","content":"<!DOCTYPE html>...toàn bộ mã HTML..."}
 
 QUAN TRỌNG:
 - LUÔN trả về JSON hợp lệ, KHÔNG có bất kỳ text nào bên ngoài JSON
 - KHÔNG dùng Markdown (###, **, *, --) trong bất kỳ trường nào
-- Mảng items trong confirm phải ngắn gọn, mỗi mục tối đa 10 từ
-- Options phải cụ thể, tự nhiên — không phải "Lựa chọn 1", "Tùy chọn A"
-- 3–4 options là đủ, mỗi option tối đa 8 từ
-- Câu hỏi phải nghe như người thật đang hỏi, không như điền khảo sát
+- Options PHẢI cụ thể, tự nhiên, gợi ý thực tế — không phải "Lựa chọn 1", "Tùy chọn A"
+- 3–4 options mỗi câu, mỗi option tối đa 8 từ
+- Mảng items trong confirm: mỗi mục tối đa 10 từ, tóm tắt đúng thông tin đã thu thập
+- Câu hỏi phải nghe như người thật đang tư vấn, không như điền khảo sát
 
 ═══════════════════════════════════════
 YÊU CẦU KHI TẠO HTML
@@ -81,42 +105,90 @@ TUYỆT ĐỐI không có <script> hay JavaScript
 Nội dung hoàn toàn bằng tiếng Việt, thực tế, đúng ngành (không dùng lorem ipsum)
 Thiết kế hiện đại, chuyên nghiệp, đúng màu sắc và phong cách đã chọn
 Đầy đủ các section đã yêu cầu với nội dung cụ thể
-Nếu thiếu thông tin cụ thể (giá, tên nhân vật...), tạo nội dung mẫu và thêm comment HTML <!-- TODO: thay thế nội dung này -->`
+Nếu thiếu thông tin cụ thể (giá, tên nhân vật...), tạo nội dung mẫu và thêm comment HTML <!-- TODO: thay thế nội dung này -->`;
 
 export interface GeminiMessage {
-  role: 'user' | 'model'
-  parts: [{ text: string }]
+  role: "user" | "model";
+  parts: [{ text: string }];
 }
 
-export type GeminiResponseType = 'question' | 'confirm' | 'html' | 'error'
+export type GeminiResponseType = "question" | "confirm" | "html" | "error";
 
 export interface GeminiQuestion {
-  type: 'question'
-  question: string
-  hint?: string
-  options: string[]
+  type: "question";
+  question: string;
+  hint?: string;
+  options: string[];
 }
 
 export interface GeminiConfirm {
-  type: 'confirm'
-  items: string[]
-  question: string
-  options: string[]
+  type: "confirm";
+  items: string[];
+  question: string;
+  options: string[];
 }
 
 export interface GeminiHtml {
-  type: 'html'
-  content: string
+  type: "html";
+  content: string;
 }
 
-export type GeminiResponse = GeminiQuestion | GeminiConfirm | GeminiHtml | { type: 'error'; content: string }
+export type GeminiResponse =
+  | GeminiQuestion
+  | GeminiConfirm
+  | GeminiHtml
+  | { type: "error"; content: string };
 
-async function fetchGemini(apiKey: string, model: string, messages: GeminiMessage[]) {
+// Walk character-by-character to extract the first balanced JSON object.
+// Handles the case where Gemini returns multiple JSON objects in one response.
+function extractFirstJson(text: string): unknown | null {
+  const start = text.indexOf("{");
+  if (start === -1) return null;
+
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+
+  for (let i = start; i < text.length; i++) {
+    const ch = text[i];
+    if (escaped) {
+      escaped = false;
+      continue;
+    }
+    if (ch === "\\" && inString) {
+      escaped = true;
+      continue;
+    }
+    if (ch === '"') {
+      inString = !inString;
+      continue;
+    }
+    if (inString) continue;
+    if (ch === "{") depth++;
+    if (ch === "}") {
+      depth--;
+      if (depth === 0) {
+        try {
+          return JSON.parse(text.slice(start, i + 1));
+        } catch {
+          return null;
+        }
+      }
+    }
+  }
+  return null;
+}
+
+async function fetchGemini(
+  apiKey: string,
+  model: string,
+  messages: GeminiMessage[],
+) {
   const res = await fetch(geminiUrl(model), {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'X-goog-api-key': apiKey,
+      "Content-Type": "application/json",
+      "X-goog-api-key": apiKey,
     },
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
@@ -124,90 +196,120 @@ async function fetchGemini(apiKey: string, model: string, messages: GeminiMessag
       generationConfig: {
         temperature: 0.7,
         maxOutputTokens: 65536,
+        responseMimeType: "application/json",
       },
     }),
-  })
-  return res
+  });
+  return res;
 }
 
-export async function chatWithGemini(messages: GeminiMessage[]): Promise<GeminiResponse> {
-  const apiKey = process.env.GOOGLE_AI_API_KEY
-  if (!apiKey) throw new Error('GOOGLE_AI_API_KEY is not configured')
+export async function chatWithGemini(
+  messages: GeminiMessage[],
+): Promise<GeminiResponse> {
+  const apiKey = process.env.GOOGLE_AI_API_KEY;
+  if (!apiKey) throw new Error("GOOGLE_AI_API_KEY is not configured");
 
-  let res: Response | null = null
-  let lastErr = ''
+  let res: Response | null = null;
+  let lastErr = "";
 
   for (const model of GEMINI_MODELS) {
-    res = await fetchGemini(apiKey, model, messages)
-    if (res.ok) break
-    lastErr = await res.text()
+    res = await fetchGemini(apiKey, model, messages);
+    if (res.ok) break;
+    lastErr = await res.text();
     // Only fallback on overload/server errors; stop on auth/quota errors
-    if (res.status !== 429 && res.status !== 503 && res.status !== 500) break
-    console.warn(`[Gemini] ${model} returned ${res.status}, trying next model...`)
+    if (res.status !== 429 && res.status !== 503 && res.status !== 500) break;
+    console.warn(
+      `[Gemini] ${model} returned ${res.status}, trying next model...`,
+    );
   }
 
   if (!res || !res.ok) {
-    throw new Error(`Gemini API error ${res?.status ?? 'unknown'}: ${lastErr}`)
+    throw new Error(`Gemini API error ${res?.status ?? "unknown"}: ${lastErr}`);
   }
 
-  const data = await res.json()
-  const rawText: string = data.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
+  const data = await res.json();
+  const rawText: string = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
 
   // Strip markdown code fences if Gemini wraps the JSON
   const cleaned = rawText
-    .replace(/^```(?:json)?\s*/i, '')
-    .replace(/\s*```$/i, '')
-    .trim()
+    .replace(/^```(?:json)?\s*/i, "")
+    .replace(/\s*```$/i, "")
+    .trim();
 
-  try {
-    const parsed = JSON.parse(cleaned)
+  // Extract the first complete JSON object from the response.
+  // Gemini sometimes returns multiple JSON objects; we only need the first one.
+  const parsed = extractFirstJson(cleaned);
 
-    if (parsed.type === 'question' && parsed.question && Array.isArray(parsed.options)) {
+  if (parsed !== null) {
+    if (
+      (parsed as Record<string, unknown>).type === "question" &&
+      (parsed as Record<string, unknown>).question &&
+      Array.isArray((parsed as Record<string, unknown>).options)
+    ) {
+      const p = parsed as Record<string, unknown>;
+      const opts = (p.options as string[]).filter(Boolean).slice(0, 4);
       return {
-        type: 'question',
-        question: parsed.question,
-        hint: parsed.hint ?? undefined,
-        options: parsed.options.slice(0, 4),
-      }
+        type: "question",
+        question: p.question as string,
+        hint: (p.hint as string | undefined) ?? undefined,
+        // If Gemini returned empty options, inject generic fallbacks so the UI always shows choices
+        options:
+          opts.length >= 2
+            ? opts
+            : [
+                "Đúng rồi, phù hợp",
+                "Cần điều chỉnh thêm",
+                "Bạn tư vấn giúp mình",
+              ],
+      };
     }
 
-    if (parsed.type === 'confirm' && Array.isArray(parsed.items) && parsed.question) {
+    if (
+      (parsed as Record<string, unknown>).type === "confirm" &&
+      Array.isArray((parsed as Record<string, unknown>).items) &&
+      (parsed as Record<string, unknown>).question
+    ) {
+      const p = parsed as Record<string, unknown>;
       return {
-        type: 'confirm',
-        items: parsed.items.slice(0, 8),
-        question: parsed.question,
-        options: Array.isArray(parsed.options) ? parsed.options.slice(0, 4) : ['Tạo luôn đi!'],
-      }
+        type: "confirm",
+        items: (p.items as string[]).slice(0, 8),
+        question: p.question as string,
+        options: Array.isArray(p.options)
+          ? (p.options as string[]).slice(0, 4)
+          : ["Hãy tạo nội dung ngay!"],
+      };
     }
 
-    if (parsed.type === 'html' && parsed.content) {
-      return { type: 'html', content: parsed.content }
+    if (
+      (parsed as Record<string, unknown>).type === "html" &&
+      (parsed as Record<string, unknown>).content
+    ) {
+      const p = parsed as Record<string, unknown>;
+      return { type: "html", content: p.content as string };
     }
-  } catch {
-    // fall through
   }
 
   // Gemini returned raw HTML without JSON wrapper
   if (/^\s*<!DOCTYPE\s+html/i.test(cleaned) || /^\s*<html/i.test(cleaned)) {
-    return { type: 'html', content: cleaned }
+    return { type: "html", content: cleaned };
   }
 
   // JSON.parse failed (often truncated response) but HTML is embedded — extract it.
   // The HTML is JSON-string-escaped inside the content field, so unescape it.
-  const htmlIdx = rawText.search(/<!DOCTYPE\s+html/i)
+  const htmlIdx = rawText.search(/<!DOCTYPE\s+html/i);
   if (htmlIdx !== -1) {
-    let extracted = rawText.slice(htmlIdx)
+    let extracted = rawText.slice(htmlIdx);
     // Strip trailing JSON string artifacts: closing quote, braces
-    extracted = extracted.replace(/"\s*\}?\s*$/, '').trimEnd()
+    extracted = extracted.replace(/"\s*\}?\s*$/, "").trimEnd();
     // Unescape JSON string encoding (\n → newline, \" → ", \\ → \)
     extracted = extracted
-      .replace(/\\n/g, '\n')
-      .replace(/\\t/g, '\t')
+      .replace(/\\n/g, "\n")
+      .replace(/\\t/g, "\t")
       .replace(/\\"/g, '"')
-      .replace(/\\\\/g, '\\')
-    return { type: 'html', content: extracted }
+      .replace(/\\\\/g, "\\");
+    return { type: "html", content: extracted };
   }
 
   // Final fallback: treat as a plain question with no options
-  return { type: 'question', question: rawText, options: [] }
+  return { type: "question", question: rawText, options: [] };
 }

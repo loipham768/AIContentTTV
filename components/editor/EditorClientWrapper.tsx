@@ -5,9 +5,10 @@ import type { Editor, Component } from "grapesjs";
 import { resolveCssVariables } from "@/lib/cssIsolation";
 import {
   Loader2, LayoutGrid, Palette, Layers, History,
-  Trash2, Copy, ArrowUp, ArrowDown, EyeOff, Monitor, X,
+  Trash2, Copy, ArrowUp, ArrowDown, EyeOff, Monitor, X, Sparkles,
 } from "lucide-react";
 import TopBar from "@/components/editor/TopBar";
+
 
 const GrapesEditor = dynamic(() => import("@/components/editor/GrapesEditor"), {
   ssr: false,
@@ -44,6 +45,7 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
   const [selectedComponent, setSelectedComponent] = useState<Component | null>(null);
   const [isPreview, setIsPreview] = useState(false);
   const [mobileTab, setMobileTab] = useState<MobileTab>("canvas");
+  const [showEditHint, setShowEditHint] = useState(!!initialData);
 
   const handleEditor = useCallback((editor: Editor) => {
     editorRef.current = editor;
@@ -79,6 +81,31 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
       }
       setHistoryKey(k => k + 1);
     }
+
+    // When user changes "color" via style manager, sync -webkit-text-fill-color so gradient-text
+    // elements become editable. If gradient text was active, also clear the gradient background.
+    // opts.__up=true means GrapesJS is loading the target's current style — skip those.
+    editor.on('style:property:update', ({ property, value, opts }: { property: any; value: string; opts: any }) => {
+      if (property?.getName?.() !== 'color') return;
+      if (opts?.__up) return;
+      const selected = editor.getSelected();
+      if (!selected) return;
+      const cur = selected.getStyle();
+      if (value) {
+        const next = { ...cur, '-webkit-text-fill-color': value };
+        // If gradient-text was active inline, clear it so solid color takes over cleanly
+        if (cur['-webkit-background-clip'] === 'text') {
+          delete next['background'];
+          delete next['-webkit-background-clip'];
+          delete next['background-clip'];
+        }
+        selected.setStyle(next);
+      } else {
+        const next = { ...cur };
+        delete next['-webkit-text-fill-color'];
+        selected.setStyle(next);
+      }
+    });
 
     // Click-to-add: mobile only (< 1024px). Desktop keeps drag-and-drop.
     editor.on('block:click', (block: any) => {
@@ -125,6 +152,13 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [isPreview]);
+
+  // Auto-dismiss the edit hint after 12s
+  useEffect(() => {
+    if (!showEditHint) return;
+    const t = setTimeout(() => setShowEditHint(false), 12000);
+    return () => clearTimeout(t);
+  }, [showEditHint]);
 
   function handleDeleteComponent() {
     if (!selectedComponent) return;
@@ -213,6 +247,25 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
         plan={plan}
       />
 
+      {/* Edit hint banner — shown when content is loaded (AI or template), auto-dismissed after 12s */}
+      {showEditHint && !isPreview && (
+        <div className="flex items-center gap-2.5 px-4 py-2 bg-indigo-600 text-white text-xs flex-shrink-0">
+          <Sparkles className="w-3.5 h-3.5 flex-shrink-0 opacity-80" />
+          <p className="flex-1 leading-relaxed">
+            <span className="font-semibold">Mọi thứ đều chỉnh sửa được!</span>
+            {" "}Nhấn vào bất kỳ phần tử nào để đổi màu chữ, màu nền, gradient, animation, hình ảnh, bố cục...
+            Kéo thả các khối ở bên trái để thêm nội dung mới.
+          </p>
+          <button
+            onClick={() => setShowEditHint(false)}
+            className="p-0.5 rounded hover:bg-white/20 transition-colors flex-shrink-0"
+            title="Đóng"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
+
       {/* Component action bar */}
       {selectedComponent && !isPreview && (
         <div className="flex items-center gap-2 px-3 py-1.5 bg-white border-b border-slate-200 shadow-sm flex-shrink-0">
@@ -297,6 +350,7 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
                 </p>
               )}
               <div id="gjs-styles-panel" />
+
               <div id="gjs-traits-panel" className="border-t border-gray-100" />
             </div>
 

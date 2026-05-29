@@ -49,6 +49,7 @@ export const styleSectors: any[] = [
         ],
       },
       { property: 'color', label: 'Màu chữ', type: 'color', default: '' },
+      { property: '--text-gradient', label: 'Gradient chữ', type: 'text-gradient-picker', default: '', full: true, isVisible: () => true },
       {
         property: 'text-align',
         label: 'Căn chỉnh',
@@ -220,7 +221,33 @@ export const styleSectors: any[] = [
     name: 'Nền',
     open: false,
     properties: [
-      { property: 'background-color', label: 'Màu nền', type: 'color', default: '' },
+      { property: 'background-color', label: 'Màu nền đặc', type: 'color', default: '' },
+      {
+        property: 'background-image',
+        label: 'Gradient nền (preset)',
+        type: 'select',
+        default: 'none',
+        options: [
+          { id: 'none', label: '— Không gradient —' },
+          { id: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', label: '💜 Tím • Xanh dương' },
+          { id: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', label: '🌸 Hồng • Đỏ' },
+          { id: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', label: '🌅 Vàng • Cam' },
+          { id: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', label: '🌊 Xanh biển sáng' },
+          { id: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', label: '🌿 Xanh lá • Teal' },
+          { id: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', label: '🌺 Hồng • Vàng' },
+          { id: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)', label: '🪻 Lavender nhạt' },
+          { id: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)', label: '🌸 Hồng pastel' },
+          { id: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', label: '🍑 Đào • Cam nhạt' },
+          { id: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)', label: '🌈 Tím • Xanh pastel' },
+          { id: 'linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%)', label: '🌌 Đêm tối (tím đen)' },
+          { id: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', label: '☁️ Xám trắng nhạt' },
+          { id: 'linear-gradient(to right, #ff6b6b, #feca57, #48dbfb, #ff9ff3)', label: '🌈 Cầu vồng' },
+          { id: 'linear-gradient(135deg, #e96c1a 0%, #c0392b 100%)', label: '🔥 Đỏ cam (lửa)' },
+          { id: 'linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%)', label: '🌃 Xám xanh đậm' },
+        ],
+      },
+      // Free-text for custom gradient — leave type unset so GrapesJS renders a text input
+      { property: 'background', label: 'Gradient tùy chỉnh', default: '' },
       {
         property: 'background-size',
         label: 'Kích thước ảnh nền',

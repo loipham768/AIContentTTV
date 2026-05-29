@@ -6,6 +6,7 @@ import {
   MessageSquare, ShieldCheck, FileDown, Layers, Crown,
   BookOpen, Tag, LogIn,
 } from 'lucide-react'
+
 import ScrollReveal from '@/components/ScrollReveal'
 import TestimonialsCarousel from '@/components/TestimonialsCarousel'
 import Logo from '@/components/Logo'
@@ -258,6 +259,9 @@ export default async function LandingPage() {
           <nav className="flex items-center gap-1">
             <Link href="/kien-thuc" className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
               <BookOpen className="w-4 h-4" /> Kiến thức
+            </Link>
+            <Link href="/templates" className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
+              <LayoutTemplate className="w-4 h-4" /> Mẫu có sẵn
             </Link>
             <Link href="/#pricing" className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
               <Tag className="w-4 h-4" /> Bảng giá
@@ -866,6 +870,7 @@ export default async function LandingPage() {
             <Logo iconSize={28} uid="footer" className="brightness-110" />
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs">
               <Link href="/#pricing" className="hover:text-white transition-colors">Bảng giá</Link>
+              <Link href="/templates" className="hover:text-white transition-colors">Mẫu có sẵn</Link>
               <Link href="/kien-thuc" className="hover:text-white transition-colors">Kiến thức</Link>
               <a href="mailto:support@aicontentbooster.vn" className="hover:text-white transition-colors">Liên hệ</a>
               <Link href="/login" className="hover:text-white transition-colors">Đăng nhập</Link>

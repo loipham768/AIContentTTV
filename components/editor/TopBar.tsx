@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import type { Editor } from 'grapesjs'
 import {
   Eye, EyeOff, ZoomIn, ZoomOut, Trash2,
-  Undo2, Redo2, Monitor, Smartphone, Code2, Plus, Download, Lock, Crown,
+  Undo2, Redo2, Monitor, Smartphone, Code2, Plus, Download, Lock, Crown, LayoutTemplate,
 } from 'lucide-react'
 import Logo from '@/components/Logo'
 import Link from 'next/link'
@@ -170,6 +170,13 @@ ${body}
             title="Tạo nội dung mới với AI"
           >
             <Plus className="w-3.5 h-3.5" />
+          </a>
+          <a
+            href="/templates"
+            className="p-1.5 rounded-lg text-slate-400 hover:bg-slate-700 hover:text-white transition-all"
+            title="Thư viện mẫu"
+          >
+            <LayoutTemplate className="w-3.5 h-3.5" />
           </a>
         </div>
 

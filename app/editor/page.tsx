@@ -6,18 +6,19 @@ import Project from '@/models/Project'
 import User from '@/models/User'
 import EditorClientWrapper from '@/components/editor/EditorClientWrapper'
 import { getUserPlanInfo } from '@/lib/planGate'
+import { TEMPLATES } from '@/lib/templates'
 
 export const runtime = 'nodejs'
 
 export default async function EditorPage({
   searchParams,
 }: {
-  searchParams: Promise<{ project?: string }>
+  searchParams: Promise<{ project?: string; template?: string }>
 }) {
   const session = await auth()
   if (!session) redirect('/login')
 
-  const { project: projectId } = await searchParams
+  const { project: projectId, template: templateId } = await searchParams
 
   let initialData: object | null = null
   if (projectId && mongoose.Types.ObjectId.isValid(projectId)) {
@@ -27,6 +28,13 @@ export default async function EditorPage({
       userId: session.user.id,
     }).lean()
     if (project) initialData = project.blockData as object
+  } else if (templateId) {
+    const tpl = TEMPLATES.find((t) => t.id === templateId)
+    if (tpl) {
+      const { preprocessTemplateForEditor } = await import('@/lib/serverCssIsolation')
+      const processedHtml = await preprocessTemplateForEditor(tpl.html)
+      initialData = { type: 'html', html: processedHtml }
+    }
   }
 
   const planInfo = await getUserPlanInfo(session.user.id)
