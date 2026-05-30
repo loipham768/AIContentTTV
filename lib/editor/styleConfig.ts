@@ -13,7 +13,7 @@ export const styleSectors: any[] = [
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: 'Arial, Helvetica, sans-serif', label: 'Arial' },
           { id: "'Times New Roman', Times, serif", label: 'Times New Roman' },
           { id: 'Georgia, serif', label: 'Georgia' },
@@ -23,14 +23,14 @@ export const styleSectors: any[] = [
           { id: "'Montserrat', sans-serif", label: 'Montserrat' },
         ],
       },
-      { property: 'font-size', label: 'Cỡ chữ', type: 'integer', units: ['px', 'em', 'rem', '%'], default: '' },
+      { property: 'font-size', label: 'Cỡ chữ', type: 'integer', units: ['px', 'em', 'rem', '%'], default: '', placeholder: '16' },
       {
         property: 'font-weight',
         label: 'Độ đậm',
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: '300', label: 'Nhẹ (300)' },
           { id: '400', label: 'Bình thường (400)' },
           { id: '500', label: 'Vừa (500)' },
@@ -61,16 +61,17 @@ export const styleSectors: any[] = [
           { id: 'justify', label: 'Đều' },
         ],
       },
-      { property: 'color', label: 'Màu chữ', type: 'color', default: '' },
+      { property: 'color', label: 'Màu chữ', type: 'color', default: '', placeholder: '#0f172a' },
       { property: '--text-gradient', label: 'Gradient chữ', type: 'text-gradient-picker', default: '', full: true },
-      { property: 'line-height', label: 'Khoảng cách dòng', type: 'integer', units: ['', 'px', 'em'], default: '' },
-      { property: 'letter-spacing', label: 'Khoảng cách ký tự', type: 'integer', units: ['px', 'em'], default: '' },
+      { property: 'line-height', label: 'Khoảng cách dòng', type: 'integer', units: ['', 'px', 'em'], default: '', placeholder: '1.6' },
+      { property: 'letter-spacing', label: 'Khoảng cách ký tự', type: 'integer', units: ['px', 'em'], default: '', placeholder: '0.05' },
       {
         property: 'text-decoration',
         label: 'Trang trí chữ',
         type: 'select',
         default: '',
         options: [
+          { id: '', label: '— Chọn —' },
           { id: 'none', label: 'Không' },
           { id: 'underline', label: 'Gạch dưới' },
           { id: 'line-through', label: 'Gạch ngang' },
@@ -83,6 +84,7 @@ export const styleSectors: any[] = [
         type: 'select',
         default: '',
         options: [
+          { id: '', label: '— Chọn —' },
           { id: 'none', label: 'Không' },
           { id: 'uppercase', label: 'HOA TẤT CẢ' },
           { id: 'lowercase', label: 'thường tất cả' },
@@ -98,7 +100,7 @@ export const styleSectors: any[] = [
     name: 'Nền',
     open: false,
     properties: [
-      { property: 'background-color', label: 'Màu nền', type: 'color', default: '' },
+      { property: 'background-color', label: 'Màu nền', type: 'color', default: '', placeholder: '#ffffff' },
       { property: '--bg-gradient', label: 'Gradient nền', type: 'bg-gradient-picker', default: '', full: true },
       {
         property: 'background-size',
@@ -106,7 +108,7 @@ export const styleSectors: any[] = [
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: 'cover', label: 'Bao phủ (cover)' },
           { id: 'contain', label: 'Vừa khít (contain)' },
           { id: '100% 100%', label: 'Kéo giãn' },
@@ -119,7 +121,7 @@ export const styleSectors: any[] = [
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: 'center', label: 'Giữa' },
           { id: 'top center', label: 'Trên giữa' },
           { id: 'bottom center', label: 'Dưới giữa' },
@@ -133,7 +135,7 @@ export const styleSectors: any[] = [
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: 'no-repeat', label: 'Không lặp' },
           { id: 'repeat', label: 'Lặp' },
           { id: 'repeat-x', label: 'Lặp ngang' },
@@ -149,20 +151,20 @@ export const styleSectors: any[] = [
     name: 'Kích thước',
     open: false,
     properties: [
-      { property: 'width', label: 'Chiều rộng', type: 'integer', units: ['px', '%', 'vw', 'em', 'rem'], default: '' },
-      { property: 'height', label: 'Chiều cao', type: 'integer', units: ['px', '%', 'vh', 'em', 'rem'], default: '' },
-      { property: 'max-width', label: 'Rộng tối đa', type: 'integer', units: ['px', '%', 'vw'], default: '' },
-      { property: 'min-width', label: 'Rộng tối thiểu', type: 'integer', units: ['px', '%'], default: '' },
-      { property: 'min-height', label: 'Cao tối thiểu', type: 'integer', units: ['px', '%', 'vh'], default: '' },
+      { property: 'width', label: 'Chiều rộng', type: 'integer', units: ['px', '%', 'vw', 'em', 'rem'], default: '', placeholder: '100' },
+      { property: 'height', label: 'Chiều cao', type: 'integer', units: ['px', '%', 'vh', 'em', 'rem'], default: '', placeholder: '300' },
+      { property: 'max-width', label: 'Rộng tối đa', type: 'integer', units: ['px', '%', 'vw'], default: '', placeholder: '1200' },
+      { property: 'min-width', label: 'Rộng tối thiểu', type: 'integer', units: ['px', '%'], default: '', placeholder: '280' },
+      { property: 'min-height', label: 'Cao tối thiểu', type: 'integer', units: ['px', '%', 'vh'], default: '', placeholder: '200' },
       {
         property: 'padding',
         label: 'Đệm trong (T/P/D/T)',
         type: 'composite',
         properties: [
-          { property: 'padding-top', label: 'Trên', type: 'integer', units: ['px', 'em', '%'] },
-          { property: 'padding-right', label: 'Phải', type: 'integer', units: ['px', 'em', '%'] },
-          { property: 'padding-bottom', label: 'Dưới', type: 'integer', units: ['px', 'em', '%'] },
-          { property: 'padding-left', label: 'Trái', type: 'integer', units: ['px', 'em', '%'] },
+          { property: 'padding-top', label: 'Trên', type: 'integer', units: ['px', 'em', '%'], placeholder: '24' },
+          { property: 'padding-right', label: 'Phải', type: 'integer', units: ['px', 'em', '%'], placeholder: '24' },
+          { property: 'padding-bottom', label: 'Dưới', type: 'integer', units: ['px', 'em', '%'], placeholder: '24' },
+          { property: 'padding-left', label: 'Trái', type: 'integer', units: ['px', 'em', '%'], placeholder: '24' },
         ],
       },
       {
@@ -170,10 +172,10 @@ export const styleSectors: any[] = [
         label: 'Lề ngoài (T/P/D/T)',
         type: 'composite',
         properties: [
-          { property: 'margin-top', label: 'Trên', type: 'integer', units: ['px', 'em', '%'] },
-          { property: 'margin-right', label: 'Phải', type: 'integer', units: ['px', 'em', '%'] },
-          { property: 'margin-bottom', label: 'Dưới', type: 'integer', units: ['px', 'em', '%'] },
-          { property: 'margin-left', label: 'Trái', type: 'integer', units: ['px', 'em', '%'] },
+          { property: 'margin-top', label: 'Trên', type: 'integer', units: ['px', 'em', '%'], placeholder: '0' },
+          { property: 'margin-right', label: 'Phải', type: 'integer', units: ['px', 'em', '%'], placeholder: '0' },
+          { property: 'margin-bottom', label: 'Dưới', type: 'integer', units: ['px', 'em', '%'], placeholder: '0' },
+          { property: 'margin-left', label: 'Trái', type: 'integer', units: ['px', 'em', '%'], placeholder: '0' },
         ],
       },
     ],
@@ -185,14 +187,14 @@ export const styleSectors: any[] = [
     name: 'Viền',
     open: false,
     properties: [
-      { property: 'border-radius', label: 'Bo góc', type: 'integer', units: ['px', '%', 'em'], default: '' },
+      { property: 'border-radius', label: 'Bo góc', type: 'integer', units: ['px', '%', 'em'], default: '', placeholder: '8' },
       {
         property: 'border-style',
         label: 'Kiểu viền',
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: 'none', label: 'Không' },
           { id: 'solid', label: 'Liền nét' },
           { id: 'dashed', label: 'Đứt nét' },
@@ -200,8 +202,8 @@ export const styleSectors: any[] = [
           { id: 'double', label: 'Đôi' },
         ],
       },
-      { property: 'border-width', label: 'Độ dày', type: 'integer', units: ['px'], default: '' },
-      { property: 'border-color', label: 'Màu viền', type: 'color', default: '' },
+      { property: 'border-width', label: 'Độ dày', type: 'integer', units: ['px'], default: '', placeholder: '2' },
+      { property: 'border-color', label: 'Màu viền', type: 'color', default: '', placeholder: '#e2e8f0' },
     ],
   },
 
@@ -217,7 +219,7 @@ export const styleSectors: any[] = [
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: 'block', label: 'Block' },
           { id: 'flex', label: 'Flex' },
           { id: 'grid', label: 'Grid' },
@@ -232,7 +234,7 @@ export const styleSectors: any[] = [
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: 'row', label: 'Hàng ngang →' },
           { id: 'column', label: 'Cột dọc ↓' },
           { id: 'row-reverse', label: 'Ngang (đảo) ←' },
@@ -245,7 +247,7 @@ export const styleSectors: any[] = [
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: 'nowrap', label: 'Không' },
           { id: 'wrap', label: 'Có' },
         ],
@@ -256,7 +258,7 @@ export const styleSectors: any[] = [
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: 'flex-start', label: 'Đầu' },
           { id: 'center', label: 'Giữa' },
           { id: 'flex-end', label: 'Cuối' },
@@ -271,7 +273,7 @@ export const styleSectors: any[] = [
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: 'flex-start', label: 'Đầu' },
           { id: 'center', label: 'Giữa' },
           { id: 'flex-end', label: 'Cuối' },
@@ -279,15 +281,15 @@ export const styleSectors: any[] = [
           { id: 'baseline', label: 'Đường cơ sở' },
         ],
       },
-      { property: 'gap', label: 'Khoảng cách', type: 'integer', units: ['px', 'em', 'rem'], default: '' },
-      { property: 'flex', label: 'Flex tỉ lệ', type: 'integer', units: [''], default: '' },
+      { property: 'gap', label: 'Khoảng cách', type: 'integer', units: ['px', 'em', 'rem'], default: '', placeholder: '16' },
+      { property: 'flex', label: 'Flex tỉ lệ', type: 'integer', units: [''], default: '', placeholder: '1' },
       {
         property: 'grid-template-columns',
         label: 'Grid cột',
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: 'repeat(2, 1fr)', label: '2 cột đều' },
           { id: 'repeat(3, 1fr)', label: '3 cột đều' },
           { id: 'repeat(4, 1fr)', label: '4 cột đều' },
@@ -305,7 +307,7 @@ export const styleSectors: any[] = [
     name: 'Hiệu ứng',
     open: false,
     properties: [
-      { property: 'box-shadow', label: 'Bóng đổ', type: 'shadow', default: '' },
+      { property: 'box-shadow', label: 'Bóng đổ', default: '' },
       {
         property: 'opacity',
         label: 'Độ mờ',
@@ -327,7 +329,7 @@ export const styleSectors: any[] = [
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: 'visible', label: 'Hiển thị' },
           { id: 'hidden', label: 'Ẩn' },
           { id: 'auto', label: 'Tự động (cuộn)' },
@@ -340,7 +342,7 @@ export const styleSectors: any[] = [
         type: 'select',
         default: '',
         options: [
-          { id: '', label: 'Mặc định' },
+          { id: '', label: '— Chọn —' },
           { id: 'pointer', label: 'Tay chỉ' },
           { id: 'default', label: 'Mũi tên' },
           { id: 'not-allowed', label: 'Không cho phép' },
