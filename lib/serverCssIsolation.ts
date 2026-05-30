@@ -66,8 +66,8 @@ export async function serverIsolateCss(html: string, css: string): Promise<strin
 
   let inlined = juice.inlineContent(html, resolvedCss)
 
-  // Strip <script> tags
-  inlined = inlined.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+  // Strip <script> tags (interactive block scripts are re-injected client-side at export time)
+  inlined = inlined.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
 
   // Strip class attributes
   inlined = inlined.replace(/\s+class=(?:"[^"]*"|'[^']*')/gi, '')

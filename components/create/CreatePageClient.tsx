@@ -856,13 +856,22 @@ export default function CreatePageClient() {
             </div>
 
             {/* Disclaimer */}
-            <div className="w-full mt-3 flex items-start gap-2 px-1">
-              <Info className="w-3.5 h-3.5 text-slate-500 flex-shrink-0 mt-0.5" />
-              <p className="text-xs text-slate-500 leading-relaxed">
-                AI sẽ tạo khung nội dung dựa trên ý tưởng của bạn — chưa hoàn chỉnh 100%.
-                Sau khi tạo xong, bạn có thể kéo thả, chỉnh sửa từng đoạn văn, thay hình ảnh
-                và tinh chỉnh tự do trong trình soạn thảo để ra sản phẩm cuối cùng theo đúng ý mình.
-              </p>
+            <div className="w-full mt-3 space-y-2 px-1">
+              <div className="flex items-start gap-2">
+                <Info className="w-3.5 h-3.5 text-slate-500 flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  AI sẽ tạo khung nội dung dựa trên ý tưởng của bạn — chưa hoàn chỉnh 100%.
+                  Sau khi tạo xong, bạn có thể kéo thả, chỉnh sửa từng đoạn văn, thay hình ảnh
+                  và tinh chỉnh tự do trong trình soạn thảo để ra sản phẩm cuối cùng theo đúng ý mình.
+                </p>
+              </div>
+              <div className="flex items-start gap-2">
+                <Info className="w-3.5 h-3.5 text-amber-600/70 flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Một số block có hiệu ứng động như <span className="text-slate-400">slider, tab, accordion</span>... cần JavaScript để hoạt động.
+                  Nếu trang web hoặc nền tảng bạn nhúng nội dung không cho phép script, các block này có thể hiển thị không như mong muốn.
+                </p>
+              </div>
             </div>
           </div>
         )}

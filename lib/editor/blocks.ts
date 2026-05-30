@@ -10,6 +10,95 @@ const COL  = `flex:1;min-width:160px;padding:20px;min-height:72px;background:rgb
 export function registerBlocks(editor: Editor) {
   const bm = editor.BlockManager
 
+  // ── Điều hướng ──────────────────────────────────────────────────────────
+  bm.add('navbar', {
+    label: 'Menu',
+    category: 'Điều hướng',
+    media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="4" rx="1"/><path d="M6 10h12M6 14h8"/></svg>`,
+    content: (() => {
+      const nid = 'n' + Math.random().toString(36).slice(2, 7)
+      const LINK = `font-size:15px;font-weight:500;color:#334155;text-decoration:none;padding:6px 14px;border-radius:8px;transition:background 0.18s,color 0.18s;cursor:pointer;${FONT}`
+      const LINK_CTA = `font-size:15px;font-weight:600;color:#fff;text-decoration:none;padding:8px 20px;border-radius:10px;background:#4f46e5;cursor:pointer;${FONT}`
+      return `<style>@media(max-width:767px){#${nid}-menu{display:none!important;}#${nid}-toggle{display:flex!important;}}</style>
+<nav id="${nid}" style="width:100%;background:#ffffff;border-bottom:1px solid #e2e8f0;box-shadow:0 1px 8px rgba(0,0,0,0.05);position:sticky;top:0;z-index:100;box-sizing:border-box;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+    <!-- Logo: có thể upload ảnh HOẶC chỉ để chữ — xoá img để chỉ dùng chữ, xoá span để chỉ dùng ảnh -->
+    <a href="#" style="display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;min-width:0;">
+      <img src="https://placehold.co/120x36/4f46e5/ffffff?text=Logo" alt="Logo" style="height:36px;width:auto;max-width:140px;object-fit:contain;display:block;flex-shrink:0;"/>
+      <span style="font-size:20px;font-weight:800;color:#0f172a;white-space:nowrap;${FONT}">Brand</span>
+    </a>
+    <!-- Menu items: thêm/xoá <li> tuỳ ý để thay đổi số lượng item -->
+    <ul id="${nid}-menu" style="display:flex;align-items:center;gap:4px;list-style:none;margin:0;padding:0;flex-wrap:nowrap;">
+      <li><a href="#about" style="${LINK}">Giới thiệu</a></li>
+      <li><a href="#services" style="${LINK}">Dịch vụ</a></li>
+      <li><a href="#pricing" style="${LINK}">Bảng giá</a></li>
+      <li><a href="#contact" style="${LINK}">Liên hệ</a></li>
+      <li style="margin-left:8px;"><a href="#contact" style="${LINK_CTA}">Bắt đầu</a></li>
+    </ul>
+    <button id="${nid}-toggle" aria-label="Menu" style="display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;flex-shrink:0;">
+      <span style="display:block;width:22px;height:2px;background:#334155;border-radius:2px;"></span>
+      <span style="display:block;width:22px;height:2px;background:#334155;border-radius:2px;"></span>
+      <span style="display:block;width:22px;height:2px;background:#334155;border-radius:2px;"></span>
+    </button>
+  </div>
+  <div id="${nid}-mobile" style="display:none;border-top:1px solid #f1f5f9;padding:12px 24px 16px;">
+    <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;">
+      <li><a href="#about" style="${LINK}display:block;">Giới thiệu</a></li>
+      <li><a href="#services" style="${LINK}display:block;">Dịch vụ</a></li>
+      <li><a href="#pricing" style="${LINK}display:block;">Bảng giá</a></li>
+      <li><a href="#contact" style="${LINK}display:block;">Liên hệ</a></li>
+      <li style="margin-top:8px;"><a href="#contact" style="${LINK_CTA}display:block;text-align:center;">Bắt đầu</a></li>
+    </ul>
+  </div>
+</nav>
+<script>(function(){
+  var nav=document.getElementById('${nid}');
+  if(!nav)return;
+  var toggle=document.getElementById('${nid}-toggle');
+  var mobile=document.getElementById('${nid}-mobile');
+  var menu=document.getElementById('${nid}-menu');
+  /* smooth scroll cho tất cả anchor link trong nav này */
+  nav.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var href=a.getAttribute('href');
+      if(!href||href==='#')return;
+      var target=document.querySelector(href);
+      if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});}
+      if(mobile&&mobile.style.display!=='none'){mobile.style.display='none';}
+    });
+    a.addEventListener('mouseenter',function(){a.style.background='#f1f5f9';a.style.color='#4f46e5';});
+    a.addEventListener('mouseleave',function(){a.style.background='';a.style.color='';});
+  });
+  /* responsive: ẩn/hiện desktop menu và hamburger button */
+  function checkBreak(){
+    var sm=window.innerWidth<768;
+    if(toggle)toggle.style.display=sm?'flex':'none';
+    if(menu)menu.style.display=sm?'none':'flex';
+    if(mobile&&!sm)mobile.style.display='none';
+  }
+  toggle&&toggle.addEventListener('click',function(){
+    mobile.style.display=mobile.style.display==='none'?'block':'none';
+  });
+  checkBreak();
+  window.addEventListener('resize',checkBreak);
+  /* active link highlight theo scroll */
+  var links=Array.from(nav.querySelectorAll('a[href^="#"]'));
+  window.addEventListener('scroll',function(){
+    var scrollY=window.scrollY+80;
+    var active=null;
+    links.forEach(function(a){
+      var t=document.querySelector(a.getAttribute('href'));
+      if(t&&t.offsetTop<=scrollY)active=a;
+    });
+    links.forEach(function(a){
+      a.style.color=a===active?'#4f46e5':'';
+      a.style.fontWeight=a===active?'700':'';
+    });
+  },{passive:true});
+})();</script>`
+    })(),
+  })
+
   // ── Bố cục ──────────────────────────────────────────────────────────────
   bm.add('section', {
     label: 'Khung',
@@ -141,7 +230,7 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('announcement', {
     label: 'Thông báo',
-    category: 'Cơ bản',
+    category: 'Marketing',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>`,
     content: `<div style="background-color:#4f46e5;padding:12px 24px;width:100%;box-sizing:border-box;${FONT}">
   <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;">
@@ -379,14 +468,14 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('badge', {
     label: 'Nhãn',
-    category: 'Media',
+    category: 'Cơ bản',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`,
     content: `<span style="display:inline-block;padding:5px 16px;background-color:#ede9fe;color:#5b21b6;border-radius:9999px;font-size:13px;font-weight:600;${FONT}">✨ Nhãn mới</span>`,
   })
 
   bm.add('icon-text', {
     label: 'Icon + Nội dung',
-    category: 'Media',
+    category: 'Marketing',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="12" r="6"/><path d="M15 6a6 6 0 010 12M22 12h-7"/></svg>`,
     content: `<div style="display:flex;align-items:flex-start;gap:18px;padding:20px;${FONT}">
   <div style="width:52px;height:52px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:14px;color:#fff;display:inline-block;line-height:52px;text-align:center;font-size:24px;flex-shrink:0;">✓</div>
@@ -594,36 +683,36 @@ export function registerBlocks(editor: Editor) {
     category: 'Media',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M8 12h8M15 9l3 3-3 3"/></svg>`,
     content: (() => {
-      // Unique prefix so anchor links work when multiple sliders appear on one page
       const sid = 's' + Math.random().toString(36).slice(2, 7)
-      const SLIDE = `flex:0 0 100%;min-width:100%;scroll-snap-align:start;position:relative;`
+      // overflow:hidden trên wrap để giữ bo góc — khi user muốn bo: chọn wrap → thêm border-radius
+      // Mỗi ảnh có border-radius riêng để user có thể click ảnh → chỉnh từng ảnh độc lập
+      const SLIDE = `flex:0 0 100%;min-width:100%;scroll-snap-align:start;position:relative;overflow:hidden;`
       const OVERLAY = `position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 55%,transparent 100%);pointer-events:none;`
       const CAPTION = `position:absolute;bottom:52px;left:0;right:0;padding:0 32px;`
       const H3 = `font-size:clamp(18px,4vw,26px);font-weight:800;color:#fff;margin:0 0 8px;line-height:1.25;${FONT}`
       const P = `font-size:15px;color:rgba(255,255,255,0.82);margin:0;line-height:1.6;${FONT}`
-      const DOT_ACTIVE = `display:block;width:28px;height:7px;background:rgba(255,255,255,0.95);border-radius:9999px;text-decoration:none;`
-      const DOT_IDLE = `display:block;width:7px;height:7px;background:rgba(255,255,255,0.45);border-radius:50%;text-decoration:none;`
-      return `<div style="width:100%;position:relative;border-radius:18px;background:#0f172a;overflow:hidden;${FONT}">
-  <!-- scroll-snap track; padding-bottom+margin-bottom hides the horizontal scrollbar -->
-  <div id="${sid}" style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;padding-bottom:20px;margin-bottom:-20px;">
-    <div id="${sid}-1" style="${SLIDE}">
-      <img src="https://placehold.co/900x480/e0e7ff/4f46e5?text=Slide+1" alt="" style="width:100%;height:420px;object-fit:cover;display:block;"/>
+      const DOT_BASE = `display:inline-block;height:7px;border-radius:9999px;cursor:pointer;transition:width 0.3s,background 0.3s;border:none;padding:0;`
+      return `<style>#${sid}::-webkit-scrollbar{display:none}</style>
+<div id="${sid}-wrap" style="width:100%;position:relative;border-radius:0;background:#0f172a;${FONT}">
+  <div id="${sid}" style="display:flex;overflow-x:scroll;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;">
+    <div style="${SLIDE}">
+      <img src="https://placehold.co/900x480/e0e7ff/4f46e5?text=Slide+1" alt="" style="width:100%;height:420px;object-fit:cover;display:block;border-radius:0;"/>
       <div style="${OVERLAY}"></div>
       <div style="${CAPTION}">
         <h3 style="${H3}">Tiêu đề slide 1</h3>
         <p style="${P}">Mô tả ngắn hấp dẫn về nội dung của slide này để thu hút người xem</p>
       </div>
     </div>
-    <div id="${sid}-2" style="${SLIDE}">
-      <img src="https://placehold.co/900x480/ede9fe/7c3aed?text=Slide+2" alt="" style="width:100%;height:420px;object-fit:cover;display:block;"/>
+    <div style="${SLIDE}">
+      <img src="https://placehold.co/900x480/ede9fe/7c3aed?text=Slide+2" alt="" style="width:100%;height:420px;object-fit:cover;display:block;border-radius:0;"/>
       <div style="${OVERLAY}"></div>
       <div style="${CAPTION}">
         <h3 style="${H3}">Tiêu đề slide 2</h3>
         <p style="${P}">Mô tả ngắn hấp dẫn về nội dung của slide này để thu hút người xem</p>
       </div>
     </div>
-    <div id="${sid}-3" style="${SLIDE}">
-      <img src="https://placehold.co/900x480/dcfce7/059669?text=Slide+3" alt="" style="width:100%;height:420px;object-fit:cover;display:block;"/>
+    <div style="${SLIDE}">
+      <img src="https://placehold.co/900x480/dcfce7/059669?text=Slide+3" alt="" style="width:100%;height:420px;object-fit:cover;display:block;border-radius:0;"/>
       <div style="${OVERLAY}"></div>
       <div style="${CAPTION}">
         <h3 style="${H3}">Tiêu đề slide 3</h3>
@@ -631,13 +720,37 @@ export function registerBlocks(editor: Editor) {
       </div>
     </div>
   </div>
-  <!-- Dot navigation: anchor links scroll the snap container to the target slide -->
-  <div style="position:absolute;bottom:18px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:6px;z-index:10;">
-    <a href="#${sid}-1" style="${DOT_ACTIVE}"></a>
-    <a href="#${sid}-2" style="${DOT_IDLE}"></a>
-    <a href="#${sid}-3" style="${DOT_IDLE}"></a>
+  <div id="${sid}-dots" style="position:absolute;bottom:18px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:6px;z-index:10;">
+    <button style="${DOT_BASE}width:28px;background:rgba(255,255,255,0.95);"></button>
+    <button style="${DOT_BASE}width:7px;background:rgba(255,255,255,0.45);"></button>
+    <button style="${DOT_BASE}width:7px;background:rgba(255,255,255,0.45);"></button>
   </div>
-</div>`
+</div>
+<script>(function(){
+  var wrap=document.getElementById('${sid}-wrap');
+  if(!wrap)return;
+  var track=document.getElementById('${sid}');
+  var dots=Array.from(document.getElementById('${sid}-dots').querySelectorAll('button'));
+  var cur=0,total=3,timer=null;
+  function goTo(n){
+    cur=(n%total+total)%total;
+    track.scrollTo({left:cur*track.offsetWidth,behavior:'smooth'});
+    dots.forEach(function(d,i){
+      d.style.width=i===cur?'28px':'7px';
+      d.style.background=i===cur?'rgba(255,255,255,0.95)':'rgba(255,255,255,0.45)';
+    });
+  }
+  dots.forEach(function(d,i){d.addEventListener('click',function(e){e.stopPropagation();goTo(i);resetTimer();});});
+  function startTimer(){timer=setInterval(function(){goTo(cur+1);},4000);}
+  function resetTimer(){clearInterval(timer);startTimer();}
+  wrap.addEventListener('mouseenter',function(){clearInterval(timer);});
+  wrap.addEventListener('mouseleave',startTimer);
+  startTimer();
+  track.addEventListener('scroll',function(){
+    var idx=Math.round(track.scrollLeft/track.offsetWidth);
+    if(idx!==cur){cur=idx;dots.forEach(function(d,i){d.style.width=i===cur?'28px':'7px';d.style.background=i===cur?'rgba(255,255,255,0.95)':'rgba(255,255,255,0.45)';});}
+  },{passive:true});
+})();</script>`
     })(),
   })
 
@@ -694,7 +807,7 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('map', {
     label: 'Bản đồ',
-    category: 'Media',
+    category: 'Liên hệ',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
     content: `<div style="width:100%;height:360px;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);">
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125418.4534827254!2d106.62873!3d10.8230989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529292e8d3dd1%3A0xf15f5aad773c112b!2zVHAuIEhDTQ!5e0!3m2!1svi!2svn!4v1635000000000" style="width:100%;height:100%;border:0;" allowfullscreen loading="lazy"></iframe>
@@ -705,14 +818,14 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('h1-heading', {
     label: 'Tiêu đề H1',
-    category: 'SEO & Content',
+    category: 'Cơ bản',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h8M4 18h12"/><text x="14" y="19" font-size="8" fill="currentColor" stroke="none">H1</text></svg>`,
     content: `<h1 style="${H1}padding:8px 0;">Tiêu đề chính của trang (H1 — SEO quan trọng)</h1>`,
   })
 
   bm.add('blockquote', {
     label: 'Trích dẫn',
-    category: 'SEO & Content',
+    category: 'Cơ bản',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1zm12 0c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>`,
     content: `<blockquote style="margin:0;padding:24px 28px;border-left:4px solid #4f46e5;background:#f5f3ff;border-radius:0 12px 12px 0;">
   <p style="font-size:18px;font-style:italic;color:#3730a3;line-height:1.7;margin:0 0 12px;${FONT}">"Sản phẩm này đã thay đổi hoàn toàn cách chúng tôi làm việc. Kết quả vượt mọi kỳ vọng."</p>
@@ -722,7 +835,7 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('logo-cloud', {
     label: 'Logo đối tác',
-    category: 'SEO & Content',
+    category: 'Marketing',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 12h.01M10 12h.01M14 12h.01M18 12h.01"/></svg>`,
     content: `<div style="padding:40px 24px;text-align:center;${FONT}">
   <p style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#94a3b8;margin:0 0 28px;">Được tin dùng bởi</p>
@@ -738,7 +851,7 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('image-text', {
     label: 'Ảnh + Nội dung',
-    category: 'SEO & Content',
+    category: 'Marketing',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="9" height="18" rx="1"/><rect x="13" y="3" width="9" height="4" rx="1"/><rect x="13" y="10" width="9" height="2" rx="1"/><rect x="13" y="15" width="6" height="2" rx="1"/></svg>`,
     content: `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:40px;padding:48px 24px;${FONT}">
   <div style="flex:1;min-width:280px;">
@@ -760,7 +873,7 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('contact-info', {
     label: 'Thông tin liên hệ',
-    category: 'SEO & Content',
+    category: 'Liên hệ',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12 19.79 19.79 0 011.61 3.4 2 2 0 013.61 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.9a16 16 0 006.06 6.06l.97-.95a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>`,
     content: `<div style="padding:48px 24px;background:#f8fafc;${FONT}">
   <div style="max-width:900px;margin:0 auto;">
@@ -793,7 +906,7 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('newsletter', {
     label: 'Đăng ký nhận tin',
-    category: 'SEO & Content',
+    category: 'Marketing',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
     content: `<div style="padding:56px 24px;background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);text-align:center;${FONT}">
   <p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin:0 0 12px;">Newsletter</p>
@@ -809,7 +922,7 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('social-links', {
     label: 'Mạng xã hội',
-    category: 'SEO & Content',
+    category: 'Liên hệ',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>`,
     content: `<div style="padding:32px 24px;text-align:center;${FONT}">
   <p style="${BODY}margin-bottom:20px;">Theo dõi chúng tôi trên mạng xã hội</p>
@@ -825,7 +938,7 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('timeline', {
     label: 'Lịch sử / Timeline',
-    category: 'SEO & Content',
+    category: 'Liên hệ',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22"/><circle cx="12" cy="6" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="18" r="2"/><line x1="12" y1="6" x2="18" y2="6"/><line x1="12" y1="12" x2="6" y2="12"/><line x1="12" y1="18" x2="18" y2="18"/></svg>`,
     content: `<div style="padding:48px 24px;${FONT}">
   <h2 style="${H2}text-align:center;margin-bottom:40px;">Hành trình của chúng tôi</h2>
@@ -847,7 +960,7 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('breadcrumb', {
     label: 'Breadcrumb',
-    category: 'SEO & Content',
+    category: 'Điều hướng',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>`,
     content: `<nav aria-label="Breadcrumb" style="padding:12px 24px;${FONT}">
   <ol style="list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px;">
@@ -862,7 +975,7 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('blog-header', {
     label: 'Đầu bài viết',
-    category: 'SEO & Content',
+    category: 'Liên hệ',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`,
     content: `<header style="padding:48px 24px 32px;max-width:800px;margin:0 auto;${FONT}">
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
@@ -884,7 +997,7 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('countdown', {
     label: 'Đếm ngược',
-    category: 'SEO & Content',
+    category: 'Marketing',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
     content: `<div style="padding:40px 24px;text-align:center;background:#0f172a;border-radius:16px;${FONT}">
   <p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin:0 0 16px;">Ưu đãi kết thúc sau</p>
@@ -901,7 +1014,7 @@ export function registerBlocks(editor: Editor) {
 
   bm.add('footer', {
     label: 'Footer',
-    category: 'SEO & Content',
+    category: 'Điều hướng',
     media: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="17" width="20" height="5" rx="1"/><line x1="2" y1="13" x2="22" y2="13"/><line x1="6" y1="9" x2="6" y2="13"/><line x1="12" y1="7" x2="12" y2="13"/><line x1="18" y1="9" x2="18" y2="13"/></svg>`,
     content: `<footer style="background:#0f172a;padding:48px 24px 24px;${FONT}">
   <div style="max-width:1100px;margin:0 auto;">
