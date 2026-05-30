@@ -6,14 +6,17 @@ import type { Editor } from 'grapesjs'
 import grapesjs from 'grapesjs'
 import { registerBlocks } from '@/lib/editor/blocks'
 import { styleSectors } from '@/lib/editor/styleConfig'
-import { registerTextGradientType } from '@/lib/editor/textGradientType'
+import { registerTextGradientType, registerBgGradientType } from '@/lib/editor/textGradientType'
 
 interface GrapesEditorProps {
   onEditor: (editor: Editor) => void
 }
 
-// Registered as a GrapesJS plugin so the type is available before any PropertyView renders.
-const textGradientPlugin = (editor: Editor) => registerTextGradientType(editor)
+// Registered as a GrapesJS plugin so custom types are available before any PropertyView renders.
+const gradientPlugin = (editor: Editor) => {
+  registerTextGradientType(editor)
+  registerBgGradientType(editor)
+}
 
 export default function GrapesEditor({ onEditor }: GrapesEditorProps) {
   function handleEditor(editor: Editor) {
@@ -28,7 +31,7 @@ export default function GrapesEditor({ onEditor }: GrapesEditorProps) {
         className="h-full"
         options={{
           height: '100%',
-          plugins: [textGradientPlugin],
+          plugins: [gradientPlugin],
           storageManager: false,
           blockManager: { appendTo: '#gjs-blocks-panel' },
           layerManager: { appendTo: '#gjs-layers-panel' },

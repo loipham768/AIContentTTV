@@ -1,6 +1,7 @@
 // GrapesJS 0.22 style manager sector configuration — Vietnamese labels
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const styleSectors: any[] = [
+  // ── 1. Typography ────────────────────────────────────────────────────────
   {
     id: 'typography',
     name: 'Kiểu chữ',
@@ -40,7 +41,7 @@ export const styleSectors: any[] = [
       },
       {
         property: 'font-style',
-        label: 'Nghiêng',
+        label: 'Kiểu chữ',
         type: 'radio',
         default: 'normal',
         options: [
@@ -48,8 +49,6 @@ export const styleSectors: any[] = [
           { id: 'italic', label: 'Nghiêng' },
         ],
       },
-      { property: 'color', label: 'Màu chữ', type: 'color', default: '' },
-      { property: '--text-gradient', label: 'Gradient chữ', type: 'text-gradient-picker', default: '', full: true, isVisible: () => true },
       {
         property: 'text-align',
         label: 'Căn chỉnh',
@@ -62,6 +61,8 @@ export const styleSectors: any[] = [
           { id: 'justify', label: 'Đều' },
         ],
       },
+      { property: 'color', label: 'Màu chữ', type: 'color', default: '' },
+      { property: '--text-gradient', label: 'Gradient chữ', type: 'text-gradient-picker', default: '', full: true },
       { property: 'line-height', label: 'Khoảng cách dòng', type: 'integer', units: ['', 'px', 'em'], default: '' },
       { property: 'letter-spacing', label: 'Khoảng cách ký tự', type: 'integer', units: ['px', 'em'], default: '' },
       {
@@ -90,6 +91,59 @@ export const styleSectors: any[] = [
       },
     ],
   },
+
+  // ── 2. Background ─────────────────────────────────────────────────────────
+  {
+    id: 'background',
+    name: 'Nền',
+    open: false,
+    properties: [
+      { property: 'background-color', label: 'Màu nền', type: 'color', default: '' },
+      { property: '--bg-gradient', label: 'Gradient nền', type: 'bg-gradient-picker', default: '', full: true },
+      {
+        property: 'background-size',
+        label: 'Kích thước ảnh nền',
+        type: 'select',
+        default: '',
+        options: [
+          { id: '', label: 'Mặc định' },
+          { id: 'cover', label: 'Bao phủ (cover)' },
+          { id: 'contain', label: 'Vừa khít (contain)' },
+          { id: '100% 100%', label: 'Kéo giãn' },
+          { id: 'auto', label: 'Tự động' },
+        ],
+      },
+      {
+        property: 'background-position',
+        label: 'Vị trí ảnh nền',
+        type: 'select',
+        default: '',
+        options: [
+          { id: '', label: 'Mặc định' },
+          { id: 'center', label: 'Giữa' },
+          { id: 'top center', label: 'Trên giữa' },
+          { id: 'bottom center', label: 'Dưới giữa' },
+          { id: 'left center', label: 'Trái giữa' },
+          { id: 'right center', label: 'Phải giữa' },
+        ],
+      },
+      {
+        property: 'background-repeat',
+        label: 'Lặp ảnh nền',
+        type: 'select',
+        default: '',
+        options: [
+          { id: '', label: 'Mặc định' },
+          { id: 'no-repeat', label: 'Không lặp' },
+          { id: 'repeat', label: 'Lặp' },
+          { id: 'repeat-x', label: 'Lặp ngang' },
+          { id: 'repeat-y', label: 'Lặp dọc' },
+        ],
+      },
+    ],
+  },
+
+  // ── 3. Dimension ─────────────────────────────────────────────────────────
   {
     id: 'dimension',
     name: 'Kích thước',
@@ -124,6 +178,34 @@ export const styleSectors: any[] = [
       },
     ],
   },
+
+  // ── 4. Border ─────────────────────────────────────────────────────────────
+  {
+    id: 'border',
+    name: 'Viền',
+    open: false,
+    properties: [
+      { property: 'border-radius', label: 'Bo góc', type: 'integer', units: ['px', '%', 'em'], default: '' },
+      {
+        property: 'border-style',
+        label: 'Kiểu viền',
+        type: 'select',
+        default: '',
+        options: [
+          { id: '', label: 'Mặc định' },
+          { id: 'none', label: 'Không' },
+          { id: 'solid', label: 'Liền nét' },
+          { id: 'dashed', label: 'Đứt nét' },
+          { id: 'dotted', label: 'Chấm' },
+          { id: 'double', label: 'Đôi' },
+        ],
+      },
+      { property: 'border-width', label: 'Độ dày', type: 'integer', units: ['px'], default: '' },
+      { property: 'border-color', label: 'Màu viền', type: 'color', default: '' },
+    ],
+  },
+
+  // ── 5. Layout ─────────────────────────────────────────────────────────────
   {
     id: 'layout',
     name: 'Bố cục (Flex/Grid)',
@@ -216,104 +298,8 @@ export const styleSectors: any[] = [
       },
     ],
   },
-  {
-    id: 'background',
-    name: 'Nền',
-    open: false,
-    properties: [
-      { property: 'background-color', label: 'Màu nền đặc', type: 'color', default: '' },
-      {
-        property: 'background-image',
-        label: 'Gradient nền (preset)',
-        type: 'select',
-        default: 'none',
-        options: [
-          { id: 'none', label: '— Không gradient —' },
-          { id: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', label: '💜 Tím • Xanh dương' },
-          { id: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', label: '🌸 Hồng • Đỏ' },
-          { id: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', label: '🌅 Vàng • Cam' },
-          { id: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', label: '🌊 Xanh biển sáng' },
-          { id: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', label: '🌿 Xanh lá • Teal' },
-          { id: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', label: '🌺 Hồng • Vàng' },
-          { id: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)', label: '🪻 Lavender nhạt' },
-          { id: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)', label: '🌸 Hồng pastel' },
-          { id: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', label: '🍑 Đào • Cam nhạt' },
-          { id: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)', label: '🌈 Tím • Xanh pastel' },
-          { id: 'linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%)', label: '🌌 Đêm tối (tím đen)' },
-          { id: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', label: '☁️ Xám trắng nhạt' },
-          { id: 'linear-gradient(to right, #ff6b6b, #feca57, #48dbfb, #ff9ff3)', label: '🌈 Cầu vồng' },
-          { id: 'linear-gradient(135deg, #e96c1a 0%, #c0392b 100%)', label: '🔥 Đỏ cam (lửa)' },
-          { id: 'linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%)', label: '🌃 Xám xanh đậm' },
-        ],
-      },
-      // Free-text for custom gradient — leave type unset so GrapesJS renders a text input
-      { property: 'background', label: 'Gradient tùy chỉnh', default: '' },
-      {
-        property: 'background-size',
-        label: 'Kích thước ảnh nền',
-        type: 'select',
-        default: '',
-        options: [
-          { id: '', label: 'Mặc định' },
-          { id: 'cover', label: 'Bao phủ (cover)' },
-          { id: 'contain', label: 'Vừa khít (contain)' },
-          { id: '100% 100%', label: 'Kéo giãn' },
-          { id: 'auto', label: 'Tự động' },
-        ],
-      },
-      {
-        property: 'background-position',
-        label: 'Vị trí ảnh nền',
-        type: 'select',
-        default: '',
-        options: [
-          { id: '', label: 'Mặc định' },
-          { id: 'center', label: 'Giữa' },
-          { id: 'top center', label: 'Trên giữa' },
-          { id: 'bottom center', label: 'Dưới giữa' },
-          { id: 'left center', label: 'Trái giữa' },
-          { id: 'right center', label: 'Phải giữa' },
-        ],
-      },
-      {
-        property: 'background-repeat',
-        label: 'Lặp ảnh nền',
-        type: 'select',
-        default: '',
-        options: [
-          { id: '', label: 'Mặc định' },
-          { id: 'no-repeat', label: 'Không lặp' },
-          { id: 'repeat', label: 'Lặp' },
-          { id: 'repeat-x', label: 'Lặp ngang' },
-          { id: 'repeat-y', label: 'Lặp dọc' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'border',
-    name: 'Viền',
-    open: false,
-    properties: [
-      { property: 'border-radius', label: 'Bo góc', type: 'integer', units: ['px', '%', 'em'], default: '' },
-      {
-        property: 'border-style',
-        label: 'Kiểu viền (chọn trước)',
-        type: 'select',
-        default: '',
-        options: [
-          { id: '', label: 'Mặc định' },
-          { id: 'none', label: 'Không' },
-          { id: 'solid', label: 'Liền nét' },
-          { id: 'dashed', label: 'Đứt nét' },
-          { id: 'dotted', label: 'Chấm' },
-          { id: 'double', label: 'Đôi' },
-        ],
-      },
-      { property: 'border-width', label: 'Độ dày', type: 'integer', units: ['px'], default: '' },
-      { property: 'border-color', label: 'Màu viền', type: 'color', default: '' },
-    ],
-  },
+
+  // ── 6. Effects ────────────────────────────────────────────────────────────
   {
     id: 'effects',
     name: 'Hiệu ứng',
