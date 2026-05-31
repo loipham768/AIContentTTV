@@ -19,7 +19,7 @@ function generateOrderId(): string {
 
 const subscriptionSchema = z.object({
   type:    z.literal('subscription'),
-  plan:    z.enum(['basic', 'pro']),
+  plan:    z.enum(['designer', 'basic', 'pro']),
   billing: z.enum(['monthly', 'yearly']),
 })
 

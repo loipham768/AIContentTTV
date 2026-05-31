@@ -47,6 +47,7 @@ export default async function EditorPage({
       fullName={userDoc?.fullName ?? ''}
       avatarUrl={userDoc?.avatarUrl ?? ''}
       initialData={initialData}
+      projectId={projectId && mongoose.Types.ObjectId.isValid(projectId) ? projectId : null}
       canExport={planInfo?.canExport ?? false}
       plan={planInfo?.plan ?? 'free'}
     />

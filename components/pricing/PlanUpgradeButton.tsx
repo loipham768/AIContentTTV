@@ -5,7 +5,7 @@ import { Loader2 } from 'lucide-react'
 
 interface Props {
   type: 'subscription'
-  plan: 'basic' | 'pro'
+  plan: 'designer' | 'basic' | 'pro'
   billing: 'monthly' | 'yearly'
   label?: string
   className?: string

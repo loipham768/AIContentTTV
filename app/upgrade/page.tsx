@@ -80,13 +80,13 @@ export default async function UpgradePage({
   const plan = params.plan
   const billing: 'monthly' | 'yearly' = params.billing === 'yearly' ? 'yearly' : 'monthly'
 
-  if (!plan || (plan !== 'basic' && plan !== 'pro')) redirect('/#pricing')
+  if (!plan || (plan !== 'designer' && plan !== 'basic' && plan !== 'pro')) redirect('/#pricing')
 
   const existing = await Order.findOne({ userId: session.user.id, status: 'pending' }).lean() as any
   if (existing) redirect(`/checkout/${existing.orderId}`)
 
   const orderId = generateOrderId()
-  const amount = PLAN_PRICES[plan as 'basic' | 'pro'][billing]
+  const amount = PLAN_PRICES[plan as 'designer' | 'basic' | 'pro'][billing]
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000)
 
   await Order.create({

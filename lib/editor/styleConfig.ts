@@ -307,7 +307,42 @@ export const styleSectors: any[] = [
     name: 'Hiệu ứng',
     open: false,
     properties: [
-      { property: 'box-shadow', label: 'Bóng đổ', default: '' },
+      {
+        property: 'box-shadow',
+        label: 'Bóng đổ',
+        type: 'select',
+        default: '',
+        options: [
+          { id: '', label: '— Không có —' },
+          // Trung tính
+          { id: '0 1px 3px rgba(0,0,0,0.12)', label: 'Nhẹ' },
+          { id: '0 4px 12px rgba(0,0,0,0.15)', label: 'Vừa' },
+          { id: '0 8px 24px rgba(0,0,0,0.18)', label: 'Đậm' },
+          { id: '0 20px 48px rgba(0,0,0,0.25)', label: 'Rất đậm' },
+          { id: 'inset 0 2px 6px rgba(0,0,0,0.12)', label: 'Âm (inset)' },
+          // Tím / Indigo
+          { id: '0 4px 16px rgba(79,70,229,0.35)', label: '🔵 Indigo' },
+          { id: '0 4px 16px rgba(139,92,246,0.35)', label: '🟣 Violet' },
+          { id: '0 4px 16px rgba(168,85,247,0.35)', label: '🟣 Tím (purple)' },
+          { id: '0 4px 16px rgba(217,70,239,0.35)', label: '🟣 Tím hồng (fuchsia)' },
+          // Hồng / Đỏ
+          { id: '0 4px 16px rgba(236,72,153,0.35)', label: '🩷 Hồng (pink)' },
+          { id: '0 4px 16px rgba(239,68,68,0.35)', label: '🔴 Đỏ' },
+          { id: '0 4px 16px rgba(249,115,22,0.35)', label: '🟠 Cam' },
+          // Vàng / Xanh lá
+          { id: '0 4px 16px rgba(234,179,8,0.35)', label: '🟡 Vàng' },
+          { id: '0 4px 16px rgba(16,185,129,0.35)', label: '🟢 Xanh lá (emerald)' },
+          { id: '0 4px 16px rgba(34,197,94,0.35)', label: '🟢 Xanh lá nhạt' },
+          // Xanh dương
+          { id: '0 4px 16px rgba(14,165,233,0.35)', label: '🔵 Xanh dương (sky)' },
+          { id: '0 4px 16px rgba(59,130,246,0.35)', label: '🔵 Xanh (blue)' },
+          { id: '0 4px 16px rgba(6,182,212,0.35)', label: '🩵 Xanh cyan' },
+          // Đặc biệt
+          { id: '0 4px 20px rgba(79,70,229,0.5), 0 8px 40px rgba(139,92,246,0.3)', label: '✨ Glow tím' },
+          { id: '0 4px 20px rgba(236,72,153,0.5), 0 8px 40px rgba(239,68,68,0.3)', label: '✨ Glow hồng-đỏ' },
+          { id: '0 4px 20px rgba(16,185,129,0.5), 0 8px 40px rgba(14,165,233,0.3)', label: '✨ Glow xanh' },
+        ],
+      },
       {
         property: 'opacity',
         label: 'Độ mờ',

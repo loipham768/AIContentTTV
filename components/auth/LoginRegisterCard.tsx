@@ -73,9 +73,15 @@ export function LoginRegisterCard({ callbackUrl = '/editor', initialPlan = '' }:
     setLoading(true); setError('')
     try {
       const result = await signIn('credentials', { email, password, redirect: false })
-      if (result?.error) setError('Email hoặc mật khẩu không đúng')
-      else window.location.href = callbackUrl
-    } finally { setLoading(false) }
+      if (result?.error) {
+        setError('Email hoặc mật khẩu không đúng')
+        setLoading(false)
+      } else {
+        window.location.href = callbackUrl
+      }
+    } catch {
+      setLoading(false)
+    }
   }
 
   async function handleSendOtp() {
@@ -105,15 +111,16 @@ export function LoginRegisterCard({ callbackUrl = '/editor', initialPlan = '' }:
       })
       const data = await res.json()
       if (!res.ok) {
-        // Expired → go back to form
         if (res.status === 410 || res.status === 429) { setStep('form'); setOtp('') }
         setError(data.error || 'Xác minh thất bại')
+        setLoading(false)
         return
       }
       // Account created — auto login
       const result = await signIn('credentials', { email, password, redirect: false })
       if (result?.error) {
         setError('Tài khoản đã tạo. Vui lòng đăng nhập.')
+        setLoading(false)
       } else if (isCreditsIntent && creditsPackId) {
         window.location.href = `/upgrade?type=credits&pack=${creditsPackId}`
       } else if (selectedPlan === 'basic' || selectedPlan === 'pro') {
@@ -121,7 +128,9 @@ export function LoginRegisterCard({ callbackUrl = '/editor', initialPlan = '' }:
       } else {
         window.location.href = callbackUrl
       }
-    } finally { setLoading(false) }
+    } catch {
+      setLoading(false)
+    }
   }
 
   async function handleResendOtp() {
@@ -297,6 +306,11 @@ export function LoginRegisterCard({ callbackUrl = '/editor', initialPlan = '' }:
                     {(selectedPlan === 'basic' || selectedPlan === 'pro') && (
                       <p className="mt-2 text-[11px] text-indigo-600 bg-indigo-50 rounded-lg px-3 py-1.5 border border-indigo-100">
                         Sau đăng ký bạn sẽ được chuyển đến trang thanh toán để kích hoạt gói {selectedPlan === 'basic' ? 'Basic' : 'Pro'}.
+                      </p>
+                    )}
+                    {selectedPlan === 'free' && (
+                      <p className="mt-2 text-[11px] text-emerald-700 bg-emerald-50 rounded-lg px-3 py-1.5 border border-emerald-100 leading-relaxed">
+                        Muốn nạp credit dùng thêm sau? Không vấn đề — chúng tôi fairplay: dùng bao nhiêu trả bấy nhiêu, không gói cước, không ràng buộc.
                       </p>
                     )}
                   </div>

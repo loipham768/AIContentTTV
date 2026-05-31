@@ -28,16 +28,19 @@ const HistoryPanel = dynamic(() => import("@/components/editor/HistoryPanel"), {
 type RightTab  = "style" | "layers" | "history";
 type MobileTab = "canvas" | "blocks" | "panel";
 
+type SaveStatus = 'idle' | 'saving' | 'saved' | 'error'
+
 interface EditorClientWrapperProps {
   userEmail: string
   fullName?: string
   avatarUrl?: string
   initialData?: object | null
+  projectId?: string | null
   canExport: boolean
   plan: string
 }
 
-export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, initialData, canExport, plan }: EditorClientWrapperProps) {
+export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, initialData, projectId: initialProjectId, canExport, plan }: EditorClientWrapperProps) {
   const editorRef = useRef<Editor | null>(null);
   const [historyKey, setHistoryKey] = useState(0);
   const [editorInstance, setEditorInstance] = useState<Editor | null>(null);
@@ -46,6 +49,9 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
   const [isPreview, setIsPreview] = useState(false);
   const [mobileTab, setMobileTab] = useState<MobileTab>("canvas");
   const [showEditHint, setShowEditHint] = useState(!!initialData);
+  const [currentProjectId, setCurrentProjectId] = useState<string | null>(initialProjectId ?? null);
+  const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleEditor = useCallback((editor: Editor) => {
     editorRef.current = editor;
@@ -130,6 +136,50 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
       setMobileTab('canvas');
     });
   }, [initialData]);
+
+  async function handleSave() {
+    const ed = editorRef.current;
+    if (!ed) return;
+
+    setSaveStatus('saving');
+    if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+
+    try {
+      const blockData = ed.getProjectData();
+
+      let projectId = currentProjectId;
+
+      if (projectId) {
+        const res = await fetch(`/api/projects/${projectId}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ blockData }),
+        });
+        if (!res.ok) throw new Error('save_failed');
+      } else {
+        const res = await fetch('/api/projects', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: `Dự án ${new Date().toLocaleDateString('vi-VN')}`,
+            prompt: '(Tạo thủ công)',
+            blockData,
+          }),
+        });
+        if (!res.ok) throw new Error('save_failed');
+        const { project } = await res.json();
+        projectId = project._id as string;
+        setCurrentProjectId(projectId);
+        window.history.replaceState(null, '', `/editor?project=${projectId}`);
+      }
+
+      setSaveStatus('saved');
+      saveTimerRef.current = setTimeout(() => setSaveStatus('idle'), 2500);
+    } catch {
+      setSaveStatus('error');
+      saveTimerRef.current = setTimeout(() => setSaveStatus('idle'), 3000);
+    }
+  }
 
   function exitPreview() {
     editorRef.current?.stopCommand('core:preview');
@@ -245,6 +295,8 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
         onTogglePreview={handleTogglePreview}
         canExport={canExport}
         plan={plan}
+        onSave={handleSave}
+        saveStatus={saveStatus}
       />
 
       {/* Edit hint banner — shown when content is loaded (AI or template), auto-dismissed after 12s */}

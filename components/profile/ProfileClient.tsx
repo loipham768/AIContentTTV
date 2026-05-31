@@ -6,7 +6,9 @@ import {
   Phone,
   Lock,
   Crown,
-  Zap,
+  Gem,
+  Sparkles,
+  PenTool,
   CheckCircle2,
   Loader2,
   Camera,
@@ -18,14 +20,16 @@ import Link from "next/link";
 import Image from "next/image";
 
 const PLAN_LABEL: Record<string, string> = {
-  free: "Miễn phí",
-  basic: "Basic",
-  pro: "Pro",
+  free:     "Miễn phí",
+  designer: "Designer",
+  basic:    "Basic",
+  pro:      "Pro",
 };
 const PLAN_COLOR: Record<string, string> = {
-  free: "bg-gray-100 text-gray-600",
-  basic: "bg-blue-100 text-blue-700",
-  pro: "bg-amber-100 text-amber-700",
+  free:     "bg-gray-100 text-gray-600",
+  designer: "bg-teal-100 text-teal-700",
+  basic:    "bg-blue-100 text-blue-700",
+  pro:      "bg-amber-100 text-amber-700",
 };
 
 function UsageBar({
@@ -39,25 +43,42 @@ function UsageBar({
 }) {
   const unlimited = !isFinite(limit);
   const pct = unlimited ? 0 : Math.min(100, (used / limit) * 100);
-  const near = pct >= 80;
+  const exhausted = !unlimited && used >= limit;
   return (
     <div>
       <div className="flex justify-between text-xs mb-1">
         <span className="text-gray-500">{label}</span>
-        <span
-          className={`font-semibold ${near ? "text-red-500" : "text-gray-700"}`}
-        >
+        <span className={`font-semibold ${exhausted ? "text-red-500" : "text-gray-700"}`}>
           {unlimited ? `${used} / ∞` : `${used} / ${limit}`}
         </span>
       </div>
       {!unlimited && (
         <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
           <div
-            className={`h-full rounded-full transition-all ${near ? "bg-red-400" : "bg-indigo-500"}`}
+            className={`h-full rounded-full transition-all ${exhausted ? "bg-red-400" : pct >= 80 ? "bg-orange-400" : "bg-indigo-500"}`}
             style={{ width: `${pct}%` }}
           />
         </div>
       )}
+    </div>
+  );
+}
+
+function CreditRow({ credits, monthlyExhausted }: { credits: number; monthlyExhausted: boolean }) {
+  if (credits === 0) return null;
+  return (
+    <div className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-xs ${
+      monthlyExhausted
+        ? "bg-amber-50 border border-amber-200"
+        : "bg-gray-50 border border-gray-100"
+    }`}>
+      <span className={`flex items-center gap-1.5 font-medium ${monthlyExhausted ? "text-amber-700" : "text-gray-500"}`}>
+        <span className="text-base leading-none">⚡</span>
+        {monthlyExhausted ? "Đang dùng credit dự phòng" : "Credit dự phòng"}
+      </span>
+      <span className={`font-bold ${monthlyExhausted ? "text-amber-600" : "text-gray-700"}`}>
+        {credits} lượt
+      </span>
     </div>
   );
 }
@@ -230,49 +251,115 @@ export default function ProfileClient({
         </div>
 
         {/* Plan & usage card */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4">
-          <h3 className="font-semibold text-gray-900 text-sm">
-            Gói & lượt sử dụng
-          </h3>
-
-          {expiry && (
-            <p className="text-xs text-gray-500">
-              Hết hạn:{" "}
-              <span className="font-medium text-gray-700">
-                {expiry.toLocaleDateString("vi-VN")}
-              </span>
-            </p>
-          )}
-
-          <div className="space-y-3">
-            <UsageBar
-              used={data.generationsUsed}
-              limit={data.generationsLimit}
-              label="Lượt tạo nội dung tháng này"
-            />
-          </div>
-
-          <div className="border-t border-gray-100 pt-3">
-            <div className="flex justify-between text-xs">
-              <span className="flex items-center gap-1 text-gray-500">
-                <Zap className="w-3.5 h-3.5 text-amber-500" />
-                Credits tích lũy
-              </span>
-              <span className="font-semibold text-gray-800">
-                {data.credits} lượt
-              </span>
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          {/* Plan banner */}
+          {data.plan === "designer" && (
+            <div className="px-5 py-4 bg-gradient-to-r from-teal-500 to-cyan-600 flex items-center justify-between">
+              <div>
+                <p className="text-[11px] font-semibold text-teal-100 uppercase tracking-wide mb-0.5">Gói hiện tại</p>
+                <p className="font-bold text-white text-sm">Designer</p>
+                <p className="text-xs text-teal-100 mt-0.5">
+                  Kéo thả & xuất HTML không giới hạn
+                  {expiry && ` · Hết hạn ${expiry.toLocaleDateString("vi-VN")}`}
+                </p>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-white/15 border border-white/25 shadow-md shadow-teal-900/20 flex items-center justify-center">
+                <PenTool className="w-5 h-5 text-white drop-shadow" />
+              </div>
             </div>
-          </div>
-
-          {data.plan === "free" && (
-            <Link
-              href="/#pricing"
-              className="flex items-center justify-center gap-1.5 w-full py-2 text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl hover:opacity-90 transition-opacity"
-            >
-              <Crown className="w-3.5 h-3.5" /> Nâng cấp gói{" "}
-              <ArrowRight className="w-3 h-3" />
-            </Link>
           )}
+          {data.plan === "free" && (
+            <div className="px-5 py-4 bg-gradient-to-br from-slate-50 to-gray-100 border-b border-gray-100 flex items-center justify-between">
+              <div>
+                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">Gói hiện tại</p>
+                <p className="font-bold text-gray-800 text-sm">Miễn phí</p>
+                <p className="text-xs text-gray-400 mt-0.5">4 lượt tạo / tháng</p>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-slate-400" />
+              </div>
+            </div>
+          )}
+          {data.plan === "basic" && (
+            <div className="px-5 py-4 bg-gradient-to-r from-indigo-600 to-violet-600 flex items-center justify-between">
+              <div>
+                <p className="text-[11px] font-semibold text-indigo-200 uppercase tracking-wide mb-0.5">Gói hiện tại</p>
+                <p className="font-bold text-white text-sm">Basic</p>
+                <p className="text-xs text-indigo-200 mt-0.5">
+                  25 lượt tạo / tháng
+                  {expiry && ` · Hết hạn ${expiry.toLocaleDateString("vi-VN")}`}
+                </p>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-white/15 border border-white/25 shadow-md shadow-indigo-900/20 flex items-center justify-center">
+                <Crown className="w-5 h-5 text-white drop-shadow" />
+              </div>
+            </div>
+          )}
+          {data.plan === "pro" && (
+            <div className="px-5 py-4 bg-gradient-to-r from-amber-500 to-orange-500 flex items-center justify-between">
+              <div>
+                <p className="text-[11px] font-semibold text-amber-100 uppercase tracking-wide mb-0.5">Gói hiện tại</p>
+                <p className="font-bold text-white text-sm">Pro</p>
+                <p className="text-xs text-amber-100 mt-0.5">
+                  Không giới hạn
+                  {expiry && ` · Hết hạn ${expiry.toLocaleDateString("vi-VN")}`}
+                </p>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-white/15 border border-white/25 shadow-md shadow-amber-900/20 flex items-center justify-center">
+                <Gem className="w-5 h-5 text-white drop-shadow" />
+              </div>
+            </div>
+          )}
+
+          <div className="p-5 space-y-3">
+            {data.plan !== "designer" && (
+              <UsageBar
+                used={data.generationsUsed}
+                limit={data.generationsLimit}
+                label="Lượt tạo nội dung tháng này"
+              />
+            )}
+            {data.plan === "designer" && (
+              <div className="flex items-center justify-between rounded-xl px-3 py-2.5 text-xs bg-teal-50 border border-teal-100">
+                <span className="flex items-center gap-1.5 font-medium text-teal-700">
+                  <PenTool className="w-3.5 h-3.5" /> Kéo thả & xuất HTML
+                </span>
+                <span className="font-bold text-teal-600">Không giới hạn</span>
+              </div>
+            )}
+            <CreditRow
+              credits={data.credits}
+              monthlyExhausted={data.generationsUsed >= data.generationsLimit}
+            />
+
+            {data.plan === "free" && (
+              <Link
+                href="/#pricing"
+                className="flex items-center justify-center gap-1.5 w-full py-2 text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl hover:opacity-90 transition-opacity"
+              >
+                <Crown className="w-3.5 h-3.5" /> Nâng cấp gói{" "}
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            )}
+            {data.plan === "designer" && (
+              <Link
+                href="/#pricing"
+                className="flex items-center justify-center gap-1.5 w-full py-2 text-xs font-semibold text-teal-700 border border-teal-200 rounded-xl hover:bg-teal-50 transition-colors"
+              >
+                <Crown className="w-3.5 h-3.5 text-indigo-500" /> Thêm AI → nâng lên Basic
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            )}
+            {data.plan === "basic" && (
+              <Link
+                href="/#pricing"
+                className="flex items-center justify-center gap-1.5 w-full py-2 text-xs font-semibold text-indigo-700 border border-indigo-200 rounded-xl hover:bg-indigo-50 transition-colors"
+              >
+                <Crown className="w-3.5 h-3.5 text-amber-500" /> Nâng lên Pro
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            )}
+          </div>
         </div>
       </div>
 

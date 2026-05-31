@@ -1,7 +1,7 @@
-export type Plan = 'free' | 'basic' | 'pro'
+export type Plan = 'free' | 'designer' | 'basic' | 'pro'
 
 export interface PlanLimits {
-  generationsPerMonth: number  // Infinity = unlimited
+  generationsPerMonth: number  // Infinity = unlimited, 0 = none
   canExport: boolean
   historyDays: number | null
   maxTemplates: number
@@ -13,6 +13,12 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
     canExport:           false,
     historyDays:         null,
     maxTemplates:        3,
+  },
+  designer: {
+    generationsPerMonth: 0,
+    canExport:           true,
+    historyDays:         30,
+    maxTemplates:        Infinity,
   },
   basic: {
     generationsPerMonth: 25,
@@ -29,8 +35,9 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
 }
 
 export const PLAN_PRICES = {
-  basic: { monthly: 99_000,  yearly: 948_000  },
-  pro:   { monthly: 199_000, yearly: 1_908_000 },
+  designer: { monthly: 59_000,  yearly: 564_000  },
+  basic:    { monthly: 99_000,  yearly: 948_000  },
+  pro:      { monthly: 199_000, yearly: 1_908_000 },
 } as const
 
 export const CREDIT_PACKS = [

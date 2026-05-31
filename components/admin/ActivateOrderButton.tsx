@@ -38,7 +38,7 @@ export default function ActivateOrderButton({ orderId, onActivated }: Props) {
 
   if (showNote) {
     return (
-      <div className="flex flex-col gap-1.5 min-w-[200px]">
+      <div className="note-box flex flex-col gap-1.5 min-w-[200px]">
         <input
           type="text"
           placeholder="Ghi chú (tuỳ chọn)"

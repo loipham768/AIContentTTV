@@ -38,7 +38,7 @@ CHECKLIST THEO LOẠI CONTENT
 ✍️ BÀI VIẾT — phải hỏi đủ 5 mục:
 1. Mục tiêu bài viết (SEO tăng traffic / giới thiệu sản phẩm / chia sẻ kiến thức / bán hàng)
 2. Đối tượng độc giả chính
-3. Phong cách & giọng văn
+3. Phong cách & màu sắc (chuyên nghiệp, thân thiện, hài hước, tối giản...)
 4. Độ dài & cấu trúc mong muốn
 5. Các điểm/thông điệp chính cần đề cập
 
@@ -75,8 +75,9 @@ Khi user xác nhận (chọn "Hãy tạo nội dung ngay!" hoặc câu tương t
 QUAN TRỌNG:
 - LUÔN trả về JSON hợp lệ, KHÔNG có bất kỳ text nào bên ngoài JSON
 - KHÔNG dùng Markdown (###, **, *, --) trong bất kỳ trường nào
-- Options PHẢI cụ thể, tự nhiên, gợi ý thực tế — không phải "Lựa chọn 1", "Tùy chọn A"
+- Options PHẢI cụ thể, tự nhiên, gợi ý thực tế — không phải 'Lựa chọn 1', 'Tùy chọn A'
 - 3–4 options mỗi câu, mỗi option tối đa 8 từ
+- TUYỆT ĐỐI KHÔNG dùng dấu nháy kép " bên trong giá trị string của JSON. Nếu cần ví dụ, dùng dấu nháy đơn ' hoặc ngoặc góc «»
 - Mảng items trong confirm: mỗi mục tối đa 10 từ, tóm tắt đúng thông tin đã thu thập
 - Câu hỏi phải nghe như người thật đang tư vấn, không như điền khảo sát
 
@@ -148,6 +149,7 @@ function extractFirstJson(text: string): unknown | null {
   let depth = 0;
   let inString = false;
   let escaped = false;
+  let end = -1;
 
   for (let i = start; i < text.length; i++) {
     const ch = text[i];
@@ -168,14 +170,93 @@ function extractFirstJson(text: string): unknown | null {
     if (ch === "}") {
       depth--;
       if (depth === 0) {
-        try {
-          return JSON.parse(text.slice(start, i + 1));
-        } catch {
-          return null;
-        }
+        end = i;
+        break;
       }
     }
   }
+
+  if (end === -1) return null;
+  const slice = text.slice(start, end + 1);
+
+  try {
+    return JSON.parse(slice);
+  } catch {
+    // JSON.parse failed — likely Gemini put unescaped " inside a string value.
+    // Try regex-based field extraction as a resilient fallback.
+    return extractFieldsViaRegex(slice);
+  }
+}
+
+// Regex-based fallback for when JSON.parse fails on Gemini's response.
+// Extracts known fields by using adjacent key names as delimiters so that
+// unescaped quotes inside string values don't break extraction.
+function extractFieldsViaRegex(text: string): unknown | null {
+  const typeMatch = text.match(/"type"\s*:\s*"(question|confirm|html)"/);
+  if (!typeMatch) return null;
+  const type = typeMatch[1];
+
+  // Extract options/items arrays — these are short strings, rarely have unescaped quotes
+  function extractArray(key: string): string[] {
+    const m = text.match(new RegExp(`"${key}"\\s*:\\s*\\[([\\s\\S]*?)\\]`));
+    if (!m) return [];
+    const items: string[] = [];
+    const re = /"((?:[^"\\]|\\.)*)"/g;
+    let match;
+    while ((match = re.exec(m[1])) !== null) items.push(match[1]);
+    return items;
+  }
+
+  // Extract a string value between two known adjacent key names.
+  // Delimiter pattern: `","<nextKey>"` which is very unlikely to appear inside question text.
+  function extractStringBetweenKeys(afterKey: string, beforeKeys: string[]): string {
+    const startMarker = `"${afterKey}"`;
+    const startIdx = text.indexOf(startMarker);
+    if (startIdx === -1) return "";
+    const valueStart = text.indexOf('"', startIdx + startMarker.length + 1) + 1;
+    if (valueStart <= 0) return "";
+
+    let bestEnd = -1;
+    for (const k of beforeKeys) {
+      const pattern = `","${k}"`;
+      const idx = text.indexOf(pattern, valueStart);
+      if (idx !== -1 && (bestEnd === -1 || idx < bestEnd)) bestEnd = idx;
+    }
+
+    if (bestEnd === -1) {
+      // No delimiter found — grab up to 400 chars, stop at closing quote before structural char
+      const chunk = text.slice(valueStart, valueStart + 400);
+      const m = chunk.match(/^([\s\S]*?)"[\s,}\]]/);
+      return m ? m[1] : chunk;
+    }
+    return text.slice(valueStart, bestEnd);
+  }
+
+  if (type === "html") {
+    const question = extractStringBetweenKeys("content", ["type"]);
+    if (question) return { type: "html", content: question.replace(/\\n/g, "\n").replace(/\\"/g, '"').replace(/\\\\/g, "\\") };
+    return null;
+  }
+
+  if (type === "question") {
+    const question = extractStringBetweenKeys("question", ["hint", "options", "items", "confirm"]);
+    const hint = extractStringBetweenKeys("hint", ["options", "items", "type"]);
+    const options = extractArray("options");
+    return {
+      type: "question",
+      question,
+      hint: hint || undefined,
+      options,
+    };
+  }
+
+  if (type === "confirm") {
+    const question = extractStringBetweenKeys("question", ["hint", "options", "items"]);
+    const items = extractArray("items");
+    const options = extractArray("options");
+    return { type: "confirm", question, items, options };
+  }
+
   return null;
 }
 
@@ -310,6 +391,11 @@ export async function chatWithGemini(
     return { type: "html", content: extracted };
   }
 
-  // Final fallback: treat as a plain question with no options
-  return { type: "question", question: rawText, options: [] };
+  // Final fallback: something unexpected — never expose raw JSON/text to UI
+  console.warn("[Gemini] Could not parse response, raw text:", rawText.slice(0, 200));
+  return {
+    type: "question",
+    question: "Bạn có thể mô tả thêm về nội dung bạn muốn tạo không?",
+    options: ["Tiếp tục", "Bắt đầu lại", "Bạn tư vấn giúp mình"],
+  };
 }

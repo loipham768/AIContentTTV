@@ -1,9 +1,9 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Editor } from 'grapesjs'
 import { GrapesBlockSchema } from '@/lib/ai/schema'
 import { ConfirmModal } from '@/components/ui/ConfirmModal'
-import { Clock, FolderOpen, Trash2, AlertTriangle } from 'lucide-react'
+import { Clock, FolderOpen, Trash2, AlertTriangle, Pencil, Check, X } from 'lucide-react'
 
 interface Project { _id: string; name: string; prompt: string; blockData: Record<string, unknown>; createdAt: string }
 interface HistoryPanelProps { editorRef: React.RefObject<Editor | null>; refreshKey: number }
@@ -18,6 +18,10 @@ export default function HistoryPanel({ editorRef, refreshKey }: HistoryPanelProp
   const [loading, setLoading] = useState(false)
   const [fetchError, setFetchError] = useState(false)
   const [modalState, setModalState] = useState<ModalState>({ type: 'none' })
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editingName, setEditingName] = useState('')
+  const [renameLoading, setRenameLoading] = useState(false)
+  const renameInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     setLoading(true)
@@ -56,6 +60,44 @@ export default function HistoryPanel({ editorRef, refreshKey }: HistoryPanelProp
     } catch { alert('Lỗi kết nối. Vui lòng thử lại.') }
   }
 
+  function startRename(project: Project) {
+    setEditingId(project._id)
+    setEditingName(project.name)
+    setTimeout(() => renameInputRef.current?.select(), 0)
+  }
+
+  function cancelRename() {
+    setEditingId(null)
+    setEditingName('')
+  }
+
+  async function commitRename(projectId: string) {
+    const trimmed = editingName.trim()
+    if (!trimmed) { cancelRename(); return }
+    const original = projects.find(p => p._id === projectId)?.name
+    if (trimmed === original) { cancelRename(); return }
+
+    setRenameLoading(true)
+    try {
+      const res = await fetch(`/api/projects/${projectId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: trimmed }),
+      })
+      if (res.ok) {
+        setProjects(prev => prev.map(p => p._id === projectId ? { ...p, name: trimmed } : p))
+      } else {
+        alert('Đổi tên thất bại. Vui lòng thử lại.')
+      }
+    } catch {
+      alert('Lỗi kết nối. Vui lòng thử lại.')
+    } finally {
+      setRenameLoading(false)
+      setEditingId(null)
+      setEditingName('')
+    }
+  }
+
   return (
     <div className="flex flex-col bg-slate-50 overflow-hidden w-full min-h-0">
       <div className="px-4 py-3 border-b border-slate-200 bg-white flex items-center gap-2">
@@ -91,10 +133,53 @@ export default function HistoryPanel({ editorRef, refreshKey }: HistoryPanelProp
         )}
 
         {!loading && !fetchError && projects.map(project => (
-          <div key={project._id} className="mx-2 my-1.5 bg-white rounded-xl border border-slate-200 overflow-hidden hover:border-slate-300 hover:shadow-sm transition-all">
+          <div key={project._id} className="mx-2 my-1.5 bg-white rounded-xl border border-slate-200 overflow-hidden hover:border-slate-300 hover:shadow-sm transition-all group">
             <div className="px-3 pt-3 pb-2">
               <div className="flex items-start justify-between gap-2 mb-1">
-                <p className="text-xs font-semibold text-slate-800 truncate leading-snug">{project.name}</p>
+                {editingId === project._id ? (
+                  <div className="flex items-center gap-1 flex-1 min-w-0">
+                    <input
+                      ref={renameInputRef}
+                      value={editingName}
+                      onChange={e => setEditingName(e.target.value)}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter') commitRename(project._id)
+                        else if (e.key === 'Escape') cancelRename()
+                      }}
+                      disabled={renameLoading}
+                      className="flex-1 min-w-0 text-xs font-semibold text-slate-800 bg-slate-50 border border-indigo-300 rounded-md px-1.5 py-0.5 outline-none focus:ring-1 focus:ring-indigo-400"
+                      maxLength={200}
+                      autoFocus
+                    />
+                    <button
+                      onClick={() => commitRename(project._id)}
+                      disabled={renameLoading}
+                      className="p-0.5 rounded text-emerald-500 hover:bg-emerald-50 flex-shrink-0"
+                      title="Lưu tên"
+                    >
+                      <Check className="w-3 h-3" />
+                    </button>
+                    <button
+                      onClick={cancelRename}
+                      disabled={renameLoading}
+                      className="p-0.5 rounded text-slate-400 hover:bg-slate-100 flex-shrink-0"
+                      title="Hủy"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1 flex-1 min-w-0">
+                    <p className="text-xs font-semibold text-slate-800 truncate leading-snug flex-1 min-w-0">{project.name}</p>
+                    <button
+                      onClick={() => startRename(project)}
+                      className="p-0.5 rounded text-slate-300 hover:text-slate-500 hover:bg-slate-100 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                      title="Đổi tên"
+                    >
+                      <Pencil className="w-3 h-3" />
+                    </button>
+                  </div>
+                )}
                 <time className="text-xs text-slate-400 flex-shrink-0">
                   {new Date(project.createdAt).toLocaleDateString('vi-VN')}
                 </time>

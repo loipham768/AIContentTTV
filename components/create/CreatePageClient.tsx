@@ -12,8 +12,12 @@ import {
   Pencil,
   LayoutTemplate,
   Info,
+  Crown,
+  Gem,
+  PenTool,
 } from "lucide-react";
 import Logo from "@/components/Logo";
+import Link from "next/link";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -525,7 +529,7 @@ const CONTENT_TYPE_IDS: ContentTypeId[] = ["landing", "article", "ads"];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function CreatePageClient() {
+export default function CreatePageClient({ plan = 'free' }: { plan?: string }) {
   const router = useRouter();
 
   // Full message history sent to Gemini
@@ -543,6 +547,7 @@ export default function CreatePageClient() {
   const [errorMsg, setErrorMsg] = useState("");
   const [projectId, setProjectId] = useState<string | null>(null);
   const [longWait, setLongWait] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
   const longWaitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Initial screen state
@@ -731,6 +736,59 @@ export default function CreatePageClient() {
 
   // ─── Render ─────────────────────────────────────────────────────────────────
 
+  // Designer plan cannot use AI generation
+  if (plan === 'designer') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex flex-col">
+        <header className="flex items-center justify-between px-6 py-4 border-b border-white/5 flex-shrink-0">
+          <Logo iconSize={28} uid="create-logo" dark />
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-gradient-to-r from-teal-500 to-cyan-500 shadow-sm shadow-teal-500/30">
+              <PenTool className="w-2.5 h-2.5" /> Designer
+            </span>
+          </div>
+        </header>
+        <main className="flex-1 flex items-center justify-center px-4">
+          <div className="max-w-md w-full text-center space-y-6">
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center">
+              <PenTool className="w-8 h-8 text-teal-400" />
+            </div>
+            <div className="space-y-2">
+              <h1 className="text-2xl font-bold text-white">Gói Designer không có AI</h1>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Gói <span className="text-teal-400 font-semibold">Designer</span> được thiết kế cho việc tự tay thiết kế — không bao gồm tính năng tạo nội dung bằng AI.
+                Để dùng AI, bạn cần nâng cấp lên gói <span className="text-indigo-400 font-semibold">Basic</span> hoặc <span className="text-amber-400 font-semibold">Pro</span>.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <a
+                href="/editor"
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-sm font-semibold transition-all"
+              >
+                <Pencil className="w-4 h-4" />
+                Mở trình soạn thảo
+              </a>
+              <a
+                href="/templates"
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/[0.06] border border-white/10 hover:bg-white/10 text-slate-300 text-sm font-semibold transition-all"
+              >
+                <LayoutTemplate className="w-4 h-4" />
+                Dùng mẫu có sẵn
+              </a>
+              <a
+                href="/upgrade"
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white text-sm font-semibold transition-all shadow-lg shadow-indigo-500/20"
+              >
+                <Crown className="w-4 h-4" />
+                Nâng cấp để dùng AI
+              </a>
+            </div>
+          </div>
+        </main>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex flex-col">
       {/* Nav */}
@@ -751,6 +809,28 @@ export default function CreatePageClient() {
             <Pencil className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Soạn thảo trống</span>
           </a>
+          <Link href="/profile" title={`Gói ${plan === 'free' ? 'Miễn phí' : plan === 'designer' ? 'Designer' : plan === 'basic' ? 'Basic' : 'Pro'} · Xem profile`}>
+            {plan === 'free' && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold text-slate-400 bg-slate-800 border border-slate-700 hover:border-slate-500 transition-colors">
+                <Sparkles className="w-2.5 h-2.5" /> Free
+              </span>
+            )}
+            {plan === 'designer' && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-gradient-to-r from-teal-500 to-cyan-500 shadow-sm shadow-teal-500/30">
+                <PenTool className="w-2.5 h-2.5" /> Designer
+              </span>
+            )}
+            {plan === 'basic' && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-gradient-to-r from-indigo-500 to-violet-500 shadow-sm shadow-indigo-500/30">
+                <Crown className="w-2.5 h-2.5" /> Basic
+              </span>
+            )}
+            {plan === 'pro' && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-amber-900 bg-gradient-to-r from-amber-400 to-orange-400 shadow-sm shadow-amber-500/30">
+                <Gem className="w-2.5 h-2.5" /> Pro
+              </span>
+            )}
+          </Link>
         </div>
       </header>
 
@@ -947,15 +1027,27 @@ export default function CreatePageClient() {
                     </div>
                   </div>
                   <button
-                    onClick={() =>
+                    onClick={() => {
+                      if (isNavigating) return;
+                      setIsNavigating(true);
                       router.push(
                         projectId ? `/editor?project=${projectId}` : "/editor",
-                      )
-                    }
-                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white text-sm font-semibold shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98]"
+                      );
+                    }}
+                    disabled={isNavigating}
+                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 disabled:opacity-70 disabled:cursor-not-allowed text-white text-sm font-semibold shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98]"
                   >
-                    Mở trình soạn thảo
-                    <ArrowRight className="w-4 h-4" />
+                    {isNavigating ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Đang mở...
+                      </>
+                    ) : (
+                      <>
+                        Mở trình soạn thảo
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
                   <button
                     onClick={handleReset}

@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema(
     avatarUrl:  { type: String, default: '' },
 
     // ── Plan & billing ──────────────────────────────────────────────
-    plan:          { type: String, enum: ['free', 'basic', 'pro'], default: 'free' },
+    plan:          { type: String, enum: ['free', 'designer', 'basic', 'pro'], default: 'free' },
     planExpiresAt: { type: Date, default: null },
 
     // Pay-as-you-go credits (never expire)

@@ -18,21 +18,21 @@ const gradientPlugin = (editor: Editor) => {
   registerBgGradientType(editor)
 }
 
-// GrapesJS does not forward `placeholder` to color / default-text inputs — inject via DOM.
-const LABEL_PLACEHOLDERS: Record<string, string> = {
-  'Màu chữ':  '#0f172a',
-  'Màu nền':  '#ffffff',
-  'Màu viền': '#e2e8f0',
-  'Bóng đổ':  '0 4px 12px rgba(0,0,0,0.15)',
+// GrapesJS 0.22 renders StyleManager via React — placeholder must be injected via DOM.
+// GrapesJS sets data-property="{name}" on each property container.
+const PROP_PLACEHOLDERS: Record<string, string> = {
+  'color':            '#0f172a',
+  'background-color': '#ffffff',
+  'border-color':     '#e2e8f0',
+  'box-shadow':       '0 4px 12px rgba(0,0,0,0.15)',
 }
 
 function injectPlaceholders() {
   const panel = document.getElementById('gjs-styles-panel')
   if (!panel) return
-  panel.querySelectorAll<HTMLElement>('.gjs-sm-property').forEach((propEl) => {
-    const label = propEl.querySelector('.gjs-sm-label')?.textContent?.trim() ?? ''
-    const ph = LABEL_PLACEHOLDERS[label]
-    if (!ph) return
+  Object.entries(PROP_PLACEHOLDERS).forEach(([prop, ph]) => {
+    const propEl = panel.querySelector<HTMLElement>(`[data-property="${prop}"]`)
+    if (!propEl) return
     const input = propEl.querySelector<HTMLInputElement>('input')
     if (input) input.placeholder = ph
   })
@@ -41,8 +41,16 @@ function injectPlaceholders() {
 export default function GrapesEditor({ onEditor }: GrapesEditorProps) {
   function handleEditor(editor: Editor) {
     registerBlocks(editor)
-    editor.on('component:selected', () => requestAnimationFrame(injectPlaceholders))
-    editor.on('styleManager:update',  () => requestAnimationFrame(injectPlaceholders))
+
+    // MutationObserver fires immediately when React commits the style panel DOM
+    editor.on('load', () => {
+      const panel = document.getElementById('gjs-styles-panel')
+      if (!panel) return
+      const obs = new MutationObserver(injectPlaceholders)
+      obs.observe(panel, { childList: true, subtree: true })
+      injectPlaceholders()
+    })
+
     onEditor(editor)
   }
 

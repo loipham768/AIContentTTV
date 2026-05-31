@@ -667,7 +667,7 @@ export default async function LandingPage() {
           </ScrollReveal>
 
           {/* Subscription plans */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch pt-2 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch pt-2 mb-16">
             {/* Free */}
             <ScrollReveal from="left" className="h-full">
               <div className="rounded-2xl border border-gray-200 bg-white p-7 card-lift h-full flex flex-col">
@@ -692,6 +692,40 @@ export default async function LandingPage() {
                       <span className={ok ? '' : 'text-gray-400'}>{text}</span>
                     </li>
                   ))}
+                </ul>
+              </div>
+            </ScrollReveal>
+
+            {/* Designer */}
+            <ScrollReveal delay={60} className="h-full">
+              <div className="rounded-2xl border-2 border-teal-200 bg-white p-7 card-lift h-full flex flex-col relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-teal-50 to-cyan-50 rounded-bl-full" />
+                <p className="text-sm font-semibold text-teal-600 uppercase tracking-wide">Designer</p>
+                <div className="mt-3 flex items-end gap-1">
+                  <span className="text-4xl font-extrabold text-gray-900">59.000đ</span>
+                  <span className="text-gray-500 mb-1 text-sm">/tháng</span>
+                </div>
+                <p className="mt-1.5 text-sm text-gray-500">hoặc 47.000đ/tháng khi mua năm</p>
+                <Link href="/upgrade?plan=designer" className="mt-5 block text-center py-2.5 text-sm font-semibold text-teal-700 border-2 border-teal-400 rounded-xl hover:bg-teal-50 transition-colors">
+                  Đăng ký Designer
+                </Link>
+                <ul className="mt-6 space-y-2.5 flex-1">
+                  {[
+                    'Kéo thả không giới hạn',
+                    'Sao chép & xuất file HTML',
+                    'Toàn bộ template mẫu',
+                    'Lưu lịch sử 30 ngày',
+                    { text: 'Tạo nội dung bằng AI', disabled: true },
+                  ].map((f) => {
+                    const disabled = typeof f === 'object' && f.disabled
+                    const text = typeof f === 'string' ? f : f.text
+                    return (
+                      <li key={text} className="flex items-center gap-2 text-sm text-gray-700">
+                        <CheckCircle2 className={`w-4 h-4 shrink-0 ${disabled ? 'text-gray-300' : 'text-emerald-500'}`} />
+                        <span className={disabled ? 'text-gray-400' : ''}>{text}</span>
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
             </ScrollReveal>
@@ -762,7 +796,7 @@ export default async function LandingPage() {
           {/* Credits */}
           <ScrollReveal className="text-center mb-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-2">Hoặc nạp credits</h3>
-            <p className="text-gray-500 text-sm">Không cần đăng ký tháng — dùng tới đâu tính tiền tới đó. Credits không hết hạn.</p>
+            <p className="text-gray-500 text-sm">Không cần đăng ký tháng — nạp khi cần, dùng bao nhiêu trả bấy nhiêu. Credits không hết hạn.</p>
           </ScrollReveal>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -790,7 +824,7 @@ export default async function LandingPage() {
           </div>
 
           <ScrollReveal className="text-center mt-8">
-            <p className="text-sm text-gray-400">Chúng tôi rất fair — bạn xài tới đâu tính tiền tới đó. Không có phí ẩn.</p>
+            <p className="text-sm text-gray-400">Chúng tôi rất fairplay — dùng bao nhiêu trả bấy nhiêu, không gói cước, không ràng buộc, không phí ẩn.</p>
           </ScrollReveal>
         </div>
       </section>
