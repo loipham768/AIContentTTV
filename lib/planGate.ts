@@ -32,6 +32,7 @@ async function loadAndRefreshUser(userId: string) {
   // One-time migration: merge legacy creditsLandingPages → credits
   if (user.creditsLandingPages > 0) {
     user.credits += user.creditsLandingPages
+    user.creditsTotal = (user.creditsTotal ?? 0) + user.creditsLandingPages
     user.creditsLandingPages = 0
   }
 
@@ -109,6 +110,7 @@ export async function getUserPlanInfo(userId: string) {
     generationsUsed:  user.generationsUsed,
     generationsLimit: limits.generationsPerMonth,
     credits:          user.credits,
+    creditsTotal:     user.creditsTotal ?? user.credits,
     planExpiresAt:    user.planExpiresAt?.toISOString() ?? null,
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   User,
   Phone,
@@ -15,6 +15,8 @@ import {
   Eye,
   EyeOff,
   ArrowRight,
+  History,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -64,8 +66,9 @@ function UsageBar({
   );
 }
 
-function CreditRow({ credits, monthlyExhausted }: { credits: number; monthlyExhausted: boolean }) {
-  if (credits === 0) return null;
+function CreditRow({ credits, creditsTotal, monthlyExhausted }: { credits: number; creditsTotal: number; monthlyExhausted: boolean }) {
+  if (creditsTotal === 0) return null;
+  const used = creditsTotal - credits;
   return (
     <div className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-xs ${
       monthlyExhausted
@@ -77,8 +80,116 @@ function CreditRow({ credits, monthlyExhausted }: { credits: number; monthlyExha
         {monthlyExhausted ? "Đang dùng credit dự phòng" : "Credit dự phòng"}
       </span>
       <span className={`font-bold ${monthlyExhausted ? "text-amber-600" : "text-gray-700"}`}>
-        {credits} lượt
+        {used} / {creditsTotal} lượt
       </span>
+    </div>
+  );
+}
+
+const STATUS_LABEL: Record<string, string> = {
+  paid:                   "Thành công",
+  pending:                "Chờ thanh toán",
+  awaiting_confirmation:  "Đã CK · Chờ xác nhận",
+  cancelled:              "Đã huỷ",
+  expired:                "Hết hạn",
+};
+const STATUS_COLOR: Record<string, string> = {
+  paid:                   "bg-emerald-50 text-emerald-700 border-emerald-100",
+  pending:                "bg-amber-50 text-amber-700 border-amber-100",
+  awaiting_confirmation:  "bg-blue-50 text-blue-600 border-blue-100",
+  cancelled:              "bg-red-50 text-red-500 border-red-100",
+  expired:                "bg-gray-50 text-gray-400 border-gray-100",
+};
+const PLAN_LABEL_MAP: Record<string, string> = {
+  designer: "Designer",
+  basic: "Basic",
+  pro: "Pro",
+};
+
+interface Order {
+  orderId: string;
+  type: "subscription" | "credits";
+  plan?: string | null;
+  billing?: string;
+  creditsHtml?: number;
+  amount: number;
+  status: string;
+  activatedAt?: string | null;
+  createdAt: string;
+}
+
+function fmt(d: string) {
+  return new Date(d).toLocaleDateString("vi-VN", {
+    day: "2-digit", month: "2-digit", year: "numeric",
+  });
+}
+function fmtVnd(n: number) {
+  return n.toLocaleString("vi-VN") + "đ";
+}
+
+function OrderHistory() {
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/orders")
+      .then((r) => r.json())
+      .then((j) => setOrders(j.orders ?? []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  return (
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+      <h3 className="font-semibold text-gray-900 mb-5 flex items-center gap-2">
+        <History className="w-4 h-4 text-gray-500" /> Lịch sử giao dịch
+      </h3>
+
+      {loading && (
+        <div className="flex justify-center py-8">
+          <Loader2 className="w-5 h-5 animate-spin text-gray-300" />
+        </div>
+      )}
+
+      {!loading && orders.length === 0 && (
+        <p className="text-sm text-gray-400 text-center py-8">Chưa có giao dịch nào.</p>
+      )}
+
+      {!loading && orders.length > 0 && (
+        <div className="divide-y divide-gray-50">
+          {orders.map((o) => {
+            const isSubscription = o.type === "subscription";
+            const label = isSubscription
+              ? `Nâng cấp gói ${PLAN_LABEL_MAP[o.plan ?? ""] ?? o.plan} · ${o.billing === "yearly" ? "Hàng năm" : "Hàng tháng"}`
+              : `Nạp ${o.creditsHtml ?? 0} credit dự phòng`;
+            const date = o.activatedAt ?? o.createdAt;
+
+            return (
+              <div key={o.orderId} className="flex items-center gap-3 py-3">
+                <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
+                  isSubscription ? "bg-indigo-50" : "bg-amber-50"
+                }`}>
+                  {isSubscription
+                    ? <Crown className="w-4 h-4 text-indigo-500" />
+                    : <Zap className="w-4 h-4 text-amber-500" />}
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-gray-800 truncate">{label}</p>
+                  <p className="text-xs text-gray-400">{fmt(date)} · {o.orderId}</p>
+                </div>
+
+                <div className="flex flex-col items-end gap-1 shrink-0">
+                  <span className="text-sm font-semibold text-gray-800">{fmtVnd(o.amount)}</span>
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${STATUS_COLOR[o.status] ?? STATUS_COLOR.expired}`}>
+                    {STATUS_LABEL[o.status] ?? o.status}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
@@ -93,6 +204,7 @@ interface ProfileData {
   generationsUsed: number;
   generationsLimit: number;
   credits: number;
+  creditsTotal: number;
 }
 
 export default function ProfileClient({
@@ -329,6 +441,7 @@ export default function ProfileClient({
             )}
             <CreditRow
               credits={data.credits}
+              creditsTotal={data.creditsTotal}
               monthlyExhausted={data.generationsUsed >= data.generationsLimit}
             />
 
@@ -438,6 +551,9 @@ export default function ProfileClient({
             </button>
           </div>
         </div>
+
+        {/* Transaction history */}
+        <OrderHistory />
 
         {/* Change password */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">

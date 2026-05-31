@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { Users, LayoutTemplate, ShoppingCart, CheckCircle2, Clock, XCircle } from 'lucide-react'
+import { Users, LayoutTemplate, ShoppingCart, CheckCircle2, Clock, XCircle, Hourglass, ImageIcon } from 'lucide-react'
 import ActivateUserButton from './ActivateUserButton'
 import ToggleUserButton from './ToggleUserButton'
 import DeleteProjectButton from './DeleteProjectButton'
@@ -42,6 +42,7 @@ export interface OrderRow {
   expiresAt: string
   activatedAt: string | null
   adminNote: string
+  paymentProofUrl: string | null
   createdAt: string
 }
 
@@ -59,10 +60,19 @@ const PLAN_LABELS: Record<string, string> = {
 }
 
 const STATUS_STYLES: Record<string, string> = {
-  pending:   'bg-amber-100 text-amber-700',
-  paid:      'bg-emerald-100 text-emerald-700',
-  cancelled: 'bg-gray-100 text-gray-600',
-  expired:   'bg-red-100 text-red-600',
+  pending:                'bg-amber-100 text-amber-700',
+  awaiting_confirmation:  'bg-blue-100 text-blue-700',
+  paid:                   'bg-emerald-100 text-emerald-700',
+  cancelled:              'bg-gray-100 text-gray-600',
+  expired:                'bg-red-100 text-red-600',
+}
+
+const STATUS_LABELS: Record<string, string> = {
+  pending:                'Chờ TT',
+  awaiting_confirmation:  'Chờ XN',
+  paid:                   'Đã TT',
+  cancelled:              'Huỷ',
+  expired:                'Hết hạn',
 }
 
 function formatVnd(n: number) {
@@ -103,7 +113,8 @@ export default function AdminDashboard({ initialUsers, initialProjects, initialO
     </button>
   )
 
-  const pendingCount = orders.filter(o => o.status === 'pending').length
+  const pendingCount = orders.filter(o => o.status === 'pending' || o.status === 'awaiting_confirmation').length
+  const [proofModal, setProofModal] = useState<string | null>(null)
 
   return (
     <div className="space-y-6">
@@ -120,25 +131,25 @@ export default function AdminDashboard({ initialUsers, initialProjects, initialO
             <h2 className="font-semibold text-gray-900">Đơn hàng</h2>
             {pendingCount > 0 && (
               <span className="flex items-center gap-1 text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
-                <Clock className="w-3.5 h-3.5" /> {pendingCount} đơn chờ thanh toán
+                <Clock className="w-3.5 h-3.5" /> {pendingCount} đơn cần xử lý
               </span>
             )}
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm min-w-[800px]">
+            <table className="w-full text-sm min-w-[900px]">
               <thead>
                 <tr className="bg-gray-50 text-left">
-                  {['Mã đơn', 'Người dùng', 'Gói / Credits', 'Số tiền', 'Trạng thái', 'Tạo lúc', 'Hành động'].map(h => (
+                  {['Mã đơn', 'Người dùng', 'Gói / Credits', 'Số tiền', 'Trạng thái', 'Ảnh CK', 'Tạo lúc', 'Hành động'].map(h => (
                     <th key={h} className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
                 {orders.length === 0 && (
-                  <tr><td colSpan={7} className="px-6 py-10 text-center text-sm text-gray-400">Chưa có đơn hàng nào.</td></tr>
+                  <tr><td colSpan={8} className="px-6 py-10 text-center text-sm text-gray-400">Chưa có đơn hàng nào.</td></tr>
                 )}
                 {orders.map(order => (
-                  <tr key={order._id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={order._id} className={`hover:bg-gray-50 transition-colors ${order.status === 'awaiting_confirmation' ? 'bg-blue-50/40' : ''}`}>
                     <td className="px-4 py-3.5">
                       <span className="font-mono text-xs font-bold text-indigo-700">{order.orderId}</span>
                     </td>
@@ -153,15 +164,28 @@ export default function AdminDashboard({ initialUsers, initialProjects, initialO
                       <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${STATUS_STYLES[order.status] ?? 'bg-gray-100 text-gray-600'}`}>
                         {order.status === 'paid' && <CheckCircle2 className="w-3 h-3" />}
                         {order.status === 'pending' && <Clock className="w-3 h-3" />}
+                        {order.status === 'awaiting_confirmation' && <Hourglass className="w-3 h-3" />}
                         {(order.status === 'cancelled' || order.status === 'expired') && <XCircle className="w-3 h-3" />}
-                        {order.status === 'pending' ? 'Chờ TT' : order.status === 'paid' ? 'Đã TT' : order.status === 'cancelled' ? 'Huỷ' : 'Hết hạn'}
+                        {STATUS_LABELS[order.status] ?? order.status}
                       </span>
+                    </td>
+                    <td className="px-4 py-3.5">
+                      {order.paymentProofUrl ? (
+                        <button
+                          onClick={() => setProofModal(order.paymentProofUrl)}
+                          className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 underline"
+                        >
+                          <ImageIcon className="w-3.5 h-3.5" /> Xem ảnh
+                        </button>
+                      ) : (
+                        <span className="text-xs text-gray-300">—</span>
+                      )}
                     </td>
                     <td className="px-4 py-3.5 text-xs text-gray-500 whitespace-nowrap">
                       {new Date(order.createdAt).toLocaleString('vi-VN', { hour12: false, day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}
                     </td>
                     <td className="px-4 py-3.5">
-                      {order.status === 'pending' ? (
+                      {(order.status === 'pending' || order.status === 'awaiting_confirmation') ? (
                         <div className="flex items-start gap-1.5 flex-wrap">
                           <ActivateOrderButton
                             orderId={order.orderId}
@@ -181,6 +205,23 @@ export default function AdminDashboard({ initialUsers, initialProjects, initialO
               </tbody>
             </table>
           </div>
+
+          {proofModal && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+              onClick={() => setProofModal(null)}
+            >
+              <div className="relative max-w-2xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden" onClick={e => e.stopPropagation()}>
+                <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+                  <span className="font-semibold text-gray-800 text-sm">Ảnh xác nhận chuyển khoản</span>
+                  <button onClick={() => setProofModal(null)} className="text-gray-400 hover:text-gray-600 text-xl leading-none">&times;</button>
+                </div>
+                <div className="p-4 flex items-center justify-center bg-gray-50 min-h-[300px]">
+                  <img src={proofModal} alt="payment proof" className="max-h-[70vh] max-w-full object-contain rounded-lg" />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 

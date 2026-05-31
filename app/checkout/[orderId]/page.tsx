@@ -4,9 +4,10 @@ import { dbConnect } from '@/lib/mongodb'
 import Order from '@/models/Order'
 import { BANK_INFO } from '@/lib/planConfig'
 import Link from 'next/link'
-import { CheckCircle2, Clock, Copy, ArrowLeft, Banknote, AlertCircle } from 'lucide-react'
+import { CheckCircle2, Clock, ArrowLeft, Banknote, AlertCircle, Hourglass } from 'lucide-react'
 import Logo from '@/components/Logo'
 import CheckoutCopyButton from '@/components/checkout/CheckoutCopyButton'
+import ConfirmPaymentModal from '@/components/checkout/ConfirmPaymentModal'
 
 export const runtime = 'nodejs'
 
@@ -38,9 +39,10 @@ export default async function CheckoutPage({
 
   if (!order) redirect('/editor')
 
-  const isPaid      = order.status === 'paid'
-  const isExpired   = order.status === 'expired' || (order.status === 'pending' && new Date(order.expiresAt) < new Date())
-  const isCancelled = order.status === 'cancelled'
+  const isPaid            = order.status === 'paid'
+  const isAwaitingConfirm = order.status === 'awaiting_confirmation'
+  const isExpired         = order.status === 'expired' || (order.status === 'pending' && new Date(order.expiresAt) < new Date())
+  const isCancelled       = order.status === 'cancelled'
 
   function orderTitle() {
     if (order.type === 'subscription') {
@@ -73,6 +75,16 @@ export default async function CheckoutPage({
             <Link href="/editor" className="ml-auto px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition-colors whitespace-nowrap">
               Vào soạn thảo →
             </Link>
+          </div>
+        )}
+
+        {isAwaitingConfirm && (
+          <div className="mb-8 flex items-center gap-3 bg-blue-50 border border-blue-200 rounded-2xl px-5 py-4">
+            <Hourglass className="w-6 h-6 text-blue-500 flex-shrink-0" />
+            <div>
+              <p className="font-semibold text-blue-800">Đang chờ xác nhận thanh toán</p>
+              <p className="text-sm text-blue-700">Chúng tôi đã nhận được ảnh chuyển khoản của bạn. Gói sẽ được kích hoạt trong vòng 1–4 giờ.</p>
+            </div>
           </div>
         )}
 
@@ -114,8 +126,8 @@ export default async function CheckoutPage({
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Trạng thái</span>
-                <span className={`font-semibold ${isPaid ? 'text-emerald-600' : isExpired ? 'text-red-500' : 'text-amber-600'}`}>
-                  {isPaid ? 'Đã thanh toán' : isExpired ? 'Hết hạn' : isCancelled ? 'Đã huỷ' : 'Chờ thanh toán'}
+                <span className={`font-semibold ${isPaid ? 'text-emerald-600' : isExpired ? 'text-red-500' : isAwaitingConfirm ? 'text-blue-600' : isCancelled ? 'text-gray-500' : 'text-amber-600'}`}>
+                  {isPaid ? 'Đã thanh toán' : isExpired ? 'Hết hạn' : isCancelled ? 'Đã huỷ' : isAwaitingConfirm ? 'Chờ xác nhận' : 'Chờ thanh toán'}
                 </span>
               </div>
               {!isPaid && !isExpired && !isCancelled && (
@@ -131,7 +143,7 @@ export default async function CheckoutPage({
           </div>
 
           {/* Payment instructions */}
-          {!isPaid && !isExpired && !isCancelled && (
+          {!isPaid && !isExpired && !isCancelled && !isAwaitingConfirm && (
             <div className="md:col-span-3 bg-white rounded-2xl border border-indigo-100 shadow-sm p-6">
               <div className="flex items-center gap-2 mb-5">
                 <Banknote className="w-5 h-5 text-indigo-600" />
@@ -170,7 +182,9 @@ export default async function CheckoutPage({
                 </ul>
               </div>
 
-              <p className="mt-4 text-xs text-gray-400 text-center">
+              <ConfirmPaymentModal orderId={order.orderId} />
+
+              <p className="mt-2 text-xs text-gray-400 text-center">
                 Cần hỗ trợ? Email:{' '}
                 <a href="mailto:support@aicontentbooster.vn" className="underline hover:text-gray-600">
                   support@aicontentbooster.vn
@@ -187,6 +201,17 @@ export default async function CheckoutPage({
               <Link href="/editor" className="mt-2 px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors">
                 Bắt đầu tạo nội dung →
               </Link>
+            </div>
+          )}
+
+          {isAwaitingConfirm && (
+            <div className="md:col-span-3 bg-blue-50 rounded-2xl border border-blue-100 p-6 flex flex-col items-center justify-center text-center gap-3">
+              <Hourglass className="w-16 h-16 text-blue-400" />
+              <p className="text-xl font-bold text-blue-800">Đã nhận ảnh xác nhận!</p>
+              <p className="text-sm text-blue-700 max-w-xs">
+                Chúng tôi sẽ kiểm tra và kích hoạt gói trong vòng <strong>1–4 giờ</strong>. Bạn sẽ nhận email thông báo khi gói được kích hoạt.
+              </p>
+              <p className="text-xs text-blue-500">Bạn có thể đóng trang này và quay lại sau.</p>
             </div>
           )}
 

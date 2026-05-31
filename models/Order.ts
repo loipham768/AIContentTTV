@@ -16,9 +16,12 @@ const OrderSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ['pending', 'paid', 'cancelled', 'expired'],
+      enum: ['pending', 'awaiting_confirmation', 'paid', 'cancelled', 'expired'],
       default: 'pending',
     },
+
+    // Payment proof uploaded by user
+    paymentProofUrl: { type: String, default: null },
 
     // Payment window — order expires after 24h if unpaid
     expiresAt:   { type: Date, required: true },
@@ -30,6 +33,11 @@ const OrderSchema = new mongoose.Schema(
 
 OrderSchema.index({ userId: 1, status: 1 })
 OrderSchema.index({ status: 1, expiresAt: 1 })
+
+// Delete cached model in dev so schema changes take effect on hot-reload
+if (process.env.NODE_ENV !== 'production') {
+  delete (mongoose.models as any).Order
+}
 
 const Order = mongoose.models.Order || mongoose.model('Order', OrderSchema)
 export default Order

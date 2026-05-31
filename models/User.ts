@@ -27,7 +27,8 @@ const UserSchema = new mongoose.Schema(
     planExpiresAt: { type: Date, default: null },
 
     // Pay-as-you-go credits (never expire)
-    credits: { type: Number, default: 0 },
+    credits:      { type: Number, default: 0 },
+    creditsTotal: { type: Number, default: 0 },
 
     // Deprecated: merged into credits via one-time migration in planGate
     creditsLandingPages: { type: Number, default: 0 },

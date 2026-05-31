@@ -25,8 +25,12 @@ export default async function ProfilePage() {
       <header className="bg-white border-b border-gray-100 sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
           <Logo iconSize={28} uid="profile-h" />
-          <Link href="/editor" className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors">
-            <ArrowLeft className="w-4 h-4" /> Trình soạn thảo
+          <Link
+            href={planInfo?.plan === 'designer' ? '/editor' : '/create'}
+            className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            {planInfo?.plan === 'designer' ? 'Trình soạn thảo' : 'Tạo nội dung'}
           </Link>
         </div>
       </header>
@@ -44,6 +48,7 @@ export default async function ProfilePage() {
             generationsUsed:  planInfo?.generationsUsed ?? 0,
             generationsLimit: planInfo?.generationsLimit ?? 4,
             credits:          planInfo?.credits ?? 0,
+            creditsTotal:     planInfo?.creditsTotal ?? 0,
           }}
         />
       </main>

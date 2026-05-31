@@ -56,7 +56,9 @@ export async function POST(
     user.planExpiresAt = newExpiry
   } else {
     // Credit pack — add credits
-    user.credits += order.creditsHtml ?? 0
+    const added = order.creditsHtml ?? 0
+    user.credits += added
+    user.creditsTotal = (user.creditsTotal ?? 0) + added
   }
 
   order.status = 'paid'

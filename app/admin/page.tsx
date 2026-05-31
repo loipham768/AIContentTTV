@@ -70,6 +70,7 @@ async function getAdminData(sessionUserId: string) {
     expiresAt: (o.expiresAt as Date).toISOString(),
     activatedAt: o.activatedAt ? (o.activatedAt as Date).toISOString() : null,
     adminNote: o.adminNote ?? '',
+    paymentProofUrl: o.paymentProofUrl ?? null,
     createdAt: (o.createdAt as Date).toISOString(),
   }))
 
