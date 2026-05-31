@@ -4,6 +4,26 @@ import { dbConnect } from '@/lib/mongodb'
 import User from '@/models/User'
 import Project from '@/models/Project'
 
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const session = await auth()
+  if (!session?.user?.id) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  await dbConnect()
+  const me = await User.findById(session.user.id).lean() as any
+  if (!(me?.isAdmin || me?.email === process.env.ADMIN_EMAIL)) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
+  const { id } = await params
+  const project = await Project.findById(id).lean()
+  if (!project) return NextResponse.json({ error: 'Not found' }, { status: 404 })
+
+  return NextResponse.json({ project })
+}
+
 export const runtime = 'nodejs'
 
 async function isAdmin(userId: string): Promise<boolean> {
