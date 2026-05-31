@@ -28,14 +28,25 @@ export async function authorize(
   return { id: user._id.toString(), email: user.email as string };
 }
 
-export function jwtCallback({
+export async function jwtCallback({
   token,
   user,
 }: {
   token: JWT;
   user?: { id?: string };
 }) {
-  if (user?.id) token.id = user.id;
+  if (user?.id) {
+    token.id = user.id;
+    return token;
+  }
+
+  // On subsequent requests, verify user still exists and is active
+  if (token.id) {
+    await dbConnect();
+    const dbUser = await User.findById(token.id).select("isActive").lean() as any;
+    if (!dbUser || dbUser.isActive === false) return null;
+  }
+
   return token;
 }
 

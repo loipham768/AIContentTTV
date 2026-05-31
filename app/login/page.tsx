@@ -17,7 +17,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
     if (isCredits && pack) {
       redirect(`/upgrade?type=credits&pack=${pack}`)
     }
-    if (plan === 'basic' || plan === 'pro') {
+    if (plan === 'designer' || plan === 'basic' || plan === 'pro') {
       redirect(`/upgrade?plan=${plan}`)
     }
     redirect('/editor')

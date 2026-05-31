@@ -11,6 +11,7 @@ import Logo from '@/components/Logo'
 import { Users, LayoutTemplate, Activity, TrendingUp } from 'lucide-react'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 
 function escapeRegex(s: string) {

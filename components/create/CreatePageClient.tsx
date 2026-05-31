@@ -529,7 +529,7 @@ const CONTENT_TYPE_IDS: ContentTypeId[] = ["landing", "article", "ads"];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function CreatePageClient({ plan = 'free' }: { plan?: string }) {
+export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
   const router = useRouter();
 
   // Full message history sent to Gemini
@@ -737,7 +737,7 @@ export default function CreatePageClient({ plan = 'free' }: { plan?: string }) {
   // ─── Render ─────────────────────────────────────────────────────────────────
 
   // Designer plan cannot use AI generation
-  if (plan === 'designer') {
+  if (plan === "designer") {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex flex-col">
         <header className="flex items-center justify-between px-6 py-4 border-b border-white/5 flex-shrink-0">
@@ -754,10 +754,16 @@ export default function CreatePageClient({ plan = 'free' }: { plan?: string }) {
               <PenTool className="w-8 h-8 text-teal-400" />
             </div>
             <div className="space-y-2">
-              <h1 className="text-2xl font-bold text-white">Gói Designer không có AI</h1>
+              <h1 className="text-2xl font-bold text-white">
+                Gói Designer không có AI
+              </h1>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Gói <span className="text-teal-400 font-semibold">Designer</span> được thiết kế cho việc tự tay thiết kế — không bao gồm tính năng tạo nội dung bằng AI.
-                Để dùng AI, bạn cần nâng cấp lên gói <span className="text-indigo-400 font-semibold">Basic</span> hoặc <span className="text-amber-400 font-semibold">Pro</span>.
+                Gói{" "}
+                <span className="text-teal-400 font-semibold">Designer</span>{" "}
+                được thiết kế cho việc tự tay thiết kế — không bao gồm tính năng
+                tạo nội dung bằng AI. Để dùng AI, bạn cần nâng cấp lên gói{" "}
+                <span className="text-indigo-400 font-semibold">Basic</span>{" "}
+                hoặc <span className="text-amber-400 font-semibold">Pro</span>.
               </p>
             </div>
             <div className="flex flex-col gap-3">
@@ -786,7 +792,7 @@ export default function CreatePageClient({ plan = 'free' }: { plan?: string }) {
           </div>
         </main>
       </div>
-    )
+    );
   }
 
   return (
@@ -809,23 +815,26 @@ export default function CreatePageClient({ plan = 'free' }: { plan?: string }) {
             <Pencil className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Soạn thảo trống</span>
           </a>
-          <Link href="/profile" title={`Gói ${plan === 'free' ? 'Miễn phí' : plan === 'designer' ? 'Designer' : plan === 'basic' ? 'Basic' : 'Pro'} · Xem profile`}>
-            {plan === 'free' && (
+          <Link
+            href="/profile"
+            title={`Gói ${plan === "free" ? "Miễn phí" : plan === "designer" ? "Designer" : plan === "basic" ? "Basic" : "Pro"} · Xem profile`}
+          >
+            {plan === "free" && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold text-slate-400 bg-slate-800 border border-slate-700 hover:border-slate-500 transition-colors">
                 <Sparkles className="w-2.5 h-2.5" /> Free
               </span>
             )}
-            {plan === 'designer' && (
+            {plan === "designer" && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-gradient-to-r from-teal-500 to-cyan-500 shadow-sm shadow-teal-500/30">
                 <PenTool className="w-2.5 h-2.5" /> Designer
               </span>
             )}
-            {plan === 'basic' && (
+            {plan === "basic" && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-gradient-to-r from-indigo-500 to-violet-500 shadow-sm shadow-indigo-500/30">
                 <Crown className="w-2.5 h-2.5" /> Basic
               </span>
             )}
-            {plan === 'pro' && (
+            {plan === "pro" && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-amber-900 bg-gradient-to-r from-amber-400 to-orange-400 shadow-sm shadow-amber-500/30">
                 <Gem className="w-2.5 h-2.5" /> Pro
               </span>
@@ -940,16 +949,20 @@ export default function CreatePageClient({ plan = 'free' }: { plan?: string }) {
               <div className="flex items-start gap-2">
                 <Info className="w-3.5 h-3.5 text-slate-500 flex-shrink-0 mt-0.5" />
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  AI sẽ tạo khung nội dung dựa trên ý tưởng của bạn — chưa hoàn chỉnh 100%.
-                  Sau khi tạo xong, bạn có thể kéo thả, chỉnh sửa từng đoạn văn, thay hình ảnh
-                  và tinh chỉnh tự do trong trình soạn thảo để ra sản phẩm cuối cùng theo đúng ý mình.
+                  AI sẽ tạo khung nội dung dựa trên ý tưởng của bạn — chưa hoàn
+                  chỉnh 100%. Sau khi tạo xong, bạn có thể kéo thả, chỉnh sửa
+                  từng đoạn văn, thay hình ảnh và tinh chỉnh tự do trong trình
+                  soạn thảo để ra sản phẩm cuối cùng theo đúng ý mình.
                 </p>
               </div>
               <div className="flex items-start gap-2">
                 <Info className="w-3.5 h-3.5 text-amber-600/70 flex-shrink-0 mt-0.5" />
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Một số block có hiệu ứng động như <span className="text-slate-400">slider, tab, accordion</span>... cần JavaScript để hoạt động.
-                  Nếu trang web hoặc nền tảng bạn nhúng nội dung không cho phép script, các block này có thể hiển thị không như mong muốn.
+                  Một số block có hiệu ứng động như{" "}
+                  <span className="text-slate-400">slider, tab, accordion</span>
+                  ... cần JavaScript để hoạt động. Nếu trang web hoặc nền tảng
+                  bạn nhúng nội dung không cho phép script, các block này có thể
+                  hiển thị không như mong muốn.
                 </p>
               </div>
             </div>
@@ -1020,9 +1033,13 @@ export default function CreatePageClient({ plan = 'free' }: { plan?: string }) {
                       <Sparkles className="w-3.5 h-3.5 text-white" />
                     </div>
                     <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm rounded-2xl rounded-tl-sm px-4 py-3 space-y-1.5">
-                      <p className="font-medium">Khung nội dung đã được tạo xong!</p>
+                      <p className="font-medium">
+                        Khung nội dung đã được tạo xong!
+                      </p>
                       <p className="text-emerald-400/80 text-xs leading-relaxed">
-                        Đây là bản thảo ~80% theo ý bạn. Mở trình soạn thảo để kéo thả, thay hình ảnh, chỉnh từng đoạn văn và hoàn thiện theo ý tưởng của bạn.
+                        Đây là bản thảo ~80% theo ý bạn. Mở trình soạn thảo để
+                        kéo thả, thay hình ảnh, chỉnh từng đoạn văn và hoàn
+                        thiện theo ý tưởng của bạn.
                       </p>
                     </div>
                   </div>
