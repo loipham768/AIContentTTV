@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { writeFile, mkdir } from 'fs/promises'
-import path from 'path'
+import { put } from '@vercel/blob'
 import { auth } from '@/auth'
 
 export const runtime = 'nodejs'
@@ -41,20 +40,15 @@ export async function POST(req: NextRequest) {
   }
 
   const ext = file.name.split('.').pop()?.toLowerCase() ?? 'jpg'
-  const safeName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
-  const uploadsDir = path.join(process.cwd(), 'public', 'uploads')
+  const safeName = `uploads/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
 
   try {
-    await mkdir(uploadsDir, { recursive: true })
-    const buffer = Buffer.from(await file.arrayBuffer())
-    await writeFile(path.join(uploadsDir, safeName), buffer)
+    const blob = await put(safeName, file, { access: 'public' })
+    return NextResponse.json({
+      data: [{ src: blob.url, name: file.name, type: 'image' }],
+    })
   } catch (err) {
-    console.error('[/api/upload] write error:', err)
+    console.error('[/api/upload] blob error:', err)
     return NextResponse.json({ error: 'Lỗi lưu file. Vui lòng thử lại.' }, { status: 500 })
   }
-
-  // GrapesJS Asset Manager expects { data: [{ src, name, type }] }
-  return NextResponse.json({
-    data: [{ src: `/uploads/${safeName}`, name: file.name, type: 'image' }],
-  })
 }
