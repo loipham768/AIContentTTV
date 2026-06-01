@@ -98,7 +98,7 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
       if (!selected) return;
       const cur = selected.getStyle();
       if (value) {
-        const next = { ...cur, '-webkit-text-fill-color': value };
+        const next: Record<string, string> = { ...cur, '-webkit-text-fill-color': value };
         // If gradient-text was active inline, clear it so solid color takes over cleanly
         if (cur['-webkit-background-clip'] === 'text') {
           delete next['background'];

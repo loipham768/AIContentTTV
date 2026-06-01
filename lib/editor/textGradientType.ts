@@ -115,7 +115,7 @@ export function registerTextGradientType(editor: Editor) {
       const selected = editor.getSelected()
       const style = selected?.getStyle?.() ?? {}
       const isTextGrad = style['-webkit-text-fill-color'] === 'transparent'
-      highlightActive(el, isTextGrad ? (style['background'] ?? '') : '')
+      highlightActive(el, isTextGrad ? String(style['background'] ?? '') : '')
     },
 
     destroy() {},
@@ -152,7 +152,7 @@ export function registerBgGradientType(editor: Editor) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     update({ el }: any) {
       const selected = editor.getSelected()
-      const current: string = selected?.getStyle?.()?.['background-image'] ?? ''
+      const current: string = String(selected?.getStyle?.()?.['background-image'] ?? '')
       highlightActive(el, current)
     },
 
