@@ -18,9 +18,14 @@ import { ARTICLES } from "@/lib/articles";
 
 export const metadata = {
   title: "Kiến thức AI Content | AITaoPage",
-  description:
-    "Hướng dẫn, mẹo và chiến lược tạo nội dung bằng AI cho thị trường Việt Nam.",
-  alternates: { canonical: "https://aicontentbooster.vn/kien-thuc" },
+  description: "Hướng dẫn, mẹo và chiến lược tạo nội dung bằng AI cho thị trường Việt Nam.",
+  alternates: { canonical: "https://taopage.vn/kien-thuc" },
+  openGraph: {
+    title: "Kiến thức AI Content | AITaoPage",
+    description: "Hướng dẫn, mẹo và chiến lược tạo nội dung bằng AI cho thị trường Việt Nam.",
+    url: "https://taopage.vn/kien-thuc",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
 };
 
 type CategoryKey =

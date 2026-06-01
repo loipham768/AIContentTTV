@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
 import { dbConnect } from '@/lib/mongodb'
@@ -5,6 +6,17 @@ import Order from '@/models/Order'
 import User from '@/models/User'
 import { PLAN_PRICES, CREDIT_PACKS, type CreditPackId } from '@/lib/planConfig'
 import { sendNewOrderAdminEmail } from '@/lib/email'
+
+export const metadata: Metadata = {
+  title: 'Nâng cấp gói — AITaoPage',
+  description: 'Nâng cấp lên Basic hoặc Pro để tạo không giới hạn landing page, bài viết và quảng cáo bằng AI.',
+  openGraph: {
+    title: 'Nâng cấp gói — AITaoPage',
+    description: 'Nâng cấp lên Basic hoặc Pro để tạo không giới hạn landing page, bài viết và quảng cáo bằng AI.',
+    url: 'https://taopage.vn/upgrade',
+    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
+  },
+}
 
 export const runtime = 'nodejs'
 

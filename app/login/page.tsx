@@ -1,6 +1,18 @@
+import type { Metadata } from 'next'
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
 import { LoginRegisterCard } from '@/components/auth/LoginRegisterCard'
+
+export const metadata: Metadata = {
+  title: 'Đăng nhập / Đăng ký — AITaoPage',
+  description: 'Đăng nhập hoặc tạo tài khoản AITaoPage để bắt đầu tạo nội dung HTML đẹp với AI.',
+  openGraph: {
+    title: 'Đăng nhập / Đăng ký — AITaoPage',
+    description: 'Đăng nhập hoặc tạo tài khoản AITaoPage để bắt đầu tạo nội dung HTML đẹp với AI.',
+    url: 'https://taopage.vn/login',
+    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
+  },
+}
 
 interface LoginPageProps {
   searchParams: Promise<{ callbackUrl?: string; plan?: string; type?: string; pack?: string }>
