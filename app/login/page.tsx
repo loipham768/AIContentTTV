@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 }
 
 interface LoginPageProps {
-  searchParams: Promise<{ callbackUrl?: string; plan?: string; type?: string; pack?: string }>
+  searchParams: Promise<{ callbackUrl?: string; plan?: string; type?: string; pack?: string; tab?: string }>
 }
 
 export default async function LoginPage({ searchParams }: LoginPageProps) {
@@ -32,12 +32,12 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
     if (plan === 'designer' || plan === 'basic' || plan === 'pro') {
       redirect(`/upgrade?plan=${plan}`)
     }
-    redirect('/editor')
+    redirect('/')
   }
 
-  const callbackUrl = params.callbackUrl || '/editor'
-  // Pass credits intent via initialPlan so card can redirect after register
+  const callbackUrl = params.callbackUrl || '/'
   const initialPlan = isCredits ? `credits:${pack}` : plan
+  const initialTab = params.tab === 'register' ? 'register' : undefined
 
-  return <LoginRegisterCard callbackUrl={callbackUrl} initialPlan={initialPlan} />
+  return <LoginRegisterCard callbackUrl={callbackUrl} initialPlan={initialPlan} initialTab={initialTab} />
 }

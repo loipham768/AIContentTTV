@@ -41,14 +41,16 @@ const PLAN_OPTIONS: {
 interface LoginRegisterCardProps {
   callbackUrl?: string;
   initialPlan?: string;
+  initialTab?: "login" | "register";
 }
 
 type Tab = "login" | "register";
 type Step = "form" | "otp";
 
 export function LoginRegisterCard({
-  callbackUrl = "/editor",
+  callbackUrl = "/",
   initialPlan = "",
+  initialTab,
 }: LoginRegisterCardProps) {
   const isCreditsIntent = initialPlan.startsWith("credits:");
   const creditsPackId = isCreditsIntent ? initialPlan.split(":")[1] : "";
@@ -60,7 +62,7 @@ export function LoginRegisterCard({
       : "free";
 
   const [tab, setTab] = useState<Tab>(
-    validInitial !== "free" || isCreditsIntent ? "register" : "login",
+    initialTab ?? (validInitial !== "free" || isCreditsIntent ? "register" : "login"),
   );
   const [step, setStep] = useState<Step>("form");
   const [email, setEmail] = useState("");

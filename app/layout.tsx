@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Be_Vietnam_Pro, JetBrains_Mono } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 
 const beVietnamPro = Be_Vietnam_Pro({
@@ -54,6 +55,7 @@ export default function RootLayout({
       <body
         className={`${beVietnamPro.variable} ${jetBrainsMono.variable} antialiased`}
       >
+        <NextTopLoader color="#4f46e5" height={3} showSpinner={false} />
         {children}
       </body>
     </html>

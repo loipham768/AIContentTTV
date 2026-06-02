@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import type { Editor } from 'grapesjs'
-import { GrapesBlockSchema } from '@/lib/ai/schema'
+import { resolveCssVariables } from '@/lib/cssIsolation'
 import { ConfirmModal } from '@/components/ui/ConfirmModal'
 import { Clock, FolderOpen, Trash2, AlertTriangle, Pencil, Check, X } from 'lucide-react'
 
@@ -33,21 +33,36 @@ export default function HistoryPanel({ editorRef, refreshKey }: HistoryPanelProp
       .finally(() => setLoading(false))
   }, [refreshKey])
 
+  function loadIntoEditor(editor: Editor, blockData: Record<string, unknown>) {
+    // Xử lý cả 2 format: AI HTML { type:'html', html:'...' } và GrapesJS project JSON
+    if (blockData.type === 'html' && typeof blockData.html === 'string') {
+      const doc = new DOMParser().parseFromString(blockData.html, 'text/html')
+      const rawCss = Array.from(doc.querySelectorAll('style')).map(s => s.textContent ?? '').join('\n')
+      editor.setComponents(doc.body.innerHTML)
+      const css = rawCss.trim() ? resolveCssVariables(rawCss) : rawCss
+      if (css.trim()) editor.setStyle(css)
+    } else {
+      // Truyền thẳng vào loadProjectData — KHÔNG qua Zod safeParse vì Zod strip unknown fields
+      // làm mất id/attributes/classes của các component GrapesJS
+      editor.loadProjectData(blockData as Parameters<typeof editor.loadProjectData>[0])
+    }
+  }
+
   function handleOpen(project: Project) {
     const editor = editorRef.current
     if (!editor) return
-    const parsed = GrapesBlockSchema.safeParse(project.blockData)
-    if (!parsed.success) { alert('Khối dữ liệu không hợp lệ.'); return }
+    if (!project.blockData || typeof project.blockData !== 'object') {
+      alert('Khối dữ liệu không hợp lệ.')
+      return
+    }
     if (editor.getDirtyCount() > 0) { setModalState({ type: 'reopen', project }); return }
-    editor.loadProjectData(parsed.data as Parameters<typeof editor.loadProjectData>[0])
+    loadIntoEditor(editor, project.blockData)
   }
 
   function handleConfirmReopen(project: Project) {
     const editor = editorRef.current
     if (!editor) return
-    const parsed = GrapesBlockSchema.safeParse(project.blockData)
-    if (!parsed.success) return
-    editor.loadProjectData(parsed.data as Parameters<typeof editor.loadProjectData>[0])
+    loadIntoEditor(editor, project.blockData)
     setModalState({ type: 'none' })
   }
 

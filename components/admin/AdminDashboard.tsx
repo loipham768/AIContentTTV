@@ -254,9 +254,9 @@ export default function AdminDashboard({
     (t: Tab) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set("tab", t);
-      params.delete("op");
-      params.delete("up");
-      params.delete("pp");
+      // Reset pagination và search của tất cả tabs khi chuyển tab
+      params.delete("op"); params.delete("up"); params.delete("pp");
+      params.delete("oq"); params.delete("uq"); params.delete("pq");
       router.replace(`?${params.toString()}`, { scroll: false });
     },
     [router, searchParams],
@@ -282,6 +282,14 @@ export default function AdminDashboard({
   const [ordersQ, setOrdersQ] = useState(searchParams.get("oq") ?? "");
   const [usersQ, setUsersQ] = useState(searchParams.get("uq") ?? "");
   const [projectsQ, setProjectsQ] = useState(searchParams.get("pq") ?? "");
+
+  // Reset search inputs khi tab thay đổi (setTab đã xóa params khỏi URL)
+  useEffect(() => {
+    setOrdersQ(searchParams.get("oq") ?? "");
+    setUsersQ(searchParams.get("uq") ?? "");
+    setProjectsQ(searchParams.get("pq") ?? "");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab]);
 
   const ordersDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const usersDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);

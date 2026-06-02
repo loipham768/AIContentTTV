@@ -57,12 +57,6 @@ async function getAdminData(
       Order.countDocuments({ status: { $in: ['pending', 'awaiting_confirmation'] } }),
     ])
 
-  // ── Email map (all users, for joining) ──────────────────────────────────
-  const allUserIds = await User.find({}, { email: 1 }).lean() as any[]
-  const emailMap: Record<string, string> = Object.fromEntries(
-    allUserIds.map(u => [u._id.toString(), u.email as string]),
-  )
-
   // ── Users ───────────────────────────────────────────────────────────────
   const userFilter = uq
     ? {
@@ -74,25 +68,33 @@ async function getAdminData(
       }
     : {}
 
-  const [usersTotal, usersRaw, projectCounts] = await Promise.all([
+  const [usersTotal, usersRaw] = await Promise.all([
     User.countDocuments(userFilter),
     User.find(userFilter, { passwordHash: 0 })
       .sort({ createdAt: -1 })
       .skip((up - 1) * PAGE_SIZE)
       .limit(PAGE_SIZE)
       .lean(),
-    Project.aggregate([{ $group: { _id: '$userId', count: { $sum: 1 } } }]),
   ])
 
+  // projectCounts chỉ scope trên trang users hiện tại — không aggregate toàn bộ collection
+  const userIdsOnPage = (usersRaw as any[]).map((u: any) => u._id.toString())
+  const projectCounts = userIdsOnPage.length
+    ? await Project.aggregate([
+        { $match: { userId: { $in: userIdsOnPage } } },
+        { $group: { _id: '$userId', count: { $sum: 1 } } },
+      ])
+    : []
+
   const countMap: Record<string, number> = Object.fromEntries(
-    (projectCounts as any[]).map(c => [c._id, c.count]),
+    (projectCounts as any[]).map((c: any) => [c._id, c.count]),
   )
 
   // ── Orders ──────────────────────────────────────────────────────────────
-  const matchedUserIds = oq
-    ? allUserIds
-        .filter(u => (u.email as string).toLowerCase().includes(oq.toLowerCase()))
-        .map(u => u._id.toString())
+  // Tìm userIds match email search trực tiếp trên DB (không load toàn bộ users vào RAM)
+  const orderEmailMatches = oq
+    ? (await User.find({ email: { $regex: escapeRegex(oq), $options: 'i' } }, { _id: 1 }).lean() as any[])
+        .map((u: any) => u._id.toString())
     : []
 
   const ordersFilter = oq
@@ -100,7 +102,7 @@ async function getAdminData(
         $or: [
           { orderId: { $regex: escapeRegex(oq), $options: 'i' } },
           { status:  { $regex: escapeRegex(oq), $options: 'i' } },
-          ...(matchedUserIds.length ? [{ userId: { $in: matchedUserIds } }] : []),
+          ...(orderEmailMatches.length ? [{ userId: { $in: orderEmailMatches } }] : []),
         ],
       }
     : {}
@@ -115,10 +117,9 @@ async function getAdminData(
   ])
 
   // ── Projects ─────────────────────────────────────────────────────────────
-  const matchedProjUserIds = pq
-    ? allUserIds
-        .filter(u => (u.email as string).toLowerCase().includes(pq.toLowerCase()))
-        .map(u => u._id.toString())
+  const projEmailMatches = pq
+    ? (await User.find({ email: { $regex: escapeRegex(pq), $options: 'i' } }, { _id: 1 }).lean() as any[])
+        .map((u: any) => u._id.toString())
     : []
 
   const projectsFilter = pq
@@ -126,7 +127,7 @@ async function getAdminData(
         $or: [
           { name:   { $regex: escapeRegex(pq), $options: 'i' } },
           { prompt: { $regex: escapeRegex(pq), $options: 'i' } },
-          ...(matchedProjUserIds.length ? [{ userId: { $in: matchedProjUserIds } }] : []),
+          ...(projEmailMatches.length ? [{ userId: { $in: projEmailMatches } }] : []),
         ],
       }
     : {}
@@ -139,6 +140,20 @@ async function getAdminData(
       .limit(PAGE_SIZE)
       .lean(),
   ])
+
+  // ── Email map — chỉ lookup emails cho users hiển thị trên trang hiện tại ──
+  const visibleUserIds = [
+    ...new Set([
+      ...(ordersRaw as any[]).map((o: any) => o.userId),
+      ...(projectsRaw as any[]).map((p: any) => p.userId),
+    ]),
+  ]
+  const emailDocs = visibleUserIds.length
+    ? (await User.find({ _id: { $in: visibleUserIds } }, { email: 1 }).lean() as any[])
+    : []
+  const emailMap: Record<string, string> = Object.fromEntries(
+    emailDocs.map((u: any) => [u._id.toString(), u.email as string]),
+  )
 
   // ── Map rows ─────────────────────────────────────────────────────────────
   const userRows: UserRow[] = (usersRaw as any[]).map(u => ({

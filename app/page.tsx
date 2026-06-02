@@ -4,13 +4,15 @@ import {
   Zap, LayoutTemplate, Code2, Globe, History,
   CheckCircle2, ArrowRight, Star, Sparkles, Copy, MousePointer2,
   MessageSquare, ShieldCheck, FileDown, Layers, Crown,
-  BookOpen, Tag, LogIn,
+  BookOpen, Tag, LogIn, UserPlus,
 } from 'lucide-react'
 
 import ScrollReveal from '@/components/ScrollReveal'
 import TestimonialsCarousel from '@/components/TestimonialsCarousel'
 import Logo from '@/components/Logo'
 import UserAvatar from '@/components/UserAvatar'
+import MobileNav from '@/components/MobileNav'
+import UserMenu from '@/components/UserMenu'
 import { dbConnect } from '@/lib/mongodb'
 import User from '@/models/User'
 
@@ -256,48 +258,48 @@ export default async function LandingPage() {
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Logo iconSize={32} uid="nav" />
-          <nav className="flex items-center gap-1">
-            <Link href="/kien-thuc" className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
+
+          {/* Desktop nav — ẩn hoàn toàn trên mobile */}
+          <nav className="hidden md:flex items-center gap-1">
+            <Link href="/kien-thuc" className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
               <BookOpen className="w-4 h-4" /> Kiến thức
             </Link>
-            <Link href="/templates" className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
+            <Link href="/templates" className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
               <LayoutTemplate className="w-4 h-4" /> Mẫu có sẵn
             </Link>
-            <Link href="/#pricing" className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
+            <Link href="/#pricing" className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
               <Tag className="w-4 h-4" /> Bảng giá
             </Link>
             {isLoggedIn ? (
-              <div className="flex items-center gap-2">
-                <Link href="/create" className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold btn-gradient text-white rounded-lg shadow-sm whitespace-nowrap">
+              <div className="flex items-center gap-2 ml-2">
+                <Link href="/create" className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold btn-gradient text-white rounded-lg shadow-sm">
                   <Zap className="w-3.5 h-3.5" /> Tạo nội dung
                 </Link>
-                <Link
-                  href="/profile"
-                  title={userProfile?.fullName || (session!.user!.email ?? '')}
-                  className="group flex items-center gap-2 p-1 sm:pr-3 rounded-full border border-gray-200 hover:border-indigo-300 hover:shadow-md hover:shadow-indigo-100 transition-all bg-white"
-                >
-                  <UserAvatar
-                    avatarUrl={userProfile?.avatarUrl}
-                    fullName={userProfile?.fullName}
-                    email={session!.user!.email ?? ''}
-                    size={30}
-                  />
-                  <span className="hidden sm:block text-sm font-medium text-gray-700 group-hover:text-indigo-700 max-w-[96px] truncate">
-                    {userProfile?.fullName?.split(' ').pop() || 'Profile'}
-                  </span>
-                </Link>
+                <UserMenu
+                  avatarUrl={userProfile?.avatarUrl}
+                  fullName={userProfile?.fullName}
+                  email={session!.user!.email ?? ''}
+                />
               </div>
             ) : (
-              <>
-                <Link href="/login" className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+              <div className="flex items-center gap-2 ml-2">
+                <Link href="/login" className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors">
                   <LogIn className="w-4 h-4" /> Đăng nhập
                 </Link>
-                <Link href="/login" className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold btn-gradient text-white rounded-lg shadow-sm whitespace-nowrap">
-                  <Sparkles className="w-3.5 h-3.5" /><span className="hidden sm:inline">Dùng thử </span>miễn phí
+                <Link href="/login?tab=register" className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold btn-gradient text-white rounded-lg shadow-sm">
+                  <UserPlus className="w-3.5 h-3.5" /> Đăng ký miễn phí
                 </Link>
-              </>
+              </div>
             )}
           </nav>
+
+          {/* Mobile — chỉ hiện hamburger */}
+          <MobileNav
+            isLoggedIn={isLoggedIn}
+            userName={userProfile?.fullName ?? session?.user?.email ?? undefined}
+            avatarUrl={userProfile?.avatarUrl}
+            email={session?.user?.email ?? undefined}
+          />
         </div>
       </header>
 
@@ -342,10 +344,16 @@ export default async function LandingPage() {
               </div>
 
               <div className="hero-cta flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <Link href="/login" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base font-semibold btn-gradient text-white rounded-xl animate-pulse-glow">
-                  Bắt đầu miễn phí
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+                {isLoggedIn ? (
+                  <Link href="/create" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base font-semibold btn-gradient text-white rounded-xl animate-pulse-glow">
+                    <Zap className="w-4 h-4" /> Tạo nội dung ngay
+                  </Link>
+                ) : (
+                  <Link href="/login?tab=register" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base font-semibold btn-gradient text-white rounded-xl animate-pulse-glow">
+                    Bắt đầu miễn phí
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                )}
                 <a href="#how-it-works" className="inline-flex items-center justify-center px-6 py-3.5 text-base font-semibold text-indigo-700 bg-white border border-indigo-200 rounded-xl hover:bg-indigo-50 transition-colors shadow-sm">
                   Xem cách hoạt động
                 </a>
@@ -502,7 +510,7 @@ export default async function LandingPage() {
                       </li>
                     ))}
                   </ul>
-                  <Link href="/login" className={`mt-5 block text-center py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r ${ct.grad} text-white hover:opacity-90 transition-opacity shadow-sm`}>
+                  <Link href={isLoggedIn ? '/create' : '/login?tab=register'} className={`mt-5 block text-center py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r ${ct.grad} text-white hover:opacity-90 transition-opacity shadow-sm`}>
                     Tạo {ct.title} →
                   </Link>
                 </div>
@@ -907,7 +915,8 @@ export default async function LandingPage() {
               <Link href="/templates" className="hover:text-white transition-colors">Mẫu có sẵn</Link>
               <Link href="/kien-thuc" className="hover:text-white transition-colors">Kiến thức</Link>
               <a href="mailto:support@aicontentbooster.vn" className="hover:text-white transition-colors">Liên hệ</a>
-              <Link href="/login" className="hover:text-white transition-colors">Đăng nhập</Link>
+              {!isLoggedIn && <Link href="/login" className="hover:text-white transition-colors">Đăng nhập</Link>}
+              {isLoggedIn && <Link href="/create" className="hover:text-white transition-colors">Tạo nội dung</Link>}
             </div>
             <p className="text-xs text-center text-gray-600">© 2026 AITaoPage</p>
           </div>

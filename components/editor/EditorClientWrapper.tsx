@@ -8,6 +8,7 @@ import {
   Trash2, Copy, ArrowUp, ArrowDown, EyeOff, Monitor, X, Sparkles,
 } from "lucide-react";
 import TopBar from "@/components/editor/TopBar";
+import ImagePickerModal from "@/components/editor/ImagePickerModal";
 
 
 const GrapesEditor = dynamic(() => import("@/components/editor/GrapesEditor"), {
@@ -52,6 +53,24 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
   const [currentProjectId, setCurrentProjectId] = useState<string | null>(initialProjectId ?? null);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Image picker modal state
+  const [imagePickerOpen, setImagePickerOpen] = useState(false);
+  const imagePickerSelectRef = useRef<((url: string) => void) | null>(null);
+  const imagePickerCancelRef = useRef<(() => void) | null>(null);
+
+  const openImagePicker = useCallback((onSelect: (url: string) => void, onCancel: () => void) => {
+    imagePickerSelectRef.current = onSelect;
+    imagePickerCancelRef.current = onCancel;
+    setImagePickerOpen(true);
+  }, []);
+
+  const closeImagePicker = useCallback(() => {
+    setImagePickerOpen(false);
+    imagePickerCancelRef.current?.(); // báo GrapesJS AM đóng nếu user cancel
+    imagePickerSelectRef.current = null;
+    imagePickerCancelRef.current = null;
+  }, []);
 
   const handleEditor = useCallback((editor: Editor) => {
     editorRef.current = editor;
@@ -368,7 +387,7 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
 
         {/* ── Center: Canvas ─────────────────────────────────────────── */}
         <div className="flex flex-col flex-1 overflow-hidden min-w-0">
-          <GrapesEditor onEditor={handleEditor} />
+          <GrapesEditor onEditor={handleEditor} onOpenImagePicker={openImagePicker} />
         </div>
 
         {/* ── Right: Style / Layers / History — always mounted so GrapesJS keeps its render targets ── */}
@@ -462,6 +481,18 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
           Thoát xem trước
         </button>
       )}
+
+      <ImagePickerModal
+        open={imagePickerOpen}
+        onSelect={(url) => {
+          // Null cancelRef trước để closeImagePicker không gọi amClose lần 2
+          imagePickerCancelRef.current = null;
+          imagePickerSelectRef.current?.(url);
+          setImagePickerOpen(false);
+          imagePickerSelectRef.current = null;
+        }}
+        onClose={closeImagePicker}
+      />
     </div>
   );
 }

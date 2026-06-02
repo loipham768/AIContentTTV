@@ -260,28 +260,54 @@ function extractFieldsViaRegex(text: string): unknown | null {
   return null;
 }
 
+// Statuses đáng retry: 503 (overload), 429 (rate limit), 500 (server error tạm thời)
+const RETRYABLE = new Set([429, 500, 503]);
+const MAX_ATTEMPTS = 3; // 1 lần gốc + 2 lần retry
+const RETRY_BASE_MS = 1000; // 1s, 2s (exponential backoff)
+
 async function fetchGemini(
   apiKey: string,
   model: string,
   messages: GeminiMessage[],
-) {
-  const res = await fetch(geminiUrl(model), {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-goog-api-key": apiKey,
+): Promise<Response> {
+  const body = JSON.stringify({
+    systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+    contents: messages,
+    generationConfig: {
+      temperature: 0.7,
+      maxOutputTokens: 65536,
+      responseMimeType: "application/json",
     },
-    body: JSON.stringify({
-      systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-      contents: messages,
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 65536,
-        responseMimeType: "application/json",
-      },
-    }),
   });
-  return res;
+
+  let lastRes: Response | null = null;
+
+  for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+    if (attempt > 0) {
+      const delay = RETRY_BASE_MS * 2 ** (attempt - 1); // 1000ms, 2000ms
+      console.warn(`[Gemini] ${model} retry ${attempt}/${MAX_ATTEMPTS - 1} after ${delay}ms`);
+      await new Promise((r) => setTimeout(r, delay));
+    }
+
+    const res = await fetch(geminiUrl(model), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-goog-api-key": apiKey,
+      },
+      body,
+    });
+
+    if (res.ok) return res;
+    lastRes = res;
+
+    // Không retry với lỗi auth/bad request — lỗi đó retry cũng vô nghĩa
+    if (!RETRYABLE.has(res.status)) return res;
+
+    console.warn(`[Gemini] ${model} attempt ${attempt + 1} status ${res.status}`);
+  }
+
+  return lastRes!;
 }
 
 export async function chatWithGemini(
