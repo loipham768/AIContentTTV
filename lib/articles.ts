@@ -1,25 +1,32 @@
 export interface Article {
-  slug: string
-  title: string
-  description: string
-  category: string
-  readTime: string
-  publishedDate: string
-  author: string
-  keywords: string[]
-  content: string // HTML string
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  readTime: string;
+  publishedDate: string;
+  author: string;
+  keywords: string[];
+  content: string; // HTML string
 }
 
 export const ARTICLES: Record<string, Article> = {
-  'cach-tao-landing-page-ban-hang-hieu-qua-2026': {
-    slug:          'cach-tao-landing-page-ban-hang-hieu-qua-2026',
-    title:         'Cách tạo landing page bán hàng hiệu quả năm 2026',
-    description:   'Hướng dẫn từng bước xây dựng landing page bán hàng chuyên nghiệp, tối ưu chuyển đổi với AI. Áp dụng được ngay trên Haravan, Sapo và WordPress.',
-    category:      'Landing Page',
-    readTime:      '8 phút',
-    publishedDate: '2026-05-20',
-    author:        'AITaoPage',
-    keywords:      ['tạo landing page', 'landing page bán hàng', 'landing page hiệu quả 2026', 'landing page Haravan', 'trang bán hàng AI'],
+  "cach-tao-landing-page-ban-hang-hieu-qua-2026": {
+    slug: "cach-tao-landing-page-ban-hang-hieu-qua-2026",
+    title: "Cách tạo landing page bán hàng hiệu quả năm 2026",
+    description:
+      "Hướng dẫn từng bước xây dựng landing page bán hàng chuyên nghiệp, tối ưu chuyển đổi với AI. Áp dụng được ngay trên Haravan, Sapo và WordPress.",
+    category: "Landing Page",
+    readTime: "8 phút",
+    publishedDate: "2026-05-20",
+    author: "AITaoPage",
+    keywords: [
+      "tạo landing page",
+      "landing page bán hàng",
+      "landing page hiệu quả 2026",
+      "landing page Haravan",
+      "trang bán hàng AI",
+    ],
     content: `
 <h2>Landing page bán hàng là gì và tại sao quan trọng?</h2>
 <p>Landing page bán hàng là trang web được thiết kế với một mục tiêu duy nhất: <strong>chuyển đổi khách truy cập thành khách hàng</strong>. Khác với trang chủ giới thiệu nhiều thông tin, landing page tập trung tất cả nội dung và thiết kế hướng đến một hành động cụ thể — đặt hàng, đăng ký, hay liên hệ.</p>
@@ -67,15 +74,22 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'so-sanh-cong-cu-viet-content-ai-tot-nhat': {
-    slug:          'so-sanh-cong-cu-viet-content-ai-tot-nhat',
-    title:         'So sánh 5 công cụ viết content AI tốt nhất cho người Việt 2026',
-    description:   'Đánh giá chi tiết ChatGPT, Claude, Gemini, Jasper và AITaoPage. Công cụ nào phù hợp nhất cho thị trường Việt Nam?',
-    category:      'So sánh',
-    readTime:      '12 phút',
-    publishedDate: '2026-05-18',
-    author:        'AITaoPage',
-    keywords:      ['công cụ viết content AI', 'so sánh AI content', 'ChatGPT vs Claude', 'AI viết bài tiếng Việt', 'tool AI marketing'],
+  "so-sanh-cong-cu-viet-content-ai-tot-nhat": {
+    slug: "so-sanh-cong-cu-viet-content-ai-tot-nhat",
+    title: "So sánh 5 công cụ viết content AI tốt nhất cho người Việt 2026",
+    description:
+      "Đánh giá chi tiết ChatGPT, Claude, Gemini, Jasper và AITaoPage. Công cụ nào phù hợp nhất cho thị trường Việt Nam?",
+    category: "So sánh",
+    readTime: "12 phút",
+    publishedDate: "2026-05-18",
+    author: "AITaoPage",
+    keywords: [
+      "công cụ viết content AI",
+      "so sánh AI content",
+      "ChatGPT vs Claude",
+      "AI viết bài tiếng Việt",
+      "tool AI marketing",
+    ],
     content: `
 <h2>Thị trường công cụ AI viết content năm 2026</h2>
 <p>Năm 2026, thị trường công cụ AI viết content bùng nổ với hàng chục lựa chọn. Với người làm marketing và kinh doanh tại Việt Nam, câu hỏi đặt ra là: <strong>công cụ nào thực sự tốt cho nội dung tiếng Việt?</strong></p>
@@ -160,15 +174,23 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'huong-dan-viet-content-quang-cao-facebook-bang-ai': {
-    slug:          'huong-dan-viet-content-quang-cao-facebook-bang-ai',
-    title:         'Hướng dẫn viết content quảng cáo Facebook bằng AI — không cần copywriter',
-    description:   'Từ hook thu hút đến CTA thuyết phục. Cách dùng AI tạo content Facebook Ads hiệu quả, tiết kiệm thời gian và ngân sách quảng cáo.',
-    category:      'Quảng cáo',
-    readTime:      '7 phút',
-    publishedDate: '2026-05-15',
-    author:        'AITaoPage',
-    keywords:      ['viết content facebook ads', 'quảng cáo facebook AI', 'content facebook hiệu quả', 'copywriting AI', 'facebook ads tiếng Việt'],
+  "huong-dan-viet-content-quang-cao-facebook-bang-ai": {
+    slug: "huong-dan-viet-content-quang-cao-facebook-bang-ai",
+    title:
+      "Hướng dẫn viết content quảng cáo Facebook bằng AI — không cần copywriter",
+    description:
+      "Từ hook thu hút đến CTA thuyết phục. Cách dùng AI tạo content Facebook Ads hiệu quả, tiết kiệm thời gian và ngân sách quảng cáo.",
+    category: "Quảng cáo",
+    readTime: "7 phút",
+    publishedDate: "2026-05-15",
+    author: "AITaoPage",
+    keywords: [
+      "viết content facebook ads",
+      "quảng cáo facebook AI",
+      "content facebook hiệu quả",
+      "copywriting AI",
+      "facebook ads tiếng Việt",
+    ],
     content: `
 <h2>Tại sao content quảng cáo Facebook quan trọng?</h2>
 <p>Trên Facebook, bạn chỉ có <strong>1–2 giây</strong> để thu hút sự chú ý của người dùng đang cuộn feed. Content kém — dù ngân sách cao đến đâu cũng đốt tiền. Content tốt — ngân sách thấp vẫn mang về khách hàng.</p>
@@ -225,15 +247,23 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'html-inline-css-la-gi-tai-sao-quan-trong-voi-cms': {
-    slug:          'html-inline-css-la-gi-tai-sao-quan-trong-voi-cms',
-    title:         'HTML inline CSS là gì? Tại sao quan trọng với Haravan, Sapo, WordPress?',
-    description:   'Giải thích kỹ thuật inline CSS, lý do các CMS thương mại Việt Nam lọc bỏ <style> tags và cách AITaoPage giải quyết vấn đề này tự động.',
-    category:      'Kỹ thuật',
-    readTime:      '6 phút',
-    publishedDate: '2026-05-12',
-    author:        'AITaoPage',
-    keywords:      ['html inline css', 'inline style CSS', 'haravan html', 'sapo block html', 'wordpress custom html css'],
+  "html-inline-css-la-gi-tai-sao-quan-trong-voi-cms": {
+    slug: "html-inline-css-la-gi-tai-sao-quan-trong-voi-cms",
+    title:
+      "HTML inline CSS là gì? Tại sao quan trọng với Haravan, Sapo, WordPress?",
+    description:
+      "Giải thích kỹ thuật inline CSS, lý do các CMS thương mại Việt Nam lọc bỏ <style> tags và cách AITaoPage giải quyết vấn đề này tự động.",
+    category: "Kỹ thuật",
+    readTime: "6 phút",
+    publishedDate: "2026-05-12",
+    author: "AITaoPage",
+    keywords: [
+      "html inline css",
+      "inline style CSS",
+      "haravan html",
+      "sapo block html",
+      "wordpress custom html css",
+    ],
     content: `
 <h2>CSS là gì và 3 cách viết CSS?</h2>
 <p>CSS (Cascading Style Sheets) định nghĩa giao diện của trang web — màu sắc, font chữ, khoảng cách, bố cục. Có 3 cách viết CSS:</p>
@@ -276,15 +306,22 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'cach-viet-mo-ta-san-pham-bang-ai-tang-ty-le-chuyen-doi': {
-    slug:          'cach-viet-mo-ta-san-pham-bang-ai-tang-ty-le-chuyen-doi',
-    title:         'Cách viết mô tả sản phẩm bằng AI để tăng tỷ lệ chuyển đổi',
-    description:   'Công thức viết mô tả sản phẩm thuyết phục với AI. Tập trung vào lợi ích, không phải tính năng. Ứng dụng thực tế cho shop Haravan và Shopify.',
-    category:      'Content',
-    readTime:      '9 phút',
-    publishedDate: '2026-05-10',
-    author:        'AITaoPage',
-    keywords:      ['viết mô tả sản phẩm', 'product description AI', 'mô tả sản phẩm bán hàng', 'content shop online', 'haravan product description'],
+  "cach-viet-mo-ta-san-pham-bang-ai-tang-ty-le-chuyen-doi": {
+    slug: "cach-viet-mo-ta-san-pham-bang-ai-tang-ty-le-chuyen-doi",
+    title: "Cách viết mô tả sản phẩm bằng AI để tăng tỷ lệ chuyển đổi",
+    description:
+      "Công thức viết mô tả sản phẩm thuyết phục với AI. Tập trung vào lợi ích, không phải tính năng. Ứng dụng thực tế cho shop Haravan và Shopify.",
+    category: "Content",
+    readTime: "9 phút",
+    publishedDate: "2026-05-10",
+    author: "AITaoPage",
+    keywords: [
+      "viết mô tả sản phẩm",
+      "product description AI",
+      "mô tả sản phẩm bán hàng",
+      "content shop online",
+      "haravan product description",
+    ],
     content: `
 <h2>Mô tả sản phẩm ảnh hưởng bao nhiêu đến doanh số?</h2>
 <p>Theo Nielsen Norman Group, <strong>20% khách hàng từ bỏ mua hàng vì mô tả sản phẩm nghèo nàn hoặc không rõ ràng</strong>. Một mô tả tốt không chỉ thông tin — nó phải thuyết phục, xây dựng niềm tin và trả lời trước những lo ngại của khách.</p>
@@ -327,15 +364,22 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'seo-content-ai-cach-toi-uu-bai-viet-len-top-google': {
-    slug:          'seo-content-ai-cach-toi-uu-bai-viet-len-top-google',
-    title:         'SEO Content AI: Cách tối ưu bài viết lên Top Google năm 2026',
-    description:   'Chiến lược kết hợp AI và SEO để tạo nội dung xếp hạng cao trên Google. Keyword research, E-E-A-T, và cách viết cho cả người đọc lẫn máy tìm kiếm.',
-    category:      'SEO',
-    readTime:      '11 phút',
-    publishedDate: '2026-05-08',
-    author:        'AITaoPage',
-    keywords:      ['SEO content AI', 'viết bài chuẩn SEO', 'tối ưu bài viết Google', 'AI SEO tiếng Việt', 'content marketing SEO 2026'],
+  "seo-content-ai-cach-toi-uu-bai-viet-len-top-google": {
+    slug: "seo-content-ai-cach-toi-uu-bai-viet-len-top-google",
+    title: "SEO Content AI: Cách tối ưu bài viết lên Top Google năm 2026",
+    description:
+      "Chiến lược kết hợp AI và SEO để tạo nội dung xếp hạng cao trên Google. Keyword research, E-E-A-T, và cách viết cho cả người đọc lẫn máy tìm kiếm.",
+    category: "SEO",
+    readTime: "11 phút",
+    publishedDate: "2026-05-08",
+    author: "AITaoPage",
+    keywords: [
+      "SEO content AI",
+      "viết bài chuẩn SEO",
+      "tối ưu bài viết Google",
+      "AI SEO tiếng Việt",
+      "content marketing SEO 2026",
+    ],
     content: `
 <h2>AI đã thay đổi SEO như thế nào?</h2>
 <p>Năm 2026, Google sử dụng AI (Search Generative Experience) để hiểu ngữ nghĩa và ý định tìm kiếm, không chỉ khớp từ khóa. Điều này có nghĩa: nội dung chất lượng thực sự, trả lời đúng câu hỏi người dùng, sẽ xếp hạng tốt hơn nội dung nhồi nhét từ khóa.</p>
@@ -394,15 +438,22 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'cach-tao-landing-page-khong-can-code-2026': {
-    slug:          'cach-tao-landing-page-khong-can-code-2026',
-    title:         'Cách tạo landing page không cần code năm 2026 — 3 công cụ tốt nhất',
-    description:   'Hướng dẫn chi tiết cách tạo landing page chuyên nghiệp không cần biết lập trình. So sánh 3 phương pháp phù hợp nhất cho shop online Việt Nam năm 2026.',
-    category:      'Landing Page',
-    readTime:      '9 phút',
-    publishedDate: '2026-05-25',
-    author:        'AITaoPage',
-    keywords:      ['tạo landing page không cần code', 'landing page miễn phí', 'tạo landing page online', 'landing page không cần lập trình', 'công cụ tạo landing page Việt Nam'],
+  "cach-tao-landing-page-khong-can-code-2026": {
+    slug: "cach-tao-landing-page-khong-can-code-2026",
+    title: "Cách tạo landing page không cần code năm 2026 — 3 công cụ tốt nhất",
+    description:
+      "Hướng dẫn chi tiết cách tạo landing page chuyên nghiệp không cần biết lập trình. So sánh 3 phương pháp phù hợp nhất cho shop online Việt Nam năm 2026.",
+    category: "Landing Page",
+    readTime: "9 phút",
+    publishedDate: "2026-05-25",
+    author: "AITaoPage",
+    keywords: [
+      "tạo landing page không cần code",
+      "landing page miễn phí",
+      "tạo landing page online",
+      "landing page không cần lập trình",
+      "công cụ tạo landing page Việt Nam",
+    ],
     content: `
 <h2>Landing page không cần code — có thực sự làm được không?</h2>
 <p>Câu trả lời là <strong>có</strong> — và năm 2026, điều này trở nên dễ dàng hơn bao giờ hết. Với sự xuất hiện của AI và các công cụ drag-and-drop, bất kỳ ai cũng có thể tạo landing page chuyên nghiệp mà không cần biết một dòng code. Đặc biệt với người bán hàng trên Haravan, Sapo, hay WordPress tại Việt Nam.</p>
@@ -465,15 +516,22 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'cau-truc-landing-page-ban-hang-chuan': {
-    slug:          'cau-truc-landing-page-ban-hang-chuan',
-    title:         'Cấu trúc landing page bán hàng chuẩn — 8 phần không thể thiếu',
-    description:   'Phân tích chi tiết 8 phần cốt lõi của landing page bán hàng chuyển đổi cao. Kèm ví dụ thực tế và mẫu copy áp dụng ngay cho shop online Việt Nam.',
-    category:      'Landing Page',
-    readTime:      '10 phút',
-    publishedDate: '2026-05-24',
-    author:        'AITaoPage',
-    keywords:      ['cấu trúc landing page', 'landing page bán hàng chuẩn', 'thành phần landing page', 'thiết kế landing page', 'layout landing page hiệu quả'],
+  "cau-truc-landing-page-ban-hang-chuan": {
+    slug: "cau-truc-landing-page-ban-hang-chuan",
+    title: "Cấu trúc landing page bán hàng chuẩn — 8 phần không thể thiếu",
+    description:
+      "Phân tích chi tiết 8 phần cốt lõi của landing page bán hàng chuyển đổi cao. Kèm ví dụ thực tế và mẫu copy áp dụng ngay cho shop online Việt Nam.",
+    category: "Landing Page",
+    readTime: "10 phút",
+    publishedDate: "2026-05-24",
+    author: "AITaoPage",
+    keywords: [
+      "cấu trúc landing page",
+      "landing page bán hàng chuẩn",
+      "thành phần landing page",
+      "thiết kế landing page",
+      "layout landing page hiệu quả",
+    ],
     content: `
 <h2>Tại sao cấu trúc landing page quan trọng hơn thiết kế?</h2>
 <p>Nhiều người tập trung vào màu sắc đẹp, font chữ sang trọng — nhưng quên rằng <strong>cấu trúc nội dung mới là yếu tố quyết định tỷ lệ chuyển đổi</strong>. Một landing page có bố cục đúng sẽ dẫn dắt khách hàng từng bước từ "không biết gì" đến "quyết định mua" một cách tự nhiên.</p>
@@ -535,15 +593,23 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'bi-quyet-viet-content-ban-hang-online-hieu-qua': {
-    slug:          'bi-quyet-viet-content-ban-hang-online-hieu-qua',
-    title:         'Bí quyết viết content bán hàng online hiệu quả — tăng doanh số ngay',
-    description:   'Hướng dẫn viết content bán hàng online thuyết phục cho Facebook, Zalo, TikTok và website. Công thức thực chiến từ 1.000+ shop online Việt Nam.',
-    category:      'Content',
-    readTime:      '9 phút',
-    publishedDate: '2026-05-23',
-    author:        'AITaoPage',
-    keywords:      ['viết content bán hàng online', 'content bán hàng hiệu quả', 'cách viết bài bán hàng', 'content marketing shop online', 'viết bài bán hàng facebook'],
+  "bi-quyet-viet-content-ban-hang-online-hieu-qua": {
+    slug: "bi-quyet-viet-content-ban-hang-online-hieu-qua",
+    title:
+      "Bí quyết viết content bán hàng online hiệu quả — tăng doanh số ngay",
+    description:
+      "Hướng dẫn viết content bán hàng online thuyết phục cho Facebook, Zalo, TikTok và website. Công thức thực chiến từ 1.000+ shop online Việt Nam.",
+    category: "Content",
+    readTime: "9 phút",
+    publishedDate: "2026-05-23",
+    author: "AITaoPage",
+    keywords: [
+      "viết content bán hàng online",
+      "content bán hàng hiệu quả",
+      "cách viết bài bán hàng",
+      "content marketing shop online",
+      "viết bài bán hàng facebook",
+    ],
     content: `
 <h2>Tại sao content bán hàng online của bạn không hiệu quả?</h2>
 <p>Bạn đăng bài đều đặn nhưng ít người tương tác? Nhiều lượt xem nhưng ít đơn hàng? Vấn đề thường không phải ở sản phẩm — mà ở <strong>cách bạn trình bày sản phẩm đó</strong>. Content bán hàng online hiệu quả không phải là liệt kê tính năng hay chụp ảnh đẹp — nó là nghệ thuật kết nối đúng thông điệp với đúng người vào đúng thời điểm.</p>
@@ -617,15 +683,22 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'mau-headline-ban-hang-thu-hut-khach-hang': {
-    slug:          'mau-headline-ban-hang-thu-hut-khach-hang',
-    title:         '30 mẫu headline bán hàng thu hút khách hàng — copy và dùng ngay',
-    description:   '30 mẫu headline bán hàng đã được kiểm chứng hiệu quả, phân loại theo ngành hàng và mục tiêu. Áp dụng ngay cho Facebook Ads, landing page và Zalo OA.',
-    category:      'Content',
-    readTime:      '7 phút',
-    publishedDate: '2026-05-22',
-    author:        'AITaoPage',
-    keywords:      ['mẫu headline bán hàng', 'headline thu hút khách hàng', 'tiêu đề quảng cáo hay', 'mẫu tiêu đề landing page', 'headline facebook ads hiệu quả'],
+  "mau-headline-ban-hang-thu-hut-khach-hang": {
+    slug: "mau-headline-ban-hang-thu-hut-khach-hang",
+    title: "30 mẫu headline bán hàng thu hút khách hàng — copy và dùng ngay",
+    description:
+      "30 mẫu headline bán hàng đã được kiểm chứng hiệu quả, phân loại theo ngành hàng và mục tiêu. Áp dụng ngay cho Facebook Ads, landing page và Zalo OA.",
+    category: "Content",
+    readTime: "7 phút",
+    publishedDate: "2026-05-22",
+    author: "AITaoPage",
+    keywords: [
+      "mẫu headline bán hàng",
+      "headline thu hút khách hàng",
+      "tiêu đề quảng cáo hay",
+      "mẫu tiêu đề landing page",
+      "headline facebook ads hiệu quả",
+    ],
     content: `
 <h2>Headline quan trọng đến mức nào?</h2>
 <p>David Ogilvy — "ông tổ" của quảng cáo hiện đại — từng nói: <em>"Trung bình, 5 lần nhiều người đọc headline hơn đọc phần body copy. Khi bạn viết headline, bạn đã tiêu 80 cent trong mỗi dollar của mình."</em></p>
@@ -724,15 +797,23 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'huong-dan-dan-html-vao-haravan-sapo-wordpress': {
-    slug:          'huong-dan-dan-html-vao-haravan-sapo-wordpress',
-    title:         'Hướng dẫn dán HTML vào Haravan, Sapo, WordPress — không mất định dạng',
-    description:   'Từng bước dán HTML vào Haravan Page, Sapo Web, WooCommerce và WordPress. Lý do CMS lọc CSS và cách đảm bảo landing page hiển thị đúng 100%.',
-    category:      'Kỹ thuật',
-    readTime:      '6 phút',
-    publishedDate: '2026-05-21',
-    author:        'AITaoPage',
-    keywords:      ['dán html vào haravan', 'html vào sapo web', 'custom html wordpress', 'html block haravan page', 'dán code vào sapo'],
+  "huong-dan-dan-html-vao-haravan-sapo-wordpress": {
+    slug: "huong-dan-dan-html-vao-haravan-sapo-wordpress",
+    title:
+      "Hướng dẫn dán HTML vào Haravan, Sapo, WordPress — không mất định dạng",
+    description:
+      "Từng bước dán HTML vào Haravan Page, Sapo Web, WooCommerce và WordPress. Lý do CMS lọc CSS và cách đảm bảo landing page hiển thị đúng 100%.",
+    category: "Kỹ thuật",
+    readTime: "6 phút",
+    publishedDate: "2026-05-21",
+    author: "AITaoPage",
+    keywords: [
+      "dán html vào haravan",
+      "html vào sapo web",
+      "custom html wordpress",
+      "html block haravan page",
+      "dán code vào sapo",
+    ],
     content: `
 <h2>Tại sao dán HTML vào CMS thường bị mất định dạng?</h2>
 <p>Bạn tạo một block HTML đẹp trên máy tính, dán vào Haravan hay Sapo — và nhìn thấy một đống chữ không có format. Vấn đề này xảy ra vì <strong>hầu hết CMS đều có bộ lọc CSS bảo mật</strong> tự động xóa thẻ <code>&lt;style&gt;</code> và các attribute JavaScript để ngăn tấn công XSS.</p>
@@ -805,15 +886,22 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'cach-viet-content-tiktok-shop-ban-hang': {
-    slug:          'cach-viet-content-tiktok-shop-ban-hang',
-    title:         'Cách viết content TikTok Shop bán hàng hiệu quả năm 2026',
-    description:   'Hướng dẫn viết caption, script video và mô tả sản phẩm TikTok Shop thu hút người xem và tăng đơn hàng. Áp dụng thực tế cho shop Việt Nam.',
-    category:      'Quảng cáo',
-    readTime:      '8 phút',
-    publishedDate: '2026-05-19',
-    author:        'AITaoPage',
-    keywords:      ['content tiktok shop', 'bán hàng tiktok shop', 'viết mô tả sản phẩm tiktok', 'tiktok shop việt nam', 'script video tiktok bán hàng'],
+  "cach-viet-content-tiktok-shop-ban-hang": {
+    slug: "cach-viet-content-tiktok-shop-ban-hang",
+    title: "Cách viết content TikTok Shop bán hàng hiệu quả năm 2026",
+    description:
+      "Hướng dẫn viết caption, script video và mô tả sản phẩm TikTok Shop thu hút người xem và tăng đơn hàng. Áp dụng thực tế cho shop Việt Nam.",
+    category: "Quảng cáo",
+    readTime: "8 phút",
+    publishedDate: "2026-05-19",
+    author: "AITaoPage",
+    keywords: [
+      "content tiktok shop",
+      "bán hàng tiktok shop",
+      "viết mô tả sản phẩm tiktok",
+      "tiktok shop việt nam",
+      "script video tiktok bán hàng",
+    ],
     content: `
 <h2>TikTok Shop — Kênh bán hàng tăng trưởng nhanh nhất Việt Nam 2026</h2>
 <p>TikTok Shop đạt hơn 3,5 tỷ USD GMV tại Việt Nam, tăng trưởng 180% so với năm trước. Đây không còn là kênh "thử nghiệm" — đây là kênh bán hàng chủ lực mà mọi shop online không thể bỏ qua. Tuy nhiên, <strong>TikTok Shop có ngôn ngữ riêng</strong> — content hiệu quả trên Facebook thường không hiệu quả trên TikTok.</p>
@@ -874,15 +962,22 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'cach-tang-ty-le-chuyen-doi-landing-page': {
-    slug:          'cach-tang-ty-le-chuyen-doi-landing-page',
-    title:         '7 cách tăng tỷ lệ chuyển đổi landing page — từ 1% lên 5%+',
-    description:   '7 phương pháp thực chiến để tăng tỷ lệ chuyển đổi landing page. Từ A/B testing đến tối ưu tốc độ tải — áp dụng ngay không cần kiến thức kỹ thuật.',
-    category:      'Landing Page',
-    readTime:      '8 phút',
-    publishedDate: '2026-05-17',
-    author:        'AITaoPage',
-    keywords:      ['tăng tỷ lệ chuyển đổi landing page', 'tối ưu landing page', 'conversion rate optimization', 'CRO landing page', 'landing page hiệu quả hơn'],
+  "cach-tang-ty-le-chuyen-doi-landing-page": {
+    slug: "cach-tang-ty-le-chuyen-doi-landing-page",
+    title: "7 cách tăng tỷ lệ chuyển đổi landing page — từ 1% lên 5%+",
+    description:
+      "7 phương pháp thực chiến để tăng tỷ lệ chuyển đổi landing page. Từ A/B testing đến tối ưu tốc độ tải — áp dụng ngay không cần kiến thức kỹ thuật.",
+    category: "Landing Page",
+    readTime: "8 phút",
+    publishedDate: "2026-05-17",
+    author: "AITaoPage",
+    keywords: [
+      "tăng tỷ lệ chuyển đổi landing page",
+      "tối ưu landing page",
+      "conversion rate optimization",
+      "CRO landing page",
+      "landing page hiệu quả hơn",
+    ],
     content: `
 <h2>Tỷ lệ chuyển đổi trung bình của landing page là bao nhiêu?</h2>
 <p>Theo WordStream, tỷ lệ chuyển đổi trung bình của landing page là <strong>2,35%</strong> — nhưng top 25% đạt trên <strong>5,31%</strong> và top 10% đạt trên <strong>11,45%</strong>. Sự chênh lệch này đến từ tối ưu hóa liên tục, không phải may mắn.</p>
@@ -930,15 +1025,23 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'ai-marketing-viet-nam-2026': {
-    slug:          'ai-marketing-viet-nam-2026',
-    title:         'AI Marketing Việt Nam 2026: Xu hướng và cách áp dụng thực tế cho doanh nghiệp nhỏ',
-    description:   'Tổng quan xu hướng AI Marketing tại Việt Nam năm 2026. Những ứng dụng AI nào thực sự hiệu quả cho SME, và lộ trình bắt đầu từ đầu trong 90 ngày.',
-    category:      'So sánh',
-    readTime:      '11 phút',
-    publishedDate: '2026-05-16',
-    author:        'AITaoPage',
-    keywords:      ['AI marketing Việt Nam', 'ứng dụng AI marketing', 'AI cho doanh nghiệp nhỏ', 'xu hướng marketing 2026', 'AI content marketing Việt Nam'],
+  "ai-marketing-viet-nam-2026": {
+    slug: "ai-marketing-viet-nam-2026",
+    title:
+      "AI Marketing Việt Nam 2026: Xu hướng và cách áp dụng thực tế cho doanh nghiệp nhỏ",
+    description:
+      "Tổng quan xu hướng AI Marketing tại Việt Nam năm 2026. Những ứng dụng AI nào thực sự hiệu quả cho SME, và lộ trình bắt đầu từ đầu trong 90 ngày.",
+    category: "So sánh",
+    readTime: "11 phút",
+    publishedDate: "2026-05-16",
+    author: "AITaoPage",
+    keywords: [
+      "AI marketing Việt Nam",
+      "ứng dụng AI marketing",
+      "AI cho doanh nghiệp nhỏ",
+      "xu hướng marketing 2026",
+      "AI content marketing Việt Nam",
+    ],
     content: `
 <h2>AI đã thay đổi marketing Việt Nam như thế nào?</h2>
 <p>Năm 2023, AI marketing còn là khái niệm xa lạ với hầu hết doanh nghiệp SME Việt Nam. Năm 2026, <strong>73% doanh nghiệp vừa và nhỏ tại Việt Nam</strong> đã sử dụng ít nhất một công cụ AI trong hoạt động marketing. Thay đổi không đến từ các tập đoàn lớn — mà từ hàng nghìn shop online, cửa hàng nhỏ nhận ra rằng AI giúp họ cạnh tranh ngang ngửa với đội marketing chục người.</p>
@@ -1008,15 +1111,22 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'viet-email-marketing-hieu-qua-bang-ai': {
-    slug:          'viet-email-marketing-hieu-qua-bang-ai',
-    title:         'Cách viết email marketing bằng AI — tỷ lệ mở tăng 40%',
-    description:   'Hướng dẫn viết email marketing hiệu quả bằng AI cho doanh nghiệp Việt Nam. Subject line thu hút, body copy thuyết phục và CTA tối ưu tỷ lệ chuyển đổi.',
-    category:      'Quảng cáo',
-    readTime:      '8 phút',
-    publishedDate: '2026-05-14',
-    author:        'AITaoPage',
-    keywords:      ['email marketing tiếng Việt', 'viết email bán hàng', 'email marketing hiệu quả', 'subject line email', 'AI viết email marketing'],
+  "viet-email-marketing-hieu-qua-bang-ai": {
+    slug: "viet-email-marketing-hieu-qua-bang-ai",
+    title: "Cách viết email marketing bằng AI — tỷ lệ mở tăng 40%",
+    description:
+      "Hướng dẫn viết email marketing hiệu quả bằng AI cho doanh nghiệp Việt Nam. Subject line thu hút, body copy thuyết phục và CTA tối ưu tỷ lệ chuyển đổi.",
+    category: "Quảng cáo",
+    readTime: "8 phút",
+    publishedDate: "2026-05-14",
+    author: "AITaoPage",
+    keywords: [
+      "email marketing tiếng Việt",
+      "viết email bán hàng",
+      "email marketing hiệu quả",
+      "subject line email",
+      "AI viết email marketing",
+    ],
     content: `
 <h2>Email marketing vẫn còn hiệu quả năm 2026?</h2>
 <p>Câu trả lời ngắn gọn: <strong>có, và thậm chí còn hiệu quả hơn</strong>. Trong khi organic reach Facebook giảm xuống dưới 2% và TikTok ngày càng cạnh tranh, email vẫn đạt ROI trung bình <strong>$36 cho mỗi $1 đầu tư</strong> (Litmus 2025). Tại Việt Nam, email marketing đang bị underutilized — đây là cơ hội lớn cho những ai bắt đầu sớm.</p>
@@ -1088,15 +1198,22 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'huong-dan-bat-dau-ai-content-booster': {
-    slug:          'huong-dan-bat-dau-ai-content-booster',
-    title:         'Hướng dẫn bắt đầu: Tạo block nội dung AI đầu tiên trong 60 giây',
-    description:   'Từng bước sử dụng AITaoPage — đăng ký, nhập prompt, chỉnh sửa trên editor và sao chép HTML dán vào CMS. Hướng dẫn dành cho người dùng mới.',
-    category:      'Hướng dẫn',
-    readTime:      '5 phút',
-    publishedDate: '2026-05-28',
-    author:        'AITaoPage',
-    keywords:      ['hướng dẫn ai content booster', 'cách dùng ai content booster', 'tạo block nội dung ai', 'bắt đầu ai content', 'hướng dẫn sử dụng'],
+  "huong-dan-bat-dau-ai-content-booster": {
+    slug: "huong-dan-bat-dau-ai-content-booster",
+    title: "Hướng dẫn bắt đầu: Tạo block nội dung AI đầu tiên trong 60 giây",
+    description:
+      "Từng bước sử dụng AITaoPage — đăng ký, nhập prompt, chỉnh sửa trên editor và sao chép HTML dán vào CMS. Hướng dẫn dành cho người dùng mới.",
+    category: "Hướng dẫn",
+    readTime: "5 phút",
+    publishedDate: "2026-05-28",
+    author: "AITaoPage",
+    keywords: [
+      "hướng dẫn ai content booster",
+      "cách dùng ai content booster",
+      "tạo block nội dung ai",
+      "bắt đầu ai content",
+      "hướng dẫn sử dụng",
+    ],
     content: `
 <h2>Tổng quan — Bạn sẽ làm được gì trong 60 giây?</h2>
 <p>AITaoPage giúp bạn đi từ ý tưởng đến một block nội dung HTML hoàn chỉnh — sẵn sàng dán vào Haravan, Sapo, hay WordPress — chỉ trong 60 giây. Không cần biết code, không cần Photoshop, không cần thuê designer.</p>
@@ -1106,22 +1223,31 @@ export const ARTICLES: Record<string, Article> = {
 <li>AI tạo block và render ngay trên editor kéo thả</li>
 <li>Chỉnh sửa text, màu sắc theo ý muốn</li>
 <li>Nhấn "Sao chép HTML" và dán vào CMS</li>
+<li>Hoặc có thể export file <code>index.html</code> đưa vào dự án của bạn</li>
 </ol>
 
 <h2>Bước 1: Đăng ký tài khoản</h2>
-<p>Truy cập trang đăng ký, nhập email và mật khẩu. Không cần xác nhận email — bạn được đăng nhập ngay và chuyển đến giao diện editor. Tài khoản miễn phí cho phép tạo nội dung không giới hạn trong thời gian dùng thử.</p>
+<p>Truy cập trang đăng ký, chọn gói bạn muốn sử dụng <code>Free</code> <code>Basic</code> <code>Pro</code>, bạn có thể chọn gói <code>Free</code> để trải nghiệm trước, nâng cấp sau nếu muốn, nhập  <b>email</b> và  <b>mật khẩu</b>. sẽ gửi  <b>OTP</b> về <b>email</b> của bạn để xác nhận <b>(bởi vì chúng tôi chống spam)</b> — bạn được đăng nhập ngay và chuyển đến giao diện editor. Tài khoản miễn phí sẽ bị giới hạn một số tính năng nhưng đủ để bạn trải nghiệm.</p>
 
 <h2>Bước 2: Nhập prompt mô tả nội dung</h2>
 <p>Ở thanh trên cùng của editor, bạn sẽ thấy ô nhập liệu với placeholder <em>"Mô tả nội dung bạn muốn tạo..."</em>. Đây là nơi bạn nói chuyện với AI.</p>
 <figure>
 <img src="/images/tutorials/bat-dau/02-prompt-bar.png" alt="Thanh nhập prompt trong editor AITaoPage" />
-<figcaption>Ô nhập prompt nằm ở thanh trên cùng — nhập mô tả bằng tiếng Việt rồi nhấn "Tạo nội dung"</figcaption>
+<figcaption>Ô nhập prompt nằm ở thanh trên cùng — chọn nội dung bạn muốn tạo hoặcnhập mô tả nội dung của bạn bằng tiếng Việt rồi nhấn "bắt đầu"</figcaption>
 </figure>
 <p><strong>Ví dụ prompt đơn giản để bắt đầu:</strong></p>
 <blockquote>
 <em>Tạo banner giới thiệu sản phẩm kem dưỡng da nghệ, dành cho phụ nữ 25–40 tuổi, màu vàng ấm, có nút "Mua ngay"</em>
 </blockquote>
-<p>Nhấn nút <strong>"Tạo nội dung"</strong> (hoặc Enter). AI sẽ xử lý trong khoảng 5–15 giây.</p>
+<ul>
+<li>Nhấn nút <strong>"Bắt đầu"</strong> (hoặc Enter). AI sẽ xử lý trong khoảng 5–15 giây.</li>
+<li><strong>AI</strong> sẽ phân tích yêu cẩu của bạn và đưa ra một số câu hỏi để hiểu yêu cầu của bạn, bạn có thể nhập câu trả lời hoặc có thể chọn những gợi ý mà AI đưa ra, 
+một số câu hỏi chẳng hạn: <b>Phong cách bạn muốn là gì?</b> <b>Màu sắc chủ đạo?</b>... </li>
+<img src="/images/tutorials/bat-dau/02-questions.png" alt="Thanh nhập prompt trong editor AITaoPage" />
+<li>Sau khi <strong>AI</strong> đã phân tích xong bạn, sẽ tổng hợp lại yêu cầu của bạn, nếu bạn đã đúng hết yêu cầu của bạn, bạn có thể nhấn <strong>Hãy tạo nội dung ngay</strong> </li>
+<img src="/images/tutorials/bat-dau/02-confirm.png" alt="Thanh nhập prompt trong editor AITaoPage" />
+<li><strong>Chuyển chế độ xem</strong> Desktop / Mobile để kiểm tra responsive</li>
+</ul>
 
 <h2>Bước 3: Xem kết quả trên editor kéo thả</h2>
 <p>Khi AI hoàn thành, block nội dung xuất hiện ngay trên canvas GrapesJS bên dưới. Bạn có thể:</p>
@@ -1137,15 +1263,15 @@ export const ARTICLES: Record<string, Article> = {
 </figure>
 
 <h2>Bước 4: Sao chép HTML và dán vào CMS</h2>
-<p>Khi hài lòng với nội dung, nhấn nút <strong>"Sao chép HTML"</strong> ở góc trên phải. Thông báo <em>"Sao chép thành công!"</em> xuất hiện — HTML đã vào clipboard.</p>
+<p>Khi hài lòng với nội dung, nhấn nút <strong>"Xuất HTML"</strong> ở góc trên phải, bạn có thể sao chép HTML đã tạo hoặc tải xuống dưới dạng tệp. Thông báo <em>"Sao chép thành công!"</em> xuất hiện — HTML đã vào clipboard.</p>
 <figure>
-<img src="/images/tutorials/bat-dau/04-sao-chep-html.png" alt="Nút Sao chép HTML và thông báo sao chép thành công" />
+<img src="/images/tutorials/bat-dau/04-export.png" alt="Nút Sao chép HTML và thông báo sao chép thành công" />
 <figcaption>Nhấn "Sao chép HTML" — thông báo xanh xuất hiện xác nhận HTML đã vào clipboard</figcaption>
 </figure>
 <p>Mở CMS của bạn (Haravan, Sapo, WordPress...), vào vị trí muốn chèn block, chuyển sang chế độ <strong>Source Code / HTML</strong>, dán HTML vào. Nội dung hiển thị đúng định dạng ngay lập tức vì đã dùng inline CSS.</p>
 
 <h2>Lịch sử tự động lưu</h2>
-<p>Mỗi block bạn tạo được <strong>tự động lưu</strong> vào lịch sử với tên lấy từ 50 ký tự đầu của prompt. Để xem lại, click biểu tượng <strong>lịch sử</strong> ở sidebar bên phải — bạn có thể mở lại, tiếp tục chỉnh sửa, hoặc xóa các block cũ.</p>
+<p>Mỗi block bạn tạo được <strong>tự động lưu</strong> khi bạn nhấp vào nút <strong>Lưu</strong> vào lịch sử với tên lấy từ 50 ký tự đầu của prompt. Để xem lại, click biểu tượng <strong>lịch sử</strong> ở sidebar bên phải — bạn có thể mở lại, tiếp tục chỉnh sửa, hoặc xóa các block cũ.</p>
 
 <h2>Mẹo cho lần đầu sử dụng</h2>
 <ul>
@@ -1160,15 +1286,23 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'cach-viet-prompt-hieu-qua-cho-ai-content-booster': {
-    slug:          'cach-viet-prompt-hieu-qua-cho-ai-content-booster',
-    title:         'Cách viết prompt hiệu quả — Nhận block nội dung đúng ý ngay lần đầu',
-    description:   'Công thức viết prompt cho AITaoPage. 5 yếu tố quan trọng và 10 ví dụ prompt thực tế giúp AI tạo ra block nội dung chính xác theo ý muốn.',
-    category:      'Hướng dẫn',
-    readTime:      '6 phút',
-    publishedDate: '2026-05-27',
-    author:        'AITaoPage',
-    keywords:      ['viết prompt ai content', 'prompt ai content booster', 'cách nhập prompt', 'prompt tạo nội dung', 'hướng dẫn prompt ai'],
+  "cach-viet-prompt-hieu-qua-cho-ai-content-booster": {
+    slug: "cach-viet-prompt-hieu-qua-cho-ai-content-booster",
+    title:
+      "Cách viết prompt hiệu quả — Nhận block nội dung đúng ý ngay lần đầu",
+    description:
+      "Công thức viết prompt cho AITaoPage. 5 yếu tố quan trọng và 10 ví dụ prompt thực tế giúp AI tạo ra block nội dung chính xác theo ý muốn.",
+    category: "Hướng dẫn",
+    readTime: "6 phút",
+    publishedDate: "2026-05-27",
+    author: "AITaoPage",
+    keywords: [
+      "viết prompt ai content",
+      "prompt ai content booster",
+      "cách nhập prompt",
+      "prompt tạo nội dung",
+      "hướng dẫn prompt ai",
+    ],
     content: `
 <h2>Tại sao cùng một yêu cầu, AI cho kết quả khác nhau?</h2>
 <p>AITaoPage sử dụng ngôn ngữ tự nhiên để hiểu yêu cầu của bạn. Prompt càng cụ thể, kết quả càng khớp ý. Prompt mơ hồ dẫn đến block generic — prompt chi tiết dẫn đến block tailored hoàn toàn cho sản phẩm và đối tượng của bạn.</p>
@@ -1247,21 +1381,28 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'huong-dan-su-dung-editor-keo-tha': {
-    slug:          'huong-dan-su-dung-editor-keo-tha',
-    title:         'Hướng dẫn dùng editor kéo thả — Chỉnh sửa nội dung không cần code',
-    description:   'Toàn bộ tính năng của GrapesJS editor trong AITaoPage: double-click chỉnh text, kéo block, undo/redo, preview mobile và desktop.',
-    category:      'Hướng dẫn',
-    readTime:      '5 phút',
-    publishedDate: '2026-05-26',
-    author:        'AITaoPage',
-    keywords:      ['editor kéo thả', 'grapesjs hướng dẫn', 'chỉnh sửa nội dung không code', 'drag drop editor', 'hướng dẫn editor ai content'],
+  "huong-dan-su-dung-editor-keo-tha": {
+    slug: "huong-dan-su-dung-editor-keo-tha",
+    title: "Hướng dẫn dùng editor kéo thả — Chỉnh sửa nội dung không cần code",
+    description:
+      "Toàn bộ tính năng của GrapesJS editor trong AITaoPage: double-click chỉnh text, kéo block, undo/redo, preview mobile và desktop.",
+    category: "Hướng dẫn",
+    readTime: "5 phút",
+    publishedDate: "2026-05-26",
+    author: "AITaoPage",
+    keywords: [
+      "editor kéo thả",
+      "grapesjs hướng dẫn",
+      "chỉnh sửa nội dung không code",
+      "drag drop editor",
+      "hướng dẫn editor ai content",
+    ],
     content: `
 <h2>Editor kéo thả là gì?</h2>
 <p>Sau khi AI tạo block nội dung, bạn có thể chỉnh sửa trực tiếp trên canvas mà không cần chạm vào một dòng code nào. Editor sử dụng GrapesJS — một trong những visual editor mạnh nhất hiện nay — được tối ưu hóa riêng cho AITaoPage với giao diện tiếng Việt đơn giản.</p>
 <figure>
 <img src="/images/tutorials/editor/01-editor-overview.png" alt="Giao diện tổng quan của editor AITaoPage" />
-<figcaption>Giao diện editor: thanh prompt trên cùng, canvas ở giữa, sidebar lịch sử bên phải</figcaption>
+<figcaption>Giao diện editor: thanh prompt trên cùng, canvas ở giữa, sidebar trang trí và lịch sử bên phải</figcaption>
 </figure>
 
 <h2>Chỉnh sửa text — Double-click để sửa trực tiếp</h2>
@@ -1307,27 +1448,45 @@ export const ARTICLES: Record<string, Article> = {
 </ul>
 <p><strong>Lưu ý:</strong> Nếu xóa nhầm, nhấn Ctrl+Z ngay để hoàn tác.</p>
 
-<h2>Giới hạn cần biết</h2>
+<h2>Cách upload hình ảnh</h2>
+<p><strong>Kéo block hình ảnh vào vị trí mong muốn</strong> Click double-click vào block hình ảnh để chọn và upload hình ảnh mới.</p>
 <ul>
-<li>Editor chỉ hỗ trợ <strong>chỉnh sửa text và vị trí</strong> — không hỗ trợ thêm block mới hay thay đổi màu sắc trong phiên bản hiện tại</li>
-<li>Nếu cần thay đổi màu sắc hoặc layout lớn, cách hiệu quả nhất là <strong>tạo lại với prompt mới</strong> mô tả rõ màu sắc mong muốn</li>
-<li>Thay đổi sẽ được lưu tự động khi bạn tạo block mới — không có nút "Save" riêng</li>
+<li>Bạn có thể chọn hình ảnh đã được upload lên hoặc upload hình ảnh mới</li>
+<li>Hệ thống của chúng tôi tự động lưu hình ảnh sau khi bạn upload và bạn cũng có thể xóa chúng khi cần</li>
 </ul>
+<img src="/images/tutorials/editor/03-upload.png" alt="Cách upload hình ảnh trong editor" />
+
+<h2>Chúng tôi hỗ trợ những gì</h2>
+<p>Chúng tôi hỗ trợ rất nhiều tính năng khi sử dụng editor đủ để bạn thoải sức sáng tạo nội dung cho website/nội dung của mình:</p>
+<ul>
+<li><strong>Điều hướng:</strong> Menu, Breadcrumb, Footer </li>
+<li><strong>Bố cục:</strong> có hỗ trợ tạo bố cục linh hoạt: 1 Cột, 2 cột, 3 cột... </li>
+<li><strong>Nhiều tính năng khác:</strong> Hình ảnh, nút bấm, Danh sách, nhãn, bảng dữ liệu, trích dẫn...</li>
+<li><strong>Nhiều tính năng của marketing như:</strong> Hero, thông báo, bảng giá, quy trình, đội ngũ, đăng ký nhận tin...</li>
+</ul>
+<p>*Tất cả bạn có thể chỉnh sửa theo ý muốn. bằng chức năng <strong>Kiểu dáng</strong> ở sidebar bên phải</p>
 
 <h2>Kết luận</h2>
 <p>Ba thao tác cần nhớ: <strong>double-click để sửa text</strong>, <strong>click và kéo để di chuyển</strong>, <strong>Ctrl+Z để undo</strong>. Với ba thao tác này, bạn có thể tinh chỉnh mọi block AI tạo ra cho phù hợp với sản phẩm và thương hiệu của mình — tất cả trong vài phút, không cần một dòng code nào.</p>
     `.trim(),
   },
 
-  'quan-ly-lich-su-va-du-an': {
-    slug:          'quan-ly-lich-su-va-du-an',
-    title:         'Quản lý lịch sử dự án — Lưu, mở lại và tổ chức block nội dung',
-    description:   'Cách sử dụng tính năng lưu tự động và lịch sử dự án trong AITaoPage. Mở lại block cũ, tiếp tục chỉnh sửa và xóa dự án không cần.',
-    category:      'Hướng dẫn',
-    readTime:      '4 phút',
-    publishedDate: '2026-05-24',
-    author:        'AITaoPage',
-    keywords:      ['lưu nội dung ai', 'lịch sử dự án', 'mở lại block cũ', 'quản lý nội dung ai content', 'history ai content booster'],
+  "quan-ly-lich-su-va-du-an": {
+    slug: "quan-ly-lich-su-va-du-an",
+    title: "Quản lý lịch sử dự án — Lưu, mở lại và tổ chức block nội dung",
+    description:
+      "Cách sử dụng tính năng lưu tự động và lịch sử dự án trong AITaoPage. Mở lại block cũ, tiếp tục chỉnh sửa và xóa dự án không cần.",
+    category: "Hướng dẫn",
+    readTime: "4 phút",
+    publishedDate: "2026-05-24",
+    author: "AITaoPage",
+    keywords: [
+      "lưu nội dung ai",
+      "lịch sử dự án",
+      "mở lại block cũ",
+      "quản lý nội dung ai content",
+      "history ai content booster",
+    ],
     content: `
 <h2>Lưu tự động — Không lo mất nội dung</h2>
 <p>AITaoPage tự động lưu mỗi block bạn tạo vào lịch sử ngay sau khi AI hoàn thành. Bạn không cần nhấn nút "Lưu" — hệ thống làm điều này trong nền sau mỗi lần generate thành công.</p>
@@ -1347,10 +1506,10 @@ export const ARTICLES: Record<string, Article> = {
 </figure>
 
 <h2>Mở lại block cũ để tiếp tục chỉnh sửa</h2>
-<p>Click vào một dự án trong danh sách để mở lại block đó trên canvas. <strong>Lưu ý quan trọng:</strong> nếu bạn đang chỉnh sửa một block chưa lưu trên canvas, hệ thống sẽ hiện hộp thoại xác nhận <em>"Thay thế block hiện tại?"</em> để tránh mất công sửa. Chọn:</p>
+<p>Click vào một dự án trong danh sách để mở lại block đó trên canvas. </b>
 <ul>
-<li><strong>"Thay thế"</strong>: mở block cũ và thay thế canvas hiện tại</li>
-<li><strong>"Huỷ"</strong>: quay lại tiếp tục với canvas hiện tại</li>
+<li><strong>"Lưu"</strong>: Sau khi chỉnh sửa bạn có thể lưu block mới để lần sau bạn mở lên những chỉnh sửa đã thực hiện không bị mất đi, chỉ cần bạn bấm vào nút lưu trên Top bar</li>
+<li><strong>"Xóa"</strong>: Bạn có thể xóa dự án hiện tại khi không còn cần thiết bằng cách nhấn vào nút xóa trên Top bar</li>
 </ul>
 
 <h2>Xóa dự án không cần</h2>
@@ -1373,19 +1532,26 @@ export const ARTICLES: Record<string, Article> = {
 </ul>
 
 <h2>Kết luận</h2>
-<p>Tính năng lưu tự động đảm bảo bạn không bao giờ mất nội dung đã tạo. Panel lịch sử cho phép quay lại bất kỳ block cũ nào để tiếp tục chỉnh sửa hoặc tái sử dụng. Với workflow này, bạn có thể xây dựng thư viện block nội dung riêng — banner, bảng giá, testimonial — và tái sử dụng, cập nhật theo mùa mà không cần tạo lại từ đầu.</p>
+<p>Tính năng lưu đảm bảo bạn không bao giờ mất nội dung đã tạo. Panel lịch sử cho phép quay lại bất kỳ block cũ nào để tiếp tục chỉnh sửa hoặc tái sử dụng. Với workflow này, bạn có thể xây dựng thư viện block nội dung riêng — banner, bảng giá, testimonial — và tái sử dụng, cập nhật theo mùa mà không cần tạo lại từ đầu.</p>
     `.trim(),
   },
 
-  'mau-prompt-tao-noi-dung-hieu-qua': {
-    slug:          'mau-prompt-tao-noi-dung-hieu-qua',
-    title:         '20 mẫu prompt tạo nội dung hiệu quả — Copy và dùng ngay',
-    description:   '20 mẫu prompt sẵn sàng dùng cho AITaoPage, phân loại theo loại block: banner, bảng giá, testimonial, tính năng sản phẩm và flash sale.',
-    category:      'Hướng dẫn',
-    readTime:      '7 phút',
-    publishedDate: '2026-05-23',
-    author:        'AITaoPage',
-    keywords:      ['mẫu prompt ai content', 'prompt tạo landing page', 'ví dụ prompt ai', 'mẫu prompt banner', 'prompt bảng giá ai'],
+  "mau-prompt-tao-noi-dung-hieu-qua": {
+    slug: "mau-prompt-tao-noi-dung-hieu-qua",
+    title: "20 mẫu prompt tạo nội dung hiệu quả — Copy và dùng ngay",
+    description:
+      "20 mẫu prompt sẵn sàng dùng cho AITaoPage, phân loại theo loại block: banner, bảng giá, testimonial, tính năng sản phẩm và flash sale.",
+    category: "Hướng dẫn",
+    readTime: "7 phút",
+    publishedDate: "2026-05-23",
+    author: "AITaoPage",
+    keywords: [
+      "mẫu prompt ai content",
+      "prompt tạo landing page",
+      "ví dụ prompt ai",
+      "mẫu prompt banner",
+      "prompt bảng giá ai",
+    ],
     content: `
 <h2>Cách sử dụng các mẫu prompt này</h2>
 <p>Copy mẫu prompt phù hợp, dán vào ô nhập liệu của AITaoPage, thay thế các thông tin trong <strong>[ngoặc vuông]</strong> bằng thông tin thực của sản phẩm bạn. Nhấn "Tạo nội dung" và nhận block HTML trong vài giây.</p>
@@ -1510,15 +1676,22 @@ export const ARTICLES: Record<string, Article> = {
 
   // ── Landing Page +2 ──────────────────────────────────────────────────────
 
-  'loi-pho-bien-landing-page-khien-mat-khach': {
-    slug:          'loi-pho-bien-landing-page-khien-mat-khach',
-    title:         '8 lỗi phổ biến của landing page khiến bạn mất khách hàng mỗi ngày',
-    description:   'Phân tích 8 lỗi thiết kế và nội dung landing page phổ biến nhất. Từ headline mờ nhạt đến form quá dài — và cách sửa nhanh từng lỗi không cần redesign lại.',
-    category:      'Landing Page',
-    readTime:      '7 phút',
-    publishedDate: '2026-05-29',
-    author:        'AITaoPage',
-    keywords:      ['lỗi landing page', 'landing page không hiệu quả', 'sửa landing page', 'tối ưu landing page', 'landing page chuyển đổi thấp'],
+  "loi-pho-bien-landing-page-khien-mat-khach": {
+    slug: "loi-pho-bien-landing-page-khien-mat-khach",
+    title: "8 lỗi phổ biến của landing page khiến bạn mất khách hàng mỗi ngày",
+    description:
+      "Phân tích 8 lỗi thiết kế và nội dung landing page phổ biến nhất. Từ headline mờ nhạt đến form quá dài — và cách sửa nhanh từng lỗi không cần redesign lại.",
+    category: "Landing Page",
+    readTime: "7 phút",
+    publishedDate: "2026-05-29",
+    author: "AITaoPage",
+    keywords: [
+      "lỗi landing page",
+      "landing page không hiệu quả",
+      "sửa landing page",
+      "tối ưu landing page",
+      "landing page chuyển đổi thấp",
+    ],
     content: `
 <h2>Tại sao landing page có traffic nhưng không có đơn?</h2>
 <p>Nhiều shop online đổ tiền chạy quảng cáo nhưng tỷ lệ chuyển đổi vẫn dưới 1%. Vấn đề thường không phải ở quảng cáo — mà ở landing page. Dưới đây là 8 lỗi phổ biến nhất và cách sửa từng lỗi mà không cần thiết kế lại từ đầu.</p>
@@ -1574,15 +1747,23 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'mobile-first-landing-page': {
-    slug:          'mobile-first-landing-page',
-    title:         'Mobile-first landing page: Thiết kế tối ưu cho 60% traffic điện thoại',
-    description:   'Hướng dẫn thiết kế landing page ưu tiên mobile cho thị trường Việt Nam. Từ kích thước font, CTA dễ bấm đến tốc độ tải — áp dụng ngay không cần lập trình.',
-    category:      'Landing Page',
-    readTime:      '6 phút',
-    publishedDate: '2026-05-28',
-    author:        'AITaoPage',
-    keywords:      ['mobile landing page', 'landing page điện thoại', 'mobile-first design', 'responsive landing page', 'landing page mobile Việt Nam'],
+  "mobile-first-landing-page": {
+    slug: "mobile-first-landing-page",
+    title:
+      "Mobile-first landing page: Thiết kế tối ưu cho 60% traffic điện thoại",
+    description:
+      "Hướng dẫn thiết kế landing page ưu tiên mobile cho thị trường Việt Nam. Từ kích thước font, CTA dễ bấm đến tốc độ tải — áp dụng ngay không cần lập trình.",
+    category: "Landing Page",
+    readTime: "6 phút",
+    publishedDate: "2026-05-28",
+    author: "AITaoPage",
+    keywords: [
+      "mobile landing page",
+      "landing page điện thoại",
+      "mobile-first design",
+      "responsive landing page",
+      "landing page mobile Việt Nam",
+    ],
     content: `
 <h2>Tại sao mobile-first quan trọng hơn bao giờ hết?</h2>
 <p>Tại Việt Nam, <strong>hơn 62% lượt truy cập web đến từ điện thoại</strong> (StatCounter 2026). Với thương mại điện tử, con số này còn cao hơn — đặc biệt traffic từ Facebook Ads và TikTok hầu hết là mobile. Thiết kế landing page bắt đầu từ desktop rồi "co lại" cho mobile là cách tiếp cận ngược chiều, dẫn đến trải nghiệm mobile kém.</p>
@@ -1631,15 +1812,23 @@ export const ARTICLES: Record<string, Article> = {
 
   // ── So sánh +1 ───────────────────────────────────────────────────────────
 
-  'haravan-vs-sapo-vs-woocommerce': {
-    slug:          'haravan-vs-sapo-vs-woocommerce',
-    title:         'Haravan vs Sapo vs WooCommerce: Nên chọn nền tảng nào cho shop Việt Nam?',
-    description:   'So sánh chi tiết 3 nền tảng thương mại điện tử phổ biến nhất Việt Nam. Giá cả, tính năng, khả năng tùy chỉnh HTML và phù hợp với từng quy mô kinh doanh.',
-    category:      'So sánh',
-    readTime:      '9 phút',
-    publishedDate: '2026-05-29',
-    author:        'AITaoPage',
-    keywords:      ['haravan vs sapo', 'haravan vs woocommerce', 'nền tảng bán hàng online Việt Nam', 'so sánh haravan sapo', 'chọn nền tảng thương mại điện tử'],
+  "haravan-vs-sapo-vs-woocommerce": {
+    slug: "haravan-vs-sapo-vs-woocommerce",
+    title:
+      "Haravan vs Sapo vs WooCommerce: Nên chọn nền tảng nào cho shop Việt Nam?",
+    description:
+      "So sánh chi tiết 3 nền tảng thương mại điện tử phổ biến nhất Việt Nam. Giá cả, tính năng, khả năng tùy chỉnh HTML và phù hợp với từng quy mô kinh doanh.",
+    category: "So sánh",
+    readTime: "9 phút",
+    publishedDate: "2026-05-29",
+    author: "AITaoPage",
+    keywords: [
+      "haravan vs sapo",
+      "haravan vs woocommerce",
+      "nền tảng bán hàng online Việt Nam",
+      "so sánh haravan sapo",
+      "chọn nền tảng thương mại điện tử",
+    ],
     content: `
 <h2>Tổng quan 3 nền tảng</h2>
 <p>Với hơn 80% shop online Việt Nam chọn một trong ba nền tảng này, việc chọn đúng từ đầu ảnh hưởng lớn đến chi phí và khả năng mở rộng về sau. Mỗi nền tảng có điểm mạnh riêng — không có lựa chọn nào đúng cho tất cả mọi trường hợp.</p>
@@ -1700,15 +1889,23 @@ export const ARTICLES: Record<string, Article> = {
 
   // ── Kỹ thuật +1 ──────────────────────────────────────────────────────────
 
-  'toi-uu-toc-do-tai-trang-html-block': {
-    slug:          'toi-uu-toc-do-tai-trang-html-block',
-    title:         'Tối ưu tốc độ tải trang cho HTML block — Tăng điểm PageSpeed không cần dev',
-    description:   'Hướng dẫn tối ưu tốc độ tải cho HTML block dán vào CMS. Compress ảnh, lazy load, và các kỹ thuật không cần code giúp trang tải nhanh hơn 40%.',
-    category:      'Kỹ thuật',
-    readTime:      '6 phút',
-    publishedDate: '2026-05-28',
-    author:        'AITaoPage',
-    keywords:      ['tốc độ tải trang', 'pagespeed landing page', 'tối ưu html block', 'ảnh webp cms', 'tăng tốc website haravan sapo'],
+  "toi-uu-toc-do-tai-trang-html-block": {
+    slug: "toi-uu-toc-do-tai-trang-html-block",
+    title:
+      "Tối ưu tốc độ tải trang cho HTML block — Tăng điểm PageSpeed không cần dev",
+    description:
+      "Hướng dẫn tối ưu tốc độ tải cho HTML block dán vào CMS. Compress ảnh, lazy load, và các kỹ thuật không cần code giúp trang tải nhanh hơn 40%.",
+    category: "Kỹ thuật",
+    readTime: "6 phút",
+    publishedDate: "2026-05-28",
+    author: "AITaoPage",
+    keywords: [
+      "tốc độ tải trang",
+      "pagespeed landing page",
+      "tối ưu html block",
+      "ảnh webp cms",
+      "tăng tốc website haravan sapo",
+    ],
     content: `
 <h2>Tốc độ tải ảnh hưởng trực tiếp đến doanh thu</h2>
 <p>Google đã chứng minh: mỗi giây tải chậm thêm làm giảm tỷ lệ chuyển đổi khoảng <strong>7%</strong>. Với trang bán hàng 100 đơn/ngày, chậm 1 giây = mất 7 đơn mỗi ngày, khoảng 2.500 đơn mỗi năm. Tối ưu tốc độ là đầu tư có ROI cao nhất trong tất cả các cải tiến kỹ thuật.</p>
@@ -1758,15 +1955,23 @@ export const ARTICLES: Record<string, Article> = {
 
   // ── SEO +2 ───────────────────────────────────────────────────────────────
 
-  'tu-khoa-duoi-dai-long-tail-seo': {
-    slug:          'tu-khoa-duoi-dai-long-tail-seo',
-    title:         'Từ khóa đuôi dài (Long-tail): Chiến lược SEO hiệu quả cho website mới',
-    description:   'Tại sao từ khóa đuôi dài dễ lên top hơn và chuyển đổi tốt hơn từ khóa ngắn. Hướng dẫn tìm và khai thác long-tail keywords cho shop online Việt Nam.',
-    category:      'SEO',
-    readTime:      '7 phút',
-    publishedDate: '2026-05-29',
-    author:        'AITaoPage',
-    keywords:      ['từ khóa đuôi dài', 'long tail keyword', 'SEO từ khóa dài', 'chiến lược SEO website mới', 'tìm từ khóa SEO tiếng Việt'],
+  "tu-khoa-duoi-dai-long-tail-seo": {
+    slug: "tu-khoa-duoi-dai-long-tail-seo",
+    title:
+      "Từ khóa đuôi dài (Long-tail): Chiến lược SEO hiệu quả cho website mới",
+    description:
+      "Tại sao từ khóa đuôi dài dễ lên top hơn và chuyển đổi tốt hơn từ khóa ngắn. Hướng dẫn tìm và khai thác long-tail keywords cho shop online Việt Nam.",
+    category: "SEO",
+    readTime: "7 phút",
+    publishedDate: "2026-05-29",
+    author: "AITaoPage",
+    keywords: [
+      "từ khóa đuôi dài",
+      "long tail keyword",
+      "SEO từ khóa dài",
+      "chiến lược SEO website mới",
+      "tìm từ khóa SEO tiếng Việt",
+    ],
     content: `
 <h2>Từ khóa đuôi dài là gì?</h2>
 <p>Từ khóa đuôi dài (long-tail keywords) là cụm từ tìm kiếm cụ thể, thường từ 3 từ trở lên. Ví dụ:</p>
@@ -1806,15 +2011,22 @@ export const ARTICLES: Record<string, Article> = {
     `.trim(),
   },
 
-  'local-seo-viet-nam-google-maps': {
-    slug:          'local-seo-viet-nam-google-maps',
-    title:         'Local SEO Việt Nam: Lên top Google Maps và tìm kiếm địa phương',
-    description:   'Hướng dẫn tối ưu Local SEO cho cửa hàng và doanh nghiệp tại Việt Nam. Từ Google Business Profile đến NAP consistency — thu hút khách hàng trong bán kính gần.',
-    category:      'SEO',
-    readTime:      '8 phút',
-    publishedDate: '2026-05-27',
-    author:        'AITaoPage',
-    keywords:      ['local seo việt nam', 'google maps ranking', 'seo địa phương', 'google business profile', 'seo cửa hàng địa phương việt nam'],
+  "local-seo-viet-nam-google-maps": {
+    slug: "local-seo-viet-nam-google-maps",
+    title: "Local SEO Việt Nam: Lên top Google Maps và tìm kiếm địa phương",
+    description:
+      "Hướng dẫn tối ưu Local SEO cho cửa hàng và doanh nghiệp tại Việt Nam. Từ Google Business Profile đến NAP consistency — thu hút khách hàng trong bán kính gần.",
+    category: "SEO",
+    readTime: "8 phút",
+    publishedDate: "2026-05-27",
+    author: "AITaoPage",
+    keywords: [
+      "local seo việt nam",
+      "google maps ranking",
+      "seo địa phương",
+      "google business profile",
+      "seo cửa hàng địa phương việt nam",
+    ],
     content: `
 <h2>Local SEO quan trọng với ai?</h2>
 <p>Nếu doanh nghiệp của bạn phục vụ khách hàng theo địa lý — spa, nhà hàng, garage, phòng khám, trung tâm đào tạo, cửa hàng bán lẻ — Local SEO là kênh marketing chi phí thấp, hiệu quả cao nhất. Khi ai đó tìm "spa quận 7" hoặc "sửa xe máy gần đây", bạn muốn tên cửa hàng của mình xuất hiện đầu tiên.</p>
@@ -1861,4 +2073,4 @@ export const ARTICLES: Record<string, Article> = {
 <p>Local SEO không tốn nhiều tiền nhưng cần sự kiên trì. Tối ưu Google Business Profile và thu thập review là 80% công việc cho 80% kết quả. Bắt đầu với 2 bước này, duy trì đều đặn 3–6 tháng — kết quả sẽ là dòng khách hàng địa phương ổn định mà không cần chạy quảng cáo.</p>
     `.trim(),
   },
-}
+};

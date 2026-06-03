@@ -922,8 +922,8 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
                     ? "Không thấy gợi ý phù hợp? Nhập yêu cầu của bạn vào đây..."
                     : "Nhập yêu cầu của bạn vào đây, hoặc chọn nhanh một loại nội dung bên trên"
                 }
-                rows={3}
-                maxLength={500}
+                rows={5}
+                maxLength={5000}
                 onKeyDown={handleInitialKeyDown}
                 className="w-full resize-none bg-transparent text-white text-sm placeholder:text-slate-500 focus:outline-none leading-relaxed"
               />
