@@ -175,6 +175,13 @@ button {
   touch-action: manipulation;
 }
 
+/* Use dynamic viewport height so the editor fills the correct area on mobile
+   (iOS Safari's 100vh includes the browser chrome; 100dvh excludes it) */
+.gjs-editor-wrap {
+  height: 100vh;
+  height: 100dvh;
+}
+
 /* Desktop default: panels are always visible as columns */
 /* Mobile override: panels become slide-in overlays driven by data-mtab attribute */
 .gjs-mob-only {
@@ -213,9 +220,48 @@ button {
 
   .gjs-mob-only {
     display: flex;
+    /* Respect iOS home indicator / safe area */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   .gjs-mob-close {
     display: flex;
+  }
+
+  /* ── Larger touch targets inside GrapesJS panels ── */
+  .gjs-field input,
+  .gjs-sm-field input,
+  .gjs-trt-trait input,
+  .gjs-trt-trait select,
+  .gjs-trt-trait textarea {
+    min-height: 36px !important;
+    font-size: 14px !important;
+    padding: 6px 10px !important;
+  }
+
+  /* Bigger layer rows */
+  .gjs-layer-item {
+    min-height: 40px !important;
+  }
+  .gjs-layer-name {
+    font-size: 13px !important;
+  }
+
+  /* Slightly taller blocks for fat-finger tapping */
+  #gjs-blocks-panel .gjs-block {
+    min-height: 64px !important;
+  }
+
+  /* Prevent elastic/overscroll on the canvas wrapper — avoids page
+     jumping when the user scrolls inside the GrapesJS iframe */
+  .gjs-editor {
+    overscroll-behavior: contain;
+  }
+
+  /* Disable text selection inside the canvas on touch to avoid the
+     browser showing the iOS "copy / select all" popup on long-press */
+  .gjs-cv-canvas {
+    -webkit-user-select: none;
+    user-select: none;
   }
 }
 

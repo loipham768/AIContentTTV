@@ -13,6 +13,7 @@ import Logo from '@/components/Logo'
 import UserAvatar from '@/components/UserAvatar'
 import MobileNav from '@/components/MobileNav'
 import UserMenu from '@/components/UserMenu'
+import ScrollHeaderWrapper from '@/components/ScrollHeaderWrapper'
 import { dbConnect } from '@/lib/mongodb'
 import User from '@/models/User'
 
@@ -255,7 +256,7 @@ export default async function LandingPage() {
     <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
 
       {/* ── Navbar ─────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100">
+      <ScrollHeaderWrapper>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Logo iconSize={32} uid="nav" />
 
@@ -301,7 +302,7 @@ export default async function LandingPage() {
             email={session?.user?.email ?? undefined}
           />
         </div>
-      </header>
+      </ScrollHeaderWrapper>
 
       {/* ── Hero ───────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-20 sm:py-28" style={{ background: 'linear-gradient(135deg, #ddd6fe 0%, #faf5ff 45%, #e0e7ff 100%)' }}>

@@ -50,6 +50,7 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
   const [isPreview, setIsPreview] = useState(false);
   const [mobileTab, setMobileTab] = useState<MobileTab>("canvas");
   const [showEditHint, setShowEditHint] = useState(!!initialData);
+  const [isMobile, setIsMobile] = useState(false);
   const [currentProjectId, setCurrentProjectId] = useState<string | null>(initialProjectId ?? null);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -154,6 +155,25 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
       // Close blocks panel so the user can see the result on canvas
       setMobileTab('canvas');
     });
+
+    // Mobile touch fix: GrapesJS binds mousedown → startDrag on each block element,
+    // which initialises the sorter and breaks touch taps. We intercept mousedown in
+    // capture phase (before GrapesJS sees it) and stop propagation so startDrag
+    // never runs.  The browser still synthesises `click` from touchend, so
+    // block:click fires normally and tap-to-add works correctly.
+    editor.on('load', () => {
+      if (typeof window === 'undefined' || window.innerWidth >= 1024) return;
+      const blocksPanel = document.getElementById('gjs-blocks-panel');
+      if (!blocksPanel) return;
+      blocksPanel.addEventListener(
+        'mousedown',
+        (e) => {
+          if (!(e.target as Element).closest('.gjs-block')) return;
+          e.stopImmediatePropagation();
+        },
+        true, // capture — fires before GrapesJS target-phase listener
+      );
+    });
   }, [initialData]);
 
   async function handleSave() {
@@ -221,6 +241,11 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [isPreview]);
+
+  // Detect mobile once on mount (client-side only)
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 1024);
+  }, []);
 
   // Auto-dismiss the edit hint after 12s
   useEffect(() => {
@@ -301,7 +326,7 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
   return (
     // data-preview attribute triggers CSS to hide panels / prompt bar in preview mode
     <div
-      className="flex flex-col h-screen"
+      className="flex flex-col gjs-editor-wrap"
       data-preview={isPreview ? "" : undefined}
     >
       <TopBar
@@ -325,7 +350,9 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
           <p className="flex-1 leading-relaxed">
             <span className="font-semibold">Mọi thứ đều chỉnh sửa được!</span>
             {" "}Nhấn vào bất kỳ phần tử nào để đổi màu chữ, màu nền, gradient, animation, hình ảnh, bố cục...
-            Kéo thả các khối ở bên trái để thêm nội dung mới.
+            {isMobile
+              ? " Chuyển tab Khối bên dưới, nhấn vào khối để thêm nội dung mới."
+              : " Kéo thả các khối ở bên trái để thêm nội dung mới."}
           </p>
           <button
             onClick={() => setShowEditHint(false)}

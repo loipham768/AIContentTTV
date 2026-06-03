@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Be_Vietnam_Pro, JetBrains_Mono } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
+import BackToTop from "@/components/BackToTop";
 import "./globals.css";
 
 const beVietnamPro = Be_Vietnam_Pro({
@@ -57,6 +58,7 @@ export default function RootLayout({
       >
         <NextTopLoader color="#4f46e5" height={3} showSpinner={false} />
         {children}
+        <BackToTop />
       </body>
     </html>
   );
