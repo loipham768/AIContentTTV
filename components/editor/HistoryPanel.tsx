@@ -150,9 +150,9 @@ export default function HistoryPanel({ editorRef, refreshKey }: HistoryPanelProp
         {!loading && !fetchError && projects.map(project => (
           <div key={project._id} className="mx-2 my-1.5 bg-white rounded-xl border border-slate-200 overflow-hidden hover:border-slate-300 hover:shadow-sm transition-all group">
             <div className="px-3 pt-3 pb-2">
-              <div className="flex items-start justify-between gap-2 mb-1">
+              <div className="mb-1">
                 {editingId === project._id ? (
-                  <div className="flex items-center gap-1 flex-1 min-w-0">
+                  <div className="flex items-center gap-1 min-w-0">
                     <input
                       ref={renameInputRef}
                       value={editingName}
@@ -184,8 +184,8 @@ export default function HistoryPanel({ editorRef, refreshKey }: HistoryPanelProp
                     </button>
                   </div>
                 ) : (
-                  <div className="flex items-center gap-1 flex-1 min-w-0">
-                    <p className="text-xs font-semibold text-slate-800 truncate leading-snug flex-1 min-w-0">{project.name}</p>
+                  <div className="flex items-center gap-1 min-w-0">
+                    <p className="text-xs font-semibold text-slate-800 truncate leading-snug flex-1 min-w-0" title={project.name}>{project.name}</p>
                     <button
                       onClick={() => startRename(project)}
                       className="p-0.5 rounded text-slate-300 hover:text-slate-500 hover:bg-slate-100 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -195,8 +195,11 @@ export default function HistoryPanel({ editorRef, refreshKey }: HistoryPanelProp
                     </button>
                   </div>
                 )}
-                <time className="text-xs text-slate-400 flex-shrink-0">
-                  {new Date(project.createdAt).toLocaleDateString('vi-VN')}
+                <time className="text-[10px] text-slate-400 mt-0.5 block">
+                  {new Date(project.createdAt).toLocaleString('vi-VN', {
+                    day: '2-digit', month: '2-digit', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit', hour12: false,
+                  })}
                 </time>
               </div>
               <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">{project.prompt}</p>

@@ -6,19 +6,9 @@ import Order from "@/models/Order";
 import User from "@/models/User";
 import { PLAN_PRICES, CREDIT_PACKS } from "@/lib/planConfig";
 import { sendNewOrderAdminEmail } from "@/lib/email";
+import { generateOrderId } from "@/lib/orderUtils";
 
 export const runtime = "nodejs";
-
-function generateOrderId(): string {
-  const d = new Date();
-  const date = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  const random = Array.from(
-    { length: 5 },
-    () => chars[Math.floor(Math.random() * chars.length)],
-  ).join("");
-  return `VCB-${date}-${random}`;
-}
 
 const subscriptionSchema = z.object({
   type: z.literal("subscription"),

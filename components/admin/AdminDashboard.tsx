@@ -24,6 +24,7 @@ import RejectOrderButton from "./RejectOrderButton";
 import DeleteOrderButton from "./DeleteOrderButton";
 import DeleteUserButton from "./DeleteUserButton";
 import { PLAN_LIMITS } from "@/lib/planConfig";
+import { toTransferContent } from "@/lib/orderUtils";
 import { ADMIN_PAGE_SIZE } from "@/lib/adminConfig";
 
 export interface UserRow {
@@ -94,6 +95,14 @@ const PLAN_LABELS: Record<string, string> = {
   designer: "Designer",
 };
 
+// If a "pending" order's expiresAt has passed, treat it as expired in the UI
+function getEffectiveStatus(order: OrderRow): string {
+  if (order.status === "pending" && new Date(order.expiresAt) < new Date()) {
+    return "expired"
+  }
+  return order.status
+}
+
 const STATUS_STYLES: Record<string, string> = {
   pending: "bg-amber-100 text-amber-700",
   awaiting_confirmation: "bg-blue-100 text-blue-700",
@@ -113,6 +122,7 @@ const STATUS_LABELS: Record<string, string> = {
 function formatVnd(n: number) {
   return n.toLocaleString("vi-VN") + "đ";
 }
+
 
 function planLimit(plan: string): string {
   const limits = PLAN_LIMITS[plan as keyof typeof PLAN_LIMITS];
@@ -480,14 +490,19 @@ export default function AdminDashboard({
                     </td>
                   </tr>
                 )}
-                {orders.map((order) => (
+                {orders.map((order) => {
+                  const es = getEffectiveStatus(order);
+                  return (
                   <tr
                     key={order._id}
-                    className={`hover:bg-gray-50 transition-colors ${order.status === "awaiting_confirmation" ? "bg-blue-50/40" : ""}`}
+                    className={`hover:bg-gray-50 transition-colors ${es === "awaiting_confirmation" ? "bg-blue-50/40" : es === "expired" ? "bg-red-50/30" : ""}`}
                   >
                     <td className="px-4 py-3.5">
-                      <span className="font-mono text-xs font-bold text-indigo-700">
+                      <span className="font-mono text-xs font-bold text-indigo-700 block">
                         {order.orderId}
+                      </span>
+                      <span className="font-mono text-[10px] text-gray-400 block mt-0.5">
+                        CK: {toTransferContent(order.orderId)}
                       </span>
                     </td>
                     <td className="px-4 py-3.5 text-xs text-gray-600 max-w-[180px] truncate">
@@ -503,22 +518,13 @@ export default function AdminDashboard({
                     </td>
                     <td className="px-4 py-3.5">
                       <span
-                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${STATUS_STYLES[order.status] ?? "bg-gray-100 text-gray-600"}`}
+                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${STATUS_STYLES[es] ?? "bg-gray-100 text-gray-600"}`}
                       >
-                        {order.status === "paid" && (
-                          <CheckCircle2 className="w-3 h-3" />
-                        )}
-                        {order.status === "pending" && (
-                          <Clock className="w-3 h-3" />
-                        )}
-                        {order.status === "awaiting_confirmation" && (
-                          <Hourglass className="w-3 h-3" />
-                        )}
-                        {(order.status === "cancelled" ||
-                          order.status === "expired") && (
-                          <XCircle className="w-3 h-3" />
-                        )}
-                        {STATUS_LABELS[order.status] ?? order.status}
+                        {es === "paid" && <CheckCircle2 className="w-3 h-3" />}
+                        {es === "pending" && <Clock className="w-3 h-3" />}
+                        {es === "awaiting_confirmation" && <Hourglass className="w-3 h-3" />}
+                        {(es === "cancelled" || es === "expired") && <XCircle className="w-3 h-3" />}
+                        {STATUS_LABELS[es] ?? es}
                       </span>
                     </td>
                     <td className="px-4 py-3.5">
@@ -544,8 +550,7 @@ export default function AdminDashboard({
                     </td>
                     <td className="px-4 py-3.5">
                       <div className="flex items-center gap-1.5 flex-wrap">
-                        {(order.status === "pending" ||
-                          order.status === "awaiting_confirmation") && (
+                        {(es === "pending" || es === "awaiting_confirmation") && (
                           <>
                             <ActivateOrderButton
                               orderId={order.orderId}
@@ -573,7 +578,8 @@ export default function AdminDashboard({
                       </div>
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -585,19 +591,24 @@ export default function AdminDashboard({
                 Chưa có đơn hàng nào.
               </div>
             )}
-            {orders.map((order) => (
+            {orders.map((order) => { const es = getEffectiveStatus(order); return (
               <div
                 key={order._id}
-                className={`p-4 space-y-2 ${order.status === "awaiting_confirmation" ? "bg-blue-50/40" : ""}`}
+                className={`p-4 space-y-2 ${es === "awaiting_confirmation" ? "bg-blue-50/40" : es === "expired" ? "bg-red-50/30" : ""}`}
               >
                 <div className="flex items-start justify-between gap-2">
-                  <span className="font-mono text-xs font-bold text-indigo-700">
-                    {order.orderId}
-                  </span>
+                  <div>
+                    <span className="font-mono text-xs font-bold text-indigo-700 block">
+                      {order.orderId}
+                    </span>
+                    <span className="font-mono text-[10px] text-gray-400 block">
+                      CK: {toTransferContent(order.orderId)}
+                    </span>
+                  </div>
                   <span
-                    className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${STATUS_STYLES[order.status] ?? "bg-gray-100 text-gray-600"}`}
+                    className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${STATUS_STYLES[es] ?? "bg-gray-100 text-gray-600"}`}
                   >
-                    {STATUS_LABELS[order.status] ?? order.status}
+                    {STATUS_LABELS[es] ?? es}
                   </span>
                 </div>
                 <p className="text-xs text-gray-600 truncate">
@@ -632,8 +643,7 @@ export default function AdminDashboard({
                       <ImageIcon className="w-3 h-3" /> Xem ảnh CK
                     </button>
                   )}
-                  {(order.status === "pending" ||
-                    order.status === "awaiting_confirmation") && (
+                  {(es === "pending" || es === "awaiting_confirmation") && (
                     <>
                       <ActivateOrderButton
                         orderId={order.orderId}
@@ -658,7 +668,7 @@ export default function AdminDashboard({
                   />
                 </div>
               </div>
-            ))}
+            ); })}
           </div>
 
           <Pagination

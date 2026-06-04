@@ -686,8 +686,8 @@ export default async function LandingPage() {
                   <span className="text-gray-400 mb-1 text-sm">/tháng</span>
                 </div>
                 <p className="mt-1.5 text-sm text-gray-500">Không cần thẻ ngân hàng</p>
-                <Link href="/login?plan=free" className="mt-5 block text-center py-2.5 text-sm font-semibold text-indigo-600 border border-indigo-300 rounded-xl hover:bg-indigo-50 transition-colors">
-                  Bắt đầu miễn phí
+                <Link href={isLoggedIn ? "/create" : "/login?plan=free"} className="mt-5 block text-center py-2.5 text-sm font-semibold text-indigo-600 border border-indigo-300 rounded-xl hover:bg-indigo-50 transition-colors">
+                  {isLoggedIn ? "Tạo nội dung ngay" : "Bắt đầu miễn phí"}
                 </Link>
                 <ul className="mt-6 space-y-2.5 flex-1">
                   {[
@@ -898,8 +898,8 @@ export default async function LandingPage() {
             <p className="text-purple-100 text-lg mb-10">
               Đăng ký miễn phí — tạo landing page, bài viết hay quảng cáo đầu tiên trong 60 giây.
             </p>
-            <Link href="/login" className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold bg-white text-indigo-700 rounded-xl hover:bg-purple-50 transition-colors shadow-xl">
-              Bắt đầu miễn phí
+            <Link href={isLoggedIn ? "/create" : "/login"} className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold bg-white text-indigo-700 rounded-xl hover:bg-purple-50 transition-colors shadow-xl">
+              {isLoggedIn ? "Tạo nội dung ngay" : "Bắt đầu miễn phí"}
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

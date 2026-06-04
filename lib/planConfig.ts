@@ -57,6 +57,8 @@ export type CreditPackId = (typeof CREDIT_PACKS)[number]["id"];
 
 export const BANK_INFO = {
   bank: process.env.BANK_NAME ?? "Vietcombank",
+  // VietQR BIN — 970436 = Vietcombank. Change via BANK_BIN env var if using another bank.
+  bankId: process.env.BANK_BIN ?? "970436",
   accountNumber: process.env.BANK_ACCOUNT ?? "0251002752085",
   accountHolder: process.env.BANK_HOLDER ?? "PHAM VAN LOI",
   branch: process.env.BANK_BRANCH ?? "Chi nhánh TP.HCM",

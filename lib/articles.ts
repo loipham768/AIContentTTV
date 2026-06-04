@@ -2073,4 +2073,516 @@ một số câu hỏi chẳng hạn: <b>Phong cách bạn muốn là gì?</b> <b
 <p>Local SEO không tốn nhiều tiền nhưng cần sự kiên trì. Tối ưu Google Business Profile và thu thập review là 80% công việc cho 80% kết quả. Bắt đầu với 2 bước này, duy trì đều đặn 3–6 tháng — kết quả sẽ là dòng khách hàng địa phương ổn định mà không cần chạy quảng cáo.</p>
     `.trim(),
   },
+
+  "1-credit-la-gi-cach-tinh-credit-tren-aitaopage": {
+    slug: "1-credit-la-gi-cach-tinh-credit-tren-aitaopage",
+    title: "1 Credit là gì? Cách tính credit trên AITaoPage",
+    description:
+      "Giải thích rõ 1 credit bằng bao nhiêu, khi nào bị trừ credit, sự khác biệt giữa credit và gói tháng, và cách chọn gói nạp tiết kiệm nhất.",
+    category: "Hướng dẫn",
+    readTime: "5 phút",
+    publishedDate: "2026-06-04",
+    author: "AITaoPage",
+    keywords: [
+      "credit AITaoPage là gì",
+      "cách tính credit",
+      "nạp credit AITaoPage",
+      "lượt tạo HTML",
+      "gói credits AITaoPage",
+    ],
+    content: `
+<h2>1 Credit là gì?</h2>
+<p>Trên AITaoPage, <strong>1 credit = 1 lần tạo block HTML bằng AI</strong>. Mỗi khi bạn nhập mô tả, nhấn "Tạo ngay" và hệ thống trả về một block HTML hoàn chỉnh — đó là lúc 1 credit được sử dụng. Không phân biệt prompt ngắn hay dài, đơn giản hay phức tạp — mỗi lần tạo thành công đều tốn đúng 1 credit.</p>
+
+<h2>Khi nào credit bị trừ?</h2>
+<p>Credit chỉ bị trừ khi AI <strong>tạo thành công</strong> và trả về HTML cho bạn. Cụ thể hệ thống hoạt động theo thứ tự ưu tiên sau:</p>
+<ol>
+<li><strong>Ưu tiên 1 — Quota gói tháng:</strong> Hệ thống kiểm tra xem bạn còn lượt tạo trong tháng của gói đang dùng không. Nếu còn, trừ vào đó trước.</li>
+<li><strong>Ưu tiên 2 — Credits nạp thêm:</strong> Khi hết quota tháng, hệ thống tự động chuyển sang trừ credit. Mỗi lần tạo = trừ 1 credit.</li>
+<li><strong>Từ chối nếu không còn gì:</strong> Nếu cả quota lẫn credit đều bằng 0, hệ thống trả về thông báo yêu cầu nâng cấp gói hoặc nạp thêm credit.</li>
+</ol>
+
+<h2>Credit khác gì với quota gói tháng?</h2>
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:16px 0">
+<thead>
+<tr style="background:#f1f5f9">
+<th style="padding:10px;border:1px solid #e2e8f0;text-align:left">Tiêu chí</th>
+<th style="padding:10px;border:1px solid #e2e8f0;text-align:center">Quota gói tháng</th>
+<th style="padding:10px;border:1px solid #e2e8f0;text-align:center">Credits nạp thêm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding:10px;border:1px solid #e2e8f0">Thời hạn</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">Reset đầu mỗi tháng</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">Không hết hạn — dùng đến hết</td>
+</tr>
+<tr style="background:#f8fafc">
+<td style="padding:10px;border:1px solid #e2e8f0">Cách nhận</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">Kèm theo gói đăng ký</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">Mua riêng theo gói credits</td>
+</tr>
+<tr>
+<td style="padding:10px;border:1px solid #e2e8f0">Khi nào dùng</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">Ưu tiên dùng trước</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">Dùng khi hết quota tháng</td>
+</tr>
+<tr style="background:#f8fafc">
+<td style="padding:10px;border:1px solid #e2e8f0">Phù hợp với</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">Người dùng đều đặn mỗi tháng</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">Người dùng không cố định, cần thêm lượt</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Các gói nạp credit hiện tại</h2>
+<p>AITaoPage cung cấp 4 gói nạp credit — gói càng lớn, chi phí mỗi credit càng rẻ:</p>
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:16px 0">
+<thead>
+<tr style="background:#f1f5f9">
+<th style="padding:10px;border:1px solid #e2e8f0;text-align:left">Gói</th>
+<th style="padding:10px;border:1px solid #e2e8f0;text-align:center">Giá</th>
+<th style="padding:10px;border:1px solid #e2e8f0;text-align:center">Số lượt tạo</th>
+<th style="padding:10px;border:1px solid #e2e8f0;text-align:center">Giá / lượt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding:10px;border:1px solid #e2e8f0">Gói nhỏ</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">20.000đ</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">4 lượt</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">5.000đ / lượt</td>
+</tr>
+<tr style="background:#f8fafc">
+<td style="padding:10px;border:1px solid #e2e8f0">Gói vừa</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">50.000đ</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">12 lượt</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">~4.167đ / lượt</td>
+</tr>
+<tr style="background:#ede9fe">
+<td style="padding:10px;border:1px solid #e2e8f0"><strong>Gói phổ biến ⭐</strong></td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center"><strong>100.000đ</strong></td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center"><strong>30 lượt</strong></td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center"><strong>~3.333đ / lượt</strong></td>
+</tr>
+<tr>
+<td style="padding:10px;border:1px solid #e2e8f0">Gói lớn</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">200.000đ</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">72 lượt</td>
+<td style="padding:10px;border:1px solid #e2e8f0;text-align:center">~2.778đ / lượt</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Credit có hết hạn không?</h2>
+<p><strong>Không.</strong> Credits nạp thêm không bị hết hạn theo thời gian. Bạn nạp 30 lượt hôm nay, dùng 10 lượt tháng này, 20 lượt còn lại vẫn ở đó cho tháng sau, tháng sau nữa — cho đến khi bạn dùng hết. Đây là điểm khác biệt lớn so với quota gói tháng (reset về 0 đầu tháng dù bạn chưa dùng hết).</p>
+
+<h2>So sánh: nên đăng ký gói hay nạp credit?</h2>
+<p>Tùy vào tần suất sử dụng của bạn:</p>
+<ul>
+<li><strong>Dùng đều đặn mỗi tháng (10+ lần/tháng):</strong> Đăng ký gói Basic (99.000đ/tháng — 25 lượt) hoặc Pro (199.000đ/tháng — không giới hạn) tiết kiệm hơn nhiều so với nạp credit lẻ.</li>
+<li><strong>Dùng không cố định, thỉnh thoảng cần nhiều:</strong> Nạp credit phù hợp hơn — chỉ trả tiền khi dùng, không bị mất lượt cuối tháng.</li>
+<li><strong>Vừa có gói vừa cần thêm:</strong> Dùng hết quota tháng? Credit nạp thêm sẽ tự động bù — không cần làm gì, hệ thống tự chuyển sang.</li>
+</ul>
+
+<h2>Ví dụ thực tế</h2>
+<p>Bạn đang dùng gói <strong>Basic (25 lượt/tháng)</strong> và đã nạp thêm <strong>12 credits</strong>:</p>
+<ul>
+<li>Ngày 1–20 tháng 6: Tạo 25 lần → hệ thống trừ vào quota gói (25/25 đã dùng hết)</li>
+<li>Ngày 21 tháng 6: Cần tạo thêm → hệ thống tự động trừ vào credits (còn 11 credits)</li>
+<li>Ngày 22–30 tháng 6: Tạo thêm 11 lần → dùng hết 12 credits</li>
+<li>Ngày 1 tháng 7: Quota gói tự động reset về 25 lượt mới — credits không thay đổi (nếu còn)</li>
+</ul>
+
+<h2>Kiểm tra credit còn lại ở đâu?</h2>
+<p>Bạn có thể xem số credit hiện tại bất cứ lúc nào tại <strong>trang Hồ sơ cá nhân</strong> (nhấn vào avatar góc trên bên phải → chọn "Hồ sơ"). Trong trang này có 2 thông tin liên quan đến lượt tạo:</p>
+<ul>
+<li><strong>Lượt tạo tháng này:</strong> Thanh tiến trình hiển thị bạn đã dùng bao nhiêu lượt trong tổng quota gói. Ví dụ: "18 / 25 lượt" với gói Basic.</li>
+<li><strong>Credit dự phòng ⚡:</strong> Dòng này chỉ hiện khi bạn đã từng nạp credit. Hiển thị dạng "X / Y lượt" (đã dùng / tổng nạp). Khi quota tháng cạn, dòng này chuyển sang màu vàng với nhãn <em>"Đang dùng credit dự phòng"</em> để bạn biết hệ thống đang trừ vào credits.</li>
+</ul>
+<p>Ngoài ra, trang Hồ sơ cũng có mục <strong>Lịch sử giao dịch</strong> liệt kê toàn bộ các lần nạp credit hoặc đăng ký gói, kèm trạng thái thanh toán.</p>
+
+<h2>Kết luận</h2>
+<p>Hệ thống credit của AITaoPage được thiết kế đơn giản và minh bạch: <strong>1 lần tạo HTML thành công = 1 credit</strong>. Quota gói tháng luôn được dùng trước, credits là lớp dự phòng không hết hạn để bạn không bao giờ bị gián đoạn giữa chừng. Kiểm tra số dư bất cứ lúc nào tại trang Hồ sơ cá nhân.</p>
+    `.trim(),
+  },
+
+  "cach-viet-content-zalo-oa-ban-hang": {
+    slug: "cach-viet-content-zalo-oa-ban-hang",
+    title: "Cách viết content Zalo OA bán hàng — 7 dạng bài hiệu quả nhất",
+    description:
+      "Hướng dẫn viết content Zalo Official Account thuyết phục cho shop online Việt Nam. 7 dạng bài đã kiểm chứng giúp tăng tương tác và chuyển đổi từ Zalo.",
+    category: "Content",
+    readTime: "8 phút",
+    publishedDate: "2026-06-04",
+    author: "AITaoPage",
+    keywords: [
+      "viết content Zalo OA",
+      "Zalo Official Account bán hàng",
+      "content Zalo hiệu quả",
+      "bài viết Zalo OA",
+      "marketing Zalo Việt Nam",
+    ],
+    content: `
+<h2>Tại sao Zalo OA quan trọng với shop online Việt Nam?</h2>
+<p>Zalo có hơn <strong>74 triệu người dùng tại Việt Nam</strong> — gần như toàn bộ người dùng smartphone đều có Zalo. Khác với Facebook (tốc độ giảm reach tự nhiên), Zalo OA vẫn cho phép bài viết tiếp cận <strong>100% người theo dõi</strong> mà không tốn tiền quảng cáo. Đây là kênh bán hàng bị underrated nhất ở Việt Nam năm 2026.</p>
+<p>Tuy nhiên, hầu hết shop dùng Zalo OA sai cách — đăng bài quá nhiều về sản phẩm, ít tương tác, khách hàng mute thông báo. Bí quyết nằm ở việc kết hợp đúng tỉ lệ giữa 7 dạng bài dưới đây.</p>
+
+<h2>7 dạng bài content Zalo OA hiệu quả nhất</h2>
+
+<h3>Dạng 1: Bài "Trước — Sau" (Before & After)</h3>
+<p>Dạng bài có tỷ lệ tương tác cao nhất trên Zalo. Cấu trúc đơn giản nhưng cực kỳ thuyết phục:</p>
+<ul>
+<li><strong>Trước:</strong> Mô tả vấn đề/tình trạng trước khi dùng sản phẩm (bằng hình ảnh + text cụ thể)</li>
+<li><strong>Sau:</strong> Kết quả đạt được sau bao nhiêu ngày/tuần (số liệu cụ thể, hình ảnh thật)</li>
+<li><strong>CTA:</strong> Hành động tiếp theo duy nhất ("Nhắn tin NGAY để nhận tư vấn miễn phí")</li>
+</ul>
+<p><strong>Ví dụ:</strong> "Da chị Lan trước khi dùng: thâm sạm, lỗ chân lông to. Sau 21 ngày dùng kem X: da sáng hơn rõ rệt, lỗ chân lông thu nhỏ 80%. Inbox để hỏi thêm về liệu trình nhé!"</p>
+
+<h3>Dạng 2: Bài chia sẻ kiến thức (Education Post)</h3>
+<p>Cung cấp thông tin hữu ích liên quan đến ngành hàng, không bán hàng trực tiếp. Mục tiêu: xây dựng uy tín chuyên môn và giữ người dùng không mute OA.</p>
+<p>Tỉ lệ vàng: cứ 3 bài kiến thức mới đăng 1 bài bán hàng. Đây là nguyên tắc giúp OA có lượng người theo dõi trung thành thay vì bị bỏ qua.</p>
+<p><strong>Ví dụ chủ đề:</strong> "5 sai lầm khi dưỡng da mùa hè", "Cách chọn size giày đúng khi mua online", "3 dấu hiệu thực phẩm chức năng kém chất lượng cần tránh".</p>
+
+<h3>Dạng 3: Bài Flash Sale với Countdown</h3>
+<p>Tạo urgency bằng thời gian có hạn. Zalo OA đặc biệt hiệu quả cho flash sale vì thông báo được push đến toàn bộ người follow.</p>
+<p><strong>Công thức:</strong></p>
+<ul>
+<li>Headline: Thông báo ưu đãi + thời hạn rõ ràng ("⚡ Flash Sale 4 tiếng — Hôm nay đến 22:00")</li>
+<li>Offer: Giảm bao nhiêu % hoặc tặng gì (cụ thể, không mơ hồ)</li>
+<li>Điều kiện: Đơn từ X đồng, chỉ áp dụng cho sản phẩm A B C</li>
+<li>CTA: Nhắn tin ngay với từ khóa ("Nhắn 'SALE' để đặt hàng")</li>
+</ul>
+
+<h3>Dạng 4: Bài Review từ Khách Hàng Thật</h3>
+<p>Screenshot feedback/đánh giá từ khách hàng thực, kèm tên và ảnh (đã xin phép). Không chỉnh sửa text — giữ nguyên lỗi chính tả nhỏ vì điều đó tăng tính chân thực.</p>
+<p><strong>Format hiệu quả:</strong> Ảnh review (screenshot Zalo/Facebook/Shopee) + caption ngắn nêu sản phẩm được review + CTA nhẹ ("Bạn cũng muốn trải nghiệm tương tự không?").</p>
+
+<h3>Dạng 5: Bài Hậu Trường (Behind the Scenes)</h3>
+<p>Quay phim/chụp ảnh quá trình đóng gói, kiểm tra hàng, nhập hàng, hay một ngày làm việc của team. Dạng bài này tăng sự gắn kết cảm xúc và tin tưởng đáng kể.</p>
+<p>Người mua hàng online luôn có nỗi lo "shop có uy tín không?". Bài hậu trường trả lời câu hỏi đó trực quan hơn bất kỳ lời giới thiệu nào.</p>
+
+<h3>Dạng 6: Bài Hỏi — Đáp (Q&A)</h3>
+<p>Trả lời 3-5 câu hỏi khách hàng hay hỏi nhất trong một bài. Vừa hữu ích, vừa giúp giảm tin nhắn lặp lại cho team chăm sóc khách hàng.</p>
+<p><strong>Cách lấy câu hỏi:</strong> Lọc các tin nhắn Zalo tuần qua, chọn những câu hỏi xuất hiện nhiều nhất (vận chuyển, đổi trả, cách dùng, phân biệt hàng thật/giả...).</p>
+
+<h3>Dạng 7: Bài Câu Chuyện Thành Công (Success Story)</h3>
+<p>Kể câu chuyện của một khách hàng cụ thể — vấn đề ban đầu, hành trình thử nghiệm, kết quả đạt được. Dài hơn các dạng bài khác (400-600 từ) nhưng retention rate cao nhất.</p>
+<p>Khác với review (vài dòng), success story là narrative hoàn chỉnh giúp khách hàng tiềm năng đồng cảm và tự nhìn thấy mình trong câu chuyện đó.</p>
+
+<h2>Lịch đăng bài Zalo OA tối ưu</h2>
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:16px 0">
+<thead>
+<tr style="background:#f1f5f9">
+<th style="padding:10px;border:1px solid #e2e8f0;text-align:left">Thứ</th>
+<th style="padding:10px;border:1px solid #e2e8f0;text-align:left">Dạng bài</th>
+<th style="padding:10px;border:1px solid #e2e8f0;text-align:left">Giờ đăng tốt nhất</th>
+</tr>
+</thead>
+<tbody>
+<tr><td style="padding:8px;border:1px solid #e2e8f0">Thứ 2</td><td style="padding:8px;border:1px solid #e2e8f0">Kiến thức / Tips</td><td style="padding:8px;border:1px solid #e2e8f0">7:30 – 8:00</td></tr>
+<tr style="background:#f8fafc"><td style="padding:8px;border:1px solid #e2e8f0">Thứ 3</td><td style="padding:8px;border:1px solid #e2e8f0">Review khách hàng</td><td style="padding:8px;border:1px solid #e2e8f0">12:00 – 12:30</td></tr>
+<tr><td style="padding:8px;border:1px solid #e2e8f0">Thứ 4</td><td style="padding:8px;border:1px solid #e2e8f0">Trước — Sau</td><td style="padding:8px;border:1px solid #e2e8f0">20:00 – 21:00</td></tr>
+<tr style="background:#f8fafc"><td style="padding:8px;border:1px solid #e2e8f0">Thứ 5</td><td style="padding:8px;border:1px solid #e2e8f0">Hậu trường / Q&A</td><td style="padding:8px;border:1px solid #e2e8f0">12:00 – 12:30</td></tr>
+<tr><td style="padding:8px;border:1px solid #e2e8f0">Thứ 6</td><td style="padding:8px;border:1px solid #e2e8f0">Flash Sale / Offer</td><td style="padding:8px;border:1px solid #e2e8f0">18:00 – 19:00</td></tr>
+<tr style="background:#f8fafc"><td style="padding:8px;border:1px solid #e2e8f0">Thứ 7</td><td style="padding:8px;border:1px solid #e2e8f0">Success Story</td><td style="padding:8px;border:1px solid #e2e8f0">20:00 – 21:30</td></tr>
+</tbody>
+</table>
+
+<h2>3 lỗi khiến Zalo OA không hiệu quả</h2>
+<ul>
+<li><strong>Đăng quá nhiều lần/ngày:</strong> Quá 2 bài/ngày → khách mute thông báo. Giữ tần suất 1 bài/ngày là tối ưu.</li>
+<li><strong>100% bài bán hàng:</strong> Không có kiến thức, không có giá trị — OA trở thành "spam channel".</li>
+<li><strong>Caption quá dài không xuống dòng:</strong> Zalo hiển thị text dày đặc rất khó đọc. Xuống dòng sau mỗi 2-3 câu, dùng emoji để tạo điểm nhấn.</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>Zalo OA là kênh bán hàng miễn phí mạnh nhất tại Việt Nam nếu dùng đúng cách. Chiến lược nội dung đa dạng — xen kẽ giữa kiến thức, bằng chứng, và offer — giúp xây dựng cộng đồng khách hàng trung thành thay vì chỉ push bán hàng một chiều. Bắt đầu với 7 dạng bài trên, thử nghiệm 4 tuần và xem dạng nào phù hợp nhất với sản phẩm của bạn.</p>
+    `.trim(),
+  },
+
+  "tam-ly-cta-cach-viet-nut-keu-goi-hanh-dong": {
+    slug: "tam-ly-cta-cach-viet-nut-keu-goi-hanh-dong",
+    title: "Tâm lý CTA: Cách viết nút kêu gọi hành động khiến người ta click ngay",
+    description:
+      "Phân tích tâm lý đằng sau CTA hiệu quả. Từ màu sắc, vị trí đến ngôn ngữ — mọi yếu tố ảnh hưởng đến tỷ lệ click của nút CTA trên landing page.",
+    category: "Landing Page",
+    readTime: "7 phút",
+    publishedDate: "2026-06-03",
+    author: "AITaoPage",
+    keywords: [
+      "viết CTA hiệu quả",
+      "nút kêu gọi hành động",
+      "CTA landing page",
+      "tăng tỷ lệ click CTA",
+      "call to action tâm lý",
+    ],
+    content: `
+<h2>CTA là gì và tại sao nó quyết định tỷ lệ chuyển đổi?</h2>
+<p>CTA (Call to Action) là nút hoặc link mời người dùng thực hiện hành động cụ thể — đặt hàng, đăng ký, tải xuống, liên hệ. Dù landing page có thiết kế đẹp đến đâu, nội dung thuyết phục đến đâu — nếu CTA yếu, tỷ lệ chuyển đổi vẫn thấp.</p>
+<p>Nghiên cứu từ HubSpot cho thấy CTA được cá nhân hóa tăng tỷ lệ click lên <strong>202%</strong> so với CTA generic. Màu sắc, vị trí, text và kích thước của nút — tất cả đều có tác động đo được.</p>
+
+<h2>Tâm lý học đằng sau CTA hiệu quả</h2>
+
+<h3>1. Nguyên tắc Clarity — Rõ ràng hơn sáng tạo</h3>
+<p>CTA tốt nhất không phải CTA sáng tạo nhất — mà là CTA <em>rõ ràng nhất</em>. Người dùng phải hiểu ngay họ sẽ nhận được gì sau khi click.</p>
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:16px 0">
+<thead><tr style="background:#f1f5f9"><th style="padding:8px;border:1px solid #e2e8f0">CTA mơ hồ ❌</th><th style="padding:8px;border:1px solid #e2e8f0">CTA rõ ràng ✓</th></tr></thead>
+<tbody>
+<tr><td style="padding:8px;border:1px solid #e2e8f0">Tìm hiểu thêm</td><td style="padding:8px;border:1px solid #e2e8f0">Xem bảng giá chi tiết</td></tr>
+<tr style="background:#f8fafc"><td style="padding:8px;border:1px solid #e2e8f0">Submit</td><td style="padding:8px;border:1px solid #e2e8f0">Nhận tư vấn miễn phí ngay</td></tr>
+<tr><td style="padding:8px;border:1px solid #e2e8f0">Đăng ký</td><td style="padding:8px;border:1px solid #e2e8f0">Đăng ký dùng thử 7 ngày miễn phí</td></tr>
+<tr style="background:#f8fafc"><td style="padding:8px;border:1px solid #e2e8f0">Liên hệ</td><td style="padding:8px;border:1px solid #e2e8f0">Gọi ngay — Tư vấn trong 2 phút</td></tr>
+</tbody>
+</table>
+
+<h3>2. Nguyên tắc Value — Nêu giá trị, không nêu hành động</h3>
+<p>Thay vì nói người dùng phải LÀM gì, nêu họ sẽ NHẬN được gì. Chuyển góc nhìn từ bạn sang khách hàng:</p>
+<ul>
+<li>"Đặt hàng ngay" → "Nhận ngay tại nhà trong 2 giờ"</li>
+<li>"Đăng ký tài khoản" → "Bắt đầu tạo landing page miễn phí"</li>
+<li>"Mua ngay" → "Sở hữu ngay — Bảo hành 12 tháng"</li>
+</ul>
+
+<h3>3. Nguyên tắc Urgency — Lý do hành động hôm nay</h3>
+<p>Urgency thực sự (không giả tạo) tăng tỷ lệ click đáng kể. Các dạng urgency hiệu quả:</p>
+<ul>
+<li><strong>Time-based:</strong> "Ưu đãi kết thúc lúc 24:00 hôm nay"</li>
+<li><strong>Scarcity-based:</strong> "Chỉ còn 8 suất — Đặt trước ngay"</li>
+<li><strong>Consequence-based:</strong> "Hôm nay đặt — Giao ngay ngày mai. Để sau — chờ 3-5 ngày"</li>
+</ul>
+
+<h3>4. Nguyên tắc Risk Reversal — Giảm rủi ro cảm nhận</h3>
+<p>Mọi quyết định mua hàng đều có "rào cản tâm lý". CTA kết hợp với câu giảm rủi ro ở ngay dưới nút giúp tăng click rate đáng kể:</p>
+<ul>
+<li>"Đặt hàng ngay" → bên dưới: <em>✓ Miễn phí vận chuyển ✓ Hoàn tiền 7 ngày nếu không hài lòng</em></li>
+<li>"Đăng ký dùng thử" → bên dưới: <em>✓ Không cần thẻ tín dụng ✓ Huỷ bất cứ lúc nào</em></li>
+</ul>
+
+<h2>Màu sắc CTA — Đâu là màu convert tốt nhất?</h2>
+<p>Không có màu "tốt nhất" tuyệt đối — màu CTA cần <strong>tương phản với nền trang</strong>. Nguyên tắc: CTA phải là yếu tố nổi bật nhất trong section đó.</p>
+<ul>
+<li><strong>Cam / đỏ:</strong> Tạo urgency, phù hợp cho flash sale, offer có hạn</li>
+<li><strong>Xanh lá:</strong> Liên kết với "tích cực", "tiến về phía trước", phù hợp cho đăng ký / dùng thử</li>
+<li><strong>Tím / indigo:</strong> Cảm giác premium, phù hợp SaaS và sản phẩm công nghệ</li>
+<li><strong>Trắng trên nền tối:</strong> Sang trọng, thường dùng trong section hero tối màu</li>
+</ul>
+
+<h2>Vị trí đặt CTA trên landing page</h2>
+<p>CTA cần xuất hiện ít nhất <strong>3 lần</strong> trên landing page dài:</p>
+<ol>
+<li><strong>Trong Hero section</strong> (above the fold) — nơi người dùng nhìn thấy đầu tiên</li>
+<li><strong>Sau phần Social Proof</strong> — khi niềm tin đã được xây dựng</li>
+<li><strong>Cuối trang</strong> — nơi người dùng đã đọc hết thông tin và sẵn sàng hành động</li>
+</ol>
+<p>Ngoài ra, CTA "sticky" ở góc màn hình (floating button) tăng tỷ lệ click thêm 15-20% cho landing page dài.</p>
+
+<h2>Kích thước và khoảng trắng xung quanh CTA</h2>
+<p>CTA quá nhỏ bị bỏ qua. CTA cần:</p>
+<ul>
+<li>Padding tối thiểu: 12px trên/dưới, 24px trái/phải</li>
+<li>Font size: 14-16px, font weight: bold (600+)</li>
+<li>Khoảng trắng xung quanh nút: ít nhất 16px để nút "thở" và nổi bật</li>
+<li>Trên mobile: min-height 44px (Apple HIG standard cho touch target)</li>
+</ul>
+
+<h2>A/B test CTA — Cách tìm phiên bản tốt nhất</h2>
+<p>Test từng yếu tố một, không test nhiều thứ cùng lúc:</p>
+<ol>
+<li>Test text CTA trước (biến số dễ thay đổi nhất, ảnh hưởng lớn nhất)</li>
+<li>Test màu sắc</li>
+<li>Test vị trí</li>
+<li>Test kích thước</li>
+</ol>
+<p>Cần ít nhất <strong>100 lượt click</strong> cho mỗi phiên bản mới có kết quả đáng tin cậy về mặt thống kê.</p>
+
+<h2>Kết luận</h2>
+<p>CTA không chỉ là một nút — đó là điểm cuối của hành trình thuyết phục. Đầu tư thời gian để tối ưu text, màu sắc, vị trí và yếu tố giảm rủi ro cho CTA thường mang lại ROI cao hơn so với việc viết lại toàn bộ landing page. Bắt đầu với việc thay đổi text CTA theo nguyên tắc value-first và đo lường kết quả trong 2 tuần.</p>
+    `.trim(),
+  },
+
+  "google-ads-cho-nguoi-moi-bat-dau": {
+    slug: "google-ads-cho-nguoi-moi-bat-dau",
+    title: "Google Ads cho người mới bắt đầu: Tạo chiến dịch đầu tiên không đốt tiền",
+    description:
+      "Hướng dẫn từng bước chạy Google Search Ads cho shop online Việt Nam. Từ nghiên cứu từ khóa, viết ad copy đến cài đặt ngân sách để có khách hàng đầu tiên mà không lãng phí.",
+    category: "Quảng cáo",
+    readTime: "11 phút",
+    publishedDate: "2026-06-02",
+    author: "AITaoPage",
+    keywords: [
+      "Google Ads cho người mới",
+      "chạy Google Ads Việt Nam",
+      "quảng cáo Google Search",
+      "Google Ads cơ bản",
+      "PPC Việt Nam",
+    ],
+    content: `
+<h2>Google Ads vs Facebook Ads — Khác biệt quan trọng cần hiểu trước</h2>
+<p>Trước khi bắt đầu, cần hiểu sự khác biệt cốt lõi: <strong>Facebook Ads interrupts</strong> (quảng cáo chen vào khi người dùng đang làm việc khác), còn <strong>Google Ads captures intent</strong> (quảng cáo xuất hiện đúng lúc người dùng đang TÌM KIẾM giải pháp).</p>
+<p>Google Search Ads phù hợp nhất khi:</p>
+<ul>
+<li>Sản phẩm/dịch vụ của bạn có người đang chủ động tìm kiếm ("mua áo dài tphcm", "sửa điện lạnh quận 7")</li>
+<li>Bạn muốn khách hàng ready-to-buy, không cần nurture dài</li>
+<li>Ngân sách nhỏ nhưng muốn tỷ lệ chuyển đổi cao</li>
+</ul>
+
+<h2>Bước 1: Nghiên cứu từ khóa trước khi tạo chiến dịch</h2>
+<p>Đây là bước quan trọng nhất — sai từ khóa thì đốt tiền không có khách. Dùng <strong>Google Keyword Planner</strong> (miễn phí trong tài khoản Google Ads) để tìm:</p>
+<ul>
+<li><strong>Volume tìm kiếm:</strong> Số lần tìm kiếm trung bình mỗi tháng</li>
+<li><strong>CPC ước tính:</strong> Giá thầu trung bình mỗi click (VND)</li>
+<li><strong>Competition:</strong> Low/Medium/High — mới bắt đầu nên chọn Medium</li>
+</ul>
+<h3>Phân loại từ khóa theo intent</h3>
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:16px 0">
+<thead><tr style="background:#f1f5f9"><th style="padding:8px;border:1px solid #e2e8f0">Loại</th><th style="padding:8px;border:1px solid #e2e8f0">Ví dụ</th><th style="padding:8px;border:1px solid #e2e8f0">Chuyển đổi</th></tr></thead>
+<tbody>
+<tr><td style="padding:8px;border:1px solid #e2e8f0">Informational</td><td style="padding:8px;border:1px solid #e2e8f0">"kem dưỡng da tốt nhất"</td><td style="padding:8px;border:1px solid #e2e8f0">Thấp — đang tìm hiểu</td></tr>
+<tr style="background:#f8fafc"><td style="padding:8px;border:1px solid #e2e8f0">Commercial</td><td style="padding:8px;border:1px solid #e2e8f0">"review kem dưỡng da X"</td><td style="padding:8px;border:1px solid #e2e8f0">Trung bình — đang so sánh</td></tr>
+<tr><td style="padding:8px;border:1px solid #e2e8f0">Transactional ⭐</td><td style="padding:8px;border:1px solid #e2e8f0">"mua kem dưỡng da chính hãng"</td><td style="padding:8px;border:1px solid #e2e8f0">Cao — sẵn sàng mua</td></tr>
+<tr style="background:#f8fafc"><td style="padding:8px;border:1px solid #e2e8f0">Local ⭐</td><td style="padding:8px;border:1px solid #e2e8f0">"spa gần đây", "sửa giày quận 1"</td><td style="padding:8px;border:1px solid #e2e8f0">Rất cao — cần ngay</td></tr>
+</tbody>
+</table>
+<p>Người mới nên tập trung vào <strong>transactional và local keywords</strong> — CPC có thể cao hơn nhưng tỷ lệ chuyển đổi bù lại.</p>
+
+<h2>Bước 2: Cấu trúc chiến dịch chuẩn</h2>
+<p>Nhiều người mới tạo 1 campaign với tất cả từ khóa — đây là sai lầm lớn nhất. Cấu trúc đúng:</p>
+<ul>
+<li><strong>1 Campaign</strong> = 1 mục tiêu (VD: bán sản phẩm A)</li>
+<li><strong>1 Ad Group</strong> = 1 nhóm từ khóa liên quan chặt (VD: "mua áo dài tphcm", "áo dài custom tphcm")</li>
+<li><strong>3-5 Ads</strong> trong mỗi Ad Group để test</li>
+</ul>
+<p>Tại sao phải tách Ad Group? Vì mỗi Ad Group có thể có ad copy riêng phù hợp với từ khóa trong nhóm đó — Quality Score cao hơn, CPC thấp hơn.</p>
+
+<h2>Bước 3: Viết ad copy Google Ads hiệu quả</h2>
+<p>Google Search Ad có 3 phần: <strong>Headline</strong> (tối đa 30 ký tự/headline, 15 headlines), <strong>Description</strong> (90 ký tự/description, 4 descriptions), và <strong>URL</strong>. Google tự kết hợp để tạo ra phiên bản phù hợp nhất.</p>
+<h3>Công thức headline hiệu quả</h3>
+<ul>
+<li><strong>Headline 1:</strong> Chứa từ khóa chính ("Áo Dài Custom TPHCM")</li>
+<li><strong>Headline 2:</strong> USP hoặc offer ("Giao hàng tận nhà — 3 ngày")</li>
+<li><strong>Headline 3:</strong> Call to action hoặc social proof ("5.000+ Khách Hài Lòng")</li>
+</ul>
+<h3>Description hay làm gì?</h3>
+<ul>
+<li>Mở rộng thông tin từ headline (không lặp lại)</li>
+<li>Nêu 2-3 lợi ích cụ thể, dùng số liệu</li>
+<li>Kết thúc bằng CTA: "Đặt hàng ngay — Giao trong 24h"</li>
+</ul>
+
+<h2>Bước 4: Cài đặt ngân sách và giá thầu đúng cách</h2>
+<p>Người mới hay mắc 2 lỗi: ngân sách quá thấp (không đủ data để tối ưu) hoặc đặt giá thầu quá cao (đốt tiền nhanh). Hướng dẫn:</p>
+<ul>
+<li><strong>Ngân sách hàng ngày tối thiểu:</strong> 100.000đ–200.000đ/ngày (cần ít nhất 10-20 click/ngày để có data)</li>
+<li><strong>Bidding strategy khi mới bắt đầu:</strong> Chọn "Maximize Clicks" với CPC cap để kiểm soát chi phí</li>
+<li><strong>Sau khi có 30+ conversions:</strong> Chuyển sang "Target CPA" để Google tự tối ưu</li>
+</ul>
+
+<h2>Bước 5: Negative Keywords — Tránh đốt tiền vào traffic vô nghĩa</h2>
+<p>Negative keyword là từ khóa bạn KHÔNG muốn ad xuất hiện. Đây là bước hay bị bỏ qua nhất.</p>
+<p><strong>Ví dụ:</strong> Bán áo dài có giá → thêm negative keywords: "miễn phí", "free", "mẫu", "tự may", "hướng dẫn may"</p>
+<p>Cách lấy negative keywords: Sau khi chạy 1-2 tuần, vào Search Terms Report, lọc các từ khóa không liên quan và add vào negative list.</p>
+
+<h2>Theo dõi kết quả — Các chỉ số quan trọng</h2>
+<ul>
+<li><strong>CTR (Click-Through Rate):</strong> >5% là tốt cho Search Ads</li>
+<li><strong>Quality Score:</strong> 7/10+ giúp giảm CPC đáng kể</li>
+<li><strong>Conversion Rate:</strong> Phụ thuộc ngành, nhưng 2-5% là bình thường</li>
+<li><strong>ROAS (Return on Ad Spend):</strong> Mục tiêu tối thiểu 300% (chi 1đ thu về 3đ doanh thu)</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>Google Ads không khó — nhưng cần kỷ luật trong việc research từ khóa, cấu trúc campaign và theo dõi số liệu. Tuần đầu tập trung vào data collection (chưa cần tối ưu nhiều). Từ tuần 2 trở đi mới bắt đầu pause từ khóa kém, tăng ngân sách cho từ khóa tốt. Kiên nhẫn 4-6 tuần để chiến dịch đạt hiệu quả ổn định.</p>
+    `.trim(),
+  },
+
+  "internal-linking-tang-thu-hang-google": {
+    slug: "internal-linking-tang-thu-hang-google",
+    title: "Internal Linking: Chiến lược liên kết nội bộ tăng thứ hạng Google hiệu quả",
+    description:
+      "Hướng dẫn xây dựng internal link strategy cho website bán hàng và blog. Cách phân phối link equity, chọn anchor text và tránh lỗi phổ biến khiến SEO giảm điểm.",
+    category: "SEO",
+    readTime: "9 phút",
+    publishedDate: "2026-06-01",
+    author: "AITaoPage",
+    keywords: [
+      "internal linking SEO",
+      "liên kết nội bộ website",
+      "internal link strategy",
+      "SEO on-page nâng cao",
+      "link equity website",
+    ],
+    content: `
+<h2>Internal link là gì và tại sao quan trọng với SEO?</h2>
+<p>Internal link (liên kết nội bộ) là hyperlink từ trang này sang trang khác trong cùng một website. Đây là yếu tố SEO on-page bị underrated nhất — hầu hết website làm nội dung tốt nhưng bỏ qua internal linking, dẫn đến nhiều trang "mồ côi" không được Google index đúng cách.</p>
+<p>Internal link quan trọng vì 3 lý do:</p>
+<ol>
+<li><strong>Giúp Google bot crawl sâu hơn:</strong> Bot theo dõi link để khám phá trang mới. Trang không có link trỏ vào = khó được crawl và index</li>
+<li><strong>Phân phối Page Authority:</strong> Link từ trang có authority cao truyền "sức mạnh" SEO sang trang nhận link</li>
+<li><strong>Tăng thời gian trên trang:</strong> Người dùng click vào related content → giảm bounce rate → tín hiệu tốt với Google</li>
+</ol>
+
+<h2>Cấu trúc website lý tưởng — Silo Structure</h2>
+<p>Thay vì link ngẫu nhiên, hãy xây dựng cấu trúc "silo" — nhóm nội dung liên quan thành các cluster:</p>
+<ul>
+<li><strong>Pillar page</strong> (trang trụ cột): Bài viết dài, tổng quan về chủ đề chính. Ví dụ: "Hướng dẫn toàn diện về landing page"</li>
+<li><strong>Cluster pages</strong> (trang vệ tinh): Các bài chuyên sâu về từng khía cạnh. Ví dụ: "Cách viết headline landing page", "CTA tâm lý", "A/B test landing page"</li>
+<li><strong>Liên kết 2 chiều:</strong> Pillar page link đến cluster pages, cluster pages link ngược lại pillar page</li>
+</ul>
+<p>Cấu trúc này giúp Google hiểu rõ website của bạn là authority trong lĩnh vực nào, từ đó xếp hạng toàn bộ cluster cao hơn.</p>
+
+<h2>Anchor Text — Chọn đúng để không bị phạt</h2>
+<p>Anchor text là text hiển thị của link. Google đọc anchor text để hiểu trang đích nói về gì. Phân phối anchor text đa dạng:</p>
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:16px 0">
+<thead><tr style="background:#f1f5f9"><th style="padding:8px;border:1px solid #e2e8f0">Loại Anchor Text</th><th style="padding:8px;border:1px solid #e2e8f0">Tỷ lệ khuyến nghị</th><th style="padding:8px;border:1px solid #e2e8f0">Ví dụ</th></tr></thead>
+<tbody>
+<tr><td style="padding:8px;border:1px solid #e2e8f0">Exact match keyword</td><td style="padding:8px;border:1px solid #e2e8f0">10-20%</td><td style="padding:8px;border:1px solid #e2e8f0">"tạo landing page"</td></tr>
+<tr style="background:#f8fafc"><td style="padding:8px;border:1px solid #e2e8f0">Partial match</td><td style="padding:8px;border:1px solid #e2e8f0">20-30%</td><td style="padding:8px;border:1px solid #e2e8f0">"cách tạo landing page hiệu quả"</td></tr>
+<tr><td style="padding:8px;border:1px solid #e2e8f0">Branded</td><td style="padding:8px;border:1px solid #e2e8f0">15-25%</td><td style="padding:8px;border:1px solid #e2e8f0">"AITaoPage", "công cụ của chúng tôi"</td></tr>
+<tr style="background:#f8fafc"><td style="padding:8px;border:1px solid #e2e8f0">Generic</td><td style="padding:8px;border:1px solid #e2e8f0">20-30%</td><td style="padding:8px;border:1px solid #e2e8f0">"xem thêm", "bài viết này", "tại đây"</td></tr>
+<tr><td style="padding:8px;border:1px solid #e2e8f0">Naked URL</td><td style="padding:8px;border:1px solid #e2e8f0">5-10%</td><td style="padding:8px;border:1px solid #e2e8f0">aitaopage.vn/blog/...</td></tr>
+</tbody>
+</table>
+<p><strong>Tránh:</strong> 100% anchor text là exact match keyword — đây là over-optimization, Google có thể penalize.</p>
+
+<h2>Trang nào nên nhận nhiều internal link nhất?</h2>
+<p>Ưu tiên link đến những trang bạn muốn xếp hạng cao nhất:</p>
+<ul>
+<li>Trang sản phẩm/dịch vụ chính</li>
+<li>Pillar content (bài viết dài, chuyên sâu nhất)</li>
+<li>Trang landing page có tỷ lệ chuyển đổi cao</li>
+<li>Trang mới cần được index nhanh</li>
+</ul>
+<p>Cách kiểm tra: Dùng Google Search Console → Coverage → xem trang nào ít internal link. Đó là "cơ hội vàng" cần bổ sung link.</p>
+
+<h2>Số lượng internal link mỗi trang — Bao nhiêu là đủ?</h2>
+<p>Không có con số tuyệt đối, nhưng hướng dẫn thực tế:</p>
+<ul>
+<li><strong>Bài blog 1.500 từ:</strong> 3-7 internal links là hợp lý</li>
+<li><strong>Trang sản phẩm:</strong> 5-10 links (related products, blog liên quan)</li>
+<li><strong>Homepage:</strong> 15-30 links (hub trung tâm của website)</li>
+</ul>
+<p>Quá nhiều link trên 1 trang làm loãng link equity — mỗi link nhận được ít "sức mạnh" hơn. Google cũng từng nói giới hạn crawl ~100 links/trang, dù con số thực tế có thể cao hơn.</p>
+
+<h2>5 lỗi internal linking phổ biến cần tránh</h2>
+<ol>
+<li><strong>Orphan pages:</strong> Trang không có link nào trỏ vào — Google khó crawl và index. Kiểm tra bằng Screaming Frog hoặc Ahrefs.</li>
+<li><strong>Link vòng (circular links):</strong> Trang A → B → C → A. Không sai nhưng không có giá trị SEO thực.</li>
+<li><strong>Tất cả link đều dùng "xem thêm" hoặc "tại đây":</strong> Anchor text không mô tả được nội dung trang đích.</li>
+<li><strong>Chỉ link từ footer/menu:</strong> Google ưu tiên link trong body content hơn link navigation.</li>
+<li><strong>Link đến trang noindex hoặc redirect:</strong> Kiểm tra trang đích còn hoạt động và không bị noindex trước khi link.</li>
+</ol>
+
+<h2>Quy trình xây dựng internal link cho bài viết mới</h2>
+<p>Mỗi khi publish bài viết mới, thực hiện 3 bước này:</p>
+<ol>
+<li><strong>Link ra ngoài:</strong> Trong bài mới, thêm 3-5 internal link đến các bài liên quan đã publish</li>
+<li><strong>Link vào trong:</strong> Mở 3-5 bài cũ liên quan, thêm link đến bài mới từ body content của chúng</li>
+<li><strong>Update pillar page:</strong> Nếu bài mới là cluster content, thêm link đến nó từ pillar page</li>
+</ol>
+
+<h2>Kết luận</h2>
+<p>Internal linking là một trong những tác động SEO on-page hiệu quả nhất mà không tốn chi phí. Xây dựng silo structure, dùng anchor text đa dạng, và chắc chắn không có orphan pages — 3 việc này, nếu làm đúng trong 3 tháng, sẽ thấy kết quả rõ ràng trên Google Search Console. Bắt đầu với việc audit website hiện tại: có bao nhiêu trang orphan? Đó là điểm bắt đầu lý tưởng.</p>
+    `.trim(),
+  },
 };

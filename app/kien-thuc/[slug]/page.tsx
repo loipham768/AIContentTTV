@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ARTICLES } from '@/lib/articles'
 import Logo from '@/components/Logo'
+import ArticleBody from '@/components/ArticleBody'
 import {
   ArrowLeft, Clock, Calendar, ArrowRight,
   Layers, BarChart2, Megaphone, Code2, FileText, Search,
@@ -120,10 +121,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           {/* ── Article ── */}
           <div className="space-y-6">
             <div className="rounded-2xl border border-gray-200 shadow-sm p-8 sm:p-10" style={{ background: '#fff' }}>
-              <article
-                className="article-body"
-                dangerouslySetInnerHTML={{ __html: article.content }}
-              />
+              <ArticleBody html={article.content} />
             </div>
 
             {/* Author card */}

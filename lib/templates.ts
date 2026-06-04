@@ -3141,6 +3141,1546 @@ const ADS_TRAVEL_BANNER = `<!DOCTYPE html>
 </div>
 </body></html>`
 
+const LP_REALESTATE = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;background:#07090f;color:#e8e0d0}
+.hero{background:linear-gradient(160deg,#07090f 0%,#0f1626 50%,#07090f 100%);padding:110px 24px 90px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(212,168,83,.08) 0%,transparent 65%)}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,83,.12);border:1px solid rgba(212,168,83,.35);color:#d4a853;border-radius:4px;padding:6px 18px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px}
+.hero h1{font-size:clamp(36px,6vw,68px);font-weight:900;line-height:1.1;margin-bottom:20px;letter-spacing:-1px}
+.hero h1 .gold{background:linear-gradient(135deg,#d4a853,#f0d080);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:#8b949e;max-width:580px;margin:0 auto 40px;line-height:1.8}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#d4a853,#b8892e);color:#07090f;border-radius:6px;padding:17px 38px;font-size:16px;font-weight:800;text-decoration:none}
+.btn-out{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(212,168,83,.4);color:#d4a853;border-radius:6px;padding:15px 28px;font-size:15px;text-decoration:none}
+.hero-note{font-size:13px;color:#6b7280}
+.stats-bar{background:rgba(212,168,83,.06);border-top:1px solid rgba(212,168,83,.15);border-bottom:1px solid rgba(212,168,83,.15);padding:28px 24px}
+.stats-inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:20px;max-width:900px;margin:0 auto;text-align:center}
+.stat-n{font-size:38px;font-weight:900;background:linear-gradient(135deg,#d4a853,#f0d080);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-l{font-size:12px;color:#8b949e;margin-top:4px;letter-spacing:.5px}
+.sec-label{color:#d4a853;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.sec-title{font-size:36px;font-weight:800;text-align:center;margin-bottom:12px;letter-spacing:-.5px}
+.sec-sub{text-align:center;font-size:15px;color:#8b949e;margin-bottom:50px;line-height:1.7}
+.projects{padding:90px 24px;background:#07090f}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:1060px;margin:0 auto}
+.proj-card{border:1px solid rgba(212,168,83,.15);border-radius:12px;overflow:hidden;background:#0d1117}
+.proj-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative}
+.proj-img.p1{background:linear-gradient(135deg,#1a2744,#0d1b38)}
+.proj-img.p2{background:linear-gradient(135deg,#1a3a20,#0d2b15)}
+.proj-img.p3{background:linear-gradient(135deg,#3a1a0d,#2b1208)}
+.proj-badge{position:absolute;top:14px;left:14px;background:linear-gradient(135deg,#d4a853,#b8892e);color:#07090f;border-radius:4px;padding:4px 12px;font-size:11px;font-weight:800}
+.proj-body{padding:24px}
+.proj-name{font-size:20px;font-weight:800;margin-bottom:6px}
+.proj-loc{font-size:13px;color:#d4a853;font-weight:600;margin-bottom:12px}
+.proj-specs{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.proj-spec{background:rgba(212,168,83,.08);border:1px solid rgba(212,168,83,.15);border-radius:4px;padding:4px 10px;font-size:12px;color:#c9b572}
+.proj-price{font-size:22px;font-weight:900;color:#d4a853;margin-bottom:4px}
+.proj-price-note{font-size:12px;color:#6b7280}
+.amenities{padding:90px 24px;background:#0a0d14}
+.amen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+.amen-card{border:1px solid rgba(212,168,83,.1);border-radius:10px;padding:28px;background:#0d1117;text-align:center}
+.amen-icon{font-size:40px;margin-bottom:14px;display:block}
+.amen-name{font-size:16px;font-weight:700;margin-bottom:8px}
+.amen-desc{font-size:13px;color:#8b949e;line-height:1.65}
+.progress{padding:90px 24px;background:#07090f}
+.prog-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:0}
+.prog-item{display:flex;gap:24px;padding:28px 0;border-bottom:1px solid rgba(212,168,83,.08)}
+.prog-item:last-child{border:none}
+.prog-dot{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;font-weight:900}
+.prog-dot.done{background:linear-gradient(135deg,#d4a853,#b8892e);color:#07090f}
+.prog-dot.inprog{background:rgba(212,168,83,.15);border:2px solid #d4a853;color:#d4a853}
+.prog-dot.soon{background:rgba(255,255,255,.05);border:2px solid rgba(212,168,83,.2);color:#6b7280}
+.prog-info h3{font-size:17px;font-weight:700;margin-bottom:5px}
+.prog-info p{font-size:13px;color:#8b949e;line-height:1.6}
+.prog-tag{display:inline-flex;border-radius:4px;padding:3px 10px;font-size:11px;font-weight:700;margin-top:6px}
+.tag-done{background:rgba(212,168,83,.15);color:#d4a853}
+.tag-inprog{background:rgba(34,197,94,.1);color:#4ade80}
+.tag-soon{background:rgba(255,255,255,.06);color:#6b7280}
+.team{padding:90px 24px;background:#0a0d14}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;max-width:960px;margin:0 auto}
+.team-card{background:#0d1117;border:1px solid rgba(212,168,83,.12);border-radius:12px;padding:28px;text-align:center}
+.team-av{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#d4a853,#8b5e1a);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px}
+.team-name{font-size:18px;font-weight:800;margin-bottom:4px}
+.team-role{font-size:13px;color:#d4a853;font-weight:600;margin-bottom:10px}
+.team-bio{font-size:13px;color:#8b949e;line-height:1.6}
+.testi{padding:90px 24px;background:linear-gradient(135deg,#0d1117,#07090f)}
+.testi .sec-title{color:#e8e0d0}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1020px;margin:0 auto}
+.testi-card{background:rgba(212,168,83,.05);border:1px solid rgba(212,168,83,.12);border-radius:12px;padding:28px}
+.testi-stars{color:#d4a853;font-size:17px;margin-bottom:12px}
+.testi-q{font-size:15px;color:#c8bfa8;font-style:italic;line-height:1.75;margin-bottom:16px}
+.testi-auth{display:flex;align-items:center;gap:12px}
+.testi-av{width:42px;height:42px;border-radius:50%;background:rgba(212,168,83,.2);display:flex;align-items:center;justify-content:center;font-weight:700;color:#d4a853}
+.testi-name{font-size:14px;font-weight:700}
+.testi-src{font-size:12px;color:#d4a853}
+.booking{padding:90px 24px;background:#0f1626;text-align:center}
+.booking-form{background:#0d1117;border:1px solid rgba(212,168,83,.15);border-radius:16px;padding:48px;max-width:640px;margin:0 auto}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-row-1{margin-bottom:16px}
+.form-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(212,168,83,.2);border-radius:8px;padding:14px 16px;color:#e8e0d0;font-size:15px;outline:none}
+.form-input::placeholder{color:#4b5563}
+.form-select{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(212,168,83,.2);border-radius:8px;padding:14px 16px;color:#e8e0d0;font-size:15px;outline:none}
+.form-btn{width:100%;background:linear-gradient(135deg,#d4a853,#b8892e);color:#07090f;border:none;border-radius:8px;padding:17px;font-size:16px;font-weight:800;cursor:pointer;margin-top:8px}
+.form-note{font-size:12px;color:#6b7280;margin-top:12px;line-height:1.6}
+.faq{padding:90px 24px;background:#07090f}
+.faq-list{max-width:740px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.faq-item{background:#0d1117;border:1px solid rgba(212,168,83,.1);border-radius:10px;padding:24px}
+.faq-q{font-weight:700;color:#d4a853;margin-bottom:10px;font-size:15px}
+.faq-a{font-size:14px;color:#8b949e;line-height:1.75}
+.footer{background:#050709;border-top:1px solid rgba(212,168,83,.1);padding:48px 24px}
+.footer-inner{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:36px;justify-content:space-between}
+.footer-brand{font-size:22px;font-weight:900;letter-spacing:1px;margin-bottom:6px}
+.footer-brand span{background:linear-gradient(135deg,#d4a853,#f0d080);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.footer-tagline{font-size:13px;color:#6b7280}
+.footer-links{display:flex;flex-direction:column;gap:8px}
+.footer-links a{color:#8b949e;text-decoration:none;font-size:14px}
+.footer-bottom{background:#050709;border-top:1px solid rgba(255,255,255,.04);text-align:center;padding:16px 24px;font-size:12px;color:#4b5563}
+@media(max-width:640px){.form-row{grid-template-columns:1fr}.hero h1{font-size:36px}}
+</style></head>
+<body>
+
+<section class="hero">
+  <div class="badge">🏆 Chủ đầu tư uy tín top 5 Việt Nam · 15 năm phát triển</div>
+  <h1>Nơi cuộc sống<br><span class="gold">chạm tới đỉnh cao</span></h1>
+  <p>Các dự án bất động sản cao cấp tại vị trí đắc địa nhất TP.HCM — thiết kế bởi kiến trúc sư quốc tế, vận hành bởi đơn vị quản lý 5 sao.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-gold">🏠 Xem nhà mẫu — Đặt lịch ngay</a>
+    <a href="#" class="btn-out">📋 Tải brochure</a>
+  </div>
+  <p class="hero-note">Tư vấn miễn phí · Hỗ trợ vay 70% · Thanh toán linh hoạt 48 tháng</p>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div><div class="stat-n">15+</div><div class="stat-l">Năm phát triển</div></div>
+    <div><div class="stat-n">12</div><div class="stat-l">Dự án đã bàn giao</div></div>
+    <div><div class="stat-n">8.500+</div><div class="stat-l">Cư dân hài lòng</div></div>
+    <div><div class="stat-n">4.8★</div><div class="stat-l">Đánh giá chất lượng</div></div>
+    <div><div class="stat-n">98%</div><div class="stat-l">Bàn giao đúng tiến độ</div></div>
+  </div>
+</div>
+
+<section class="projects">
+  <div class="sec-label">Dự án nổi bật</div>
+  <h2 class="sec-title">Những công trình định nghĩa lại<br>tiêu chuẩn sống đẳng cấp</h2>
+  <p class="sec-sub">Mỗi dự án là một tuyên ngôn về kiến trúc, chất lượng và phong cách sống hiện đại</p>
+  <div class="proj-grid">
+    <div class="proj-card">
+      <div class="proj-img p1"><span>🏙️</span><span class="proj-badge">Đang mở bán</span></div>
+      <div class="proj-body">
+        <div class="proj-name">The Pinnacle Residences</div>
+        <div class="proj-loc">📍 Quận 1, TP.HCM · Tầm nhìn sông Sài Gòn</div>
+        <div class="proj-specs"><span class="proj-spec">65 tầng</span><span class="proj-spec">420 căn</span><span class="proj-spec">2–4 PN</span><span class="proj-spec">58–180m²</span></div>
+        <div class="proj-price">Từ 8,5 tỷ / căn</div>
+        <div class="proj-price-note">Hỗ trợ vay 70% · Lãi suất 0% 18 tháng đầu</div>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-img p2"><span>🌿</span><span class="proj-badge">Sắp ra mắt</span></div>
+      <div class="proj-body">
+        <div class="proj-name">GreenValley Golf Villas</div>
+        <div class="proj-loc">📍 Long An · Biệt thự sân golf 36 lỗ</div>
+        <div class="proj-specs"><span class="proj-spec">240 biệt thự</span><span class="proj-spec">300–600m²</span><span class="proj-spec">Pool villa</span></div>
+        <div class="proj-price">Từ 15 tỷ / căn</div>
+        <div class="proj-price-note">Cam kết thuê lại 6%/năm trong 5 năm</div>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-img p3"><span>🌅</span><span class="proj-badge">Bàn giao Q3/2026</span></div>
+      <div class="proj-body">
+        <div class="proj-name">SunHarbour Beach Resort</div>
+        <div class="proj-loc">📍 Vũng Tàu · Mặt tiền biển 120m</div>
+        <div class="proj-specs"><span class="proj-spec">180 căn hộ</span><span class="proj-spec">45–95m²</span><span class="proj-spec">Condotel</span></div>
+        <div class="proj-price">Từ 3,2 tỷ / căn</div>
+        <div class="proj-price-note">Cam kết lợi nhuận 8%/năm · Full nội thất</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="amenities">
+  <div class="sec-label">Tiện ích nội khu</div>
+  <h2 class="sec-title">Trải nghiệm resort<br>ngay trong khu dân cư</h2>
+  <p class="sec-sub">Hơn 50 tiện ích cao cấp được thiết kế để mang lại cuộc sống đẳng cấp nhất</p>
+  <div class="amen-grid">
+    <div class="amen-card"><span class="amen-icon">🏊</span><div class="amen-name">Bể bơi vô cực 50m</div><div class="amen-desc">Bể bơi tràn bờ tầng thượng với tầm nhìn toàn cảnh thành phố, khu sunbed và bar nước.</div></div>
+    <div class="amen-card"><span class="amen-icon">🏋️</span><div class="amen-name">Sky Fitness Club</div><div class="amen-desc">Phòng gym 800m² trang bị thiết bị Technogym cao cấp, yoga studio và phòng spa riêng.</div></div>
+    <div class="amen-card"><span class="amen-icon">🌳</span><div class="amen-name">Công viên nội khu 2ha</div><div class="amen-desc">Khuôn viên xanh 2 hecta với cây cổ thụ, hồ cá Koi, sân chơi trẻ em và đường đi bộ.</div></div>
+    <div class="amen-card"><span class="amen-icon">🍽️</span><div class="amen-name">Sky Lounge & Restaurant</div><div class="amen-desc">Nhà hàng cao cấp tầng 60 với menu quốc tế, wine bar và không gian tổ chức sự kiện private.</div></div>
+    <div class="amen-card"><span class="amen-icon">🏫</span><div class="amen-name">Trường học liên cấp</div><div class="amen-desc">Trường mầm non, tiểu học và THCS ngay trong khu — chuẩn quốc tế, học phí ưu đãi cư dân.</div></div>
+    <div class="amen-card"><span class="amen-icon">🚗</span><div class="amen-name">Bãi xe thông minh 3 tầng</div><div class="amen-desc">Hệ thống đỗ xe tự động, trạm sạc xe điện, camera AI 24/7 và bảo vệ chuyên nghiệp.</div></div>
+    <div class="amen-card"><span class="amen-icon">🏥</span><div class="amen-name">Phòng khám đa khoa</div><div class="amen-desc">Phòng khám nội khu với bác sĩ thường trực, cấp cứu 24/7 và dịch vụ khám tại nhà.</div></div>
+    <div class="amen-card"><span class="amen-icon">🛒</span><div class="amen-name">Trung tâm thương mại</div><div class="amen-desc">Shophouse và trung tâm mua sắm 15.000m² với siêu thị, rạp phim, nhà hàng và café.</div></div>
+  </div>
+</section>
+
+<section class="progress">
+  <div class="sec-label">Tiến độ xây dựng</div>
+  <h2 class="sec-title">Minh bạch — Đúng hẹn<br>Đúng cam kết</h2>
+  <p class="sec-sub">Cập nhật tiến độ hàng tháng với hình ảnh thực tế trực tiếp từ công trường</p>
+  <div class="prog-list">
+    <div class="prog-item"><div class="prog-dot done">✓</div><div class="prog-info"><h3>Hoàn thành móng & tầng hầm (T10/2024)</h3><p>Thi công xong toàn bộ hệ thống móng cọc khoan nhồi và 3 tầng hầm. Đạt tiêu chuẩn chịu lực 8.0 độ Richter.</p><span class="prog-tag tag-done">✅ Hoàn thành</span></div></div>
+    <div class="prog-item"><div class="prog-dot done">✓</div><div class="prog-info"><h3>Thân tầng 1–30 (T4/2025)</h3><p>Đổ sàn và dựng tường toàn bộ 30 tầng dưới. Vượt tiến độ 2 tuần so với kế hoạch ban đầu.</p><span class="prog-tag tag-done">✅ Hoàn thành</span></div></div>
+    <div class="prog-item"><div class="prog-dot inprog">⚡</div><div class="prog-info"><h3>Thân tầng 31–65 (T6–T12/2025)</h3><p>Đang thi công tầng 44. Lắp đặt hệ thống M&E, chống thấm và kính mặt dựng curtain wall toàn tòa.</p><span class="prog-tag tag-inprog">🔧 Đang thi công</span></div></div>
+    <div class="prog-item"><div class="prog-dot soon">→</div><div class="prog-info"><h3>Hoàn thiện nội thất & cảnh quan (Q1/2026)</h3><p>Lắp đặt nội thất bàn giao, hoàn thiện sảnh, hành lang và toàn bộ tiện ích nội khu.</p><span class="prog-tag tag-soon">⏳ Sắp thực hiện</span></div></div>
+    <div class="prog-item"><div class="prog-dot soon">🏠</div><div class="prog-info"><h3>Bàn giao căn hộ (Q3/2026)</h3><p>Bàn giao đúng tiến độ cam kết. Hỗ trợ đội ngũ thiết kế nội thất và chuyển dọn miễn phí cho cư dân.</p><span class="prog-tag tag-soon">📅 Q3/2026</span></div></div>
+  </div>
+</section>
+
+<section class="team">
+  <div class="sec-label">Đội ngũ phát triển</div>
+  <h2 class="sec-title">Những chuyên gia định hình<br>bất động sản hạng sang</h2>
+  <p class="sec-sub">Kết hợp giữa tầm nhìn chiến lược và chuyên môn kỹ thuật đỉnh cao</p>
+  <div class="team-grid">
+    <div class="team-card"><div class="team-av">👔</div><div class="team-name">Nguyễn Hoàng Minh</div><div class="team-role">Tổng Giám Đốc</div><div class="team-bio">30 năm kinh nghiệm BĐS cao cấp. Từng lãnh đạo dự án tổng trị giá hơn 2 tỷ USD tại VN và Singapore.</div></div>
+    <div class="team-card"><div class="team-av">🏗️</div><div class="team-name">KTS. Trần Bảo Long</div><div class="team-role">Trưởng phòng Kiến trúc</div><div class="team-bio">Tốt nghiệp Harvard GSD. Thiết kế chính cho 6 dự án đoạt giải thưởng kiến trúc ASEAN.</div></div>
+    <div class="team-card"><div class="team-av">📊</div><div class="team-name">Phạm Thị Thu Hương</div><div class="team-role">Giám đốc Tài chính</div><div class="team-bio">CFA, MBA INSEAD. Cấu trúc tài chính thành công cho 8 dự án lớn với tổng vốn hơn 500 triệu USD.</div></div>
+    <div class="team-card"><div class="team-av">🤝</div><div class="team-name">Lê Quốc Hùng</div><div class="team-role">Giám đốc Kinh doanh</div><div class="team-bio">15 năm trong lĩnh vực phát triển và phân phối BĐS hạng sang, quản lý mạng lưới 200+ đại lý.</div></div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="sec-label">Khách hàng nói gì</div>
+  <h2 class="sec-title" style="color:#e8e0d0">Sự tin tưởng là tài sản<br>quý giá nhất của chúng tôi</h2>
+  <p class="sec-sub" style="margin-bottom:48px">Hơn 8.500 cư dân đã chọn chúng tôi là nơi gọi là nhà</p>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Đã sống tại The Pinnacle được 2 năm. Chất lượng xây dựng vượt kỳ vọng, ban quản lý chuyên nghiệp và cộng đồng cư dân thực sự đẳng cấp. Không hối tiếc khi quyết định đầu tư."</div><div class="testi-auth"><div class="testi-av">TH</div><div><div class="testi-name">Ông Trần Hải Đăng</div><div class="testi-src">Căn hộ tầng 45 · The Pinnacle</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Mua villa GreenValley làm tài sản đầu tư. Cam kết thuê lại 6%/năm được thực hiện đúng và đủ từ tháng đầu. Đội ngũ hỗ trợ rất tận tâm trong suốt quá trình."</div><div class="testi-auth"><div class="testi-av">NL</div><div><div class="testi-name">Bà Nguyễn Lan Anh</div><div class="testi-src">Villa 380m² · GreenValley</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Điều tôi đánh giá cao nhất là sự minh bạch. Tiến độ cập nhật đúng từng tháng, không có gì bất ngờ. Đây là CĐT đầu tiên khiến tôi thực sự an tâm khi xuống tiền."</div><div class="testi-auth"><div class="testi-av">PV</div><div><div class="testi-name">Ông Phạm Văn Thắng</div><div class="testi-src">SunHarbour · Condotel unit</div></div></div></div>
+  </div>
+</section>
+
+<section class="booking">
+  <div class="sec-label">Đăng ký tư vấn</div>
+  <h2 class="sec-title">Nhận tư vấn 1-1 hoàn toàn<br><span style="background:linear-gradient(135deg,#d4a853,#f0d080);-webkit-background-clip:text;-webkit-text-fill-color:transparent">miễn phí từ chuyên gia</span></h2>
+  <p class="sec-sub">Đội ngũ 50+ chuyên gia sẵn sàng tư vấn nhu cầu cụ thể của bạn</p>
+  <div class="booking-form">
+    <div class="form-row">
+      <input class="form-input" placeholder="Họ và tên *" type="text" />
+      <input class="form-input" placeholder="Số điện thoại *" type="tel" />
+    </div>
+    <div class="form-row">
+      <input class="form-input" placeholder="Email" type="email" />
+      <select class="form-select"><option>Chọn dự án quan tâm</option><option>The Pinnacle Residences</option><option>GreenValley Golf Villas</option><option>SunHarbour Beach Resort</option></select>
+    </div>
+    <div class="form-row-1">
+      <select class="form-select"><option>Mục đích mua</option><option>Để ở</option><option>Đầu tư cho thuê</option><option>Tài sản tích lũy</option><option>Mua cho gia đình</option></select>
+    </div>
+    <button class="form-btn">🏠 Đăng ký tư vấn miễn phí ngay →</button>
+    <div class="form-note">Chuyên gia sẽ liên hệ trong vòng 30 phút · Cam kết không làm phiền · Tuyệt đối bảo mật thông tin</div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="sec-label">Câu hỏi thường gặp</div>
+  <h2 class="sec-title">Những điều bạn cần biết<br>trước khi đầu tư</h2>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q">💰 Có thể vay ngân hàng mua dự án này không?</div><div class="faq-a">Có. Chúng tôi hợp tác với 8 ngân hàng lớn gồm Vietcombank, BIDV, VPBank, Techcombank... Hỗ trợ vay tối đa 70% giá trị căn hộ, lãi suất ưu đãi 0% trong 18-24 tháng đầu tùy gói. Bộ phận tư vấn tài chính sẽ giúp bạn tối ưu phương án vay.</div></div>
+    <div class="faq-item"><div class="faq-q">📋 Thủ tục pháp lý như thế nào?</div><div class="faq-a">Tất cả dự án đều có đầy đủ pháp lý: Giấy phép xây dựng, Quy hoạch 1/500, Thông báo đủ điều kiện huy động vốn từ Sở Xây dựng. Người mua ký Hợp đồng Mua bán chính thức và được cấp Sổ hồng (GCNQSDĐ) sau khi nhận bàn giao.</div></div>
+    <div class="faq-item"><div class="faq-q">🔄 Nếu cần bán lại, có hỗ trợ không?</div><div class="faq-a">Chúng tôi có bộ phận Secondary Market chuyên hỗ trợ giao dịch thứ cấp miễn phí cho cư dân. Mạng lưới 200+ môi giới đã quen thuộc với dự án, thông thường các căn hộ tại dự án của chúng tôi thanh khoản tốt trong vòng 30-60 ngày.</div></div>
+    <div class="faq-item"><div class="faq-q">🏗️ Chậm tiến độ bàn giao thì sao?</div><div class="faq-a">Hợp đồng cam kết phạt 0.05%/ngày giá trị căn hộ nếu chậm bàn giao quá 180 ngày. Trong 15 năm hoạt động, tỷ lệ bàn giao đúng hạn của chúng tôi đạt 98% — bằng chứng bằng 12 dự án đã hoàn thành.</div></div>
+    <div class="faq-item"><div class="faq-q">💼 Phí quản lý sau khi nhận nhà là bao nhiêu?</div><div class="faq-a">Phí quản lý từ 15.000–25.000đ/m²/tháng tùy dự án, bao gồm: bảo vệ 24/7, vệ sinh công cộng, bảo trì hệ thống M&E, sử dụng hồ bơi và gym. Phí dịch vụ được công khai minh bạch và không tăng đột biến.</div></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">👑 <span>PINNACLE</span> GROUP</div><div class="footer-tagline">Định hình cuộc sống đẳng cấp · Thành lập 2009</div></div>
+    <div class="footer-links"><a href="#">Dự án đang mở bán</a><a href="#">Dự án đã bàn giao</a><a href="#">Tin tức & Sự kiện</a><a href="#">Investor Relations</a></div>
+    <div class="footer-links"><a href="#">📍 12 Nguyễn Huệ, Q.1, TP.HCM</a><a href="#">📞 Hotline: 1800 1234 (miễn phí)</a><a href="#">✉️ sales@pinnaclegroup.vn</a></div>
+  </div>
+</footer>
+<div class="footer-bottom">© 2026 Pinnacle Group · MST: 0312345678 · Sở KH&ĐT TP.HCM · Giấy phép kinh doanh BĐS số 01/GP-BĐS</div>
+</body></html>`
+
+const LP_DENTAL = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#0f172a}
+.hero{background:linear-gradient(160deg,#f0f9ff 0%,#e0f2fe 50%,#f0f9ff 100%);padding:100px 24px 80px;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #bae6fd;color:#0284c7;border-radius:999px;padding:7px 20px;font-size:12px;font-weight:700;letter-spacing:.5px;margin-bottom:28px}
+.hero h1{font-size:clamp(34px,5.5vw,62px);font-weight:900;color:#0c4a6e;line-height:1.15;margin-bottom:18px}
+.hero h1 span{color:#0ea5e9}
+.hero p{font-size:18px;color:#0369a1;max-width:560px;margin:0 auto 36px;line-height:1.8}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#0284c7,#0c4a6e);color:#fff;border-radius:12px;padding:17px 36px;font-size:16px;font-weight:700;text-decoration:none;box-shadow:0 8px 24px rgba(2,132,199,.3)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:#fff;border:2px solid #bae6fd;color:#0284c7;border-radius:12px;padding:15px 26px;font-size:15px;font-weight:600;text-decoration:none}
+.hero-note{font-size:13px;color:#0369a1;opacity:.8}
+.stats-bar{background:linear-gradient(135deg,#0c4a6e,#075985);padding:28px 24px}
+.stats-inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;max-width:900px;margin:0 auto;text-align:center}
+.stat-n{font-size:36px;font-weight:900;color:#7dd3fc}
+.stat-l{font-size:12px;color:#bae6fd;margin-top:4px}
+.sec-label{color:#0284c7;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.sec-title{font-size:34px;font-weight:800;color:#0c4a6e;text-align:center;margin-bottom:12px}
+.sec-sub{text-align:center;font-size:15px;color:#64748b;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7}
+.services{padding:90px 24px;background:#fff}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;max-width:1060px;margin:0 auto}
+.svc-card{border:1.5px solid #e0f2fe;border-radius:16px;padding:32px;background:#f8fcff;transition:.2s}
+.svc-icon{width:60px;height:60px;background:linear-gradient(135deg,#0284c7,#0c4a6e);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:18px}
+.svc-name{font-size:18px;font-weight:800;color:#0c4a6e;margin-bottom:8px}
+.svc-desc{font-size:14px;color:#475569;line-height:1.7;margin-bottom:14px}
+.svc-price{font-size:16px;font-weight:700;color:#0284c7}
+.svc-note{font-size:12px;color:#94a3b8;margin-top:2px}
+.tech{padding:90px 24px;background:linear-gradient(160deg,#f0f9ff,#fff)}
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:960px;margin:0 auto}
+.tech-card{background:#fff;border:1px solid #e0f2fe;border-radius:14px;padding:26px;text-align:center;box-shadow:0 2px 12px rgba(2,132,199,.06)}
+.tech-icon{font-size:44px;margin-bottom:14px;display:block}
+.tech-name{font-size:16px;font-weight:700;color:#0c4a6e;margin-bottom:8px}
+.tech-desc{font-size:13px;color:#64748b;line-height:1.65}
+.doctors{padding:90px 24px;background:#fff}
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;max-width:980px;margin:0 auto}
+.doc-card{border:1.5px solid #e0f2fe;border-radius:16px;padding:28px;text-align:center;background:#f8fcff}
+.doc-av{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#0284c7,#0c4a6e);display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 16px;border:3px solid #fff;box-shadow:0 4px 16px rgba(2,132,199,.2)}
+.doc-name{font-size:18px;font-weight:800;color:#0c4a6e;margin-bottom:4px}
+.doc-spec{font-size:13px;color:#0284c7;font-weight:600;margin-bottom:10px}
+.doc-certs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
+.doc-cert{background:#e0f2fe;color:#0369a1;border-radius:6px;padding:3px 9px;font-size:11px;font-weight:600}
+.doc-exp{font-size:13px;color:#64748b;line-height:1.6}
+.process{padding:90px 24px;background:linear-gradient(160deg,#f0f9ff,#fff)}
+.proc-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+.proc-step{text-align:center;padding:28px}
+.proc-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#0284c7,#0c4a6e);color:#fff;font-size:22px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.proc-title{font-size:17px;font-weight:700;color:#0c4a6e;margin-bottom:8px}
+.proc-desc{font-size:13px;color:#64748b;line-height:1.65}
+.pricing{padding:90px 24px;background:#fff}
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:960px;margin:0 auto 32px}
+.price-card{border:2px solid #e0f2fe;border-radius:18px;padding:32px;background:#f8fcff;text-align:left}
+.price-card.feat{background:linear-gradient(135deg,#0284c7,#0c4a6e);border-color:transparent;color:#fff}
+.price-label{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0284c7;margin-bottom:12px}
+.price-card.feat .price-label{color:#bae6fd}
+.price-amount{font-size:44px;font-weight:900;color:#0c4a6e;line-height:1;margin-bottom:4px}
+.price-card.feat .price-amount{color:#fff}
+.price-unit{font-size:14px;color:#64748b;margin-bottom:20px}
+.price-card.feat .price-unit{color:#bae6fd}
+.price-btn{display:block;border-radius:10px;padding:13px;text-align:center;font-weight:700;text-decoration:none;font-size:15px;margin-bottom:20px}
+.price-btn-out{background:#e0f2fe;color:#0284c7}
+.price-btn-in{background:#fff;color:#0284c7}
+.price-feats{font-size:14px;color:#475569;line-height:2}
+.price-card.feat .price-feats{color:#e0f2fe}
+.testi{padding:90px 24px;background:linear-gradient(135deg,#0c4a6e,#0284c7)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:1020px;margin:0 auto}
+.testi-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:28px}
+.testi-stars{color:#fde68a;font-size:17px;margin-bottom:12px}
+.testi-q{font-size:15px;color:#e0f2fe;font-style:italic;line-height:1.75;margin-bottom:16px}
+.testi-auth{display:flex;align-items:center;gap:12px}
+.testi-av{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:14px}
+.testi-name{font-size:14px;font-weight:700;color:#fff}
+.testi-src{font-size:12px;color:#bae6fd}
+.faq{padding:90px 24px;background:#f8fcff}
+.faq-list{max-width:740px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.faq-item{background:#fff;border:1.5px solid #e0f2fe;border-radius:12px;padding:24px}
+.faq-q{font-weight:700;color:#0c4a6e;margin-bottom:10px;font-size:15px}
+.faq-a{font-size:14px;color:#475569;line-height:1.75}
+.cta-section{padding:80px 24px;background:linear-gradient(160deg,#f0f9ff,#fff);text-align:center}
+.cta-box{background:linear-gradient(135deg,#0284c7,#0c4a6e);border-radius:24px;padding:60px 40px;max-width:700px;margin:0 auto}
+.cta-box h2{font-size:36px;font-weight:900;color:#fff;margin-bottom:14px;line-height:1.25}
+.cta-box p{color:#bae6fd;font-size:16px;margin-bottom:32px;line-height:1.65}
+.cta-box .btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#0284c7;border-radius:12px;padding:17px 36px;font-size:16px;font-weight:800;text-decoration:none}
+.footer{background:#0c4a6e;padding:48px 24px}
+.footer-inner{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:36px;justify-content:space-between}
+.footer-brand{font-size:22px;font-weight:900;color:#fff;margin-bottom:6px}
+.footer-brand span{color:#7dd3fc}
+.footer-tagline{font-size:13px;color:#bae6fd}
+.footer-links{display:flex;flex-direction:column;gap:8px}
+.footer-links a{color:#bae6fd;text-decoration:none;font-size:14px}
+.footer-bottom{background:#075985;text-align:center;padding:16px 24px;font-size:12px;color:#93c5fd}
+</style></head>
+<body>
+
+<section class="hero">
+  <div class="badge">🦷 Được 20.000+ bệnh nhân tin chọn · Bác sĩ tốt nghiệp nước ngoài</div>
+  <h1>Nụ cười tự tin<br><span>bắt đầu từ đây</span></h1>
+  <p>Nha khoa thẩm mỹ cao cấp với công nghệ hiện đại nhất Việt Nam — không đau, không lo ngại, kết quả đẹp bền vững.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-primary">📅 Đặt lịch khám — Miễn phí tư vấn</a>
+    <a href="#" class="btn-secondary">📞 Gọi ngay: 028 3456 7890</a>
+  </div>
+  <p class="hero-note">Khám miễn phí · Báo giá trước điều trị · Bảo hành dài hạn</p>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div><div class="stat-n">20K+</div><div class="stat-l">Bệnh nhân tin chọn</div></div>
+    <div><div class="stat-n">15+</div><div class="stat-l">Bác sĩ chuyên khoa</div></div>
+    <div><div class="stat-n">12</div><div class="stat-l">Năm kinh nghiệm</div></div>
+    <div><div class="stat-n">98%</div><div class="stat-l">Bệnh nhân hài lòng</div></div>
+    <div><div class="stat-n">4.9★</div><div class="stat-l">Google Reviews</div></div>
+  </div>
+</div>
+
+<section class="services">
+  <div class="sec-label">Dịch vụ nha khoa</div>
+  <h2 class="sec-title">Giải pháp toàn diện<br>cho nụ cười hoàn hảo</h2>
+  <p class="sec-sub">Từ chỉnh hình cơ bản đến thẩm mỹ cao cấp — chúng tôi có giải pháp cho mọi nhu cầu</p>
+  <div class="svc-grid">
+    <div class="svc-card"><div class="svc-icon">✨</div><div class="svc-name">Dán sứ Veneer</div><div class="svc-desc">Mỏng như vỏ trứng, bền như đá quý. Sứ Emax/Zirconia nhập khẩu Đức, bảo hành 10 năm. Thay đổi màu sắc, hình dạng và kích thước răng trong chỉ 2 buổi hẹn.</div><div class="svc-price">Từ 3.500.000đ/răng</div><div class="svc-note">Bảo hành 10 năm · Không mài răng hoặc mài cực ít</div></div>
+    <div class="svc-card"><div class="svc-icon">🦷</div><div class="svc-name">Implant Nha Khoa</div><div class="svc-desc">Trồng răng giả vĩnh viễn với titanium implant thương hiệu Straumann (Thụy Sĩ), Nobel Biocare (Mỹ). Tỷ lệ thành công 99.5%, cảm giác như răng thật, không ảnh hưởng răng bên cạnh.</div><div class="svc-price">Từ 18.000.000đ/răng</div><div class="svc-note">Bảo hành suốt đời implant · Trả góp 0%</div></div>
+    <div class="svc-card"><div class="svc-icon">🎯</div><div class="svc-name">Niềng Răng Invisalign</div><div class="svc-desc">Niềng trong suốt Invisalign — công nghệ Mỹ, không cần mắc cài, tháo ra ăn uống bình thường. Phù hợp cho người đi làm, không muốn ảnh hưởng ngoại hình trong quá trình niềng.</div><div class="svc-price">Từ 45.000.000đ</div><div class="svc-note">Bao gồm toàn bộ khay · Theo dõi online mỗi 2 tuần</div></div>
+    <div class="svc-card"><div class="svc-icon">💎</div><div class="svc-name">Tẩy Trắng Răng Zoom!</div><div class="svc-desc">Công nghệ Zoom! Whitening từ Mỹ — 1 giờ tẩy trắng, nâng tông 8-12 shade. Không đau, không ê buốt nhờ gel bảo vệ tủy chuyên dụng. Kết quả bền 2-3 năm.</div><div class="svc-price">4.500.000đ / lần</div><div class="svc-note">Bao gồm máng tẩy trắng về nhà · Tư vấn màu sắc</div></div>
+    <div class="svc-card"><div class="svc-icon">🌿</div><div class="svc-name">Điều Trị Nha Chu</div><div class="svc-desc">Điều trị viêm nướu, tụt nướu, viêm quanh răng bằng laser Er:YAG thế hệ mới. Không phẫu thuật, phục hồi nhanh, giải quyết tận gốc nguyên nhân gây hôi miệng mãn tính.</div><div class="svc-price">Từ 800.000đ/phiên</div><div class="svc-note">Laser không đau · Lịch tái khám theo dõi miễn phí</div></div>
+    <div class="svc-card"><div class="svc-icon">👶</div><div class="svc-name">Nha Khoa Trẻ Em</div><div class="svc-desc">Phòng khám chuyên biệt cho trẻ từ 1-16 tuổi với không gian vui nhộn, màu sắc. Bác sĩ được đào tạo tâm lý trẻ em, kỹ thuật tê không đau, giúp trẻ không sợ nha sĩ.</div><div class="svc-price">Từ 300.000đ/lần</div><div class="svc-note">Phòng chờ trẻ em riêng · Quà tặng sau khám</div></div>
+  </div>
+</section>
+
+<section class="tech">
+  <div class="sec-label">Công nghệ hiện đại</div>
+  <h2 class="sec-title">Trang thiết bị tối tân<br>chuẩn quốc tế</h2>
+  <p class="sec-sub">Đầu tư hơn 15 tỷ đồng vào thiết bị y tế tiên tiến nhất — để mọi điều trị đều chính xác và an toàn tuyệt đối</p>
+  <div class="tech-grid">
+    <div class="tech-card"><span class="tech-icon">🔬</span><div class="tech-name">CT Scan 3D Cone Beam</div><div class="tech-desc">Chụp CT 3D toàn hàm trong 14 giây, liều phóng xạ thấp hơn phim X-quang thông thường 90%. Cần thiết cho implant và phẫu thuật hàm mặt.</div></div>
+    <div class="tech-card"><span class="tech-icon">💡</span><div class="tech-name">Laser Er:YAG & Nd:YAG</div><div class="tech-desc">Điều trị nha chu, trắng răng và tiểu phẫu không cần mũi kim. Lành thương nhanh gấp 3 lần phương pháp truyền thống.</div></div>
+    <div class="tech-card"><span class="tech-icon">🖥️</span><div class="tech-name">CAD/CAM CEREC Sirona</div><div class="tech-desc">Thiết kế và phay sứ tại chỗ trong 1 giờ — không cần đi lại nhiều lần, mão sứ nguyên khối Zirconia chính xác đến 0.02mm.</div></div>
+    <div class="tech-card"><span class="tech-icon">📱</span><div class="tech-name">Scan 3D khoang miệng iTero</div><div class="tech-desc">Thay thế hoàn toàn lấy dấu thạch cao truyền thống. Scan trong 2 phút, kết quả chính xác 100%, xem mô phỏng kết quả điều trị ngay lập tức.</div></div>
+    <div class="tech-card"><span class="tech-icon">🤖</span><div class="tech-name">Robot Hướng Dẫn Implant</div><div class="tech-desc">Hệ thống robot YOMI hỗ trợ định vị implant chính xác theo kế hoạch 3D, sai số dưới 0.5mm. An toàn nhất, xâm lấn ít nhất.</div></div>
+    <div class="tech-card"><span class="tech-icon">🛡️</span><div class="tech-name">Hệ Thống Khử Khuẩn Autoclave</div><div class="tech-desc">Máy tiệt khuẩn áp suất cao chuẩn EN 13060 Châu Âu. Mỗi dụng cụ đều được đóng gói riêng và in tem ngày tiệt khuẩn.</div></div>
+  </div>
+</section>
+
+<section class="doctors">
+  <div class="sec-label">Đội ngũ bác sĩ</div>
+  <h2 class="sec-title">Chuyên gia hàng đầu<br>được đào tạo quốc tế</h2>
+  <p class="sec-sub">100% bác sĩ có trình độ sau đại học, nhiều người tốt nghiệp từ Mỹ, Pháp, Nhật, Úc</p>
+  <div class="doc-grid">
+    <div class="doc-card"><div class="doc-av">👨‍⚕️</div><div class="doc-name">BS. CKI Trần Minh Khoa</div><div class="doc-spec">Implant & Phẫu thuật hàm mặt</div><div class="doc-certs"><span class="doc-cert">Straumann Certified</span><span class="doc-cert">NobelBiocare</span></div><div class="doc-exp">20 năm kinh nghiệm. Đặt hơn 3.000 implant. Giảng viên khoa ĐH Y Dược TP.HCM.</div></div>
+    <div class="doc-card"><div class="doc-av">👩‍⚕️</div><div class="doc-name">BS. CKII Lê Thị Lan Hương</div><div class="doc-spec">Nha khoa thẩm mỹ & Veneer</div><div class="doc-certs"><span class="doc-cert">Invisalign Diamond</span><span class="doc-cert">AACD Member</span></div><div class="doc-exp">15 năm chuyên về thẩm mỹ răng sứ. Tốt nghiệp chuyên khoa tại Paris, Pháp.</div></div>
+    <div class="doc-card"><div class="doc-av">👨‍⚕️</div><div class="doc-name">BS. Nguyễn Văn Thành</div><div class="doc-spec">Chỉnh nha Invisalign & Mắc cài</div><div class="doc-certs"><span class="doc-cert">Invisalign Platinum</span><span class="doc-cert">3M Certified</span></div><div class="doc-exp">12 năm chuyên niềng răng. Hơn 2.000 ca Invisalign thành công. Fellowship ĐH Sydney.</div></div>
+    <div class="doc-card"><div class="doc-av">👩‍⚕️</div><div class="doc-name">BS. Phạm Thu Trang</div><div class="doc-spec">Nha chu & Laser nha khoa</div><div class="doc-certs"><span class="doc-cert">AAP Member</span><span class="doc-cert">Biophotonics</span></div><div class="doc-exp">10 năm điều trị nha chu. Chuyên gia laser Bios nha khoa đầu tiên tại VN.</div></div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="sec-label">Quy trình khám</div>
+  <h2 class="sec-title">Đơn giản, minh bạch<br>không áp lực</h2>
+  <p class="sec-sub">Mỗi bệnh nhân đều được tư vấn kỹ lưỡng trước khi quyết định điều trị — không bao giờ vội vàng</p>
+  <div class="proc-steps">
+    <div class="proc-step"><div class="proc-num">1</div><div class="proc-title">Đặt lịch online/call</div><div class="proc-desc">Chọn giờ hẹn phù hợp qua website hoặc hotline. Xác nhận qua SMS trong 5 phút. Không cần đặt cọc.</div></div>
+    <div class="proc-step"><div class="proc-num">2</div><div class="proc-title">Khám & chụp X-quang</div><div class="proc-desc">Bác sĩ khám tổng quát, chụp CT 3D nếu cần. Phân tích tình trạng răng miệng toàn diện, không bỏ sót.</div></div>
+    <div class="proc-step"><div class="proc-num">3</div><div class="proc-title">Tư vấn & lập kế hoạch</div><div class="proc-desc">Bác sĩ giải thích rõ ràng vấn đề, các phương án điều trị, chi phí chính xác và thời gian hoàn thành. Bạn quyết định.</div></div>
+    <div class="proc-step"><div class="proc-num">4</div><div class="proc-title">Điều trị không đau</div><div class="proc-desc">Áp dụng gel tê bề mặt trước khi tiêm. Kỹ thuật tiêm chậm áp lực thấp. Hơn 95% bệnh nhân không cảm thấy đau trong điều trị.</div></div>
+    <div class="proc-step"><div class="proc-num">5</div><div class="proc-title">Tái khám & bảo hành</div><div class="proc-desc">Lịch tái khám tự động qua app. Mỗi điều trị đều có phiếu bảo hành rõ ràng. Hỗ trợ 24/7 nếu có vấn đề phát sinh.</div></div>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="sec-label">Gói dịch vụ</div>
+  <h2 class="sec-title">Đầu tư vào nụ cười<br>là đầu tư sinh lời nhất</h2>
+  <p class="sec-sub">Minh bạch giá cả — không phí ẩn — báo giá trước khi điều trị</p>
+  <div class="price-grid">
+    <div class="price-card"><div class="price-label">Chăm sóc cơ bản</div><div class="price-amount">Miễn phí</div><div class="price-unit">Lần khám đầu tiên</div><a href="#" class="price-btn price-btn-out">Đặt lịch khám →</a><div class="price-feats">✓ Khám tổng quát<br>✓ Chụp X-quang tổng quát<br>✓ Tư vấn kế hoạch điều trị<br>✓ Báo giá chi tiết không ràng buộc</div></div>
+    <div class="price-card feat"><div class="price-label">Gói thẩm mỹ nụ cười</div><div class="price-amount">85tr</div><div class="price-unit">Trọn gói 10 răng · Veneer Emax</div><a href="#" class="price-btn price-btn-in">Tư vấn ngay →</a><div class="price-feats">✓ 10 răng sứ Emax<br>✓ Tẩy trắng Zoom! trước dán<br>✓ Bảo hành 10 năm<br>✓ Scan 3D & mô phỏng trước<br>✓ Trả góp 0% đến 12 tháng</div></div>
+    <div class="price-card"><div class="price-label">Gói Implant toàn hàm</div><div class="price-amount">250tr</div><div class="price-unit">All-on-4 · Trọn gói 2 hàm</div><a href="#" class="price-btn price-btn-out">Xem chi tiết →</a><div class="price-feats">✓ 4 implant Straumann / hàm<br>✓ CT 3D lập kế hoạch<br>✓ Sứ Zirconia toàn hàm<br>✓ Phẫu thuật hướng dẫn robot<br>✓ Bảo hành suốt đời implant</div></div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="sec-label">Cảm nhận bệnh nhân</div>
+  <h2 class="sec-title" style="color:#fff">Hàng nghìn nụ cười<br>đã thay đổi tại đây</h2>
+  <p class="sec-sub" style="color:#bae6fd;margin-bottom:48px">Không photoshop, không dàn dựng — đây là chia sẻ thật từ bệnh nhân thật</p>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Tôi đã sợ nha sĩ suốt 20 năm. Đến đây lần đầu chỉ định khám thôi nhưng bác sĩ Khoa quá nhẹ nhàng và kiên nhẫn. Giờ tôi đã implant 3 răng, hoàn toàn không đau và kết quả đẹp hơn cả mong đợi."</div><div class="testi-auth"><div class="testi-av">NM</div><div><div class="testi-name">Chị Nguyễn Minh Châu</div><div class="testi-src">Implant Straumann · Quận 3</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Dán sứ Veneer 8 răng — trước khi làm được xem mô phỏng 3D kết quả nên rất an tâm. Kết quả đúng như bác sĩ cam kết. Bạn bè liên tục hỏi tôi đi làm ở đâu, thật sự tự tin hơn rất nhiều."</div><div class="testi-auth"><div class="testi-av">TH</div><div><div class="testi-name">Anh Trần Hoàng Phúc</div><div class="testi-src">Veneer Emax 8 răng · Quận 7</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Niềng Invisalign được 8 tháng, răng thay đổi rõ rệt. Quan trọng nhất là không ai biết tôi đang niềng khi đi làm và đi gặp khách hàng. App theo dõi tiến trình rất tiện, BS Thành tận tình lắm."</div><div class="testi-auth"><div class="testi-av">LN</div><div><div class="testi-name">Chị Lê Ngọc Hà</div><div class="testi-src">Invisalign · Bình Thạnh</div></div></div></div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="sec-label">Câu hỏi thường gặp</div>
+  <h2 class="sec-title">Những lo lắng thường gặp<br>của bệnh nhân</h2>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q">😰 Điều trị có đau không?</div><div class="faq-a">Chúng tôi áp dụng quy trình "Comfort Dentistry" 3 bước: (1) gel tê bề mặt trước khi tiêm, (2) kim tiêm siêu mảnh 30G, (3) tiêm chậm có kiểm soát áp lực. Hơn 95% bệnh nhân đánh giá không đau hoặc rất ít đau. Nếu bạn vẫn cảm thấy đau, bác sĩ sẽ tê thêm ngay lập tức.</div></div>
+    <div class="faq-item"><div class="faq-q">💰 Có trả góp được không?</div><div class="faq-a">Có. Hợp tác với Home Credit, FE Credit và thẻ tín dụng các ngân hàng. Trả góp 0% lãi suất đến 12 tháng cho điều trị trên 10 triệu đồng. Thủ tục đơn giản, phê duyệt trong 30 phút ngay tại phòng khám.</div></div>
+    <div class="faq-item"><div class="faq-q">⏱️ Niềng răng Invisalign mất bao lâu?</div><div class="faq-a">Trung bình 12-24 tháng tùy mức độ sai khớp cắn. Sau khi scan 3D, bác sĩ sẽ cho bạn xem mô phỏng từng tháng và ước tính chính xác thời gian hoàn thành cho trường hợp của bạn. Tái khám mỗi 6-8 tuần, hoặc theo dõi từ xa qua app giữa các lần hẹn.</div></div>
+    <div class="faq-item"><div class="faq-q">🛡️ Implant có bền không? Bảo hành ra sao?</div><div class="faq-a">Implant titanium Straumann bảo hành suốt đời từ nhà sản xuất. Mão sứ Zirconia bảo hành 5 năm tại phòng khám. Với vệ sinh tốt và tái khám định kỳ, implant có thể dùng được 20-30 năm. Tỷ lệ thành công sau 10 năm đạt 95%+ theo nghiên cứu quốc tế.</div></div>
+    <div class="faq-item"><div class="faq-q">📋 Sau khi dán sứ Veneer có cần kiêng gì không?</div><div class="faq-a">Tránh cắn đồ quá cứng (xương, mía) và hạn chế thực phẩm nhuộm màu mạnh (cà phê, trà đen) trong tuần đầu. Sau đó ăn uống bình thường. Đánh răng đúng cách, dùng chỉ tơ nha khoa và tái khám định kỳ 6 tháng/lần là đủ để giữ sứ bền đẹp 10+ năm.</div></div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-box">
+    <h2>Đặt lịch khám miễn phí<br>ngay hôm nay</h2>
+    <p>Chuyên gia sẽ tư vấn riêng cho trường hợp của bạn — không áp lực, không phí ẩn, chỉ cần bạn mỉm cười.</p>
+    <a href="#" class="btn-white">🦷 Đặt lịch ngay — 100% miễn phí</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">🦷 <span>Smile</span>Perfect Dental</div><div class="footer-tagline">Nha khoa thẩm mỹ cao cấp · Thành lập 2012</div></div>
+    <div class="footer-links"><a href="#">Dịch vụ nha khoa</a><a href="#">Đội ngũ bác sĩ</a><a href="#">Bảng giá</a><a href="#">Đặt lịch hẹn</a></div>
+    <div class="footer-links"><a href="#">📍 CS1: 123 Nguyễn Thị Minh Khai, Q.1</a><a href="#">📍 CS2: 456 Lê Văn Sỹ, Q.3</a><a href="#">📞 028 3456 7890 (7:30–21:00)</a></div>
+  </div>
+</footer>
+<div class="footer-bottom">© 2026 SmilePerfect Dental · Giấy phép hoạt động khám chữa bệnh số 1234/BYT-GPHD · Bộ Y tế</div>
+</body></html>`
+
+const LP_LANGUAGE = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;background:#0f0b1e;color:#e8e0f8}
+.hero{background:linear-gradient(160deg,#0f0b1e 0%,#1a1040 50%,#0f0b1e 100%);padding:100px 24px 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(249,115,22,.1) 0%,transparent 65%)}
+.hero::after{content:'';position:absolute;top:100px;right:10%;width:300px;height:300px;background:radial-gradient(circle,rgba(99,102,241,.12) 0%,transparent 70%)}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.3);color:#fb923c;border-radius:999px;padding:7px 20px;font-size:12px;font-weight:700;letter-spacing:.5px;margin-bottom:28px;position:relative}
+.hero h1{font-size:clamp(36px,6vw,68px);font-weight:900;line-height:1.1;margin-bottom:20px;position:relative}
+.hero h1 .orange{background:linear-gradient(135deg,#f97316,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero h1 .purple{background:linear-gradient(135deg,#818cf8,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:#a5b4fc;max-width:560px;margin:0 auto 36px;line-height:1.8;position:relative}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;position:relative}
+.btn-orange{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ea580c,#d97706);color:#fff;border-radius:12px;padding:17px 36px;font-size:16px;font-weight:700;text-decoration:none;box-shadow:0 8px 24px rgba(234,88,12,.3)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#e2e8f0;border-radius:12px;padding:15px 26px;font-size:15px;text-decoration:none}
+.hero-note{font-size:13px;color:#6b7280;position:relative}
+.stats-bar{background:rgba(249,115,22,.08);border-top:1px solid rgba(249,115,22,.15);border-bottom:1px solid rgba(249,115,22,.15);padding:28px 24px}
+.stats-inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;max-width:900px;margin:0 auto;text-align:center}
+.stat-n{font-size:36px;font-weight:900;background:linear-gradient(135deg,#f97316,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-l{font-size:12px;color:#94a3b8;margin-top:4px}
+.sec-label{color:#f97316;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.sec-title{font-size:34px;font-weight:800;text-align:center;margin-bottom:12px;line-height:1.25}
+.sec-sub{text-align:center;font-size:15px;color:#94a3b8;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7}
+.courses{padding:90px 24px;background:#0f0b1e}
+.course-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;max-width:1060px;margin:0 auto}
+.course-card{border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:32px;background:rgba(255,255,255,.03);position:relative;overflow:hidden}
+.course-card.popular{border-color:rgba(249,115,22,.35);background:rgba(249,115,22,.05)}
+.popular-badge{position:absolute;top:18px;right:18px;background:linear-gradient(135deg,#ea580c,#d97706);color:#fff;border-radius:6px;padding:4px 12px;font-size:11px;font-weight:700}
+.course-flag{font-size:44px;margin-bottom:16px;display:block}
+.course-name{font-size:20px;font-weight:800;margin-bottom:6px}
+.course-target{font-size:13px;color:#f97316;font-weight:600;margin-bottom:12px}
+.course-desc{font-size:14px;color:#94a3b8;line-height:1.7;margin-bottom:16px}
+.course-features{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.course-feat{font-size:13px;color:#c8bfa8;display:flex;align-items:center;gap:8px}
+.course-feat::before{content:'✓';color:#f97316;font-weight:700;flex-shrink:0}
+.course-price{font-size:22px;font-weight:900;color:#f97316}
+.course-price-note{font-size:12px;color:#6b7280;margin-top:2px}
+.method{padding:90px 24px;background:#0a0714}
+.method-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+.method-card{background:rgba(255,255,255,.03);border:1px solid rgba(99,102,241,.15);border-radius:16px;padding:28px;text-align:center}
+.method-icon{font-size:46px;margin-bottom:16px;display:block}
+.method-name{font-size:17px;font-weight:700;margin-bottom:10px;color:#c7d2fe}
+.method-desc{font-size:13px;color:#94a3b8;line-height:1.7}
+.teachers{padding:90px 24px;background:#0f0b1e}
+.teacher-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;max-width:1000px;margin:0 auto}
+.teacher-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:28px;text-align:center}
+.teacher-av{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 16px;border:3px solid rgba(249,115,22,.3)}
+.teacher-av.t1{background:linear-gradient(135deg,#1d4ed8,#0369a1)}
+.teacher-av.t2{background:linear-gradient(135deg,#b91c1c,#991b1b)}
+.teacher-av.t3{background:linear-gradient(135deg,#0369a1,#0891b2)}
+.teacher-av.t4{background:linear-gradient(135deg,#15803d,#166534)}
+.teacher-name{font-size:18px;font-weight:800;margin-bottom:4px}
+.teacher-nationality{font-size:13px;color:#f97316;font-weight:600;margin-bottom:10px}
+.teacher-certs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
+.teacher-cert{background:rgba(249,115,22,.1);color:#fb923c;border-radius:6px;padding:3px 9px;font-size:11px;font-weight:600}
+.teacher-bio{font-size:13px;color:#94a3b8;line-height:1.6}
+.results{padding:90px 24px;background:#0a0714}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+.result-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;overflow:hidden}
+.result-top{padding:24px;background:linear-gradient(135deg,#ea580c,#92400e);text-align:center}
+.result-score{font-size:44px;font-weight:900;color:#fff}
+.result-exam{font-size:14px;color:#fed7aa;margin-top:4px;font-weight:600}
+.result-body{padding:22px}
+.result-body p{font-size:13px;color:#94a3b8;line-height:1.65;margin-bottom:10px}
+.result-name{font-size:13px;font-weight:700;color:#fb923c}
+.roadmap{padding:90px 24px;background:#0f0b1e}
+.road-steps{display:flex;flex-direction:column;gap:0;max-width:700px;margin:0 auto}
+.road-step{display:flex;gap:24px;padding:28px 0;border-bottom:1px dashed rgba(249,115,22,.15)}
+.road-step:last-child{border:none}
+.road-num{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#ea580c,#d97706);color:#fff;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.road-body h3{font-size:17px;font-weight:700;margin-bottom:6px;color:#e8e0f8}
+.road-body p{font-size:14px;color:#94a3b8;line-height:1.65}
+.road-level{display:inline-flex;background:rgba(249,115,22,.12);color:#fb923c;border-radius:6px;padding:3px 10px;font-size:12px;font-weight:700;margin-top:8px}
+.pricing{padding:90px 24px;background:#0a0714}
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;max-width:900px;margin:0 auto 28px}
+.plan{border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:32px;background:rgba(255,255,255,.03)}
+.plan.hot{border-color:rgba(249,115,22,.4);background:rgba(249,115,22,.06)}
+.plan-name{font-size:12px;font-weight:700;color:#f97316;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.plan-price{font-size:44px;font-weight:900;margin-bottom:4px}
+.plan-per{font-size:13px;color:#6b7280;margin-bottom:20px}
+.plan-btn{display:block;border-radius:10px;padding:13px;text-align:center;text-decoration:none;font-weight:700;font-size:14px;margin-bottom:18px}
+.plan-btn-outline{background:transparent;border:2px solid rgba(249,115,22,.35);color:#fb923c}
+.plan-btn-hot{background:linear-gradient(135deg,#ea580c,#d97706);color:#fff}
+.plan-feats{font-size:13px;color:#94a3b8;line-height:2.1}
+.testi{padding:90px 24px;background:linear-gradient(135deg,#1a0a30,#0f0b1e)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:1020px;margin:0 auto}
+.testi-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px}
+.testi-stars{color:#f97316;font-size:17px;margin-bottom:12px}
+.testi-q{font-size:15px;color:#c8bfa8;font-style:italic;line-height:1.75;margin-bottom:16px}
+.testi-auth{display:flex;align-items:center;gap:12px}
+.testi-av{width:42px;height:42px;border-radius:50%;background:rgba(249,115,22,.2);display:flex;align-items:center;justify-content:center;font-weight:700;color:#f97316;font-size:14px}
+.testi-name{font-size:14px;font-weight:700}
+.testi-src{font-size:12px;color:#f97316}
+.faq{padding:90px 24px;background:#0f0b1e}
+.faq-list{max-width:740px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.faq-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:24px}
+.faq-q{font-weight:700;color:#f97316;margin-bottom:10px;font-size:15px}
+.faq-a{font-size:14px;color:#94a3b8;line-height:1.75}
+.cta-sec{padding:80px 24px;text-align:center;background:linear-gradient(135deg,#1a1040,#0f0b1e)}
+.cta-sec h2{font-size:44px;font-weight:900;margin-bottom:14px;letter-spacing:-.5px}
+.cta-sec p{color:#94a3b8;font-size:17px;margin-bottom:32px;line-height:1.6}
+.footer{background:#080614;border-top:1px solid rgba(255,255,255,.06);padding:48px 24px}
+.footer-inner{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:36px;justify-content:space-between}
+.footer-brand{font-size:22px;font-weight:900;margin-bottom:6px}
+.footer-brand span{color:#f97316}
+.footer-tagline{font-size:13px;color:#6b7280}
+.footer-links{display:flex;flex-direction:column;gap:8px}
+.footer-links a{color:#94a3b8;text-decoration:none;font-size:14px}
+.footer-bottom{background:#080614;border-top:1px solid rgba(255,255,255,.04);text-align:center;padding:16px 24px;font-size:12px;color:#4b5563}
+</style></head>
+<body>
+
+<section class="hero">
+  <div class="badge">🌍 10.000+ học viên · Đầu ra IELTS 7.0+ được chứng minh</div>
+  <h1>Thành thạo <span class="orange">tiếng Anh</span><br>theo cách <span class="purple">khoa học nhất</span></h1>
+  <p>Phương pháp học tập cá nhân hóa theo AI — giáo viên bản ngữ quốc tế — lộ trình rõ ràng từ 0 đến IELTS 7.0+ trong 12 tháng.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-orange">🚀 Học thử miễn phí 7 ngày</a>
+    <a href="#" class="btn-ghost">📊 Test trình độ ngay</a>
+  </div>
+  <p class="hero-note">Không cam kết · Không cần trình độ đầu vào · Học online hoặc offline</p>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div><div class="stat-n">10K+</div><div class="stat-l">Học viên tốt nghiệp</div></div>
+    <div><div class="stat-n">7.2</div><div class="stat-l">IELTS trung bình đầu ra</div></div>
+    <div><div class="stat-n">120+</div><div class="stat-l">GV bản ngữ quốc tế</div></div>
+    <div><div class="stat-n">96%</div><div class="stat-l">Đạt mục tiêu cam kết</div></div>
+    <div><div class="stat-n">4.9★</div><div class="stat-l">Đánh giá phụ huynh & HV</div></div>
+  </div>
+</div>
+
+<section class="courses">
+  <div class="sec-label">Khóa học</div>
+  <h2 class="sec-title">Chương trình học<br>cho mọi mục tiêu</h2>
+  <p class="sec-sub">Dù bạn cần IELTS để du học, tiếng Anh giao tiếp đi làm hay tiếng Anh cho con — chúng tôi đều có</p>
+  <div class="course-grid">
+    <div class="course-card popular">
+      <span class="popular-badge">Phổ biến nhất</span>
+      <span class="course-flag">🎓</span>
+      <div class="course-name">IELTS Academic 6.5–7.5</div>
+      <div class="course-target">Cho: Du học sinh · Người đi làm · Định cư</div>
+      <div class="course-desc">Lộ trình 6-12 tháng, tập trung 4 kỹ năng Listening, Reading, Writing, Speaking. Cam kết đầu ra hoặc học lại miễn phí.</div>
+      <div class="course-features">
+        <div class="course-feat">Mock test hàng tuần với đề thi thật</div>
+        <div class="course-feat">Speaking 1-1 với giáo viên bản ngữ IELTS Examiner</div>
+        <div class="course-feat">Chữa Writing từng bài trong 24 giờ</div>
+        <div class="course-feat">Cam kết điểm đầu ra · Bảo hành 100%</div>
+      </div>
+      <div class="course-price">3.500.000đ/tháng</div>
+      <div class="course-price-note">Giảm 20% khi đăng ký 6 tháng · Trả góp 0%</div>
+    </div>
+    <div class="course-card">
+      <span class="course-flag">💼</span>
+      <div class="course-name">Business English Pro</div>
+      <div class="course-target">Cho: Manager · Doanh nhân · Nhân viên văn phòng</div>
+      <div class="course-desc">Tiếng Anh thương mại thực chiến: email, meeting, presentation, negotiation. Kịch bản thực tế từ ngành của bạn.</div>
+      <div class="course-features">
+        <div class="course-feat">Học theo ngành: Finance, IT, Marketing, HR</div>
+        <div class="course-feat">Role-play tình huống thực tế mỗi buổi</div>
+        <div class="course-feat">Chứng chỉ LinkedIn-ready khi hoàn thành</div>
+        <div class="course-feat">Lớp buổi tối & cuối tuần linh hoạt</div>
+      </div>
+      <div class="course-price">2.800.000đ/tháng</div>
+      <div class="course-price-note">Nhóm nhỏ 8 người · 3 buổi/tuần 90 phút</div>
+    </div>
+    <div class="course-card">
+      <span class="course-flag">👦</span>
+      <div class="course-name">English for Kids (6–15 tuổi)</div>
+      <div class="course-target">Cho: Tiểu học · THCS · Phụ huynh muốn con tự tin giao tiếp</div>
+      <div class="course-desc">Chương trình Cambridge Primary & Secondary. Học qua game, dự án, kể chuyện — đúng cách trẻ học tốt nhất. Giáo viên nước ngoài vui vẻ, kiên nhẫn.</div>
+      <div class="course-features">
+        <div class="course-feat">Lớp nhỏ tối đa 10 trẻ/lớp</div>
+        <div class="course-feat">Báo cáo tiến độ hàng tuần cho phụ huynh</div>
+        <div class="course-feat">Luyện thi Cambridge Starters/Movers/Flyers</div>
+        <div class="course-feat">Tiếng Anh nghe như Việt Nam!</div>
+      </div>
+      <div class="course-price">2.200.000đ/tháng</div>
+      <div class="course-price-note">Học thử 2 buổi miễn phí không cam kết</div>
+    </div>
+    <div class="course-card">
+      <span class="course-flag">🌐</span>
+      <div class="course-name">Tiếng Nhật · Hàn · Trung</div>
+      <div class="course-target">Cho: Người đi xuất khẩu lao động · Du học · Yêu văn hóa Á</div>
+      <div class="course-desc">Giáo viên bản ngữ từ Nhật Bản, Hàn Quốc và Trung Quốc. Học theo giáo trình chính thức: Genki (JP), TOPIK (KR), HSK (CN).</div>
+      <div class="course-features">
+        <div class="course-feat">Từ JLPT N5 → N2 / TOPIK 1 → 4 / HSK 1 → 5</div>
+        <div class="course-feat">Văn hóa và thực hành giao tiếp thực tế</div>
+        <div class="course-feat">Hỗ trợ hồ sơ du học & xin việc</div>
+      </div>
+      <div class="course-price">2.500.000đ/tháng</div>
+      <div class="course-price-note">Khai giảng mỗi tháng · Học thử miễn phí</div>
+    </div>
+  </div>
+</section>
+
+<section class="method">
+  <div class="sec-label">Phương pháp giảng dạy</div>
+  <h2 class="sec-title">Học đúng cách —<br>tiến bộ thật sự</h2>
+  <p class="sec-sub">Kết hợp khoa học giáo dục, công nghệ AI và con người để tạo ra trải nghiệm học ngôn ngữ hiệu quả nhất</p>
+  <div class="method-grid">
+    <div class="method-card"><span class="method-icon">🤖</span><div class="method-name">AI Học Tập Cá Nhân Hóa</div><div class="method-desc">Hệ thống AI phân tích điểm yếu riêng của từng học viên và tự động tạo bài tập tập trung vào chỗ cần cải thiện nhất, không lãng phí thời gian.</div></div>
+    <div class="method-card"><span class="method-icon">🗣️</span><div class="method-name">Immersion — Ngập tràn trong tiếng</div><div class="method-desc">80% thời gian lớp học là output thực: speaking, writing, debating. Giáo viên không cho phép dùng tiếng Việt trong lớp — phương pháp hiệu quả nhất để não "chuyển số" sang tiếng Anh.</div></div>
+    <div class="method-card"><span class="method-icon">📊</span><div class="method-name">Dữ liệu học tập rõ ràng</div><div class="method-desc">Dashboard theo dõi tiến bộ theo tuần. Đo lường chính xác từng kỹ năng: vocabulary size, speaking fluency, writing accuracy. Không đoán mò mà biết chính xác đang ở đâu.</div></div>
+    <div class="method-card"><span class="method-icon">👥</span><div class="method-name">Lớp Nhỏ · Chú Ý Từng Người</div><div class="method-desc">Tối đa 12 học viên/lớp — giáo viên biết tên, biết điểm mạnh yếu từng người. Không bị "chìm" trong đám đông, không ngại hỏi, không sợ nói sai.</div></div>
+    <div class="method-card"><span class="method-icon">🔄</span><div class="method-name">Spaced Repetition System</div><div class="method-desc">Hệ thống nhắc lại từ vựng thông minh theo thuật toán nhớ lâu nhất — học 10 từ/ngày nhưng giữ được 95% sau 6 tháng thay vì 20% theo cách truyền thống.</div></div>
+    <div class="method-card"><span class="method-icon">🎯</span><div class="method-name">Cam Kết Đầu Ra Bằng HĐ</div><div class="method-desc">Không học viên nào rời khỏi với kết quả kém hơn cam kết. Nếu không đạt mục tiêu sau khóa, học lại 100% miễn phí đến khi đạt — ghi rõ trong hợp đồng.</div></div>
+  </div>
+</section>
+
+<section class="teachers">
+  <div class="sec-label">Giáo viên</div>
+  <h2 class="sec-title">Học từ những người<br>nói tiếng Anh như hơi thở</h2>
+  <p class="sec-sub">100% giáo viên bản ngữ hoặc CELTA/DELTA certified với ít nhất 5 năm kinh nghiệm giảng dạy</p>
+  <div class="teacher-grid">
+    <div class="teacher-card"><div class="teacher-av t1">🇺🇸</div><div class="teacher-name">Michael Anderson</div><div class="teacher-nationality">🇺🇸 Mỹ · IELTS Examiner</div><div class="teacher-certs"><span class="teacher-cert">CELTA</span><span class="teacher-cert">IELTS Examiner</span><span class="teacher-cert">12 năm</span></div><div class="teacher-bio">Cựu giám khảo IELTS chính thức tại British Council. Chuyên IELTS Writing & Speaking band 7.0+.</div></div>
+    <div class="teacher-card"><div class="teacher-av t2">🇬🇧</div><div class="teacher-name">Sarah Thompson</div><div class="teacher-nationality">🇬🇧 Anh · Business English</div><div class="teacher-certs"><span class="teacher-cert">DELTA</span><span class="teacher-cert">MA TESOL</span><span class="teacher-cert">10 năm</span></div><div class="teacher-bio">MBA từ University of Manchester. Từng làm việc tại Deloitte UK, chuyên Business & Corporate English.</div></div>
+    <div class="teacher-card"><div class="teacher-av t3">🇦🇺</div><div class="teacher-name">David Morrison</div><div class="teacher-nationality">🇦🇺 Úc · Kids Specialist</div><div class="teacher-certs"><span class="teacher-cert">B.Ed Primary</span><span class="teacher-cert">CELTA</span><span class="teacher-cert">8 năm</span></div><div class="teacher-bio">Cử nhân Giáo dục Tiểu học ĐH Melbourne. 8 năm dạy trẻ em tại VN, được phụ huynh yêu thích nhất.</div></div>
+    <div class="teacher-card"><div class="teacher-av t4">🇨🇦</div><div class="teacher-name">Jennifer Walsh</div><div class="teacher-nationality">🇨🇦 Canada · Pronunciation</div><div class="teacher-certs"><span class="teacher-cert">CELTA</span><span class="teacher-cert">Phonetics Expert</span><span class="teacher-cert">7 năm</span></div><div class="teacher-bio">Chuyên gia phát âm và giọng điệu. Giúp hàng nghìn học viên VN nói tiếng Anh không bị accent Việt.</div></div>
+  </div>
+</section>
+
+<section class="results">
+  <div class="sec-label">Kết quả học viên</div>
+  <h2 class="sec-title">Con số thật — Học viên thật<br>Không bịa đặt</h2>
+  <p class="sec-sub">Tất cả đều có giấy chứng nhận và điểm thi chính thức có thể verify</p>
+  <div class="result-grid">
+    <div class="result-card"><div class="result-top"><div class="result-score">IELTS 7.5</div><div class="result-exam">Overall · Cambridge 2024</div></div><div class="result-body"><p>"Từ 5.5 lên 7.5 sau 9 tháng. Điểm Writing tăng từ 5.0 lên 7.0 — điều tôi không tin là có thể. Coach Michael sửa từng bài, chi tiết đến từng câu."</p><div class="result-name">Nguyễn Thanh Hương · Lớp IELTS 7.0+</div></div></div>
+    <div class="result-card"><div class="result-top"><div class="result-score">IELTS 7.0</div><div class="result-exam">IDP · Tháng 11/2024</div></div><div class="result-body"><p>"Mục tiêu ban đầu chỉ là 6.5 cho visa Úc. Được 7.0 surprise bản thân luôn. Lớp nhỏ và mock test hàng tuần là chìa khóa thành công."</p><div class="result-name">Trần Văn Đức · Visa 500 Úc</div></div></div>
+    <div class="result-card"><div class="result-top"><div class="result-score">JLPT N2</div><div class="result-exam">Nhật · Tháng 12/2024</div></div><div class="result-body"><p>"Học tiếng Nhật từ 0, sau 18 tháng đậu N2. Giờ làm việc cho công ty Nhật tại HCM, lương tăng 60% so với trước."</p><div class="result-name">Lê Thị Phương · Khóa tiếng Nhật</div></div></div>
+    <div class="result-card"><div class="result-top"><div class="result-score">TOPIK 4</div><div class="result-exam">Hàn · Tháng 10/2024</div></div><div class="result-body"><p>"Học online hoàn toàn vì bận đi làm. Giáo viên Hàn Quốc dạy rất tận tình qua Zoom. Đậu TOPIK 4 sau 14 tháng học."</p><div class="result-name">Phạm Ngọc Linh · Tiếng Hàn online</div></div></div>
+  </div>
+</section>
+
+<section class="roadmap">
+  <div class="sec-label">Lộ trình IELTS</div>
+  <h2 class="sec-title">Từ 0 đến IELTS 7.0<br>trong 12 tháng</h2>
+  <p class="sec-sub">Lộ trình đã giúp 5.000+ học viên đạt mục tiêu — rõ ràng, đo lường được, không mơ hồ</p>
+  <div class="road-steps">
+    <div class="road-step"><div class="road-num">1</div><div class="road-body"><h3>Foundation (Tháng 1-2) — Nền tảng vững chắc</h3><p>Ngữ pháp cơ bản → nâng cao, 2000 từ vựng IELTS core, phonetics chuẩn AmE, luyện nghe từng âm tiết. Test đầu vào và xây lộ trình cá nhân.</p><span class="road-level">Mục tiêu: 4.0 Band</span></div></div>
+    <div class="road-step"><div class="road-num">2</div><div class="road-body"><h3>Intermediate (Tháng 3-5) — Kỹ năng cốt lõi</h3><p>Reading strategies cho Academic texts, Listening từ section 1-4, Writing Task 1 graphs/charts + Task 2 essays. Speaking part 1 & 2 fluency drilling.</p><span class="road-level">Mục tiêu: 5.5 Band</span></div></div>
+    <div class="road-step"><div class="road-num">3</div><div class="road-body"><h3>Upper-Intermediate (Tháng 6-9) — Chiến lược thi</h3><p>IELTS exam strategies chi tiết từng task, mock test hàng tuần với phân tích điểm. Writing academic được chấm bởi cựu giám khảo, sửa đến khi đúng.</p><span class="road-level">Mục tiêu: 6.5 Band</span></div></div>
+    <div class="road-step"><div class="road-num">4</div><div class="road-body"><h3>Advanced (Tháng 10-12) — Sprint đến đích</h3><p>Full mock test dưới điều kiện thi thật mỗi 2 tuần. Tập trung tinh chỉnh điểm yếu cuối cùng. Tâm lý thi và chiến lược quản lý thời gian.</p><span class="road-level">Mục tiêu: 7.0+ Band</span></div></div>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="sec-label">Học phí</div>
+  <h2 class="sec-title">Đầu tư nhỏ —<br>thay đổi lớn</h2>
+  <p class="sec-sub">So sánh học phí tại các trung tâm lớn: chúng tôi tốt hơn với chi phí thấp hơn 30-40%</p>
+  <div class="plan-grid">
+    <div class="plan"><div class="plan-name">Online</div><div class="plan-price">1.800K</div><div class="plan-per">/tháng · 12 buổi · Zoom</div><a href="#" class="plan-btn plan-btn-outline">Đăng ký ngay →</a><div class="plan-feats">✓ Lớp online 12 người<br>✓ Giáo viên bản ngữ<br>✓ App học liệu + AI<br>✓ Chữa bài Writing 48h</div></div>
+    <div class="plan hot"><div class="plan-name">Offline ⭐ Phổ biến</div><div class="plan-price">3.500K</div><div class="plan-per">/tháng · 3 buổi/tuần · 2h</div><a href="#" class="plan-btn plan-btn-hot">Học thử 7 ngày →</a><div class="plan-feats">✓ Lớp offline 12 người<br>✓ GV bản ngữ + hỗ trợ VN<br>✓ Mock test hàng tuần<br>✓ Cam kết đầu ra ghi HĐ<br>✓ Trả góp 0%</div></div>
+    <div class="plan"><div class="plan-name">1-1 Private</div><div class="plan-price">8.000K</div><div class="plan-per">/tháng · 8 buổi · 90 phút</div><a href="#" class="plan-btn plan-btn-outline">Xem chi tiết →</a><div class="plan-feats">✓ 100% thời gian dành cho bạn<br>✓ Lịch linh hoạt theo bạn<br>✓ Tiến độ nhanh gấp 3x<br>✓ Chọn GV phù hợp nhất</div></div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="sec-label">Học viên chia sẻ</div>
+  <h2 class="sec-title" style="color:#e8e0f8">Tiếng Anh thay đổi<br>cả cuộc đời họ</h2>
+  <p class="sec-sub" style="margin-bottom:48px">Không chỉ là điểm số — mà là cơ hội, công việc, và sự tự tin</p>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Nhờ IELTS 7.0 từ Lingu, tôi được học bổng Master tại Úc trị giá 800 triệu đồng. Tất cả bắt đầu từ việc tôi quyết định học thử 7 ngày miễn phí ở đây."</div><div class="testi-auth"><div class="testi-av">TN</div><div><div class="testi-name">Trần Ngọc Sơn</div><div class="testi-src">Du học Úc · IELTS 7.0</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Làm việc tại công ty đa quốc gia, không tự tin nói tiếng Anh trong meeting. Sau 4 tháng Business English, giờ tôi dẫn meeting với người Mỹ mỗi tuần. Lương tăng 40%."</div><div class="testi-auth"><div class="testi-av">LH</div><div><div class="testi-name">Lê Hoàng Minh</div><div class="testi-src">Business English · Marketing Manager</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Con tôi học ở đây từ lúc 8 tuổi. Giờ 12 tuổi thi Movers đạt điểm tuyệt đối. Quan trọng hơn là con yêu thích tiếng Anh, tự đọc sách Anh ngữ mỗi ngày."</div><div class="testi-auth"><div class="testi-av">PH</div><div><div class="testi-name">Phụ huynh Phạm Thu Hà</div><div class="testi-src">Tiếng Anh trẻ em · Quận 7</div></div></div></div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="sec-label">Câu hỏi thường gặp</div>
+  <h2 class="sec-title">Những điều bạn cần biết<br>trước khi đăng ký</h2>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q">📊 Tôi bắt đầu từ 0 có học được không?</div><div class="faq-a">Hoàn toàn được. Chúng tôi có lớp Starter từ A1 cho người chưa biết gì. Test trình độ đầu vào miễn phí sẽ xếp bạn vào đúng lớp phù hợp. Không ai bị "ném vào lớp sai trình độ" tại đây.</div></div>
+    <div class="faq-item"><div class="faq-q">🎯 Cam kết đầu ra hoạt động như thế nào?</div><div class="faq-a">Cam kết được ghi trong Hợp đồng học tập: nếu bạn hoàn thành đủ buổi học và bài tập nhưng không đạt band điểm mục tiêu, được học lại toàn bộ khóa miễn phí đến khi đạt. Điều kiện duy nhất là điểm danh trên 90% và nộp đủ bài tập.</div></div>
+    <div class="faq-item"><div class="faq-q">📱 Học online có hiệu quả như offline không?</div><div class="faq-a">Tỷ lệ đạt cam kết của lớp online và offline gần như tương đương (95% vs 97%). Lớp online sử dụng Zoom Pro với breakout room cho luyện speaking nhóm, bảng whiteboard tương tác và hệ thống quản lý bài tập riêng. Nhiều học viên thích online hơn vì tiết kiệm thời gian đi lại.</div></div>
+    <div class="faq-item"><div class="faq-q">⏰ Lịch học như thế nào? Có linh hoạt không?</div><div class="faq-a">Có nhiều ca học: sáng (7:30-9:30), chiều (14:00-16:00), tối (18:30-20:30) và cuối tuần. Online thì linh hoạt hơn vì có thêm các khung giờ 12:00-14:00 và 21:00-23:00. Nếu bỏ buổi có thể bù trong tuần với lớp khác cùng trình độ.</div></div>
+  </div>
+</section>
+
+<section class="cta-sec">
+  <h2>Học thử <span style="background:linear-gradient(135deg,#f97316,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent">7 ngày miễn phí</span></h2>
+  <p>Không cần cam kết. Không cần thẻ tín dụng. Chỉ cần quyết định thay đổi.</p>
+  <a href="#" class="btn-orange" style="display:inline-flex">🚀 Bắt đầu học thử ngay →</a>
+  <p style="margin-top:14px;font-size:13px;color:#6b7280">Tư vấn khóa học phù hợp trong 15 phút · Test trình độ miễn phí</p>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">🌍 <span>Lingu</span>Pro Center</div><div class="footer-tagline">Trung tâm ngoại ngữ chuẩn quốc tế · Thành lập 2014</div></div>
+    <div class="footer-links"><a href="#">Khóa học IELTS</a><a href="#">Business English</a><a href="#">Tiếng Anh trẻ em</a><a href="#">Tiếng Nhật / Hàn / Trung</a></div>
+    <div class="footer-links"><a href="#">📍 CS1: 45 Đinh Tiên Hoàng, Q.1</a><a href="#">📍 CS2: 89 Nguyễn Đình Chiểu, Q.3</a><a href="#">📞 028 2345 6789 (8:00–21:00)</a></div>
+  </div>
+</footer>
+<div class="footer-bottom">© 2026 LinguPro Center · MST: 0312345679 · Cơ sở giáo dục đăng ký Sở GD&ĐT TP.HCM</div>
+</body></html>`
+
+const LP_SPA = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1a0a2e}
+.hero{background:linear-gradient(160deg,#fdf4ff 0%,#f5e8ff 50%,#fff5f7 100%);padding:100px 24px 80px;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e9d5ff;color:#7c3aed;border-radius:999px;padding:7px 20px;font-size:12px;font-weight:700;letter-spacing:.5px;margin-bottom:28px}
+.hero h1{font-size:clamp(34px,5.5vw,62px);font-weight:900;color:#3b0764;line-height:1.15;margin-bottom:18px}
+.hero h1 span{background:linear-gradient(135deg,#7c3aed,#db2777);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:#6b21a8;max-width:560px;margin:0 auto 36px;line-height:1.8}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;border-radius:12px;padding:17px 36px;font-size:16px;font-weight:700;text-decoration:none;box-shadow:0 8px 24px rgba(124,58,237,.3)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:#fff;border:2px solid #e9d5ff;color:#7c3aed;border-radius:12px;padding:15px 26px;font-size:15px;font-weight:600;text-decoration:none}
+.hero-note{font-size:13px;color:#7c3aed;opacity:.8}
+.stats-bar{background:linear-gradient(135deg,#3b0764,#6b21a8);padding:28px 24px}
+.stats-inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;max-width:900px;margin:0 auto;text-align:center}
+.stat-n{font-size:36px;font-weight:900;color:#e9d5ff}
+.stat-l{font-size:12px;color:#d8b4fe;margin-top:4px}
+.sec-label{color:#7c3aed;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.sec-title{font-size:34px;font-weight:800;color:#3b0764;text-align:center;margin-bottom:12px;line-height:1.25}
+.sec-sub{text-align:center;font-size:15px;color:#7c3aed;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7;opacity:.85}
+.services{padding:90px 24px;background:#fff}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;max-width:1060px;margin:0 auto}
+.svc-card{border:1.5px solid #f3e8ff;border-radius:18px;padding:32px;background:linear-gradient(160deg,#fdf4ff,#fff)}
+.svc-icon{width:62px;height:62px;background:linear-gradient(135deg,#7c3aed,#db2777);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:18px}
+.svc-name{font-size:18px;font-weight:800;color:#3b0764;margin-bottom:8px}
+.svc-desc{font-size:14px;color:#6b7280;line-height:1.7;margin-bottom:14px}
+.svc-time{font-size:12px;color:#7c3aed;font-weight:600;margin-bottom:6px}
+.svc-price{font-size:18px;font-weight:800;color:#7c3aed}
+.process{padding:90px 24px;background:linear-gradient(160deg,#fdf4ff,#fff5f7)}
+.proc-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+.proc-step{text-align:center;padding:28px 20px}
+.proc-num{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;font-size:22px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 6px 20px rgba(124,58,237,.3)}
+.proc-title{font-size:16px;font-weight:700;color:#3b0764;margin-bottom:8px}
+.proc-desc{font-size:13px;color:#6b7280;line-height:1.65}
+.team{padding:90px 24px;background:#fff}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;max-width:980px;margin:0 auto}
+.team-card{border:1.5px solid #f3e8ff;border-radius:18px;padding:28px;text-align:center;background:linear-gradient(160deg,#fdf4ff,#fff)}
+.team-av{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#db2777);display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 16px;box-shadow:0 4px 16px rgba(124,58,237,.25)}
+.team-name{font-size:18px;font-weight:800;color:#3b0764;margin-bottom:4px}
+.team-role{font-size:13px;color:#7c3aed;font-weight:600;margin-bottom:10px}
+.team-certs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
+.team-cert{background:#f3e8ff;color:#6d28d9;border-radius:6px;padding:3px 9px;font-size:11px;font-weight:600}
+.team-bio{font-size:13px;color:#6b7280;line-height:1.6}
+.before-after{padding:90px 24px;background:linear-gradient(160deg,#fdf4ff,#fff5f7)}
+.ba-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+.ba-card{background:#fff;border:1.5px solid #f3e8ff;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(124,58,237,.08)}
+.ba-top{background:linear-gradient(135deg,#7c3aed,#db2777);padding:24px;text-align:center}
+.ba-title{font-size:18px;font-weight:900;color:#fff;margin-bottom:4px}
+.ba-sessions{font-size:13px;color:#e9d5ff}
+.ba-body{padding:22px}
+.ba-body p{font-size:14px;color:#6b7280;line-height:1.65;margin-bottom:10px}
+.ba-name{font-size:13px;font-weight:700;color:#7c3aed}
+.packages{padding:90px 24px;background:#fff}
+.pack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:980px;margin:0 auto 28px}
+.pack{border:2px solid #f3e8ff;border-radius:20px;padding:32px;background:linear-gradient(160deg,#fdf4ff,#fff);text-align:left}
+.pack.featured{background:linear-gradient(135deg,#7c3aed,#6d28d9);border-color:transparent}
+.pack-label{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#7c3aed;margin-bottom:12px}
+.pack.featured .pack-label{color:#e9d5ff}
+.pack-price{font-size:46px;font-weight:900;color:#3b0764;line-height:1;margin-bottom:6px}
+.pack.featured .pack-price{color:#fff}
+.pack-old{font-size:15px;text-decoration:line-through;color:#d1d5db;margin-bottom:20px}
+.pack.featured .pack-old{color:#c4b5fd}
+.pack-btn{display:block;border-radius:12px;padding:13px;text-align:center;font-weight:700;text-decoration:none;font-size:15px;margin-bottom:20px}
+.pack-btn-out{background:#f3e8ff;color:#7c3aed}
+.pack-btn-in{background:#fff;color:#7c3aed}
+.pack-feats{font-size:14px;color:#6b7280;line-height:2.1}
+.pack.featured .pack-feats{color:#e9d5ff}
+.testi{padding:90px 24px;background:linear-gradient(135deg,#3b0764,#6b21a8)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:1020px;margin:0 auto}
+.testi-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:28px}
+.testi-stars{color:#fbbf24;font-size:17px;margin-bottom:12px}
+.testi-q{font-size:15px;color:#f3e8ff;font-style:italic;line-height:1.75;margin-bottom:16px}
+.testi-auth{display:flex;align-items:center;gap:12px}
+.testi-av{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:14px}
+.testi-name{font-size:14px;font-weight:700;color:#fff}
+.testi-svc{font-size:12px;color:#d8b4fe}
+.faq{padding:90px 24px;background:linear-gradient(160deg,#fdf4ff,#fff)}
+.faq-list{max-width:740px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.faq-item{background:#fff;border:1.5px solid #f3e8ff;border-radius:12px;padding:24px}
+.faq-q{font-weight:700;color:#7c3aed;margin-bottom:10px;font-size:15px}
+.faq-a{font-size:14px;color:#6b7280;line-height:1.75}
+.cta-sec{padding:80px 24px;background:linear-gradient(135deg,#fdf4ff,#fff5f7);text-align:center}
+.cta-box{background:linear-gradient(135deg,#7c3aed,#db2777);border-radius:24px;padding:60px 40px;max-width:700px;margin:0 auto}
+.cta-box h2{font-size:36px;font-weight:900;color:#fff;margin-bottom:14px;line-height:1.25}
+.cta-box p{color:#e9d5ff;font-size:16px;margin-bottom:32px;line-height:1.65}
+.cta-box .btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#7c3aed;border-radius:12px;padding:17px 36px;font-size:16px;font-weight:800;text-decoration:none}
+.footer{background:#3b0764;padding:48px 24px}
+.footer-inner{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:36px;justify-content:space-between}
+.footer-brand{font-size:22px;font-weight:900;color:#fff;margin-bottom:6px}
+.footer-brand span{color:#c084fc}
+.footer-tagline{font-size:13px;color:#d8b4fe}
+.footer-links{display:flex;flex-direction:column;gap:8px}
+.footer-links a{color:#d8b4fe;text-decoration:none;font-size:14px}
+.footer-bottom{background:#2e0650;text-align:center;padding:16px 24px;font-size:12px;color:#c4b5fd}
+</style></head>
+<body>
+
+<section class="hero">
+  <div class="badge">💆 Thẩm mỹ spa 5 sao · 15.000+ khách hàng thân thiết</div>
+  <h1>Tái sinh vẻ đẹp<br><span>từ bên trong</span></h1>
+  <p>Spa cao cấp kết hợp liệu pháp truyền thống phương Đông và công nghệ thẩm mỹ hiện đại — nơi bạn thực sự được nghỉ ngơi và làm đẹp.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-primary">💐 Đặt lịch spa ngay</a>
+    <a href="#" class="btn-secondary">📋 Xem toàn bộ dịch vụ</a>
+  </div>
+  <p class="hero-note">Tư vấn miễn phí · Đặt online giảm 10% · Tặng đồ uống khi đến</p>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div><div class="stat-n">15K+</div><div class="stat-l">Khách hàng thân thiết</div></div>
+    <div><div class="stat-n">50+</div><div class="stat-l">Kỹ thuật viên có bằng</div></div>
+    <div><div class="stat-n">200+</div><div class="stat-l">Liệu trình phục vụ</div></div>
+    <div><div class="stat-n">4.9★</div><div class="stat-l">Google & Facebook</div></div>
+    <div><div class="stat-n">8</div><div class="stat-l">Năm phục vụ</div></div>
+  </div>
+</div>
+
+<section class="services">
+  <div class="sec-label">Dịch vụ spa</div>
+  <h2 class="sec-title">Trải nghiệm thư giãn<br>và làm đẹp toàn diện</h2>
+  <p class="sec-sub">Từ massage thư giãn đến điều trị thẩm mỹ chuyên sâu — mỗi dịch vụ là một hành trình tái sinh</p>
+  <div class="svc-grid">
+    <div class="svc-card"><div class="svc-icon">🙌</div><div class="svc-name">Full Body Massage</div><div class="svc-desc">Massage toàn thân kết hợp kỹ thuật Thái Lan, Shiatsu Nhật Bản và liệu pháp tinh dầu Ayurveda. Giải tỏa căng thẳng, cải thiện tuần hoàn máu, ngủ ngon hơn ngay buổi đầu.</div><div class="svc-time">⏱ 60 · 90 · 120 phút</div><div class="svc-price">Từ 450.000đ</div></div>
+    <div class="svc-card"><div class="svc-icon">✨</div><div class="svc-name">Facial Thẩm Mỹ Cao Cấp</div><div class="svc-desc">Liệu trình chăm sóc da mặt chuyên sâu với công nghệ RF lifting, microneedling và chiết xuất tế bào gốc. Giảm nếp nhăn, căng bóng da, mờ thâm đốm nâu sau 1 buổi.</div><div class="svc-time">⏱ 90 phút · Facial Pro</div><div class="svc-price">Từ 1.200.000đ</div></div>
+    <div class="svc-card"><div class="svc-icon">💧</div><div class="svc-name">Điều Trị Da Laser</div><div class="svc-desc">Laser Pico, Q-Switch và Fractional CO2 điều trị nám, tàn nhang, sẹo rỗ và trẻ hóa da. Được thực hiện bởi bác sĩ da liễu — an toàn, chính xác, lành nhanh.</div><div class="svc-time">⏱ 30–60 phút/buổi</div><div class="svc-price">Từ 2.500.000đ/buổi</div></div>
+    <div class="svc-card"><div class="svc-icon">🌸</div><div class="svc-name">Triệt Lông Vĩnh Viễn</div><div class="svc-desc">Công nghệ Diode Laser 810nm — hiệu quả nhất cho da Châu Á. Không đau, không phỏng, không thay đổi sắc tố da. Liệu trình 6-8 buổi để triệt sạch 95%+ lông.</div><div class="svc-time">⏱ Theo vùng điều trị</div><div class="svc-price">Từ 500.000đ/vùng</div></div>
+    <div class="svc-card"><div class="svc-icon">💅</div><div class="svc-name">Nail Art & Chăm Sóc Tay Chân</div><div class="svc-desc">Nail salon cao cấp với hơn 500 mẫu nail theo mùa. Gel Shellac, acrylic, builder gel. Manicure và pedicure chuyên sâu với spa tay chân ngâm muối biển và dưỡng kem tay chân.</div><div class="svc-time">⏱ 60–120 phút</div><div class="svc-price">Từ 200.000đ</div></div>
+    <div class="svc-card"><div class="svc-icon">🌺</div><div class="svc-name">Gội Đầu Dưỡng Sinh & Phục Hồi Tóc</div><div class="svc-desc">Gội đầu thư giãn bấm huyệt đầu 45 phút + ủ phục hồi tóc hư tổn với keratin và protein tóc. Tóc mềm mượt, bóng khỏe, giảm gãy rụng từ buổi đầu tiên.</div><div class="svc-time">⏱ 90 phút trọn gói</div><div class="svc-price">Từ 350.000đ</div></div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="sec-label">Quy trình dịch vụ</div>
+  <h2 class="sec-title">Trải nghiệm spa<br>từ lúc bước vào đến lúc ra về</h2>
+  <p class="sec-sub">Mỗi chi tiết đều được thiết kế để bạn cảm thấy được trân trọng và thư giãn hoàn toàn</p>
+  <div class="proc-steps">
+    <div class="proc-step"><div class="proc-num">1</div><div class="proc-title">Chào đón & Tư vấn</div><div class="proc-desc">Trà thảo mộc nóng, khăn lạnh và tư vấn 1-1 với chuyên viên để xác định dịch vụ phù hợp nhất.</div></div>
+    <div class="proc-step"><div class="proc-num">2</div><div class="proc-title">Thay đồ & Chuẩn bị</div><div class="proc-desc">Tủ cá nhân riêng, áo choàng spa cao cấp, phòng thay đồ riêng tư sạch sẽ và yên tĩnh.</div></div>
+    <div class="proc-step"><div class="proc-num">3</div><div class="proc-title">Điều trị chuyên sâu</div><div class="proc-desc">Phòng riêng yên tĩnh, nhạc thư giãn, hương thơm tinh dầu, nhiệt độ tối ưu 24°C. Hoàn toàn riêng tư.</div></div>
+    <div class="proc-step"><div class="proc-num">4</div><div class="proc-title">Phục hồi & Thư giãn</div><div class="proc-desc">Phòng nghỉ chung sau điều trị với trà hoa, snack healthy và không gian nhẹ nhàng để cơ thể hồi phục.</div></div>
+    <div class="proc-step"><div class="proc-num">5</div><div class="proc-title">Tư vấn chăm sóc tại nhà</div><div class="proc-desc">Chuyên viên hướng dẫn routine chăm sóc sau điều trị và gợi ý sản phẩm phù hợp với da/tóc của bạn.</div></div>
+  </div>
+</section>
+
+<section class="team">
+  <div class="sec-label">Đội ngũ chuyên viên</div>
+  <h2 class="sec-title">Bàn tay vàng của<br>nghề làm đẹp</h2>
+  <p class="sec-sub">100% kỹ thuật viên có chứng chỉ chuyên môn và được đào tạo liên tục theo tiêu chuẩn spa 5 sao</p>
+  <div class="team-grid">
+    <div class="team-card"><div class="team-av">💆</div><div class="team-name">Nguyễn Thị Hoa</div><div class="team-role">Master Therapist · 12 năm</div><div class="team-certs"><span class="team-cert">CIDESCO</span><span class="team-cert">IHM Massage</span></div><div class="team-bio">Chứng chỉ quốc tế CIDESCO Thụy Sĩ — cao nhất trong ngành spa. Chuyên gia massage trị liệu và liệu pháp đá nóng.</div></div>
+    <div class="team-card"><div class="team-av">✨</div><div class="team-name">BS. Lê Thị Thanh Vân</div><div class="team-role">Bác Sĩ Da Liễu · Laser</div><div class="team-certs"><span class="team-cert">Da liễu ĐH Y</span><span class="team-cert">Laser Certified</span></div><div class="team-bio">Bác sĩ da liễu chuyên thực hiện tất cả liệu trình laser và điều trị chuyên sâu, đảm bảo an toàn tuyệt đối.</div></div>
+    <div class="team-card"><div class="team-av">🌸</div><div class="team-name">Trần Ngọc Linh</div><div class="team-role">Senior Nail Artist · 8 năm</div><div class="team-certs"><span class="team-cert">NNA Certified</span><span class="team-cert">Ombre Expert</span></div><div class="team-bio">Nail artist với 8 năm kinh nghiệm và hơn 10.000 bộ nail đã làm. Được 5.000+ khách hàng quay lại mỗi tháng.</div></div>
+    <div class="team-card"><div class="team-av">💇</div><div class="team-name">Phạm Minh Tú</div><div class="team-role">Hair Expert · Phục Hồi Tóc</div><div class="team-certs"><span class="team-cert">L'Oréal Pro</span><span class="team-cert">Kerastase Certified</span></div><div class="team-bio">Chuyên gia phục hồi tóc hư tổn và ủ dưỡng. Được L'Oréal Professionnel và Kérastase chứng nhận.</div></div>
+  </div>
+</section>
+
+<section class="before-after">
+  <div class="sec-label">Kết quả thực tế</div>
+  <h2 class="sec-title">Thay đổi thấy rõ<br>sau từng liệu trình</h2>
+  <p class="sec-sub">Hình ảnh thật từ khách hàng thật — không chỉnh sửa, không filter</p>
+  <div class="ba-grid">
+    <div class="ba-card"><div class="ba-top"><div class="ba-title">Mờ nám 70%</div><div class="ba-sessions">5 buổi Laser Pico · 3 tháng</div></div><div class="ba-body"><p>"Nám má đã theo tôi 7 năm sau khi sinh con. Sau 5 buổi laser Pico tại đây, nám mờ đến 70%, da đều màu hơn bao giờ hết. Tiếp tục 3 buổi nữa là xong."</p><div class="ba-name">Chị Nguyễn Thị Mai Anh · 38 tuổi</div></div></div>
+    <div class="ba-card"><div class="ba-top"><div class="ba-title">Da căng lên 5 tuổi</div><div class="ba-sessions">8 buổi RF Lifting · 4 tháng</div></div><div class="ba-body"><p>"Bắt đầu ở tuổi 42, da bắt đầu chảy xệ. Sau 8 buổi RF lifting, cằm và má rõ ràng hơn, nếp nhăn quanh mắt giảm hẳn. Chồng cứ hỏi đi đâu trẻ ra vậy!"</p><div class="ba-name">Chị Lê Hoàng Yến · 42 tuổi</div></div></div>
+    <div class="ba-card"><div class="ba-top"><div class="ba-title">Tóc phục hồi hoàn toàn</div><div class="ba-sessions">6 buổi Kerastase · 2 tháng</div></div><div class="ba-body"><p>"Tóc xấu, khô, gãy rụng nhiều sau khi nhuộm liên tục. 6 buổi ủ Kerastase Fusio-Dose kết hợp với điều chỉnh chăm sóc tại nhà. Tóc mượt và bóng như chưa từng hư."</p><div class="ba-name">Chị Trần Thu Hương · 29 tuổi</div></div></div>
+    <div class="ba-card"><div class="ba-top"><div class="ba-title">Triệt sạch 95% lông</div><div class="ba-sessions">8 buổi Diode Laser</div></div><div class="ba-body"><p>"Đã thử wax và kem tẩy lông nhưng chỉ 2 tuần là lông mọc lại. Triệt Diode Laser đủ 8 buổi — giờ gần như không còn lông, tiết kiệm được hàng triệu mỗi năm."</p><div class="ba-name">Chị Phạm Ngọc An · 26 tuổi</div></div></div>
+  </div>
+</section>
+
+<section class="packages">
+  <div class="sec-label">Gói dịch vụ</div>
+  <h2 class="sec-title">Gói tháng tiết kiệm<br>dành riêng cho bạn</h2>
+  <p class="sec-sub">Tiết kiệm đến 40% khi đăng ký gói — được sử dụng linh hoạt trong 3 tháng</p>
+  <div class="pack-grid">
+    <div class="pack"><div class="pack-label">Gói Thư Giãn</div><div class="pack-price">1.500K</div><div class="pack-old">2.100.000đ</div><a href="#" class="pack-btn pack-btn-out">Đăng ký ngay →</a><div class="pack-feats">✓ 3 buổi massage body 60'<br>✓ 1 buổi facial cơ bản<br>✓ Trà & snack mỗi lần đến<br>✓ Sử dụng trong 3 tháng</div></div>
+    <div class="pack featured"><div class="pack-label">Gói Làm Đẹp ⭐</div><div class="pack-price">3.800K</div><div class="pack-old">6.200.000đ</div><a href="#" class="pack-btn pack-btn-in">Đăng ký gói hot →</a><div class="pack-feats">✓ 4 buổi massage body 90'<br>✓ 2 buổi facial RF lifting<br>✓ 1 bộ nail cao cấp<br>✓ 1 buổi gội đầu phục hồi<br>✓ Giảm thêm 10% dịch vụ lẻ</div></div>
+    <div class="pack"><div class="pack-label">Gói Trị Liệu Da</div><div class="pack-price">6.500K</div><div class="pack-old">10.000.000đ</div><a href="#" class="pack-btn pack-btn-out">Xem chi tiết →</a><div class="pack-feats">✓ 5 buổi laser điều trị da<br>✓ 3 buổi facial chuyên sâu<br>✓ Tư vấn BS da liễu 1-1<br>✓ Sản phẩm chăm sóc tại nhà</div></div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="sec-label">Cảm nhận khách hàng</div>
+  <h2 class="sec-title" style="color:#fff">Họ đến một lần<br>rồi không thể không quay lại</h2>
+  <p class="sec-sub" style="color:#d8b4fe;margin-bottom:48px">90% khách hàng quay lại trong vòng 1 tháng — đó là đánh giá trung thực nhất</p>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Tôi đã đến 20+ spa ở TP.HCM trong 5 năm qua. Đây là nơi duy nhất tôi quay lại đều đặn hàng tháng. Không gian như resort 5 sao, kỹ thuật viên tuyệt vời và quan trọng nhất — tôi luôn cảm thấy được quan tâm thực sự."</div><div class="testi-auth"><div class="testi-av">KH</div><div><div class="testi-name">Chị Khánh Hà</div><div class="testi-svc">VIP Member · 3 năm</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Bác sĩ Vân tư vấn cực kỳ cẩn thận trước khi làm laser — không chạy theo doanh thu, chỉ làm những gì thực sự cần thiết. Sau 6 buổi Pico, da tôi đẹp hơn 10 năm trước. Không tiếc 1 đồng nào."</div><div class="testi-auth"><div class="testi-av">NL</div><div><div class="testi-name">Chị Ngọc Lan</div><div class="testi-svc">Laser Pico · 6 buổi</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Mua gói massage cho chồng tặng sinh nhật. Chồng vốn không thích spa nhưng sau buổi đầu về nhà cứ hỏi khi nào đi tiếp. Giờ 2 vợ chồng đăng ký gói couple hàng tháng. Tuyệt vời!"</div><div class="testi-auth"><div class="testi-av">TM</div><div><div class="testi-name">Chị Thanh Mỹ</div><div class="testi-svc">Couple Package</div></div></div></div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="sec-label">Câu hỏi thường gặp</div>
+  <h2 class="sec-title">Những điều bạn<br>muốn biết trước khi đến</h2>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q">🕐 Giờ mở cửa và cách đặt lịch?</div><div class="faq-a">Mở cửa 8:00–21:00 tất cả các ngày kể cả lễ Tết. Đặt lịch qua website, Zalo hoặc gọi hotline. Khuyến khích đặt trước 24 giờ, đặt online được giảm 10%. Đặt lịch ngay trên trang hoặc nhắn Zalo số 0901 234 567.</div></div>
+    <div class="faq-item"><div class="faq-q">⚠️ Laser có đau và nguy hiểm không?</div><div class="faq-a">Tất cả liệu trình laser đều do bác sĩ da liễu thực hiện — không phải kỹ thuật viên thông thường. Trước khi làm sẽ có bôi tê 30-45 phút, hầu hết khách hàng cảm nhận như kim nhỏ châm. Không nguy hiểm khi được thực hiện đúng thiết bị và đúng người. Chúng tôi không nhận bệnh nhân không phù hợp chỉ để có doanh thu.</div></div>
+    <div class="faq-item"><div class="faq-q">👫 Có dịch vụ cho nam giới không?</div><div class="faq-a">Có. Hơn 30% khách hàng của chúng tôi là nam. Các dịch vụ phổ biến cho nam: massage thư giãn, facial nam, triệt lông lưng/ngực, điều trị nám và trẻ hóa da. Phòng điều trị hoàn toàn riêng tư, kỹ thuật viên chuyên phục vụ khách nam.</div></div>
+    <div class="faq-item"><div class="faq-q">🤰 Phụ nữ mang thai có dùng được dịch vụ không?</div><div class="faq-a">Một số dịch vụ được, một số cần tránh. Massage bầu (pregnancy massage) với kỹ thuật riêng là hoàn toàn an toàn từ tam cá nguyệt thứ 2. Tuyệt đối không làm laser, triệt lông và một số liệu trình facial khi mang thai. Chúng tôi sẽ tư vấn cụ thể khi bạn đặt lịch.</div></div>
+  </div>
+</section>
+
+<section class="cta-sec">
+  <div class="cta-box">
+    <h2>Đặt lịch ngay —<br>nhận ưu đãi 15%</h2>
+    <p>Lần đầu đến Velvet Spa, nhận ngay ưu đãi 15% toàn bộ dịch vụ và một ly trà thảo mộc đặc biệt chào đón.</p>
+    <a href="#" class="btn-white">💐 Đặt lịch spa ngay →</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">🌸 <span>Velvet</span> Spa & Beauty</div><div class="footer-tagline">Spa thẩm mỹ cao cấp · Thành lập 2018</div></div>
+    <div class="footer-links"><a href="#">Massage & Body</a><a href="#">Facial & Da liễu</a><a href="#">Nail & Tóc</a><a href="#">Đặt lịch</a></div>
+    <div class="footer-links"><a href="#">📍 CS1: 88 Lê Lợi, Q.1, TP.HCM</a><a href="#">📍 CS2: 234 Điện Biên Phủ, Q.Bình Thạnh</a><a href="#">📞 Hotline: 0901 234 567 (8:00–21:00)</a></div>
+  </div>
+</footer>
+<div class="footer-bottom">© 2026 Velvet Spa & Beauty · MST: 0312345680 · Giấy phép kinh doanh dịch vụ làm đẹp</div>
+</body></html>`
+
+const LP_RESTAURANT = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;background:#0e0b08;color:#f0e8d8}
+.hero{background:linear-gradient(160deg,#0e0b08 0%,#1e1408 50%,#0e0b08 100%);padding:110px 24px 90px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(217,119,6,.1) 0%,transparent 65%)}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(217,119,6,.12);border:1px solid rgba(217,119,6,.3);color:#f59e0b;border-radius:4px;padding:6px 18px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px}
+.hero h1{font-size:clamp(36px,6vw,68px);font-weight:900;line-height:1.1;margin-bottom:20px;letter-spacing:-.5px}
+.hero h1 .gold{background:linear-gradient(135deg,#d97706,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:#a8967e;max-width:560px;margin:0 auto 40px;line-height:1.8}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#d97706,#92400e);color:#fff;border-radius:6px;padding:17px 38px;font-size:16px;font-weight:800;text-decoration:none;box-shadow:0 8px 24px rgba(217,119,6,.3)}
+.btn-out{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(217,119,6,.35);color:#f59e0b;border-radius:6px;padding:15px 28px;font-size:15px;text-decoration:none}
+.hero-note{font-size:13px;color:#78716c}
+.stats-bar{background:rgba(217,119,6,.08);border-top:1px solid rgba(217,119,6,.15);border-bottom:1px solid rgba(217,119,6,.15);padding:28px 24px}
+.stats-inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;max-width:900px;margin:0 auto;text-align:center}
+.stat-n{font-size:36px;font-weight:900;background:linear-gradient(135deg,#d97706,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-l{font-size:12px;color:#a8967e;margin-top:4px}
+.sec-label{color:#d97706;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.sec-title{font-size:34px;font-weight:800;text-align:center;margin-bottom:12px;line-height:1.25}
+.sec-sub{text-align:center;font-size:15px;color:#a8967e;margin-bottom:50px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.75}
+.story{padding:90px 24px;background:#0e0b08}
+.story-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px;align-items:center}
+.story-text h2{font-size:32px;font-weight:800;margin-bottom:16px;line-height:1.3}
+.story-text h2 span{color:#d97706}
+.story-text p{font-size:15px;color:#a8967e;line-height:1.8;margin-bottom:16px}
+.story-visual{background:linear-gradient(135deg,#1e1408,#2d1f0a);border:1px solid rgba(217,119,6,.15);border-radius:16px;padding:32px;text-align:center}
+.story-emoji{font-size:64px;margin-bottom:16px;display:block}
+.story-quote{font-size:16px;font-style:italic;color:#c8b99a;line-height:1.7}
+.story-attr{font-size:13px;color:#d97706;font-weight:600;margin-top:12px}
+.menu{padding:90px 24px;background:#0a0806}
+.menu-cats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.menu-cat{background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.2);color:#f59e0b;border-radius:4px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer}
+.menu-cat.active{background:rgba(217,119,6,.2);border-color:rgba(217,119,6,.5)}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;max-width:1060px;margin:0 auto}
+.dish-card{background:#141009;border:1px solid rgba(217,119,6,.1);border-radius:14px;padding:24px;display:flex;gap:16px}
+.dish-emoji{font-size:48px;flex-shrink:0}
+.dish-body{flex:1}
+.dish-name{font-size:17px;font-weight:800;color:#f0e8d8;margin-bottom:4px}
+.dish-desc{font-size:13px;color:#a8967e;line-height:1.6;margin-bottom:10px}
+.dish-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.dish-tag{background:rgba(217,119,6,.1);color:#f59e0b;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600}
+.dish-price{font-size:18px;font-weight:900;color:#d97706}
+.space{padding:90px 24px;background:#0e0b08}
+.space-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+.space-card{background:#141009;border:1px solid rgba(217,119,6,.1);border-radius:16px;padding:28px;text-align:center}
+.space-icon{font-size:44px;margin-bottom:14px;display:block}
+.space-name{font-size:17px;font-weight:700;color:#f0e8d8;margin-bottom:8px}
+.space-desc{font-size:13px;color:#a8967e;line-height:1.65;margin-bottom:12px}
+.space-cap{font-size:12px;color:#d97706;font-weight:600}
+.chef{padding:90px 24px;background:#0a0806}
+.chef-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px;align-items:center}
+.chef-card{background:#141009;border:1px solid rgba(217,119,6,.15);border-radius:18px;padding:36px;text-align:center}
+.chef-avatar{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#d97706,#92400e);display:flex;align-items:center;justify-content:center;font-size:48px;margin:0 auto 20px}
+.chef-name{font-size:22px;font-weight:900;margin-bottom:4px}
+.chef-title{font-size:14px;color:#d97706;font-weight:600;margin-bottom:14px}
+.chef-awards{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+.chef-award{background:rgba(217,119,6,.12);color:#f59e0b;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600}
+.chef-bio{font-size:14px;color:#a8967e;line-height:1.7}
+.chef-menu{display:flex;flex-direction:column;gap:16px}
+.chef-specialty{background:#141009;border:1px solid rgba(217,119,6,.1);border-radius:12px;padding:20px;display:flex;gap:14px;align-items:flex-start}
+.specialty-em{font-size:36px;flex-shrink:0}
+.specialty-info h4{font-size:16px;font-weight:700;margin-bottom:4px}
+.specialty-info p{font-size:13px;color:#a8967e;line-height:1.6}
+.combos{padding:90px 24px;background:#0e0b08}
+.combo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+.combo-card{background:#141009;border:1.5px solid rgba(217,119,6,.15);border-radius:18px;padding:32px;text-align:left}
+.combo-card.featured{border-color:rgba(217,119,6,.5);background:rgba(217,119,6,.06)}
+.combo-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#d97706;margin-bottom:12px}
+.combo-name{font-size:20px;font-weight:800;margin-bottom:6px}
+.combo-desc{font-size:14px;color:#a8967e;line-height:1.6;margin-bottom:14px}
+.combo-items{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.combo-item{font-size:14px;color:#c8b99a;display:flex;align-items:center;gap:8px}
+.combo-item::before{content:'🍽';font-size:12px;flex-shrink:0}
+.combo-price{font-size:26px;font-weight:900;color:#d97706;margin-bottom:4px}
+.combo-note{font-size:12px;color:#78716c}
+.combo-btn{display:block;border-radius:8px;padding:13px;text-align:center;font-weight:700;text-decoration:none;font-size:14px;margin-top:16px}
+.combo-btn-out{background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.3);color:#f59e0b}
+.combo-btn-in{background:linear-gradient(135deg,#d97706,#92400e);color:#fff}
+.testi{padding:90px 24px;background:linear-gradient(135deg,#1e1408,#0e0b08)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:1020px;margin:0 auto}
+.testi-card{background:rgba(217,119,6,.06);border:1px solid rgba(217,119,6,.12);border-radius:16px;padding:28px}
+.testi-source{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+.testi-source-icon{font-size:14px}
+.testi-source-name{font-size:12px;color:#d97706;font-weight:600}
+.testi-stars{color:#f59e0b;font-size:17px;margin-bottom:10px}
+.testi-q{font-size:15px;color:#c8b99a;font-style:italic;line-height:1.75;margin-bottom:14px}
+.testi-auth{display:flex;align-items:center;gap:10px}
+.testi-av{width:38px;height:38px;border-radius:50%;background:rgba(217,119,6,.2);display:flex;align-items:center;justify-content:center;font-weight:700;color:#d97706;font-size:13px}
+.testi-name{font-size:14px;font-weight:700;color:#f0e8d8}
+.testi-occ{font-size:12px;color:#78716c}
+.booking{padding:90px 24px;background:#0a0806;text-align:center}
+.book-box{background:#141009;border:1px solid rgba(217,119,6,.15);border-radius:20px;padding:48px;max-width:700px;margin:0 auto}
+.book-box h3{font-size:28px;font-weight:800;margin-bottom:8px}
+.book-box p{font-size:15px;color:#a8967e;margin-bottom:32px;line-height:1.7}
+.book-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.book-input{background:rgba(255,255,255,.04);border:1px solid rgba(217,119,6,.2);border-radius:8px;padding:14px;color:#f0e8d8;font-size:15px;outline:none}
+.book-input::placeholder{color:#4b5563}
+.book-select{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(217,119,6,.2);border-radius:8px;padding:14px;color:#f0e8d8;font-size:15px;outline:none;margin-bottom:14px}
+.book-btn{width:100%;background:linear-gradient(135deg,#d97706,#92400e);color:#fff;border:none;border-radius:8px;padding:17px;font-size:16px;font-weight:800;cursor:pointer}
+.book-note{font-size:12px;color:#6b7280;margin-top:10px;line-height:1.6}
+.faq{padding:90px 24px;background:#0e0b08}
+.faq-list{max-width:740px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.faq-item{background:#141009;border:1px solid rgba(217,119,6,.1);border-radius:12px;padding:24px}
+.faq-q{font-weight:700;color:#d97706;margin-bottom:10px;font-size:15px}
+.faq-a{font-size:14px;color:#a8967e;line-height:1.75}
+.footer{background:#080604;border-top:1px solid rgba(217,119,6,.1);padding:48px 24px}
+.footer-inner{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:36px;justify-content:space-between}
+.footer-brand{font-size:22px;font-weight:900;margin-bottom:6px}
+.footer-brand span{background:linear-gradient(135deg,#d97706,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.footer-tagline{font-size:13px;color:#78716c}
+.footer-links{display:flex;flex-direction:column;gap:8px}
+.footer-links a{color:#a8967e;text-decoration:none;font-size:14px}
+.footer-bottom{background:#080604;border-top:1px solid rgba(255,255,255,.04);text-align:center;padding:16px 24px;font-size:12px;color:#4b5563}
+@media(max-width:640px){.book-form{grid-template-columns:1fr}}
+</style></head>
+<body>
+
+<section class="hero">
+  <div class="badge">🌟 Michelin Guide Recommended · 8 năm phục vụ</div>
+  <h1>Nơi ẩm thực<br><span class="gold">trở thành nghệ thuật</span></h1>
+  <p>Nhà hàng cao cấp phong cách Việt fusion — nguyên liệu tươi từ farm đối tác, bàn tay tài hoa của bếp trưởng 5 sao, không gian chạm đến cảm xúc.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-gold">🍽️ Đặt bàn ngay</a>
+    <a href="#" class="btn-out">📖 Xem thực đơn</a>
+  </div>
+  <p class="hero-note">Phục vụ Thứ 3 – Chủ nhật · Trưa 11:30 – 14:00 · Tối 18:00 – 22:30</p>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div><div class="stat-n">8</div><div class="stat-l">Năm phục vụ</div></div>
+    <div><div class="stat-n">200+</div><div class="stat-l">Khách mỗi ngày</div></div>
+    <div><div class="stat-n">4.9★</div><div class="stat-l">Google Reviews</div></div>
+    <div><div class="stat-n">15+</div><div class="stat-l">Giải thưởng ẩm thực</div></div>
+    <div><div class="stat-n">3</div><div class="stat-l">Sao Michelin Bib Gourmand</div></div>
+  </div>
+</div>
+
+<section class="story">
+  <div class="story-inner">
+    <div class="story-text">
+      <div class="sec-label">Câu chuyện của chúng tôi</div>
+      <h2>Ẩm thực Việt được<br><span>kể bằng ngôn ngữ</span> của thế giới</h2>
+      <p>Được thành lập năm 2018 bởi Chef Nguyễn Minh Dũng — người đã trải qua 15 năm học hỏi tại các bếp hàng đầu Paris, Tokyo và New York — The Saigon Larder mang đến trải nghiệm độc đáo: linh hồn ẩm thực Việt trong từng nguyên liệu, kỹ thuật nấu ăn của thế giới trong từng kỹ thuật.</p>
+      <p>Mỗi món ăn là một chuyến du hành — từ bờ biển Phú Quốc đến đồng bằng sông Cửu Long, từ cao nguyên Đà Lạt đến phố cổ Hội An. Tất cả được thuật lại trên chiếc đĩa của bạn tối nay.</p>
+    </div>
+    <div class="story-visual">
+      <span class="story-emoji">👨‍🍳</span>
+      <div class="story-quote">"Tôi nấu ăn bằng ký ức về bà nội, bằng những gì đã học được ở khắp nơi trên thế giới, và bằng tình yêu với nguyên liệu Việt Nam."</div>
+      <div class="story-attr">— Chef Nguyễn Minh Dũng, Bếp trưởng & Đồng sáng lập</div>
+    </div>
+  </div>
+</section>
+
+<section class="menu">
+  <div class="sec-label">Thực đơn nổi bật</div>
+  <h2 class="sec-title">Những kiệt tác<br>trên chiếc đĩa</h2>
+  <p class="sec-sub">Thực đơn thay đổi theo mùa — để mỗi lần đến là một trải nghiệm mới</p>
+  <div class="menu-grid">
+    <div class="dish-card"><div class="dish-emoji">🦞</div><div class="dish-body"><div class="dish-name">Tôm Hùm Đất Nướng Sốt Tiêu Xanh Phú Quốc</div><div class="dish-desc">Tôm hùm đất 600g tươi sống, nướng than hoa và phủ sốt tiêu xanh Phú Quốc với bơ Normandy. Phục vụ kèm bánh mì nướng tỏi và rau mầm địa phương.</div><div class="dish-tags"><span class="dish-tag">Signature</span><span class="dish-tag">Hải sản tươi</span></div><div class="dish-price">1.280.000đ</div></div></div>
+    <div class="dish-card"><div class="dish-emoji">🥩</div><div class="dish-body"><div class="dish-name">Bò Wagyu A5 Áp Chảo Sốt Phở Giảm</div><div class="dish-desc">Bò Wagyu A5 Nhật Bản 200g áp chảo medium-rare, phủ sốt Phở cô đặc 6 tiếng với quế, hồi và gừng. Kèm khoai tây hấp Đà Lạt và rau cải xào tỏi đen.</div><div class="dish-tags"><span class="dish-tag">Chef's Choice</span><span class="dish-tag">Wagyu</span></div><div class="dish-price">1.650.000đ</div></div></div>
+    <div class="dish-card"><div class="dish-emoji">🍜</div><div class="dish-body"><div class="dish-name">Phở Bò 36 Tiếng Trình Bày Fine Dining</div><div class="dish-desc">Nước dùng ninh 36 tiếng với 12 loại gia vị, thịt bò Úc thái lát mỏng, bánh phở tươi làm hàng ngày. Trình bày tinh tế theo phong cách haute cuisine nhưng hương vị thuần Việt.</div><div class="dish-tags"><span class="dish-tag">Iconic</span><span class="dish-tag">Bestseller</span></div><div class="dish-price">380.000đ</div></div></div>
+    <div class="dish-card"><div class="dish-emoji">🐟</div><div class="dish-body"><div class="dish-name">Cá Mú Biển Hấp Gừng Hành Kiểu Quảng Đông</div><div class="dish-desc">Cá mú biển tươi Nha Trang 800g hấp kiểu Cantonese với gừng, hành xanh và tương ngọt. Phục vụ nguyên con tại bàn với rượu Shaoxing và dầu hào cao cấp.</div><div class="dish-tags"><span class="dish-tag">Seasonal</span><span class="dish-tag">Cantonese</span></div><div class="dish-price">980.000đ</div></div></div>
+    <div class="dish-card"><div class="dish-emoji">🥗</div><div class="dish-body"><div class="dish-name">Gỏi Xoài Xanh Tôm Tươi Sorbet Sả</div><div class="dish-desc">Xoài xanh Cát Hòa, tôm biển tươi sautéed, rau thơm Ba Vì, giấm mật ong và sorbet sả tươi. Một khai vị thanh mát, cân bằng hoàn hảo giữa chua ngọt mặn.</div><div class="dish-tags"><span class="dish-tag">Khai vị</span><span class="dish-tag">Thuần chay có thể</span></div><div class="dish-price">290.000đ</div></div></div>
+    <div class="dish-card"><div class="dish-emoji">🍮</div><div class="dish-body"><div class="dish-name">Bánh Flan Cà Phê Chồn Đà Lạt</div><div class="dish-desc">Flan mềm mịn pha từ cà phê chồn Đà Lạt, caramel rum, served với kem tươi whipped và praline hạt điều Bình Phước. Tráng miệng iconic của The Saigon Larder.</div><div class="dish-tags"><span class="dish-tag">Dessert</span><span class="dish-tag">Phải thử</span></div><div class="dish-price">185.000đ</div></div></div>
+  </div>
+</section>
+
+<section class="space">
+  <div class="sec-label">Không gian</div>
+  <h2 class="sec-title">Mỗi góc nhỏ là<br>một câu chuyện riêng</h2>
+  <p class="sec-sub">Thiết kế bởi KTS Trần Bảo Châu — kết hợp vật liệu truyền thống và thẩm mỹ đương đại</p>
+  <div class="space-grid">
+    <div class="space-card"><span class="space-icon">🌿</span><div class="space-name">Garden Terrace</div><div class="space-desc">Khoảng sân vườn mở giữa lòng thành phố với cây cối xanh mát, đèn fairy light và âm nhạc nhẹ nhàng. Lý tưởng cho buổi ăn tối lãng mạn.</div><div class="space-cap">Sức chứa 30 khách</div></div>
+    <div class="space-card"><span class="space-icon">🕯️</span><div class="space-name">Wine Room</div><div class="space-desc">Phòng Private với hầm rượu 500 chai từ Bordeaux, Bourgogne và Napa Valley. Hoàn hảo cho tiệc kinh doanh và kỷ niệm đặc biệt.</div><div class="space-cap">Sức chứa 12 khách · Riêng tư hoàn toàn</div></div>
+    <div class="space-card"><span class="space-icon">🔆</span><div class="space-name">Open Kitchen Bar</div><div class="space-desc">Ngồi ngay trước bếp mở, xem Chef Dũng và đội bếp làm việc trực tiếp. Trải nghiệm Chef's Table độc đáo và gần gũi nhất.</div><div class="space-cap">8 ghế · Booking riêng</div></div>
+    <div class="space-card"><span class="space-icon">🎊</span><div class="space-name">Sảnh Events</div><div class="space-desc">Không gian linh hoạt cho tiệc sinh nhật, kỷ niệm, workshop ẩm thực và team building. Âm thanh, ánh sáng và bố trí theo yêu cầu.</div><div class="space-cap">Sức chứa 80 khách · Buffet hoặc Set menu</div></div>
+  </div>
+</section>
+
+<section class="chef">
+  <div class="sec-label">Bếp trưởng</div>
+  <h2 class="sec-title">Người đứng sau<br>mỗi kiệt tác</h2>
+  <div class="chef-inner">
+    <div class="chef-card">
+      <div class="chef-avatar">👨‍🍳</div>
+      <div class="chef-name">Chef Nguyễn Minh Dũng</div>
+      <div class="chef-title">Executive Chef & Co-founder</div>
+      <div class="chef-awards"><span class="chef-award">Michelin Bib Gourmand 2023</span><span class="chef-award">Best Chef Vietnam 2022</span><span class="chef-award">Asia's 50 Best Restaurants</span></div>
+      <div class="chef-bio">Tốt nghiệp Le Cordon Bleu Paris. Từng làm việc tại Joël Robuchon (3 sao Michelin), Sukiyabashi Jiro Tokyo và Per Se New York. Trở về VN với sứ mệnh đưa ẩm thực Việt lên bản đồ ẩm thực thế giới.</div>
+    </div>
+    <div class="chef-menu">
+      <div class="chef-specialty">
+        <div class="specialty-em">🏆</div>
+        <div class="specialty-info"><h4>Giải Best Chef Vietnam 2022</h4><p>Do Hiệp hội Ẩm thực Việt Nam trao tặng, ghi nhận đóng góp trong việc hiện đại hóa ẩm thực Việt.</p></div>
+      </div>
+      <div class="chef-specialty">
+        <div class="specialty-em">📚</div>
+        <div class="specialty-info"><h4>Sách dạy nấu ăn bán chạy</h4><p>"Việt Fusion — Bếp Việt Gặp Thế Giới" — bán hơn 50.000 bản, dịch sang tiếng Anh và Pháp.</p></div>
+      </div>
+      <div class="chef-specialty">
+        <div class="specialty-em">🎓</div>
+        <div class="specialty-info"><h4>Workshop hàng tháng</h4><p>Chef Dũng trực tiếp dạy workshop "Bếp Việt từ A-Z" cho 20 học viên mỗi tháng tại nhà hàng.</p></div>
+      </div>
+      <div class="chef-specialty">
+        <div class="specialty-em">🌱</div>
+        <div class="specialty-info"><h4>Farm-to-table pioneer</h4><p>Đầu tiên ở VN xây dựng hệ thống 30+ nông trại đối tác, cam kết 90% nguyên liệu hữu cơ địa phương.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="combos">
+  <div class="sec-label">Set menu & Ưu đãi</div>
+  <h2 class="sec-title">Trọn vẹn bữa ăn<br>với mức giá tốt nhất</h2>
+  <p class="sec-sub">Set menu theo mùa — được thiết kế để bạn trải nghiệm đầy đủ phong cách nấu ăn của chúng tôi</p>
+  <div class="combo-grid">
+    <div class="combo-card">
+      <div class="combo-label">Set trưa</div>
+      <div class="combo-name">Lunch Set — Đơn giản & Tinh tế</div>
+      <div class="combo-desc">Bữa trưa sang trọng trong 45 phút — nhanh mà không vội vàng.</div>
+      <div class="combo-items">
+        <div class="combo-item">Súp hoặc Salad mùa</div>
+        <div class="combo-item">1 món chính theo ngày</div>
+        <div class="combo-item">Dessert nhỏ & Cà phê</div>
+      </div>
+      <div class="combo-price">485.000đ</div>
+      <div class="combo-note">Thứ 3–Thứ 6 · 11:30–14:00 · Không áp dụng cuối tuần</div>
+      <a href="#" class="combo-btn combo-btn-out">Đặt bàn trưa →</a>
+    </div>
+    <div class="combo-card featured">
+      <div class="combo-label">⭐ Signature</div>
+      <div class="combo-name">Degustation Menu — 7 Courses</div>
+      <div class="combo-desc">Hành trình ẩm thực trọn vẹn qua 7 món — định nghĩa trải nghiệm The Saigon Larder.</div>
+      <div class="combo-items">
+        <div class="combo-item">Amuse-bouche & Bánh mì đặc biệt</div>
+        <div class="combo-item">2 khai vị lạnh & nóng</div>
+        <div class="combo-item">Sorbet chuyển vị</div>
+        <div class="combo-item">Món chính Wagyu hoặc Hải sản</div>
+        <div class="combo-item">Pre-dessert & Dessert</div>
+        <div class="combo-item">Petit fours & Cà phê</div>
+      </div>
+      <div class="combo-price">1.680.000đ</div>
+      <div class="combo-note">Wine pairing +900K · Vegetarian option available</div>
+      <a href="#" class="combo-btn combo-btn-in">Đặt bàn tối →</a>
+    </div>
+    <div class="combo-card">
+      <div class="combo-label">Tiệc riêng</div>
+      <div class="combo-name">Private Dining — Theo yêu cầu</div>
+      <div class="combo-desc">Bữa tối riêng tư trong Wine Room với menu cá nhân hóa theo sở thích.</div>
+      <div class="combo-items">
+        <div class="combo-item">Menu 5–9 courses theo yêu cầu</div>
+        <div class="combo-item">Trang trí theo chủ đề</div>
+        <div class="combo-item">Sommelier tư vấn rượu vang</div>
+        <div class="combo-item">Chụp ảnh kỷ niệm miễn phí</div>
+      </div>
+      <div class="combo-price">Từ 2.500K/người</div>
+      <div class="combo-note">Tối thiểu 8 khách · Đặt trước 3 ngày</div>
+      <a href="#" class="combo-btn combo-btn-out">Liên hệ tư vấn →</a>
+    </div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="sec-label">Cảm nhận thực khách</div>
+  <h2 class="sec-title">Những tối không thể quên<br>tại The Saigon Larder</h2>
+  <p class="sec-sub" style="color:#a8967e;margin-bottom:48px">Đọc thêm hơn 1.200 đánh giá 5 sao trên Google Maps và TripAdvisor</p>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-source"><span class="testi-source-icon">🌟</span><span class="testi-source-name">Michelin Guide</span></div><div class="testi-stars">★★★★★</div><div class="testi-q">"A remarkable expression of Vietnamese cuisine through a contemporary lens. Chef Dũng demonstrates exceptional technical skill while maintaining authentic flavors. The Phở 36-hour broth alone is worth the visit."</div><div class="testi-auth"><div class="testi-av">MG</div><div><div class="testi-name">Michelin Inspector</div><div class="testi-occ">Bib Gourmand 2023</div></div></div></div>
+    <div class="testi-card"><div class="testi-source"><span class="testi-source-icon">📍</span><span class="testi-source-name">Google Reviews</span></div><div class="testi-stars">★★★★★</div><div class="testi-q">"Đây là nhà hàng Việt ngon nhất tôi từng ăn trong 20 năm sống ở Sài Gòn. Set 7 courses tối qua là trải nghiệm hoàn toàn khác — mỗi món đều kể một câu chuyện riêng. Nhất định phải quay lại."</div><div class="testi-auth"><div class="testi-av">TV</div><div><div class="testi-name">Anh Thanh Văn</div><div class="testi-occ">Food blogger · 150K followers</div></div></div></div>
+    <div class="testi-card"><div class="testi-source"><span class="testi-source-icon">✈️</span><span class="testi-source-name">TripAdvisor</span></div><div class="testi-stars">★★★★★</div><div class="testi-q">"Best restaurant in Ho Chi Minh City! We came specifically because of the Michelin Bib Gourmand recognition. The Wagyu with Pho reduction sauce was absolutely mind-blowing. Service was impeccable."</div><div class="testi-auth"><div class="testi-av">JL</div><div><div class="testi-name">James & Lisa</div><div class="testi-occ">Du khách Pháp · Paris</div></div></div></div>
+  </div>
+</section>
+
+<section class="booking">
+  <div class="sec-label">Đặt bàn</div>
+  <h2 class="sec-title">Giữ chỗ cho<br><span style="background:linear-gradient(135deg,#d97706,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent">bữa tối đặc biệt</span></h2>
+  <p class="sec-sub" style="color:#a8967e">Nhà hàng thường kín chỗ vào cuối tuần — khuyến khích đặt trước 2–3 ngày</p>
+  <div class="book-box">
+    <h3>Đặt bàn online</h3>
+    <p>Xác nhận trong 2 giờ · Không thu phí đặt bàn · Đặt lại miễn phí trước 4 tiếng</p>
+    <div class="book-form">
+      <input class="book-input" placeholder="Họ và tên *" type="text" />
+      <input class="book-input" placeholder="Số điện thoại *" type="tel" />
+    </div>
+    <div class="book-form">
+      <input class="book-input" placeholder="Ngày ăn *" type="date" />
+      <input class="book-input" placeholder="Giờ *" type="time" />
+    </div>
+    <select class="book-select"><option>Số lượng khách</option><option>1–2 khách</option><option>3–4 khách</option><option>5–6 khách</option><option>7–10 khách</option><option>10+ khách (Private dining)</option></select>
+    <button class="book-btn">🍽️ Đặt bàn ngay →</button>
+    <div class="book-note">Vui lòng thông báo dị ứng thực phẩm hoặc yêu cầu đặc biệt · Chúng tôi sẽ xác nhận qua SMS/Zalo</div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="sec-label">Thông tin cần biết</div>
+  <h2 class="sec-title">Trước khi bạn đến<br>với chúng tôi</h2>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q">👔 Dress code như thế nào?</div><div class="faq-a">Smart casual — tức là không cần formal suit nhưng vui lòng tránh quần short, dép lê và áo ba lỗ. Garden Terrace thoải mái hơn một chút; Wine Room Private Dining thì smart casual hoặc smart formal. Chúng tôi muốn bạn thoải mái nhưng phù hợp với không gian.</div></div>
+    <div class="faq-item"><div class="faq-q">🅿️ Có chỗ đậu xe không?</div><div class="faq-a">Bãi đậu xe riêng miễn phí 40 chỗ trong hẻm sau nhà hàng (vào từ đường Lê Thánh Tôn). Valet parking phục vụ từ 18:00–23:00 với phí 50.000đ. Gần đây cũng có bãi xe công cộng tại số 8 Tôn Đức Thắng.</div></div>
+    <div class="faq-item"><div class="faq-q">🌱 Có món chay/thuần chay không?</div><div class="faq-a">Có. Toàn bộ Set menu đều có phiên bản vegetarian và vegan theo yêu cầu — vui lòng thông báo khi đặt bàn để bếp chuẩn bị nguyên liệu phù hợp. Chef Dũng đặc biệt tôn trọng các yêu cầu về chế độ ăn và sẽ không đơn giản là "bỏ thịt" mà sẽ thay thế bằng nguyên liệu thực vật thú vị.</div></div>
+    <div class="faq-item"><div class="faq-q">🎂 Nhà hàng có hỗ trợ tiệc sinh nhật/kỷ niệm không?</div><div class="faq-a">Chúng tôi rất vui được đồng hành cùng những dịp đặc biệt của bạn. Chuẩn bị bánh sinh nhật theo yêu cầu (+350K), trang trí bàn ăn, chụp ảnh kỷ niệm. Đặt Private Dining trong Wine Room cho tối hơn 8 người. Vui lòng thông báo khi đặt bàn để chúng tôi chuẩn bị tốt nhất.</div></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">🌟 The <span>Saigon Larder</span></div><div class="footer-tagline">Việt Fusion Fine Dining · Thành lập 2018 · Michelin Bib Gourmand</div></div>
+    <div class="footer-links"><a href="#">Thực đơn</a><a href="#">Về chúng tôi</a><a href="#">Events & Private Dining</a><a href="#">Workshop ẩm thực</a></div>
+    <div class="footer-links"><a href="#">📍 42 Tôn Thất Thiệp, Q.1, TP.HCM</a><a href="#">📞 028 3823 4567</a><a href="#">✉️ booking@saigonlarder.vn</a></div>
+  </div>
+</footer>
+<div class="footer-bottom">© 2026 The Saigon Larder · Giấy phép VSATTP: 12345/GP-VSATTP · Sở Y tế TP.HCM · Michelin Bib Gourmand 2023</div>
+</body></html>`
+
+const LP_INTERIOR = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;background:#fafaf9;color:#1c1917}
+.hero{background:linear-gradient(160deg,#1c1917 0%,#292524 60%,#1c1917 100%);padding:110px 24px 90px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(161,98,7,.1) 0%,transparent 65%)}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(161,98,7,.12);border:1px solid rgba(161,98,7,.3);color:#d97706;border-radius:4px;padding:6px 18px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;color:#ca8a04}
+.hero h1{font-size:clamp(36px,6vw,68px);font-weight:900;color:#fafaf9;line-height:1.1;margin-bottom:20px;letter-spacing:-.5px}
+.hero h1 .warm{background:linear-gradient(135deg,#d97706,#ca8a04);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:#a8a29e;max-width:560px;margin:0 auto 40px;line-height:1.8}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.btn-warm{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#d97706,#92400e);color:#fff;border-radius:6px;padding:17px 38px;font-size:16px;font-weight:800;text-decoration:none;box-shadow:0 8px 24px rgba(217,119,6,.25)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.15);color:#e7e5e4;border-radius:6px;padding:15px 28px;font-size:15px;text-decoration:none}
+.hero-note{font-size:13px;color:#78716c}
+.stats-bar{background:#292524;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:28px 24px}
+.stats-inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;max-width:900px;margin:0 auto;text-align:center}
+.stat-n{font-size:36px;font-weight:900;color:#d97706}
+.stat-l{font-size:12px;color:#a8a29e;margin-top:4px}
+.sec-label{color:#d97706;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.sec-title{font-size:34px;font-weight:800;color:#1c1917;text-align:center;margin-bottom:12px;line-height:1.25}
+.sec-sub{text-align:center;font-size:15px;color:#78716c;margin-bottom:50px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.75}
+.services{padding:90px 24px;background:#fafaf9}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;max-width:1060px;margin:0 auto}
+.svc-card{border:1.5px solid #e7e5e4;border-radius:16px;padding:32px;background:#fff}
+.svc-icon{width:62px;height:62px;background:linear-gradient(135deg,#d97706,#92400e);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:18px}
+.svc-name{font-size:18px;font-weight:800;color:#1c1917;margin-bottom:8px}
+.svc-desc{font-size:14px;color:#78716c;line-height:1.7;margin-bottom:14px}
+.svc-includes{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.svc-inc{font-size:13px;color:#57534e;display:flex;align-items:center;gap:7px}
+.svc-inc::before{content:'→';color:#d97706;font-weight:700;flex-shrink:0}
+.svc-start{font-size:14px;color:#d97706;font-weight:700}
+.portfolio{padding:90px 24px;background:#f5f5f4}
+.port-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1060px;margin:0 auto}
+.port-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.06)}
+.port-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:64px}
+.port-img.s1{background:linear-gradient(135deg,#f5f0e8,#ede3d4)}
+.port-img.s2{background:linear-gradient(135deg,#e8f0f5,#d4e3ed)}
+.port-img.s3{background:linear-gradient(135deg,#f0ebe8,#e8ddd6)}
+.port-img.s4{background:linear-gradient(135deg,#e8f5ee,#d4eddf)}
+.port-img.s5{background:linear-gradient(135deg,#f5eef0,#edd4db)}
+.port-img.s6{background:linear-gradient(135deg,#f0f5e8,#e3edd4)}
+.port-body{padding:22px}
+.port-name{font-size:17px;font-weight:800;color:#1c1917;margin-bottom:4px}
+.port-loc{font-size:13px;color:#d97706;font-weight:600;margin-bottom:8px}
+.port-desc{font-size:13px;color:#78716c;line-height:1.6;margin-bottom:12px}
+.port-tags{display:flex;gap:6px;flex-wrap:wrap}
+.port-tag{background:#fef3c7;color:#b45309;border-radius:4px;padding:3px 9px;font-size:11px;font-weight:600}
+.process{padding:90px 24px;background:#fafaf9}
+.proc-timeline{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:0}
+.proc-item{display:flex;gap:24px;padding:28px 0;border-bottom:1px dashed #e7e5e4}
+.proc-item:last-child{border:none}
+.proc-step{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#d97706,#92400e);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;flex-shrink:0}
+.proc-info h3{font-size:17px;font-weight:700;color:#1c1917;margin-bottom:5px}
+.proc-info p{font-size:14px;color:#78716c;line-height:1.65;margin-bottom:8px}
+.proc-dur{display:inline-flex;background:#fef3c7;color:#b45309;border-radius:4px;padding:3px 10px;font-size:12px;font-weight:700}
+.team{padding:90px 24px;background:#f5f5f4}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;max-width:980px;margin:0 auto}
+.team-card{background:#fff;border:1.5px solid #e7e5e4;border-radius:16px;padding:28px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.team-av{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#d97706,#92400e);display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 16px}
+.team-name{font-size:18px;font-weight:800;color:#1c1917;margin-bottom:4px}
+.team-role{font-size:13px;color:#d97706;font-weight:600;margin-bottom:10px}
+.team-certs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
+.team-cert{background:#fef3c7;color:#b45309;border-radius:4px;padding:3px 9px;font-size:11px;font-weight:600}
+.team-bio{font-size:13px;color:#78716c;line-height:1.6}
+.pricing{padding:90px 24px;background:#fafaf9}
+.pack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:980px;margin:0 auto 28px}
+.pack{border:2px solid #e7e5e4;border-radius:20px;padding:32px;background:#fff}
+.pack.featured{background:linear-gradient(135deg,#292524,#1c1917);border-color:transparent;color:#fafaf9}
+.pack-label{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#d97706;margin-bottom:12px}
+.pack.featured .pack-label{color:#fcd34d}
+.pack-price{font-size:44px;font-weight:900;color:#1c1917;line-height:1;margin-bottom:6px}
+.pack.featured .pack-price{color:#fafaf9}
+.pack-unit{font-size:13px;color:#78716c;margin-bottom:20px}
+.pack.featured .pack-unit{color:#a8a29e}
+.pack-btn{display:block;border-radius:10px;padding:13px;text-align:center;font-weight:700;text-decoration:none;font-size:15px;margin-bottom:20px}
+.pack-btn-out{background:#fef3c7;color:#d97706}
+.pack-btn-in{background:linear-gradient(135deg,#d97706,#92400e);color:#fff}
+.pack-feats{font-size:14px;color:#78716c;line-height:2.1}
+.pack.featured .pack-feats{color:#a8a29e}
+.testi{padding:90px 24px;background:#f5f5f4}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1020px;margin:0 auto}
+.testi-card{background:#fff;border:1.5px solid #e7e5e4;border-radius:18px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.testi-stars{color:#d97706;font-size:17px;margin-bottom:12px}
+.testi-q{font-size:15px;color:#44403c;font-style:italic;line-height:1.75;margin-bottom:16px}
+.testi-auth{display:flex;align-items:center;gap:12px}
+.testi-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#d97706,#92400e);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:14px}
+.testi-name{font-size:14px;font-weight:700;color:#1c1917}
+.testi-proj{font-size:12px;color:#d97706}
+.faq{padding:90px 24px;background:#fafaf9}
+.faq-list{max-width:740px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.faq-item{background:#fff;border:1.5px solid #e7e5e4;border-radius:12px;padding:24px}
+.faq-q{font-weight:700;color:#d97706;margin-bottom:10px;font-size:15px}
+.faq-a{font-size:14px;color:#78716c;line-height:1.75}
+.cta-sec{padding:80px 24px;background:#1c1917;text-align:center}
+.cta-sec h2{font-size:40px;font-weight:900;color:#fafaf9;margin-bottom:14px;line-height:1.25}
+.cta-sec h2 span{background:linear-gradient(135deg,#d97706,#ca8a04);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cta-sec p{color:#a8a29e;font-size:17px;margin-bottom:32px;line-height:1.6}
+.footer{background:#0f0f0e;border-top:1px solid rgba(255,255,255,.06);padding:48px 24px}
+.footer-inner{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:36px;justify-content:space-between}
+.footer-brand{font-size:22px;font-weight:900;color:#fafaf9;margin-bottom:6px}
+.footer-brand span{color:#d97706}
+.footer-tagline{font-size:13px;color:#78716c}
+.footer-links{display:flex;flex-direction:column;gap:8px}
+.footer-links a{color:#a8a29e;text-decoration:none;font-size:14px}
+.footer-bottom{background:#0c0c0b;border-top:1px solid rgba(255,255,255,.04);text-align:center;padding:16px 24px;font-size:12px;color:#57534e}
+</style></head>
+<body>
+
+<section class="hero">
+  <div class="badge">🏆 Giải thưởng Thiết kế Nội thất Xuất sắc 2023 · 500+ dự án</div>
+  <h1>Không gian sống<br><span class="warm">phản ánh con người bạn</span></h1>
+  <p>Studio thiết kế nội thất hàng đầu TP.HCM — từ chung cư đến villa, từ văn phòng đến khách sạn — mỗi công trình là một tác phẩm nghệ thuật đậm cá tính chủ nhân.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-warm">🏠 Tư vấn thiết kế miễn phí</a>
+    <a href="#" class="btn-ghost">📸 Xem portfolio</a>
+  </div>
+  <p class="hero-note">Khảo sát tại nhà miễn phí · Thiết kế 3D trước khi thi công · Bảo hành 2 năm</p>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div><div class="stat-n">500+</div><div class="stat-l">Dự án hoàn thành</div></div>
+    <div><div class="stat-n">15+</div><div class="stat-l">Kiến trúc sư & NTK</div></div>
+    <div><div class="stat-n">12</div><div class="stat-l">Năm kinh nghiệm</div></div>
+    <div><div class="stat-n">4.9★</div><div class="stat-l">Google Reviews</div></div>
+    <div><div class="stat-n">98%</div><div class="stat-l">Khách hàng giới thiệu thêm</div></div>
+  </div>
+</div>
+
+<section class="services">
+  <div class="sec-label">Dịch vụ thiết kế</div>
+  <h2 class="sec-title">Giải pháp không gian<br>toàn diện từ ý tưởng đến hoàn thiện</h2>
+  <p class="sec-sub">Chúng tôi thiết kế và thi công trọn gói — bạn chỉ cần đến nhà mới, không cần quản lý từng chi tiết nhỏ</p>
+  <div class="svc-grid">
+    <div class="svc-card"><div class="svc-icon">🏠</div><div class="svc-name">Thiết kế Nội Thất Chung Cư</div><div class="svc-desc">Từ studio 30m² đến penthouse 500m² — tối ưu không gian, ánh sáng và lưu thông. Phù hợp mọi phong cách từ Scandinavian, Industrial đến Japandi và Tropical.</div><div class="svc-includes"><div class="svc-inc">Thiết kế 3D chi tiết toàn bộ không gian</div><div class="svc-inc">Bảng vật liệu và màu sắc cụ thể</div><div class="svc-inc">Dự toán chi phí chi tiết trước khi thi công</div><div class="svc-inc">Giám sát thi công tại chỗ</div></div><div class="svc-start">Từ 150.000đ/m² thiết kế</div></div>
+    <div class="svc-card"><div class="svc-icon">🏡</div><div class="svc-name">Biệt Thự & Nhà Phố</div><div class="svc-desc">Thiết kế kiến trúc ngoại thất và nội thất toàn bộ nhà phố, townhouse và biệt thự từ 1 đến 4+ tầng. Kết hợp cảnh quan sân vườn và hồ bơi nếu có.</div><div class="svc-includes"><div class="svc-inc">Phương án kiến trúc & nội thất tổng thể</div><div class="svc-inc">Hệ thống chiếu sáng chuyên nghiệp</div><div class="svc-inc">Smart home integration tùy chọn</div><div class="svc-inc">Nội thất custom-made theo yêu cầu</div></div><div class="svc-start">Từ 200.000đ/m² thiết kế</div></div>
+    <div class="svc-card"><div class="svc-icon">🏢</div><div class="svc-name">Văn Phòng & Coworking</div><div class="svc-desc">Không gian làm việc thúc đẩy sáng tạo, tăng năng suất và thể hiện DNA thương hiệu. Tối ưu layout cho workflow, meeting rooms và social spaces.</div><div class="svc-includes"><div class="svc-inc">Brand identity qua không gian</div><div class="svc-inc">Acoustic design cho phòng họp</div><div class="svc-inc">Ergonomic workspace planning</div><div class="svc-inc">Thi công nhanh, không ảnh hưởng hoạt động</div></div><div class="svc-start">Từ 250.000đ/m² thiết kế</div></div>
+    <div class="svc-card"><div class="svc-icon">🍽️</div><div class="svc-name">F&B & Khách Sạn</div><div class="svc-desc">Thiết kế nhà hàng, café, bar và khách sạn boutique tạo ra trải nghiệm độc đáo và instagrammable — kéo khách hàng quay lại không chỉ vì món ăn mà vì không gian.</div><div class="svc-includes"><div class="svc-inc">Concept độc đáo theo brand story</div><div class="svc-inc">Tối ưu flow khách và hiệu quả vận hành</div><div class="svc-inc">Thiết kế ánh sáng F&B chuyên nghiệp</div><div class="svc-inc">Furniture & decor theo chủ đề</div></div><div class="svc-start">Từ 300.000đ/m² thiết kế</div></div>
+    <div class="svc-card"><div class="svc-icon">🎨</div><div class="svc-name">Tư Vấn Phong Cách & Vật Liệu</div><div class="svc-desc">Chưa sẵn sàng thiết kế trọn gói? Buổi tư vấn 2 giờ với KTS senior — định hướng phong cách, gợi ý vật liệu và màu sắc, lập kế hoạch ngân sách sơ bộ.</div><div class="svc-includes"><div class="svc-inc">Phân tích không gian hiện tại</div><div class="svc-inc">Moodboard và color palette</div><div class="svc-inc">Danh sách nhà cung cấp uy tín</div><div class="svc-inc">Checklist DIY nếu bạn muốn tự làm</div></div><div class="svc-start">1.500.000đ / buổi 2 giờ</div></div>
+    <div class="svc-card"><div class="svc-icon">🔨</div><div class="svc-name">Thi Công & Hoàn Thiện</div><div class="svc-desc">Dịch vụ thi công nội thất toàn diện — từ hạ tầng kỹ thuật, trần thạch cao đến lắp đặt nội thất cuối cùng. Đội thợ lành nghề, vật liệu đúng tiêu chuẩn cam kết.</div><div class="svc-includes"><div class="svc-inc">Thợ thi công chính thức của studio</div><div class="svc-inc">Vật liệu đúng hàng, đúng thương hiệu</div><div class="svc-inc">Tiến độ cam kết theo hợp đồng</div><div class="svc-inc">Bảo hành 2 năm công trình</div></div><div class="svc-start">Báo giá theo khảo sát thực tế</div></div>
+  </div>
+</section>
+
+<section class="portfolio">
+  <div class="sec-label">Portfolio</div>
+  <h2 class="sec-title">Những không gian<br>chúng tôi đã tạo ra</h2>
+  <p class="sec-sub">Mỗi dự án là câu chuyện riêng — về chủ nhân, về không gian và về cuộc sống họ muốn sống</p>
+  <div class="port-grid">
+    <div class="port-card"><div class="port-img s1">🌿</div><div class="port-body"><div class="port-name">Căn hộ Japandi · Vinhomes Central Park</div><div class="port-loc">Bình Thạnh · 120m² · 2022</div><div class="port-desc">Phong cách Japandi tối giản — gỗ sồi trắng, bê tông xám, cây xanh và ánh sáng tự nhiên. Cho cặp đôi trẻ yêu sự yên tĩnh giữa lòng thành phố.</div><div class="port-tags"><span class="port-tag">Japandi</span><span class="port-tag">Minimalist</span><span class="port-tag">Chung cư</span></div></div></div>
+    <div class="port-card"><div class="port-img s2">🏛️</div><div class="port-body"><div class="port-name">Penthouse Mediterranean · Masteri Thảo Điền</div><div class="port-loc">Quận 2 · 280m² · 2023</div><div class="port-desc">Phong cách Địa Trung Hải với vòm gạch trắng, lam gỗ ấm, terrazzo và hồ bơi tầng thượng. Không gian thư giãn như resort ngay trong nhà.</div><div class="port-tags"><span class="port-tag">Mediterranean</span><span class="port-tag">Luxury</span><span class="port-tag">Penthouse</span></div></div></div>
+    <div class="port-card"><div class="port-img s3">🎨</div><div class="port-body"><div class="port-name">Văn phòng Creative Agency · Quận 7</div><div class="port-loc">Quận 7 · 350m² · 2023</div><div class="port-desc">Không gian làm việc sáng tạo với wall graffiti, nội thất công nghiệp tái chế, breakout zones đầy màu sắc và cafe corner cho team.</div><div class="port-tags"><span class="port-tag">Industrial</span><span class="port-tag">Creative</span><span class="port-tag">Office</span></div></div></div>
+    <div class="port-card"><div class="port-img s4">🌱</div><div class="port-body"><div class="port-name">Biệt thự Tropical Modern · Thủ Đức</div><div class="port-loc">Thủ Đức · 450m² · 2024</div><div class="port-desc">Biệt thự 3 tầng phong cách Tropical hiện đại — gỗ teak, đá tự nhiên, sân vườn nhiệt đới 200m² và hồ bơi tràn bờ. Giải thưởng Best Villa Design 2024.</div><div class="port-tags"><span class="port-tag">Tropical</span><span class="port-tag">Villa</span><span class="port-tag">Award</span></div></div></div>
+    <div class="port-card"><div class="port-img s5">☕</div><div class="port-body"><div class="port-name">Café The Garden · Tân Bình</div><div class="port-loc">Tân Bình · 180m² · 2024</div><div class="port-desc">Cafe theo phong cách garden greenhouse với khung kính, cây xanh leo, tường gạch cổ và ánh sáng tự nhiên tràn ngập. Checkin ăn khách nhất Tân Bình.</div><div class="port-tags"><span class="port-tag">F&B</span><span class="port-tag">Garden Style</span><span class="port-tag">Cafe</span></div></div></div>
+    <div class="port-card"><div class="port-img s6">🏨</div><div class="port-body"><div class="port-name">Boutique Hotel · Hội An</div><div class="port-loc">Hội An · 20 phòng · 2024</div><div class="port-desc">Khách sạn boutique 20 phòng theo phong cách Hội An đương đại — gạch hoa, đèn lồng hiện đại, gỗ và bamboo. Được vinh danh Best Boutique Hotel Design 2024.</div><div class="port-tags"><span class="port-tag">Hotel</span><span class="port-tag">Heritage</span><span class="port-tag">Award</span></div></div></div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="sec-label">Quy trình làm việc</div>
+  <h2 class="sec-title">Từ ý tưởng đến<br>không gian hoàn thiện</h2>
+  <p class="sec-sub">Quy trình minh bạch, tiến độ cam kết — bạn luôn biết dự án đang ở giai đoạn nào</p>
+  <div class="proc-timeline">
+    <div class="proc-item"><div class="proc-step">1</div><div class="proc-info"><h3>Tư vấn ban đầu & Khảo sát</h3><p>Gặp gỡ 1-1 tại văn phòng hoặc tại nhà bạn. Lắng nghe phong cách sống, sở thích, ngân sách và timeline. Đo đạc và chụp ảnh thực tế không gian.</p><span class="proc-dur">Miễn phí · 1-2 giờ</span></div></div>
+    <div class="proc-item"><div class="proc-step">2</div><div class="proc-info"><h3>Đề xuất Concept & Phong cách</h3><p>Trình bày 2-3 hướng concept khác nhau với moodboard, color palette và reference images. Thảo luận và chọn hướng phù hợp nhất với sở thích của bạn.</p><span class="proc-dur">3-5 ngày làm việc</span></div></div>
+    <div class="proc-item"><div class="proc-step">3</div><div class="proc-info"><h3>Thiết kế 3D chi tiết</h3><p>Vẽ bản vẽ kỹ thuật và render 3D từng phòng với vật liệu, màu sắc và nội thất thực tế. Bạn thấy rõ không gian trước khi thi công 1 đồng. Chỉnh sửa không giới hạn đến khi hài lòng.</p><span class="proc-dur">7-14 ngày làm việc</span></div></div>
+    <div class="proc-item"><div class="proc-step">4</div><div class="proc-info"><h3>Dự toán & Ký hợp đồng</h3><p>Bảng dự toán chi phí thi công chi tiết theo từng hạng mục. Phân tích options tiết kiệm chi phí mà không giảm chất lượng. Hợp đồng rõ ràng về tiến độ và bảo hành.</p><span class="proc-dur">2-3 ngày</span></div></div>
+    <div class="proc-item"><div class="proc-step">5</div><div class="proc-info"><h3>Thi công & Giám sát</h3><p>Đội thợ chính thức của studio thi công theo bản vẽ. Giám sát trưởng mặt bằng hàng ngày. Báo cáo tiến độ + hình ảnh gửi cho bạn mỗi tuần. Không thuê ngoài, không phó mặc.</p><span class="proc-dur">Theo diện tích & độ phức tạp</span></div></div>
+    <div class="proc-item"><div class="proc-step">6</div><div class="proc-info"><h3>Bàn giao & Hậu mãi</h3><p>Vệ sinh công trình sạch sẽ, bố trí nội thất đúng bản vẽ, chụp ảnh nghiệm thu. Bảo hành 2 năm toàn bộ công trình. Hỗ trợ tư vấn cải tạo nhỏ sau bàn giao.</p><span class="proc-dur">Bảo hành 2 năm</span></div></div>
+  </div>
+</section>
+
+<section class="team">
+  <div class="sec-label">Đội ngũ thiết kế</div>
+  <h2 class="sec-title">Những kiến trúc sư<br>và nhà thiết kế hàng đầu</h2>
+  <p class="sec-sub">Kết hợp kinh nghiệm quốc tế và hiểu biết sâu sắc về văn hóa và khí hậu Việt Nam</p>
+  <div class="team-grid">
+    <div class="team-card"><div class="team-av">🏛️</div><div class="team-name">KTS. Nguyễn Bảo Anh</div><div class="team-role">Principal Designer · Founder</div><div class="team-certs"><span class="team-cert">RIBA Member</span><span class="team-cert">Harvard MArch</span></div><div class="team-bio">Tốt nghiệp Kiến trúc tại Harvard GSD. Kinh nghiệm làm việc tại Kengo Kuma Associates Tokyo và Foster+Partners London trước khi về VN.</div></div>
+    <div class="team-card"><div class="team-av">🎨</div><div class="team-name">Lê Thị Phương Linh</div><div class="team-role">Interior Design Lead</div><div class="team-certs"><span class="team-cert">ASID Member</span><span class="team-cert">CID Certified</span></div><div class="team-bio">10 năm chuyên thiết kế nội thất cao cấp. Phong cách chuyên sâu về Scandinavian, Japandi và Contemporary Asian.</div></div>
+    <div class="team-card"><div class="team-av">💡</div><div class="team-name">Trần Minh Khôi</div><div class="team-role">Lighting Design Specialist</div><div class="team-certs"><span class="team-cert">IALD Member</span><span class="team-cert">Lighting Cert.</span></div><div class="team-bio">Chuyên gia chiếu sáng kiến trúc duy nhất tại VN có chứng chỉ IALD quốc tế. Thiết kế ánh sáng cho 200+ công trình.</div></div>
+    <div class="team-card"><div class="team-av">🌿</div><div class="team-name">Phạm Ngọc Hà</div><div class="team-role">FF&E & Project Manager</div><div class="team-certs"><span class="team-cert">PMP Certified</span><span class="team-cert">FF&E Expert</span></div><div class="team-bio">Quản lý thi công 100+ dự án từ chung cư đến khách sạn. Mạng lưới 200+ nhà cung cấp vật liệu và nội thất tin cậy.</div></div>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="sec-label">Gói dịch vụ</div>
+  <h2 class="sec-title">Đầu tư vào không gian<br>là đầu tư vào chất lượng cuộc sống</h2>
+  <p class="sec-sub">Minh bạch chi phí — không phát sinh — báo giá trước khi ký hợp đồng</p>
+  <div class="pack-grid">
+    <div class="pack"><div class="pack-label">Gói Thiết kế</div><div class="pack-price">150K</div><div class="pack-unit">/m² · Chỉ thiết kế</div><a href="#" class="pack-btn pack-btn-out">Tư vấn ngay →</a><div class="pack-feats">✓ Bản vẽ kỹ thuật đầy đủ<br>✓ Render 3D từng phòng<br>✓ Bảng vật liệu chi tiết<br>✓ Dự toán thi công<br>✓ Chỉnh sửa không giới hạn</div></div>
+    <div class="pack featured"><div class="pack-label">⭐ Trọn gói</div><div class="pack-price">3.5tr</div><div class="pack-unit">/m² · Thiết kế + Thi công</div><a href="#" class="pack-btn pack-btn-in">Khảo sát miễn phí →</a><div class="pack-feats">✓ Tất cả dịch vụ thiết kế<br>✓ Thi công bởi đội thợ chính thức<br>✓ Giám sát hàng ngày tại công trường<br>✓ Vật liệu đúng hàng cam kết<br>✓ Bảo hành 2 năm công trình<br>✓ Trả góp 0% đến 12 tháng</div></div>
+    <div class="pack"><div class="pack-label">F&B & Thương mại</div><div class="pack-price">Liên hệ</div><div class="pack-unit">Báo giá theo dự án</div><a href="#" class="pack-btn pack-btn-out">Gặp gỡ tư vấn →</a><div class="pack-feats">✓ Thiết kế thương mại chuyên biệt<br>✓ Brand integration đầy đủ<br>✓ Thi công nhanh không dừng hoạt động<br>✓ Hỗ trợ cấp phép và pháp lý<br>✓ Bảo hành công trình thương mại</div></div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="sec-label">Khách hàng nói gì</div>
+  <h2 class="sec-title">Họ không chỉ hài lòng —<br>họ tự hào về ngôi nhà của mình</h2>
+  <p class="sec-sub">98% khách hàng giới thiệu bạn bè sau khi trải nghiệm dịch vụ của chúng tôi</p>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Tôi đã làm việc với 3 studio thiết kế trước khi gặp Archi+. Sự khác biệt là ở đây họ thực sự LẮNG NGHE. Không áp đặt phong cách, không cắt xén ngân sách, bàn giao đúng như cam kết. Căn hộ hoàn thiện đẹp hơn render 3D!"</div><div class="testi-auth"><div class="testi-av">TL</div><div><div class="testi-name">Gia đình anh Tuấn Lâm</div><div class="testi-proj">Penthouse 240m² · Masteri</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Nhà hàng của tôi đã hoạt động 2 năm kể từ khi Archi+ thiết kế. Check-in của khách tăng 300%, doanh thu tăng 40% so với trước. Không gian trở thành điểm nhận diện thương hiệu mạnh nhất của chúng tôi."</div><div class="testi-auth"><div class="testi-av">MH</div><div><div class="testi-name">Chị Minh Hương · CEO</div><div class="testi-proj">Chuỗi cafe The Garden · 3 cơ sở</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-q">"Gói trọn gói thực sự trọn gói — từ đầu đến cuối không có phát sinh nào ngoài hợp đồng. Tiến độ đúng từng tuần như cam kết. Bảo hành 2 năm đã xử lý 2 vấn đề nhỏ mà không tốn phí. Cực kỳ chuyên nghiệp."</div><div class="testi-auth"><div class="testi-av">BK</div><div><div class="testi-name">Gia đình anh Bảo Khoa</div><div class="testi-proj">Biệt thự 380m² · Long An</div></div></div></div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="sec-label">Câu hỏi thường gặp</div>
+  <h2 class="sec-title">Những điều bạn muốn<br>biết trước khi bắt đầu</h2>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q">💰 Chi phí thiết kế nội thất thường là bao nhiêu?</div><div class="faq-a">Chi phí thiết kế từ 150.000đ/m² tùy phức tạp. Gói trọn gói thiết kế + thi công từ 3.500.000đ/m² cho chung cư tiêu chuẩn, đến 6.000.000đ/m² cho biệt thự cao cấp và 8.000.000đ/m² cho công trình thương mại. Khảo sát miễn phí và báo giá chính xác sau khi đo thực tế.</div></div>
+    <div class="faq-item"><div class="faq-q">⏱️ Mất bao lâu để hoàn thành một dự án?</div><div class="faq-a">Thiết kế: 2-3 tuần (chung cư) đến 4-6 tuần (biệt thự, thương mại). Thi công: 30-45 ngày cho chung cư 100m², 60-90 ngày cho nhà phố 3 tầng, 3-6 tháng cho biệt thự và công trình thương mại lớn. Tiến độ được cam kết trong hợp đồng với điều khoản phạt nếu chậm.</div></div>
+    <div class="faq-item"><div class="faq-q">🔄 Có thể thay đổi thiết kế trong quá trình thi công không?</div><div class="faq-a">Giai đoạn thiết kế: thay đổi không giới hạn đến khi bạn hài lòng. Sau khi ký biên bản xác nhận thiết kế cuối: thay đổi nhỏ không tính phí, thay đổi lớn ảnh hưởng kết cấu hoặc vật liệu sẽ có phụ lục hợp đồng với chi phí thực tế. Đây là lý do chúng tôi đầu tư kỹ vào giai đoạn thiết kế 3D — để bạn "thấy rõ trước khi làm".</div></div>
+    <div class="faq-item"><div class="faq-q">📦 Có cung cấp nội thất đặt theo yêu cầu không?</div><div class="faq-a">Có. Xưởng nội thất đối tác sản xuất theo bản vẽ của chúng tôi: bàn, ghế, tủ, kệ, giường và sofa theo kích thước và vật liệu chuẩn xác từng cm. Cam kết đúng chất liệu gỗ và vật liệu như thiết kế — không thay thế vật liệu rẻ hơn như nhiều đơn vị khác.</div></div>
+  </div>
+</section>
+
+<section class="cta-sec">
+  <h2>Bắt đầu dự án<br><span>ngôi nhà mơ ước</span> của bạn</h2>
+  <p>Khảo sát tại nhà miễn phí, tư vấn concept trong 1 tuần. Không cam kết, không chi phí ban đầu.</p>
+  <a href="#" class="btn-warm" style="display:inline-flex">🏠 Đặt lịch khảo sát miễn phí →</a>
+  <p style="margin-top:14px;font-size:13px;color:#78716c">Phản hồi trong 4 giờ · Khảo sát tại nhà bạn hoặc tại văn phòng chúng tôi</p>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">🏛️ <span>Archi+</span> Studio</div><div class="footer-tagline">Thiết kế nội thất cao cấp · Thành lập 2012 · 500+ dự án</div></div>
+    <div class="footer-links"><a href="#">Dịch vụ thiết kế</a><a href="#">Portfolio</a><a href="#">Đội ngũ</a><a href="#">Blog kiến trúc</a></div>
+    <div class="footer-links"><a href="#">📍 15 Lê Duẩn, Q.1, TP.HCM</a><a href="#">📞 028 3823 9999</a><a href="#">✉️ hello@archiplus.vn</a></div>
+  </div>
+</footer>
+<div class="footer-bottom">© 2026 Archi+ Studio · MST: 0312345681 · Hội viên Hội Kiến Trúc Sư Việt Nam</div>
+</body></html>`
+
 export const TEMPLATES: Template[] = [
   {
     id: 'lp-skincare',
@@ -3381,6 +4921,66 @@ export const TEMPLATES: Template[] = [
     gradient: 'from-sky-600 to-cyan-600',
     accentColor: '#0284c7',
     html: ADS_TRAVEL_BANNER,
+  },
+  {
+    id: 'lp-realestate',
+    name: 'Landing Page Bất Động Sản',
+    category: 'landing',
+    description: 'Trang giới thiệu dự án BĐS cao cấp với danh sách dự án, tiện ích nội khu, tiến độ bàn giao, form đặt lịch tư vấn và FAQ pháp lý.',
+    tags: ['Bất động sản', 'Căn hộ', 'Đầu tư'],
+    gradient: 'from-yellow-600 to-amber-700',
+    accentColor: '#d97706',
+    html: LP_REALESTATE,
+  },
+  {
+    id: 'lp-dental',
+    name: 'Landing Page Nha Khoa',
+    category: 'landing',
+    description: 'Trang nha khoa thẩm mỹ cao cấp với dịch vụ chi tiết, công nghệ hiện đại, đội ngũ bác sĩ, bảng giá và form đặt lịch khám miễn phí.',
+    tags: ['Nha khoa', 'Y tế', 'Thẩm mỹ'],
+    gradient: 'from-sky-500 to-cyan-600',
+    accentColor: '#0284c7',
+    html: LP_DENTAL,
+  },
+  {
+    id: 'lp-language',
+    name: 'Landing Page Trung Tâm Ngoại Ngữ',
+    category: 'landing',
+    description: 'Trang trung tâm học tiếng Anh/Nhật/Hàn với khóa học, phương pháp AI, giáo viên bản ngữ, kết quả học viên và lộ trình IELTS.',
+    tags: ['Giáo dục', 'IELTS', 'Ngoại ngữ'],
+    gradient: 'from-orange-500 to-indigo-600',
+    accentColor: '#f97316',
+    html: LP_LANGUAGE,
+  },
+  {
+    id: 'lp-spa',
+    name: 'Landing Page Spa & Thẩm Mỹ',
+    category: 'landing',
+    description: 'Trang spa cao cấp với dịch vụ massage/facial/laser, quy trình trải nghiệm, kết quả before/after, gói tháng và đặt lịch online.',
+    tags: ['Spa', 'Làm đẹp', 'Thẩm mỹ'],
+    gradient: 'from-purple-600 to-pink-600',
+    accentColor: '#7c3aed',
+    html: LP_SPA,
+  },
+  {
+    id: 'lp-restaurant',
+    name: 'Landing Page Nhà Hàng Fine Dining',
+    category: 'landing',
+    description: 'Trang nhà hàng cao cấp Việt Fusion với thực đơn nổi bật, không gian độc đáo, hồ sơ bếp trưởng, set menu và form đặt bàn.',
+    tags: ['Nhà hàng', 'F&B', 'Fine Dining'],
+    gradient: 'from-amber-600 to-orange-800',
+    accentColor: '#d97706',
+    html: LP_RESTAURANT,
+  },
+  {
+    id: 'lp-interior',
+    name: 'Landing Page Thiết Kế Nội Thất',
+    category: 'landing',
+    description: 'Trang studio thiết kế nội thất với dịch vụ trọn gói, portfolio dự án thực tế, quy trình làm việc, đội ngũ KTS và bảng giá minh bạch.',
+    tags: ['Nội thất', 'Kiến trúc', 'Thiết kế'],
+    gradient: 'from-stone-600 to-amber-700',
+    accentColor: '#d97706',
+    html: LP_INTERIOR,
   },
 ]
 

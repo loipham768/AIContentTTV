@@ -6,6 +6,7 @@ import Order from "@/models/Order";
 import User from "@/models/User";
 import { PLAN_PRICES, CREDIT_PACKS, type CreditPackId } from "@/lib/planConfig";
 import { sendNewOrderAdminEmail } from "@/lib/email";
+import { generateOrderId } from "@/lib/orderUtils";
 
 export const metadata: Metadata = {
   title: "Nâng cấp gói — AITaoPage",
@@ -21,17 +22,6 @@ export const metadata: Metadata = {
 };
 
 export const runtime = "nodejs";
-
-function generateOrderId(): string {
-  const d = new Date();
-  const date = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  const random = Array.from(
-    { length: 5 },
-    () => chars[Math.floor(Math.random() * chars.length)],
-  ).join("");
-  return `VCB-${date}-${random}`;
-}
 
 type SearchParams = {
   plan?: string;
@@ -66,10 +56,11 @@ export default async function UpgradePage({
     const pack = CREDIT_PACKS.find((p) => p.id === packId);
     if (!pack) redirect("/#pricing");
 
-    // Existing pending order → resume it
+    // Existing pending order that hasn't expired → resume it
     const existing = (await Order.findOne({
       userId: session.user.id,
       status: "pending",
+      expiresAt: { $gt: new Date() },
     }).lean()) as any;
     if (existing) redirect(`/checkout/${existing.orderId}`);
 
@@ -109,6 +100,7 @@ export default async function UpgradePage({
   const existing = (await Order.findOne({
     userId: session.user.id,
     status: "pending",
+    expiresAt: { $gt: new Date() },
   }).lean()) as any;
   if (existing) redirect(`/checkout/${existing.orderId}`);
 

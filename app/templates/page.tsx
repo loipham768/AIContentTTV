@@ -1,5 +1,4 @@
 import { auth } from '@/auth'
-import { redirect } from 'next/navigation'
 import { dbConnect } from '@/lib/mongodb'
 import User from '@/models/User'
 import { TEMPLATES } from '@/lib/templates'
@@ -20,18 +19,24 @@ export const metadata = {
 
 export default async function TemplatesPage() {
   const session = await auth()
-  if (!session) redirect('/login')
+  const isLoggedIn = !!session?.user?.id
 
-  await dbConnect()
-  const [userDoc, planInfo] = await Promise.all([
-    User.findById(session.user.id, { fullName: 1, avatarUrl: 1 }).lean() as any,
-    getUserPlanInfo(session.user.id),
-  ])
+  let userDoc: any = null
+  let planInfo = null
+
+  if (isLoggedIn) {
+    await dbConnect()
+    ;[userDoc, planInfo] = await Promise.all([
+      User.findById(session!.user!.id, { fullName: 1, avatarUrl: 1 }).lean(),
+      getUserPlanInfo(session!.user!.id),
+    ])
+  }
 
   return (
     <TemplatesClient
       templates={TEMPLATES}
-      userEmail={session.user.email!}
+      isLoggedIn={isLoggedIn}
+      userEmail={session?.user?.email ?? ''}
       fullName={userDoc?.fullName ?? ''}
       avatarUrl={userDoc?.avatarUrl ?? ''}
       plan={planInfo?.plan ?? 'free'}

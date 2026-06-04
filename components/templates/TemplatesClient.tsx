@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X, ExternalLink, Sparkles, LayoutTemplate, Monitor, Smartphone, Tablet, Crown, Gem } from "lucide-react";
+import { X, ExternalLink, Sparkles, LayoutTemplate, Monitor, Smartphone, Tablet, Crown, Gem, LogIn, Lock } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { Template, TemplateCategory } from "@/lib/templates";
 import { CATEGORY_META } from "@/lib/templates";
@@ -11,6 +11,7 @@ import UserAvatar from "@/components/UserAvatar";
 
 interface Props {
   templates: Template[];
+  isLoggedIn?: boolean;
   userEmail: string;
   fullName?: string;
   avatarUrl?: string;
@@ -26,7 +27,7 @@ const TABS: { id: Tab; label: string; icon: string }[] = [
   { id: "ads", label: "Quảng cáo", icon: "📣" },
 ];
 
-export default function TemplatesClient({ templates, userEmail, fullName, avatarUrl, plan = 'free' }: Props) {
+export default function TemplatesClient({ templates, isLoggedIn = false, userEmail, fullName, avatarUrl, plan = 'free' }: Props) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<Tab>("all");
   const [previewTemplate, setPreviewTemplate] = useState<Template | null>(null);
@@ -38,6 +39,10 @@ export default function TemplatesClient({ templates, userEmail, fullName, avatar
       : templates.filter((t) => t.category === activeTab);
 
   function handleUse(template: Template) {
+    if (!isLoggedIn) {
+      router.push('/login');
+      return;
+    }
     router.push(`/editor?template=${template.id}`);
   }
 
@@ -56,32 +61,43 @@ export default function TemplatesClient({ templates, userEmail, fullName, avatar
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Link
-              href="/create"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-90 transition-opacity"
-            >
-              <Sparkles className="w-3.5 h-3.5" /> Tạo với AI
-            </Link>
-            <Link href="/profile" title={`Gói ${plan === 'free' ? 'Miễn phí' : plan === 'basic' ? 'Basic' : 'Pro'}`}>
-              {plan === 'free' && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold text-gray-500 bg-gray-100 border border-gray-200 hover:border-gray-300 transition-colors">
-                  <Sparkles className="w-2.5 h-2.5" /> Free
-                </span>
-              )}
-              {plan === 'basic' && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-gradient-to-r from-indigo-500 to-violet-500 shadow-sm">
-                  <Crown className="w-2.5 h-2.5" /> Basic
-                </span>
-              )}
-              {plan === 'pro' && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-amber-900 bg-gradient-to-r from-amber-400 to-orange-400 shadow-sm">
-                  <Gem className="w-2.5 h-2.5" /> Pro
-                </span>
-              )}
-            </Link>
-            <Link href="/profile" title={fullName || userEmail} className="hover:opacity-80 transition-opacity">
-              <UserAvatar avatarUrl={avatarUrl} fullName={fullName} email={userEmail} size={28} />
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <Link
+                  href="/create"
+                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-90 transition-opacity"
+                >
+                  <Sparkles className="w-3.5 h-3.5" /> Tạo với AI
+                </Link>
+                <Link href="/profile" title={`Gói ${plan === 'free' ? 'Miễn phí' : plan === 'basic' ? 'Basic' : 'Pro'}`}>
+                  {plan === 'free' && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold text-gray-500 bg-gray-100 border border-gray-200 hover:border-gray-300 transition-colors">
+                      <Sparkles className="w-2.5 h-2.5" /> Free
+                    </span>
+                  )}
+                  {plan === 'basic' && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-gradient-to-r from-indigo-500 to-violet-500 shadow-sm">
+                      <Crown className="w-2.5 h-2.5" /> Basic
+                    </span>
+                  )}
+                  {plan === 'pro' && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-amber-900 bg-gradient-to-r from-amber-400 to-orange-400 shadow-sm">
+                      <Gem className="w-2.5 h-2.5" /> Pro
+                    </span>
+                  )}
+                </Link>
+                <Link href="/profile" title={fullName || userEmail} className="hover:opacity-80 transition-opacity">
+                  <UserAvatar avatarUrl={avatarUrl} fullName={fullName} email={userEmail} size={28} />
+                </Link>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-90 transition-opacity"
+              >
+                <LogIn className="w-3.5 h-3.5" /> Đăng nhập
+              </Link>
+            )}
           </div>
         </div>
       </header>
@@ -182,10 +198,14 @@ export default function TemplatesClient({ templates, userEmail, fullName, avatar
                   </div>
                   <button
                     onClick={() => handleUse(tpl)}
-                    className="w-full py-2 rounded-xl text-sm font-semibold text-white transition-all active:scale-[0.98]"
+                    className="w-full py-2 rounded-xl text-sm font-semibold text-white transition-all active:scale-[0.98] flex items-center justify-center gap-1.5"
                     style={{ background: `linear-gradient(135deg, ${tpl.accentColor}, ${tpl.accentColor}cc)` }}
                   >
-                    Dùng mẫu này →
+                    {isLoggedIn ? (
+                      <>Dùng mẫu này →</>
+                    ) : (
+                      <><Lock className="w-3.5 h-3.5" /> Đăng nhập để dùng</>
+                    )}
                   </button>
                 </div>
               </div>
@@ -256,9 +276,19 @@ export default function TemplatesClient({ templates, userEmail, fullName, avatar
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white flex-shrink-0 transition-opacity hover:opacity-90"
               style={{ background: previewTemplate.accentColor }}
             >
-              <Sparkles className="w-3 h-3" />
-              <span className="hidden sm:inline">Dùng mẫu này</span>
-              <span className="sm:hidden">Dùng</span>
+              {isLoggedIn ? (
+                <>
+                  <Sparkles className="w-3 h-3" />
+                  <span className="hidden sm:inline">Dùng mẫu này</span>
+                  <span className="sm:hidden">Dùng</span>
+                </>
+              ) : (
+                <>
+                  <Lock className="w-3 h-3" />
+                  <span className="hidden sm:inline">Đăng nhập để dùng</span>
+                  <span className="sm:hidden">Đăng nhập</span>
+                </>
+              )}
             </button>
           </div>
 

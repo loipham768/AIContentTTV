@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import Logo from "@/components/Logo";
 import { ARTICLES } from "@/lib/articles";
+import { auth } from "@/auth";
 
 export const metadata = {
   title: "Kiến thức AI Content | AITaoPage",
@@ -123,7 +124,10 @@ function formatDate(iso: string) {
   return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
 }
 
-export default function KienThucPage() {
+export default async function KienThucPage() {
+  const session = await auth()
+  const isLoggedIn = !!session?.user?.id
+
   const all = Object.values(ARTICLES).sort(
     (a, b) =>
       new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
@@ -346,10 +350,10 @@ export default function KienThucPage() {
               trong 60 giây.
             </p>
             <Link
-              href="/login"
+              href={isLoggedIn ? "/create" : "/login"}
               className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-indigo-700 font-extrabold rounded-xl hover:bg-indigo-50 transition-colors shadow-lg text-sm"
             >
-              Bắt đầu miễn phí <ArrowRight className="w-4 h-4" />
+              {isLoggedIn ? "Tạo nội dung ngay" : "Bắt đầu miễn phí"} <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </section>

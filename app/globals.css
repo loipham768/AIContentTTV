@@ -12,12 +12,6 @@
   --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
   background: var(--background);
@@ -581,6 +575,26 @@ span.text-xs.font-semibold.text-slate-700.uppercase.tracking-wider {
   border-bottom: 0 !important;
 } */
 
+/* ── Image skeleton shimmer ───────────────────────────────────────── */
+@keyframes img-skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.img-skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    #f1f5f9 25%,
+    #e2e8f0 50%,
+    #f1f5f9 75%
+  );
+  background-size: 200% 100%;
+  animation: img-skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
 /* ── Article body typography ──────────────────────────────────────── */
 .article-body {
   color: #1f2937;
@@ -779,9 +793,26 @@ span.text-xs.font-semibold.text-slate-700.uppercase.tracking-wider {
   border: 1px solid #e5e7eb;
 }
 
+.article-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  /* Skeleton: shimmer background shows while image is loading */
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: img-skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+/* Stop shimmer once the image content is fully painted */
+.article-body img[src]:not([src=""]) {
+  animation-play-state: running;
+}
+
 .article-body figure img {
   width: 100%;
   display: block;
+  border-radius: 0;
 }
 
 .article-body figcaption {

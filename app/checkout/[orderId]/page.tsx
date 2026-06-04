@@ -2,12 +2,14 @@ import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
 import { dbConnect } from '@/lib/mongodb'
 import Order from '@/models/Order'
-import { BANK_INFO } from '@/lib/planConfig'
+import { BANK_INFO, CREDIT_PACKS } from '@/lib/planConfig'
 import Link from 'next/link'
-import { CheckCircle2, Clock, ArrowLeft, Banknote, AlertCircle, Hourglass } from 'lucide-react'
+import { CheckCircle2, Clock, ArrowLeft, Banknote, AlertCircle, Hourglass, RefreshCw } from 'lucide-react'
 import Logo from '@/components/Logo'
 import CheckoutCopyButton from '@/components/checkout/CheckoutCopyButton'
 import ConfirmPaymentModal from '@/components/checkout/ConfirmPaymentModal'
+import BankQRCode from '@/components/checkout/BankQRCode'
+import { toTransferContent } from '@/lib/orderUtils'
 
 export const runtime = 'nodejs'
 
@@ -23,6 +25,7 @@ const BILLING_LABEL: Record<string, string> = {
 function formatVnd(n: number) {
   return n.toLocaleString('vi-VN') + 'đ'
 }
+
 
 export default async function CheckoutPage({
   params,
@@ -43,6 +46,14 @@ export default async function CheckoutPage({
   const isAwaitingConfirm = order.status === 'awaiting_confirmation'
   const isExpired         = order.status === 'expired' || (order.status === 'pending' && new Date(order.expiresAt) < new Date())
   const isCancelled       = order.status === 'cancelled'
+
+  // Build re-order URL so user can quickly create a new order for same plan/pack
+  const reorderUrl = order.type === 'subscription'
+    ? `/upgrade?plan=${order.plan}&billing=${order.billing ?? 'monthly'}`
+    : (() => {
+        const pack = CREDIT_PACKS.find(p => p.amount === order.amount)
+        return pack ? `/upgrade?type=credits&pack=${pack.id}` : '/#pricing'
+      })()
 
   function orderTitle() {
     if (order.type === 'subscription') {
@@ -105,33 +116,30 @@ export default async function CheckoutPage({
           </div>
         )}
 
-        <div className="grid md:grid-cols-5 gap-6">
+        <div className="grid md:grid-cols-2 gap-6">
 
-          {/* Order details */}
-          <div className="md:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+          {/* Left — order details + QR */}
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col">
             <h2 className="text-lg font-bold text-gray-900 mb-4">Chi tiết đơn hàng</h2>
 
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-500">Mã đơn</span>
-                <span className="font-mono font-bold text-indigo-700">{order.orderId}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-500">Gói</span>
-                <span className="font-semibold text-gray-900">{orderTitle()}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-500">Số tiền</span>
-                <span className="font-bold text-gray-900 text-base">{formatVnd(order.amount)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-500">Trạng thái</span>
-                <span className={`font-semibold ${isPaid ? 'text-emerald-600' : isExpired ? 'text-red-500' : isAwaitingConfirm ? 'text-blue-600' : isCancelled ? 'text-gray-500' : 'text-amber-600'}`}>
-                  {isPaid ? 'Đã thanh toán' : isExpired ? 'Hết hạn' : isCancelled ? 'Đã huỷ' : isAwaitingConfirm ? 'Chờ xác nhận' : 'Chờ thanh toán'}
-                </span>
-              </div>
+            <div className="space-y-0 text-sm">
+              {[
+                { label: 'Mã đơn',    value: <span className="font-mono font-bold text-indigo-700">{order.orderId}</span> },
+                { label: 'Gói',       value: <span className="font-semibold text-gray-900">{orderTitle()}</span> },
+                { label: 'Số tiền',   value: <span className="font-bold text-gray-900 text-base">{formatVnd(order.amount)}</span> },
+                { label: 'Trạng thái', value: (
+                  <span className={`font-semibold ${isPaid ? 'text-emerald-600' : isExpired ? 'text-red-500' : isAwaitingConfirm ? 'text-blue-600' : isCancelled ? 'text-gray-500' : 'text-amber-600'}`}>
+                    {isPaid ? 'Đã thanh toán' : isExpired ? 'Hết hạn' : isCancelled ? 'Đã huỷ' : isAwaitingConfirm ? 'Chờ xác nhận' : 'Chờ thanh toán'}
+                  </span>
+                )},
+              ].map(({ label, value }) => (
+                <div key={label} className="flex justify-between items-center py-2.5 border-b border-gray-50">
+                  <span className="text-gray-500">{label}</span>
+                  {value}
+                </div>
+              ))}
               {!isPaid && !isExpired && !isCancelled && (
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center py-2.5">
                   <span className="text-gray-500">Hết hạn lúc</span>
                   <span className="text-gray-700 flex items-center gap-1">
                     <Clock className="w-3.5 h-3.5" />
@@ -140,17 +148,31 @@ export default async function CheckoutPage({
                 </div>
               )}
             </div>
+
+            {/* QR code — only when pending payment */}
+            {!isPaid && !isExpired && !isCancelled && !isAwaitingConfirm && (
+              <div className="mt-6 pt-6 border-t border-gray-50 flex flex-col items-center">
+                <p className="text-xs font-medium text-gray-500 mb-3">Quét mã để thanh toán nhanh</p>
+                <BankQRCode
+                  bankId={BANK_INFO.bankId}
+                  accountNumber={BANK_INFO.accountNumber}
+                  accountHolder={BANK_INFO.accountHolder}
+                  amount={order.amount}
+                  transferContent={toTransferContent(order.orderId)}
+                />
+              </div>
+            )}
           </div>
 
-          {/* Payment instructions */}
+          {/* Right — payment instructions */}
           {!isPaid && !isExpired && !isCancelled && !isAwaitingConfirm && (
-            <div className="md:col-span-3 bg-white rounded-2xl border border-indigo-100 shadow-sm p-6">
+            <div className="bg-white rounded-2xl border border-indigo-100 shadow-sm p-6 flex flex-col">
               <div className="flex items-center gap-2 mb-5">
                 <Banknote className="w-5 h-5 text-indigo-600" />
                 <h2 className="text-lg font-bold text-gray-900">Hướng dẫn chuyển khoản</h2>
               </div>
 
-              <div className="space-y-3 text-sm mb-6">
+              <div className="space-y-0 text-sm mb-5">
                 {[
                   { label: 'Ngân hàng',     value: BANK_INFO.bank },
                   { label: 'Số tài khoản',  value: BANK_INFO.accountNumber },
@@ -158,38 +180,39 @@ export default async function CheckoutPage({
                   { label: 'Chi nhánh',     value: BANK_INFO.branch },
                   { label: 'Số tiền',       value: formatVnd(order.amount) },
                 ].map(({ label, value }) => (
-                  <div key={label} className="flex justify-between items-center py-2 border-b border-gray-50">
+                  <div key={label} className="flex justify-between items-center py-2.5 border-b border-gray-50">
                     <span className="text-gray-500">{label}</span>
                     <span className="font-semibold text-gray-900">{value}</span>
                   </div>
                 ))}
 
-                <div className="flex justify-between items-center py-2">
+                <div className="flex justify-between items-center py-2.5">
                   <span className="text-gray-500">Nội dung CK</span>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">{order.orderId}</span>
-                    <CheckoutCopyButton text={order.orderId} />
+                    <span className="font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">{toTransferContent(order.orderId)}</span>
+                    <CheckoutCopyButton text={toTransferContent(order.orderId)} />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-800">
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-800 mb-4">
                 <p className="font-semibold mb-1">Lưu ý quan trọng</p>
                 <ul className="list-disc list-inside space-y-1 text-amber-700">
-                  <li>Ghi đúng mã đơn hàng <strong>{order.orderId}</strong> vào nội dung chuyển khoản</li>
-                  <li>Sau khi chuyển khoản, đội ngũ sẽ kích hoạt gói trong vòng 1–4 giờ</li>
-                  <li>Đơn hàng hết hạn sau 24 giờ nếu chưa thanh toán</li>
+                  <li>Nhập đúng nội dung <strong>{toTransferContent(order.orderId)}</strong></li>
+                  <li>Gói kích hoạt trong 1–4 giờ sau khi chuyển khoản</li>
+                  <li>Đơn hết hạn sau 24 giờ nếu chưa thanh toán</li>
                 </ul>
               </div>
 
-              <ConfirmPaymentModal orderId={order.orderId} />
-
-              <p className="mt-2 text-xs text-gray-400 text-center">
-                Cần hỗ trợ? Email:{' '}
-                <a href="mailto:support@aicontentbooster.vn" className="underline hover:text-gray-600">
-                  support@aicontentbooster.vn
-                </a>
-              </p>
+              <div className="mt-auto">
+                <ConfirmPaymentModal orderId={order.orderId} />
+                <p className="mt-2 text-xs text-gray-400 text-center">
+                  Cần hỗ trợ?{' '}
+                  <a href="mailto:support@aicontentbooster.vn" className="underline hover:text-gray-600">
+                    support@aicontentbooster.vn
+                  </a>
+                </p>
+              </div>
             </div>
           )}
 
@@ -212,6 +235,34 @@ export default async function CheckoutPage({
                 Chúng tôi sẽ kiểm tra và kích hoạt gói trong vòng <strong>1–4 giờ</strong>. Bạn sẽ nhận email thông báo khi gói được kích hoạt.
               </p>
               <p className="text-xs text-blue-500">Bạn có thể đóng trang này và quay lại sau.</p>
+            </div>
+          )}
+
+          {(isExpired || isCancelled) && (
+            <div className="md:col-span-3 bg-gray-50 rounded-2xl border border-gray-200 p-8 flex flex-col items-center justify-center text-center gap-5">
+              <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
+                <AlertCircle className="w-8 h-8 text-gray-400" />
+              </div>
+              <div>
+                <p className="text-lg font-bold text-gray-800 mb-1">
+                  {isExpired ? 'Đơn hàng đã hết hạn' : 'Đơn hàng đã bị huỷ'}
+                </p>
+                <p className="text-sm text-gray-500 max-w-xs mx-auto">
+                  {isExpired
+                    ? 'Đơn hàng này không còn hiệu lực. Tạo đơn mới để tiếp tục thanh toán.'
+                    : 'Đơn hàng này đã bị huỷ. Tạo đơn mới để tiếp tục.'}
+                </p>
+              </div>
+              <Link
+                href={reorderUrl}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition-colors shadow-sm"
+              >
+                <RefreshCw className="w-4 h-4" />
+                Tạo đơn hàng mới
+              </Link>
+              <p className="text-xs text-gray-400">
+                Đơn mới sẽ có hiệu lực trong 24 giờ kể từ khi tạo.
+              </p>
             </div>
           )}
 
