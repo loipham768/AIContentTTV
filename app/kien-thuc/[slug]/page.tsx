@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ARTICLES } from '@/lib/articles'
 import Logo from '@/components/Logo'
 import ArticleBody from '@/components/ArticleBody'
+import { auth } from '@/auth'
 import {
   ArrowLeft, Clock, Calendar, ArrowRight,
   Layers, BarChart2, Megaphone, Code2, FileText, Search,
@@ -46,9 +47,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
+  const [{ slug }, session] = await Promise.all([params, auth()])
   const article = ARTICLES[slug]
   if (!article) notFound()
+
+  const isLoggedIn = !!session?.user?.id
+  const ctaHref = isLoggedIn ? '/create' : '/login'
+  const ctaLabel = isLoggedIn ? 'Tạo nội dung ngay' : 'Dùng thử miễn phí'
 
   const otherArticles = Object.values(ARTICLES).filter(a => a.slug !== slug).slice(0, 4)
   const c = getCat(article.category)
@@ -65,10 +70,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <BookOpen className="w-4 h-4" /> Kiến thức
             </Link>
             <Link
-              href="/login"
+              href={ctaHref}
               className="px-4 py-2 text-sm font-bold text-white rounded-lg btn-gradient shadow"
             >
-              Dùng thử miễn phí
+              {ctaLabel}
             </Link>
           </nav>
         </div>
@@ -155,10 +160,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     Tạo landing page, bài viết, quảng cáo chuyên nghiệp bằng tiếng Việt — trong 60 giây.
                   </p>
                   <Link
-                    href="/login"
+                    href={ctaHref}
                     className="block w-full text-center py-2.5 text-sm font-extrabold text-indigo-700 bg-white rounded-xl hover:bg-indigo-50 transition-colors shadow-sm"
                   >
-                    Dùng thử miễn phí →
+                    {ctaLabel} →
                   </Link>
                 </div>
               </div>
@@ -205,8 +210,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <div className={`mt-8 lg:hidden relative overflow-hidden rounded-2xl bg-gradient-to-br ${c.grad} p-7 text-center text-white shadow-xl`}>
           <h2 className="text-lg font-extrabold mb-2">Áp dụng ngay với AITaoPage</h2>
           <p className="text-white/80 text-sm mb-5">Tạo landing page, content bán hàng và quảng cáo chuyên nghiệp — chỉ cần nhập mô tả bằng tiếng Việt.</p>
-          <Link href="/login" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-indigo-700 font-extrabold rounded-xl hover:bg-indigo-50 transition-colors shadow-lg text-sm">
-            Dùng thử miễn phí <ArrowRight className="w-4 h-4" />
+          <Link href={ctaHref} className="inline-flex items-center gap-2 px-6 py-3 bg-white text-indigo-700 font-extrabold rounded-xl hover:bg-indigo-50 transition-colors shadow-lg text-sm">
+            {ctaLabel} <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 

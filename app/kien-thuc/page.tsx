@@ -153,10 +153,10 @@ export default async function KienThucPage() {
               Bảng giá
             </Link>
             <Link
-              href="/login"
+              href={isLoggedIn ? "/create" : "/login"}
               className="px-4 py-2 text-sm font-bold text-white rounded-lg btn-gradient shadow"
             >
-              Dùng thử miễn phí
+              {isLoggedIn ? "Tạo nội dung ngay" : "Dùng thử miễn phí"}
             </Link>
           </nav>
         </div>
