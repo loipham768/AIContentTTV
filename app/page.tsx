@@ -405,19 +405,19 @@ export default async function LandingPage() {
         className="relative overflow-hidden py-20 sm:py-28"
         style={{
           background:
-            "linear-gradient(135deg, #ddd6fe 0%, #faf5ff 45%, #e0e7ff 100%)",
+            "linear-gradient(160deg, #f5f3ff 0%, #fafaff 45%, #ede9fe 100%)",
         }}
       >
         <div
-          className="pointer-events-none absolute -top-32 -left-32 w-[520px] h-[520px] bg-indigo-500/40 animate-blob"
+          className="pointer-events-none absolute -top-32 -left-32 w-[520px] h-[520px] bg-violet-400/30 animate-blob"
           aria-hidden="true"
         />
         <div
-          className="pointer-events-none absolute -bottom-24 -right-24 w-[440px] h-[440px] bg-violet-500/35 animate-blob-2"
+          className="pointer-events-none absolute -bottom-24 -right-24 w-[440px] h-[440px] bg-indigo-500/25 animate-blob-2"
           aria-hidden="true"
         />
         <div
-          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-purple-400/20 rounded-full blur-3xl"
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-purple-300/20 rounded-full blur-3xl"
           aria-hidden="true"
         />
 
@@ -425,7 +425,7 @@ export default async function LandingPage() {
           <div className="flex flex-col lg:flex-row items-center gap-14 lg:gap-10">
             {/* Left */}
             <div className="flex-1 text-center lg:text-left">
-              <div className="hero-badge inline-flex items-center gap-2 px-3 py-1.5 mb-6 text-xs font-semibold text-indigo-700 bg-indigo-100 rounded-full border border-indigo-200">
+              <div className="hero-badge inline-flex items-center gap-2 px-3 py-1.5 mb-6 text-xs font-semibold text-violet-700 bg-violet-50 rounded-full border border-violet-200">
                 <Sparkles className="w-3.5 h-3.5" />
                 Công cụ AI tạo nội dung cho thị trường Việt Nam
               </div>
@@ -493,22 +493,22 @@ export default async function LandingPage() {
               </div>
 
               {/* Stats */}
-              <div className="hero-stats flex flex-wrap justify-center lg:justify-start gap-8 mt-10 pt-10 border-t border-indigo-100">
+              <div className="hero-stats flex flex-wrap justify-center lg:justify-start gap-8 mt-10 pt-10 border-t border-violet-100">
                 {[
                   {
                     value: "3 loại",
                     label: "nội dung có thể tạo",
-                    grad: "from-indigo-600 to-violet-600",
+                    grad: "from-indigo-700 to-violet-600",
                   },
                   {
                     value: "< 1s",
                     label: "thời gian tạo HTML",
-                    grad: "from-violet-600 to-purple-600",
+                    grad: "from-violet-700 to-purple-600",
                   },
                   {
                     value: "6 CMS",
                     label: "tương thích hoàn hảo",
-                    grad: "from-blue-500 to-cyan-500",
+                    grad: "from-indigo-600 to-blue-500",
                   },
                 ].map(({ value, label, grad }) => (
                   <div key={label} className="text-center lg:text-left">
@@ -525,7 +525,7 @@ export default async function LandingPage() {
 
             {/* Right: mockup */}
             <div className="hero-mockup flex-1 w-full max-w-lg relative">
-              <div className="hidden sm:flex absolute -top-5 -left-4 z-20 bg-white rounded-2xl shadow-xl px-4 py-2.5 items-center gap-2 text-sm font-medium text-gray-700 border border-indigo-100 animate-float">
+              <div className="hidden sm:flex absolute -top-5 -left-4 z-20 bg-white rounded-2xl shadow-xl px-4 py-2.5 items-center gap-2 text-sm font-medium text-gray-700 border border-violet-100 animate-float">
                 <div className="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse" />
                 AI đang tạo landing page...
               </div>
@@ -538,7 +538,7 @@ export default async function LandingPage() {
                 </div>
               </div>
 
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-2 ring-indigo-500/20">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-2 ring-indigo-500/30">
                 <div className="h-10 bg-gray-900 flex items-center px-4 gap-3">
                   <div className="flex gap-1.5 shrink-0">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
@@ -661,11 +661,11 @@ export default async function LandingPage() {
         className="py-10 overflow-hidden"
         style={{
           background:
-            "linear-gradient(90deg, #e0e7ff 0%, #ede9fe 50%, #e0e7ff 100%)",
+            "linear-gradient(90deg, #ede9fe 0%, #f5f3ff 50%, #ede9fe 100%)",
         }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <p className="text-center text-sm font-semibold text-indigo-400 mb-6 tracking-widest uppercase">
+          <p className="text-center text-sm font-semibold text-violet-500 mb-6 tracking-widest uppercase">
             HTML tạo ra tương thích hoàn hảo với
           </p>
           <div className="flex overflow-hidden">
@@ -684,7 +684,7 @@ export default async function LandingPage() {
       </section>
 
       {/* ── Content Types ──────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24" style={{ background: "#fafaff" }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <ScrollReveal className="text-center mb-14">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
@@ -748,7 +748,7 @@ export default async function LandingPage() {
         className="py-24"
         style={{
           background:
-            "linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #d1fae5 100%)",
+            "linear-gradient(160deg, #faf9ff 0%, #ffffff 55%, #f5f3ff 100%)",
         }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -807,7 +807,7 @@ export default async function LandingPage() {
         className="py-24"
         style={{
           background:
-            "linear-gradient(135deg, #ede9fe 0%, #faf5ff 50%, #e0e7ff 100%)",
+            "linear-gradient(160deg, #f5f3ff 0%, #fafaff 50%, #ede9fe 100%)",
         }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -854,18 +854,18 @@ export default async function LandingPage() {
         className="relative overflow-hidden py-24"
         style={{
           background:
-            "linear-gradient(135deg, #312e81 0%, #4c1d95 55%, #1e1a4e 100%)",
+            "linear-gradient(135deg, #06040f 0%, #0f0a2e 55%, #050310 100%)",
         }}
       >
-        <div className="pointer-events-none absolute -left-32 top-1/4 w-96 h-96 bg-indigo-400/40 blur-3xl rounded-full animate-blob" />
-        <div className="pointer-events-none absolute -right-32 bottom-1/4 w-80 h-80 bg-violet-400/35 blur-3xl rounded-full animate-blob-2" />
+        <div className="pointer-events-none absolute -left-32 top-1/4 w-96 h-96 bg-indigo-600/30 blur-3xl rounded-full animate-blob" />
+        <div className="pointer-events-none absolute -right-32 bottom-1/4 w-80 h-80 bg-violet-700/25 blur-3xl rounded-full animate-blob-2" />
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
           <ScrollReveal className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
               Xem kết quả thực tế
             </h2>
-            <p className="text-gray-400">
+            <p className="text-indigo-300/70">
               Từ mô tả tiếng Việt đến HTML production-ready
             </p>
           </ScrollReveal>
@@ -885,7 +885,7 @@ export default async function LandingPage() {
                   &ldquo;Giảm đến 50%&rdquo;. Nút CTA màu vàng &ldquo;Mua
                   ngay&rdquo;.
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-sm text-gray-500">
+                <div className="mt-4 flex items-center gap-2 text-sm text-indigo-400/70">
                   <Zap className="w-4 h-4 text-yellow-400" />
                   AI xử lý trong &lt; 1 giây
                 </div>
@@ -913,7 +913,7 @@ export default async function LandingPage() {
                 <div className="flex-1 rounded-xl overflow-hidden shadow-xl">
                   <div className="h-full bg-gradient-to-br from-indigo-700 via-violet-600 to-purple-800 p-6 text-white flex flex-col justify-between relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-20 translate-x-20" />
-                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-pink-500/20 rounded-full translate-y-16 -translate-x-16" />
+                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-violet-500/25 rounded-full translate-y-16 -translate-x-16" />
                     <div className="relative">
                       <div className="text-xs text-indigo-200 tracking-widest uppercase mb-2 font-medium">
                         Bộ sưu tập hè 2026
@@ -944,7 +944,7 @@ export default async function LandingPage() {
                   </div>
                 </div>
                 <div className="mt-4 flex items-center justify-between">
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-indigo-400/60">
                     HTML inline CSS · 0 JS · CMS-ready
                   </span>
                   <button className="flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300">
@@ -967,7 +967,7 @@ export default async function LandingPage() {
       <section
         className="py-24"
         style={{
-          background: "linear-gradient(135deg, #ede9fe 0%, #e0e7ff 100%)",
+          background: "linear-gradient(135deg, #f0edff 0%, #ede9fe 100%)",
         }}
       >
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
@@ -1024,26 +1024,26 @@ export default async function LandingPage() {
         className="relative overflow-hidden py-24"
         style={{
           background:
-            "linear-gradient(135deg, #4338ca 0%, #7c3aed 40%, #a21caf 75%, #db2777 100%)",
+            "linear-gradient(135deg, #06040f 0%, #1a0f4e 40%, #2d1b69 75%, #1e1260 100%)",
         }}
       >
-        <div className="pointer-events-none absolute -top-24 -right-24 w-80 h-80 bg-white/10 rounded-full animate-blob" />
-        <div className="pointer-events-none absolute -bottom-20 -left-20 w-64 h-64 bg-pink-400/20 rounded-full animate-blob-2" />
+        <div className="pointer-events-none absolute -top-24 -right-24 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl animate-blob" />
+        <div className="pointer-events-none absolute -bottom-20 -left-20 w-64 h-64 bg-violet-500/20 rounded-full blur-3xl animate-blob-2" />
         <ScrollReveal>
           <div className="relative max-w-3xl mx-auto px-4 sm:px-6 text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 text-xs font-semibold text-pink-200 bg-white/10 rounded-full border border-white/20">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 text-xs font-semibold text-violet-200 bg-white/10 rounded-full border border-white/20">
               <Sparkles className="w-3.5 h-3.5" /> Không cần thẻ tín dụng
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Sẵn sàng tạo nội dung chuyên nghiệp?
             </h2>
-            <p className="text-purple-100 text-lg mb-10">
+            <p className="text-violet-100 text-lg mb-10">
               Đăng ký miễn phí — tạo landing page, bài viết hay quảng cáo đầu
               tiên trong 60 giây.
             </p>
             <Link
               href={isLoggedIn ? "/create" : "/login"}
-              className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold bg-white text-indigo-700 rounded-xl hover:bg-purple-50 transition-colors shadow-xl"
+              className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold bg-white text-indigo-900 rounded-xl hover:bg-violet-50 transition-colors shadow-xl"
             >
               {isLoggedIn ? "Tạo nội dung ngay" : "Bắt đầu miễn phí"}
               <ArrowRight className="w-4 h-4" />
@@ -1053,7 +1053,7 @@ export default async function LandingPage() {
       </section>
 
       {/* ── Footer ─────────────────────────────────────────────────── */}
-      <footer className="bg-gray-950 text-gray-400">
+      <footer style={{ background: "#06040f" }} className="text-gray-400">
         {/* Top gradient line */}
         <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
 
@@ -1064,7 +1064,7 @@ export default async function LandingPage() {
 
             {/* Brand */}
             <div className="col-span-2 md:col-span-1">
-              <Logo iconSize={32} uid="footer" className="brightness-110 mb-4" />
+              <Logo iconSize={32} uid="footer" dark className="mb-4" />
               <p className="text-sm text-gray-500 leading-relaxed mb-5">
                 Công cụ AI giúp bạn tạo nội dung HTML đẹp trong 60 giây — không cần biết code.
               </p>

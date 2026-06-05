@@ -126,10 +126,10 @@ html {
 @keyframes pulseGlow {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.5);
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.6);
   }
   50% {
-    box-shadow: 0 0 0 14px rgba(124, 58, 237, 0);
+    box-shadow: 0 0 0 16px rgba(99, 102, 241, 0);
   }
 }
 @keyframes marquee {
@@ -304,7 +304,7 @@ button {
 
 /* ── Typography ────────────────────────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, #4f46e5 0%, #9333ea 45%, #0891b2 100%);
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a78bfa 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -329,11 +329,11 @@ button {
 }
 .card-lift:hover {
   transform: translateY(-6px);
-  box-shadow: 0 24px 48px -8px rgba(99, 102, 241, 0.28);
+  box-shadow: 0 24px 48px -8px rgba(79, 70, 229, 0.22);
 }
 
 .btn-gradient {
-  background: linear-gradient(135deg, #4338ca 0%, #7c3aed 60%, #9333ea 100%);
+  background: linear-gradient(135deg, #312e81 0%, #4f46e5 55%, #6d28d9 100%);
   transition:
     filter 0.2s ease,
     transform 0.2s ease,
@@ -342,7 +342,7 @@ button {
 .btn-gradient:hover {
   filter: brightness(1.15);
   transform: translateY(-1px);
-  box-shadow: 0 10px 28px -4px rgba(124, 58, 237, 0.55);
+  box-shadow: 0 12px 32px -4px rgba(99, 102, 241, 0.6);
 }
 /* ── GrapesJS canvas sizing ────────────────────────────────────── */
 

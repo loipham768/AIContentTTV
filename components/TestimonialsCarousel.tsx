@@ -109,27 +109,27 @@ export default function TestimonialsCarousel() {
       className="relative overflow-hidden py-24"
       style={{
         background:
-          "linear-gradient(135deg, #4c1d95 0%, #6b21a8 50%, #3b0764 100%)",
+          "linear-gradient(135deg, #06040f 0%, #130d35 55%, #0a0720 100%)",
       }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       {/* Blobs */}
-      <div className="pointer-events-none absolute -top-40 -left-40 w-[480px] h-[480px] rounded-full bg-violet-400/40 blur-3xl animate-blob" />
-      <div className="pointer-events-none absolute -bottom-40 -right-40 w-[420px] h-[420px] rounded-full bg-fuchsia-400/30 blur-3xl animate-blob-2" />
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-purple-400/25 blur-3xl" />
+      <div className="pointer-events-none absolute -top-40 -left-40 w-[480px] h-[480px] rounded-full bg-indigo-600/25 blur-3xl animate-blob" />
+      <div className="pointer-events-none absolute -bottom-40 -right-40 w-[420px] h-[420px] rounded-full bg-violet-700/20 blur-3xl animate-blob-2" />
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-indigo-800/20 blur-3xl" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 text-xs font-medium text-fuchsia-200 bg-fuchsia-400/20 rounded-full border border-fuchsia-300/40">
-            <Star className="w-3.5 h-3.5 fill-fuchsia-200" />
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 text-xs font-medium text-violet-200 bg-indigo-500/20 rounded-full border border-violet-400/30">
+            <Star className="w-3.5 h-3.5 fill-violet-200" />
             Hơn 50 ngàn người dùng tin tưởng
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
             Khách hàng nói gì?
           </h2>
-          <p className="text-gray-400">
+          <p className="text-indigo-300/70">
             Người sáng tạo nội dung Việt Nam từ freelancer đến doanh nghiệp
           </p>
         </div>
@@ -171,8 +171,8 @@ export default function TestimonialsCarousel() {
                 aria-label={`Trang ${i + 1}`}
                 className={`rounded-full transition-all duration-300 ${
                   i === idx
-                    ? "w-7 h-2.5 bg-blue-400"
-                    : "w-2.5 h-2.5 bg-white/25 hover:bg-white/45"
+                    ? "w-7 h-2.5 bg-indigo-400"
+                    : "w-2.5 h-2.5 bg-white/20 hover:bg-white/40"
                 }`}
               />
             ))}
@@ -197,7 +197,7 @@ function TestimonialCard({ name, role, quote, gradient, initial }: CardProps) {
   return (
     <div className="relative h-full group">
       {/* Glow on hover */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/0 to-indigo-500/0 group-hover:from-blue-500/10 group-hover:to-indigo-500/10 transition-all duration-300 rounded-2xl" />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500/0 to-violet-500/0 group-hover:from-indigo-500/10 group-hover:to-violet-500/10 transition-all duration-300" />
 
       <div className="relative h-full flex flex-col bg-white/[0.07] backdrop-blur-md rounded-2xl p-6 border border-white/10 group-hover:border-white/25 group-hover:bg-white/[0.11] transition-all duration-300">
         {/* Decorative quote icon */}

@@ -43,7 +43,7 @@ export default function PricingSection({ isLoggedIn }: Props) {
       className="py-24"
       style={{
         background:
-          'linear-gradient(135deg, #e0e7ff 0%, #faf5ff 50%, #ede9fe 100%)',
+          'linear-gradient(160deg, #f5f3ff 0%, #fafaff 50%, #ede9fe 100%)',
       }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -198,14 +198,14 @@ export default function PricingSection({ isLoggedIn }: Props) {
 
           {/* Basic — featured */}
           <ScrollReveal delay={80} className="h-full">
-            <div className="rounded-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 p-7 shadow-2xl relative card-lift text-white h-full flex flex-col">
+            <div className="rounded-2xl p-7 shadow-2xl relative card-lift text-white h-full flex flex-col" style={{ background: 'linear-gradient(145deg, #0f0a2e 0%, #1a0f4e 45%, #2d1b69 100%)' }}>
               <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                 <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-bold bg-amber-400 text-gray-900 rounded-full shadow">
                   <Star className="w-3 h-3 fill-gray-900" /> Phổ biến nhất
                 </span>
               </div>
               <div className="flex items-start justify-between">
-                <p className="text-sm font-semibold text-indigo-200 uppercase tracking-wide">
+                <p className="text-sm font-semibold text-violet-300 uppercase tracking-wide">
                   Basic
                 </p>
                 {isYearly && (
@@ -220,14 +220,14 @@ export default function PricingSection({ isLoggedIn }: Props) {
                 </span>
                 <span className="text-indigo-200 mb-1 text-sm">/tháng</span>
               </div>
-              <p className="mt-1.5 text-sm text-indigo-300">
+              <p className="mt-1.5 text-sm text-violet-300">
                 {isYearly
                   ? `${fmt(basic.yearlyTotal)}/năm · thanh toán 1 lần`
                   : `hoặc ${fmt(basic.perMonth)}/tháng khi mua năm`}
               </p>
               <Link
                 href={`/upgrade?plan=basic&billing=${billing}`}
-                className="mt-5 block text-center py-2.5 text-sm font-bold bg-white text-indigo-700 rounded-xl hover:bg-indigo-50 transition-colors shadow-md"
+                className="mt-5 block text-center py-2.5 text-sm font-bold bg-white text-indigo-900 rounded-xl hover:bg-violet-50 transition-colors shadow-md"
               >
                 Nâng cấp Basic
               </Link>
@@ -240,7 +240,7 @@ export default function PricingSection({ isLoggedIn }: Props) {
                   'Hỗ trợ qua email',
                 ].map((f) => (
                   <li key={f} className="flex items-center gap-2 text-sm text-white/90">
-                    <CheckCircle2 className="w-4 h-4 text-indigo-200 shrink-0" /> {f}
+                    <CheckCircle2 className="w-4 h-4 text-violet-300 shrink-0" /> {f}
                   </li>
                 ))}
               </ul>
