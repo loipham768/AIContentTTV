@@ -11,6 +11,1117 @@ export interface Template {
   html: string
 }
 
+const LP_MINIMAL = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Arial,sans-serif;color:#111;background:#fff;line-height:1.6}
+.container{max-width:1080px;margin:0 auto;padding:0 32px}
+/* Nav */
+nav{border-bottom:1px solid #e5e7eb;padding:20px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;z-index:100}
+.nav-logo{font-size:20px;font-weight:900;letter-spacing:-0.5px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{text-decoration:none;color:#555;font-size:14px;font-weight:500}
+.nav-cta{background:#111;color:#fff;padding:10px 22px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600}
+/* Hero */
+.hero{padding:120px 32px 100px;text-align:center;max-width:820px;margin:0 auto}
+.hero-eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:28px;border:1px solid #ddd;padding:8px 20px;border-radius:99px}
+.hero h1{font-size:clamp(44px,6vw,80px);font-weight:900;line-height:1.08;letter-spacing:-2px;color:#111;margin-bottom:28px}
+.hero h1 em{font-style:normal;text-decoration:underline;text-decoration-color:#111;text-underline-offset:6px}
+.hero p{font-size:20px;color:#555;max-width:560px;margin:0 auto 44px;line-height:1.7}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:#111;color:#fff;padding:16px 36px;border-radius:10px;text-decoration:none;font-size:16px;font-weight:700}
+.btn-secondary{background:#fff;color:#111;padding:16px 36px;border-radius:10px;text-decoration:none;font-size:16px;font-weight:600;border:1.5px solid #ddd}
+/* Social proof strip */
+.proof{border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;padding:24px 32px;text-align:center}
+.proof p{font-size:14px;color:#888;margin-bottom:16px;letter-spacing:1px;text-transform:uppercase;font-weight:600}
+.logos{display:flex;gap:40px;justify-content:center;align-items:center;flex-wrap:wrap}
+.logos span{font-size:18px;font-weight:800;color:#ccc;letter-spacing:-0.5px}
+/* Stats */
+.stats{padding:80px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0;max-width:960px;margin:0 auto}
+.stat{text-align:center;padding:32px;border-right:1px solid #e5e7eb}
+.stat:last-child{border-right:none}
+.stat-n{font-size:52px;font-weight:900;letter-spacing:-2px;color:#111}
+.stat-l{font-size:14px;color:#888;margin-top:6px}
+/* Features */
+.features{padding:80px 32px;border-top:1px solid #e5e7eb}
+.features-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;flex-wrap:wrap;gap:20px}
+.features-header h2{font-size:clamp(32px,4vw,52px);font-weight:900;letter-spacing:-1.5px;max-width:420px;line-height:1.1}
+.features-header p{font-size:16px;color:#888;max-width:360px}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:#e5e7eb}
+.feat-item{background:#fff;padding:40px;transition:background .2s}
+.feat-item:hover{background:#f9fafb}
+.feat-num{font-size:12px;font-weight:700;letter-spacing:2px;color:#bbb;margin-bottom:20px}
+.feat-item h3{font-size:20px;font-weight:800;color:#111;margin-bottom:12px;letter-spacing:-0.3px}
+.feat-item p{font-size:15px;color:#666;line-height:1.7}
+/* Testimonial — big quote */
+.testi-big{padding:100px 32px;text-align:center;background:#f9fafb}
+.quote-mark{font-size:80px;color:#e5e7eb;line-height:1;margin-bottom:-20px}
+.testi-big blockquote{font-size:clamp(22px,3vw,36px);font-weight:700;color:#111;letter-spacing:-0.5px;max-width:760px;margin:0 auto 32px;line-height:1.4}
+.testi-author-row{display:flex;align-items:center;justify-content:center;gap:14px}
+.testi-avatar-min{width:48px;height:48px;border-radius:50%;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#888}
+.testi-info-min p:first-child{font-weight:700;font-size:15px}
+.testi-info-min p:last-child{font-size:13px;color:#888}
+/* Steps */
+.steps-min{padding:80px 32px;border-top:1px solid #e5e7eb}
+.steps-min h2{font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-1.5px;text-align:center;margin-bottom:64px}
+.step-list{max-width:680px;margin:0 auto;counter-reset:steps}
+.step-min{display:grid;grid-template-columns:48px 1fr;gap:24px;padding:32px 0;border-bottom:1px solid #e5e7eb;counter-increment:steps}
+.step-min:last-child{border:none}
+.step-count{width:48px;height:48px;border-radius:50%;border:2px solid #111;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;flex-shrink:0}
+.step-min h3{font-size:20px;font-weight:800;margin-bottom:8px}
+.step-min p{font-size:15px;color:#666;line-height:1.7}
+/* Pricing */
+.pricing-min{padding:80px 32px;border-top:1px solid #e5e7eb;text-align:center}
+.pricing-min h2{font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-1.5px;margin-bottom:12px}
+.pricing-min .sub{font-size:17px;color:#888;margin-bottom:52px}
+.price-cards-min{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:800px;margin:0 auto}
+.price-card-min{border:1.5px solid #e5e7eb;border-radius:16px;padding:36px;text-align:left}
+.price-card-min.featured{background:#111;border-color:#111;color:#fff}
+.pcm-label{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:16px}
+.price-card-min.featured .pcm-label{color:#aaa}
+.pcm-price{font-size:52px;font-weight:900;letter-spacing:-2px;margin-bottom:4px}
+.pcm-period{font-size:14px;color:#888;margin-bottom:28px}
+.price-card-min.featured .pcm-period{color:#aaa}
+.pcm-btn{display:block;padding:14px;border-radius:10px;text-align:center;font-weight:700;font-size:15px;text-decoration:none;margin-bottom:28px;border:1.5px solid #ddd;color:#111}
+.price-card-min.featured .pcm-btn{background:#fff;color:#111;border:none}
+.pcm-feat{font-size:14px;line-height:2.2;color:#555}
+.price-card-min.featured .pcm-feat{color:#ccc}
+/* CTA final */
+.cta-final{padding:100px 32px;text-align:center;border-top:1px solid #e5e7eb}
+.cta-final h2{font-size:clamp(36px,5vw,64px);font-weight:900;letter-spacing:-2px;margin-bottom:24px;line-height:1.1}
+.cta-final p{font-size:18px;color:#888;max-width:480px;margin:0 auto 40px}
+/* Footer */
+footer{border-top:1px solid #e5e7eb;padding:40px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-logo{font-size:18px;font-weight:900}
+footer nav a{color:#888;text-decoration:none;font-size:13px;margin-left:24px}
+</style></head>
+<body>
+<nav>
+  <div class="nav-logo">NovaBrand</div>
+  <ul class="nav-links">
+    <li><a href="#">Sản phẩm</a></li>
+    <li><a href="#">Tính năng</a></li>
+    <li><a href="#">Giá cả</a></li>
+    <li><a href="#">Blog</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Bắt đầu miễn phí</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Ra mắt phiên bản 2.0</div>
+  <h1>Công cụ duy nhất bạn cần để <em>tăng trưởng</em></h1>
+  <p>Tự động hoá quy trình, tiết kiệm 20 giờ mỗi tuần và tập trung vào những điều quan trọng nhất cho doanh nghiệp.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-primary">Dùng thử 14 ngày miễn phí</a>
+    <a href="#" class="btn-secondary">Xem demo →</a>
+  </div>
+</section>
+
+<div class="proof">
+  <p>Được tin dùng bởi các thương hiệu hàng đầu</p>
+  <div class="logos">
+    <span>VINHOMES</span><span>VINGROUP</span><span>FPT</span><span>MOMO</span><span>TIKI</span><span>SHOPEE</span>
+  </div>
+</div>
+
+<div class="stats container">
+  <div class="stat"><div class="stat-n">50K+</div><div class="stat-l">Doanh nghiệp tin dùng</div></div>
+  <div class="stat"><div class="stat-n">3x</div><div class="stat-l">Tăng trưởng doanh thu</div></div>
+  <div class="stat"><div class="stat-n">20h</div><div class="stat-l">Tiết kiệm mỗi tuần</div></div>
+  <div class="stat"><div class="stat-n">99%</div><div class="stat-l">Khách hàng hài lòng</div></div>
+</div>
+
+<section class="features container">
+  <div class="features-header">
+    <h2>Mọi thứ bạn cần trong một nền tảng</h2>
+    <p>Không cần học nhiều công cụ. Chỉ một nơi để quản lý toàn bộ công việc.</p>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-item"><div class="feat-num">01</div><h3>Tự động hoá thông minh</h3><p>Tạo workflow phức tạp trong vài phút bằng kéo thả. Không cần viết code, không cần IT.</p></div>
+    <div class="feat-item"><div class="feat-num">02</div><h3>Phân tích thời gian thực</h3><p>Dashboard live update mọi chỉ số quan trọng. Ra quyết định dựa trên dữ liệu, không phải cảm tính.</p></div>
+    <div class="feat-item"><div class="feat-num">03</div><h3>Tích hợp 200+ ứng dụng</h3><p>Kết nối Zalo, Facebook, Google Workspace, Shopify và hàng trăm công cụ khác chỉ trong vài click.</p></div>
+    <div class="feat-item"><div class="feat-num">04</div><h3>Bảo mật cấp doanh nghiệp</h3><p>Mã hoá end-to-end, tuân thủ ISO 27001 và GDPR. Dữ liệu của bạn luôn được bảo vệ tuyệt đối.</p></div>
+    <div class="feat-item"><div class="feat-num">05</div><h3>Hỗ trợ 24/7</h3><p>Đội ngũ chuyên gia sẵn sàng hỗ trợ bất cứ lúc nào qua chat, email và video call.</p></div>
+    <div class="feat-item"><div class="feat-num">06</div><h3>Mở rộng không giới hạn</h3><p>Từ 1 đến 10.000 nhân viên — hệ thống tự động mở rộng theo quy mô doanh nghiệp của bạn.</p></div>
+  </div>
+</section>
+
+<section class="testi-big">
+  <div class="quote-mark">"</div>
+  <blockquote>Chúng tôi tiết kiệm được 40 giờ mỗi tuần và tăng doanh thu 180% chỉ sau 3 tháng sử dụng. Đây là khoản đầu tư tốt nhất tôi từng thực hiện cho công ty.</blockquote>
+  <div class="testi-author-row">
+    <div class="testi-avatar-min">N</div>
+    <div class="testi-info-min">
+      <p>Nguyễn Thanh Minh</p>
+      <p>CEO · MinhTech Solutions</p>
+    </div>
+  </div>
+</section>
+
+<section class="steps-min container">
+  <h2>Bắt đầu trong 3 bước đơn giản</h2>
+  <div class="step-list">
+    <div class="step-min"><div class="step-count">1</div><div><h3>Tạo tài khoản miễn phí</h3><p>Đăng ký trong 60 giây, không cần thẻ tín dụng. Dùng thử đầy đủ tính năng trong 14 ngày.</p></div></div>
+    <div class="step-min"><div class="step-count">2</div><div><h3>Kết nối công cụ hiện có</h3><p>Import dữ liệu từ hệ thống cũ hoặc kết nối trực tiếp với 200+ ứng dụng bạn đang dùng.</p></div></div>
+    <div class="step-min"><div class="step-count">3</div><div><h3>Bắt đầu tự động hoá</h3><p>Chọn workflow mẫu hoặc tự tạo theo nhu cầu. Kết quả thấy rõ ngay từ ngày đầu tiên.</p></div></div>
+  </div>
+</section>
+
+<section class="pricing-min">
+  <h2>Giá cả minh bạch, không phí ẩn</h2>
+  <p class="sub">Chọn gói phù hợp. Nâng cấp hoặc huỷ bất cứ lúc nào.</p>
+  <div class="price-cards-min">
+    <div class="price-card-min">
+      <div class="pcm-label">Starter</div>
+      <div class="pcm-price">299K</div>
+      <div class="pcm-period">/ tháng</div>
+      <a href="#" class="pcm-btn">Bắt đầu ngay</a>
+      <div class="pcm-feat">✓ 5 workflows<br>✓ 10 tích hợp<br>✓ 1 thành viên<br>✓ Hỗ trợ email</div>
+    </div>
+    <div class="price-card-min featured">
+      <div class="pcm-label">Professional</div>
+      <div class="pcm-price">799K</div>
+      <div class="pcm-period">/ tháng · Phổ biến nhất</div>
+      <a href="#" class="pcm-btn">Dùng thử 14 ngày</a>
+      <div class="pcm-feat">✓ Workflows không giới hạn<br>✓ 200+ tích hợp<br>✓ 10 thành viên<br>✓ Hỗ trợ 24/7 priority</div>
+    </div>
+    <div class="price-card-min">
+      <div class="pcm-label">Enterprise</div>
+      <div class="pcm-price">Liên hệ</div>
+      <div class="pcm-period">Tuỳ chỉnh theo nhu cầu</div>
+      <a href="#" class="pcm-btn">Đặt lịch tư vấn</a>
+      <div class="pcm-feat">✓ Tất cả tính năng Pro<br>✓ Thành viên không giới hạn<br>✓ SLA 99.9%<br>✓ Dedicated account manager</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final container">
+  <h2>Sẵn sàng tăng trưởng?</h2>
+  <p>Tham gia cùng 50.000+ doanh nghiệp đang dùng NovaBrand để mở rộng quy mô.</p>
+  <a href="#" class="btn-primary" style="display:inline-block;font-size:18px;padding:18px 48px">Bắt đầu miễn phí — 14 ngày →</a>
+</section>
+
+<footer>
+  <div class="footer-logo">NovaBrand</div>
+  <nav>
+    <a href="#">Điều khoản</a>
+    <a href="#">Bảo mật</a>
+    <a href="#">Liên hệ</a>
+  </nav>
+</footer>
+</body></html>`
+
+const LP_DARK = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0f;color:#e2e8f0;line-height:1.6}
+/* Nav */
+nav{padding:20px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:rgba(10,10,15,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);z-index:100}
+.nav-logo{font-size:22px;font-weight:900;background:linear-gradient(135deg,#a855f7,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{text-decoration:none;color:#94a3b8;font-size:14px;font-weight:500}
+.nav-cta{background:linear-gradient(135deg,#a855f7,#6366f1);color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:700}
+/* Hero */
+.hero{padding:120px 32px 100px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(168,85,247,.15) 0%,transparent 70%);pointer-events:none}
+.badge-dark{display:inline-flex;align-items:center;gap:8px;background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.3);color:#c084fc;border-radius:999px;padding:8px 20px;font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:32px}
+.hero h1{font-size:clamp(44px,6vw,80px);font-weight:900;line-height:1.08;letter-spacing:-2px;margin-bottom:28px}
+.hero h1 span{background:linear-gradient(135deg,#a855f7,#6366f1,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:20px;color:#94a3b8;max-width:580px;margin:0 auto 48px;line-height:1.7}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-glow{background:linear-gradient(135deg,#a855f7,#6366f1);color:#fff;padding:16px 40px;border-radius:12px;text-decoration:none;font-size:16px;font-weight:700;box-shadow:0 0 40px rgba(168,85,247,.4)}
+.btn-ghost{background:rgba(255,255,255,.05);color:#e2e8f0;padding:16px 40px;border-radius:12px;text-decoration:none;font-size:16px;font-weight:600;border:1px solid rgba(255,255,255,.1)}
+/* Glass cards grid */
+.glass-section{padding:80px 32px}
+.glass-section h2{font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-1.5px;text-align:center;margin-bottom:12px}
+.glass-section .sub{color:#64748b;text-align:center;font-size:17px;margin-bottom:52px}
+.glass-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+.glass-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:32px;backdrop-filter:blur(10px);transition:border-color .3s,transform .3s}
+.glass-card:hover{border-color:rgba(168,85,247,.4);transform:translateY(-4px)}
+.glass-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px}
+.glass-icon.purple{background:rgba(168,85,247,.15)}
+.glass-icon.blue{background:rgba(99,102,241,.15)}
+.glass-icon.cyan{background:rgba(6,182,212,.15)}
+.glass-card h3{font-size:18px;font-weight:700;margin-bottom:10px;color:#f1f5f9}
+.glass-card p{font-size:14px;color:#64748b;line-height:1.7}
+/* Stats neon */
+.stats-dark{padding:60px 32px;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+.stats-dark-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0;max-width:900px;margin:0 auto;text-align:center}
+.stat-dark{padding:32px;border-right:1px solid rgba(255,255,255,.06)}
+.stat-dark:last-child{border:none}
+.stat-dark .n{font-size:48px;font-weight:900;background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-2px}
+.stat-dark .l{font-size:13px;color:#475569;margin-top:8px}
+/* Testimonials dark */
+.testi-dark{padding:80px 32px}
+.testi-dark h2{font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-1.5px;text-align:center;margin-bottom:48px}
+.testi-dark-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+.testi-dark-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:28px}
+.stars-dark{color:#a855f7;font-size:16px;margin-bottom:14px}
+.testi-dark-card blockquote{font-size:15px;color:#94a3b8;font-style:italic;line-height:1.7;margin-bottom:18px}
+.testi-dark-author{display:flex;align-items:center;gap:12px}
+.tda{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#6366f1);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#fff;flex-shrink:0}
+.tda-info p:first-child{font-size:14px;font-weight:700;color:#f1f5f9}
+.tda-info p:last-child{font-size:12px;color:#475569}
+/* Pricing dark */
+.pricing-dark{padding:80px 32px;text-align:center}
+.pricing-dark h2{font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-1.5px;margin-bottom:12px}
+.pricing-dark .sub{color:#64748b;font-size:17px;margin-bottom:52px}
+.price-dark-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:860px;margin:0 auto}
+.price-dark-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:32px;text-align:left}
+.price-dark-card.featured{background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(99,102,241,.2));border-color:rgba(168,85,247,.5)}
+.pdc-label{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#64748b;margin-bottom:16px}
+.price-dark-card.featured .pdc-label{color:#c084fc}
+.pdc-price{font-size:52px;font-weight:900;letter-spacing:-2px;color:#f1f5f9;margin-bottom:4px}
+.pdc-period{font-size:14px;color:#475569;margin-bottom:28px}
+.pdc-btn{display:block;padding:14px;border-radius:10px;text-align:center;font-weight:700;font-size:15px;text-decoration:none;margin-bottom:24px;background:rgba(255,255,255,.07);color:#e2e8f0;border:1px solid rgba(255,255,255,.1)}
+.price-dark-card.featured .pdc-btn{background:linear-gradient(135deg,#a855f7,#6366f1);border:none;box-shadow:0 8px 24px rgba(168,85,247,.3)}
+.pdc-feat{font-size:14px;line-height:2.2;color:#64748b}
+.price-dark-card.featured .pdc-feat{color:#94a3b8}
+/* CTA dark */
+.cta-dark{padding:100px 32px;text-align:center;position:relative;overflow:hidden}
+.cta-dark::before{content:'';position:absolute;bottom:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(99,102,241,.2) 0%,transparent 70%);pointer-events:none}
+.cta-dark h2{font-size:clamp(36px,5vw,64px);font-weight:900;letter-spacing:-2px;margin-bottom:24px;line-height:1.1}
+.cta-dark p{font-size:18px;color:#64748b;max-width:500px;margin:0 auto 44px}
+/* Footer dark */
+footer.dark{border-top:1px solid rgba(255,255,255,.06);padding:40px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-logo-dark{font-size:18px;font-weight:900;background:linear-gradient(135deg,#a855f7,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+footer.dark nav a{color:#475569;text-decoration:none;font-size:13px;margin-left:24px}
+</style></head>
+<body>
+<nav>
+  <div class="nav-logo">NexaAI</div>
+  <ul class="nav-links">
+    <li><a href="#">Sản phẩm</a></li>
+    <li><a href="#">Giải pháp</a></li>
+    <li><a href="#">Giá cả</a></li>
+    <li><a href="#">Docs</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Bắt đầu ngay</a>
+</nav>
+
+<section class="hero">
+  <div class="badge-dark">⚡ Được hỗ trợ bởi AI thế hệ mới</div>
+  <h1>AI tạo nội dung<br><span>thông minh nhất</span><br>cho doanh nghiệp Việt</h1>
+  <p>Tự động tạo hàng trăm nội dung chất lượng cao mỗi ngày. Tiết kiệm 90% thời gian, tăng gấp 5 lần hiệu suất marketing.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-glow">Dùng thử miễn phí 14 ngày</a>
+    <a href="#" class="btn-ghost">Xem video demo</a>
+  </div>
+</section>
+
+<div class="stats-dark">
+  <div class="stats-dark-grid">
+    <div class="stat-dark"><div class="n">10M+</div><div class="l">Nội dung đã tạo</div></div>
+    <div class="stat-dark"><div class="n">50K+</div><div class="l">Người dùng tin tưởng</div></div>
+    <div class="stat-dark"><div class="n">90%</div><div class="l">Tiết kiệm thời gian</div></div>
+    <div class="stat-dark"><div class="n">4.9★</div><div class="l">Đánh giá trung bình</div></div>
+  </div>
+</div>
+
+<section class="glass-section container" style="max-width:1080px;margin:0 auto">
+  <h2>Tính năng vượt trội</h2>
+  <p class="sub">Được xây dựng trên nền tảng AI tiên tiến nhất thế giới</p>
+  <div class="glass-grid">
+    <div class="glass-card"><div class="glass-icon purple">🧠</div><h3>AI thế hệ mới</h3><p>Sử dụng các mô hình AI tiên tiến nhất, tối ưu riêng cho từng loại công việc — tốc độ nhanh, chất lượng vượt trội.</p></div>
+    <div class="glass-card"><div class="glass-icon blue">⚡</div><h3>Tốc độ siêu nhanh</h3><p>Tạo 1.000 từ trong 10 giây. Hàng loạt nội dung cùng lúc với batch processing thông minh.</p></div>
+    <div class="glass-card"><div class="glass-icon cyan">🎯</div><h3>Cá nhân hoá thương hiệu</h3><p>Học phong cách viết của thương hiệu bạn và tự động áp dụng vào mọi nội dung được tạo ra.</p></div>
+    <div class="glass-card"><div class="glass-icon purple">📊</div><h3>Phân tích SEO thời gian thực</h3><p>Tự động tối ưu từ khoá, mật độ nội dung và cấu trúc để đạt thứ hạng Google cao nhất.</p></div>
+    <div class="glass-card"><div class="glass-icon blue">🔗</div><h3>API & Webhook mạnh mẽ</h3><p>Tích hợp dễ dàng vào workflow hiện có. Hỗ trợ REST API, GraphQL và Zapier.</p></div>
+    <div class="glass-card"><div class="glass-icon cyan">🛡️</div><h3>Bảo mật Enterprise</h3><p>SOC 2 Type II certified. Dữ liệu được mã hoá và không dùng để train model AI.</p></div>
+  </div>
+</section>
+
+<section class="testi-dark" style="max-width:1080px;margin:0 auto">
+  <h2>Khách hàng nói gì về chúng tôi</h2>
+  <div class="testi-dark-grid">
+    <div class="testi-dark-card"><div class="stars-dark">★★★★★</div><blockquote>"NexaAI đã thay đổi hoàn toàn cách đội content của chúng tôi làm việc. Output tăng 5x mà chất lượng vẫn giữ nguyên."</blockquote><div class="testi-dark-author"><div class="tda">M</div><div class="tda-info"><p>Minh Trần</p><p>Head of Content · Tiki</p></div></div></div>
+    <div class="testi-dark-card"><div class="stars-dark">★★★★★</div><blockquote>"Chúng tôi dùng NexaAI để tạo 500 mô tả sản phẩm mỗi ngày. Tiết kiệm được 3 headcount và tăng CVR lên 23%."</blockquote><div class="testi-dark-author"><div class="tda">L</div><div class="tda-info"><p>Lan Nguyễn</p><p>E-commerce Director · Shopee VN</p></div></div></div>
+    <div class="testi-dark-card"><div class="stars-dark">★★★★★</div><blockquote>"ROI ngay trong tháng đầu tiên. Nội dung SEO chất lượng cao, organic traffic tăng 140% sau 6 tuần."</blockquote><div class="testi-dark-author"><div class="tda">H</div><div class="tda-info"><p>Hùng Phạm</p><p>CEO · GrowthLab Agency</p></div></div></div>
+  </div>
+</section>
+
+<section class="pricing-dark">
+  <h2>Giá cả minh bạch</h2>
+  <p class="sub">Không phí ẩn. Huỷ bất cứ lúc nào.</p>
+  <div class="price-dark-grid">
+    <div class="price-dark-card">
+      <div class="pdc-label">Starter</div>
+      <div class="pdc-price">199K</div>
+      <div class="pdc-period">/ tháng</div>
+      <a href="#" class="pdc-btn">Bắt đầu ngay</a>
+      <div class="pdc-feat">✓ 50.000 từ/tháng<br>✓ 5 dự án<br>✓ 10 template AI<br>✓ Hỗ trợ email</div>
+    </div>
+    <div class="price-dark-card featured">
+      <div class="pdc-label">Pro · Phổ biến</div>
+      <div class="pdc-price">599K</div>
+      <div class="pdc-period">/ tháng</div>
+      <a href="#" class="pdc-btn">Dùng thử 14 ngày</a>
+      <div class="pdc-feat">✓ 500.000 từ/tháng<br>✓ Dự án không giới hạn<br>✓ Tất cả template<br>✓ API access<br>✓ Priority support 24/7</div>
+    </div>
+    <div class="price-dark-card">
+      <div class="pdc-label">Enterprise</div>
+      <div class="pdc-price">Liên hệ</div>
+      <div class="pdc-period">Tuỳ chỉnh theo nhu cầu</div>
+      <a href="#" class="pdc-btn">Đặt lịch demo</a>
+      <div class="pdc-feat">✓ Không giới hạn<br>✓ Custom AI model<br>✓ SLA 99.99%<br>✓ Dedicated engineer</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-dark">
+  <h2>Bắt đầu tạo nội dung<br>bằng AI ngay hôm nay</h2>
+  <p>Tham gia 50.000+ doanh nghiệp đang dùng NexaAI để mở rộng quy mô.</p>
+  <a href="#" class="btn-glow" style="display:inline-block;font-size:18px;padding:20px 52px">Dùng thử miễn phí →</a>
+</section>
+
+<footer class="dark">
+  <div class="footer-logo-dark">NexaAI</div>
+  <nav>
+    <a href="#">Điều khoản</a>
+    <a href="#">Bảo mật</a>
+    <a href="#">Liên hệ</a>
+  </nav>
+</footer>
+</body></html>`
+
+const LP_SPLITSCREEN = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;color:#1a1a2e;background:#fff;line-height:1.6}
+nav{padding:20px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;border-bottom:2px solid #0d9488;z-index:100}
+.nav-logo{font-size:22px;font-weight:900;color:#0d9488}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{text-decoration:none;color:#555;font-size:14px}
+.nav-cta{background:#0d9488;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:700}
+.split{display:grid;grid-template-columns:1fr 1fr;min-height:560px}
+.split-left{padding:80px 60px;display:flex;flex-direction:column;justify-content:center;background:#fff}
+.split-right{background:linear-gradient(135deg,#0d9488,#0891b2);display:flex;align-items:center;justify-content:center;padding:60px 40px;position:relative;overflow:hidden}
+.split-right::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:rgba(255,255,255,.07);border-radius:50%}
+.split-right::after{content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;background:rgba(255,255,255,.05);border-radius:50%}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#0d9488;margin-bottom:20px}
+.split-left h1{font-size:clamp(34px,4vw,52px);font-weight:900;line-height:1.1;letter-spacing:-1px;color:#0f172a;margin-bottom:20px}
+.split-left p{font-size:17px;color:#64748b;margin-bottom:32px;line-height:1.75}
+.btn-teal{background:#0d9488;color:#fff;padding:15px 36px;border-radius:10px;text-decoration:none;font-size:16px;font-weight:700;display:inline-block}
+.btn-outline{color:#0d9488;padding:15px 36px;border-radius:10px;text-decoration:none;font-size:16px;font-weight:600;border:2px solid #0d9488;display:inline-block;margin-left:12px}
+.hero-visual{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:32px;width:100%;max-width:340px;text-align:center;position:relative;z-index:1}
+.hero-visual .big-n{font-size:72px;font-weight:900;color:#fff;line-height:1}
+.hero-visual .big-l{font-size:16px;color:rgba(255,255,255,.7);margin-top:8px}
+.hero-visual-sub{display:flex;justify-content:space-around;margin-top:24px}
+.hero-visual-sub .item .n{font-size:28px;font-weight:900;color:#fff}
+.hero-visual-sub .item .l{font-size:12px;color:rgba(255,255,255,.6)}
+.alt-split{display:grid;grid-template-columns:1fr 1fr;min-height:440px;align-items:stretch}
+.as-content{padding:60px;display:flex;flex-direction:column;justify-content:center}
+.as-visual{display:flex;align-items:center;justify-content:center;padding:40px}
+.as-visual.teal{background:linear-gradient(135deg,#ccfbf1,#cffafe)}
+.as-visual.blue{background:linear-gradient(135deg,#dbeafe,#e0f2fe)}
+.as-visual.green{background:linear-gradient(135deg,#dcfce7,#d1fae5)}
+.as-icon{font-size:80px;text-align:center}
+.tag{display:inline-block;background:#ccfbf1;color:#0d9488;border-radius:99px;padding:5px 16px;font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:16px}
+.as-content h2{font-size:clamp(26px,3.5vw,40px);font-weight:900;letter-spacing:-1px;color:#0f172a;margin-bottom:14px;line-height:1.2}
+.as-content p{font-size:16px;color:#64748b;line-height:1.75;margin-bottom:24px}
+.check-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.check-list li{font-size:15px;color:#334155;display:flex;align-items:flex-start;gap:10px}
+.check-list li::before{content:'✓';width:22px;height:22px;background:#0d9488;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.testi-row{padding:80px 40px;background:#f0fdfa}
+.testi-row h2{font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-1px;text-align:center;margin-bottom:48px;color:#0f172a}
+.testi-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+.tc{background:#fff;border-radius:18px;padding:28px;border:1px solid #ccfbf1;box-shadow:0 4px 16px rgba(13,148,136,.06)}
+.tc-stars{color:#0d9488;margin-bottom:12px}
+.tc blockquote{font-size:15px;color:#475569;font-style:italic;line-height:1.7;margin-bottom:18px}
+.tc-author{display:flex;align-items:center;gap:12px}
+.tc-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#0d9488,#0891b2);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;flex-shrink:0}
+.tc-name{font-size:14px;font-weight:700;color:#0f172a}
+.tc-role{font-size:12px;color:#94a3b8}
+.cta-split{display:grid;grid-template-columns:1fr 1fr;min-height:300px}
+.cta-left{background:linear-gradient(135deg,#0d9488,#0891b2);padding:60px;display:flex;flex-direction:column;justify-content:center}
+.cta-left h2{font-size:clamp(28px,3.5vw,44px);font-weight:900;color:#fff;letter-spacing:-1px;line-height:1.2;margin-bottom:20px}
+.cta-left p{font-size:17px;color:rgba(255,255,255,.75);margin-bottom:32px}
+.btn-white{background:#fff;color:#0d9488;padding:15px 36px;border-radius:10px;text-decoration:none;font-size:16px;font-weight:700;display:inline-block}
+.cta-right{background:#0f172a;padding:60px;display:flex;flex-direction:column;justify-content:center}
+.cta-right h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:20px}
+.contact-list{list-style:none;display:flex;flex-direction:column;gap:14px}
+.contact-list li{font-size:15px;color:#94a3b8;display:flex;align-items:center;gap:12px}
+.contact-list li span:first-child{font-size:20px}
+@media(max-width:768px){.split,.alt-split,.cta-split{grid-template-columns:1fr}.split-left,.as-content{padding:48px 24px}.split-right{padding:40px 24px;min-height:300px}.cta-left,.cta-right{padding:48px 24px}}
+</style></head>
+<body>
+<nav>
+  <div class="nav-logo">FlowWork</div>
+  <ul class="nav-links"><li><a href="#">Tính năng</a></li><li><a href="#">Giá cả</a></li><li><a href="#">Blog</a></li></ul>
+  <a href="#" class="nav-cta">Dùng thử miễn phí</a>
+</nav>
+<div class="split">
+  <div class="split-left">
+    <div class="eyebrow">Nền tảng quản lý dự án</div>
+    <h1>Quản lý dự án thông minh hơn, nhanh hơn</h1>
+    <p>FlowWork giúp đội nhóm của bạn cộng tác hiệu quả, theo dõi tiến độ theo thời gian thực và hoàn thành dự án đúng hạn.</p>
+    <div><a href="#" class="btn-teal">Bắt đầu miễn phí</a><a href="#" class="btn-outline">Xem demo</a></div>
+  </div>
+  <div class="split-right">
+    <div class="hero-visual">
+      <div class="big-n">98%</div>
+      <div class="big-l">Dự án hoàn thành đúng hạn</div>
+      <div class="hero-visual-sub">
+        <div class="item"><div class="n">3x</div><div class="l">Năng suất</div></div>
+        <div class="item"><div class="n">50%</div><div class="l">Giảm họp</div></div>
+        <div class="item"><div class="n">4.9★</div><div class="l">Đánh giá</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="alt-split">
+  <div class="as-content">
+    <div class="tag">KANBAN & GANTT</div>
+    <h2>Nhìn thấy toàn bộ dự án trong một màn hình</h2>
+    <p>Kéo thả task giữa các cột, xem timeline Gantt, theo dõi ngày deadline và phân công công việc từ một nơi duy nhất.</p>
+    <ul class="check-list"><li>Board Kanban tuỳ chỉnh theo quy trình của bạn</li><li>Gantt chart tự động cập nhật khi thay đổi timeline</li><li>Dependency giữa các task để tránh bottleneck</li></ul>
+  </div>
+  <div class="as-visual teal"><div class="as-icon">📋</div></div>
+</div>
+<div class="alt-split">
+  <div class="as-visual blue"><div class="as-icon">👥</div></div>
+  <div class="as-content">
+    <div class="tag">CỘNG TÁC REAL-TIME</div>
+    <h2>Toàn đội làm việc đồng thời, không va chạm</h2>
+    <p>Comment trực tiếp trên task, @mention đồng đội, nhận thông báo thời gian thực và giữ lịch sử thay đổi đầy đủ.</p>
+    <ul class="check-list"><li>Live cursor — thấy đồng đội đang làm gì ngay lúc này</li><li>Hệ thống comment có thread, reaction và file attachment</li><li>Lịch sử thay đổi toàn bộ, rollback bất cứ lúc nào</li></ul>
+  </div>
+</div>
+<div class="alt-split">
+  <div class="as-content">
+    <div class="tag">BÁO CÁO & PHÂN TÍCH</div>
+    <h2>Dữ liệu thực để ra quyết định nhanh hơn</h2>
+    <p>Dashboard tự động tổng hợp tốc độ hoàn thành, bottleneck và hiệu suất từng thành viên — không cần tổng hợp thủ công.</p>
+    <ul class="check-list"><li>Burndown chart theo sprint và milestone</li><li>Báo cáo năng suất cá nhân và đội nhóm</li><li>Xuất báo cáo PDF/Excel gửi stakeholder</li></ul>
+  </div>
+  <div class="as-visual green"><div class="as-icon">📊</div></div>
+</div>
+<section class="testi-row">
+  <h2>Hàng nghìn đội nhóm đã tin dùng</h2>
+  <div class="testi-cards">
+    <div class="tc"><div class="tc-stars">★★★★★</div><blockquote>"FlowWork thay thế hoàn toàn Jira và Trello. Đơn giản hơn nhiều mà tính năng không kém."</blockquote><div class="tc-author"><div class="tc-av">T</div><div><div class="tc-name">Tuấn Nguyễn</div><div class="tc-role">CTO · TechStart VN</div></div></div></div>
+    <div class="tc"><div class="tc-stars">★★★★★</div><blockquote>"Thời gian họp status update giảm 60%. Mọi người đều biết ai đang làm gì mà không cần hỏi."</blockquote><div class="tc-author"><div class="tc-av">H</div><div><div class="tc-name">Hoa Trần</div><div class="tc-role">PM · Grab Vietnam</div></div></div></div>
+    <div class="tc"><div class="tc-stars">★★★★★</div><blockquote>"Onboard nhân viên mới cực nhanh. 30 phút là họ hiểu toàn bộ dự án đang ở đâu."</blockquote><div class="tc-author"><div class="tc-av">N</div><div><div class="tc-name">Nam Lê</div><div class="tc-role">Director · FPT Software</div></div></div></div>
+  </div>
+</section>
+<div class="cta-split">
+  <div class="cta-left">
+    <h2>Sẵn sàng tăng tốc dự án?</h2>
+    <p>Dùng thử miễn phí 14 ngày, không cần thẻ tín dụng. Hủy bất cứ lúc nào.</p>
+    <a href="#" class="btn-white">Bắt đầu ngay — Miễn phí →</a>
+  </div>
+  <div class="cta-right">
+    <h3>Hoặc liên hệ tư vấn</h3>
+    <ul class="contact-list">
+      <li><span>📞</span><span>Hotline: 1800 1234 (Miễn phí)</span></li>
+      <li><span>💬</span><span>Zalo OA: FlowWork Official</span></li>
+      <li><span>📧</span><span>support@flowwork.vn</span></li>
+      <li><span>🏢</span><span>Văn phòng: 123 Lê Lợi, TP.HCM</span></li>
+    </ul>
+  </div>
+</div>
+</body></html>`
+
+const LP_MAGAZINE = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,'Times New Roman',serif;color:#1a1a1a;background:#fafaf8;line-height:1.6}
+.sans{font-family:'Helvetica Neue',Arial,sans-serif}
+nav{border-bottom:3px solid #dc2626;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;background:#fff;position:sticky;top:0;z-index:100}
+.nav-logo{font-family:'Helvetica Neue',Arial,sans-serif;font-size:26px;font-weight:900;letter-spacing:-1px;color:#dc2626}
+.nav-tagline{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888;font-family:'Helvetica Neue',Arial,sans-serif}
+.nav-cta{background:#dc2626;color:#fff;padding:9px 22px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:700;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px}
+.ticker{background:#dc2626;color:#fff;padding:8px 40px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;display:flex;align-items:center;gap:16px}
+.ticker-label{background:#fff;color:#dc2626;padding:3px 10px;font-size:11px;font-weight:900;letter-spacing:1px;flex-shrink:0}
+.hero-mag{display:grid;grid-template-columns:3fr 1fr;gap:0;max-width:1200px;margin:0 auto;padding:40px;border-bottom:1px solid #e5e5e5}
+.hero-category{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:#dc2626;margin-bottom:14px}
+.hero-main h1{font-size:clamp(36px,4.5vw,62px);font-weight:700;line-height:1.12;letter-spacing:-1px;color:#111;margin-bottom:20px;padding-right:40px}
+.hero-deck{font-size:18px;color:#555;line-height:1.65;padding-right:40px;margin-bottom:24px}
+.hero-meta{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:#888;border-top:1px solid #e5e5e5;padding-top:16px;display:flex;gap:20px;align-items:center}
+.hero-meta strong{color:#333}
+.hero-sidebar{border-left:1px solid #e5e5e5;padding-left:24px}
+.side-title{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #e5e5e5}
+.side-item{padding:14px 0;border-bottom:1px solid #f0f0f0}
+.side-item-cat{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#dc2626;margin-bottom:5px}
+.side-item h4{font-size:15px;font-weight:700;color:#222;line-height:1.3}
+.side-item-date{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:#999;margin-top:5px}
+.stats-mag{background:#1a1a1a;padding:24px 40px}
+.stats-mag-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center}
+.sm-item{border-right:1px solid #333;padding:12px}
+.sm-item:last-child{border:none}
+.sm-n{font-family:'Helvetica Neue',Arial,sans-serif;font-size:36px;font-weight:900;color:#dc2626}
+.sm-l{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:#888;margin-top:4px;letter-spacing:.5px}
+.content-grid{max-width:1200px;margin:40px auto;padding:0 40px;display:grid;grid-template-columns:2fr 1fr;gap:48px}
+.article-body h2{font-size:30px;font-weight:700;color:#111;margin:40px 0 16px;line-height:1.2}
+.article-body h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#dc2626;margin:32px 0 14px}
+.article-body p{font-size:17px;color:#333;line-height:1.85;margin-bottom:18px}
+.pull-quote{border-left:4px solid #dc2626;padding:24px 32px;margin:40px 0;background:#fff;font-size:24px;font-style:italic;color:#222;line-height:1.45}
+.pull-quote cite{display:block;font-size:13px;font-style:normal;color:#888;margin-top:12px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:1px}
+.fact-box{background:#fff;border:1px solid #e5e5e5;border-top:3px solid #dc2626;padding:24px;margin:32px 0}
+.fact-box-title{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#dc2626;margin-bottom:14px}
+.fact-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.fact-list li{font-size:15px;color:#333;padding-left:20px;position:relative;line-height:1.5}
+.fact-list li::before{content:'▶';position:absolute;left:0;color:#dc2626;font-size:10px;top:4px}
+.sidebar .widget{margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid #e5e5e5}
+.widget-title{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #1a1a1a}
+.sub-form input{width:100%;padding:12px;border:1px solid #ddd;margin-bottom:10px;font-size:14px;font-family:'Helvetica Neue',Arial,sans-serif}
+.sub-form button{width:100%;background:#dc2626;color:#fff;border:none;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:1px}
+.testimonial-widget{background:#f5f5f3;padding:20px}
+.tw-quote{font-size:15px;font-style:italic;color:#333;line-height:1.6;margin-bottom:14px}
+.tw-author{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:700;color:#dc2626;letter-spacing:.5px}
+.offer-box{background:#dc2626;color:#fff;padding:24px;text-align:center}
+.offer-box .offer-title{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:900;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;opacity:.8}
+.offer-box .offer-price{font-size:48px;font-weight:900;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:-2px;line-height:1}
+.offer-box .offer-desc{font-size:14px;opacity:.85;margin:10px 0 20px;line-height:1.5}
+.offer-btn{display:block;background:#fff;color:#dc2626;padding:12px;font-weight:700;text-decoration:none;font-size:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px}
+.bottom-cta{background:#1a1a1a;padding:80px 40px;text-align:center}
+.bottom-cta h2{font-size:clamp(32px,4vw,52px);font-weight:700;color:#fff;margin-bottom:16px;line-height:1.2}
+.bottom-cta p{font-size:18px;color:#888;max-width:560px;margin:0 auto 36px}
+.btn-red{background:#dc2626;color:#fff;padding:16px 40px;border-radius:4px;text-decoration:none;font-size:16px;font-weight:700;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;display:inline-block}
+footer{background:#111;padding:24px 40px;text-align:center}
+footer p{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:#555;letter-spacing:.5px}
+@media(max-width:900px){.hero-mag,.content-grid{grid-template-columns:1fr}.hero-sidebar{border-left:none;border-top:1px solid #e5e5e5;padding-left:0;padding-top:24px;margin-top:24px}.stats-mag-inner{grid-template-columns:repeat(2,1fr)}}
+</style></head>
+<body>
+<nav>
+  <div><div class="nav-logo">VIET BUSINESS INSIDER</div><div class="nav-tagline sans">Kinh doanh · Đầu tư · Công nghệ</div></div>
+  <a href="#" class="nav-cta">ĐĂNG KÝ ĐỌC PRO</a>
+</nav>
+<div class="ticker sans"><span class="ticker-label">BREAKING</span>Doanh nghiệp Việt tăng trưởng 34% trong Q3/2025 · Chỉ số PMI lên 53.8 điểm · Top 10 startup nhận đầu tư tuần này</div>
+<div class="hero-mag">
+  <div class="hero-main">
+    <div class="hero-category sans">PHÂN TÍCH ĐẶC BIỆT</div>
+    <h1>Cuộc cách mạng thương mại điện tử Việt Nam và những doanh nghiệp dám thay đổi luật chơi</h1>
+    <p class="hero-deck">Từ một thị trường non trẻ năm 2015, TMĐT Việt Nam đã vươn lên thành top 3 Đông Nam Á. Đây là câu chuyện của những người tạo ra sự thay đổi đó.</p>
+    <div class="hero-meta sans"><span>Bởi <strong>Minh Tuấn</strong></span><span>5 Tháng 6, 2026</span><span>12 phút đọc</span><span>🔥 24.5K lượt đọc</span></div>
+  </div>
+  <div class="hero-sidebar">
+    <div class="side-title sans">Đọc thêm</div>
+    <div class="side-item"><div class="side-item-cat sans">ĐẦU TƯ</div><h4>5 startup Việt nhận Series A trong 30 ngày</h4><div class="side-item-date sans">4/6/2026</div></div>
+    <div class="side-item"><div class="side-item-cat sans">CÔNG NGHỆ</div><h4>AI sẽ thay thế bao nhiêu việc làm tại Việt Nam?</h4><div class="side-item-date sans">3/6/2026</div></div>
+    <div class="side-item"><div class="side-item-cat sans">TÀI CHÍNH</div><h4>Lãi suất ngân hàng và chiến lược gửi tiền tối ưu</h4><div class="side-item-date sans">2/6/2026</div></div>
+  </div>
+</div>
+<div class="stats-mag"><div class="stats-mag-inner">
+  <div class="sm-item"><div class="sm-n">$25B</div><div class="sm-l sans">Quy mô TMĐT 2025</div></div>
+  <div class="sm-item"><div class="sm-n">68M</div><div class="sm-l sans">Người mua online</div></div>
+  <div class="sm-item"><div class="sm-n">34%</div><div class="sm-l sans">Tăng trưởng YoY</div></div>
+  <div class="sm-item"><div class="sm-n">#3</div><div class="sm-l sans">Đông Nam Á</div></div>
+</div></div>
+<div class="content-grid">
+  <div class="article-body">
+    <h3>Bối cảnh thị trường</h3>
+    <p>Mười năm trước, mua hàng online ở Việt Nam còn bị coi là rủi ro. Người tiêu dùng lo ngại về hàng giả, thanh toán không an toàn và dịch vụ sau bán hàng kém. Nhưng mọi thứ đã thay đổi nhanh chóng hơn bất kỳ dự báo nào.</p>
+    <p>Năm 2025, có 68 triệu người Việt mua hàng trực tuyến ít nhất một lần — chiếm 68% dân số trưởng thành. Tổng giá trị giao dịch đạt 25 tỷ USD, tăng 34% so với năm trước.</p>
+    <div class="pull-quote">"Không phải chúng tôi đã thay đổi thị trường — chính người tiêu dùng Việt Nam đã thay đổi và chúng tôi chỉ là người đi cùng họ."<cite>— Nguyễn Trần Minh, CEO · VietCommerce</cite></div>
+    <h2>Những yếu tố làm nên cuộc cách mạng</h2>
+    <p>Hạ tầng logistics là yếu tố then chốt đầu tiên. Khi Giao Hàng Nhanh và Giao Hàng Tiết Kiệm ra đời, chi phí vận chuyển giảm 60% và thời gian giao hàng co lại từ 7 ngày xuống còn 1-2 ngày tại các thành phố lớn.</p>
+    <div class="fact-box">
+      <div class="fact-box-title sans">5 con số biết nói</div>
+      <ul class="fact-list">
+        <li>65% đơn hàng tại TP.HCM và Hà Nội được giao trong vòng 24 giờ</li>
+        <li>Mobile commerce chiếm 78% tổng giao dịch, cao nhất ĐNA</li>
+        <li>Thanh toán không tiền mặt tăng từ 12% lên 54% trong 5 năm</li>
+        <li>Shopee, Lazada, Tiki chiếm 82% thị phần TMĐT</li>
+        <li>TikTok Shop tăng trưởng 340% chỉ trong năm 2024</li>
+      </ul>
+    </div>
+    <h2>Ai sẽ thống trị thập kỷ tới?</h2>
+    <p>Social commerce — mua hàng ngay trong video — đang là xu hướng khó cưỡng. Các thương hiệu Việt nhanh nhạy đang tận dụng triệt để cơ hội này.</p>
+  </div>
+  <div class="sidebar">
+    <div class="widget">
+      <div class="widget-title sans">Đăng ký nhận bản tin</div>
+      <p style="font-size:14px;color:#666;margin-bottom:16px;font-family:'Helvetica Neue',Arial,sans-serif">Phân tích kinh doanh sâu, mỗi sáng thứ Hai.</p>
+      <div class="sub-form"><input placeholder="Email của bạn" type="email"><button>ĐĂNG KÝ MIỄN PHÍ</button></div>
+    </div>
+    <div class="widget">
+      <div class="widget-title sans">Độc giả nói gì</div>
+      <div class="testimonial-widget"><div class="tw-quote">"Viet Business Insider là nguồn thông tin kinh doanh tôi tin tưởng nhất."</div><div class="tw-author sans">HOÀNG VĂN MINH · CEO · MinhGroup</div></div>
+    </div>
+    <div class="widget" style="border:none">
+      <div class="offer-box">
+        <div class="offer-title sans">Pro membership</div>
+        <div class="offer-price">299K</div>
+        <div class="offer-desc">Truy cập toàn bộ kho bài phân tích, báo cáo độc quyền và cộng đồng CEO</div>
+        <a href="#" class="offer-btn sans">ĐĂNG KÝ NGAY →</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bottom-cta"><h2>Đừng bỏ lỡ phân tích quan trọng</h2><p>Nhận bản tin kinh doanh sâu mỗi tuần — miễn phí cho 1.000 người đầu tiên.</p><a href="#" class="btn-red">ĐĂNG KÝ ĐỌC PRO — MIỄN PHÍ</a></div>
+<footer><p class="sans">© 2026 Viet Business Insider · Tất cả quyền được bảo lưu</p></footer>
+</body></html>`
+
+const LP_BENTO = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;background:#f5f5f7;color:#1d1d1f;line-height:1.5}
+nav{background:rgba(245,245,247,.8);backdrop-filter:blur(20px);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(0,0,0,.06)}
+.nav-logo{font-size:21px;font-weight:700;letter-spacing:-.5px;color:#1d1d1f}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{text-decoration:none;color:#6e6e73;font-size:14px;font-weight:500}
+.nav-cta{background:#3b82f6;color:#fff;padding:9px 20px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:600}
+.hero-bento{text-align:center;padding:80px 40px 40px}
+.hero-bento h1{font-size:clamp(48px,7vw,96px);font-weight:700;letter-spacing:-3px;color:#1d1d1f;line-height:1.05;margin-bottom:20px}
+.hero-bento h1 span{background:linear-gradient(135deg,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-bento p{font-size:21px;color:#6e6e73;max-width:600px;margin:0 auto 36px;line-height:1.5;font-weight:400}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-blue{background:#3b82f6;color:#fff;padding:15px 32px;border-radius:999px;text-decoration:none;font-size:17px;font-weight:600}
+.btn-gray{background:rgba(0,0,0,.08);color:#1d1d1f;padding:15px 32px;border-radius:999px;text-decoration:none;font-size:17px;font-weight:600}
+.bento{max-width:1200px;margin:0 auto;padding:0 24px 80px;display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:auto;gap:16px}
+.bento-card{border-radius:24px;overflow:hidden;padding:40px}
+.bc-1{grid-column:span 8;background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff;display:flex;align-items:flex-end}
+.bc-2{grid-column:span 4;background:#1d1d1f;color:#fff}
+.bc-3{grid-column:span 4;background:linear-gradient(135deg,#f0f9ff,#dbeafe)}
+.bc-4{grid-column:span 4;background:linear-gradient(135deg,#fdf4ff,#ede9fe)}
+.bc-5{grid-column:span 4;background:linear-gradient(135deg,#f0fdf4,#dcfce7)}
+.bc-6{grid-column:span 6;background:#fff}
+.bc-7{grid-column:span 6;background:linear-gradient(135deg,#1d1d1f,#374151);color:#fff}
+.bc-8{grid-column:span 12;background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:40px}
+.bc-title{font-size:clamp(20px,2.5vw,32px);font-weight:700;letter-spacing:-.5px;line-height:1.2;margin-bottom:12px}
+.bc-desc{font-size:15px;line-height:1.6;opacity:.8}
+.bc-big-n{font-size:clamp(52px,6vw,80px);font-weight:700;letter-spacing:-3px;line-height:1}
+.bc-big-l{font-size:16px;margin-top:6px;opacity:.7}
+.bc-icon{font-size:52px;margin-bottom:20px;display:block}
+.bc-tag{display:inline-block;background:rgba(59,130,246,.12);color:#3b82f6;border-radius:999px;padding:5px 14px;font-size:12px;font-weight:700;letter-spacing:.5px;margin-bottom:16px}
+.bc-tag.purple{background:rgba(139,92,246,.12);color:#8b5cf6}
+.bc-tag.green{background:rgba(16,185,129,.12);color:#10b981}
+.bc-cta-text{font-size:clamp(24px,3vw,40px);font-weight:700;letter-spacing:-1px;line-height:1.2}
+.bc-cta-sub{font-size:17px;opacity:.8;margin:12px 0 28px}
+.btn-white{background:#fff;color:#3b82f6;padding:14px 32px;border-radius:999px;text-decoration:none;font-size:16px;font-weight:600;display:inline-block}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.feature-list li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:#374151}
+.feature-list li::before{content:'✓';width:22px;height:22px;background:#3b82f6;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.testi-bento{background:#fff;border-radius:24px;padding:32px}
+.tb-stars{color:#f59e0b;font-size:18px;margin-bottom:14px}
+.tb-quote{font-size:17px;color:#374151;line-height:1.6;font-style:italic;margin-bottom:20px}
+.tb-author{display:flex;align-items:center;gap:12px}
+.tb-av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;flex-shrink:0}
+.tb-name{font-size:15px;font-weight:700}
+.tb-role{font-size:13px;color:#9ca3af}
+@media(max-width:900px){.bento{grid-template-columns:1fr}.bc-1,.bc-2,.bc-3,.bc-4,.bc-5,.bc-6,.bc-7,.bc-8{grid-column:span 1}.bc-8{grid-template-columns:1fr}}
+</style></head>
+<body>
+<nav>
+  <div class="nav-logo">Lumos</div>
+  <ul class="nav-links"><li><a href="#">Sản phẩm</a></li><li><a href="#">Giá cả</a></li><li><a href="#">Blog</a></li></ul>
+  <a href="#" class="nav-cta">Bắt đầu ngay</a>
+</nav>
+<div class="hero-bento">
+  <h1>Marketing thông minh.<br><span>Kết quả thực.</span></h1>
+  <p>Nền tảng all-in-one giúp doanh nghiệp Việt tăng trưởng với AI — từ nội dung, quảng cáo đến phân tích khách hàng.</p>
+  <div class="hero-btns"><a href="#" class="btn-blue">Dùng thử 14 ngày miễn phí</a><a href="#" class="btn-gray">Xem demo →</a></div>
+</div>
+<div class="bento">
+  <div class="bento-card bc-1"><div><div style="font-size:13px;font-weight:700;letter-spacing:2px;opacity:.7;margin-bottom:16px">TĂNG TRƯỞNG</div><div class="bc-big-n">340%</div><div class="bc-big-l">ROI trung bình của khách hàng Lumos trong 90 ngày đầu tiên</div></div></div>
+  <div class="bento-card bc-2"><span class="bc-icon">🧠</span><div class="bc-title">AI tạo nội dung</div><div class="bc-desc">Tạo hàng trăm bài viết, caption, email trong vài phút với AI huấn luyện riêng cho thị trường Việt.</div></div>
+  <div class="bento-card bc-3"><div class="bc-tag">ANALYTICS</div><div class="bc-title" style="color:#1e40af">Dashboard thời gian thực</div><div class="bc-desc" style="color:#3b82f6">Xem ngay chỉ số quan trọng — không cần chờ báo cáo cuối tuần.</div></div>
+  <div class="bento-card bc-4"><div class="bc-tag purple">AUTOMATION</div><div class="bc-title" style="color:#5b21b6">Workflow tự động</div><div class="bc-desc" style="color:#7c3aed">Từ lead capture đến chốt đơn — tất cả chạy tự động 24/7.</div></div>
+  <div class="bento-card bc-5"><div class="bc-tag green">TÍCH HỢP</div><div class="bc-title" style="color:#065f46">200+ kết nối</div><div class="bc-desc" style="color:#059669">Shopee, Zalo, Facebook, Google và nhiều hơn nữa.</div></div>
+  <div class="bento-card bc-6"><div class="testi-bento"><div class="tb-stars">★★★★★</div><div class="tb-quote">"Lumos giúp chúng tôi tăng doanh thu 280% chỉ trong 6 tháng. Dashboard rõ ràng, AI content xuất sắc."</div><div class="tb-author"><div class="tb-av">M</div><div><div class="tb-name">Minh Anh Nguyễn</div><div class="tb-role">CMO · BrandViet Group</div></div></div></div></div>
+  <div class="bento-card bc-7"><div style="font-size:13px;font-weight:700;letter-spacing:2px;opacity:.5;margin-bottom:24px">TẠI SAO CHỌN LUMOS</div><ul class="feature-list" style="color:#e5e7eb"><li>Không cần kỹ thuật — ai cũng dùng được</li><li>Setup trong 30 phút, kết quả trong 7 ngày</li><li>Hỗ trợ tiếng Việt 24/7 từ đội ngũ thực</li><li>Đảm bảo hoàn tiền 30 ngày nếu không hài lòng</li></ul></div>
+  <div class="bento-card bc-8" style="padding:48px"><div><div class="bc-cta-text">Sẵn sàng tăng trưởng với Lumos?</div><div class="bc-cta-sub">Tham gia 50.000+ doanh nghiệp Việt đang dùng Lumos để mở rộng quy mô.</div><a href="#" class="btn-white">Bắt đầu miễn phí — 14 ngày →</a></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px"><div style="background:rgba(255,255,255,.1);border-radius:16px;padding:24px;text-align:center"><div style="font-size:40px;font-weight:700;letter-spacing:-2px">50K+</div><div style="font-size:13px;opacity:.7;margin-top:4px">Doanh nghiệp tin dùng</div></div><div style="background:rgba(255,255,255,.1);border-radius:16px;padding:24px;text-align:center"><div style="font-size:40px;font-weight:700;letter-spacing:-2px">4.9★</div><div style="font-size:13px;opacity:.7;margin-top:4px">Đánh giá App Store</div></div></div></div>
+</div>
+</body></html>`
+
+const ADS_STORY = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#111;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:'Segoe UI',Arial,sans-serif}
+.story-wrap{width:390px;min-height:693px;background:linear-gradient(160deg,#ec4899 0%,#8b5cf6 50%,#3b82f6 100%);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0;border-radius:12px}
+.bg-circle-1{position:absolute;top:-100px;right:-80px;width:360px;height:360px;background:rgba(255,255,255,.08);border-radius:50%}
+.bg-circle-2{position:absolute;top:100px;left:-120px;width:280px;height:280px;background:rgba(255,255,255,.05);border-radius:50%}
+.progress-bars{position:absolute;top:16px;left:16px;right:16px;display:flex;gap:4px;z-index:10}
+.pb{height:3px;background:rgba(255,255,255,.3);border-radius:2px;flex:1}
+.pb.active{background:#fff}
+.story-header{position:absolute;top:36px;left:16px;right:16px;display:flex;align-items:center;gap:10px;z-index:10}
+.sh-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:14px}
+.sh-name{font-size:13px;font-weight:700;color:#fff}
+.sh-time{font-size:11px;color:rgba(255,255,255,.7)}
+.sh-more{margin-left:auto;font-size:20px;color:rgba(255,255,255,.8)}
+.story-content{position:relative;z-index:5;padding:32px 28px 28px}
+.story-tag{display:inline-block;background:rgba(255,255,255,.2);color:#fff;border-radius:999px;padding:6px 16px;font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:20px;border:1px solid rgba(255,255,255,.3)}
+.story-headline{font-size:34px;font-weight:900;color:#fff;line-height:1.1;letter-spacing:-1px;margin-bottom:16px}
+.story-headline span{display:block;font-size:44px;letter-spacing:-2px}
+.story-sub{font-size:15px;color:rgba(255,255,255,.85);line-height:1.55;margin-bottom:24px}
+.story-features{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.sf{display:flex;align-items:center;gap:10px;font-size:14px;color:#fff;font-weight:600}
+.sf-icon{width:30px;height:30px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.story-price{display:flex;align-items:baseline;gap:10px;margin-bottom:20px}
+.sp-old{font-size:18px;text-decoration:line-through;color:rgba(255,255,255,.5);font-weight:600}
+.sp-new{font-size:42px;font-weight:900;color:#fff;letter-spacing:-1px}
+.sp-off{background:#fff;color:#ec4899;padding:4px 12px;border-radius:999px;font-size:13px;font-weight:900}
+.story-timer{background:rgba(0,0,0,.25);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-bottom:20px;border:1px solid rgba(255,255,255,.15)}
+.timer-icon{font-size:20px}
+.timer-text{font-size:13px;color:rgba(255,255,255,.8);flex:1}
+.timer-countdown{font-size:18px;font-weight:900;color:#fff;letter-spacing:1px}
+.story-cta{display:block;background:#fff;color:#ec4899;padding:16px;text-align:center;border-radius:14px;text-decoration:none;font-size:17px;font-weight:900;letter-spacing:.3px;margin-bottom:8px}
+.story-swipe{text-align:center;font-size:12px;color:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;gap:6px}
+</style></head>
+<body>
+<div class="story-wrap">
+  <div class="bg-circle-1"></div><div class="bg-circle-2"></div>
+  <div class="progress-bars"><div class="pb active"></div><div class="pb active"></div><div class="pb"></div><div class="pb"></div><div class="pb"></div></div>
+  <div class="story-header"><div class="sh-avatar">G</div><div><div class="sh-name">GlowSkin Official</div><div class="sh-time">Vừa đăng</div></div><div class="sh-more">⋯</div></div>
+  <div class="story-content">
+    <div class="story-tag">⚡ FLASH SALE · Còn 2 giờ</div>
+    <div class="story-headline">Da sáng mịn<span>chỉ 7 ngày</span></div>
+    <div class="story-sub">Bộ skincare thuần chay được 50.000 phụ nữ Việt tin dùng. Hôm nay giảm sốc 50%.</div>
+    <div class="story-features">
+      <div class="sf"><div class="sf-icon">🌿</div>100% Organic · Không paraben</div>
+      <div class="sf"><div class="sf-icon">✨</div>Kết quả thấy rõ sau 7 ngày</div>
+      <div class="sf"><div class="sf-icon">🚚</div>Freeship · Hoàn tiền 30 ngày</div>
+    </div>
+    <div class="story-price"><span class="sp-old">399.000đ</span><span class="sp-new">199.000đ</span><span class="sp-off">-50%</span></div>
+    <div class="story-timer"><span class="timer-icon">⏰</span><span class="timer-text">Giá này kết thúc lúc</span><span class="timer-countdown">23:59:00</span></div>
+    <a href="#" class="story-cta">MUA NGAY VỚI GIÁ 199K →</a>
+    <div class="story-swipe">↑ Vuốt lên để mua ngay</div>
+  </div>
+</div>
+</body></html>`
+
+const ADS_MINIMAL = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Arial,sans-serif;background:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.ad-wrap{width:600px;min-height:400px;background:#fff;border:1px solid #e5e7eb;display:flex;flex-direction:column;justify-content:center;padding:60px;position:relative;overflow:hidden}
+.ad-accent{position:absolute;top:0;left:0;width:4px;height:100%;background:#111}
+.ad-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#bbb;margin-bottom:28px}
+.ad-headline{font-size:clamp(32px,5vw,56px);font-weight:900;color:#111;letter-spacing:-2px;line-height:1.05;margin-bottom:20px}
+.ad-sub{font-size:17px;color:#6b7280;line-height:1.6;max-width:440px;margin-bottom:32px}
+.ad-offer{display:flex;align-items:baseline;gap:16px;margin-bottom:36px}
+.ao-price{font-size:52px;font-weight:900;color:#111;letter-spacing:-2px}
+.ao-old{font-size:20px;color:#d1d5db;text-decoration:line-through;font-weight:600}
+.ao-save{background:#111;color:#fff;padding:5px 14px;border-radius:4px;font-size:13px;font-weight:700;letter-spacing:1px}
+.ad-features{display:flex;gap:24px;margin-bottom:36px;flex-wrap:wrap}
+.af{font-size:14px;color:#374151;display:flex;align-items:center;gap:6px}
+.af::before{content:'—';color:#bbb}
+.ad-cta{display:inline-block;background:#111;color:#fff;padding:16px 40px;text-decoration:none;font-size:16px;font-weight:700;letter-spacing:.5px}
+.ad-note{margin-top:12px;font-size:12px;color:#9ca3af;letter-spacing:.3px}
+.corner-mark{position:absolute;bottom:24px;right:24px;font-size:11px;color:#e5e7eb;letter-spacing:1px;font-weight:700}
+</style></head>
+<body>
+<div class="ad-wrap">
+  <div class="ad-accent"></div>
+  <div class="ad-label">Ưu đãi đặc biệt · Tháng 6/2026</div>
+  <div class="ad-headline">Học IELTS.<br>Đạt mục tiêu.<br>Cam kết điểm.</div>
+  <div class="ad-sub">Khoá học IELTS chuyên sâu với giáo viên bản ngữ — cam kết đầu ra 7.0+. Phù hợp người đi làm, học sinh lớp 12 và sinh viên.</div>
+  <div class="ad-offer"><span class="ao-price">2.900.000đ</span><span class="ao-old">4.500.000đ</span><span class="ao-save">-36%</span></div>
+  <div class="ad-features"><span class="af">Cam kết 7.0+</span><span class="af">Học online linh hoạt</span><span class="af">100 giờ học</span><span class="af">Mock test hàng tuần</span></div>
+  <a href="#" class="ad-cta">ĐĂNG KÝ HỌC THỬ MIỄN PHÍ →</a>
+  <div class="ad-note">Lớp khai giảng 15/6 · Chỉ còn 12 suất · Đăng ký trong hôm nay</div>
+  <div class="corner-mark">BRIGHTPATH IELTS</div>
+</div>
+</body></html>`
+
+const ADS_BEFOREAFTER = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f9fafb;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.ba-wrap{width:640px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.1)}
+.ba-header{background:linear-gradient(135deg,#10b981,#059669);padding:28px 32px;text-align:center}
+.ba-label{font-size:11px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.7);margin-bottom:8px}
+.ba-header h2{font-size:28px;font-weight:900;color:#fff;letter-spacing:-0.5px}
+.ba-comparison{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.ba-side{padding:32px}
+.ba-before{background:#fff5f5;border-right:2px solid #e5e7eb}
+.ba-after{background:#f0fdf4}
+.ba-side-label{font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;padding:6px 14px;border-radius:99px;display:inline-block}
+.ba-before .ba-side-label{background:#fee2e2;color:#dc2626}
+.ba-after .ba-side-label{background:#dcfce7;color:#16a34a}
+.ba-emoji{font-size:52px;text-align:center;margin:16px 0;display:block}
+.ba-title{font-size:18px;font-weight:800;margin-bottom:14px;line-height:1.2}
+.ba-before .ba-title{color:#991b1b}
+.ba-after .ba-title{color:#14532d}
+.ba-list{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ba-list li{font-size:14px;line-height:1.5;display:flex;align-items:flex-start;gap:8px}
+.ba-before .ba-list li{color:#7f1d1d}
+.ba-before .ba-list li::before{content:'✗';color:#dc2626;font-weight:900;flex-shrink:0}
+.ba-after .ba-list li{color:#14532d}
+.ba-after .ba-list li::before{content:'✓';color:#16a34a;font-weight:900;flex-shrink:0}
+.ba-divider{display:flex;align-items:center;justify-content:center;position:relative;height:48px}
+.ba-arrow{position:absolute;top:50%;transform:translateY(-50%);background:linear-gradient(135deg,#10b981,#059669);color:#fff;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;z-index:5;box-shadow:0 4px 16px rgba(16,185,129,.4)}
+.ba-result{background:linear-gradient(135deg,#ecfdf5,#d1fae5);padding:24px 32px;display:flex;align-items:center;gap:20px;border-top:2px solid #a7f3d0;flex-wrap:wrap}
+.br-stats{display:flex;gap:24px;flex-wrap:wrap}
+.br-stat .n{font-size:32px;font-weight:900;color:#065f46;letter-spacing:-1px}
+.br-stat .l{font-size:12px;color:#6b7280;margin-top:2px}
+.ba-cta{background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:14px 28px;border-radius:12px;text-decoration:none;font-size:15px;font-weight:700;margin-left:auto;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.ba-footer{background:#065f46;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.bf-brand{font-size:16px;font-weight:900;color:#fff;letter-spacing:-.3px}
+.bf-note{font-size:12px;color:rgba(255,255,255,.6)}
+</style></head>
+<body>
+<div class="ba-wrap">
+  <div class="ba-header"><div class="ba-label">KẾT QUẢ THỰC TẾ SAU 30 NGÀY</div><h2>Sự khác biệt mà FitBody Pro mang lại</h2></div>
+  <div class="ba-comparison">
+    <div class="ba-side ba-before">
+      <span class="ba-side-label">TRƯỚC ĐÂY</span><span class="ba-emoji">😩</span>
+      <div class="ba-title">Tập luyện tự phát, không kế hoạch</div>
+      <ul class="ba-list"><li>Không biết bắt đầu từ đâu</li><li>Tập 3 ngày nghỉ 1 tuần</li><li>Ăn kiêng mà không hiệu quả</li><li>Chấn thương liên tục</li><li>Không thấy kết quả sau 3 tháng</li></ul>
+    </div>
+    <div class="ba-side ba-after">
+      <span class="ba-side-label">VỚI FITBODY PRO</span><span class="ba-emoji">💪</span>
+      <div class="ba-title">Lộ trình cá nhân hoá bởi AI Coach</div>
+      <ul class="ba-list"><li>Lộ trình 12 tuần rõ ràng, cụ thể</li><li>Tập đúng giờ, đúng cường độ</li><li>Dinh dưỡng tối ưu theo cơ thể</li><li>Kỹ thuật chuẩn, không chấn thương</li><li>Thấy kết quả rõ từ tuần thứ 2</li></ul>
+    </div>
+  </div>
+  <div class="ba-divider"><div class="ba-arrow">→</div></div>
+  <div class="ba-result">
+    <div class="br-stats"><div class="br-stat"><div class="n">-8kg</div><div class="l">Giảm cân trung bình</div></div><div class="br-stat"><div class="n">94%</div><div class="l">Đạt mục tiêu</div></div><div class="br-stat"><div class="n">30 ngày</div><div class="l">Thấy kết quả</div></div></div>
+    <a href="#" class="ba-cta">Bắt đầu ngay →</a>
+  </div>
+  <div class="ba-footer"><div class="bf-brand">FitBody Pro</div><div class="bf-note">Dùng thử 7 ngày miễn phí · Không cần thẻ tín dụng</div></div>
+</div>
+</body></html>`
+
+const ARTICLE_NEWSLETTER = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f5f0e8;font-family:Georgia,'Times New Roman',serif;color:#2c2c2c;line-height:1.7}
+.email-wrap{max-width:640px;margin:40px auto;background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 4px 32px rgba(0,0,0,.08)}
+/* Header */
+.nl-header{background:#1a1209;padding:32px 48px;text-align:center}
+.nl-logo{font-size:28px;font-weight:700;color:#f5f0e8;letter-spacing:-.5px;margin-bottom:6px}
+.nl-tagline{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#8b7355;font-family:'Helvetica Neue',Arial,sans-serif}
+.nl-issue{display:inline-block;background:#f59e0b;color:#1a1209;padding:4px 14px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:900;letter-spacing:2px;margin-top:16px}
+/* Hero */
+.nl-hero{padding:48px 48px 0}
+.nl-category{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#f59e0b;margin-bottom:16px}
+.nl-title{font-size:clamp(28px,4vw,40px);font-weight:700;color:#1a1209;line-height:1.2;letter-spacing:-.5px;margin-bottom:16px}
+.nl-subtitle{font-size:18px;color:#6b6560;line-height:1.6;margin-bottom:24px;font-style:italic}
+.nl-meta{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:#9ca3af;border-top:1px solid #e8e0d4;border-bottom:1px solid #e8e0d4;padding:14px 0;display:flex;gap:20px;margin-bottom:32px}
+/* Drop cap */
+.nl-body{padding:0 48px}
+.nl-body p{font-size:17px;color:#2c2c2c;line-height:1.85;margin-bottom:20px}
+.nl-body p:first-of-type::first-letter{font-size:64px;font-weight:700;float:left;line-height:.8;margin:4px 12px 0 0;color:#1a1209;font-family:Georgia,serif}
+.nl-body h2{font-size:24px;font-weight:700;color:#1a1209;margin:40px 0 16px;line-height:1.3;letter-spacing:-.3px}
+.nl-body h2::before{content:'';display:block;width:40px;height:3px;background:#f59e0b;margin-bottom:12px}
+/* Pull quote */
+.pull{background:#f5f0e8;border-left:4px solid #f59e0b;padding:24px 28px;margin:32px 0;font-size:22px;font-style:italic;color:#1a1209;line-height:1.5}
+.pull cite{display:block;font-size:13px;font-style:normal;color:#8b7355;margin-top:10px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:1px}
+/* Highlight box */
+.highlight{background:#fffbf0;border:1px solid #fde68a;border-radius:4px;padding:24px 28px;margin:28px 0}
+.highlight-title{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#d97706;margin-bottom:12px}
+.highlight ul{list-style:none;display:flex;flex-direction:column;gap:10px;padding:0}
+.highlight ul li{font-size:15px;color:#374151;padding-left:20px;position:relative;line-height:1.55}
+.highlight ul li::before{content:'→';position:absolute;left:0;color:#f59e0b;font-weight:700}
+/* Divider */
+.nl-divider{text-align:center;padding:24px 0;color:#d1c9ba;font-size:20px;letter-spacing:8px}
+/* Stats inline */
+.nl-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid #e8e0d4;margin:32px 0}
+.ns-item{padding:20px;text-align:center;border-right:1px solid #e8e0d4}
+.ns-item:last-child{border:none}
+.ns-n{font-size:32px;font-weight:700;color:#1a1209;letter-spacing:-1px}
+.ns-l{font-size:12px;color:#9ca3af;margin-top:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.3px}
+/* Footer */
+.nl-footer{background:#1a1209;padding:32px 48px;margin-top:48px}
+.nl-footer p{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:#6b6560;text-align:center;line-height:1.6}
+.nl-footer a{color:#f59e0b;text-decoration:none}
+.nl-cta-box{background:#f59e0b;padding:32px 48px;text-align:center}
+.nl-cta-box h3{font-size:24px;font-weight:700;color:#1a1209;margin-bottom:10px}
+.nl-cta-box p{font-size:15px;color:#5c4a22;margin-bottom:20px;font-family:'Helvetica Neue',Arial,sans-serif}
+.nl-btn{display:inline-block;background:#1a1209;color:#f5f0e8;padding:14px 32px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:700;text-decoration:none;letter-spacing:.5px}
+</style></head>
+<body>
+<div class="email-wrap">
+  <div class="nl-header">
+    <div class="nl-logo">Góc Kinh Doanh</div>
+    <div class="nl-tagline">Bản tin doanh nhân · Mỗi thứ Hai</div>
+    <div class="nl-issue">SỐ #47 · THÁNG 6/2026</div>
+  </div>
+  <div class="nl-hero">
+    <div class="nl-category">Chiến lược tăng trưởng</div>
+    <h1 class="nl-title">5 bài học đắt giá từ những doanh nghiệp Việt đã thất bại khi mở rộng quy mô</h1>
+    <p class="nl-subtitle">Tại sao 80% startup Việt không vượt qua được giai đoạn từ 10 tỷ lên 100 tỷ — và làm thế nào để tránh bẫy tăng trưởng kinh điển này.</p>
+    <div class="nl-meta"><span>Bởi Minh Đức Lê</span><span>Đọc mất 8 phút</span><span>3.847 người đọc</span></div>
+  </div>
+  <div class="nl-body">
+    <p>Có một nghịch lý kỳ lạ trong thế giới khởi nghiệp Việt Nam. Những doanh nghiệp thất bại không phải vì thiếu ý tưởng hay thiếu vốn — mà vì quá thành công ở giai đoạn đầu và không chuẩn bị cho những gì đến tiếp theo.</p>
+    <p>Tôi đã phỏng vấn hơn 50 founder Việt trong năm qua. Câu chuyện của họ lặp đi lặp lại một pattern đáng sợ: tăng trưởng bùng nổ, sau đó là sự hỗn loạn, rồi đi xuống. Đây là 5 bài học họ ước gì đã biết sớm hơn.</p>
+    <div class="nl-stats">
+      <div class="ns-item"><div class="ns-n">80%</div><div class="ns-l">Startup thất bại khi scale</div></div>
+      <div class="ns-item"><div class="ns-n">50+</div><div class="ns-l">Founder được phỏng vấn</div></div>
+      <div class="ns-item"><div class="ns-n">18 tháng</div><div class="ns-l">Thời gian rủi ro cao nhất</div></div>
+    </div>
+    <h2>Bài học 1: Hệ thống chậm hơn tăng trưởng</h2>
+    <p>Đây là bẫy phổ biến nhất. Khi doanh thu tăng 3x, đội ngũ tăng 2x, nhưng quy trình vẫn như cũ. Kết quả là mọi thứ vỡ vụn cùng một lúc.</p>
+    <div class="pull">"Chúng tôi tăng từ 20 lên 150 nhân viên trong 8 tháng. Nhưng cách chúng tôi quản lý vẫn như hồi còn 5 người. Đó là sai lầm lớn nhất."<cite>— Founder익명, Series B startup, TP.HCM</cite></div>
+    <h2>Bài học 2: Khách hàng đầu tiên không đại diện cho thị trường</h2>
+    <p>1.000 khách hàng đầu tiên của bạn thường là early adopters — những người sẵn sàng chấp nhận sản phẩm chưa hoàn chỉnh. Khi bạn muốn đến với đại chúng, yêu cầu hoàn toàn khác.</p>
+    <div class="highlight">
+      <div class="highlight-title">Dấu hiệu nhận biết</div>
+      <ul>
+        <li>Tỉ lệ chuyển đổi giảm khi chi ngân sách quảng cáo tăng</li>
+        <li>Khách hàng mới có lifetime value thấp hơn nhóm đầu tiên</li>
+        <li>Tỉ lệ refund và khiếu nại bắt đầu tăng</li>
+        <li>Sales cycle kéo dài bất thường</li>
+      </ul>
+    </div>
+    <div class="nl-divider">· · ·</div>
+    <p>Ba bài học còn lại liên quan đến vốn, tuyển dụng và timing — những yếu tố mà hầu hết các founder chỉ học được sau khi đã trả giá. Hẹn gặp lại bạn vào thứ Hai tuần sau với phần tiếp theo.</p>
+  </div>
+  <div class="nl-cta-box">
+    <h3>Đọc toàn bộ phân tích sâu</h3>
+    <p>Trở thành thành viên Pro để đọc phiên bản đầy đủ 4.000 từ và truy cập kho 200+ bài phân tích chiến lược.</p>
+    <a href="#" class="nl-btn">NÂNG CẤP PRO — 99.000đ/tháng →</a>
+  </div>
+  <div class="nl-footer">
+    <p>Bạn nhận được email này vì đã đăng ký <a href="#">Góc Kinh Doanh</a>.<br>
+    <a href="#">Huỷ đăng ký</a> · <a href="#">Xem trên web</a> · <a href="#">Chia sẻ</a></p>
+  </div>
+</div>
+</body></html>`
+
+const ARTICLE_DATAVISUAL = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Arial,sans-serif;background:#fff;color:#1e293b;line-height:1.6}
+.container{max-width:900px;margin:0 auto;padding:0 24px}
+/* Header */
+.dv-header{background:#0f172a;padding:48px 24px;text-align:center}
+.dv-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#06b6d4;margin-bottom:16px}
+.dv-header h1{font-size:clamp(28px,4vw,48px);font-weight:900;color:#fff;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px}
+.dv-header p{font-size:17px;color:#64748b;max-width:600px;margin:0 auto}
+.dv-meta{margin-top:24px;display:flex;justify-content:center;gap:24px;font-size:13px;color:#475569}
+/* Big stat hero */
+.big-stat-row{background:linear-gradient(135deg,#0f172a,#1e293b);padding:48px 24px}
+.big-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0;max-width:800px;margin:0 auto;text-align:center}
+.bsg-item{padding:24px;border-right:1px solid rgba(255,255,255,.08)}
+.bsg-item:last-child{border:none}
+.bsg-n{font-size:clamp(36px,5vw,56px);font-weight:900;letter-spacing:-2px;line-height:1}
+.bsg-l{font-size:13px;color:#475569;margin-top:6px}
+.bsg-item.cyan .bsg-n{color:#06b6d4}
+.bsg-item.green .bsg-n{color:#10b981}
+.bsg-item.amber .bsg-n{color:#f59e0b}
+.bsg-item.purple .bsg-n{color:#a855f7}
+/* Section */
+.dv-section{padding:64px 0;border-bottom:1px solid #e2e8f0}
+.dv-section:last-of-type{border:none}
+.section-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#06b6d4;margin-bottom:12px}
+.dv-section h2{font-size:clamp(24px,3.5vw,36px);font-weight:900;color:#0f172a;letter-spacing:-1px;margin-bottom:16px;line-height:1.2}
+.dv-section p{font-size:16px;color:#475569;line-height:1.75;margin-bottom:20px}
+/* Progress bars */
+.progress-section{background:#f8fafc;padding:40px;border-radius:16px;margin:32px 0}
+.ps-title{font-size:16px;font-weight:700;color:#0f172a;margin-bottom:24px}
+.prog-item{margin-bottom:20px}
+.prog-label{display:flex;justify-content:space-between;margin-bottom:8px}
+.prog-name{font-size:15px;font-weight:600;color:#334155}
+.prog-pct{font-size:15px;font-weight:700;color:#06b6d4}
+.prog-bar{height:10px;background:#e2e8f0;border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#06b6d4,#3b82f6)}
+/* Data cards */
+.data-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:32px 0}
+.dc{background:#f8fafc;border-radius:12px;padding:24px;border-left:4px solid #06b6d4}
+.dc.green{border-color:#10b981}
+.dc.amber{border-color:#f59e0b}
+.dc.red{border-color:#ef4444}
+.dc-n{font-size:36px;font-weight:900;color:#0f172a;letter-spacing:-1.5px;line-height:1}
+.dc-label{font-size:13px;color:#64748b;margin-top:6px;margin-bottom:12px}
+.dc-trend{font-size:13px;font-weight:700;display:flex;align-items:center;gap:4px}
+.dc-trend.up{color:#10b981}
+.dc-trend.down{color:#ef4444}
+/* Compare table */
+.compare-table{width:100%;border-collapse:collapse;margin:32px 0;font-size:14px}
+.compare-table th{background:#0f172a;color:#fff;padding:14px 16px;text-align:left;font-weight:700;letter-spacing:.3px}
+.compare-table td{padding:14px 16px;border-bottom:1px solid #e2e8f0;color:#334155}
+.compare-table tr:nth-child(even) td{background:#f8fafc}
+.compare-table td:first-child{font-weight:600;color:#0f172a}
+.badge-good{background:#dcfce7;color:#16a34a;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:700}
+.badge-bad{background:#fee2e2;color:#dc2626;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:700}
+.badge-ok{background:#fef9c3;color:#ca8a04;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:700}
+/* Insight box */
+.insight{background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1px solid #bae6fd;border-radius:12px;padding:28px;margin:28px 0}
+.insight-icon{font-size:28px;margin-bottom:12px;display:block}
+.insight h3{font-size:18px;font-weight:800;color:#0c4a6e;margin-bottom:10px}
+.insight p{font-size:15px;color:#0369a1;line-height:1.65}
+/* CTA */
+.dv-cta{background:linear-gradient(135deg,#0f172a,#1e3a5f);padding:60px 24px;text-align:center;margin-top:0}
+.dv-cta h2{font-size:clamp(26px,4vw,40px);font-weight:900;color:#fff;letter-spacing:-1px;margin-bottom:14px}
+.dv-cta p{font-size:17px;color:#64748b;max-width:500px;margin:0 auto 32px}
+.btn-cyan{background:#06b6d4;color:#fff;padding:15px 36px;border-radius:10px;text-decoration:none;font-size:16px;font-weight:700;display:inline-block}
+</style></head>
+<body>
+<div class="dv-header">
+  <div class="dv-label">Báo cáo thị trường Q2/2026</div>
+  <h1>Tổng quan ngành TMĐT Việt Nam: Số liệu và xu hướng bạn cần biết</h1>
+  <p>Phân tích toàn diện dựa trên dữ liệu từ 10.000+ doanh nghiệp và 5 triệu giao dịch trong Q2/2026</p>
+  <div class="dv-meta"><span>Bởi Research Team · VietData</span><span>Cập nhật: 5/6/2026</span><span>15 phút đọc</span></div>
+</div>
+
+<div class="big-stat-row">
+  <div class="big-stat-grid">
+    <div class="bsg-item cyan"><div class="bsg-n">$6.8B</div><div class="bsg-l">Tổng GMV Q2/2026</div></div>
+    <div class="bsg-item green"><div class="bsg-n">+34%</div><div class="bsg-l">Tăng trưởng YoY</div></div>
+    <div class="bsg-item amber"><div class="bsg-n">68M</div><div class="bsg-l">Người mua online</div></div>
+    <div class="bsg-item purple"><div class="bsg-n">78%</div><div class="bsg-l">Giao dịch qua mobile</div></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="dv-section">
+    <div class="section-label">Thị phần sàn TMĐT</div>
+    <h2>Cuộc chiến thị phần giữa các sàn</h2>
+    <p>Shopee tiếp tục dẫn đầu nhưng TikTok Shop đang bám sát với tốc độ tăng trưởng ấn tượng. Lazada mất thị phần đáng kể trong 2 quý liên tiếp.</p>
+    <div class="progress-section">
+      <div class="ps-title">Thị phần theo GMV (Q2/2026)</div>
+      <div class="prog-item"><div class="prog-label"><span class="prog-name">Shopee</span><span class="prog-pct">46%</span></div><div class="prog-bar"><div class="prog-fill" style="width:46%"></div></div></div>
+      <div class="prog-item"><div class="prog-label"><span class="prog-name">TikTok Shop</span><span class="prog-pct">24%</span></div><div class="prog-bar"><div class="prog-fill" style="width:24%;background:linear-gradient(90deg,#ec4899,#8b5cf6)"></div></div></div>
+      <div class="prog-item"><div class="prog-label"><span class="prog-name">Lazada</span><span class="prog-pct">14%</span></div><div class="prog-bar"><div class="prog-fill" style="width:14%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div></div></div>
+      <div class="prog-item"><div class="prog-label"><span class="prog-name">Tiki</span><span class="prog-pct">9%</span></div><div class="prog-bar"><div class="prog-fill" style="width:9%;background:linear-gradient(90deg,#10b981,#06b6d4)"></div></div></div>
+      <div class="prog-item"><div class="prog-label"><span class="prog-name">Các sàn khác</span><span class="prog-pct">7%</span></div><div class="prog-bar"><div class="prog-fill" style="width:7%;background:#94a3b8"></div></div></div>
+    </div>
+  </div>
+
+  <div class="dv-section">
+    <div class="section-label">Chỉ số hiệu suất</div>
+    <h2>Các chỉ số vận hành quan trọng</h2>
+    <div class="data-cards">
+      <div class="dc"><div class="dc-n">2.3%</div><div class="dc-label">Tỉ lệ chuyển đổi trung bình</div><div class="dc-trend up">↑ +0.4% so với Q1</div></div>
+      <div class="dc green"><div class="dc-n">185K</div><div class="dc-label">Giá trị đơn hàng trung bình (đ)</div><div class="dc-trend up">↑ +12% so với Q1</div></div>
+      <div class="dc amber"><div class="dc-n">1.8 ngày</div><div class="dc-label">Thời gian giao hàng bình quân</div><div class="dc-trend up">↓ -0.3 ngày (tốt hơn)</div></div>
+      <div class="dc red"><div class="dc-n">3.2%</div><div class="dc-label">Tỉ lệ hoàn hàng</div><div class="dc-trend down">↑ +0.5% so với Q1</div></div>
+    </div>
+    <div class="insight">
+      <span class="insight-icon">💡</span>
+      <h3>Insight quan trọng</h3>
+      <p>Tỉ lệ hoàn hàng tăng chủ yếu ở ngành thời trang (6.8%) và điện tử (4.1%). Các doanh nghiệp nên đầu tư vào công nghệ try-on ảo và mô tả sản phẩm chính xác hơn để cải thiện chỉ số này.</p>
+    </div>
+  </div>
+
+  <div class="dv-section">
+    <div class="section-label">So sánh ngành</div>
+    <h2>Hiệu suất theo ngành hàng</h2>
+    <table class="compare-table">
+      <thead><tr><th>Ngành hàng</th><th>Tăng trưởng</th><th>CVR</th><th>Hoàn hàng</th><th>Đánh giá</th></tr></thead>
+      <tbody>
+        <tr><td>Sức khoẻ & Làm đẹp</td><td>+52%</td><td>3.8%</td><td>1.2%</td><td><span class="badge-good">Xuất sắc</span></td></tr>
+        <tr><td>Thực phẩm & F&B</td><td>+41%</td><td>4.2%</td><td>0.8%</td><td><span class="badge-good">Xuất sắc</span></td></tr>
+        <tr><td>Điện tử tiêu dùng</td><td>+18%</td><td>1.9%</td><td>4.1%</td><td><span class="badge-ok">Trung bình</span></td></tr>
+        <tr><td>Thời trang</td><td>+23%</td><td>2.1%</td><td>6.8%</td><td><span class="badge-ok">Trung bình</span></td></tr>
+        <tr><td>Đồ gia dụng</td><td>-3%</td><td>1.4%</td><td>2.9%</td><td><span class="badge-bad">Cần cải thiện</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="dv-cta">
+  <h2>Tải báo cáo đầy đủ miễn phí</h2>
+  <p>60 trang số liệu chi tiết, dự báo Q3/2026 và chiến lược tăng trưởng từ chuyên gia.</p>
+  <a href="#" class="btn-cyan">Tải báo cáo PDF ngay →</a>
+</div>
+</body></html>`
+
 const LP_SKINCARE = `<!DOCTYPE html>
 <html lang="vi">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
@@ -1316,11 +2427,11 @@ p{color:#4b5563;line-height:1.8;margin-bottom:16px}
 <body>
 <div class="hero-banner">
   <div class="cat">💡 Hướng dẫn · AI & Marketing</div>
-  <h1>7 cách dùng ChatGPT viết content marketing hiệu quả cho người không biết code</h1>
+  <h1>7 cách dùng AI viết content marketing hiệu quả cho người không biết code</h1>
   <div class="meta"><span>👤 Trần Minh Khoa</span><span>📅 27/05/2026</span><span>⏱️ 6 phút đọc</span></div>
 </div>
 <div class="content">
-  <p class="intro">AI đang thay đổi cách marketer sáng tạo nội dung. Nếu bạn biết cách prompt đúng, ChatGPT có thể tiết kiệm cho bạn 3-4 giờ mỗi ngày — mà chất lượng nội dung vẫn đảm bảo. Đây là 7 kỹ thuật tôi dùng hàng ngày.</p>
+  <p class="intro">AI đang thay đổi cách marketer sáng tạo nội dung. Nếu bạn biết cách prompt đúng, AI có thể tiết kiệm cho bạn 3-4 giờ mỗi ngày — mà chất lượng nội dung vẫn đảm bảo. Đây là 7 kỹ thuật tôi dùng hàng ngày.</p>
   <h2>1. Bắt đầu bằng Role Prompting</h2>
   <p>Thay vì hỏi thẳng, hãy giao "vai diễn" cho AI trước. Ví dụ: <em>"Bạn là copywriter 10 năm kinh nghiệm chuyên viết content cho thương hiệu làm đẹp Việt Nam..."</em></p>
   <div class="tip-box"><div class="tip-label">💡 Mẹo thực chiến</div><p>Càng mô tả chi tiết vai trò và bối cảnh, output AI càng sát với nhu cầu thực tế của bạn. Đừng tiết kiệm chữ khi viết prompt.</p></div>
@@ -1341,7 +2452,7 @@ p{color:#4b5563;line-height:1.8;margin-bottom:16px}
     <p>Thử AIContentBooster — AI viết landing page, bài viết và quảng cáo trong tiếng Việt, chỉnh sửa kéo thả ngay trong editor.</p>
     <a href="#">🚀 Dùng thử miễn phí →</a>
   </div>
-  <div class="tags"><span class="tag">AI</span><span class="tag">ChatGPT</span><span class="tag">Content Marketing</span><span class="tag">Copywriting</span><span class="tag">Hướng dẫn</span></div>
+  <div class="tags"><span class="tag">AI</span><span class="tag">Content Marketing</span><span class="tag">Copywriting</span><span class="tag">Hướng dẫn</span></div>
 </div>
 </body></html>`
 
@@ -2881,7 +3992,7 @@ const ARTICLE_HOWTO = `<!DOCTYPE html>
 <body>
 <div class="hero-banner">
   <div class="cat-badge">⚙️ Hướng dẫn kỹ thuật · Next.js · API</div>
-  <h1>Cách tích hợp Claude AI API vào ứng dụng Next.js 15 — Hướng dẫn từng bước cho người mới</h1>
+  <h1>Cách tích hợp AI API vào ứng dụng Next.js 15 — Hướng dẫn từng bước cho người mới</h1>
   <div class="hero-meta"><span>👤 Trần Đức Anh · Full-stack Developer</span><span>📅 28/05/2026</span><span>⏱ 12 phút đọc</span></div>
 </div>
 <div class="content">
@@ -2894,13 +4005,13 @@ const ARTICLE_HOWTO = `<!DOCTYPE html>
     <span class="diff-divider">·</span>
     <div class="diff-item">✅ Đã test: Next.js 15.3</div>
   </div>
-  <p class="intro">Trong bài này, tôi sẽ hướng dẫn bạn tích hợp Claude AI API (Anthropic) vào ứng dụng Next.js 15 — từ cài đặt SDK, tạo API route, đến streaming response để tạo chatbot real-time. Bạn sẽ có một chatbot hoạt động đầy đủ sau khi đọc xong.</p>
+  <p class="intro">Trong bài này, tôi sẽ hướng dẫn bạn tích hợp AI API vào ứng dụng Next.js 15 — từ cài đặt SDK, tạo API route, đến streaming response để tạo chatbot real-time. Bạn sẽ có một chatbot hoạt động đầy đủ sau khi đọc xong.</p>
   <div class="prereq-box">
     <h3>📋 Yêu cầu trước khi bắt đầu</h3>
     <ul class="prereq-list">
       <li>Node.js 18+ và npm/yarn đã cài trên máy</li>
       <li>Kiến thức cơ bản về React và Next.js App Router</li>
-      <li>API key từ Anthropic Console (console.anthropic.com) — có free tier để test</li>
+      <li>API key từ Google AI Studio (aistudio.google.com) — có free tier để test</li>
       <li>Dự án Next.js 15 có sẵn hoặc tạo mới bằng <code>npx create-next-app@latest</code></li>
     </ul>
   </div>
@@ -2908,18 +4019,18 @@ const ARTICLE_HOWTO = `<!DOCTYPE html>
   <div class="step-section">
     <div class="step-header">
       <div class="step-badge">1</div>
-      <div class="step-header-text"><h2>Cài đặt Anthropic SDK</h2><div class="est">⏱ ~2 phút</div></div>
+      <div class="step-header-text"><h2>Cài đặt Google Generative AI SDK</h2><div class="est">⏱ ~2 phút</div></div>
     </div>
     <div class="step-body">
-      <p>Đầu tiên, cài đặt SDK chính thức của Anthropic vào dự án Next.js của bạn:</p>
+      <p>Đầu tiên, cài đặt SDK chính thức của Google vào dự án Next.js của bạn:</p>
       <div class="code-block"><code><span class="comment"># Dùng npm</span>
-npm install @anthropic-ai/sdk
+npm install @google/generative-ai
 
 <span class="comment"># Hoặc yarn</span>
-yarn add @anthropic-ai/sdk</code></div>
+yarn add @google/generative-ai</code></div>
       <p>Tiếp theo, thêm API key vào file <code>.env.local</code> ở thư mục gốc dự án:</p>
       <div class="code-block"><code><span class="comment"># .env.local — KHÔNG commit file này lên git!</span>
-ANTHROPIC_API_KEY=sk-ant-api03-xxxxxxxxxxxxx</code></div>
+GOOGLE_AI_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXX</code></div>
       <div class="tip-box"><div class="tip-icon">💡</div><div><div class="tip-label">Mẹo bảo mật</div><p>Đảm bảo <code>.env.local</code> đã có trong <code>.gitignore</code>. API key bị lộ sẽ bị charge tiền bởi người khác.</p></div></div>
     </div>
   </div>
@@ -2928,29 +4039,27 @@ ANTHROPIC_API_KEY=sk-ant-api03-xxxxxxxxxxxxx</code></div>
   <div class="step-section">
     <div class="step-header">
       <div class="step-badge">2</div>
-      <div class="step-header-text"><h2>Tạo API Route để gọi Claude</h2><div class="est">⏱ ~10 phút</div></div>
+      <div class="step-header-text"><h2>Tạo API Route để gọi AI</h2><div class="est">⏱ ~10 phút</div></div>
     </div>
     <div class="step-body">
-      <p>Tạo file <code>app/api/chat/route.ts</code> — đây là API endpoint nhận message từ frontend và gửi đến Claude:</p>
-      <div class="code-block"><code><span class="keyword">import</span> Anthropic <span class="keyword">from</span> <span class="string">'@anthropic-ai/sdk'</span>
+      <p>Tạo file <code>app/api/chat/route.ts</code> — đây là API endpoint nhận message từ frontend và gửi đến AI:</p>
+      <div class="code-block"><code><span class="keyword">import</span> { GoogleGenerativeAI } <span class="keyword">from</span> <span class="string">'@google/generative-ai'</span>
 <span class="keyword">import</span> { NextResponse } <span class="keyword">from</span> <span class="string">'next/server'</span>
 
-<span class="keyword">const</span> client = <span class="keyword">new</span> Anthropic()
+<span class="keyword">const</span> genAI = <span class="keyword">new</span> GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY!)
 
 <span class="keyword">export async function</span> POST(req: Request) {
   <span class="keyword">const</span> { message } = <span class="keyword">await</span> req.json()
+  <span class="keyword">const</span> model = genAI.getGenerativeModel({ model: <span class="string">'gemini-2.0-flash'</span> })
 
-  <span class="keyword">const</span> response = <span class="keyword">await</span> client.messages.create({
-    model: <span class="string">'claude-sonnet-4-6'</span>,
-    max_tokens: 1024,
-    messages: [{ role: <span class="string">'user'</span>, content: message }],
-  })
+  <span class="keyword">const</span> result = <span class="keyword">await</span> model.generateContent(message)
+  <span class="keyword">const</span> response = result.response
 
   <span class="keyword">return</span> NextResponse.json({
-    reply: response.content[0].text
+    reply: response.text()
   })
 }</code></div>
-      <div class="warn-box"><div class="warn-icon">⚠️</div><p>Không bao giờ gọi Anthropic SDK trực tiếp từ client-side — API key sẽ bị lộ trong browser. Luôn đi qua API Route.</p></div>
+      <div class="warn-box"><div class="warn-icon">⚠️</div><p>Không bao giờ gọi Google AI SDK trực tiếp từ client-side — API key sẽ bị lộ trong browser. Luôn đi qua API Route.</p></div>
     </div>
   </div>
   <hr class="step-divider">
@@ -2988,13 +4097,13 @@ ANTHROPIC_API_KEY=sk-ant-api03-xxxxxxxxxxxxx</code></div>
   }
   <span class="comment">// ... render UI</span>
 }</code></div>
-      <div class="tip-box"><div class="tip-icon">🚀</div><div><div class="tip-label">Nâng cao</div><p>Thêm streaming response bằng cách dùng <code>stream: true</code> trong Anthropic SDK và <code>ReadableStream</code> trong API Route để hiển thị chữ xuất hiện từng từ như ChatGPT.</p></div></div>
+      <div class="tip-box"><div class="tip-icon">🚀</div><div><div class="tip-label">Nâng cao</div><p>Thêm streaming response bằng cách dùng <code>model.generateContentStream()</code> trong Google AI SDK và <code>ReadableStream</code> trong API Route để hiển thị chữ xuất hiện từng từ.</p></div></div>
     </div>
   </div>
 
-  <div class="result-box"><div class="icon">✅</div><h3>Kết quả: Chatbot Claude hoạt động trong Next.js!</h3><p>Giờ bạn có chatbot AI tích hợp Claude đầy đủ — nhận câu hỏi, gọi API, hiển thị câu trả lời. Bước tiếp theo: thêm conversation history, system prompt và streaming.</p></div>
+  <div class="result-box"><div class="icon">✅</div><h3>Kết quả: Chatbot AI hoạt động trong Next.js!</h3><p>Giờ bạn có chatbot AI đầy đủ — nhận câu hỏi, gọi API, hiển thị câu trả lời. Bước tiếp theo: thêm conversation history, system prompt và streaming.</p></div>
   <div class="cta-box"><h3>Muốn tạo content với AI nhanh hơn?</h3><p>Thử AIContentBooster — công cụ viết content AI tối ưu cho thị trường Việt Nam, không cần code.</p><a href="#">🚀 Dùng thử miễn phí →</a></div>
-  <div class="tags"><span class="tag">Next.js</span><span class="tag">Claude AI</span><span class="tag">API</span><span class="tag">Hướng dẫn</span><span class="tag">React</span></div>
+  <div class="tags"><span class="tag">Next.js</span><span class="tag">AI API</span><span class="tag">API</span><span class="tag">Hướng dẫn</span><span class="tag">React</span></div>
 </div>
 </body></html>`
 
@@ -4981,6 +6090,106 @@ export const TEMPLATES: Template[] = [
     gradient: 'from-stone-600 to-amber-700',
     accentColor: '#d97706',
     html: LP_INTERIOR,
+  },
+  {
+    id: 'lp-minimal',
+    name: 'Landing Page Tối Giản (Minimal)',
+    category: 'landing',
+    description: 'Thiết kế tối giản nền trắng, typography lớn, nhiều white space — phù hợp thương hiệu premium, SaaS, dịch vụ chuyên nghiệp.',
+    tags: ['Tối giản', 'Premium', 'Typography'],
+    gradient: 'from-gray-700 to-gray-900',
+    accentColor: '#111111',
+    html: LP_MINIMAL,
+  },
+  {
+    id: 'lp-dark',
+    name: 'Landing Page Dark Premium',
+    category: 'landing',
+    description: 'Nền tối sang trọng, glassmorphism cards, neon glow accent — phù hợp tech, crypto, gaming, thương hiệu cao cấp.',
+    tags: ['Dark mode', 'Tech', 'Premium'],
+    gradient: 'from-slate-800 to-purple-900',
+    accentColor: '#a855f7',
+    html: LP_DARK,
+  },
+  {
+    id: 'lp-splitscreen',
+    name: 'Landing Page Split-Screen',
+    category: 'landing',
+    description: 'Layout chia đôi trái/phải cho từng section — hình ảnh và nội dung xen kẽ, tạo nhịp điệu cuộn trang độc đáo.',
+    tags: ['Split screen', 'Modern', 'Visual'],
+    gradient: 'from-teal-500 to-cyan-600',
+    accentColor: '#0d9488',
+    html: LP_SPLITSCREEN,
+  },
+  {
+    id: 'lp-magazine',
+    name: 'Landing Page Magazine',
+    category: 'landing',
+    description: 'Phong cách editorial báo chí, multi-column, pull quotes nổi bật — phù hợp media, thương hiệu lifestyle, storytelling.',
+    tags: ['Magazine', 'Editorial', 'Lifestyle'],
+    gradient: 'from-red-600 to-orange-600',
+    accentColor: '#dc2626',
+    html: LP_MAGAZINE,
+  },
+  {
+    id: 'lp-bento',
+    name: 'Landing Page Bento Grid',
+    category: 'landing',
+    description: 'Layout bento box kiểu Apple — cards kích thước khác nhau trên grid, trực quan và hiện đại.',
+    tags: ['Bento', 'Grid', 'Apple-style'],
+    gradient: 'from-blue-500 to-indigo-600',
+    accentColor: '#3b82f6',
+    html: LP_BENTO,
+  },
+  {
+    id: 'ads-story',
+    name: 'Quảng Cáo Story Dọc',
+    category: 'ads',
+    description: 'Format dọc 9:16 kiểu Instagram/TikTok Story — full-bleed, text overlay bold, CTA nổi bật.',
+    tags: ['Story', 'Instagram', 'Vertical'],
+    gradient: 'from-pink-500 to-violet-600',
+    accentColor: '#ec4899',
+    html: ADS_STORY,
+  },
+  {
+    id: 'ads-minimal',
+    name: 'Quảng Cáo Tối Giản',
+    category: 'ads',
+    description: 'Banner chỉ dùng typography, không ảnh — thiết kế tinh tế, thương hiệu cao cấp, dễ dàng cá nhân hoá.',
+    tags: ['Tối giản', 'Typography', 'Brand'],
+    gradient: 'from-gray-600 to-gray-800',
+    accentColor: '#374151',
+    html: ADS_MINIMAL,
+  },
+  {
+    id: 'ads-beforeafter',
+    name: 'Quảng Cáo Before/After',
+    category: 'ads',
+    description: 'Banner so sánh trước/sau hoặc A vs B — hiệu quả cho làm đẹp, fitness, sản phẩm cải thiện.',
+    tags: ['Before After', 'So sánh', 'Transformation'],
+    gradient: 'from-green-500 to-emerald-600',
+    accentColor: '#10b981',
+    html: ADS_BEFOREAFTER,
+  },
+  {
+    id: 'article-newsletter',
+    name: 'Bài Viết Newsletter',
+    category: 'article',
+    description: 'Phong cách newsletter/Substack — serif font, pull quotes, drop cap, layout ấm cúng dễ đọc.',
+    tags: ['Newsletter', 'Long-form', 'Substack'],
+    gradient: 'from-amber-500 to-yellow-600',
+    accentColor: '#f59e0b',
+    html: ARTICLE_NEWSLETTER,
+  },
+  {
+    id: 'article-datavisual',
+    name: 'Bài Viết Dữ Liệu & Số Liệu',
+    category: 'article',
+    description: 'Nặng về số liệu, progress bars, big stats, infographic-style — phù hợp báo cáo, phân tích, market research.',
+    tags: ['Data', 'Infographic', 'Báo cáo'],
+    gradient: 'from-cyan-500 to-blue-600',
+    accentColor: '#06b6d4',
+    html: ARTICLE_DATAVISUAL,
   },
 ]
 

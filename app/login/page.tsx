@@ -15,13 +15,14 @@ export const metadata: Metadata = {
 }
 
 interface LoginPageProps {
-  searchParams: Promise<{ callbackUrl?: string; plan?: string; type?: string; pack?: string; tab?: string }>
+  searchParams: Promise<{ callbackUrl?: string; plan?: string; billing?: string; type?: string; pack?: string; tab?: string }>
 }
 
 export default async function LoginPage({ searchParams }: LoginPageProps) {
   const session = await auth()
   const params = await searchParams
   const plan = params.plan ?? ''
+  const billing = params.billing === 'yearly' ? 'yearly' : 'monthly'
   const isCredits = params.type === 'credits'
   const pack = params.pack ?? ''
 
@@ -30,7 +31,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
       redirect(`/upgrade?type=credits&pack=${pack}`)
     }
     if (plan === 'designer' || plan === 'basic' || plan === 'pro') {
-      redirect(`/upgrade?plan=${plan}`)
+      redirect(`/upgrade?plan=${plan}&billing=${billing}`)
     }
     redirect('/')
   }

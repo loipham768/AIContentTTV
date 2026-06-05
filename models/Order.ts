@@ -6,7 +6,7 @@ const OrderSchema = new mongoose.Schema(
     userId: { type: String, required: true },
 
     type: { type: String, enum: ["subscription", "credits"], required: true },
-    plan: { type: String, enum: ["basic", "pro"], default: null },
+    plan: { type: String, enum: ["designer", "basic", "pro"], default: null },
     billing: { type: String, enum: ["monthly", "yearly"], default: "monthly" },
 
     // Credits granted on activation (for credit packs)

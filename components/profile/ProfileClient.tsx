@@ -115,6 +115,7 @@ interface Order {
   amount: number;
   status: string;
   activatedAt?: string | null;
+  expiresAt?: string | null;
   createdAt: string;
 }
 
@@ -157,13 +158,19 @@ function OrderHistory() {
       )}
 
       {!loading && orders.length > 0 && (
-        <div className="divide-y divide-gray-50">
+        <div className="divide-y divide-gray-50 max-h-80 overflow-y-auto scrollbar-thin">
           {orders.map((o) => {
             const isSubscription = o.type === "subscription";
             const label = isSubscription
               ? `Nâng cấp gói ${PLAN_LABEL_MAP[o.plan ?? ""] ?? o.plan} · ${o.billing === "yearly" ? "Hàng năm" : "Hàng tháng"}`
               : `Nạp ${o.creditsHtml ?? 0} credit dự phòng`;
             const date = o.activatedAt ?? o.createdAt;
+
+            // Orders that passed the 24h window without payment stay "pending" in DB
+            const effectiveStatus =
+              o.status === "pending" && o.expiresAt && new Date(o.expiresAt) < new Date()
+                ? "expired"
+                : o.status;
 
             return (
               <div key={o.orderId} className="flex items-center gap-3 py-3">
@@ -182,8 +189,8 @@ function OrderHistory() {
 
                 <div className="flex flex-col items-end gap-1 shrink-0">
                   <span className="text-sm font-semibold text-gray-800">{fmtVnd(o.amount)}</span>
-                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${STATUS_COLOR[o.status] ?? STATUS_COLOR.expired}`}>
-                    {STATUS_LABEL[o.status] ?? o.status}
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${STATUS_COLOR[effectiveStatus] ?? STATUS_COLOR.expired}`}>
+                    {STATUS_LABEL[effectiveStatus] ?? effectiveStatus}
                   </span>
                 </div>
               </div>

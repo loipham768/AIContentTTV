@@ -33,27 +33,28 @@ export default function BackToTop() {
       aria-label="Về đầu trang"
       style={{
         position: 'fixed',
-        bottom: '28px',
-        right: '20px',
+        bottom: '24px',
+        right: '24px',
         zIndex: 9999,
-        width: '44px',
-        height: '44px',
+        width: '56px',
+        height: '56px',
         borderRadius: '50%',
         background: 'linear-gradient(135deg, #4f46e5, #7c3aed)',
         color: 'white',
         border: 'none',
         cursor: 'pointer',
-        display: 'flex',
+        display: visible ? 'flex' : 'none',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '0 4px 20px rgba(99,102,241,0.4)',
+        boxShadow: '0 8px 24px rgba(99,102,241,0.35)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0) scale(1)' : 'translateY(12px) scale(0.9)',
         pointerEvents: visible ? 'auto' : 'none',
         transition: 'opacity 0.3s ease, transform 0.3s ease',
       }}
+      className="hidden md:flex"
     >
-      <ArrowUp size={20} />
+      <ArrowUp size={22} />
     </button>
   )
 }

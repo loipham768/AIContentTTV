@@ -44,7 +44,7 @@ export default async function UpgradePage({
   if (!session?.user?.id) {
     const qs = isCredits
       ? `type=credits&pack=${params.pack ?? ""}`
-      : `plan=${params.plan ?? ""}`;
+      : `plan=${params.plan ?? ""}&billing=${params.billing ?? "monthly"}`;
     redirect(`/login?${qs}`);
   }
 
@@ -56,13 +56,20 @@ export default async function UpgradePage({
     const pack = CREDIT_PACKS.find((p) => p.id === packId);
     if (!pack) redirect("/#pricing");
 
-    // Existing pending order that hasn't expired → resume it
     const existing = (await Order.findOne({
       userId: session.user.id,
       status: "pending",
       expiresAt: { $gt: new Date() },
     }).lean()) as any;
-    if (existing) redirect(`/checkout/${existing.orderId}`);
+
+    if (existing) {
+      // Same credits pack → resume
+      if (existing.type === "credits" && existing.amount === pack!.amount) {
+        redirect(`/checkout/${existing.orderId}`);
+      }
+      // Different → cancel old, create new
+      await Order.updateOne({ _id: existing._id }, { $set: { status: "cancelled" } });
+    }
 
     const orderId = generateOrderId();
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
@@ -102,7 +109,19 @@ export default async function UpgradePage({
     status: "pending",
     expiresAt: { $gt: new Date() },
   }).lean()) as any;
-  if (existing) redirect(`/checkout/${existing.orderId}`);
+
+  if (existing) {
+    // Same plan + billing → resume
+    if (
+      existing.type === "subscription" &&
+      existing.plan === plan &&
+      existing.billing === billing
+    ) {
+      redirect(`/checkout/${existing.orderId}`);
+    }
+    // Different plan or billing → cancel old, create new
+    await Order.updateOne({ _id: existing._id }, { $set: { status: "cancelled" } });
+  }
 
   const orderId = generateOrderId();
   const amount = PLAN_PRICES[plan as "designer" | "basic" | "pro"][billing];

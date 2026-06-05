@@ -251,7 +251,7 @@ const CONTENT_POOL: Record<ContentTypeId, SampleItem[]> = {
       desc: "Tech / Productivity",
     },
     {
-      text: "Hướng dẫn dùng ChatGPT viết content hiệu quả cho marketer",
+      text: "Hướng dẫn dùng AI viết content hiệu quả cho marketer",
       desc: "AI Guide",
     },
     {

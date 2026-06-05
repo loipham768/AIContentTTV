@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { auth } from '@/auth'
 import { dbConnect } from '@/lib/mongodb'
 import Project from '@/models/Project'
+import RateLimit from '@/models/RateLimit'
 import { chatWithGemini, type GeminiMessage } from '@/lib/ai/gemini'
 import { checkAndIncrementGeneration } from '@/lib/planGate'
 
@@ -46,9 +47,24 @@ export async function POST(req: NextRequest) {
     const result = await chatWithGemini(messages as GeminiMessage[])
 
     if (result.type === 'html') {
+      // Rate limit — prevents concurrent requests from double-spending quota
+      await dbConnect()
+      try {
+        await RateLimit.create({ userId: session.user.id, createdAt: new Date() })
+      } catch (dupErr: any) {
+        if (dupErr?.code === 11000) {
+          return NextResponse.json(
+            { error: 'Vui lòng đợi vài giây trước khi tạo nội dung mới.' },
+            { status: 429 }
+          )
+        }
+        throw dupErr
+      }
+
       // Plan gate — only when AI actually produces the final HTML output
       const gate = await checkAndIncrementGeneration(session.user.id)
       if (!gate.allowed) {
+        await RateLimit.deleteOne({ userId: session.user.id }).catch(() => {})
         return NextResponse.json(
           { error: gate.reason, code: gate.code, upgradeRequired: gate.upgradeRequired },
           { status: 402 }

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'
-import { Menu, X, BookOpen, LayoutTemplate, Tag, LogIn, Sparkles, Zap, LogOut } from 'lucide-react'
+import { Menu, X, BookOpen, LayoutTemplate, Tag, MessageSquare, LogIn, Sparkles, Zap, LogOut } from 'lucide-react'
 import UserAvatar from './UserAvatar'
 
 interface Props {
@@ -17,6 +17,7 @@ const NAV_LINKS = [
   { href: '/kien-thuc',  icon: BookOpen,       label: 'Kiến thức'   },
   { href: '/templates',  icon: LayoutTemplate, label: 'Mẫu có sẵn' },
   { href: '/#pricing',   icon: Tag,            label: 'Bảng giá'   },
+  { href: '/contact',    icon: MessageSquare,  label: 'Liên hệ'     },
 ]
 
 export default function MobileNav({ isLoggedIn, userName, avatarUrl, email }: Props) {

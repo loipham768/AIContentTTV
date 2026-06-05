@@ -78,7 +78,7 @@ export const ARTICLES: Record<string, Article> = {
     slug: "so-sanh-cong-cu-viet-content-ai-tot-nhat",
     title: "So sánh 5 công cụ viết content AI tốt nhất cho người Việt 2026",
     description:
-      "Đánh giá chi tiết ChatGPT, Claude, Gemini, Jasper và AITaoPage. Công cụ nào phù hợp nhất cho thị trường Việt Nam?",
+      "Đánh giá chi tiết các công cụ AI viết content phổ biến và AITaoPage. Công cụ nào phù hợp nhất cho thị trường Việt Nam?",
     category: "So sánh",
     readTime: "12 phút",
     publishedDate: "2026-05-18",
@@ -86,7 +86,7 @@ export const ARTICLES: Record<string, Article> = {
     keywords: [
       "công cụ viết content AI",
       "so sánh AI content",
-      "ChatGPT vs Claude",
+      "So sánh công cụ AI content",
       "AI viết bài tiếng Việt",
       "tool AI marketing",
     ],
@@ -94,27 +94,22 @@ export const ARTICLES: Record<string, Article> = {
 <h2>Thị trường công cụ AI viết content năm 2026</h2>
 <p>Năm 2026, thị trường công cụ AI viết content bùng nổ với hàng chục lựa chọn. Với người làm marketing và kinh doanh tại Việt Nam, câu hỏi đặt ra là: <strong>công cụ nào thực sự tốt cho nội dung tiếng Việt?</strong></p>
 
-<h2>1. ChatGPT (OpenAI)</h2>
+<h2>1. Công cụ AI đa năng (tổng quát)</h2>
 <p><strong>Điểm mạnh:</strong> Phổ biến, dễ dùng, hiểu tiếng Việt khá tốt. Phù hợp viết blog, email, caption mạng xã hội.</p>
 <p><strong>Điểm yếu:</strong> Không tạo được HTML/CSS trực tiếp cho CMS. Cần copy-paste và format lại thủ công. Không có giao diện kéo thả để chỉnh sửa.</p>
-<p><strong>Giá:</strong> Free (giới hạn) / $20/tháng cho GPT-4</p>
+<p><strong>Giá:</strong> Free (giới hạn) đến $20–30/tháng cho gói nâng cao</p>
 
-<h2>2. Claude (Anthropic)</h2>
-<p><strong>Điểm mạnh:</strong> Hiểu ngữ cảnh sâu, viết văn phong tự nhiên, rất tốt cho nội dung dài. Xuất sắc trong việc tạo HTML có cấu trúc.</p>
-<p><strong>Điểm yếu:</strong> Không có giao diện chuyên biệt cho marketing Việt Nam. Output cần chỉnh sửa trước khi dùng trực tiếp trên CMS.</p>
-<p><strong>Giá:</strong> Free (giới hạn) / $20/tháng cho Pro</p>
-
-<h2>3. Google Gemini</h2>
+<h2>2. Công cụ AI tích hợp Google Workspace</h2>
 <p><strong>Điểm mạnh:</strong> Tích hợp tốt với Google Workspace, hiểu tiếng Việt ngày càng tốt hơn. Hỗ trợ đa phương tiện (hình ảnh + văn bản).</p>
 <p><strong>Điểm yếu:</strong> Chưa tối ưu cho việc tạo HTML sẵn sàng cho CMS Việt Nam.</p>
-<p><strong>Giá:</strong> Free / $19.99/tháng cho Gemini Advanced</p>
+<p><strong>Giá:</strong> Free / $20/tháng cho gói nâng cao</p>
 
-<h2>4. Jasper AI</h2>
+<h2>3. Jasper AI</h2>
 <p><strong>Điểm mạnh:</strong> Chuyên biệt cho marketing, nhiều template có sẵn, hỗ trợ tạo landing page.</p>
 <p><strong>Điểm yếu:</strong> Giá cao ($49+/tháng), tiếng Việt không phải thế mạnh, output thường cần chỉnh sửa nhiều.</p>
 <p><strong>Giá:</strong> Từ $49/tháng</p>
 
-<h2>5. AITaoPage (Chuyên biệt cho Việt Nam)</h2>
+<h2>4. AITaoPage (Chuyên biệt cho Việt Nam)</h2>
 <p><strong>Điểm mạnh:</strong> Thiết kế riêng cho thị trường Việt Nam. Tạo HTML inline CSS sẵn sàng dán vào Haravan, Sapo, WordPress. Có giao diện kéo thả để chỉnh sửa. AI hỏi từng bước để hiểu đúng yêu cầu.</p>
 <p><strong>Điểm yếu:</strong> Chuyên cho việc tạo nội dung HTML, không phải công cụ đa năng.</p>
 <p><strong>Giá:</strong> Miễn phí / 99.000đ/tháng (Basic) / 199.000đ/tháng (Pro)</p>
@@ -124,9 +119,8 @@ export const ARTICLES: Record<string, Article> = {
 <thead>
 <tr style="background:#f1f5f9">
 <th style="padding:8px;text-align:left;border:1px solid #e2e8f0">Tiêu chí</th>
-<th style="padding:8px;text-align:center;border:1px solid #e2e8f0">ChatGPT</th>
-<th style="padding:8px;text-align:center;border:1px solid #e2e8f0">Claude</th>
-<th style="padding:8px;text-align:center;border:1px solid #e2e8f0">Gemini</th>
+<th style="padding:8px;text-align:center;border:1px solid #e2e8f0">AI đa năng</th>
+<th style="padding:8px;text-align:center;border:1px solid #e2e8f0">AI Google</th>
 <th style="padding:8px;text-align:center;border:1px solid #e2e8f0">Jasper</th>
 <th style="padding:8px;text-align:center;border:1px solid #e2e8f0;background:#ede9fe">AITaoPage</th>
 </tr>
@@ -134,7 +128,6 @@ export const ARTICLES: Record<string, Article> = {
 <tbody>
 <tr>
 <td style="padding:8px;border:1px solid #e2e8f0">Tiếng Việt</td>
-<td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★★☆</td>
 <td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★★☆</td>
 <td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★★★☆</td>
 <td style="padding:8px;text-align:center;border:1px solid #e2e8f0">★★☆☆☆</td>
@@ -145,12 +138,10 @@ export const ARTICLES: Record<string, Article> = {
 <td style="padding:8px;text-align:center;border:1px solid #e2e8f0">✗</td>
 <td style="padding:8px;text-align:center;border:1px solid #e2e8f0">~</td>
 <td style="padding:8px;text-align:center;border:1px solid #e2e8f0">~</td>
-<td style="padding:8px;text-align:center;border:1px solid #e2e8f0">~</td>
 <td style="padding:8px;text-align:center;border:1px solid #e2e8f0;background:#faf5ff">✓</td>
 </tr>
 <tr>
 <td style="padding:8px;border:1px solid #e2e8f0">Giao diện kéo thả</td>
-<td style="padding:8px;text-align:center;border:1px solid #e2e8f0">✗</td>
 <td style="padding:8px;text-align:center;border:1px solid #e2e8f0">✗</td>
 <td style="padding:8px;text-align:center;border:1px solid #e2e8f0">✗</td>
 <td style="padding:8px;text-align:center;border:1px solid #e2e8f0">✓</td>
@@ -158,7 +149,6 @@ export const ARTICLES: Record<string, Article> = {
 </tr>
 <tr style="background:#f8fafc">
 <td style="padding:8px;border:1px solid #e2e8f0">Giá khởi điểm</td>
-<td style="padding:8px;text-align:center;border:1px solid #e2e8f0">Miễn phí</td>
 <td style="padding:8px;text-align:center;border:1px solid #e2e8f0">Miễn phí</td>
 <td style="padding:8px;text-align:center;border:1px solid #e2e8f0">Miễn phí</td>
 <td style="padding:8px;text-align:center;border:1px solid #e2e8f0">$49/tháng</td>
@@ -169,8 +159,8 @@ export const ARTICLES: Record<string, Article> = {
 
 <h2>Kết luận: Chọn công cụ nào?</h2>
 <p>Nếu bạn cần tạo <strong>landing page, banner, hay block nội dung HTML</strong> để dán trực tiếp vào Haravan, Sapo, hay WordPress — <strong>AITaoPage</strong> là lựa chọn chuyên biệt nhất, tiết kiệm thời gian nhất.</p>
-<p>Nếu bạn cần viết blog, email, hay nội dung đa dạng — ChatGPT hoặc Claude là lựa chọn tốt.</p>
-<p>Kết hợp cả hai: dùng ChatGPT/Claude để brainstorm ý tưởng, rồi dùng AITaoPage để biến ý tưởng thành HTML production-ready.</p>
+<p>Nếu bạn cần viết blog, email, hay nội dung đa dạng — các công cụ AI tổng quát là lựa chọn tốt.</p>
+<p>Kết hợp cả hai: dùng AI tổng quát để brainstorm ý tưởng, rồi dùng AITaoPage để biến ý tưởng thành HTML production-ready.</p>
     `.trim(),
   },
 
@@ -1048,7 +1038,7 @@ export const ARTICLES: Record<string, Article> = {
 
 <h2>6 ứng dụng AI Marketing được dùng nhiều nhất tại Việt Nam</h2>
 <h3>1. AI tạo nội dung (Content Generation)</h3>
-<p>Đây là ứng dụng phổ biến nhất. AI viết bài blog, caption mạng xã hội, mô tả sản phẩm, email marketing — giảm 60–80% thời gian sản xuất content. Công cụ phổ biến: ChatGPT, Claude, Gemini, và các nền tảng chuyên biệt cho thị trường Việt Nam.</p>
+<p>Đây là ứng dụng phổ biến nhất. AI viết bài blog, caption mạng xã hội, mô tả sản phẩm, email marketing — giảm 60–80% thời gian sản xuất content. Công cụ phổ biến: các trợ lý AI tổng quát và các nền tảng chuyên biệt cho thị trường Việt Nam.</p>
 <p><strong>Case study thực tế:</strong> Shop bán mỹ phẩm tại TP.HCM giảm từ 4 giờ/ngày viết content xuống 45 phút sau khi dùng AI, đồng thời tăng tần suất đăng bài từ 2 lên 7 bài/ngày — dẫn đến tăng 45% tương tác organic.</p>
 
 <h3>2. AI tạo hình ảnh (Image Generation)</h3>

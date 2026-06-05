@@ -46,19 +46,32 @@ export async function POST(req: NextRequest) {
 
   await dbConnect();
 
-  // Block duplicate pending orders
+  // If there's an existing pending order for the same plan/billing/pack → resume it
+  // If different → cancel old and allow creating a new one
   const existing = (await Order.findOne({
     userId: session.user.id,
     status: "pending",
   }).lean()) as any;
+
   if (existing) {
-    return NextResponse.json(
-      {
-        error: "Bạn đang có đơn hàng chưa thanh toán.",
-        orderId: existing.orderId,
-      },
-      { status: 409 },
-    );
+    const input = parsed.data;
+    const isSame =
+      input.type === "subscription"
+        ? existing.type === "subscription" &&
+          existing.plan === input.plan &&
+          existing.billing === input.billing
+        : existing.type === "credits" &&
+          CREDIT_PACKS.find((p) => p.id === input.packId)?.amount ===
+            existing.amount;
+
+    if (isSame) {
+      return NextResponse.json(
+        { orderId: existing.orderId, amount: existing.amount },
+        { status: 200 },
+      );
+    }
+    // Different product → cancel old order
+    await Order.updateOne({ _id: existing._id }, { $set: { status: "cancelled" } });
   }
 
   const orderId = generateOrderId();

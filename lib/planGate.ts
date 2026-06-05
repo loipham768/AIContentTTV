@@ -82,7 +82,7 @@ export async function checkExportAllowed(userId: string): Promise<GateResult> {
   const plan: Plan = user.plan ?? 'free'
   const limits = PLAN_LIMITS[plan]
 
-  if (user.plan !== 'free') await user.save()
+  await user.save()
 
   if (!limits.canExport) {
     return {

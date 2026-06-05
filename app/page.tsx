@@ -8,7 +8,6 @@ import {
   History,
   CheckCircle2,
   ArrowRight,
-  Star,
   Sparkles,
   Copy,
   MousePointer2,
@@ -16,12 +15,15 @@ import {
   ShieldCheck,
   FileDown,
   Layers,
-  Crown,
   BookOpen,
   Tag,
   LogIn,
   UserPlus,
+  Phone,
+  Mail,
+  ArrowUpRight,
 } from "lucide-react";
+import PricingSection from "@/components/pricing/PricingSection";
 
 import ScrollReveal from "@/components/ScrollReveal";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
@@ -42,15 +44,15 @@ const FEATURES = [
     cardGrad: "from-violet-50/90 to-purple-50/50",
     bar: "from-violet-400 to-purple-500",
     title: "AI hỏi đáp để hiểu đúng yêu cầu",
-    desc: "Gemini AI đặt câu hỏi từng bước — màu sắc, phong cách, đối tượng — rồi tạo landing page chuẩn theo ý bạn.",
+    desc: "AI đặt câu hỏi từng bước — màu sắc, phong cách, đối tượng — rồi tạo landing page chuẩn theo ý bạn.",
   },
   {
     icon: <Zap className="w-5 h-5 text-white" />,
     iconGrad: "from-amber-400 to-yellow-500",
     cardGrad: "from-amber-50/90 to-yellow-50/50",
     bar: "from-amber-400 to-yellow-400",
-    title: "Tạo nhanh với Claude AI",
-    desc: "Nhập một câu mô tả, Claude tạo khối HTML hoàn chỉnh trong chưa đầy 1 giây — không cần hỏi thêm.",
+    title: "Tạo nhanh với AI",
+    desc: "Nhập một câu mô tả, AI tạo khối HTML hoàn chỉnh trong chưa đầy 1 giây — không cần hỏi thêm.",
   },
   {
     icon: <LayoutTemplate className="w-5 h-5 text-white" />,
@@ -112,7 +114,7 @@ const CONTENT_TYPES = [
     border: "border-indigo-100",
     title: "Landing Page",
     desc: "Trang bán hàng, khóa học online, dịch vụ agency, SaaS, sự kiện.",
-    badge: "Gemini AI hỏi đáp",
+    badge: "Hỏi đáp thông minh",
     badgeColor: "bg-violet-100 text-violet-700",
     examples: [
       "Bán sản phẩm skincare",
@@ -128,7 +130,7 @@ const CONTENT_TYPES = [
     border: "border-blue-100",
     title: "Bài Viết & Content",
     desc: "Blog SEO, review sản phẩm, hướng dẫn sử dụng, tin tức.",
-    badge: "Claude AI nhanh",
+    badge: "Blog & SEO",
     badgeColor: "bg-blue-100 text-blue-700",
     examples: [
       "Blog SEO lên Top Google",
@@ -144,7 +146,7 @@ const CONTENT_TYPES = [
     border: "border-rose-100",
     title: "Quảng Cáo",
     desc: "Banner Facebook Ads, Google Ads, email marketing.",
-    badge: "Claude AI nhanh",
+    badge: "Ads chuyển đổi",
     badgeColor: "bg-rose-100 text-rose-700",
     examples: [
       "Banner Facebook Ads",
@@ -347,6 +349,12 @@ export default async function LandingPage() {
               className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
             >
               <Tag className="w-4 h-4" /> Bảng giá
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
+            >
+              <MessageSquare className="w-4 h-4" /> Liên hệ
             </Link>
             {isLoggedIn ? (
               <div className="flex items-center gap-2 ml-2">
@@ -953,296 +961,7 @@ export default async function LandingPage() {
       <TestimonialsCarousel />
 
       {/* ── Pricing ────────────────────────────────────────────────── */}
-      <section
-        id="pricing"
-        className="py-24"
-        style={{
-          background:
-            "linear-gradient(135deg, #e0e7ff 0%, #faf5ff 50%, #ede9fe 100%)",
-        }}
-      >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <ScrollReveal className="text-center mb-4">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-              Bảng giá
-            </h2>
-            <p className="text-gray-500">
-              Bắt đầu miễn phí — nâng cấp khi bạn cần nhiều hơn
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal className="flex justify-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-white border border-indigo-100 rounded-xl px-4 py-2 text-sm text-gray-600 shadow-sm">
-              <Crown className="w-4 h-4 text-amber-500" />
-              <span className="font-medium text-indigo-700">
-                Mua theo năm tiết kiệm ~20%
-              </span>
-              <span className="text-xs text-gray-400">
-                · Thanh toán chuyển khoản ngân hàng
-              </span>
-            </div>
-          </ScrollReveal>
-
-          {/* Subscription plans */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch pt-2 mb-16">
-            {/* Free */}
-            <ScrollReveal from="left" className="h-full">
-              <div className="rounded-2xl border border-gray-200 bg-white p-7 card-lift h-full flex flex-col">
-                <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide">
-                  Miễn phí
-                </p>
-                <div className="mt-3 flex items-end gap-1">
-                  <span className="text-4xl font-extrabold text-gray-900">
-                    0đ
-                  </span>
-                  <span className="text-gray-400 mb-1 text-sm">/tháng</span>
-                </div>
-                <p className="mt-1.5 text-sm text-gray-500">
-                  Không cần thẻ ngân hàng
-                </p>
-                <Link
-                  href={isLoggedIn ? "/create" : "/login?plan=free"}
-                  className="mt-5 block text-center py-2.5 text-sm font-semibold text-indigo-600 border border-indigo-300 rounded-xl hover:bg-indigo-50 transition-colors"
-                >
-                  {isLoggedIn ? "Tạo nội dung ngay" : "Bắt đầu miễn phí"}
-                </Link>
-                <ul className="mt-6 space-y-2.5 flex-1">
-                  {[
-                    { text: "4 lượt tạo nội dung/tháng", ok: true },
-                    { text: "Chỉnh sửa trong editor", ok: true },
-                    { text: "3 template mẫu", ok: false },
-                    { text: "Sao chép / xuất HTML", ok: false },
-                  ].map(({ text, ok }) => (
-                    <li
-                      key={text}
-                      className="flex items-center gap-2 text-sm text-gray-600"
-                    >
-                      <CheckCircle2
-                        className={`w-4 h-4 shrink-0 ${ok ? "text-emerald-500" : "text-gray-300"}`}
-                      />
-                      <span className={ok ? "" : "text-gray-400"}>{text}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </ScrollReveal>
-
-            {/* Designer */}
-            <ScrollReveal delay={60} className="h-full">
-              <div className="rounded-2xl border-2 border-teal-200 bg-white p-7 card-lift h-full flex flex-col relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-teal-50 to-cyan-50 rounded-bl-full" />
-                <p className="text-sm font-semibold text-teal-600 uppercase tracking-wide">
-                  Designer
-                </p>
-                <div className="mt-3 flex items-end gap-1">
-                  <span className="text-4xl font-extrabold text-gray-900">
-                    59.000đ
-                  </span>
-                  <span className="text-gray-500 mb-1 text-sm">/tháng</span>
-                </div>
-                <p className="mt-1.5 text-sm text-gray-500">
-                  hoặc 47.000đ/tháng khi mua năm
-                </p>
-                <Link
-                  href="/upgrade?plan=designer"
-                  className="mt-5 block text-center py-2.5 text-sm font-semibold text-teal-700 border-2 border-teal-400 rounded-xl hover:bg-teal-50 transition-colors"
-                >
-                  Đăng ký Designer
-                </Link>
-                <ul className="mt-6 space-y-2.5 flex-1">
-                  {[
-                    "Kéo thả không giới hạn",
-                    "Sao chép & xuất file HTML",
-                    "Toàn bộ template mẫu",
-                    "Lưu lịch sử 30 ngày",
-                    { text: "Tạo nội dung bằng AI", disabled: true },
-                  ].map((f) => {
-                    const disabled = typeof f === "object" && f.disabled;
-                    const text = typeof f === "string" ? f : f.text;
-                    return (
-                      <li
-                        key={text}
-                        className="flex items-center gap-2 text-sm text-gray-700"
-                      >
-                        <CheckCircle2
-                          className={`w-4 h-4 shrink-0 ${disabled ? "text-gray-300" : "text-emerald-500"}`}
-                        />
-                        <span className={disabled ? "text-gray-400" : ""}>
-                          {text}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </ScrollReveal>
-
-            {/* Basic */}
-            <ScrollReveal delay={80} className="h-full">
-              <div className="rounded-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 p-7 shadow-2xl relative card-lift text-white h-full flex flex-col">
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-bold bg-amber-400 text-gray-900 rounded-full shadow">
-                    <Star className="w-3 h-3 fill-gray-900" /> Phổ biến nhất
-                  </span>
-                </div>
-                <p className="text-sm font-semibold text-indigo-200 uppercase tracking-wide">
-                  Basic
-                </p>
-                <div className="mt-3 flex items-end gap-1">
-                  <span className="text-4xl font-extrabold text-white">
-                    99.000đ
-                  </span>
-                  <span className="text-indigo-200 mb-1 text-sm">/tháng</span>
-                </div>
-                <p className="mt-1.5 text-sm text-indigo-300">
-                  hoặc 79.000đ/tháng khi mua năm
-                </p>
-                <Link
-                  href="/upgrade?plan=basic"
-                  className="mt-5 block text-center py-2.5 text-sm font-bold bg-white text-indigo-700 rounded-xl hover:bg-indigo-50 transition-colors shadow-md"
-                >
-                  Nâng cấp Basic
-                </Link>
-                <ul className="mt-6 space-y-2.5 flex-1">
-                  {[
-                    "25 lượt tạo nội dung/tháng",
-                    "Sao chép & xuất file HTML",
-                    "Toàn bộ template mẫu",
-                    "Lưu lịch sử 30 ngày",
-                    "Hỗ trợ qua email",
-                  ].map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-center gap-2 text-sm text-white/90"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-indigo-200 shrink-0" />{" "}
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </ScrollReveal>
-
-            {/* Pro */}
-            <ScrollReveal from="right" className="h-full">
-              <div className="rounded-2xl border-2 border-indigo-200 bg-white p-7 card-lift h-full flex flex-col relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-50 to-violet-50 rounded-bl-full" />
-                <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide">
-                  Pro
-                </p>
-                <div className="mt-3 flex items-end gap-1">
-                  <span className="text-4xl font-extrabold text-gray-900">
-                    199.000đ
-                  </span>
-                  <span className="text-gray-500 mb-1 text-sm">/tháng</span>
-                </div>
-                <p className="mt-1.5 text-sm text-gray-500">
-                  hoặc 159.000đ/tháng khi mua năm
-                </p>
-                <Link
-                  href="/upgrade?plan=pro"
-                  className="mt-5 block text-center py-2.5 text-sm font-semibold text-indigo-700 border-2 border-indigo-400 rounded-xl hover:bg-indigo-50 transition-colors"
-                >
-                  Nâng cấp Pro
-                </Link>
-                <ul className="mt-6 space-y-2.5 flex-1">
-                  {[
-                    "Không giới hạn bài viết HTML",
-                    "Không giới hạn lượt tạo nội dung",
-                    "Toàn bộ tính năng Basic",
-                    "Lưu lịch sử không giới hạn",
-                    "Hỗ trợ Zalo ưu tiên trong 4h",
-                  ].map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-center gap-2 text-sm text-gray-700"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />{" "}
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          {/* Credits */}
-          <ScrollReveal className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">
-              Hoặc nạp credits
-            </h3>
-            <p className="text-gray-500 text-sm">
-              Không cần đăng ký tháng — nạp khi cần, dùng bao nhiêu trả bấy
-              nhiêu. Credits không hết hạn.
-            </p>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              {
-                packId: "c1",
-                amount: "20.000đ",
-                desc: "4 lượt tạo nội dung",
-                highlight: false,
-              },
-              {
-                packId: "c2",
-                amount: "50.000đ",
-                desc: "12 lượt tạo nội dung",
-                highlight: false,
-              },
-              {
-                packId: "c3",
-                amount: "100.000đ",
-                desc: "30 lượt tạo nội dung",
-                highlight: true,
-                badge: "Tiết kiệm nhất",
-              },
-              {
-                packId: "c4",
-                amount: "200.000đ",
-                desc: "72 lượt tạo nội dung",
-                highlight: false,
-              },
-            ].map(({ packId, amount, desc, highlight, badge }) => (
-              <ScrollReveal key={packId} className="h-full">
-                <div
-                  className={`rounded-2xl p-5 h-full flex flex-col gap-3 relative ${highlight ? "bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/20" : "bg-white border border-gray-200"}`}
-                >
-                  {badge && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-0.5 bg-amber-400 text-gray-900 rounded-full shadow whitespace-nowrap">
-                      {badge}
-                    </span>
-                  )}
-                  <p
-                    className={`text-2xl font-extrabold ${highlight ? "text-white" : "text-gray-900"}`}
-                  >
-                    {amount}
-                  </p>
-                  <p
-                    className={`text-sm flex-1 ${highlight ? "text-emerald-50" : "text-gray-600"}`}
-                  >
-                    {desc}
-                  </p>
-                  <Link
-                    href={`/upgrade?type=credits&pack=${packId}`}
-                    className={`block text-center py-2 text-xs font-semibold rounded-xl transition-colors ${highlight ? "bg-white text-emerald-700 hover:bg-emerald-50" : "text-indigo-600 border border-indigo-200 hover:bg-indigo-50"}`}
-                  >
-                    Nạp ngay
-                  </Link>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          <ScrollReveal className="text-center mt-8">
-            <p className="text-sm text-gray-400">
-              Chúng tôi rất fairplay — dùng bao nhiêu trả bấy nhiêu, không gói
-              cước, không ràng buộc, không phí ẩn.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
+      <PricingSection isLoggedIn={isLoggedIn} />
 
       {/* ── FAQ ────────────────────────────────────────────────────── */}
       <section
@@ -1282,7 +1001,7 @@ export default async function LandingPage() {
                 },
                 {
                   q: "AI nào được dùng để tạo nội dung?",
-                  a: "Hai AI: Claude (Anthropic) cho tạo nhanh khối HTML từ một câu mô tả; Gemini (Google) cho luồng hỏi đáp nhiều bước khi tạo landing page phức tạp cần hiểu rõ yêu cầu.",
+                  a: "AITaoPage sử dụng AI thế hệ mới để tạo nội dung — tối ưu riêng cho từng loại yêu cầu: tạo nhanh khối HTML từ một câu mô tả hoặc hỏi đáp nhiều bước cho landing page phức tạp.",
                   accent: "border-l-emerald-400",
                 },
               ] as const
@@ -1334,56 +1053,120 @@ export default async function LandingPage() {
       </section>
 
       {/* ── Footer ─────────────────────────────────────────────────── */}
-      <footer className="py-10 bg-gray-950 text-gray-400">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-            <Logo iconSize={28} uid="footer" className="brightness-110" />
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs">
-              <Link
-                href="/#pricing"
-                className="hover:text-white transition-colors"
-              >
-                Bảng giá
-              </Link>
-              <Link
-                href="/templates"
-                className="hover:text-white transition-colors"
-              >
-                Mẫu có sẵn
-              </Link>
-              <Link
-                href="/kien-thuc"
-                className="hover:text-white transition-colors"
-              >
-                Kiến thức
-              </Link>
-              <a
-                href="mailto:support@aicontentbooster.vn"
-                className="hover:text-white transition-colors"
-              >
-                Liên hệ
-              </a>
-              {!isLoggedIn && (
-                <Link
-                  href="/login"
-                  className="hover:text-white transition-colors"
+      <footer className="bg-gray-950 text-gray-400">
+        {/* Top gradient line */}
+        <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-14 pb-8">
+
+          {/* Main columns */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+
+            {/* Brand */}
+            <div className="col-span-2 md:col-span-1">
+              <Logo iconSize={32} uid="footer" className="brightness-110 mb-4" />
+              <p className="text-sm text-gray-500 leading-relaxed mb-5">
+                Công cụ AI giúp bạn tạo nội dung HTML đẹp trong 60 giây — không cần biết code.
+              </p>
+              <div className="flex flex-col gap-2.5">
+                <a
+                  href="tel:0969986786"
+                  className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors group"
                 >
-                  Đăng nhập
-                </Link>
-              )}
-              {isLoggedIn && (
+                  <span className="w-7 h-7 rounded-lg bg-white/5 group-hover:bg-indigo-500/20 flex items-center justify-center transition-colors">
+                    <Phone className="w-3.5 h-3.5" />
+                  </span>
+                  0969 986 786
+                </a>
+                <a
+                  href="mailto:admin@taopage.vn"
+                  className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors group"
+                >
+                  <span className="w-7 h-7 rounded-lg bg-white/5 group-hover:bg-indigo-500/20 flex items-center justify-center transition-colors">
+                    <Mail className="w-3.5 h-3.5" />
+                  </span>
+                  admin@taopage.vn
+                </a>
+              </div>
+            </div>
+
+            {/* Sản phẩm */}
+            <div>
+              <p className="text-xs font-semibold text-gray-300 uppercase tracking-widest mb-4">Sản phẩm</p>
+              <ul className="space-y-3 text-sm">
+                {[
+                  { href: '/editor',    label: 'Trình soạn thảo' },
+                  { href: '/templates', label: 'Mẫu có sẵn' },
+                  { href: '/#pricing',  label: 'Bảng giá' },
+                  { href: '/upgrade',   label: 'Nâng cấp gói' },
+                ].map(({ href, label }) => (
+                  <li key={href}>
+                    <Link href={href} className="hover:text-white transition-colors">
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Tài nguyên */}
+            <div>
+              <p className="text-xs font-semibold text-gray-300 uppercase tracking-widest mb-4">Tài nguyên</p>
+              <ul className="space-y-3 text-sm">
+                {[
+                  { href: '/kien-thuc', label: 'Blog kiến thức' },
+                  { href: '/contact',   label: 'Liên hệ hỗ trợ' },
+                ].map(({ href, label }) => (
+                  <li key={href}>
+                    <Link href={href} className="hover:text-white transition-colors">
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* CTA */}
+            <div>
+              <p className="text-xs font-semibold text-gray-300 uppercase tracking-widest mb-4">Bắt đầu ngay</p>
+              <p className="text-sm text-gray-500 mb-4 leading-relaxed">
+                Thử miễn phí — không cần thẻ tín dụng.
+              </p>
+              {isLoggedIn ? (
                 <Link
                   href="/create"
-                  className="hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-xl transition-colors"
                 >
-                  Tạo nội dung
+                  <Zap className="w-3.5 h-3.5" /> Tạo nội dung
+                </Link>
+              ) : (
+                <Link
+                  href="/login?tab=register"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-xl transition-colors"
+                >
+                  <Sparkles className="w-3.5 h-3.5" /> Đăng ký miễn phí
                 </Link>
               )}
             </div>
-            <p className="text-xs text-center text-gray-600">
-              © 2026 AITaoPage
-            </p>
+
           </div>
+
+          {/* Bottom bar */}
+          <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-600">
+            <p>© {new Date().getFullYear()} AITaoPage. Tất cả quyền được bảo lưu.</p>
+            <div className="flex items-center gap-5">
+              <a
+                href="https://zalo.me/0969986786"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gray-400 transition-colors inline-flex items-center gap-1"
+              >
+                Zalo <ArrowUpRight className="w-3 h-3" />
+              </a>
+              <Link href="/contact" className="hover:text-gray-400 transition-colors">Hỗ trợ</Link>
+            </div>
+          </div>
+
         </div>
       </footer>
     </div>
