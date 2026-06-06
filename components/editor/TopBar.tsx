@@ -211,8 +211,8 @@ ${body}${scripts ? '\n' + scripts : ''}
       >
         {/* Brand + New */}
         <div className="flex items-center gap-2 flex-shrink-0">
-          <Logo iconSize={26} uid="topbar-d" dark className="hidden md:inline-flex" />
-          <Logo iconSize={26} uid="topbar-m" dark iconOnly className="md:hidden" />
+          <div className="hidden md:flex"><Logo iconSize={26} uid="topbar-d" dark /></div>
+          <div className="md:hidden"><Logo iconSize={26} uid="topbar-m" dark iconOnly /></div>
           <a
             href="/create"
             className="p-1.5 rounded-lg text-slate-400 hover:bg-slate-700 hover:text-white transition-all"

@@ -15,6 +15,9 @@ import {
   Eye,
   Search,
   X,
+  MessageSquarePlus,
+  Trash2,
+  Tag,
 } from "lucide-react";
 import ActivateUserButton from "./ActivateUserButton";
 import ToggleUserButton from "./ToggleUserButton";
@@ -70,6 +73,18 @@ export interface OrderRow {
   createdAt: string;
 }
 
+export interface FeedbackRow {
+  _id: string;
+  userId: string | null;
+  userEmail: string | null;
+  category: string;
+  title: string;
+  content: string;
+  status: string;
+  adminNote: string;
+  createdAt: string;
+}
+
 interface Props {
   initialOrders: OrderRow[];
   ordersTotal: number;
@@ -80,11 +95,14 @@ interface Props {
   initialProjects: ProjectRow[];
   projectsTotal: number;
   projectsPage: number;
+  initialFeedback: FeedbackRow[];
+  feedbackTotal: number;
+  feedbackPage: number;
   pendingCount: number;
   meId: string;
 }
 
-type Tab = "users" | "content" | "orders";
+type Tab = "users" | "content" | "orders" | "feedback";
 
 const PAGE_SIZE = ADMIN_PAGE_SIZE;
 
@@ -240,6 +258,145 @@ function Pagination({
   );
 }
 
+const CATEGORY_LABELS: Record<string, string> = {
+  feature: "Tính năng mới",
+  improvement: "Cải thiện",
+  bug: "Báo lỗi",
+  other: "Khác",
+};
+
+const FEEDBACK_STATUS_STYLES: Record<string, string> = {
+  new: "bg-blue-100 text-blue-700",
+  reviewed: "bg-emerald-100 text-emerald-700",
+  archived: "bg-gray-100 text-gray-500",
+};
+
+const FEEDBACK_STATUS_LABELS: Record<string, string> = {
+  new: "Mới",
+  reviewed: "Đã xem",
+  archived: "Lưu trữ",
+};
+
+function FeedbackItem({
+  fb,
+  onStatusChange,
+  onDelete,
+}: {
+  fb: FeedbackRow;
+  onStatusChange: (s: string) => void;
+  onDelete: () => void;
+}) {
+  const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  async function setStatus(status: string) {
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/admin/feedback/${fb._id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      if (res.ok) onStatusChange(status);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleDelete() {
+    if (!confirm("Xoá góp ý này?")) return;
+    setDeleting(true);
+    try {
+      const res = await fetch(`/api/admin/feedback/${fb._id}`, { method: "DELETE" });
+      if (res.ok) onDelete();
+    } finally {
+      setDeleting(false);
+    }
+  }
+
+  return (
+    <div className={`p-4 sm:p-5 space-y-2 hover:bg-gray-50/60 transition-colors ${fb.status === "archived" ? "opacity-60" : ""}`}>
+      <div className="flex flex-wrap items-start gap-2">
+        <span className="flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full bg-slate-100 text-slate-600">
+          <Tag className="w-3 h-3" />
+          {CATEGORY_LABELS[fb.category] ?? fb.category}
+        </span>
+        <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${FEEDBACK_STATUS_STYLES[fb.status] ?? "bg-gray-100 text-gray-500"}`}>
+          {FEEDBACK_STATUS_LABELS[fb.status] ?? fb.status}
+        </span>
+        <span className="ml-auto text-xs text-gray-400">
+          {new Date(fb.createdAt).toLocaleString("vi-VN", {
+            hour12: false,
+            day: "2-digit",
+            month: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </span>
+      </div>
+
+      <div>
+        <p className="font-medium text-gray-900 text-sm">{fb.title}</p>
+        {fb.userEmail && (
+          <p className="text-xs text-gray-400 mt-0.5">{fb.userEmail}</p>
+        )}
+      </div>
+
+      <p className={`text-sm text-gray-600 leading-relaxed ${expanded ? "" : "line-clamp-3"}`}>
+        {fb.content}
+      </p>
+      {fb.content.length > 200 && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="text-xs text-indigo-600 hover:text-indigo-800"
+        >
+          {expanded ? "Thu gọn" : "Xem thêm"}
+        </button>
+      )}
+
+      <div className="flex flex-wrap items-center gap-1.5 pt-1">
+        {fb.status !== "reviewed" && (
+          <button
+            onClick={() => setStatus("reviewed")}
+            disabled={loading}
+            className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 disabled:opacity-50 transition-colors"
+          >
+            <CheckCircle2 className="w-3 h-3" />
+            Đánh dấu đã xem
+          </button>
+        )}
+        {fb.status !== "archived" && (
+          <button
+            onClick={() => setStatus("archived")}
+            disabled={loading}
+            className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-500 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+          >
+            Lưu trữ
+          </button>
+        )}
+        {fb.status === "archived" && (
+          <button
+            onClick={() => setStatus("new")}
+            disabled={loading}
+            className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg border border-blue-200 bg-blue-50 text-blue-600 hover:bg-blue-100 disabled:opacity-50 transition-colors"
+          >
+            Khôi phục
+          </button>
+        )}
+        <button
+          onClick={handleDelete}
+          disabled={deleting}
+          className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg border border-red-100 bg-red-50 text-red-500 hover:bg-red-100 disabled:opacity-50 transition-colors ml-auto"
+        >
+          <Trash2 className="w-3 h-3" />
+          {deleting ? "Đang xoá…" : "Xoá"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminDashboard({
   initialUsers,
   initialProjects,
@@ -250,13 +407,16 @@ export default function AdminDashboard({
   ordersPage,
   usersPage,
   projectsPage,
+  initialFeedback,
+  feedbackTotal,
+  feedbackPage,
   pendingCount,
   meId,
 }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const VALID_TABS: Tab[] = ["orders", "users", "content"];
+  const VALID_TABS: Tab[] = ["orders", "users", "content", "feedback"];
   const rawTab = searchParams.get("tab") as Tab | null;
   const tab: Tab = rawTab && VALID_TABS.includes(rawTab) ? rawTab : "orders";
 
@@ -265,8 +425,8 @@ export default function AdminDashboard({
       const params = new URLSearchParams(searchParams.toString());
       params.set("tab", t);
       // Reset pagination và search của tất cả tabs khi chuyển tab
-      params.delete("op"); params.delete("up"); params.delete("pp");
-      params.delete("oq"); params.delete("uq"); params.delete("pq");
+      params.delete("op"); params.delete("up"); params.delete("pp"); params.delete("fp");
+      params.delete("oq"); params.delete("uq"); params.delete("pq"); params.delete("fs");
       router.replace(`?${params.toString()}`, { scroll: false });
     },
     [router, searchParams],
@@ -276,6 +436,7 @@ export default function AdminDashboard({
   const [users, setUsers] = useState(initialUsers);
   const [projects, setProjects] = useState(initialProjects);
   const [orders, setOrders] = useState(initialOrders);
+  const [feedbackList, setFeedbackList] = useState(initialFeedback);
 
   // Sync local state when server re-fetches on navigation
   useEffect(() => {
@@ -287,25 +448,28 @@ export default function AdminDashboard({
   useEffect(() => {
     setProjects(initialProjects);
   }, [initialProjects]);
+  useEffect(() => {
+    setFeedbackList(initialFeedback);
+  }, [initialFeedback]);
 
   // Controlled search inputs, initialized from current URL params
   const [ordersQ, setOrdersQ] = useState(searchParams.get("oq") ?? "");
   const [usersQ, setUsersQ] = useState(searchParams.get("uq") ?? "");
   const [projectsQ, setProjectsQ] = useState(searchParams.get("pq") ?? "");
+  const [feedbackStatus, setFeedbackStatus] = useState(searchParams.get("fs") ?? "");
 
   // Reset search inputs khi tab thay đổi (setTab đã xóa params khỏi URL)
   useEffect(() => {
     setOrdersQ(searchParams.get("oq") ?? "");
     setUsersQ(searchParams.get("uq") ?? "");
     setProjectsQ(searchParams.get("pq") ?? "");
+    setFeedbackStatus(searchParams.get("fs") ?? "");
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab]);
 
   const ordersDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const usersDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const projectsDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(
-    null,
-  );
+  const projectsDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [proofModal, setProofModal] = useState<string | null>(null);
 
@@ -328,6 +492,28 @@ export default function AdminDashboard({
 
   function removeOrder(orderId: string) {
     setOrders((prev) => prev.filter((o) => o.orderId !== orderId));
+  }
+
+  function updateFeedback(id: string, patch: Partial<FeedbackRow>) {
+    setFeedbackList((prev) => prev.map((f) => (f._id === id ? { ...f, ...patch } : f)));
+  }
+
+  function removeFeedback(id: string) {
+    setFeedbackList((prev) => prev.filter((f) => f._id !== id));
+  }
+
+  function handleFeedbackStatus(v: string) {
+    setFeedbackStatus(v);
+    const params = new URLSearchParams(searchParams.toString());
+    v ? params.set("fs", v) : params.delete("fs");
+    params.delete("fp");
+    router.replace(`?${params.toString()}`, { scroll: false });
+  }
+
+  function goFeedbackPage(p: number) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("fp", String(p));
+    router.replace(`?${params.toString()}`, { scroll: false });
   }
 
   function handleOrdersSearch(v: string) {
@@ -435,6 +621,12 @@ export default function AdminDashboard({
           <LayoutTemplate className="w-4 h-4" />,
           "Nội dung",
           projectsTotal,
+        )}
+        {tabBtn(
+          "feedback",
+          <MessageSquarePlus className="w-4 h-4" />,
+          "Góp ý",
+          feedbackTotal,
         )}
       </div>
 
@@ -1085,6 +1277,59 @@ export default function AdminDashboard({
             page={projectsPage}
             total={projectsTotal}
             onPage={goProjectsPage}
+          />
+        </div>
+      )}
+
+      {/* ── Feedback ── */}
+      {tab === "feedback" && (
+        <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+          <div className="px-4 sm:px-6 py-3 border-b border-gray-100 flex flex-wrap items-center gap-2">
+            <h2 className="font-semibold text-gray-900 mr-auto">Góp ý từ người dùng</h2>
+            <span className="text-xs text-gray-400">{feedbackTotal}</span>
+            {/* Status filter */}
+            <div className="flex items-center gap-1">
+              {[
+                { value: "", label: "Tất cả" },
+                { value: "new", label: "Mới" },
+                { value: "reviewed", label: "Đã xem" },
+                { value: "archived", label: "Lưu trữ" },
+              ].map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => handleFeedbackStatus(opt.value)}
+                  className={`px-2.5 py-1 text-xs font-medium rounded-lg transition-colors ${
+                    feedbackStatus === opt.value
+                      ? "bg-slate-800 text-white"
+                      : "text-gray-500 hover:bg-gray-100"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="divide-y divide-gray-50">
+            {feedbackList.length === 0 && (
+              <div className="px-6 py-10 text-center text-sm text-gray-400">
+                Chưa có góp ý nào.
+              </div>
+            )}
+            {feedbackList.map((fb) => (
+              <FeedbackItem
+                key={fb._id}
+                fb={fb}
+                onStatusChange={(status) => updateFeedback(fb._id, { status })}
+                onDelete={() => removeFeedback(fb._id)}
+              />
+            ))}
+          </div>
+
+          <Pagination
+            page={feedbackPage}
+            total={feedbackTotal}
+            onPage={goFeedbackPage}
           />
         </div>
       )}

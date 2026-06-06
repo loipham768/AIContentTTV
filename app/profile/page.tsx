@@ -21,7 +21,7 @@ export default async function ProfilePage() {
   const planInfo = await getUserPlanInfo(session.user.id)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50 overflow-x-hidden">
       <header className="bg-white border-b border-gray-100 sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
           <Logo iconSize={28} uid="profile-h" />
@@ -35,8 +35,8 @@ export default async function ProfilePage() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 py-10">
-        <h1 className="text-2xl font-bold text-gray-900 mb-8">Hồ sơ cá nhân</h1>
+      <main className="max-w-4xl mx-auto px-4 py-6 md:py-10">
+        <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-5 md:mb-8">Hồ sơ cá nhân</h1>
         <ProfileClient
           initialData={{
             email:            user.email as string,

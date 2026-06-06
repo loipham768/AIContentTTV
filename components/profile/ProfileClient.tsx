@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import FeedbackModal from "@/components/FeedbackModal";
 
 const PLAN_LABEL: Record<string, string> = {
   free:     "Miễn phí",
@@ -70,16 +71,16 @@ function CreditRow({ credits, creditsTotal, monthlyExhausted }: { credits: numbe
   if (creditsTotal === 0) return null;
   const used = creditsTotal - credits;
   return (
-    <div className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-xs ${
+    <div className={`flex items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-xs ${
       monthlyExhausted
         ? "bg-amber-50 border border-amber-200"
         : "bg-gray-50 border border-gray-100"
     }`}>
-      <span className={`flex items-center gap-1.5 font-medium ${monthlyExhausted ? "text-amber-700" : "text-gray-500"}`}>
-        <span className="text-base leading-none">⚡</span>
-        {monthlyExhausted ? "Đang dùng credit dự phòng" : "Credit dự phòng"}
+      <span className={`flex items-center gap-1.5 font-medium min-w-0 ${monthlyExhausted ? "text-amber-700" : "text-gray-500"}`}>
+        <span className="text-base leading-none shrink-0">⚡</span>
+        <span className="truncate">{monthlyExhausted ? "Đang dùng credit dự phòng" : "Credit dự phòng"}</span>
       </span>
-      <span className={`font-bold ${monthlyExhausted ? "text-amber-600" : "text-gray-700"}`}>
+      <span className={`font-bold shrink-0 ${monthlyExhausted ? "text-amber-600" : "text-gray-700"}`}>
         {used} / {creditsTotal} lượt
       </span>
     </div>
@@ -142,7 +143,7 @@ function OrderHistory() {
   }, []);
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 md:p-6">
       <h3 className="font-semibold text-gray-900 mb-5 flex items-center gap-2">
         <History className="w-4 h-4 text-gray-500" /> Lịch sử giao dịch
       </h3>
@@ -158,7 +159,7 @@ function OrderHistory() {
       )}
 
       {!loading && orders.length > 0 && (
-        <div className="divide-y divide-gray-50 max-h-80 overflow-y-auto scrollbar-thin">
+        <div className="divide-y divide-gray-50 max-h-80 overflow-y-auto overflow-x-hidden scrollbar-thin">
           {orders.map((o) => {
             const isSubscription = o.type === "subscription";
             const label = isSubscription
@@ -184,7 +185,7 @@ function OrderHistory() {
 
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-800 truncate">{label}</p>
-                  <p className="text-xs text-gray-400">{fmt(date)} · {o.orderId}</p>
+                  <p className="text-xs text-gray-400 truncate">{fmt(date)} · {o.orderId}</p>
                 </div>
 
                 <div className="flex flex-col items-end gap-1 shrink-0">
@@ -319,9 +320,9 @@ export default function ProfileClient({
   return (
     <div className="grid md:grid-cols-5 gap-6">
       {/* ── Left column ── */}
-      <div className="md:col-span-2 space-y-5">
+      <div className="md:col-span-2 space-y-5 min-w-0">
         {/* Avatar card */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col items-center gap-4">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 md:p-6 flex flex-col items-center gap-4 overflow-hidden">
           <div className="relative">
             <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-indigo-100 to-violet-100 flex items-center justify-center ring-4 ring-white shadow-md">
               {data.avatarUrl ? (
@@ -356,11 +357,11 @@ export default function ProfileClient({
               onChange={handleAvatarChange}
             />
           </div>
-          <div className="text-center">
-            <p className="font-semibold text-gray-900">
+          <div className="text-center w-full min-w-0">
+            <p className="font-semibold text-gray-900 break-words">
               {data.fullName || data.email}
             </p>
-            <p className="text-sm text-gray-400">{data.email}</p>
+            <p className="text-sm text-gray-400 break-all">{data.email}</p>
           </div>
           <span
             className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${PLAN_COLOR[data.plan]}`}
@@ -374,64 +375,64 @@ export default function ProfileClient({
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           {/* Plan banner */}
           {data.plan === "designer" && (
-            <div className="px-5 py-4 bg-gradient-to-r from-teal-500 to-cyan-600 flex items-center justify-between">
-              <div>
+            <div className="px-4 py-3 md:px-5 md:py-4 bg-gradient-to-r from-teal-500 to-cyan-600 flex items-center justify-between">
+              <div className="min-w-0 flex-1 mr-3">
                 <p className="text-[11px] font-semibold text-teal-100 uppercase tracking-wide mb-0.5">Gói hiện tại</p>
                 <p className="font-bold text-white text-sm">Designer</p>
-                <p className="text-xs text-teal-100 mt-0.5">
+                <p className="text-xs text-teal-100 mt-0.5 break-words">
                   Kéo thả & xuất HTML không giới hạn
                   {expiry && ` · Hết hạn ${expiry.toLocaleDateString("vi-VN")}`}
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-white/15 border border-white/25 shadow-md shadow-teal-900/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-white/15 border border-white/25 shadow-md shadow-teal-900/20 flex items-center justify-center shrink-0">
                 <PenTool className="w-5 h-5 text-white drop-shadow" />
               </div>
             </div>
           )}
           {data.plan === "free" && (
-            <div className="px-5 py-4 bg-gradient-to-br from-slate-50 to-gray-100 border-b border-gray-100 flex items-center justify-between">
-              <div>
+            <div className="px-4 py-3 md:px-5 md:py-4 bg-gradient-to-br from-slate-50 to-gray-100 border-b border-gray-100 flex items-center justify-between">
+              <div className="min-w-0 flex-1 mr-3">
                 <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">Gói hiện tại</p>
                 <p className="font-bold text-gray-800 text-sm">Miễn phí</p>
                 <p className="text-xs text-gray-400 mt-0.5">4 lượt tạo / tháng</p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center shrink-0">
                 <Sparkles className="w-5 h-5 text-slate-400" />
               </div>
             </div>
           )}
           {data.plan === "basic" && (
-            <div className="px-5 py-4 bg-gradient-to-r from-indigo-600 to-violet-600 flex items-center justify-between">
-              <div>
+            <div className="px-4 py-3 md:px-5 md:py-4 bg-gradient-to-r from-indigo-600 to-violet-600 flex items-center justify-between">
+              <div className="min-w-0 flex-1 mr-3">
                 <p className="text-[11px] font-semibold text-indigo-200 uppercase tracking-wide mb-0.5">Gói hiện tại</p>
                 <p className="font-bold text-white text-sm">Basic</p>
-                <p className="text-xs text-indigo-200 mt-0.5">
+                <p className="text-xs text-indigo-200 mt-0.5 break-words">
                   25 lượt tạo / tháng
                   {expiry && ` · Hết hạn ${expiry.toLocaleDateString("vi-VN")}`}
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-white/15 border border-white/25 shadow-md shadow-indigo-900/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-white/15 border border-white/25 shadow-md shadow-indigo-900/20 flex items-center justify-center shrink-0">
                 <Crown className="w-5 h-5 text-white drop-shadow" />
               </div>
             </div>
           )}
           {data.plan === "pro" && (
-            <div className="px-5 py-4 bg-gradient-to-r from-amber-500 to-orange-500 flex items-center justify-between">
-              <div>
+            <div className="px-4 py-3 md:px-5 md:py-4 bg-gradient-to-r from-amber-500 to-orange-500 flex items-center justify-between">
+              <div className="min-w-0 flex-1 mr-3">
                 <p className="text-[11px] font-semibold text-amber-100 uppercase tracking-wide mb-0.5">Gói hiện tại</p>
                 <p className="font-bold text-white text-sm">Pro</p>
-                <p className="text-xs text-amber-100 mt-0.5">
+                <p className="text-xs text-amber-100 mt-0.5 break-words">
                   Không giới hạn
                   {expiry && ` · Hết hạn ${expiry.toLocaleDateString("vi-VN")}`}
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-white/15 border border-white/25 shadow-md shadow-amber-900/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-white/15 border border-white/25 shadow-md shadow-amber-900/20 flex items-center justify-center shrink-0">
                 <Gem className="w-5 h-5 text-white drop-shadow" />
               </div>
             </div>
           )}
 
-          <div className="p-5 space-y-3">
+          <div className="p-4 md:p-5 space-y-3">
             {data.plan !== "designer" && (
               <UsageBar
                 used={data.generationsUsed}
@@ -482,12 +483,19 @@ export default function ProfileClient({
             )}
           </div>
         </div>
+
+        {/* Feedback */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 md:p-5">
+          <p className="text-sm font-semibold text-gray-900 mb-1">Góp ý cải thiện</p>
+          <p className="text-xs text-gray-400 mb-3">Chia sẻ ý kiến để giúp hệ thống tốt hơn</p>
+          <FeedbackModal />
+        </div>
       </div>
 
       {/* ── Right column ── */}
-      <div className="md:col-span-3 space-y-5">
+      <div className="md:col-span-3 space-y-5 min-w-0">
         {/* Personal info */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 md:p-6">
           <h3 className="font-semibold text-gray-900 mb-5">
             Thông tin cá nhân
           </h3>
@@ -564,7 +572,7 @@ export default function ProfileClient({
         <OrderHistory />
 
         {/* Change password */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 md:p-6">
           <h3 className="font-semibold text-gray-900 mb-5 flex items-center gap-2">
             <Lock className="w-4 h-4 text-gray-500" /> Đổi mật khẩu
           </h3>

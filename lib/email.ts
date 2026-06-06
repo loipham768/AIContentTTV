@@ -9,7 +9,10 @@ function formatVnd(n: number) {
 }
 
 const PLAN_LABEL: Record<string, string> = { basic: "Basic", pro: "Pro" };
-const BILLING_LABEL: Record<string, string> = { monthly: "Tháng", yearly: "Năm" };
+const BILLING_LABEL: Record<string, string> = {
+  monthly: "Tháng",
+  yearly: "Năm",
+};
 
 /* ── OTP ─────────────────────────────────────────────────────────────── */
 export async function sendOtpEmail(to: string, otp: string) {
@@ -56,15 +59,19 @@ export async function sendOtpEmail(to: string, otp: string) {
 
 /* ── Admin: new order notification ──────────────────────────────────── */
 export async function sendNewOrderAdminEmail(order: {
-  orderId: string; userEmail: string; type: string
-  plan?: string | null; billing?: string; amount: number
+  orderId: string;
+  userEmail: string;
+  type: string;
+  plan?: string | null;
+  billing?: string;
+  amount: number;
 }) {
-  const adminEmail = process.env.ADMIN_EMAIL
-  if (!adminEmail) return
+  const adminEmail = process.env.ADMIN_EMAIL;
+  if (!adminEmail) return;
   const subject =
     order.type === "subscription"
       ? `[Đơn mới] ${PLAN_LABEL[order.plan ?? ""] ?? order.plan} — ${formatVnd(order.amount)}`
-      : `[Đơn mới] Nạp credits — ${formatVnd(order.amount)}`
+      : `[Đơn mới] Nạp credits — ${formatVnd(order.amount)}`;
   const { error } = await resend.emails.send({
     from: FROM,
     to: adminEmail,
@@ -81,17 +88,25 @@ export async function sendNewOrderAdminEmail(order: {
         <a href="${process.env.NEXTAUTH_URL ?? ""}/admin" style="display:inline-block;margin-top:20px;padding:10px 20px;background:#4f46e5;color:white;border-radius:8px;text-decoration:none;font-weight:600;">Vào trang Admin →</a>
       </div>
     `,
-  })
-  if (error) console.error("[Resend] sendNewOrderAdminEmail failed:", error)
+  });
+  if (error) console.error("[Resend] sendNewOrderAdminEmail failed:", error);
 }
 
 /* ── User: order activated ───────────────────────────────────────────── */
-export async function sendOrderActivatedEmail(to: string, order: {
-  orderId: string; type: string; plan?: string | null; billing?: string; amount: number
-}) {
-  const planName = order.type === "subscription"
-    ? `Gói ${PLAN_LABEL[order.plan ?? ""] ?? order.plan} (${BILLING_LABEL[order.billing ?? ""] ?? order.billing})`
-    : "Credits"
+export async function sendOrderActivatedEmail(
+  to: string,
+  order: {
+    orderId: string;
+    type: string;
+    plan?: string | null;
+    billing?: string;
+    amount: number;
+  },
+) {
+  const planName =
+    order.type === "subscription"
+      ? `Gói ${PLAN_LABEL[order.plan ?? ""] ?? order.plan} (${BILLING_LABEL[order.billing ?? ""] ?? order.billing})`
+      : "Credits";
   const { error } = await resend.emails.send({
     from: FROM,
     to,
@@ -108,17 +123,26 @@ export async function sendOrderActivatedEmail(to: string, order: {
         </div>
       </div>
     `,
-  })
-  if (error) console.error("[Resend] sendOrderActivatedEmail failed:", error)
+  });
+  if (error) console.error("[Resend] sendOrderActivatedEmail failed:", error);
 }
 
 /* ── User: order cancelled/rejected ─────────────────────────────────── */
-export async function sendOrderCancelledEmail(to: string, order: {
-  orderId: string; type: string; plan?: string | null; billing?: string; amount: number
-}, reason?: string) {
-  const planName = order.type === "subscription"
-    ? `Gói ${PLAN_LABEL[order.plan ?? ""] ?? order.plan}`
-    : "Credits"
+export async function sendOrderCancelledEmail(
+  to: string,
+  order: {
+    orderId: string;
+    type: string;
+    plan?: string | null;
+    billing?: string;
+    amount: number;
+  },
+  reason?: string,
+) {
+  const planName =
+    order.type === "subscription"
+      ? `Gói ${PLAN_LABEL[order.plan ?? ""] ?? order.plan}`
+      : "Credits";
   const { error } = await resend.emails.send({
     from: FROM,
     to,
@@ -128,10 +152,10 @@ export async function sendOrderCancelledEmail(to: string, order: {
         <h2 style="margin:0 0 8px;color:#0f172a;">Đơn hàng đã bị huỷ</h2>
         <p style="color:#64748b;margin:0 0 16px;">Mã đơn: <strong style="font-family:monospace;color:#4f46e5;">${order.orderId}</strong> (${planName} — ${formatVnd(order.amount)})</p>
         ${reason ? `<div style="background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;margin-bottom:16px;"><p style="margin:0;font-size:14px;color:#92400e;"><strong>Lý do:</strong> ${reason}</p></div>` : ""}
-        <p style="color:#64748b;font-size:14px;">Nếu bạn vẫn muốn nâng cấp, hãy tạo đơn hàng mới. Nếu cần hỗ trợ, liên hệ <a href="mailto:support@aicontentbooster.vn">support@aicontentbooster.vn</a>.</p>
+        <p style="color:#64748b;font-size:14px;">Nếu bạn vẫn muốn nâng cấp, hãy tạo đơn hàng mới. Nếu cần hỗ trợ, liên hệ <a href="mailto:admin@taopage.vn">admin@taopage.vn</a>.</p>
         <a href="${process.env.NEXTAUTH_URL ?? ""}/#pricing" style="display:inline-block;margin-top:16px;padding:10px 20px;background:#4f46e5;color:white;border-radius:8px;text-decoration:none;font-weight:600;">Xem lại bảng giá</a>
       </div>
     `,
-  })
-  if (error) console.error("[Resend] sendOrderCancelledEmail failed:", error)
+  });
+  if (error) console.error("[Resend] sendOrderCancelledEmail failed:", error);
 }

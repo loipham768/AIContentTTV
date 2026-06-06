@@ -293,6 +293,8 @@ export default function GrapesEditor({
           height: "100%",
           plugins: [gradientPlugin],
           storageManager: false,
+          // GrapesJS 0.22 changed default to true; inline HTML styles then override class-based SM changes
+          avoidInlineStyle: false,
           blockManager: { appendTo: "#gjs-blocks-panel" },
           layerManager: { appendTo: "#gjs-layers-panel" },
           traitManager: { appendTo: "#gjs-traits-panel" },

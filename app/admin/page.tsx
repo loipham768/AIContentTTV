@@ -4,8 +4,9 @@ import { dbConnect } from '@/lib/mongodb'
 import User from '@/models/User'
 import Project from '@/models/Project'
 import Order from '@/models/Order'
+import Feedback from '@/models/Feedback'
 import { Suspense } from 'react'
-import AdminDashboard, { type UserRow, type ProjectRow, type OrderRow } from '@/components/admin/AdminDashboard'
+import AdminDashboard, { type UserRow, type ProjectRow, type OrderRow, type FeedbackRow } from '@/components/admin/AdminDashboard'
 import { ADMIN_PAGE_SIZE as PAGE_SIZE } from '@/lib/adminConfig'
 import Logo from '@/components/Logo'
 import { Users, LayoutTemplate, Activity, TrendingUp } from 'lucide-react'
@@ -40,9 +41,11 @@ async function getAdminData(
   const oq = (sp.oq ?? '').trim()
   const uq = (sp.uq ?? '').trim()
   const pq = (sp.pq ?? '').trim()
+  const fs = (sp.fs ?? '').trim()
   const op = p(sp.op)
   const up = p(sp.up)
   const pp = p(sp.pp)
+  const fp = p(sp.fp)
 
   // ── Stats ───────────────────────────────────────────────────────────────
   const [totalUsers, totalProjects, activeUserIds, monthRevenue, pendingCount] =
@@ -141,6 +144,17 @@ async function getAdminData(
       .lean(),
   ])
 
+  // ── Feedback ─────────────────────────────────────────────────────────────
+  const feedbackFilter = fs ? { status: fs } : {}
+  const [feedbackTotal, feedbackRaw] = await Promise.all([
+    Feedback.countDocuments(feedbackFilter),
+    Feedback.find(feedbackFilter)
+      .sort({ createdAt: -1 })
+      .skip((fp - 1) * PAGE_SIZE)
+      .limit(PAGE_SIZE)
+      .lean(),
+  ])
+
   // ── Email map — chỉ lookup emails cho users hiển thị trên trang hiện tại ──
   const visibleUserIds = [
     ...new Set([
@@ -199,6 +213,18 @@ async function getAdminData(
     createdAt:      (o.createdAt as Date).toISOString(),
   }))
 
+  const feedbackRows: FeedbackRow[] = (feedbackRaw as any[]).map(f => ({
+    _id:       f._id.toString(),
+    userId:    f.userId ?? null,
+    userEmail: f.userEmail ?? null,
+    category:  f.category,
+    title:     f.title,
+    content:   f.content,
+    status:    f.status,
+    adminNote: f.adminNote ?? '',
+    createdAt: (f.createdAt as Date).toISOString(),
+  }))
+
   return {
     stats: {
       totalUsers,
@@ -206,9 +232,10 @@ async function getAdminData(
       activeUsers: activeUserIds.length,
       revenueThisMonth: (monthRevenue as any[])[0]?.total ?? 0,
     },
-    userRows,   usersTotal,   usersPage: up,
+    userRows,    usersTotal,    usersPage: up,
     projectRows, projectsTotal, projectsPage: pp,
-    orderRows,  ordersTotal,  ordersPage: op,
+    orderRows,   ordersTotal,   ordersPage: op,
+    feedbackRows, feedbackTotal, feedbackPage: fp,
     pendingCount,
     meId: sessionUserId,
   }
@@ -231,9 +258,10 @@ export default async function AdminPage({
 
   const {
     stats,
-    userRows,   usersTotal,   usersPage,
+    userRows,    usersTotal,    usersPage,
     projectRows, projectsTotal, projectsPage,
-    orderRows,  ordersTotal,  ordersPage,
+    orderRows,   ordersTotal,   ordersPage,
+    feedbackRows, feedbackTotal, feedbackPage,
     pendingCount,
     meId,
   } = data
@@ -284,9 +312,10 @@ export default async function AdminPage({
 
         <Suspense>
           <AdminDashboard
-            initialOrders={orderRows}   ordersTotal={ordersTotal}   ordersPage={ordersPage}
-            initialUsers={userRows}     usersTotal={usersTotal}     usersPage={usersPage}
+            initialOrders={orderRows}     ordersTotal={ordersTotal}     ordersPage={ordersPage}
+            initialUsers={userRows}       usersTotal={usersTotal}       usersPage={usersPage}
             initialProjects={projectRows} projectsTotal={projectsTotal} projectsPage={projectsPage}
+            initialFeedback={feedbackRows} feedbackTotal={feedbackTotal} feedbackPage={feedbackPage}
             pendingCount={pendingCount}
             meId={meId}
           />

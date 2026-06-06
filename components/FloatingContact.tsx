@@ -2,27 +2,41 @@
 
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { Phone, MessageCircle, X } from 'lucide-react'
+import { Phone, MessageCircle, X, ArrowUp } from 'lucide-react'
 
 const HIDDEN_PATHS = ['/admin', '/editor']
 
 export default function FloatingContact() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const [showBackTop, setShowBackTop] = useState(false)
 
   useEffect(() => { setOpen(false) }, [pathname])
+
+  useEffect(() => {
+    const sentinel = document.createElement('div')
+    sentinel.style.cssText = 'position:absolute;top:300px;left:0;width:1px;height:1px;pointer-events:none'
+    document.body.appendChild(sentinel)
+    const obs = new IntersectionObserver(
+      ([entry]) => setShowBackTop(!entry.isIntersecting),
+      { threshold: 0 }
+    )
+    obs.observe(sentinel)
+    return () => { obs.disconnect(); sentinel.remove() }
+  }, [])
 
   if (HIDDEN_PATHS.some(p => pathname.startsWith(p))) return null
 
   return (
-    <div className="fixed bottom-5 right-4 md:bottom-24 md:right-6 z-50 flex flex-col items-end gap-2.5">
+    <div className="fixed bottom-5 right-4 md:right-6 z-[9999] flex flex-col items-end">
 
-      {/* Action buttons */}
-      <div className={`flex flex-col items-end gap-2 transition-all duration-300 ${
-        open ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-3 pointer-events-none'
+      {/* Action buttons — collapse/expand above contact toggle */}
+      <div className={`flex flex-col items-end gap-2 overflow-hidden transition-all duration-300 ${
+        open
+          ? 'max-h-40 mb-2.5 opacity-100 pointer-events-auto'
+          : 'max-h-0 mb-0 opacity-0 pointer-events-none'
       }`}>
 
-        {/* Zalo */}
         <a
           href="https://zalo.me/0969986786"
           target="_blank"
@@ -30,11 +44,9 @@ export default function FloatingContact() {
           className="group flex items-center gap-2"
           tabIndex={open ? 0 : -1}
         >
-          {/* Label — desktop only */}
           <span className="hidden md:block bg-white text-gray-700 text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
             Chat Zalo
           </span>
-          {/* Mobile label inline */}
           <span className="md:hidden bg-white/95 backdrop-blur text-gray-800 text-xs font-semibold px-2.5 py-1 rounded-full shadow-md whitespace-nowrap">
             Zalo
           </span>
@@ -43,7 +55,6 @@ export default function FloatingContact() {
           </div>
         </a>
 
-        {/* Phone */}
         <a
           href="tel:0969986786"
           className="group flex items-center gap-2"
@@ -62,11 +73,9 @@ export default function FloatingContact() {
 
       </div>
 
-      {/* Main toggle */}
+      {/* Contact toggle */}
       <div className="relative">
-        {!open && (
-          <span className="absolute inset-0 rounded-full bg-indigo-500 animate-ping opacity-20" />
-        )}
+        {!open && <span className="absolute inset-0 rounded-full bg-indigo-500 animate-ping opacity-20" />}
         <button
           onClick={() => setOpen(v => !v)}
           aria-label={open ? 'Đóng' : 'Liên hệ hỗ trợ'}
@@ -82,6 +91,19 @@ export default function FloatingContact() {
           <span className={`absolute transition-all duration-200 ${open ? 'opacity-0 -rotate-90' : 'opacity-100 rotate-0'}`}>
             <MessageCircle className="w-5 h-5 md:w-6 md:h-6 text-white" />
           </span>
+        </button>
+      </div>
+
+      {/* BackToTop — appears below contact, pushes it up when visible */}
+      <div className={`overflow-hidden transition-all duration-300 ease-out ${
+        showBackTop ? 'max-h-14 mt-2.5 opacity-100' : 'max-h-0 mt-0 opacity-0'
+      }`}>
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Về đầu trang"
+          className="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center border-0 cursor-pointer bg-gradient-to-br from-indigo-600 to-violet-600 text-white hover:scale-110 active:scale-95 transition-transform"
+        >
+          <ArrowUp size={20} />
         </button>
       </div>
 

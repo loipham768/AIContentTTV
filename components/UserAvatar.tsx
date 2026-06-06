@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { User } from 'lucide-react'
 
 interface UserAvatarProps {
   avatarUrl?: string
@@ -49,12 +50,14 @@ export default function UserAvatar({ avatarUrl, fullName, email, size = 32, clas
     )
   }
 
+  const iconSize = Math.max(10, Math.round(size * 0.5))
+
   return (
     <div
       className={`rounded-full flex-shrink-0 flex items-center justify-center bg-gradient-to-br ${grad} ring-2 ring-white/20 ${className}`}
-      style={{ width: size, height: size, fontSize }}
+      style={{ width: size, height: size }}
     >
-      <span className="font-bold text-white leading-none">{initials}</span>
+      <User style={{ width: iconSize, height: iconSize }} className="text-white/90" strokeWidth={2.2} />
     </div>
   )
 }
