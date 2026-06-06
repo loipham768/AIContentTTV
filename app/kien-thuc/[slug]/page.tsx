@@ -131,9 +131,12 @@ export default async function ArticlePage({
   const ctaHref = isLoggedIn ? "/create" : "/login";
   const ctaLabel = isLoggedIn ? "Tạo nội dung ngay" : "Dùng thử miễn phí";
 
-  const otherArticles = Object.values(ARTICLES)
-    .filter((a) => a.slug !== slug)
-    .slice(0, 4);
+  const allOther = Object.values(ARTICLES).filter((a) => a.slug !== slug);
+  const relatedArticles = [
+    ...allOther.filter((a) => a.category === article.category).slice(0, 3),
+    ...allOther.filter((a) => a.category !== article.category),
+  ].slice(0, 3);
+  const otherArticles = allOther.slice(0, 4);
   const c = getCat(article.category);
 
   return (
@@ -240,6 +243,61 @@ export default async function ArticlePage({
               style={{ background: "#fff" }}
             >
               <ArticleBody html={article.content} />
+
+              {/* ── Inline related articles (SEO internal links) ── */}
+              {relatedArticles.length > 0 && (
+                <div className="mt-10 pt-8 border-t border-gray-100">
+                  <h2 className="text-base font-extrabold text-gray-900 mb-4 flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-indigo-500" /> Đọc thêm về chủ đề này
+                  </h2>
+                  <div className="grid sm:grid-cols-3 gap-3">
+                    {relatedArticles.map((rel) => {
+                      const rc = getCat(rel.category);
+                      return (
+                        <Link
+                          key={rel.slug}
+                          href={`/kien-thuc/${rel.slug}`}
+                          className="group flex flex-col gap-2 p-4 rounded-xl border border-gray-200 hover:border-indigo-200 hover:shadow-sm transition-all"
+                        >
+                          <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${rc.grad} flex items-center justify-center text-white flex-shrink-0`}>
+                            {rc.icon}
+                          </div>
+                          <span className="text-xs font-bold text-gray-800 group-hover:text-indigo-700 transition-colors line-clamp-2 leading-snug">
+                            {rel.title}
+                          </span>
+                          <span className="text-xs text-gray-400 flex items-center gap-1">
+                            <Clock className="w-3 h-3" /> {rel.readTime}
+                          </span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* ── Inline CTA cuối bài ── */}
+              <div className={`mt-8 relative overflow-hidden rounded-2xl bg-gradient-to-br ${c.grad} p-6 text-white`}>
+                <div className="absolute -top-8 -right-8 w-28 h-28 rounded-full opacity-20" style={{ background: "radial-gradient(circle,#fff,transparent 70%)" }} />
+                <div className="relative">
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <Sparkles className="w-3.5 h-3.5 text-white/70" />
+                    <span className="text-xs font-bold text-white/70">AITaoPage</span>
+                  </div>
+                  <h2 className="text-base font-extrabold mb-1 leading-snug">
+                    Áp dụng ngay những gì bạn vừa học
+                  </h2>
+                  <p className="text-sm text-white/80 mb-4">
+                    Tạo {article.category === "Landing Page" ? "landing page" : article.category === "Quảng cáo" ? "quảng cáo" : "nội dung"} chuyên nghiệp bằng tiếng Việt — chỉ 60 giây, không cần code.
+                  </p>
+                  <Link
+                    href={ctaHref}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-white font-extrabold rounded-xl hover:bg-indigo-50 transition-colors shadow text-sm"
+                    style={{ color: "inherit" }}
+                  >
+                    {ctaLabel} <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
             </div>
 
             {/* Author card */}
