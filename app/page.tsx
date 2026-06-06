@@ -445,6 +445,18 @@ export default async function LandingPage() {
         bestRating: 5,
         worstRating: 1,
       },
+      review: reviewStats.recent.map((r: any) => ({
+        "@type": "Review",
+        author: { "@type": "Person", name: r.userName },
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: r.rating,
+          bestRating: 5,
+          worstRating: 1,
+        },
+        reviewBody: r.content,
+        datePublished: new Date(r.createdAt).toISOString().split("T")[0],
+      })),
     }),
   };
 
@@ -1690,9 +1702,6 @@ export default async function LandingPage() {
       {/* ── Testimonials ───────────────────────────────────────────── */}
       <TestimonialsCarousel />
 
-      {/* ── User Reviews (real, for Google schema) ─────────────────── */}
-      <ReviewsSection userId={session?.user?.id ?? undefined} />
-
       {/* ── Pricing ────────────────────────────────────────────────── */}
       <PricingSection isLoggedIn={isLoggedIn} />
 
@@ -1785,6 +1794,9 @@ export default async function LandingPage() {
           </div>
         </ScrollReveal>
       </section>
+
+      {/* ── User Reviews ───────────────────────────────────────────── */}
+      <ReviewsSection userId={session?.user?.id ?? undefined} />
 
       {/* ── Footer ─────────────────────────────────────────────────── */}
       <footer style={{ background: "#06040f" }} className="text-gray-400">

@@ -1,31 +1,20 @@
-import { Star, MessageSquare, LogIn } from 'lucide-react'
+import { Star, LogIn, MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 import { dbConnect } from '@/lib/mongodb'
 import Review from '@/models/Review'
 import ReviewForm from './ReviewForm'
 
-interface ReviewDoc {
-  _id: string
-  userName: string
-  avatarUrl?: string
-  plan: string
-  rating: number
-  content: string
-  createdAt: string
-}
-
 interface Props {
   userId?: string
 }
 
-const PLAN_LABEL: Record<string, string> = {
-  free: 'Free',
-  designer: 'Designer',
-  basic: 'Basic',
-  pro: 'Pro',
+const PLAN_BADGE: Record<string, { label: string; cls: string }> = {
+  designer: { label: 'Designer', cls: 'bg-violet-500/20 text-violet-300' },
+  basic:    { label: 'Basic',    cls: 'bg-indigo-500/20 text-indigo-300' },
+  pro:      { label: 'Pro',      cls: 'bg-amber-500/20  text-amber-300'  },
 }
 
-function StarRow({ rating, size = 4 }: { rating: number; size?: number }) {
+function Stars({ rating, size = 4 }: { rating: number; size?: number }) {
   return (
     <span className="flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map((s) => (
@@ -33,7 +22,7 @@ function StarRow({ rating, size = 4 }: { rating: number; size?: number }) {
           key={s}
           className={`w-${size} h-${size}`}
           fill={s <= rating ? '#f59e0b' : 'none'}
-          stroke={s <= rating ? '#f59e0b' : '#d1d5db'}
+          stroke={s <= rating ? '#f59e0b' : '#4b5563'}
           strokeWidth={1.5}
         />
       ))}
@@ -43,12 +32,18 @@ function StarRow({ rating, size = 4 }: { rating: number; size?: number }) {
 
 export async function getReviewStats() {
   await dbConnect()
-  const stats = await Review.aggregate([
-    { $match: { isApproved: true } },
-    { $group: { _id: null, avg: { $avg: '$rating' }, count: { $sum: 1 } } },
+  const [stats, recent] = await Promise.all([
+    Review.aggregate([
+      { $match: { isApproved: true } },
+      { $group: { _id: null, avg: { $avg: '$rating' }, count: { $sum: 1 } } },
+    ]),
+    Review.find({ isApproved: true })
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .lean() as Promise<any[]>,
   ])
   const s = stats[0]
-  return { avg: s ? +s.avg.toFixed(1) : 0, count: s?.count ?? 0 }
+  return { avg: s ? +s.avg.toFixed(1) : 0, count: s?.count ?? 0, recent }
 }
 
 export default async function ReviewsSection({ userId }: Props) {
@@ -67,9 +62,7 @@ export default async function ReviewsSection({ userId }: Props) {
         },
       },
     ]),
-    userId
-      ? Review.findOne({ userId }).lean()
-      : Promise.resolve(null),
+    userId ? Review.findOne({ userId }).lean() : Promise.resolve(null),
   ])
 
   const agg = stats[0] ?? { avg: 0, count: 0, dist: [] }
@@ -80,110 +73,122 @@ export default async function ReviewsSection({ userId }: Props) {
     count: (agg.dist ?? []).filter((r: number) => r === s).length,
   }))
 
+  const showForm = !!userId
+  const hasReviewed = !!userReview
+
   return (
-    <section className="py-12 md:py-20" style={{ background: '#fafaff' }}>
+    <section style={{ background: '#0d0b1f' }} className="py-16 md:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
+
         {/* Header */}
-        <div className="text-center mb-10">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 text-xs font-semibold text-amber-400 bg-amber-500/10 rounded-full border border-amber-500/20">
+            <Star className="w-3.5 h-3.5" fill="#f59e0b" strokeWidth={0} /> Đánh giá từ người dùng thực
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
             Người dùng nói gì về AITaoPage?
           </h2>
-          <p className="text-gray-500">Đánh giá thực từ người dùng đã trải nghiệm</p>
+          {totalCount > 0 && (
+            <div className="flex items-center justify-center gap-2 mt-3">
+              <Stars rating={Math.round(avgRating)} size={5} />
+              <span className="text-2xl font-extrabold text-white">{avgRating}</span>
+              <span className="text-gray-400 text-sm">/ 5 · {totalCount} đánh giá</span>
+            </div>
+          )}
         </div>
 
-        {/* Aggregate stats */}
-        {totalCount > 0 && (
-          <div className="flex flex-col sm:flex-row items-center gap-8 bg-white rounded-2xl border border-gray-200 shadow-sm p-6 sm:p-8 mb-8">
-            {/* Big score */}
-            <div className="text-center sm:text-left flex-shrink-0">
-              <div className="text-6xl font-extrabold text-gray-900 leading-none mb-2">
-                {avgRating}
-              </div>
-              <StarRow rating={Math.round(avgRating)} size={5} />
-              <p className="text-sm text-gray-500 mt-2">{totalCount} đánh giá</p>
-            </div>
+        <div className="grid lg:grid-cols-[1fr_340px] gap-8 items-start">
 
-            <div className="w-px h-24 bg-gray-100 hidden sm:block" />
-
-            {/* Distribution bars */}
-            <div className="flex-1 w-full space-y-1.5">
-              {dist.map(({ star, count }) => {
-                const pct = totalCount > 0 ? Math.round((count / totalCount) * 100) : 0
-                return (
-                  <div key={star} className="flex items-center gap-3">
-                    <span className="text-xs font-medium text-gray-500 w-6 text-right">{star}</span>
-                    <Star className="w-3.5 h-3.5 text-amber-400" fill="#fbbf24" strokeWidth={0} />
-                    <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-amber-400 rounded-full transition-all"
-                        style={{ width: `${pct}%` }}
-                      />
+          {/* Left — reviews grid */}
+          <div>
+            {reviews.length > 0 ? (
+              <div className="grid sm:grid-cols-2 gap-4">
+                {reviews.map((r: any) => {
+                  const badge = PLAN_BADGE[r.plan]
+                  return (
+                    <div
+                      key={r._id.toString()}
+                      className="rounded-2xl border border-white/8 p-5 flex flex-col gap-3"
+                      style={{ background: 'rgba(255,255,255,0.04)' }}
+                    >
+                      <div className="flex items-center justify-between">
+                        <Stars rating={r.rating} />
+                        {badge && (
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${badge.cls}`}>
+                            {badge.label}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-gray-300 leading-relaxed flex-1">
+                        "{r.content}"
+                      </p>
+                      <div className="flex items-center gap-2.5 pt-2 border-t border-white/6">
+                        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                          {r.userName.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold text-gray-200">{r.userName}</p>
+                          <p className="text-xs text-gray-500">
+                            {new Date(r.createdAt).toLocaleDateString('vi-VN')}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <span className="text-xs text-gray-400 w-8">{count}</span>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Reviews grid */}
-        {reviews.length > 0 ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-            {reviews.map((r: any) => (
-              <div
-                key={r._id.toString()}
-                className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 flex flex-col gap-3"
-              >
-                <div className="flex items-center justify-between">
-                  <StarRow rating={r.rating} />
-                  {r.plan && r.plan !== 'free' && (
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700">
-                      {PLAN_LABEL[r.plan] ?? r.plan}
-                    </span>
-                  )}
-                </div>
-                <p className="text-sm text-gray-700 leading-relaxed flex-1">"{r.content}"</p>
-                <div className="flex items-center gap-2 pt-1 border-t border-gray-50">
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
-                    {r.userName.charAt(0).toUpperCase()}
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-gray-800">{r.userName}</p>
-                    <p className="text-xs text-gray-400">
-                      {new Date(r.createdAt).toLocaleDateString('vi-VN')}
-                    </p>
-                  </div>
-                </div>
+                  )
+                })}
               </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-8 text-gray-400 mb-8">
-            <MessageSquare className="w-10 h-10 mx-auto mb-3 opacity-30" />
-            <p className="text-sm">Chưa có đánh giá nào. Hãy là người đầu tiên!</p>
-          </div>
-        )}
+            ) : (
+              <div className="flex flex-col items-center justify-center py-16 text-gray-600">
+                <MessageSquare className="w-10 h-10 mb-3 opacity-30" />
+                <p className="text-sm">Chưa có đánh giá. Hãy là người đầu tiên!</p>
+              </div>
+            )}
 
-        {/* Review form */}
-        <div className="bg-white rounded-2xl border border-indigo-100 shadow-sm p-6 sm:p-8 max-w-xl mx-auto">
-          <h3 className="text-base font-extrabold text-gray-900 mb-1">
-            Chia sẻ trải nghiệm của bạn
-          </h3>
-          <p className="text-sm text-gray-500 mb-5">
-            Đánh giá của bạn giúp người dùng khác hiểu hơn về AITaoPage.
-          </p>
+            {/* Distribution mini bar */}
+            {totalCount > 0 && (
+              <div className="mt-6 p-4 rounded-2xl border border-white/8 space-y-2" style={{ background: 'rgba(255,255,255,0.03)' }}>
+                {dist.map(({ star, count }) => {
+                  const pct = totalCount > 0 ? Math.round((count / totalCount) * 100) : 0
+                  return (
+                    <div key={star} className="flex items-center gap-3">
+                      <span className="text-xs text-gray-500 w-3 text-right">{star}</span>
+                      <Star className="w-3 h-3 flex-shrink-0" fill="#f59e0b" stroke="none" />
+                      <div className="flex-1 h-1.5 bg-white/8 rounded-full overflow-hidden">
+                        <div className="h-full bg-amber-400 rounded-full" style={{ width: `${pct}%` }} />
+                      </div>
+                      <span className="text-xs text-gray-600 w-5">{count}</span>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
 
-          {userId ? (
-            <ReviewForm hasReviewed={!!userReview} />
-          ) : (
-            <Link
-              href="/login"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"
-            >
-              <LogIn className="w-4 h-4" /> Đăng nhập để đánh giá
-            </Link>
-          )}
+          {/* Right — form panel */}
+          <div
+            className="rounded-2xl border border-white/10 p-6"
+            style={{ background: 'rgba(255,255,255,0.05)' }}
+          >
+            <h3 className="text-base font-extrabold text-white mb-1">
+              {hasReviewed ? 'Cảm ơn bạn đã đánh giá!' : 'Chia sẻ trải nghiệm của bạn'}
+            </h3>
+            <p className="text-sm text-gray-400 mb-5">
+              {hasReviewed
+                ? 'Đánh giá của bạn đang chờ duyệt và sẽ xuất hiện sớm.'
+                : 'Đánh giá thực giúp cộng đồng và giúp AITaoPage phát triển tốt hơn.'}
+            </p>
+
+            {showForm ? (
+              <ReviewForm hasReviewed={hasReviewed} />
+            ) : (
+              <Link
+                href="/login"
+                className="flex items-center justify-center gap-2 w-full py-3 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-500 transition-colors"
+              >
+                <LogIn className="w-4 h-4" /> Đăng nhập để đánh giá
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </section>
