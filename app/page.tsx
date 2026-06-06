@@ -42,6 +42,7 @@ import {
   X,
 } from "lucide-react";
 import PricingSection from "@/components/pricing/PricingSection";
+import ReviewsSection, { getReviewStats } from "@/components/reviews/ReviewsSection";
 
 import ScrollReveal from "@/components/ScrollReveal";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
@@ -420,8 +421,39 @@ export default async function LandingPage() {
       };
   }
 
+  const reviewStats = await getReviewStats();
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "AITaoPage",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    url: "https://taopage.vn",
+    description:
+      "Công cụ AI tạo landing page, bài viết và quảng cáo HTML chuẩn inline CSS trong 60 giây cho thị trường Việt Nam.",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "VND",
+    },
+    ...(reviewStats.count >= 3 && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: reviewStats.avg,
+        reviewCount: reviewStats.count,
+        bestRating: 5,
+        worstRating: 1,
+      },
+    }),
+  };
+
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* ── Navbar ─────────────────────────────────────────────────── */}
       <ScrollHeaderWrapper>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -1657,6 +1689,9 @@ export default async function LandingPage() {
 
       {/* ── Testimonials ───────────────────────────────────────────── */}
       <TestimonialsCarousel />
+
+      {/* ── User Reviews (real, for Google schema) ─────────────────── */}
+      <ReviewsSection userId={session?.user?.id ?? undefined} />
 
       {/* ── Pricing ────────────────────────────────────────────────── */}
       <PricingSection isLoggedIn={isLoggedIn} />
