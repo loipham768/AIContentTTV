@@ -11,6 +11,12 @@ import { ADMIN_PAGE_SIZE as PAGE_SIZE } from '@/lib/adminConfig'
 import Logo from '@/components/Logo'
 import { Users, LayoutTemplate, Activity, TrendingUp } from 'lucide-react'
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+}
+
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 

@@ -964,9 +964,11 @@ export default async function LandingPage() {
           {/* Editor mockup — matches real editor layout */}
           <ScrollReveal>
             <div className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/10 select-none">
-
               {/* ── TopBar (dark) — giống hệt editor thật ── */}
-              <div className="flex items-center justify-between px-3 bg-slate-900 border-b border-slate-800 gap-2" style={{ height: "52px" }}>
+              <div
+                className="flex items-center justify-between px-3 bg-slate-900 border-b border-slate-800 gap-2"
+                style={{ height: "52px" }}
+              >
                 {/* Left: Logo + Plus + Templates */}
                 <div className="flex items-center gap-1.5 flex-shrink-0">
                   <div className="inline-flex items-center gap-2">
@@ -974,46 +976,76 @@ export default async function LandingPage() {
                       <Zap className="w-3 h-3 text-white" />
                     </div>
                     <span className="hidden md:inline font-extrabold text-[0.95rem] leading-none tracking-tight text-white/90 whitespace-nowrap">
-                      AI<span className="text-white/40">Tao</span><span className="text-white/25 font-semibold">Page</span>
+                      AI<span className="text-white/40">Tao</span>
+                      <span className="text-white/25 font-semibold">Page</span>
                     </span>
                   </div>
-                  <button className="p-1.5 rounded-lg text-slate-400"><Plus className="w-3.5 h-3.5" /></button>
-                  <button className="p-1.5 rounded-lg text-slate-400"><LayoutTemplate className="w-3.5 h-3.5" /></button>
+                  <button className="p-1.5 rounded-lg text-slate-400">
+                    <Plus className="w-3.5 h-3.5" />
+                  </button>
+                  <button className="p-1.5 rounded-lg text-slate-400">
+                    <LayoutTemplate className="w-3.5 h-3.5" />
+                  </button>
                 </div>
 
                 {/* Center: controls */}
                 <div className="flex items-center gap-1 flex-1 justify-center">
                   <div className="flex items-center bg-slate-800 rounded-lg p-0.5 gap-0.5">
-                    <span className="p-1.5 rounded-md text-slate-500"><Undo2 className="w-3.5 h-3.5" /></span>
-                    <span className="p-1.5 rounded-md text-slate-400"><Redo2 className="w-3.5 h-3.5" /></span>
+                    <span className="p-1.5 rounded-md text-slate-500">
+                      <Undo2 className="w-3.5 h-3.5" />
+                    </span>
+                    <span className="p-1.5 rounded-md text-slate-400">
+                      <Redo2 className="w-3.5 h-3.5" />
+                    </span>
                   </div>
                   <div className="hidden sm:flex items-center bg-slate-800 rounded-lg p-0.5 gap-0.5">
-                    <span className="p-1.5 rounded-md bg-white text-slate-800"><Monitor className="w-3.5 h-3.5" /></span>
-                    <span className="p-1.5 text-slate-400"><Smartphone className="w-3.5 h-3.5" /></span>
+                    <span className="p-1.5 rounded-md bg-white text-slate-800">
+                      <Monitor className="w-3.5 h-3.5" />
+                    </span>
+                    <span className="p-1.5 text-slate-400">
+                      <Smartphone className="w-3.5 h-3.5" />
+                    </span>
                   </div>
                   <div className="hidden md:flex items-center bg-slate-800 rounded-lg overflow-hidden">
-                    <span className="px-1.5 py-1.5 text-slate-400"><ZoomOut className="w-3 h-3" /></span>
-                    <span className="px-1.5 py-1 text-xs font-mono text-slate-300 w-9 text-center">100%</span>
-                    <span className="px-1.5 py-1.5 text-slate-400"><ZoomIn className="w-3 h-3" /></span>
+                    <span className="px-1.5 py-1.5 text-slate-400">
+                      <ZoomOut className="w-3 h-3" />
+                    </span>
+                    <span className="px-1.5 py-1 text-xs font-mono text-slate-300 w-9 text-center">
+                      100%
+                    </span>
+                    <span className="px-1.5 py-1.5 text-slate-400">
+                      <ZoomIn className="w-3 h-3" />
+                    </span>
                   </div>
                   <div className="w-px h-4 bg-slate-700 mx-0.5" />
-                  <span className="flex items-center gap-1 px-2 py-1.5 text-xs text-slate-300 rounded-lg"><Eye className="w-3.5 h-3.5" /><span className="hidden sm:inline">Preview</span></span>
-                  <span className="hidden sm:flex items-center gap-1 px-2 py-1.5 text-xs text-slate-400 rounded-lg"><Trash2 className="w-3.5 h-3.5" /><span className="hidden xl:inline">Xóa</span></span>
+                  <span className="flex items-center gap-1 px-2 py-1.5 text-xs text-slate-300 rounded-lg">
+                    <Eye className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">Preview</span>
+                  </span>
+                  <span className="hidden sm:flex items-center gap-1 px-2 py-1.5 text-xs text-slate-400 rounded-lg">
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span className="hidden xl:inline">Xóa</span>
+                  </span>
                 </div>
 
                 {/* Right: Save + Export + badge + avatar */}
                 <div className="flex items-center gap-1.5 flex-shrink-0">
                   <span className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs text-emerald-400">
-                    <Check className="w-3.5 h-3.5" /><span className="hidden md:inline">Đã lưu</span>
+                    <Check className="w-3.5 h-3.5" />
+                    <span className="hidden md:inline">Đã lưu</span>
                   </span>
                   <span className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-800 rounded-lg text-xs text-slate-300">
-                    <Code2 className="w-3.5 h-3.5" /><span className="hidden sm:inline">Xuất HTML</span><ChevronDown className="w-3 h-3" />
+                    <Code2 className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">Xuất HTML</span>
+                    <ChevronDown className="w-3 h-3" />
                   </span>
                   <div className="w-px h-4 bg-slate-700 mx-0.5" />
                   <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-gradient-to-r from-indigo-500 to-violet-500">
                     <Crown className="w-2.5 h-2.5" /> Basic
                   </span>
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">L</div>
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                    L
+                  </div>
                 </div>
               </div>
 
@@ -1021,8 +1053,11 @@ export default async function LandingPage() {
               <div className="flex items-center gap-2.5 px-4 py-2 bg-indigo-600 text-white text-xs">
                 <Sparkles className="w-3.5 h-3.5 flex-shrink-0 opacity-80" />
                 <p className="flex-1 leading-relaxed">
-                  <span className="font-semibold">Mọi thứ đều chỉnh sửa được!</span>{" "}
-                  Nhấn vào bất kỳ phần tử nào để đổi màu, font, gradient, hình ảnh... Kéo thả các khối ở bên trái để thêm nội dung mới.
+                  <span className="font-semibold">
+                    Mọi thứ đều chỉnh sửa được!
+                  </span>{" "}
+                  Nhấn vào bất kỳ phần tử nào để đổi màu, font, gradient, hình
+                  ảnh... Kéo thả các khối ở bên trái để thêm nội dung mới.
                 </p>
                 <X className="w-3.5 h-3.5 opacity-60 flex-shrink-0" />
               </div>
@@ -1030,47 +1065,79 @@ export default async function LandingPage() {
               {/* ── Component action bar (white) ── */}
               <div className="flex items-center gap-2 px-3 py-1.5 bg-white border-b border-slate-200">
                 <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold border border-blue-100">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" /> Hero Section
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />{" "}
+                  Hero Section
                 </span>
                 <div className="flex items-center gap-0.5 ml-auto">
-                  <span className="p-1.5 rounded-lg text-slate-500"><ArrowUp className="w-3.5 h-3.5" /></span>
-                  <span className="p-1.5 rounded-lg text-slate-500"><ArrowDown className="w-3.5 h-3.5" /></span>
+                  <span className="p-1.5 rounded-lg text-slate-500">
+                    <ArrowUp className="w-3.5 h-3.5" />
+                  </span>
+                  <span className="p-1.5 rounded-lg text-slate-500">
+                    <ArrowDown className="w-3.5 h-3.5" />
+                  </span>
                   <div className="w-px h-4 bg-slate-200 mx-1" />
-                  <span className="p-1.5 rounded-lg text-slate-500"><Copy className="w-3.5 h-3.5" /></span>
-                  <span className="p-1.5 rounded-lg text-red-400"><Trash2 className="w-3.5 h-3.5" /></span>
+                  <span className="p-1.5 rounded-lg text-slate-500">
+                    <Copy className="w-3.5 h-3.5" />
+                  </span>
+                  <span className="p-1.5 rounded-lg text-red-400">
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </span>
                 </div>
               </div>
 
               {/* ── Main area: Left panel + Canvas + Right panel ── */}
               <div className="flex" style={{ height: "380px" }}>
-
                 {/* Left: Blocks panel — white, like real editor */}
                 <div className="w-52 border-r border-slate-200 bg-white hidden md:flex flex-col flex-shrink-0 overflow-hidden">
-                  <div className="px-3 py-2.5 border-b border-slate-200 bg-slate-50 flex items-center gap-2" style={{ minHeight: "44px" }}>
+                  <div
+                    className="px-3 py-2.5 border-b border-slate-200 bg-slate-50 flex items-center gap-2"
+                    style={{ minHeight: "44px" }}
+                  >
                     <div className="w-6 h-6 rounded-md bg-blue-100 flex items-center justify-center flex-shrink-0">
                       <LayoutGrid className="w-3.5 h-3.5 text-blue-600" />
                     </div>
-                    <span className="text-xs font-semibold text-slate-700 uppercase tracking-wider">Khối</span>
+                    <span className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                      Khối
+                    </span>
                   </div>
                   <div className="flex-1 overflow-y-auto p-2">
                     <div className="grid grid-cols-2 gap-1.5">
                       {[
-                        { emoji: "𝐓",  label: "Tiêu đề" },
-                        { emoji: "¶",  label: "Đoạn văn" },
+                        { emoji: "𝐓", label: "Tiêu đề" },
+                        { emoji: "¶", label: "Đoạn văn" },
                         { emoji: "⬜", label: "Nút CTA" },
                         { emoji: "🖼", label: "Hình ảnh" },
-                        { emoji: "⊞",  label: "Cột đôi" },
+                        { emoji: "⊞", label: "Cột đôi" },
                         { emoji: "🏠", label: "Hero", active: true },
-                        { emoji: "≡",  label: "Navbar" },
+                        { emoji: "≡", label: "Navbar" },
                         { emoji: "⚡", label: "Tính năng" },
                         { emoji: "💬", label: "Đánh giá" },
                         { emoji: "🔖", label: "Footer" },
-                      ].map(({ emoji, label, active }: { emoji: string; label: string; active?: boolean }) => (
-                        <div key={label} className={`flex flex-col items-center justify-center gap-1.5 p-2.5 rounded-lg border cursor-grab text-center transition-colors ${active ? "border-blue-200 bg-blue-50" : "border-slate-200 bg-white hover:border-slate-300"}`}>
-                          <span className="text-lg leading-none">{emoji}</span>
-                          <span className={`text-[10px] leading-tight ${active ? "text-blue-700 font-medium" : "text-slate-600"}`}>{label}</span>
-                        </div>
-                      ))}
+                      ].map(
+                        ({
+                          emoji,
+                          label,
+                          active,
+                        }: {
+                          emoji: string;
+                          label: string;
+                          active?: boolean;
+                        }) => (
+                          <div
+                            key={label}
+                            className={`flex flex-col items-center justify-center gap-1.5 p-2.5 rounded-lg border cursor-grab text-center transition-colors ${active ? "border-blue-200 bg-blue-50" : "border-slate-200 bg-white hover:border-slate-300"}`}
+                          >
+                            <span className="text-lg leading-none">
+                              {emoji}
+                            </span>
+                            <span
+                              className={`text-[10px] leading-tight ${active ? "text-blue-700 font-medium" : "text-slate-600"}`}
+                            >
+                              {label}
+                            </span>
+                          </div>
+                        ),
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1082,26 +1149,47 @@ export default async function LandingPage() {
                     <div className="bg-gradient-to-r from-indigo-600 to-violet-700 px-6 sm:px-10 py-8 text-white relative">
                       <div className="absolute inset-0 border-2 border-blue-400 pointer-events-none">
                         <div className="absolute -top-[22px] left-0 bg-blue-500 text-white text-[9px] font-bold px-2 py-0.5 flex items-center gap-1">
-                          <MoveHorizontal className="w-2.5 h-2.5" /> Hero Section
+                          <MoveHorizontal className="w-2.5 h-2.5" /> Hero
+                          Section
                         </div>
                         <div className="absolute top-0 left-0 w-2 h-2 bg-blue-400 -translate-x-1 -translate-y-1" />
                         <div className="absolute top-0 right-0 w-2 h-2 bg-blue-400 translate-x-1 -translate-y-1" />
                         <div className="absolute bottom-0 left-0 w-2 h-2 bg-blue-400 -translate-x-1 translate-y-1" />
                         <div className="absolute bottom-0 right-0 w-2 h-2 bg-blue-400 translate-x-1 translate-y-1" />
                       </div>
-                      <div className="text-xs text-indigo-200 uppercase tracking-widest mb-1">Khóa học online</div>
-                      <div className="text-xl sm:text-2xl font-extrabold leading-snug mb-3">Học lập trình Web từ A→Z<br className="hidden sm:block" /> trong 3 tháng</div>
-                      <div className="inline-block bg-yellow-400 text-gray-900 font-bold px-5 py-2 rounded-xl text-sm shadow-lg">Đăng ký ngay →</div>
+                      <div className="text-xs text-indigo-200 uppercase tracking-widest mb-1">
+                        Khóa học online
+                      </div>
+                      <div className="text-xl sm:text-2xl font-extrabold leading-snug mb-3">
+                        Học lập trình Web từ A→Z
+                        <br className="hidden sm:block" /> trong 3 tháng
+                      </div>
+                      <div className="inline-block bg-yellow-400 text-gray-900 font-bold px-5 py-2 rounded-xl text-sm shadow-lg">
+                        Đăng ký ngay →
+                      </div>
                     </div>
                     <div className="bg-white border-b border-gray-200 px-6 sm:px-10 py-5 grid grid-cols-3 gap-3 text-center">
-                      {["✅ 120+ bài học", "🎓 Chứng chỉ", "🏆 Hỗ trợ 1-1"].map(f => (
-                        <div key={f} className="text-xs sm:text-sm text-gray-700 font-medium">{f}</div>
-                      ))}
+                      {["✅ 120+ bài học", "🎓 Chứng chỉ", "🏆 Hỗ trợ 1-1"].map(
+                        (f) => (
+                          <div
+                            key={f}
+                            className="text-xs sm:text-sm text-gray-700 font-medium"
+                          >
+                            {f}
+                          </div>
+                        ),
+                      )}
                     </div>
                     <div className="bg-gray-50 px-6 sm:px-10 py-5 flex flex-col items-center gap-1">
-                      <div className="text-base font-extrabold text-gray-900">Chỉ 2.990.000đ</div>
-                      <div className="text-xs text-gray-500 mb-2">Trọn đời · Cập nhật miễn phí</div>
-                      <div className="inline-block bg-indigo-600 text-white px-7 py-2 rounded-xl text-sm font-semibold shadow">Mua ngay</div>
+                      <div className="text-base font-extrabold text-gray-900">
+                        Chỉ 2.990.000đ
+                      </div>
+                      <div className="text-xs text-gray-500 mb-2">
+                        Trọn đời · Cập nhật miễn phí
+                      </div>
+                      <div className="inline-block bg-indigo-600 text-white px-7 py-2 rounded-xl text-sm font-semibold shadow">
+                        Mua ngay
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1124,31 +1212,49 @@ export default async function LandingPage() {
                   <div className="flex-1 overflow-y-auto">
                     {/* Thẻ HTML selector row */}
                     <div className="px-3 pt-3 pb-2">
-                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Thẻ HTML</p>
-                      <div className="h-7 border border-slate-200 rounded-lg bg-white flex items-center px-2.5 text-xs text-slate-700 font-mono">div  —  Khối</div>
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
+                        Thẻ HTML
+                      </p>
+                      <div className="h-7 border border-slate-200 rounded-lg bg-white flex items-center px-2.5 text-xs text-slate-700 font-mono">
+                        div — Khối
+                      </div>
                     </div>
                     {/* Typography sector */}
                     <div className="border-t border-slate-100">
                       <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 border-b border-slate-200">
-                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex-1">Kiểu chữ</span>
+                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex-1">
+                          Kiểu chữ
+                        </span>
                         <ChevronDown className="w-3 h-3 text-slate-400" />
                       </div>
                       <div className="p-3 space-y-2.5">
                         <div className="grid grid-cols-2 gap-2">
                           <div>
-                            <p className="text-[9px] text-slate-500 mb-1">Cỡ chữ</p>
-                            <div className="h-7 border border-slate-200 rounded-lg flex items-center px-2 text-xs text-slate-700 font-mono">28px</div>
+                            <p className="text-[9px] text-slate-500 mb-1">
+                              Cỡ chữ
+                            </p>
+                            <div className="h-7 border border-slate-200 rounded-lg flex items-center px-2 text-xs text-slate-700 font-mono">
+                              28px
+                            </div>
                           </div>
                           <div>
-                            <p className="text-[9px] text-slate-500 mb-1">Độ đậm</p>
-                            <div className="h-7 border border-slate-200 rounded-lg flex items-center px-2 text-xs text-slate-700 font-mono">700</div>
+                            <p className="text-[9px] text-slate-500 mb-1">
+                              Độ đậm
+                            </p>
+                            <div className="h-7 border border-slate-200 rounded-lg flex items-center px-2 text-xs text-slate-700 font-mono">
+                              700
+                            </div>
                           </div>
                         </div>
                         <div>
-                          <p className="text-[9px] text-slate-500 mb-1">Màu chữ</p>
+                          <p className="text-[9px] text-slate-500 mb-1">
+                            Màu chữ
+                          </p>
                           <div className="h-7 border border-slate-200 rounded-lg flex items-center px-2 gap-2">
                             <div className="w-4 h-4 rounded bg-white border border-slate-300 flex-shrink-0" />
-                            <span className="text-xs text-slate-700 font-mono">#ffffff</span>
+                            <span className="text-xs text-slate-700 font-mono">
+                              #ffffff
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -1156,27 +1262,37 @@ export default async function LandingPage() {
                     {/* Background sector */}
                     <div className="border-t border-slate-100">
                       <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 border-b border-slate-200">
-                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex-1">Nền</span>
+                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex-1">
+                          Nền
+                        </span>
                         <ChevronDown className="w-3 h-3 text-slate-400" />
                       </div>
                       <div className="p-3">
-                        <p className="text-[9px] text-slate-500 mb-1">Màu nền</p>
+                        <p className="text-[9px] text-slate-500 mb-1">
+                          Màu nền
+                        </p>
                         <div className="h-7 border border-slate-200 rounded-lg flex items-center px-2 gap-2">
                           <div className="w-4 h-4 rounded bg-gradient-to-r from-indigo-600 to-violet-700 border border-slate-300 flex-shrink-0" />
-                          <span className="text-xs text-slate-500 font-mono">gradient</span>
+                          <span className="text-xs text-slate-500 font-mono">
+                            gradient
+                          </span>
                         </div>
                       </div>
                     </div>
                     {/* Collapsed sectors */}
                     <div className="border-t border-slate-100">
                       <div className="flex items-center gap-2 px-3 py-2 bg-slate-50">
-                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex-1">Khoảng cách</span>
+                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex-1">
+                          Khoảng cách
+                        </span>
                         <ChevronDown className="w-3 h-3 text-slate-400 -rotate-90" />
                       </div>
                     </div>
                     <div className="border-t border-slate-100">
                       <div className="flex items-center gap-2 px-3 py-2 bg-slate-50">
-                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex-1">Kích thước</span>
+                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex-1">
+                          Kích thước
+                        </span>
                         <ChevronDown className="w-3 h-3 text-slate-400 -rotate-90" />
                       </div>
                     </div>
@@ -1574,7 +1690,7 @@ export default async function LandingPage() {
                 },
                 {
                   q: "Gói miễn phí bị giới hạn ở đâu?",
-                  a: "Gói Free: 4 lượt tạo nội dung mỗi tháng (landing page, bài viết hoặc quảng cáo). Có thể chỉnh sửa trong editor nhưng không sao chép hay tải HTML. Giới hạn này được kiểm tra phía server — không thể vượt qua bằng DevTools.",
+                  a: "Gói Free: 4 lượt tạo nội dung mỗi tháng (landing page, bài viết hoặc quảng cáo...). Có thể chỉnh sửa trong editor nhưng không sao chép hay tải HTML. Giới hạn này được kiểm tra phía server — không thể vượt qua bằng DevTools.",
                   accent: "border-l-purple-400",
                 },
                 {
@@ -1584,7 +1700,7 @@ export default async function LandingPage() {
                 },
                 {
                   q: "AI nào được dùng để tạo nội dung?",
-                  a: "AITaoPage sử dụng AI thế hệ mới để tạo nội dung — tối ưu riêng cho từng loại yêu cầu: tạo nhanh khối HTML từ một câu mô tả hoặc hỏi đáp nhiều bước cho landing page phức tạp.",
+                  a: "AITaoPage sử dụng AI thế hệ mới để tạo nội dung — tối ưu riêng cho từng loại yêu cầu: tạo nhanh khối HTML từ một câu mô tả hoặc hỏi đáp nhiều bước cho landing page, nội dung phức tạp.",
                   accent: "border-l-emerald-400",
                 },
               ] as const

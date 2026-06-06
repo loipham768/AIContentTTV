@@ -7,6 +7,11 @@ import User from '@/models/User'
 import EditorClientWrapper from '@/components/editor/EditorClientWrapper'
 import { getUserPlanInfo } from '@/lib/planGate'
 import { TEMPLATES } from '@/lib/templates'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+}
 
 export const runtime = 'nodejs'
 

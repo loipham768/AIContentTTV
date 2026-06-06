@@ -4,12 +4,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const FROM = process.env.EMAIL_FROM ?? "AITaoPage <onboarding@resend.dev>";
 const BASE_URL = process.env.NEXTAUTH_URL ?? "https://aitaopage.vn";
-const SUPPORT_EMAIL = "support@aitaopage.vn";
+const SUPPORT_EMAIL = "admin@aitaopage.vn";
 const CURRENT_YEAR = new Date().getFullYear();
 
-// Logo SVG encoded as base64 data URI for maximum email client compatibility
-const LOGO_BASE64 =
-  "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDQnIGhlaWdodD0nNDQnIHZpZXdCb3g9JzAgMCA0MCA0MCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2UtYmcnIHgxPScwJyB5MT0nMCcgeDI9JzEnIHkyPScxJz48c3RvcCBvZmZzZXQ9JzAlJyBzdG9wLWNvbG9yPScjMDgwNjFhJy8+PHN0b3Agb2Zmc2V0PScxMDAlJyBzdG9wLWNvbG9yPScjMTcwYzM4Jy8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9J2UtbGVnJyB4MT0nMCcgeTE9JzAnIHgyPScwJyB5Mj0nMSc+PHN0b3Agb2Zmc2V0PScwJScgc3RvcC1jb2xvcj0nI2ZmZmZmZicvPjxzdG9wIG9mZnNldD0nMTAwJScgc3RvcC1jb2xvcj0nI2E1YjRmYycvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSdlLWJhcicgeDE9JzExJyB5MT0nMjInIHgyPScyOScgeTI9JzIyJyBncmFkaWVudFVuaXRzPSd1c2VyU3BhY2VPblVzZSc+PHN0b3Agb2Zmc2V0PScwJScgc3RvcC1jb2xvcj0nIzIyZDNlZScvPjxzdG9wIG9mZnNldD0nNTAlJyBzdG9wLWNvbG9yPScjYTc4YmZhJy8+PHN0b3Agb2Zmc2V0PScxMDAlJyBzdG9wLWNvbG9yPScjZjBhYmZjJy8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9JzQwJyBoZWlnaHQ9JzQwJyByeD0nMTAnIGZpbGw9J3VybCgjZS1iZyknLz48ZWxsaXBzZSBjeD0nMjAnIGN5PScyMicgcng9JzE0JyByeT0nMTEnIGZpbGw9JyM3YzNhZWQnIGZpbGwtb3BhY2l0eT0nMC4xNCcvPjxyZWN0IHg9JzAuNScgeT0nMC41JyB3aWR0aD0nMzknIGhlaWdodD0nMzknIHJ4PSc5LjUnIHN0cm9rZT0nd2hpdGUnIHN0cm9rZS1vcGFjaXR5PScwLjA4JyBzdHJva2Utd2lkdGg9JzEnLz48bGluZSB4MT0nMjAnIHkxPSc2JyB4Mj0nNycgeTI9JzM1JyBzdHJva2U9J3VybCgjZS1sZWcpJyBzdHJva2Utd2lkdGg9JzMuNScgc3Ryb2tlLWxpbmVjYXA9J3JvdW5kJy8+PGxpbmUgeDE9JzIwJyB5MT0nNicgeDI9JzMzJyB5Mj0nMzUnIHN0cm9rZT0ndXJsKCNlLWxlZyknIHN0cm9rZS13aWR0aD0nMy41JyBzdHJva2UtbGluZWNhcD0ncm91bmQnLz48bGluZSB4MT0nMTEnIHkxPScyMicgeDI9JzI5JyB5Mj0nMjInIHN0cm9rZT0ndXJsKCNlLWJhciknIHN0cm9rZS13aWR0aD0nMTEnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgb3BhY2l0eT0nMC4wNycvPjxsaW5lIHgxPScxMScgeTE9JzIyJyB4Mj0nMjknIHkyPScyMicgc3Ryb2tlPSd1cmwoI2UtYmFyKScgc3Ryb2tlLXdpZHRoPSc2LjUnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgb3BhY2l0eT0nMC4xNicvPjxsaW5lIHgxPScxMScgeTE9JzIyJyB4Mj0nMjknIHkyPScyMicgc3Ryb2tlPSd1cmwoI2UtYmFyKScgc3Ryb2tlLXdpZHRoPSczLjUnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcvPjxjaXJjbGUgY3g9JzIwJyBjeT0nNS44JyByPScyJyBmaWxsPSd3aGl0ZScgZmlsbC1vcGFjaXR5PScwLjU1Jy8+PC9zdmc+";
 
 function formatVnd(n: number) {
   return n.toLocaleString("vi-VN") + "đ";
@@ -77,7 +74,14 @@ function emailWrapper(content: string, previewText = "") {
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                       <tr>
                         <td style="vertical-align:middle;padding-right:14px;">
-                          <img src="${LOGO_BASE64}" width="44" height="44" alt="A" style="display:block;border:0;border-radius:10px;" />
+                          <!-- HTML logo icon – works in Gmail, Outlook, Apple Mail -->
+                          <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                              <td width="44" height="44" bgcolor="#0f0c29" style="width:44px;height:44px;border-radius:10px;text-align:center;vertical-align:middle;mso-padding-alt:0;">
+                                <span style="display:block;font-size:26px;font-weight:900;color:#a78bfa;font-family:Georgia,'Times New Roman',serif;line-height:44px;text-align:center;">A</span>
+                              </td>
+                            </tr>
+                          </table>
                         </td>
                         <td style="vertical-align:middle;">
                           <span style="font-size:20px;font-weight:900;letter-spacing:-0.5px;">
@@ -125,7 +129,7 @@ function emailWrapper(content: string, previewText = "") {
                         <td>
                           <p style="margin:0 0 8px;font-size:12px;color:#94a3b8;line-height:1.7;">
                             Bạn nhận email này vì đã đăng ký tài khoản tại
-                            <a href="${BASE_URL}" style="color:#6366f1;text-decoration:none;">${BASE_URL.replace("https://","")}</a>.
+                            <a href="${BASE_URL}" style="color:#6366f1;text-decoration:none;">${BASE_URL.replace("https://", "")}</a>.
                             Email được gửi tự động, vui lòng không trả lời trực tiếp.
                           </p>
                           <p style="margin:0 0 8px;font-size:12px;color:#94a3b8;line-height:1.7;">
@@ -179,7 +183,9 @@ function ctaButton(text: string, href: string, color = "#4f46e5") {
 
 function infoTable(rows: [string, string, boolean?][]) {
   return `<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-    ${rows.map(([label, value, mono]) => `
+    ${rows
+      .map(
+        ([label, value, mono]) => `
     <tr>
       <td style="padding:11px 0;border-bottom:1px solid #f1f5f9;width:38%;vertical-align:top;">
         <span style="font-size:13px;color:#94a3b8;font-weight:500;">${label}</span>
@@ -187,15 +193,23 @@ function infoTable(rows: [string, string, boolean?][]) {
       <td style="padding:11px 0 11px 16px;border-bottom:1px solid #f1f5f9;vertical-align:top;">
         <span style="font-size:14px;color:#1e293b;font-weight:600;${mono ? "font-family:'Courier New',Courier,monospace;" : ""}">${value}</span>
       </td>
-    </tr>`).join("")}
+    </tr>`,
+      )
+      .join("")}
   </table>`;
 }
 
-function featureList(features: string[], color = "#4338ca", bgColor = "#eef2ff") {
+function featureList(
+  features: string[],
+  color = "#4338ca",
+  bgColor = "#eef2ff",
+) {
   return `<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background:${bgColor};border-radius:12px;">
     <tr>
       <td style="padding:20px 24px;">
-        ${features.map((f) => `
+        ${features
+          .map(
+            (f) => `
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:10px;">
           <tr>
             <td style="width:22px;vertical-align:top;padding-top:1px;">
@@ -205,7 +219,9 @@ function featureList(features: string[], color = "#4338ca", bgColor = "#eef2ff")
               <span style="font-size:13px;color:${color};line-height:1.5;">${f}</span>
             </td>
           </tr>
-        </table>`).join("")}
+        </table>`,
+          )
+          .join("")}
       </td>
     </tr>
   </table>`;
@@ -214,8 +230,8 @@ function featureList(features: string[], color = "#4338ca", bgColor = "#eef2ff")
 function alertBox(text: string, type: "warning" | "info" | "danger" = "info") {
   const styles = {
     warning: { bg: "#fffbeb", border: "#f59e0b", color: "#92400e" },
-    info:    { bg: "#eff6ff", border: "#3b82f6", color: "#1e40af" },
-    danger:  { bg: "#fef2f2", border: "#ef4444", color: "#991b1b" },
+    info: { bg: "#eff6ff", border: "#3b82f6", color: "#1e40af" },
+    danger: { bg: "#fef2f2", border: "#ef4444", color: "#991b1b" },
   };
   const s = styles[type];
   return `<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background:${s.bg};border-radius:10px;border-left:4px solid ${s.border};">
@@ -258,10 +274,14 @@ export async function sendOtpEmail(to: string, otp: string) {
         <td style="background:#f8fafc;border-radius:12px;padding:24px;">
           ${[
             ["Quay lại trang đăng ký trên trình duyệt của bạn"],
-            ["Tìm ô nhập \"Mã xác nhận\" hoặc \"OTP\""],
-            [`Nhập đúng 6 chữ số: <strong style="font-family:monospace;color:#4338ca;font-size:15px;">${otp}</strong>`],
-            ["Nhấn nút \"Xác nhận\" để hoàn tất"],
-          ].map(([step], i) => `
+            ['Tìm ô nhập "Mã xác nhận" hoặc "OTP"'],
+            [
+              `Nhập đúng 6 chữ số: <strong style="font-family:monospace;color:#4338ca;font-size:15px;">${otp}</strong>`,
+            ],
+            ['Nhấn nút "Xác nhận" để hoàn tất'],
+          ]
+            .map(
+              ([step], i) => `
           <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:${i < 3 ? "14px" : "0"};">
             <tr>
               <td style="width:32px;vertical-align:top;">
@@ -271,7 +291,9 @@ export async function sendOtpEmail(to: string, otp: string) {
                 <span style="font-size:14px;color:#374151;line-height:1.5;">${step}</span>
               </td>
             </tr>
-          </table>`).join("")}
+          </table>`,
+            )
+            .join("")}
         </td>
       </tr>
     </table>
@@ -289,11 +311,15 @@ export async function sendOtpEmail(to: string, otp: string) {
               "AITaoPage <strong>không bao giờ</strong> yêu cầu bạn cung cấp mã OTP qua điện thoại, chat, hay bất kỳ kênh nào khác",
               "Không chia sẻ mã này với bất kỳ ai kể cả nhân viên hỗ trợ",
               "Nếu bạn không yêu cầu đăng ký, hãy bỏ qua email này &mdash; tài khoản sẽ không được tạo",
-            ].map((item) => `
+            ]
+              .map(
+                (item) => `
             <tr>
               <td style="padding:4px 0;vertical-align:top;width:20px;"><span style="font-size:13px;color:#ef4444;">•</span></td>
               <td style="padding:4px 0 4px 8px;vertical-align:top;"><span style="font-size:13px;color:#7f1d1d;line-height:1.5;">${item}</span></td>
-            </tr>`).join("")}
+            </tr>`,
+              )
+              .join("")}
           </table>
         </td>
       </tr>
@@ -310,7 +336,10 @@ export async function sendOtpEmail(to: string, otp: string) {
     from: FROM,
     to,
     subject: `${otp} là mã xác nhận AITaoPage của bạn (hết hạn sau 10 phút)`,
-    html: emailWrapper(content, `Mã xác nhận của bạn là ${otp}. Nhập ngay trong 10 phút trước khi hết hạn.`),
+    html: emailWrapper(
+      content,
+      `Mã xác nhận của bạn là ${otp}. Nhập ngay trong 10 phút trước khi hết hạn.`,
+    ),
   });
 
   if (error) {
@@ -355,8 +384,14 @@ export async function sendNewOrderAdminEmail(order: {
         ["Mã đơn hàng", order.orderId, true],
         ["Email khách hàng", order.userEmail],
         ["Loại đơn", planDisplay],
-        ["Số tiền", `<span style="color:#059669;font-size:15px;font-weight:800;">${formatVnd(order.amount)}</span>`],
-        ["Trạng thái", '<span style="background:#fef3c7;color:#92400e;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;">⏳ Chờ xác nhận</span>'],
+        [
+          "Số tiền",
+          `<span style="color:#059669;font-size:15px;font-weight:800;">${formatVnd(order.amount)}</span>`,
+        ],
+        [
+          "Trạng thái",
+          '<span style="background:#fef3c7;color:#92400e;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;">⏳ Chờ xác nhận</span>',
+        ],
         ["Thời gian tạo", formatDate()],
       ])}
     </div>
@@ -367,11 +402,25 @@ export async function sendNewOrderAdminEmail(order: {
       <tr>
         <td style="padding:24px;">
           ${[
-            ["Kiểm tra ảnh chụp màn hình chuyển khoản trong trang Admin", "#4f46e5"],
-            ["Xác minh số tiền và nội dung chuyển khoản khớp với đơn hàng", "#4f46e5"],
-            ["Nhấn \"Kích hoạt\" để cấp quyền truy cập cho khách hàng", "#4f46e5"],
-            ["Hệ thống sẽ tự động gửi email thông báo đến khách hàng", "#94a3b8"],
-          ].map(([step, color], i) => `
+            [
+              "Kiểm tra ảnh chụp màn hình chuyển khoản trong trang Admin",
+              "#4f46e5",
+            ],
+            [
+              "Xác minh số tiền và nội dung chuyển khoản khớp với đơn hàng",
+              "#4f46e5",
+            ],
+            [
+              'Nhấn "Kích hoạt" để cấp quyền truy cập cho khách hàng',
+              "#4f46e5",
+            ],
+            [
+              "Hệ thống sẽ tự động gửi email thông báo đến khách hàng",
+              "#94a3b8",
+            ],
+          ]
+            .map(
+              ([step, color], i) => `
           <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:${i < 3 ? "14px" : "0"};">
             <tr>
               <td style="width:32px;vertical-align:top;">
@@ -381,7 +430,9 @@ export async function sendNewOrderAdminEmail(order: {
                 <span style="font-size:14px;color:#374151;line-height:1.5;">${step}</span>
               </td>
             </tr>
-          </table>`).join("")}
+          </table>`,
+            )
+            .join("")}
         </td>
       </tr>
     </table>
@@ -399,7 +450,10 @@ export async function sendNewOrderAdminEmail(order: {
     from: FROM,
     to: adminEmail,
     subject,
-    html: emailWrapper(content, `Đơn mới: ${planDisplay} — ${formatVnd(order.amount)} — cần xác nhận ngay`),
+    html: emailWrapper(
+      content,
+      `Đơn mới: ${planDisplay} — ${formatVnd(order.amount)} — cần xác nhận ngay`,
+    ),
   });
 
   if (error) console.error("[Resend] sendNewOrderAdminEmail failed:", error);
@@ -448,28 +502,38 @@ export async function sendOrderActivatedEmail(
             ["Dịch vụ", planName],
             ["Số tiền thanh toán", formatVnd(order.amount)],
             ["Ngày kích hoạt", formatDate()],
-            ["Trạng thái", '<span style="background:#d1fae5;color:#065f46;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;">✓ Đã kích hoạt</span>'],
+            [
+              "Trạng thái",
+              '<span style="background:#d1fae5;color:#065f46;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;">✓ Đã kích hoạt</span>',
+            ],
             isSubscription
-              ? ["Gia hạn tiếp theo", `Tự động gia hạn theo ${BILLING_LABEL[order.billing ?? ""] ?? order.billing}`]
+              ? [
+                  "Gia hạn tiếp theo",
+                  `Tự động gia hạn theo ${BILLING_LABEL[order.billing ?? ""] ?? order.billing}`,
+                ]
               : ["Loại", "Credits (không hết hạn)"],
           ])}
         </td>
       </tr>
     </table>
 
-    ${isSubscription ? `
+    ${
+      isSubscription
+        ? `
     <!-- Features -->
     ${sectionTitle(`Quyền lợi gói ${PLAN_LABEL[planKey] ?? planKey} của bạn`)}
     <div style="margin-bottom:32px;">
       ${featureList(features)}
     </div>
-    ` : `
+    `
+        : `
     <!-- Credits info -->
     ${sectionTitle("Thông tin Credits")}
     <div style="margin-bottom:32px;">
       ${alertBox("💡&nbsp; Credits được cộng trực tiếp vào tài khoản và <strong>không có thời hạn sử dụng</strong>. Bạn có thể kiểm tra số dư credits trong trang hồ sơ của mình.", "info")}
     </div>
-    `}
+    `
+    }
 
     <!-- Getting started -->
     ${sectionTitle("Bắt đầu trong 3 bước đơn giản")}
@@ -477,10 +541,21 @@ export async function sendOrderActivatedEmail(
       <tr>
         <td style="padding:24px 28px;">
           ${[
-            ["Mở Editor", `Vào <a href="${BASE_URL}/editor" style="color:#4f46e5;text-decoration:none;font-weight:600;">trang Editor</a> và chọn loại nội dung bạn muốn tạo`],
-            ["Nhập yêu cầu AI", "Mô tả nội dung cần tạo, chọn giọng văn và phong cách phù hợp"],
-            ["Xuất & sử dụng", "Chỉnh sửa với giao diện kéo thả rồi xuất HTML/CSS về máy"],
-          ].map(([title, desc], i) => `
+            [
+              "Mở Editor",
+              `Vào <a href="${BASE_URL}/editor" style="color:#4f46e5;text-decoration:none;font-weight:600;">trang Editor</a> và chọn loại nội dung bạn muốn tạo`,
+            ],
+            [
+              "Nhập yêu cầu AI",
+              "Mô tả nội dung cần tạo, chọn giọng văn và phong cách phù hợp",
+            ],
+            [
+              "Xuất & sử dụng",
+              "Chỉnh sửa với giao diện kéo thả rồi xuất HTML/CSS về máy",
+            ],
+          ]
+            .map(
+              ([title, desc], i) => `
           <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:${i < 2 ? "18px" : "0"};">
             <tr>
               <td style="width:42px;vertical-align:top;">
@@ -491,7 +566,9 @@ export async function sendOrderActivatedEmail(
                 <p style="margin:0;font-size:13px;color:#64748b;line-height:1.5;">${desc}</p>
               </td>
             </tr>
-          </table>`).join("")}
+          </table>`,
+            )
+            .join("")}
         </td>
       </tr>
     </table>
@@ -583,13 +660,18 @@ export async function sendOrderCancelledEmail(
             ["Dịch vụ đăng ký", planName],
             ["Số tiền", formatVnd(order.amount)],
             ["Thời gian huỷ", formatDate()],
-            ["Trạng thái", '<span style="background:#fee2e2;color:#991b1b;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;">✕ Đã huỷ</span>'],
+            [
+              "Trạng thái",
+              '<span style="background:#fee2e2;color:#991b1b;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;">✕ Đã huỷ</span>',
+            ],
           ])}
         </td>
       </tr>
     </table>
 
-    ${reason ? `
+    ${
+      reason
+        ? `
     ${sectionTitle("Lý do huỷ đơn")}
     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:28px;">
       <tr>
@@ -599,11 +681,13 @@ export async function sendOrderCancelledEmail(
         </td>
       </tr>
     </table>
-    ` : `
+    `
+        : `
     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:28px;">
       ${alertBox("Nếu bạn không rõ lý do tại sao đơn hàng bị huỷ, vui lòng liên hệ đội hỗ trợ của chúng tôi để được giải thích chi tiết.", "info")}
     </table>
-    `}
+    `
+    }
 
     <!-- Refund info -->
     ${sectionTitle("Chính sách hoàn tiền")}
@@ -617,11 +701,15 @@ export async function sendOrderCancelledEmail(
               "Tiền sẽ được hoàn về đúng tài khoản ngân hàng bạn đã chuyển",
               "Bạn sẽ nhận được email xác nhận khi giao dịch hoàn tiền được xử lý",
               "Liên hệ ngay nếu sau 5 ngày bạn chưa nhận được tiền hoàn",
-            ].map((item) => `
+            ]
+              .map(
+                (item) => `
             <tr>
               <td style="padding:4px 0;vertical-align:top;width:20px;"><span style="font-size:13px;color:#10b981;">✓</span></td>
               <td style="padding:4px 0 4px 10px;vertical-align:top;"><span style="font-size:13px;color:#065f46;line-height:1.6;">${item}</span></td>
-            </tr>`).join("")}
+            </tr>`,
+              )
+              .join("")}
           </table>
         </td>
       </tr>
@@ -633,11 +721,25 @@ export async function sendOrderCancelledEmail(
       <tr>
         <td style="padding:24px 28px;">
           ${[
-            ["Xem lại lý do huỷ", "Đọc kỹ thông tin phía trên để hiểu nguyên nhân đơn bị từ chối"],
-            ["Kiểm tra thông tin thanh toán", "Đảm bảo thông tin chuyển khoản (số tài khoản, nội dung) chính xác khi tạo đơn mới"],
-            ["Tạo đơn hàng mới", `Quay lại <a href="${BASE_URL}/#pricing" style="color:#4f46e5;text-decoration:none;font-weight:600;">trang bảng giá</a> và thực hiện thanh toán lại`],
-            ["Liên hệ hỗ trợ nếu cần", `Đội ngũ chúng tôi sẵn sàng hỗ trợ bạn qua <a href="mailto:${SUPPORT_EMAIL}" style="color:#4f46e5;text-decoration:none;font-weight:600;">${SUPPORT_EMAIL}</a>`],
-          ].map(([title, desc], i) => `
+            [
+              "Xem lại lý do huỷ",
+              "Đọc kỹ thông tin phía trên để hiểu nguyên nhân đơn bị từ chối",
+            ],
+            [
+              "Kiểm tra thông tin thanh toán",
+              "Đảm bảo thông tin chuyển khoản (số tài khoản, nội dung) chính xác khi tạo đơn mới",
+            ],
+            [
+              "Tạo đơn hàng mới",
+              `Quay lại <a href="${BASE_URL}/#pricing" style="color:#4f46e5;text-decoration:none;font-weight:600;">trang bảng giá</a> và thực hiện thanh toán lại`,
+            ],
+            [
+              "Liên hệ hỗ trợ nếu cần",
+              `Đội ngũ chúng tôi sẵn sàng hỗ trợ bạn qua <a href="mailto:${SUPPORT_EMAIL}" style="color:#4f46e5;text-decoration:none;font-weight:600;">${SUPPORT_EMAIL}</a>`,
+            ],
+          ]
+            .map(
+              ([title, desc], i) => `
           <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:${i < 3 ? "18px" : "0"};">
             <tr>
               <td style="width:42px;vertical-align:top;">
@@ -648,7 +750,9 @@ export async function sendOrderCancelledEmail(
                 <p style="margin:0;font-size:13px;color:#64748b;line-height:1.5;">${desc}</p>
               </td>
             </tr>
-          </table>`).join("")}
+          </table>`,
+            )
+            .join("")}
         </td>
       </tr>
     </table>

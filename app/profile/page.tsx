@@ -7,6 +7,11 @@ import ProfileClient from '@/components/profile/ProfileClient'
 import Logo from '@/components/Logo'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+}
 
 export const runtime = 'nodejs'
 

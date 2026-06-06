@@ -17,22 +17,24 @@ import {
   ArrowRight,
   History,
   Zap,
+  RefreshCw,
+  AlertTriangle,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import FeedbackModal from "@/components/FeedbackModal";
 
 const PLAN_LABEL: Record<string, string> = {
-  free:     "Miễn phí",
+  free: "Miễn phí",
   designer: "Designer",
-  basic:    "Basic",
-  pro:      "Pro",
+  basic: "Basic",
+  pro: "Pro",
 };
 const PLAN_COLOR: Record<string, string> = {
-  free:     "bg-gray-100 text-gray-600",
+  free: "bg-gray-100 text-gray-600",
   designer: "bg-teal-100 text-teal-700",
-  basic:    "bg-blue-100 text-blue-700",
-  pro:      "bg-amber-100 text-amber-700",
+  basic: "bg-blue-100 text-blue-700",
+  pro: "bg-amber-100 text-amber-700",
 };
 
 function UsageBar({
@@ -51,7 +53,9 @@ function UsageBar({
     <div>
       <div className="flex justify-between text-xs mb-1">
         <span className="text-gray-500">{label}</span>
-        <span className={`font-semibold ${exhausted ? "text-red-500" : "text-gray-700"}`}>
+        <span
+          className={`font-semibold ${exhausted ? "text-red-500" : "text-gray-700"}`}
+        >
           {unlimited ? `${used} / ∞` : `${used} / ${limit}`}
         </span>
       </div>
@@ -67,20 +71,36 @@ function UsageBar({
   );
 }
 
-function CreditRow({ credits, creditsTotal, monthlyExhausted }: { credits: number; creditsTotal: number; monthlyExhausted: boolean }) {
+function CreditRow({
+  credits,
+  creditsTotal,
+  monthlyExhausted,
+}: {
+  credits: number;
+  creditsTotal: number;
+  monthlyExhausted: boolean;
+}) {
   if (creditsTotal === 0) return null;
   const used = creditsTotal - credits;
   return (
-    <div className={`flex items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-xs ${
-      monthlyExhausted
-        ? "bg-amber-50 border border-amber-200"
-        : "bg-gray-50 border border-gray-100"
-    }`}>
-      <span className={`flex items-center gap-1.5 font-medium min-w-0 ${monthlyExhausted ? "text-amber-700" : "text-gray-500"}`}>
+    <div
+      className={`flex items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-xs ${
+        monthlyExhausted
+          ? "bg-amber-50 border border-amber-200"
+          : "bg-gray-50 border border-gray-100"
+      }`}
+    >
+      <span
+        className={`flex items-center gap-1.5 font-medium min-w-0 ${monthlyExhausted ? "text-amber-700" : "text-gray-500"}`}
+      >
         <span className="text-base leading-none shrink-0">⚡</span>
-        <span className="truncate">{monthlyExhausted ? "Đang dùng credit dự phòng" : "Credit dự phòng"}</span>
+        <span className="truncate">
+          {monthlyExhausted ? "Đang dùng credit dự phòng" : "Credit dự phòng"}
+        </span>
       </span>
-      <span className={`font-bold shrink-0 ${monthlyExhausted ? "text-amber-600" : "text-gray-700"}`}>
+      <span
+        className={`font-bold shrink-0 ${monthlyExhausted ? "text-amber-600" : "text-gray-700"}`}
+      >
         {used} / {creditsTotal} lượt
       </span>
     </div>
@@ -88,18 +108,18 @@ function CreditRow({ credits, creditsTotal, monthlyExhausted }: { credits: numbe
 }
 
 const STATUS_LABEL: Record<string, string> = {
-  paid:                   "Thành công",
-  pending:                "Chờ thanh toán",
-  awaiting_confirmation:  "Đã CK · Chờ xác nhận",
-  cancelled:              "Đã huỷ",
-  expired:                "Hết hạn",
+  paid: "Thành công",
+  pending: "Chờ thanh toán",
+  awaiting_confirmation: "Đã CK · Chờ xác nhận",
+  cancelled: "Đã huỷ",
+  expired: "Hết hạn",
 };
 const STATUS_COLOR: Record<string, string> = {
-  paid:                   "bg-emerald-50 text-emerald-700 border-emerald-100",
-  pending:                "bg-amber-50 text-amber-700 border-amber-100",
-  awaiting_confirmation:  "bg-blue-50 text-blue-600 border-blue-100",
-  cancelled:              "bg-red-50 text-red-500 border-red-100",
-  expired:                "bg-gray-50 text-gray-400 border-gray-100",
+  paid: "bg-emerald-50 text-emerald-700 border-emerald-100",
+  pending: "bg-amber-50 text-amber-700 border-amber-100",
+  awaiting_confirmation: "bg-blue-50 text-blue-600 border-blue-100",
+  cancelled: "bg-red-50 text-red-500 border-red-100",
+  expired: "bg-gray-50 text-gray-400 border-gray-100",
 };
 const PLAN_LABEL_MAP: Record<string, string> = {
   designer: "Designer",
@@ -122,8 +142,12 @@ interface Order {
 
 function fmt(d: string) {
   return new Date(d).toLocaleString("vi-VN", {
-    day: "2-digit", month: "2-digit", year: "numeric",
-    hour: "2-digit", minute: "2-digit", hour12: false,
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
   });
 }
 function fmtVnd(n: number) {
@@ -155,7 +179,9 @@ function OrderHistory() {
       )}
 
       {!loading && orders.length === 0 && (
-        <p className="text-sm text-gray-400 text-center py-8">Chưa có giao dịch nào.</p>
+        <p className="text-sm text-gray-400 text-center py-8">
+          Chưa có giao dịch nào.
+        </p>
       )}
 
       {!loading && orders.length > 0 && (
@@ -169,28 +195,42 @@ function OrderHistory() {
 
             // Orders that passed the 24h window without payment stay "pending" in DB
             const effectiveStatus =
-              o.status === "pending" && o.expiresAt && new Date(o.expiresAt) < new Date()
+              o.status === "pending" &&
+              o.expiresAt &&
+              new Date(o.expiresAt) < new Date()
                 ? "expired"
                 : o.status;
 
             return (
               <div key={o.orderId} className="flex items-center gap-3 py-3">
-                <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
-                  isSubscription ? "bg-indigo-50" : "bg-amber-50"
-                }`}>
-                  {isSubscription
-                    ? <Crown className="w-4 h-4 text-indigo-500" />
-                    : <Zap className="w-4 h-4 text-amber-500" />}
+                <div
+                  className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
+                    isSubscription ? "bg-indigo-50" : "bg-amber-50"
+                  }`}
+                >
+                  {isSubscription ? (
+                    <Crown className="w-4 h-4 text-indigo-500" />
+                  ) : (
+                    <Zap className="w-4 h-4 text-amber-500" />
+                  )}
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-800 truncate">{label}</p>
-                  <p className="text-xs text-gray-400 truncate">{fmt(date)} · {o.orderId}</p>
+                  <p className="text-sm font-medium text-gray-800 truncate">
+                    {label}
+                  </p>
+                  <p className="text-xs text-gray-400 truncate">
+                    {fmt(date)} · {o.orderId}
+                  </p>
                 </div>
 
                 <div className="flex flex-col items-end gap-1 shrink-0">
-                  <span className="text-sm font-semibold text-gray-800">{fmtVnd(o.amount)}</span>
-                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${STATUS_COLOR[effectiveStatus] ?? STATUS_COLOR.expired}`}>
+                  <span className="text-sm font-semibold text-gray-800">
+                    {fmtVnd(o.amount)}
+                  </span>
+                  <span
+                    className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${STATUS_COLOR[effectiveStatus] ?? STATUS_COLOR.expired}`}
+                  >
                     {STATUS_LABEL[effectiveStatus] ?? effectiveStatus}
                   </span>
                 </div>
@@ -316,6 +356,10 @@ export default function ProfileClient({
   }
 
   const expiry = data.planExpiresAt ? new Date(data.planExpiresAt) : null;
+  const daysLeft = expiry
+    ? Math.ceil((expiry.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
+    : null;
+  const isExpiringSoon = daysLeft !== null && daysLeft > 0 && daysLeft <= 7;
 
   return (
     <div className="grid md:grid-cols-5 gap-6">
@@ -377,7 +421,9 @@ export default function ProfileClient({
           {data.plan === "designer" && (
             <div className="px-4 py-3 md:px-5 md:py-4 bg-gradient-to-r from-teal-500 to-cyan-600 flex items-center justify-between">
               <div className="min-w-0 flex-1 mr-3">
-                <p className="text-[11px] font-semibold text-teal-100 uppercase tracking-wide mb-0.5">Gói hiện tại</p>
+                <p className="text-[11px] font-semibold text-teal-100 uppercase tracking-wide mb-0.5">
+                  Gói hiện tại
+                </p>
                 <p className="font-bold text-white text-sm">Designer</p>
                 <p className="text-xs text-teal-100 mt-0.5 break-words">
                   Kéo thả & xuất HTML không giới hạn
@@ -392,9 +438,13 @@ export default function ProfileClient({
           {data.plan === "free" && (
             <div className="px-4 py-3 md:px-5 md:py-4 bg-gradient-to-br from-slate-50 to-gray-100 border-b border-gray-100 flex items-center justify-between">
               <div className="min-w-0 flex-1 mr-3">
-                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">Gói hiện tại</p>
+                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">
+                  Gói hiện tại
+                </p>
                 <p className="font-bold text-gray-800 text-sm">Miễn phí</p>
-                <p className="text-xs text-gray-400 mt-0.5">4 lượt tạo / tháng</p>
+                <p className="text-xs text-gray-400 mt-0.5">
+                  4 lượt tạo / tháng
+                </p>
               </div>
               <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center shrink-0">
                 <Sparkles className="w-5 h-5 text-slate-400" />
@@ -404,7 +454,9 @@ export default function ProfileClient({
           {data.plan === "basic" && (
             <div className="px-4 py-3 md:px-5 md:py-4 bg-gradient-to-r from-indigo-600 to-violet-600 flex items-center justify-between">
               <div className="min-w-0 flex-1 mr-3">
-                <p className="text-[11px] font-semibold text-indigo-200 uppercase tracking-wide mb-0.5">Gói hiện tại</p>
+                <p className="text-[11px] font-semibold text-indigo-200 uppercase tracking-wide mb-0.5">
+                  Gói hiện tại
+                </p>
                 <p className="font-bold text-white text-sm">Basic</p>
                 <p className="text-xs text-indigo-200 mt-0.5 break-words">
                   25 lượt tạo / tháng
@@ -419,7 +471,9 @@ export default function ProfileClient({
           {data.plan === "pro" && (
             <div className="px-4 py-3 md:px-5 md:py-4 bg-gradient-to-r from-amber-500 to-orange-500 flex items-center justify-between">
               <div className="min-w-0 flex-1 mr-3">
-                <p className="text-[11px] font-semibold text-amber-100 uppercase tracking-wide mb-0.5">Gói hiện tại</p>
+                <p className="text-[11px] font-semibold text-amber-100 uppercase tracking-wide mb-0.5">
+                  Gói hiện tại
+                </p>
                 <p className="font-bold text-white text-sm">Pro</p>
                 <p className="text-xs text-amber-100 mt-0.5 break-words">
                   Không giới hạn
@@ -428,6 +482,28 @@ export default function ProfileClient({
               </div>
               <div className="w-10 h-10 rounded-xl bg-white/15 border border-white/25 shadow-md shadow-amber-900/20 flex items-center justify-center shrink-0">
                 <Gem className="w-5 h-5 text-white drop-shadow" />
+              </div>
+            </div>
+          )}
+
+          {/* Expiry warning — shown when plan expires within 7 days */}
+          {data.plan !== "free" && isExpiringSoon && (
+            <div className="px-4 py-3 md:px-5 bg-amber-50 border-b border-amber-100 flex items-start gap-3">
+              <AlertTriangle className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold text-amber-800">
+                  Gói hết hạn sau {daysLeft} ngày
+                </p>
+                <p className="text-xs text-amber-600 mt-0.5">
+                  Gia hạn sớm để không bị gián đoạn. Sau khi hết hạn tài khoản
+                  sẽ về gói Miễn phí.
+                </p>
+                <Link
+                  href="/#pricing"
+                  className="inline-flex items-center gap-1.5 mt-2 text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-500 text-white hover:bg-amber-600 transition-colors"
+                >
+                  <RefreshCw className="w-3 h-3" /> Gia hạn ngay
+                </Link>
               </div>
             </div>
           )}
@@ -455,20 +531,39 @@ export default function ProfileClient({
             />
 
             {data.plan === "free" && (
-              <Link
-                href="/#pricing"
-                className="flex items-center justify-center gap-1.5 w-full py-2 text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl hover:opacity-90 transition-opacity"
-              >
-                <Crown className="w-3.5 h-3.5" /> Nâng cấp gói{" "}
-                <ArrowRight className="w-3 h-3" />
-              </Link>
+              <div className="space-y-2">
+                <Link
+                  href="/#pricing"
+                  className="flex items-center justify-center gap-1.5 w-full py-2 text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl hover:opacity-90 transition-opacity"
+                >
+                  <Crown className="w-3.5 h-3.5" /> Nâng cấp gói{" "}
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
+                <p className="text-center text-[11px] text-gray-400">
+                  Gói vừa hết hạn?{" "}
+                  <Link
+                    href="/#pricing"
+                    className="text-indigo-500 font-semibold hover:underline"
+                  >
+                    Gia hạn tại đây
+                  </Link>{" "}
+                  hoặc{" "}
+                  <Link
+                    href="/contact"
+                    className="text-indigo-500 font-semibold hover:underline"
+                  >
+                    liên hệ hỗ trợ
+                  </Link>
+                </p>
+              </div>
             )}
             {data.plan === "designer" && (
               <Link
                 href="/#pricing"
                 className="flex items-center justify-center gap-1.5 w-full py-2 text-xs font-semibold text-teal-700 border border-teal-200 rounded-xl hover:bg-teal-50 transition-colors"
               >
-                <Crown className="w-3.5 h-3.5 text-indigo-500" /> Thêm AI → nâng lên Basic
+                <Crown className="w-3.5 h-3.5 text-indigo-500" /> Thêm AI → nâng
+                lên Basic
                 <ArrowRight className="w-3 h-3" />
               </Link>
             )}
@@ -486,8 +581,12 @@ export default function ProfileClient({
 
         {/* Feedback */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 md:p-5">
-          <p className="text-sm font-semibold text-gray-900 mb-1">Góp ý cải thiện</p>
-          <p className="text-xs text-gray-400 mb-3">Chia sẻ ý kiến để giúp hệ thống tốt hơn</p>
+          <p className="text-sm font-semibold text-gray-900 mb-1">
+            Góp ý cải thiện
+          </p>
+          <p className="text-xs text-gray-400 mb-3">
+            Chia sẻ ý kiến để giúp hệ thống tốt hơn
+          </p>
           <FeedbackModal />
         </div>
       </div>
