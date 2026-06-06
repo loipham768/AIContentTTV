@@ -18,6 +18,8 @@ import {
   MessageSquarePlus,
   Trash2,
   Tag,
+  Star,
+  CheckCircle,
 } from "lucide-react";
 import ActivateUserButton from "./ActivateUserButton";
 import ToggleUserButton from "./ToggleUserButton";
@@ -85,6 +87,18 @@ export interface FeedbackRow {
   createdAt: string;
 }
 
+export interface ReviewRow {
+  _id: string;
+  userId: string;
+  userName: string;
+  userEmail: string;
+  plan: string;
+  rating: number;
+  content: string;
+  isApproved: boolean;
+  createdAt: string;
+}
+
 interface Props {
   initialOrders: OrderRow[];
   ordersTotal: number;
@@ -98,11 +112,14 @@ interface Props {
   initialFeedback: FeedbackRow[];
   feedbackTotal: number;
   feedbackPage: number;
+  initialReviews: ReviewRow[];
+  reviewsTotal: number;
+  reviewPendingCount: number;
   pendingCount: number;
   meId: string;
 }
 
-type Tab = "users" | "content" | "orders" | "feedback";
+type Tab = "users" | "content" | "orders" | "feedback" | "reviews";
 
 const PAGE_SIZE = ADMIN_PAGE_SIZE;
 
@@ -410,13 +427,16 @@ export default function AdminDashboard({
   initialFeedback,
   feedbackTotal,
   feedbackPage,
+  initialReviews,
+  reviewsTotal,
+  reviewPendingCount,
   pendingCount,
   meId,
 }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const VALID_TABS: Tab[] = ["orders", "users", "content", "feedback"];
+  const VALID_TABS: Tab[] = ["orders", "users", "content", "feedback", "reviews"];
   const rawTab = searchParams.get("tab") as Tab | null;
   const tab: Tab = rawTab && VALID_TABS.includes(rawTab) ? rawTab : "orders";
 
@@ -437,20 +457,14 @@ export default function AdminDashboard({
   const [projects, setProjects] = useState(initialProjects);
   const [orders, setOrders] = useState(initialOrders);
   const [feedbackList, setFeedbackList] = useState(initialFeedback);
+  const [reviewList, setReviewList] = useState(initialReviews);
 
   // Sync local state when server re-fetches on navigation
-  useEffect(() => {
-    setOrders(initialOrders);
-  }, [initialOrders]);
-  useEffect(() => {
-    setUsers(initialUsers);
-  }, [initialUsers]);
-  useEffect(() => {
-    setProjects(initialProjects);
-  }, [initialProjects]);
-  useEffect(() => {
-    setFeedbackList(initialFeedback);
-  }, [initialFeedback]);
+  useEffect(() => { setOrders(initialOrders); }, [initialOrders]);
+  useEffect(() => { setUsers(initialUsers); }, [initialUsers]);
+  useEffect(() => { setProjects(initialProjects); }, [initialProjects]);
+  useEffect(() => { setFeedbackList(initialFeedback); }, [initialFeedback]);
+  useEffect(() => { setReviewList(initialReviews); }, [initialReviews]);
 
   // Controlled search inputs, initialized from current URL params
   const [ordersQ, setOrdersQ] = useState(searchParams.get("oq") ?? "");
@@ -627,6 +641,13 @@ export default function AdminDashboard({
           <MessageSquarePlus className="w-4 h-4" />,
           "Góp ý",
           feedbackTotal,
+        )}
+        {tabBtn(
+          "reviews",
+          <Star className="w-4 h-4" />,
+          "Đánh giá",
+          reviewsTotal,
+          reviewPendingCount > 0,
         )}
       </div>
 
@@ -1331,6 +1352,69 @@ export default function AdminDashboard({
             total={feedbackTotal}
             onPage={goFeedbackPage}
           />
+        </div>
+      )}
+
+      {/* ── Reviews ── */}
+      {tab === "reviews" && (
+        <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+          <div className="px-4 sm:px-6 py-3 border-b border-gray-100 flex items-center gap-2">
+            <h2 className="font-semibold text-gray-900 mr-auto">Đánh giá người dùng</h2>
+            {reviewPendingCount > 0 && (
+              <span className="text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
+                {reviewPendingCount} chờ duyệt
+              </span>
+            )}
+            <span className="text-xs text-gray-400">{reviewsTotal} tổng</span>
+          </div>
+          <div className="divide-y divide-gray-50">
+            {reviewList.length === 0 && (
+              <div className="px-6 py-10 text-center text-sm text-gray-400">Chưa có đánh giá nào.</div>
+            )}
+            {reviewList.map((r) => (
+              <div key={r._id} className="px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-3">
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <span className="text-sm font-semibold text-gray-900">{r.userName}</span>
+                    <span className="text-xs text-gray-400">{r.userEmail}</span>
+                    <span className="text-xs px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500">{r.plan}</span>
+                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${r.isApproved ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
+                      {r.isApproved ? "Đã duyệt" : "Chờ duyệt"}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-0.5 mb-1">
+                    {[1,2,3,4,5].map(s => (
+                      <Star key={s} className="w-3.5 h-3.5" fill={s <= r.rating ? "#f59e0b" : "none"} stroke={s <= r.rating ? "#f59e0b" : "#d1d5db"} strokeWidth={1.5} />
+                    ))}
+                  </div>
+                  <p className="text-sm text-gray-600 line-clamp-2">"{r.content}"</p>
+                  <p className="text-xs text-gray-400 mt-1">{new Date(r.createdAt).toLocaleString("vi-VN")}</p>
+                </div>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  {!r.isApproved && (
+                    <button
+                      onClick={async () => {
+                        await fetch(`/api/admin/reviews/${r._id}`, { method: "PATCH", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ action: "approve" }) });
+                        setReviewList(prev => prev.map(x => x._id === r._id ? { ...x, isApproved: true } : x));
+                      }}
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg hover:bg-emerald-100 transition-colors"
+                    >
+                      <CheckCircle className="w-3.5 h-3.5" /> Duyệt
+                    </button>
+                  )}
+                  <button
+                    onClick={async () => {
+                      await fetch(`/api/admin/reviews/${r._id}`, { method: "PATCH", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ action: "reject" }) });
+                      setReviewList(prev => prev.filter(x => x._id !== r._id));
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" /> Xoá
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 

@@ -5,8 +5,9 @@ import User from '@/models/User'
 import Project from '@/models/Project'
 import Order from '@/models/Order'
 import Feedback from '@/models/Feedback'
+import Review from '@/models/Review'
 import { Suspense } from 'react'
-import AdminDashboard, { type UserRow, type ProjectRow, type OrderRow, type FeedbackRow } from '@/components/admin/AdminDashboard'
+import AdminDashboard, { type UserRow, type ProjectRow, type OrderRow, type FeedbackRow, type ReviewRow } from '@/components/admin/AdminDashboard'
 import { ADMIN_PAGE_SIZE as PAGE_SIZE } from '@/lib/adminConfig'
 import Logo from '@/components/Logo'
 import { Users, LayoutTemplate, Activity, TrendingUp } from 'lucide-react'
@@ -161,6 +162,13 @@ async function getAdminData(
       .lean(),
   ])
 
+  // ── Reviews ──────────────────────────────────────────────────────────────
+  const [reviewsTotal, reviewPendingCount, reviewsRaw] = await Promise.all([
+    Review.countDocuments(),
+    Review.countDocuments({ isApproved: false }),
+    Review.find().sort({ isApproved: 1, createdAt: -1 }).limit(100).lean(),
+  ])
+
   // ── Email map — chỉ lookup emails cho users hiển thị trên trang hiện tại ──
   const visibleUserIds = [
     ...new Set([
@@ -231,6 +239,18 @@ async function getAdminData(
     createdAt: (f.createdAt as Date).toISOString(),
   }))
 
+  const reviewRows: ReviewRow[] = (reviewsRaw as any[]).map(r => ({
+    _id:        r._id.toString(),
+    userId:     r.userId,
+    userName:   r.userName,
+    userEmail:  r.userEmail,
+    plan:       r.plan ?? 'free',
+    rating:     r.rating,
+    content:    r.content,
+    isApproved: r.isApproved,
+    createdAt:  (r.createdAt as Date).toISOString(),
+  }))
+
   return {
     stats: {
       totalUsers,
@@ -242,6 +262,7 @@ async function getAdminData(
     projectRows, projectsTotal, projectsPage: pp,
     orderRows,   ordersTotal,   ordersPage: op,
     feedbackRows, feedbackTotal, feedbackPage: fp,
+    reviewRows,  reviewsTotal,  reviewPendingCount,
     pendingCount,
     meId: sessionUserId,
   }
@@ -268,6 +289,7 @@ export default async function AdminPage({
     projectRows, projectsTotal, projectsPage,
     orderRows,   ordersTotal,   ordersPage,
     feedbackRows, feedbackTotal, feedbackPage,
+    reviewRows,  reviewsTotal,  reviewPendingCount,
     pendingCount,
     meId,
   } = data
@@ -322,6 +344,7 @@ export default async function AdminPage({
             initialUsers={userRows}       usersTotal={usersTotal}       usersPage={usersPage}
             initialProjects={projectRows} projectsTotal={projectsTotal} projectsPage={projectsPage}
             initialFeedback={feedbackRows} feedbackTotal={feedbackTotal} feedbackPage={feedbackPage}
+            initialReviews={reviewRows}   reviewsTotal={reviewsTotal}   reviewPendingCount={reviewPendingCount}
             pendingCount={pendingCount}
             meId={meId}
           />
