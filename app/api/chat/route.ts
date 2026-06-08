@@ -4,7 +4,8 @@ import { auth } from '@/auth'
 import { dbConnect } from '@/lib/mongodb'
 import Project from '@/models/Project'
 import RateLimit from '@/models/RateLimit'
-import { chatWithGemini, type GeminiMessage } from '@/lib/ai/gemini'
+import { chatWithGemini, type GeminiMessage, type ContentType } from '@/lib/ai/gemini'
+import { generateBannerImage } from '@/lib/ai/imagen'
 import { checkAndIncrementGeneration } from '@/lib/planGate'
 
 export const runtime = 'nodejs'
@@ -18,6 +19,7 @@ const chatSchema = z.object({
   messages: z.array(messageSchema).min(1).max(40),
   initialPrompt: z.string().max(500).optional(),
   isFinal: z.boolean().optional(), // true only when the conversation produces HTML
+  contentType: z.enum(['landing', 'article', 'ads']).optional(),
 })
 
 export async function POST(req: NextRequest) {
@@ -41,12 +43,12 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const { messages, initialPrompt, isFinal } = parsed.data
+  const { messages, initialPrompt, contentType } = parsed.data
 
   try {
-    const result = await chatWithGemini(messages as GeminiMessage[])
+    const result = await chatWithGemini(messages as GeminiMessage[], contentType as ContentType | undefined)
 
-    if (result.type === 'html') {
+    if (result.type === 'html' || result.type === 'ready_for_image') {
       // Rate limit — prevents concurrent requests from double-spending quota
       await dbConnect()
       try {
@@ -61,7 +63,7 @@ export async function POST(req: NextRequest) {
         throw dupErr
       }
 
-      // Plan gate — only when AI actually produces the final HTML output
+      // Plan gate — only when AI actually produces the final output
       const gate = await checkAndIncrementGeneration(session.user.id)
       if (!gate.allowed) {
         await RateLimit.deleteOne({ userId: session.user.id }).catch(() => {})
@@ -71,10 +73,44 @@ export async function POST(req: NextRequest) {
         )
       }
 
-      const name = (initialPrompt ?? 'Trang web').slice(0, 50)
+      const name = (initialPrompt ?? 'Quảng cáo').slice(0, 50)
       const prompt = (initialPrompt ?? 'Generated via Gemini chat').slice(0, 500)
       let projectId: string | null = null
 
+      // ── Banner image via Imagen 3 ──
+      if (result.type === 'ready_for_image') {
+        let imageData: string
+        let mimeType: string
+        try {
+          const img = await generateBannerImage(result.imagePrompt, result.aspectRatio)
+          imageData = img.base64
+          mimeType = img.mimeType
+        } catch (imgErr) {
+          await RateLimit.deleteOne({ userId: session.user.id }).catch(() => {})
+          console.error('[/api/chat] Imagen error:', imgErr)
+          return NextResponse.json(
+            { error: 'Không thể tạo ảnh banner. Vui lòng thử lại.' },
+            { status: 500 }
+          )
+        }
+
+        try {
+          await dbConnect()
+          const project = await Project.create({
+            userId: session.user.id,
+            name,
+            prompt,
+            blockData: { type: 'image', mimeType, imageData },
+          })
+          projectId = project._id.toString()
+        } catch (saveErr) {
+          console.error('[/api/chat] image project save failed:', saveErr)
+        }
+
+        return NextResponse.json({ type: 'image', imageData, mimeType, projectId })
+      }
+
+      // ── HTML content ──
       try {
         await dbConnect()
         const project = await Project.create({
@@ -91,7 +127,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ type: 'html', content: result.content, projectId })
     }
 
-    // question type — pass through to client
+    // question / confirm — pass through to client
     return NextResponse.json(result)
   } catch (err) {
     console.error('[/api/chat] Gemini error:', err)

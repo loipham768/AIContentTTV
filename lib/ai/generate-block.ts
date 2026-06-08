@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod'
 import { MOCK_BLOCK } from '@/lib/mockBlock'
 import { GrapesBlockSchema, type GrapesBlock } from '@/lib/ai/schema'
+import type { ContentType } from '@/lib/ai/gemini'
 
 // Re-export schema and type so existing server-side imports remain unchanged
 export { GrapesBlockSchema } from '@/lib/ai/schema'
@@ -23,17 +24,28 @@ VÍ DỤ OUTPUT ĐÚNG (sao chép cấu trúc này, thay nội dung theo prompt)
 ${JSON.stringify(MOCK_BLOCK, null, 2)}
 `
 
+// ads → haiku (nhanh + rẻ, HTML block đơn giản)
+// landing/article → sonnet (cần hiểu ngữ cảnh phức tạp hơn)
+const CLAUDE_ROUTES: Record<ContentType, string> = {
+  ads: 'claude-haiku-4-5-20251001',
+  landing: 'claude-sonnet-4-6',
+  article: 'claude-sonnet-4-6',
+}
+
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
-export async function generateBlock(prompt: string): Promise<GrapesBlock> {
+export async function generateBlock(prompt: string, contentType?: ContentType): Promise<GrapesBlock> {
   // DEV MOCK: returns MOCK_BLOCK until a real ANTHROPIC_API_KEY is configured
   if (!process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY.startsWith('your-')) {
     await new Promise(r => setTimeout(r, 1500)) // simulate network delay
     return MOCK_BLOCK as unknown as GrapesBlock
   }
 
+  const model = contentType ? CLAUDE_ROUTES[contentType] : 'claude-sonnet-4-6'
+  console.log(`[Claude] content=${contentType ?? 'default'} → ${model}`)
+
   const response = await client.messages.parse({
-    model: 'claude-sonnet-4-6',
+    model,
     max_tokens: 4096,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: prompt }],

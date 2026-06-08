@@ -41,7 +41,9 @@ import {
   ArrowDown,
   X,
 } from "lucide-react";
+import { Suspense } from "react";
 import PricingSection from "@/components/pricing/PricingSection";
+import HashScroll from "@/components/HashScroll";
 import ReviewsSection, { getReviewStats } from "@/components/reviews/ReviewsSection";
 
 import ScrollReveal from "@/components/ScrollReveal";
@@ -462,6 +464,9 @@ export default async function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
+      <Suspense fallback={null}>
+        <HashScroll />
+      </Suspense>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

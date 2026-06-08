@@ -182,6 +182,21 @@ html {
   animation: marquee 22s linear infinite;
 }
 
+/* ── Respect user motion preference ───────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-slow,
+  .animate-blob,
+  .animate-blob-2,
+  .animate-pulse-glow,
+  .animate-marquee {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* ── Editor: responsive panel layout ──────────────────────────── */
 
 /* Remove 300ms tap delay on all buttons */

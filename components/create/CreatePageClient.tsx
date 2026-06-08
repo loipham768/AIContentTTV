@@ -15,6 +15,8 @@ import {
   Crown,
   Gem,
   PenTool,
+  Download,
+  ImageIcon,
 } from "lucide-react";
 import Logo from "@/components/Logo";
 import Link from "next/link";
@@ -546,6 +548,7 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
   const [phase, setPhase] = useState<Phase>("initial");
   const [errorMsg, setErrorMsg] = useState("");
   const [projectId, setProjectId] = useState<string | null>(null);
+  const [generatedImage, setGeneratedImage] = useState<{ base64: string; mimeType: string } | null>(null);
   const [longWait, setLongWait] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
   const longWaitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -623,7 +626,7 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: msgs, initialPrompt }),
+        body: JSON.stringify({ messages: msgs, initialPrompt, contentType: selectedType ?? undefined }),
       });
 
       const data = await res.json();
@@ -665,6 +668,14 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
 
       if (data.type === "html") {
         setProjectId(data.projectId ?? null);
+        setGeneratedImage(null);
+        setPhase("done");
+        return;
+      }
+
+      if (data.type === "image") {
+        setProjectId(data.projectId ?? null);
+        setGeneratedImage({ base64: data.imageData, mimeType: data.mimeType });
         setPhase("done");
         return;
       }
@@ -726,6 +737,7 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
     setCustom("");
     setInitialPrompt("");
     setProjectId(null);
+    setGeneratedImage(null);
     setPhase("initial");
     setErrorMsg("");
     setSelectedType(null);
@@ -1033,45 +1045,74 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
                       <Sparkles className="w-3.5 h-3.5 text-white" />
                     </div>
                     <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm rounded-2xl rounded-tl-sm px-4 py-3 space-y-1.5">
-                      <p className="font-medium">
-                        Khung nội dung đã được tạo xong!
-                      </p>
-                      <p className="text-emerald-400/80 text-xs leading-relaxed">
-                        Đây là bản thảo ~80% theo ý bạn. Mở trình soạn thảo để
-                        kéo thả, thay hình ảnh, chỉnh từng đoạn văn và hoàn
-                        thiện theo ý tưởng của bạn.
-                      </p>
+                      {generatedImage ? (
+                        <>
+                          <p className="font-medium">Banner quảng cáo đã tạo xong!</p>
+                          <p className="text-emerald-400/80 text-xs leading-relaxed">
+                            Ảnh banner được tạo bằng Imagen 3. Tải về để dùng ngay trên Facebook, Instagram, Zalo...
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="font-medium">Khung nội dung đã được tạo xong!</p>
+                          <p className="text-emerald-400/80 text-xs leading-relaxed">
+                            Đây là bản thảo ~80% theo ý bạn. Mở trình soạn thảo để kéo thả, thay hình ảnh, chỉnh từng đoạn văn.
+                          </p>
+                        </>
+                      )}
                     </div>
                   </div>
-                  <button
-                    onClick={() => {
-                      if (isNavigating) return;
-                      setIsNavigating(true);
-                      router.push(
-                        projectId ? `/editor?project=${projectId}` : "/editor",
-                      );
-                    }}
-                    disabled={isNavigating}
-                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 disabled:opacity-70 disabled:cursor-not-allowed text-white text-sm font-semibold shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98]"
-                  >
-                    {isNavigating ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Đang mở...
-                      </>
-                    ) : (
-                      <>
-                        Mở trình soạn thảo
-                        <ArrowRight className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
+
+                  {/* Banner image preview */}
+                  {generatedImage && (
+                    <div className="rounded-xl overflow-hidden border border-white/10">
+                      <img
+                        src={`data:${generatedImage.mimeType};base64,${generatedImage.base64}`}
+                        alt="Banner quảng cáo"
+                        className="w-full h-auto block"
+                      />
+                    </div>
+                  )}
+
+                  {generatedImage ? (
+                    <a
+                      href={`data:${generatedImage.mimeType};base64,${generatedImage.base64}`}
+                      download={`banner-${Date.now()}.${generatedImage.mimeType.split('/')[1] ?? 'jpg'}`}
+                      className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-sm font-semibold shadow-lg shadow-emerald-500/20 transition-all active:scale-[0.98]"
+                    >
+                      <Download className="w-4 h-4" />
+                      Tải banner về
+                    </a>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        if (isNavigating) return;
+                        setIsNavigating(true);
+                        router.push(projectId ? `/editor?project=${projectId}` : "/editor");
+                      }}
+                      disabled={isNavigating}
+                      className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 disabled:opacity-70 disabled:cursor-not-allowed text-white text-sm font-semibold shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98]"
+                    >
+                      {isNavigating ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Đang mở...
+                        </>
+                      ) : (
+                        <>
+                          Mở trình soạn thảo
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
+                    </button>
+                  )}
+
                   <button
                     onClick={handleReset}
                     className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 text-sm transition-all"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
-                    Tạo trang mới
+                    {generatedImage ? "Tạo banner mới" : "Tạo trang mới"}
                   </button>
                 </div>
               )}

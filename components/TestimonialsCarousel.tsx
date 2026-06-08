@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 
 const TESTIMONIALS = [
@@ -72,7 +72,9 @@ const TESTIMONIALS = [
 export default function TestimonialsCarousel() {
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [inView, setInView] = useState(false);
   const [visible, setVisible] = useState(3);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const update = () =>
@@ -99,13 +101,22 @@ export default function TestimonialsCarousel() {
   const prev = () => setIdx((i) => (i <= 0 ? maxIdx : i - 1));
 
   useEffect(() => {
-    if (paused) return;
+    const el = sectionRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.1 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (paused || !inView) return;
     const t = setInterval(next, 4500);
     return () => clearInterval(t);
-  }, [paused, next]);
+  }, [paused, inView, next]);
 
   return (
     <section
+      ref={sectionRef}
       className="relative overflow-hidden py-24"
       style={{
         background:

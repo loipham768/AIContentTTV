@@ -5790,6 +5790,1847 @@ const LP_INTERIOR = `<!DOCTYPE html>
 <div class="footer-bottom">© 2026 Archi+ Studio · MST: 0312345681 · Hội viên Hội Kiến Trúc Sư Việt Nam</div>
 </body></html>`
 
+const LP_CLINIC = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;background:#fff;line-height:1.6}
+.c{max-width:1100px;margin:0 auto;padding:0 24px}
+.hero{background:linear-gradient(135deg,#f0f9ff,#e0f2fe);padding:72px 24px}
+.hi{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media(max-width:640px){.hi{grid-template-columns:1fr}}
+.badge{display:inline-block;background:#fff;border:1px solid #bae6fd;color:#0369a1;border-radius:99px;padding:6px 16px;font-size:12px;font-weight:700;margin-bottom:18px}
+h1{font-size:clamp(28px,4vw,50px);font-weight:900;line-height:1.1;color:#0c4a6e;margin-bottom:18px}h1 em{font-style:normal;color:#0369a1}
+.sub{font-size:16px;color:#475569;margin-bottom:28px;line-height:1.7}.btns{display:flex;gap:12px;flex-wrap:wrap}
+.bp{background:#0369a1;color:#fff;padding:13px 26px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:700}
+.bs{background:#fff;color:#0369a1;padding:13px 26px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;border:2px solid #0369a1}
+.sbox{background:#fff;border-radius:18px;padding:24px;box-shadow:0 4px 20px rgba(3,105,161,.1);display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.si{background:#f0f9ff;border-radius:12px;padding:18px;text-align:center}.si-i{font-size:28px;margin-bottom:4px}
+.si-n{font-size:24px;font-weight:900;color:#0c4a6e}.si-l{font-size:11px;color:#64748b;font-weight:600}
+.sec{padding:64px 24px}.sl{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#0369a1;margin-bottom:8px}
+.st{font-size:clamp(24px,3vw,40px);font-weight:900;color:#0c4a6e;margin-bottom:12px;letter-spacing:-1px}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:32px}
+.card{border:1.5px solid #e2e8f0;border-radius:14px;padding:22px;transition:all .3s}.card:hover{border-color:#0369a1;transform:translateY(-3px)}
+.card-i{font-size:26px;margin-bottom:8px}.card h3{font-size:15px;font-weight:800;color:#0c4a6e;margin-bottom:5px}.card p{font-size:13px;color:#64748b;line-height:1.5}
+.proc{background:#f8fafc;padding:64px 24px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-top:32px;max-width:900px;margin-left:auto;margin-right:auto}
+.ps{text-align:center;padding:20px 12px}.ps-n{width:40px;height:40px;border-radius:50%;background:#0369a1;color:#fff;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.ps h3{font-size:14px;font-weight:800;color:#0c4a6e;margin-bottom:4px}.ps p{font-size:12px;color:#64748b}
+.docs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:32px}
+.dc{border:1px solid #e2e8f0;border-radius:14px;overflow:hidden}
+.dc-top{background:linear-gradient(135deg,#0369a1,#0284c7);padding:20px;text-align:center;font-size:40px}
+.dc-body{padding:16px}.dc-name{font-size:14px;font-weight:700;color:#0c4a6e;margin-bottom:4px}.dc-price{font-size:20px;font-weight:900;color:#0369a1}.dc-note{font-size:12px;color:#64748b}
+.testi{background:#fff;padding:64px 24px}
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:32px}
+.tc{border:1px solid #e2e8f0;border-radius:16px;padding:24px}
+.tc-stars{color:#f59e0b;font-size:14px;margin-bottom:12px}.tc-text{font-size:14px;color:#475569;line-height:1.7;margin-bottom:16px;font-style:italic}
+.tc-name{font-size:14px;font-weight:700;color:#0c4a6e}.tc-role{font-size:12px;color:#64748b}
+.cta{background:linear-gradient(135deg,#0c4a6e,#0369a1);padding:72px 24px;text-align:center;color:#fff}
+.cta h2{font-size:clamp(26px,4vw,44px);font-weight:900;letter-spacing:-1px;margin-bottom:14px}
+.cta p{font-size:17px;color:#bae6fd;max-width:480px;margin:0 auto 32px}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cta-p{background:#fff;color:#0c4a6e;padding:14px 32px;border-radius:10px;text-decoration:none;font-size:15px;font-weight:800}
+.cta-s{background:rgba(255,255,255,.12);color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-size:15px;font-weight:600;border:1px solid rgba(255,255,255,.3)}
+footer{background:#0c4a6e;color:#7dd3fc;padding:32px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.fl{font-size:18px;font-weight:800;color:#fff}
+footer nav a{color:#7dd3fc;text-decoration:none;font-size:13px;margin-left:20px}
+</style></head>
+<body>
+<div class="hero">
+  <div class="hi">
+    <div>
+      <div class="badge">✅ Đặt lịch khám — Xác nhận trong 15 phút</div>
+      <h1>Phòng khám <em>chuyên khoa</em> tiêu chuẩn quốc tế tại trung tâm</h1>
+      <p class="sub">Đội ngũ 20+ bác sĩ đầu ngành, thiết bị chẩn đoán hiện đại, kết quả xét nghiệm trong ngày. Hơn 50.000 bệnh nhân tin tưởng.</p>
+      <div class="btns">
+        <a href="#" class="bp">📅 Đặt lịch khám ngay</a>
+        <a href="#" class="bs">📞 Tư vấn miễn phí</a>
+      </div>
+    </div>
+    <div class="sbox">
+      <div class="si"><div class="si-i">👨‍⚕️</div><div class="si-n">20+</div><div class="si-l">Bác sĩ chuyên khoa</div></div>
+      <div class="si"><div class="si-i">🏥</div><div class="si-n">50K+</div><div class="si-l">Bệnh nhân</div></div>
+      <div class="si"><div class="si-i">⏱</div><div class="si-n">15ph</div><div class="si-l">Xác nhận lịch</div></div>
+      <div class="si"><div class="si-i">⭐</div><div class="si-n">4.9</div><div class="si-l">Đánh giá</div></div>
+    </div>
+  </div>
+</div>
+<section class="sec c">
+  <div class="sl">Dịch vụ</div>
+  <div class="st">Các chuyên khoa nổi bật</div>
+  <div class="sg">
+    <div class="card"><div class="card-i">🫀</div><h3>Tim mạch</h3><p>Siêu âm tim, đo điện tâm đồ, tư vấn sức khoẻ tim mạch toàn diện.</p></div>
+    <div class="card"><div class="card-i">🦷</div><h3>Nha khoa</h3><p>Điều trị răng miệng, tẩy trắng, niềng răng, implant chuẩn quốc tế.</p></div>
+    <div class="card"><div class="card-i">👁</div><h3>Mắt</h3><p>Khám tật khúc xạ, điều trị bệnh glôcôm, phẫu thuật Lasik.</p></div>
+    <div class="card"><div class="card-i">🧠</div><h3>Thần kinh</h3><p>Chẩn đoán đau đầu, rối loạn giấc ngủ, MRI não tiên tiến.</p></div>
+    <div class="card"><div class="card-i">🩺</div><h3>Nội tổng quát</h3><p>Khám sức khoẻ định kỳ, tầm soát ung thư, xét nghiệm toàn diện.</p></div>
+    <div class="card"><div class="card-i">🤱</div><h3>Sản phụ khoa</h3><p>Theo dõi thai kỳ, siêu âm 4D, tư vấn kế hoạch hoá gia đình.</p></div>
+  </div>
+</section>
+<section class="proc">
+  <div class="c">
+    <div class="sl">Quy trình</div>
+    <div class="st">Đặt lịch và khám chỉ 4 bước</div>
+    <div class="steps">
+      <div class="ps"><div class="ps-n">1</div><h3>Chọn chuyên khoa</h3><p>Chọn bác sĩ phù hợp theo chuyên môn và lịch trống.</p></div>
+      <div class="ps"><div class="ps-n">2</div><h3>Đặt lịch online</h3><p>Chọn ngày giờ, nhận xác nhận SMS trong 15 phút.</p></div>
+      <div class="ps"><div class="ps-n">3</div><h3>Check-in nhanh</h3><p>Xuất trình mã QR, không cần điền form tại quầy.</p></div>
+      <div class="ps"><div class="ps-n">4</div><h3>Nhận kết quả</h3><p>Kết quả xét nghiệm trên app, tư vấn follow-up miễn phí.</p></div>
+    </div>
+  </div>
+</section>
+<section class="testi c">
+  <div class="sl">Cảm nhận</div>
+  <div class="st">Bệnh nhân nói gì về chúng tôi</div>
+  <div class="tg">
+    <div class="tc"><div class="tc-stars">★★★★★</div><div class="tc-text">"Đặt lịch nhanh, bác sĩ nhiệt tình giải thích kỹ càng. Kết quả xét nghiệm có ngay trong buổi, không phải chờ đến hôm sau."</div><div class="tc-name">Nguyễn Hoa Anh</div><div class="tc-role">Bệnh nhân khoa Tim mạch</div></div>
+    <div class="tc"><div class="tc-stars">★★★★★</div><div class="tc-text">"Phòng khám sạch sẽ, hiện đại. Bác sĩ không giục giã, dành đủ thời gian để giải đáp mọi câu hỏi của tôi và con."</div><div class="tc-name">Trần Minh Đức</div><div class="tc-role">Bệnh nhân khoa Nhi</div></div>
+    <div class="tc"><div class="tc-stars">★★★★★</div><div class="tc-text">"Ứng dụng tra cứu kết quả xét nghiệm rất tiện. Tôi không cần đến phòng khám chỉ để lấy kết quả nữa."</div><div class="tc-name">Lê Thị Lan</div><div class="tc-role">Bệnh nhân định kỳ 3 năm</div></div>
+  </div>
+</section>
+<div class="cta">
+  <h2>Sức khoẻ là ưu tiên số một — Đừng chờ đến khi có triệu chứng</h2>
+  <p>Gói khám tổng quát từ 890.000đ. Hỗ trợ bảo hiểm y tế và bảo hiểm sức khoẻ tư nhân.</p>
+  <div class="cta-btns">
+    <a href="#" class="cta-p">📅 Đặt lịch khám ngay</a>
+    <a href="#" class="cta-s">📋 Xem gói khám sức khoẻ</a>
+  </div>
+</div>
+<footer>
+  <div class="fl">MediCare Clinic</div>
+  <nav><a href="#">Dịch vụ</a><a href="#">Bác sĩ</a><a href="#">Bảng giá</a><a href="#">Liên hệ</a></nav>
+</footer>
+</body></html>`
+
+const LP_CONSULTANT = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0d14;color:#e2e8f0;line-height:1.6}
+.c{max-width:1100px;margin:0 auto;padding:0 24px}
+.hero{padding:96px 24px 72px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(99,102,241,.12),transparent 70%);pointer-events:none}
+.htag{display:inline-block;background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.4);color:#818cf8;border-radius:99px;padding:6px 18px;font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:24px}
+h1{font-size:clamp(34px,5vw,70px);font-weight:900;line-height:1.06;letter-spacing:-2px;margin-bottom:22px}
+h1 span{background:linear-gradient(135deg,#818cf8,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:18px;color:#64748b;max-width:540px;margin:0 auto 40px;line-height:1.7}
+.btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.bp{background:#6366f1;color:#fff;padding:14px 34px;border-radius:10px;text-decoration:none;font-size:15px;font-weight:700;box-shadow:0 0 28px rgba(99,102,241,.35)}
+.bs{background:rgba(255,255,255,.06);color:#e2e8f0;padding:14px 34px;border-radius:10px;text-decoration:none;font-size:15px;font-weight:600;border:1px solid rgba(255,255,255,.1)}
+.clients{border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:24px;text-align:center;margin-top:64px}
+.clients p{font-size:11px;color:#475569;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.clogos{display:flex;gap:36px;justify-content:center;flex-wrap:wrap}
+.clogos span{font-size:15px;font-weight:900;color:#334155;letter-spacing:-0.5px}
+.sl{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#818cf8;margin-bottom:8px}
+.st{font-size:clamp(24px,3.5vw,42px);font-weight:900;margin-bottom:12px;letter-spacing:-1px}
+.srvg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:36px}
+.srv{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:26px;transition:all .3s}
+.srv:hover{border-color:rgba(99,102,241,.4);transform:translateY(-3px)}
+.srv-n{font-size:10px;font-weight:700;letter-spacing:2px;color:#475569;margin-bottom:12px}
+.srv h3{font-size:18px;font-weight:800;color:#f1f5f9;margin-bottom:8px}.srv p{font-size:13px;color:#64748b;line-height:1.6}
+.rg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;margin:36px auto 0;max-width:860px;border:1px solid rgba(255,255,255,.07);border-radius:16px;overflow:hidden}
+.ri{padding:24px;text-align:center;border-right:1px solid rgba(255,255,255,.07)}
+.ri:last-child{border:none}.ri-n{font-size:36px;font-weight:900;background:linear-gradient(135deg,#818cf8,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ri-l{font-size:12px;color:#475569;margin-top:4px}
+.cases{padding:72px 24px;background:rgba(255,255,255,.02)}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:36px}
+.case{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:26px}
+.case-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#818cf8;margin-bottom:12px}
+.case h3{font-size:17px;font-weight:800;color:#f1f5f9;margin-bottom:10px}
+.case-metrics{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.cm{background:rgba(99,102,241,.15);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:700;color:#a5b4fc}
+.case p{font-size:13px;color:#64748b;line-height:1.6}
+.cta{background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(56,189,248,.1));border:1px solid rgba(99,102,241,.25);border-radius:24px;padding:60px 32px;text-align:center;margin:0 24px 72px}
+.cta h2{font-size:clamp(26px,4vw,44px);font-weight:900;letter-spacing:-1.5px;margin-bottom:14px}
+.cta p{font-size:17px;color:#64748b;max-width:480px;margin:0 auto 32px}
+footer{border-top:1px solid rgba(255,255,255,.07);padding:32px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.fl{font-size:18px;font-weight:800;color:#f1f5f9}footer nav a{color:#475569;text-decoration:none;font-size:13px;margin-left:20px}
+</style></head>
+<body>
+<div class="hero c">
+  <div class="htag">✦ Top 10 Consulting Firms Vietnam 2025</div>
+  <h1>Chiến lược <span>đúng hướng</span> tăng trưởng bền vững</h1>
+  <p class="sub">Chúng tôi giúp doanh nghiệp vừa và lớn tái cơ cấu, mở rộng thị trường và tối ưu vận hành với phương pháp đã kiểm chứng qua 150+ dự án.</p>
+  <div class="btns">
+    <a href="#" class="bp">Đặt lịch tư vấn miễn phí</a>
+    <a href="#" class="bs">Xem case studies →</a>
+  </div>
+  <div class="clients">
+    <p>Khách hàng tin dùng</p>
+    <div class="clogos"><span>VINGROUP</span><span>MASAN</span><span>FPT</span><span>TECHCOMBANK</span><span>NOVA LAND</span></div>
+  </div>
+</div>
+<section class="c" style="padding:72px 24px">
+  <div class="sl">Dịch vụ</div>
+  <div class="st">Giải pháp tư vấn toàn diện</div>
+  <div class="srvg">
+    <div class="srv"><div class="srv-n">01 · STRATEGY</div><h3>Chiến lược tăng trưởng</h3><p>Phân tích thị trường, định vị cạnh tranh, roadmap 3-5 năm với KPI đo lường được.</p></div>
+    <div class="srv"><div class="srv-n">02 · OPERATIONS</div><h3>Tối ưu vận hành</h3><p>Tái thiết kế quy trình, áp dụng lean/agile, giảm chi phí và tăng hiệu suất đội ngũ.</p></div>
+    <div class="srv"><div class="srv-n">03 · DIGITAL</div><h3>Chuyển đổi số</h3><p>Lộ trình digital transformation, chọn lựa tech stack, quản lý change management.</p></div>
+    <div class="srv"><div class="srv-n">04 · M&A</div><h3>M&A và tái cơ cấu</h3><p>Due diligence, định giá doanh nghiệp, tích hợp hậu M&A và tái cấu trúc tổ chức.</p></div>
+  </div>
+  <div class="rg">
+    <div class="ri"><div class="ri-n">150+</div><div class="ri-l">Dự án hoàn thành</div></div>
+    <div class="ri"><div class="ri-n">$2.4B</div><div class="ri-l">Giá trị tạo ra</div></div>
+    <div class="ri"><div class="ri-n">12 năm</div><div class="ri-l">Kinh nghiệm</div></div>
+    <div class="ri"><div class="ri-n">94%</div><div class="ri-l">Khách quay lại</div></div>
+  </div>
+</section>
+<section class="cases c">
+  <div class="sl">Kết quả thực tế</div>
+  <div class="st">Case Studies nổi bật</div>
+  <div class="cg">
+    <div class="case"><div class="case-tag">FMCG · Tái cơ cấu</div><h3>Chuỗi bán lẻ F&B 200 điểm — Turnaround trong 18 tháng</h3><div class="case-metrics"><span class="cm">+67% EBITDA</span><span class="cm">−30% OPEX</span></div><p>Tái thiết kế mô hình vận hành, chuẩn hoá quy trình franchise và xây dựng hệ thống BI real-time.</p></div>
+    <div class="case"><div class="case-tag">FINTECH · Tăng trưởng</div><h3>Startup Fintech từ 50K lên 2M người dùng trong 2 năm</h3><div class="case-metrics"><span class="cm">40x tăng trưởng</span><span class="cm">Series B $40M</span></div><p>Xây dựng growth engine, PMF strategy và chuẩn bị data room cho Series B.</p></div>
+    <div class="case"><div class="case-tag">MANUFACTURING · Digital</div><h3>Nhà máy sản xuất — Tự động hoá 60% quy trình</h3><div class="case-metrics"><span class="cm">−40% nhân sự QC</span><span class="cm">+22% output</span></div><p>Triển khai IoT sensors, MES system và dashboard quản lý nhà máy thời gian thực.</p></div>
+  </div>
+</section>
+<div class="c">
+  <div class="cta">
+    <h2>Sẵn sàng chuyển hoá doanh nghiệp?</h2>
+    <p>Buổi tư vấn khám phá 60 phút hoàn toàn miễn phí — không ràng buộc, không phí ẩn.</p>
+    <div class="btns"><a href="#" class="bp">Đặt lịch tư vấn miễn phí</a><a href="#" class="bs">Tải báo cáo ngành 2025</a></div>
+  </div>
+</div>
+<footer class="c">
+  <div class="fl">Apex Consulting</div>
+  <nav><a href="#">Dịch vụ</a><a href="#">Case Studies</a><a href="#">Đội ngũ</a><a href="#">Liên hệ</a></nav>
+</footer>
+</body></html>`
+
+const LP_PHOTOGRAPHER = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Helvetica Neue',Arial,sans-serif;background:#0c0c0c;color:#f5f5f5;line-height:1.6}
+.c{max-width:1200px;margin:0 auto;padding:0 24px}
+.hero{height:100vh;min-height:500px;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 40%,#0f3460 100%);opacity:.8}
+.hero-pat{position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.06) 1px,transparent 0);background-size:40px 40px}
+.hc{position:relative;z-index:1}
+.htag{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#999;margin-bottom:24px}
+h1{font-size:clamp(40px,7vw,100px);font-weight:900;letter-spacing:-3px;line-height:.95;margin-bottom:28px}
+h1 em{font-style:italic;font-weight:300;color:#ccc}
+.hero p{font-size:16px;color:#888;max-width:480px;margin:0 auto 40px}
+.btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.bp{background:#fff;color:#0c0c0c;padding:14px 32px;text-decoration:none;font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.bs{background:transparent;color:#fff;padding:14px 32px;text-decoration:none;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(255,255,255,.3)}
+.port{padding:80px 24px}
+.sl{font-size:10px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:#666;margin-bottom:8px}
+.st{font-size:clamp(28px,4vw,52px);font-weight:900;letter-spacing:-2px;margin-bottom:40px}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+@media(max-width:640px){.pg{grid-template-columns:1fr 1fr}}
+.pg-item{aspect-ratio:1;overflow:hidden;position:relative;cursor:pointer}
+.pg-item:first-child{grid-column:span 2}
+.ph{width:100%;height:100%;object-fit:cover}
+.ph-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;color:rgba(255,255,255,.1)}
+.ph-ph.a{background:linear-gradient(135deg,#1a1a2e,#4a4a8e)}.ph-ph.b{background:linear-gradient(135deg,#2d1b00,#8b6914)}.ph-ph.c{background:linear-gradient(135deg,#0a2e0a,#1a6e1a)}.ph-ph.d{background:linear-gradient(135deg,#2e0a0a,#8e1a1a)}.ph-ph.e{background:linear-gradient(135deg,#0a0a2e,#6e1a8e)}
+.cats{padding:60px 24px;border-top:1px solid #1a1a1a}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2px;margin-top:36px}
+.cat-item{background:#111;padding:28px 20px;cursor:pointer;transition:background .2s;text-align:center}
+.cat-item:hover{background:#1a1a1a}
+.cat-i{font-size:28px;margin-bottom:10px}.cat-n{font-size:15px;font-weight:700;margin-bottom:4px}.cat-c{font-size:12px;color:#666}
+.pricing{padding:72px 24px;background:#111}
+.pg2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:#1a1a1a;margin-top:40px}
+.pi{background:#111;padding:36px 28px}.pi.feat{background:#fff;color:#0c0c0c}
+.pi-n{font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:12px}
+.pi.feat .pi-n{color:#999}
+.pi-p{font-size:40px;font-weight:900;letter-spacing:-1px;margin-bottom:4px}
+.pi-per{font-size:13px;color:#666;margin-bottom:24px}.pi.feat .pi-per{color:#999}
+.pi-btn{display:block;padding:13px;text-align:center;font-weight:700;font-size:14px;text-decoration:none;border:1px solid #333;color:#f5f5f5;margin-bottom:24px}
+.pi.feat .pi-btn{background:#0c0c0c;color:#fff;border:none}
+.pi-feats{font-size:13px;color:#555;line-height:2.2}
+.pi.feat .pi-feats{color:#777}
+.contact{padding:80px 24px;text-align:center;border-top:1px solid #1a1a1a}
+.contact h2{font-size:clamp(32px,5vw,64px);font-weight:900;letter-spacing:-2px;margin-bottom:16px}
+.contact p{font-size:16px;color:#666;max-width:480px;margin:0 auto 36px}
+footer{border-top:1px solid #1a1a1a;padding:32px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.fl{font-size:16px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+footer nav a{color:#666;text-decoration:none;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-left:24px}
+</style></head>
+<body>
+<div class="hero">
+  <div class="hero-bg"></div><div class="hero-pat"></div>
+  <div class="hc">
+    <div class="htag">Nhiếp ảnh nghệ thuật · Thương mại · Sự kiện</div>
+    <h1>Khoảnh khắc <em>sống mãi</em> qua ống kính</h1>
+    <p>Studio nhiếp ảnh chuyên nghiệp với 8 năm kinh nghiệm. Hơn 500 bộ ảnh được trao tay với sự hài lòng tuyệt đối.</p>
+    <div class="btns">
+      <a href="#" class="bp">Đặt lịch chụp</a>
+      <a href="#" class="bs">Xem portfolio</a>
+    </div>
+  </div>
+</div>
+<section class="port c">
+  <div class="sl">Portfolio</div>
+  <div class="st">Tác phẩm gần đây</div>
+  <div class="pg">
+    <div class="pg-item"><div class="ph-ph a">💍</div></div>
+    <div class="pg-item"><div class="ph-ph b">🌅</div></div>
+    <div class="pg-item"><div class="ph-ph c">🌿</div></div>
+    <div class="pg-item"><div class="ph-ph d">👗</div></div>
+    <div class="pg-item"><div class="ph-ph e">🏢</div></div>
+  </div>
+</section>
+<section class="cats c">
+  <div class="sl">Dịch vụ</div>
+  <div class="st">Chuyên ảnh gì?</div>
+  <div class="cat-grid">
+    <div class="cat-item"><div class="cat-i">💑</div><div class="cat-n">Wedding</div><div class="cat-c">120+ bộ ảnh</div></div>
+    <div class="cat-item"><div class="cat-i">👶</div><div class="cat-n">Family & Newborn</div><div class="cat-c">200+ bộ ảnh</div></div>
+    <div class="cat-item"><div class="cat-i">👔</div><div class="cat-n">Corporate</div><div class="cat-c">80+ doanh nghiệp</div></div>
+    <div class="cat-item"><div class="cat-i">👗</div><div class="cat-n">Fashion</div><div class="cat-c">50+ brand</div></div>
+    <div class="cat-item"><div class="cat-i">🍽</div><div class="cat-n">F&B / Product</div><div class="cat-c">300+ sản phẩm</div></div>
+  </div>
+</section>
+<section class="pricing c">
+  <div class="sl">Bảng giá</div>
+  <div class="st">Transparent pricing</div>
+  <div class="pg2">
+    <div class="pi"><div class="pi-n">Basic</div><div class="pi-p">2.5tr</div><div class="pi-per">/ buổi 2 giờ</div><a href="#" class="pi-btn">Đặt lịch</a><div class="pi-feats">✓ 50 ảnh chỉnh sửa<br>✓ 1 bộ trang phục<br>✓ Gallery online<br>✓ File gốc RAW</div></div>
+    <div class="pi feat"><div class="pi-n">Professional</div><div class="pi-p">5.5tr</div><div class="pi-per">/ buổi nửa ngày · Phổ biến</div><a href="#" class="pi-btn">Đặt lịch</a><div class="pi-feats">✓ 150 ảnh chỉnh sửa<br>✓ 3 bộ trang phục<br>✓ 1 video Reels 60 giây<br>✓ Makeup artist</div></div>
+    <div class="pi"><div class="pi-n">Premium</div><div class="pi-p">12tr</div><div class="pi-per">/ cả ngày</div><a href="#" class="pi-btn">Đặt lịch</a><div class="pi-feats">✓ Ảnh không giới hạn<br>✓ Location scouting<br>✓ Full video highlight<br>✓ Album in cao cấp</div></div>
+  </div>
+</section>
+<div class="contact c">
+  <h2>Hãy kể tôi nghe về buổi chụp của bạn</h2>
+  <p>Mỗi câu chuyện đều xứng đáng được kể bằng hình ảnh đẹp nhất. Liên hệ để nhận báo giá trong 24 giờ.</p>
+  <div class="btns"><a href="#" class="bp">📸 Đặt lịch chụp ngay</a><a href="#" class="bs">Instagram →</a></div>
+</div>
+<footer class="c">
+  <div class="fl">Minh Lens Studio</div>
+  <nav><a href="#">Portfolio</a><a href="#">Services</a><a href="#">Pricing</a><a href="#">Contact</a></nav>
+</footer>
+</body></html>`
+
+const LP_KINDERGARTEN = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;background:#fffbf5;line-height:1.6}
+.c{max-width:1100px;margin:0 auto;padding:0 24px}
+.hero{background:linear-gradient(135deg,#fef3c7,#d1fae5);padding:72px 24px;text-align:center;position:relative;overflow:hidden}
+.deco{position:absolute;font-size:80px;opacity:.08;user-select:none}
+.deco.a{top:10%;left:5%}.deco.b{top:20%;right:8%}.deco.c{bottom:10%;left:15%}.deco.d{bottom:15%;right:12%}
+.badge{display:inline-block;background:#fff;border:2px solid #fcd34d;color:#d97706;border-radius:99px;padding:7px 18px;font-size:13px;font-weight:800;margin-bottom:20px}
+h1{font-size:clamp(30px,4.5vw,60px);font-weight:900;line-height:1.1;color:#1e293b;margin-bottom:18px}
+h1 span{color:#f59e0b}.sub{font-size:17px;color:#64748b;max-width:520px;margin:0 auto 32px;line-height:1.7}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.bp{background:#f59e0b;color:#fff;padding:14px 30px;border-radius:99px;text-decoration:none;font-size:15px;font-weight:800}
+.bs{background:#fff;color:#f59e0b;padding:14px 30px;border-radius:99px;text-decoration:none;font-size:15px;font-weight:700;border:2px solid #f59e0b}
+.stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-top:48px}
+.stat{text-align:center}.stat-n{font-size:36px;font-weight:900;color:#f59e0b}.stat-l{font-size:13px;color:#64748b;font-weight:600}
+.sec{padding:64px 24px}.sl{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#f59e0b;margin-bottom:8px}
+.st{font-size:clamp(24px,3.5vw,42px);font-weight:900;color:#1e293b;margin-bottom:12px;letter-spacing:-1px}
+.prog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:32px}
+.pg{border-radius:20px;padding:24px;text-align:center;transition:transform .3s}.pg:hover{transform:translateY(-4px)}
+.pg.y{background:#fef3c7;border:2px solid #fcd34d}.pg.g{background:#d1fae5;border:2px solid #6ee7b7}.pg.b{background:#dbeafe;border:2px solid #93c5fd}.pg.p{background:#ede9fe;border:2px solid #c4b5fd}
+.pg-i{font-size:44px;margin-bottom:12px}.pg h3{font-size:17px;font-weight:800;color:#1e293b;margin-bottom:6px}.pg p{font-size:13px;color:#64748b;line-height:1.5}.pg .age{font-size:12px;font-weight:700;color:#64748b;margin-top:8px}
+.why{background:#fff;padding:64px 24px}
+.why-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:32px}
+.why-c{display:flex;gap:16px;align-items:flex-start}
+.why-i{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.why-i.y{background:#fef3c7}.why-i.g{background:#d1fae5}.why-i.b{background:#dbeafe}.why-i.p{background:#ede9fe}
+.why-c h3{font-size:15px;font-weight:800;color:#1e293b;margin-bottom:4px}.why-c p{font-size:13px;color:#64748b;line-height:1.5}
+.teachers{padding:64px 24px}
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:32px}
+.tc{background:#fff;border-radius:20px;padding:24px;text-align:center;border:1px solid #f3f4f6}
+.tc-av{width:72px;height:72px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:30px}
+.tc-av.y{background:#fef3c7}.tc-av.g{background:#d1fae5}.tc-av.b{background:#dbeafe}
+.tc-name{font-size:15px;font-weight:800;color:#1e293b;margin-bottom:4px}.tc-role{font-size:13px;color:#f59e0b;font-weight:600}.tc-exp{font-size:12px;color:#64748b;margin-top:4px}
+.cta{background:linear-gradient(135deg,#fef3c7,#d1fae5);padding:64px 24px;text-align:center}
+.cta h2{font-size:clamp(24px,4vw,44px);font-weight:900;color:#1e293b;margin-bottom:14px}
+.cta p{font-size:16px;color:#64748b;max-width:480px;margin:0 auto 28px}
+footer{background:#1e293b;color:#94a3b8;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.fl{font-size:17px;font-weight:800;color:#fff}footer nav a{color:#64748b;text-decoration:none;font-size:13px;margin-left:18px}
+</style></head>
+<body>
+<div class="hero">
+  <div class="deco a">🌈</div><div class="deco b">⭐</div><div class="deco c">🎨</div><div class="deco d">🦋</div>
+  <div class="badge">🏆 Top 10 Trường Mầm Non Tốt Nhất TP.HCM 2025</div>
+  <h1>Nơi trẻ được <span>vui chơi</span>, học hỏi và tỏa sáng mỗi ngày</h1>
+  <p class="sub">Môi trường học tập an toàn, sáng tạo theo chuẩn Reggio Emilia — nơi mỗi đứa trẻ được trân trọng và phát triển toàn diện.</p>
+  <div class="btns">
+    <a href="#" class="bp">🎒 Đăng ký tham quan</a>
+    <a href="#" class="bs">Tìm hiểu thêm</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">450+</div><div class="stat-l">Học sinh</div></div>
+    <div class="stat"><div class="stat-n">15 năm</div><div class="stat-l">Kinh nghiệm</div></div>
+    <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Phụ huynh hài lòng</div></div>
+    <div class="stat"><div class="stat-n">1:8</div><div class="stat-l">Tỷ lệ cô/trẻ</div></div>
+  </div>
+</div>
+<section class="sec c">
+  <div class="sl">Chương trình</div>
+  <div class="st">Học theo từng độ tuổi</div>
+  <div class="prog-grid">
+    <div class="pg y"><div class="pg-i">🍼</div><h3>Nhà trẻ</h3><p>Môi trường gắn bó, phát triển cảm giác an toàn và ngôn ngữ đầu đời.</p><div class="age">6 tháng – 2 tuổi</div></div>
+    <div class="pg g"><div class="pg-i">🌱</div><h3>Mẫu giáo bé</h3><p>Khám phá thế giới qua cảm quan, vận động thô và hình thành thói quen tốt.</p><div class="age">2 – 3 tuổi</div></div>
+    <div class="pg b"><div class="pg-i">🎨</div><h3>Mẫu giáo nhỡ</h3><p>Phát triển tư duy sáng tạo, ngôn ngữ và kỹ năng xã hội qua nghệ thuật.</p><div class="age">3 – 4 tuổi</div></div>
+    <div class="pg p"><div class="pg-i">🚀</div><h3>Mẫu giáo lớn</h3><p>Chuẩn bị vào lớp 1: chữ số, tiền toán học, kỹ năng tự lập và tiếng Anh.</p><div class="age">4 – 6 tuổi</div></div>
+  </div>
+</section>
+<section class="why">
+  <div class="c">
+    <div class="sl">Tại sao chọn chúng tôi</div>
+    <div class="st">Khác biệt tạo nên sự khác biệt</div>
+    <div class="why-g">
+      <div class="why-c"><div class="why-i y">🍎</div><div><h3>Bữa ăn dinh dưỡng</h3><p>Thực đơn do chuyên gia dinh dưỡng thiết kế, nguyên liệu hữu cơ, nấu tại chỗ mỗi ngày.</p></div></div>
+      <div class="why-c"><div class="why-i g">📹</div><div><h3>Camera 24/7</h3><p>Phụ huynh xem trực tiếp qua app bất kỳ lúc nào. An toàn và minh bạch tuyệt đối.</p></div></div>
+      <div class="why-c"><div class="why-i b">🌏</div><div><h3>Tiếng Anh mỗi ngày</h3><p>Giáo viên bản ngữ, 60 phút tiếng Anh mỗi ngày theo phương pháp immersion.</p></div></div>
+      <div class="why-c"><div class="why-i p">🎭</div><div><h3>Nghệ thuật & Stem</h3><p>Góc sáng tạo, vườn rau, lab thí nghiệm mini — học qua trải nghiệm thực tế.</p></div></div>
+    </div>
+  </div>
+</section>
+<div class="cta">
+  <h2>Đặt lịch tham quan trường ngay hôm nay</h2>
+  <p>Tham quan miễn phí, gặp gỡ cô giáo và xem trực tiếp môi trường học tập của bé.</p>
+  <div class="btns"><a href="#" class="bp">📅 Đặt lịch tham quan</a><a href="#" class="bs">📞 Hotline tuyển sinh</a></div>
+</div>
+<footer><div class="c" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+  <div class="fl">🌈 Sunshine Montessori</div>
+  <nav><a href="#">Chương trình</a><a href="#">Học phí</a><a href="#">Cơ sở vật chất</a><a href="#">Tuyển sinh</a></nav>
+</div></footer>
+</body></html>`
+
+const LP_YOGA = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Georgia',serif;color:#2d1b4e;background:#faf7f5;line-height:1.7}
+.c{max-width:1100px;margin:0 auto;padding:0 24px}
+.hero{background:linear-gradient(160deg,#f5e6ff 0%,#ffe8d6 50%,#e8f4e8 100%);padding:96px 24px;text-align:center;position:relative;overflow:hidden}
+.hc1{position:absolute;border-radius:50%;opacity:.12}.hc1.a{width:400px;height:400px;background:#9b59b6;top:-100px;right:-80px}.hc1.b{width:300px;height:300px;background:#e67e22;bottom:-60px;left:-60px}
+.htag{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#9d7ab8;font-family:'Segoe UI',sans-serif;margin-bottom:20px}
+h1{font-size:clamp(36px,5vw,72px);font-weight:400;font-style:italic;line-height:1.15;color:#2d1b4e;margin-bottom:20px}
+h1 strong{font-weight:700;font-style:normal;color:#6b3fa0}
+.sub{font-size:17px;color:#7a6589;max-width:500px;margin:0 auto 36px;line-height:1.8;font-family:'Segoe UI',sans-serif}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.bp{background:#6b3fa0;color:#fff;padding:14px 32px;border-radius:99px;text-decoration:none;font-size:14px;font-family:'Segoe UI',sans-serif;font-weight:700}
+.bs{background:transparent;color:#6b3fa0;padding:14px 32px;border-radius:99px;text-decoration:none;font-size:14px;font-family:'Segoe UI',sans-serif;font-weight:600;border:1.5px solid #c084fc}
+.classes{padding:72px 24px}
+.sl{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#9d7ab8;margin-bottom:8px;font-family:'Segoe UI',sans-serif}
+.st{font-size:clamp(26px,3.5vw,46px);font-weight:400;font-style:italic;color:#2d1b4e;margin-bottom:12px}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:36px}
+.cls{border-radius:20px;padding:28px;transition:transform .3s}.cls:hover{transform:translateY(-4px)}
+.cls.a{background:linear-gradient(135deg,#f5e6ff,#e8d5f5)}.cls.b{background:linear-gradient(135deg,#ffe8d6,#ffd5b8)}.cls.c{background:linear-gradient(135deg,#e8f4e8,#c8e6c8)}.cls.d{background:linear-gradient(135deg,#e8eeff,#c8d5ff)}
+.cls-i{font-size:40px;margin-bottom:12px}.cls h3{font-size:18px;font-weight:700;color:#2d1b4e;margin-bottom:6px;font-family:'Segoe UI',sans-serif}
+.cls p{font-size:13px;color:#7a6589;line-height:1.6;font-family:'Segoe UI',sans-serif}.cls-level{font-size:11px;font-weight:700;color:#9d7ab8;margin-top:10px;font-family:'Segoe UI',sans-serif;text-transform:uppercase;letter-spacing:1px}
+.schedule{background:#fff;padding:72px 24px}
+.sch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:32px}
+.day{border-radius:16px;padding:18px 12px;text-align:center;background:#f9f5ff}
+.day-name{font-size:12px;font-weight:700;color:#9d7ab8;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-family:'Segoe UI',sans-serif}
+.slot{background:#fff;border-radius:8px;padding:6px 8px;margin-bottom:6px;font-size:11px;color:#2d1b4e;font-family:'Segoe UI',sans-serif;font-weight:600;border:1px solid #e8d5f5}
+.memberships{padding:72px 24px}
+.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:36px}
+.mc{border-radius:20px;padding:28px;border:1.5px solid #e8d5f5;background:#fff}
+.mc.pop{background:linear-gradient(135deg,#6b3fa0,#8b5cf6);border-color:transparent;color:#fff}
+.mc-name{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#9d7ab8;margin-bottom:10px;font-family:'Segoe UI',sans-serif}
+.mc.pop .mc-name{color:#d8b4fe}
+.mc-p{font-size:36px;font-weight:700;color:#2d1b4e;margin-bottom:4px}.mc.pop .mc-p{color:#fff}
+.mc-per{font-size:13px;color:#9d7ab8;margin-bottom:20px;font-family:'Segoe UI',sans-serif}.mc.pop .mc-per{color:#c4b5fd}
+.mc-btn{display:block;padding:12px;border-radius:99px;text-align:center;font-weight:700;font-size:14px;text-decoration:none;margin-bottom:20px;background:#f5e6ff;color:#6b3fa0;font-family:'Segoe UI',sans-serif}
+.mc.pop .mc-btn{background:rgba(255,255,255,.2);color:#fff}
+.mc-feats{font-size:13px;color:#7a6589;line-height:2;font-family:'Segoe UI',sans-serif}.mc.pop .mc-feats{color:#ddd6fe}
+.cta{background:linear-gradient(135deg,#2d1b4e,#6b3fa0);padding:72px 24px;text-align:center;color:#fff}
+.cta h2{font-size:clamp(26px,4vw,50px);font-weight:400;font-style:italic;margin-bottom:14px}
+.cta p{color:#d8b4fe;font-size:16px;max-width:460px;margin:0 auto 32px;font-family:'Segoe UI',sans-serif}
+footer{background:#2d1b4e;color:#9d7ab8;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-family:'Segoe UI',sans-serif}
+.fl{font-size:18px;font-weight:400;font-style:italic;color:#e9d5ff}footer nav a{color:#7a6589;text-decoration:none;font-size:13px;margin-left:18px}
+</style></head>
+<body>
+<div class="hero">
+  <div class="hc1 a"></div><div class="hc1 b"></div>
+  <div class="htag">✦ Studio Yoga & Thiền Định Cao Cấp</div>
+  <h1>Tìm lại <strong>sự bình yên</strong> trong từng hơi thở</h1>
+  <p class="sub">Yoga không chỉ là tập thể dục — đó là hành trình trở về với chính mình. Hơn 800 học viên đã chuyển hoá cuộc sống qua thảm tập.</p>
+  <div class="btns"><a href="#" class="bp">🧘 Thử 1 buổi miễn phí</a><a href="#" class="bs">Xem lịch học</a></div>
+</div>
+<section class="classes c">
+  <div class="sl">Các lớp học</div>
+  <div class="st">Chương trình phù hợp mọi trình độ</div>
+  <div class="cg">
+    <div class="cls a"><div class="cls-i">🌸</div><h3>Hatha Yoga</h3><p>Nền tảng tư thế, hít thở — hoàn hảo cho người mới bắt đầu hành trình yoga.</p><div class="cls-level">Sơ cấp</div></div>
+    <div class="cls b"><div class="cls-i">🔥</div><h3>Vinyasa Flow</h3><p>Chuỗi động tác liên tục theo nhịp thở, đốt cháy calo và tăng sức mạnh.</p><div class="cls-level">Trung cấp</div></div>
+    <div class="cls c"><div class="cls-i">🌙</div><h3>Yin Yoga & Thiền</h3><p>Giữ tư thế sâu, thả lỏng hoàn toàn — giải toả stress và cải thiện giấc ngủ.</p><div class="cls-level">Mọi cấp độ</div></div>
+    <div class="cls d"><div class="cls-i">💪</div><h3>Power Yoga</h3><p>Nâng cao thể lực, tập trung tăng cơ bắp và sức bền — phù hợp người năng động.</p><div class="cls-level">Nâng cao</div></div>
+  </div>
+</section>
+<section class="schedule c">
+  <div class="sl">Lịch học</div>
+  <div class="st">Lịch tuần này</div>
+  <div class="sch-grid">
+    <div class="day"><div class="day-name">Thứ 2</div><div class="slot">06:00 Hatha</div><div class="slot">08:00 Yin</div><div class="slot">18:00 Vinyasa</div></div>
+    <div class="day"><div class="day-name">Thứ 3</div><div class="slot">07:00 Power</div><div class="slot">12:00 Thiền</div><div class="slot">19:30 Hatha</div></div>
+    <div class="day"><div class="day-name">Thứ 4</div><div class="slot">06:00 Vinyasa</div><div class="slot">08:30 Yin</div><div class="slot">18:00 Power</div></div>
+    <div class="day"><div class="day-name">Thứ 5</div><div class="slot">07:00 Hatha</div><div class="slot">12:00 Thiền</div><div class="slot">19:30 Yin</div></div>
+    <div class="day"><div class="day-name">Thứ 6</div><div class="slot">06:00 Power</div><div class="slot">08:00 Vinyasa</div><div class="slot">18:00 Hatha</div></div>
+    <div class="day"><div class="day-name">Cuối tuần</div><div class="slot">07:30 Workshop</div><div class="slot">09:30 Retreat</div></div>
+  </div>
+</section>
+<section class="memberships c">
+  <div class="sl">Hội viên</div>
+  <div class="st">Gói phù hợp với bạn</div>
+  <div class="mg">
+    <div class="mc"><div class="mc-name">Drop-in</div><div class="mc-p">150K</div><div class="mc-per">/ buổi</div><a href="#" class="mc-btn">Đăng ký</a><div class="mc-feats">✓ 1 lớp bất kỳ<br>✓ Thảm miễn phí<br>✓ Tủ đồ cá nhân</div></div>
+    <div class="mc pop"><div class="mc-name">Monthly · Phổ biến</div><div class="mc-p">890K</div><div class="mc-per">/ tháng · không giới hạn</div><a href="#" class="mc-btn">Đăng ký</a><div class="mc-feats">✓ Tất cả lớp học<br>✓ 1 buổi thiền riêng<br>✓ Ưu đãi workshop<br>✓ App theo dõi tiến trình</div></div>
+    <div class="mc"><div class="mc-name">Yearly</div><div class="mc-p">7.5tr</div><div class="mc-per">/ năm · tiết kiệm 30%</div><a href="#" class="mc-btn">Đăng ký</a><div class="mc-feats">✓ Quyền lợi Monthly<br>✓ 4 buổi PT riêng<br>✓ Khoá thiền online<br>✓ Ưu tiên đặt lịch</div></div>
+  </div>
+</section>
+<div class="cta">
+  <h2>Bắt đầu hành trình của bạn hôm nay</h2>
+  <p>Buổi học thử đầu tiên hoàn toàn miễn phí. Không cần kinh nghiệm, chỉ cần ý chí và chiếc thảm.</p>
+  <div class="btns"><a href="#" class="bp">🧘 Đăng ký buổi thử miễn phí</a><a href="#" class="bs">Xem lịch học</a></div>
+</div>
+<footer class="c"><div class="fl">Lotus Yoga Studio</div><nav><a href="#">Lớp học</a><a href="#">Lịch học</a><a href="#">Hội viên</a><a href="#">Liên hệ</a></nav></footer>
+</body></html>`
+
+const LP_LEGAL = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Georgia',serif;background:#0d0d0d;color:#e8e0cc;line-height:1.7}
+.c{max-width:1100px;margin:0 auto;padding:0 24px}
+.hero{background:linear-gradient(160deg,#1a1508,#0d0d0d);padding:96px 24px;border-bottom:1px solid #2a2010}
+.hi{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1100px;margin:0 auto}
+@media(max-width:640px){.hi{grid-template-columns:1fr}}
+.htag{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#a08030;font-family:'Segoe UI',sans-serif;margin-bottom:20px}
+h1{font-size:clamp(30px,4vw,58px);font-weight:400;line-height:1.2;color:#f5ead0;margin-bottom:20px}
+h1 strong{font-weight:700;color:#d4a520}
+.sub{font-size:16px;color:#8a7e6a;max-width:440px;margin-bottom:32px;line-height:1.8;font-family:'Segoe UI',sans-serif}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.bp{background:#d4a520;color:#0d0d0d;padding:14px 28px;text-decoration:none;font-size:13px;font-weight:700;font-family:'Segoe UI',sans-serif;letter-spacing:1px}
+.bs{background:transparent;color:#d4a520;padding:13px 28px;text-decoration:none;font-size:13px;font-weight:600;font-family:'Segoe UI',sans-serif;border:1px solid #4a3a10}
+.cert-box{background:#1a1508;border:1px solid #3a2a10;border-radius:4px;padding:28px}
+.cert-item{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid #2a2010}
+.cert-item:last-child{border:none}
+.cert-i{color:#d4a520;font-size:20px;flex-shrink:0;margin-top:2px}
+.cert-title{font-size:14px;font-weight:700;color:#f5ead0;margin-bottom:2px;font-family:'Segoe UI',sans-serif}
+.cert-sub{font-size:12px;color:#6a5e4a;font-family:'Segoe UI',sans-serif}
+.sl{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#a08030;margin-bottom:10px;font-family:'Segoe UI',sans-serif}
+.st{font-size:clamp(24px,3vw,42px);font-weight:400;color:#f5ead0;margin-bottom:12px}
+.st strong{font-weight:700}
+.areas{padding:72px 24px;background:#0d0d0d}
+.ag{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;border:1px solid #2a2010;margin-top:32px}
+.ac{padding:24px;border-right:1px solid #2a2010;border-bottom:1px solid #2a2010}
+.ac h3{font-size:15px;font-weight:700;color:#f5ead0;margin-bottom:6px;font-family:'Segoe UI',sans-serif}.ac p{font-size:12px;color:#6a5e4a;font-family:'Segoe UI',sans-serif;line-height:1.6}
+.lawyers{padding:64px 24px;background:#0a0a08;border-top:1px solid #2a2010}
+.lg{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:32px}
+.lc{background:#1a1508;border:1px solid #2a2010;padding:24px}
+.lc-av{width:60px;height:60px;border-radius:2px;background:linear-gradient(135deg,#2a2010,#4a3a20);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px}
+.lc h3{font-size:16px;font-weight:700;color:#f5ead0;font-family:'Segoe UI',sans-serif;margin-bottom:4px}
+.lc-title{font-size:12px;color:#d4a520;font-family:'Segoe UI',sans-serif;margin-bottom:10px}
+.lc-spec{font-size:12px;color:#6a5e4a;font-family:'Segoe UI',sans-serif;line-height:1.7}
+.cta{background:linear-gradient(135deg,#1a1508,#2a2010);padding:72px 24px;text-align:center;border-top:1px solid #3a2a10}
+.cta h2{font-size:clamp(26px,4vw,48px);font-weight:400;color:#f5ead0;margin-bottom:14px}
+.cta p{font-size:16px;color:#8a7e6a;max-width:480px;margin:0 auto 32px;font-family:'Segoe UI',sans-serif}
+footer{background:#060604;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:1px solid #2a2010;font-family:'Segoe UI',sans-serif}
+.fl{font-size:14px;font-weight:400;color:#a08030;letter-spacing:2px;text-transform:uppercase}footer nav a{color:#4a3e2a;text-decoration:none;font-size:12px;margin-left:24px;letter-spacing:1px}
+</style></head>
+<body>
+<div class="hero">
+  <div class="hi">
+    <div>
+      <div class="htag">Thành lập 2008 · Hơn 2.000 vụ giải quyết</div>
+      <h1>Bảo vệ quyền lợi của bạn với <strong>tư vấn pháp lý đúng người, đúng việc</strong></h1>
+      <p class="sub">Văn phòng luật chuyên về doanh nghiệp, dân sự và sở hữu trí tuệ. Đội ngũ luật sư kinh nghiệm, cam kết tư vấn minh bạch và bảo mật tuyệt đối.</p>
+      <div class="btns"><a href="#" class="bp">TƯ VẤN MIỄN PHÍ 30 PHÚT</a><a href="#" class="bs">XEM HỒ SƠ THẮNG KIỆN</a></div>
+    </div>
+    <div class="cert-box">
+      <div class="cert-item"><div class="cert-i">⚖</div><div><div class="cert-title">Luật sư đoàn TP.HCM</div><div class="cert-sub">Chứng chỉ hành nghề số 024/LS-HCMC</div></div></div>
+      <div class="cert-item"><div class="cert-i">🏛</div><div><div class="cert-title">ISO 27001 — Bảo mật thông tin</div><div class="cert-sub">Dữ liệu khách hàng được mã hoá chuẩn quốc tế</div></div></div>
+      <div class="cert-item"><div class="cert-i">🌏</div><div><div class="cert-title">Thành viên IBA</div><div class="cert-sub">International Bar Association</div></div></div>
+      <div class="cert-item"><div class="cert-i">🏆</div><div><div class="cert-title">Top 5 Firm Vietnam 2024</div><div class="cert-sub">Legal 500 Asia Pacific Rankings</div></div></div>
+    </div>
+  </div>
+</div>
+<section class="areas">
+  <div class="c">
+    <div class="sl">Lĩnh vực</div>
+    <div class="st">Chuyên môn <strong>pháp lý</strong></div>
+    <div class="ag">
+      <div class="ac"><h3>⚖ Doanh nghiệp & M&A</h3><p>Thành lập công ty, hợp đồng, M&A, tái cơ cấu và tranh chấp thương mại.</p></div>
+      <div class="ac"><h3>🏡 Dân sự & Đất đai</h3><p>Tranh chấp bất động sản, thừa kế, hôn nhân gia đình, giải quyết ngoài toà.</p></div>
+      <div class="ac"><h3>💡 Sở hữu trí tuệ</h3><p>Đăng ký nhãn hiệu, bản quyền, bằng sáng chế và xử lý vi phạm IP.</p></div>
+      <div class="ac"><h3>🌐 Đầu tư nước ngoài</h3><p>FDI, giấy phép đầu tư, hợp đồng quốc tế và tuân thủ pháp luật VN.</p></div>
+      <div class="ac"><h3>💼 Lao động</h3><p>Hợp đồng lao động, sa thải, tranh chấp và nội quy doanh nghiệp.</p></div>
+      <div class="ac"><h3>🔒 Tố tụng & Trọng tài</h3><p>Đại diện tại toà, trọng tài thương mại VIAC và trung gian hoà giải.</p></div>
+    </div>
+  </div>
+</section>
+<section class="lawyers c">
+  <div class="sl">Đội ngũ</div>
+  <div class="st">Luật sư <strong>chính</strong></div>
+  <div class="lg">
+    <div class="lc"><div class="lc-av">👨‍⚖️</div><h3>Nguyễn Văn Minh</h3><div class="lc-title">Luật sư điều hành</div><div class="lc-spec">20 năm kinh nghiệm · Chuyên doanh nghiệp & M&A · LL.M Luật Quốc tế (Singapore)</div></div>
+    <div class="lc"><div class="lc-av">👩‍⚖️</div><h3>Trần Thị Lan Anh</h3><div class="lc-title">Luật sư cao cấp</div><div class="lc-spec">15 năm kinh nghiệm · Chuyên sở hữu trí tuệ & công nghệ · Bar NY & Vietnam</div></div>
+    <div class="lc"><div class="lc-av">👨‍⚖️</div><h3>Lê Hoàng Phúc</h3><div class="lc-title">Luật sư tố tụng</div><div class="lc-spec">12 năm kinh nghiệm · Chuyên tranh tụng dân sự & hình sự kinh tế · 300+ vụ thắng</div></div>
+  </div>
+</section>
+<div class="cta">
+  <h2>Vấn đề pháp lý không nên chờ đợi</h2>
+  <p>30 phút tư vấn miễn phí để hiểu rõ quyền lợi và lộ trình giải quyết tốt nhất cho bạn.</p>
+  <div class="btns" style="justify-content:center"><a href="#" class="bp">ĐẶT LỊCH TƯ VẤN MIỄN PHÍ</a><a href="#" class="bs">GỌI NGAY: 028 3822 XXXX</a></div>
+</div>
+<footer class="c"><div class="fl">Minh & Partners Law Firm</div><nav><a href="#">DỊCH VỤ</a><a href="#">ĐỘI NGŨ</a><a href="#">KẾT QUẢ</a><a href="#">LIÊN HỆ</a></nav></footer>
+</body></html>`
+
+const LP_RECRUITMENT = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;background:#f8faff;line-height:1.6}
+.c{max-width:1100px;margin:0 auto;padding:0 24px}
+.hero{background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 60%,#3b82f6 100%);padding:80px 24px;color:#fff}
+.hi{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto}
+@media(max-width:640px){.hi{grid-template-columns:1fr}}
+.badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:6px 16px;font-size:12px;font-weight:700;margin-bottom:16px}
+h1{font-size:clamp(28px,4vw,54px);font-weight:900;line-height:1.1;letter-spacing:-1.5px;margin-bottom:16px}
+.sub{font-size:16px;color:rgba(255,255,255,.8);margin-bottom:28px;line-height:1.7}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.bp{background:#fff;color:#2563eb;padding:13px 24px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:800}
+.bs{background:rgba(255,255,255,.12);color:#fff;padding:13px 24px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;border:1px solid rgba(255,255,255,.25)}
+.sbox{background:rgba(255,255,255,.12);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.si{text-align:center}.si-n{font-size:28px;font-weight:900;color:#fff}.si-l{font-size:11px;color:rgba(255,255,255,.7);font-weight:600}
+.jobs{padding:64px 24px;background:#fff}
+.sl{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#2563eb;margin-bottom:8px}
+.st{font-size:clamp(24px,3vw,40px);font-weight:900;color:#1e293b;margin-bottom:12px}
+.filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.ft{background:#f1f5f9;color:#64748b;padding:7px 16px;border-radius:99px;font-size:13px;font-weight:600;cursor:pointer}
+.ft.act{background:#2563eb;color:#fff}
+.jg{display:grid;gap:12px}
+.jc{background:#f8faff;border:1.5px solid #e2e8f0;border-radius:14px;padding:20px;display:flex;gap:16px;align-items:flex-start;cursor:pointer}
+.jc:hover{border-color:#2563eb}
+.jc-logo{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.jc-logo.b{background:#dbeafe}.jc-logo.g{background:#d1fae5}.jc-logo.p{background:#ede9fe}
+.jc-ti{font-size:15px;font-weight:700;color:#1e293b;margin-bottom:4px}
+.jc-co{font-size:13px;color:#64748b;margin-bottom:8px}.jc-tags{display:flex;gap:6px;flex-wrap:wrap}
+.jt{background:#fff;border:1px solid #e2e8f0;border-radius:99px;padding:4px 10px;font-size:11px;font-weight:600;color:#64748b}
+.jt.hot{background:#fef3c7;border-color:#fcd34d;color:#d97706}
+.jc-sal{font-size:14px;font-weight:700;color:#2563eb;margin-left:auto;white-space:nowrap}
+.process{background:#f8faff;padding:64px 24px}
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0;margin-top:36px}
+.ps{padding:24px 16px;text-align:center}
+.ps-n{width:36px;height:36px;border-radius:50%;background:#2563eb;color:#fff;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.ps h3{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:4px}.ps p{font-size:12px;color:#64748b}
+.cta{background:linear-gradient(135deg,#1e3a8a,#2563eb);padding:72px 24px;text-align:center;color:#fff}
+.cta h2{font-size:clamp(26px,4vw,46px);font-weight:900;letter-spacing:-1.5px;margin-bottom:14px}
+.cta p{font-size:17px;color:rgba(255,255,255,.8);max-width:480px;margin:0 auto 32px}
+footer{background:#1e3a8a;color:#93c5fd;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.fl{font-size:17px;font-weight:800;color:#fff}footer nav a{color:#64748b;text-decoration:none;font-size:13px;margin-left:20px}
+</style></head>
+<body>
+<div class="hero">
+  <div class="hi">
+    <div>
+      <div class="badge">🚀 Hơn 5.000 việc làm đang tuyển hôm nay</div>
+      <h1>Tìm công việc mơ ước của bạn ngay tại đây</h1>
+      <p class="sub">Kết nối 200.000+ ứng viên với 3.000+ doanh nghiệp hàng đầu. Lương cạnh tranh, môi trường tốt, lộ trình thăng tiến rõ ràng.</p>
+      <div class="btns"><a href="#" class="bp">🔍 Tìm việc ngay</a><a href="#" class="bs">Đăng tuyển dụng</a></div>
+    </div>
+    <div class="sbox">
+      <div class="si"><div class="si-n">200K+</div><div class="si-l">Ứng viên</div></div>
+      <div class="si"><div class="si-n">3K+</div><div class="si-l">Doanh nghiệp</div></div>
+      <div class="si"><div class="si-n">5K+</div><div class="si-l">Việc đang tuyển</div></div>
+      <div class="si"><div class="si-n">72%</div><div class="si-l">Tỷ lệ thành công</div></div>
+    </div>
+  </div>
+</div>
+<section class="jobs c">
+  <div class="sl">Việc làm nổi bật</div>
+  <div class="st">Hot Jobs hôm nay</div>
+  <div class="filter">
+    <div class="ft act">Tất cả</div><div class="ft">IT / Tech</div><div class="ft">Marketing</div><div class="ft">Tài chính</div><div class="ft">Sales</div>
+  </div>
+  <div class="jg">
+    <div class="jc"><div class="jc-logo b">💻</div><div style="flex:1"><div class="jc-ti">Senior Frontend Engineer (React/Next.js)</div><div class="jc-co">Công ty Công Nghệ ABC · TP.HCM · Hybrid</div><div class="jc-tags"><span class="jt hot">🔥 Hot</span><span class="jt">React</span><span class="jt">Next.js</span><span class="jt">5+ năm</span></div></div><div class="jc-sal">35–55tr/tháng</div></div>
+    <div class="jc"><div class="jc-logo g">📊</div><div style="flex:1"><div class="jc-ti">Product Manager — Fintech</div><div class="jc-co">VietPay Corp · TP.HCM · Onsite</div><div class="jc-tags"><span class="jt hot">🔥 Gấp</span><span class="jt">Agile/Scrum</span><span class="jt">3+ năm</span></div></div><div class="jc-sal">40–60tr/tháng</div></div>
+    <div class="jc"><div class="jc-logo p">🎨</div><div style="flex:1"><div class="jc-ti">Senior UI/UX Designer</div><div class="jc-co">Design Studio X · Hà Nội · Remote</div><div class="jc-tags"><span class="jt">Figma</span><span class="jt">Design System</span><span class="jt">4+ năm</span></div></div><div class="jc-sal">25–40tr/tháng</div></div>
+  </div>
+</section>
+<section class="process c">
+  <div class="sl">Quy trình</div>
+  <div class="st">Ứng tuyển chỉ 4 bước</div>
+  <div class="pg">
+    <div class="ps"><div class="ps-n">1</div><h3>Tạo hồ sơ</h3><p>Upload CV hoặc tạo hồ sơ online trong 5 phút.</p></div>
+    <div class="ps"><div class="ps-n">2</div><h3>Tìm & nộp đơn</h3><p>Lọc theo ngành nghề, mức lương và khu vực.</p></div>
+    <div class="ps"><div class="ps-n">3</div><h3>Phỏng vấn</h3><p>Hệ thống nhắc lịch, chuẩn bị câu hỏi tự động.</p></div>
+    <div class="ps"><div class="ps-n">4</div><h3>Nhận việc</h3><p>Ký hợp đồng, hỗ trợ onboarding suôn sẻ.</p></div>
+  </div>
+</section>
+<div class="cta">
+  <h2>Hàng ngàn cơ hội đang chờ bạn</h2>
+  <p>Tạo hồ sơ miễn phí, nhận thông báo việc làm phù hợp theo email ngay lập tức.</p>
+  <div class="btns" style="justify-content:center"><a href="#" class="bp">Tạo hồ sơ miễn phí</a><a href="#" class="bs">Đăng tin tuyển dụng</a></div>
+</div>
+<footer class="c"><div class="fl">WorkViet</div><nav><a href="#">Việc làm</a><a href="#">Doanh nghiệp</a><a href="#">Blog</a><a href="#">Liên hệ</a></nav></footer>
+</body></html>`
+
+const LP_TECH_REPAIR = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;background:#0f172a;line-height:1.6}
+.c{max-width:1100px;margin:0 auto;padding:0 24px}
+.hero{background:linear-gradient(160deg,#0f172a,#1e293b);padding:80px 24px;border-bottom:1px solid rgba(249,115,22,.2)}
+.hi{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto}
+@media(max-width:640px){.hi{grid-template-columns:1fr}}
+.badge{display:inline-block;background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.4);color:#f97316;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;margin-bottom:16px}
+h1{font-size:clamp(28px,4vw,54px);font-weight:900;line-height:1.1;color:#f1f5f9;margin-bottom:16px;letter-spacing:-1.5px}
+h1 span{color:#f97316}.sub{font-size:16px;color:#64748b;margin-bottom:28px;line-height:1.7}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.bp{background:#f97316;color:#fff;padding:13px 24px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:800}
+.bs{background:rgba(255,255,255,.05);color:#94a3b8;padding:13px 24px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;border:1px solid rgba(255,255,255,.1)}
+.trust{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.ti{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);border-radius:12px;padding:18px}
+.ti-n{font-size:28px;font-weight:900;color:#f97316;margin-bottom:2px}.ti-l{font-size:12px;color:#64748b}
+.services{padding:64px 24px}
+.sl{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#f97316;margin-bottom:8px}
+.st{font-size:clamp(24px,3vw,40px);font-weight:900;color:#f1f5f9;margin-bottom:12px}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:28px}
+.sc{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:22px;transition:all .3s}
+.sc:hover{border-color:rgba(249,115,22,.4);transform:translateY(-3px)}
+.sc-i{font-size:32px;margin-bottom:10px}.sc h3{font-size:15px;font-weight:700;color:#f1f5f9;margin-bottom:6px}
+.sc-price{font-size:18px;font-weight:900;color:#f97316;margin-bottom:6px}
+.sc p{font-size:12px;color:#64748b;line-height:1.5}
+.guarantee{background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.15);border-radius:16px;padding:28px;margin:48px 0;display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.g-icon{font-size:52px;flex-shrink:0}.g-content h3{font-size:20px;font-weight:900;color:#f1f5f9;margin-bottom:6px}
+.g-content p{font-size:14px;color:#64748b;line-height:1.6}
+.g-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.gt{background:rgba(249,115,22,.15);color:#f97316;border-radius:99px;padding:5px 12px;font-size:12px;font-weight:700}
+.cta{background:linear-gradient(135deg,#f97316,#ea580c);padding:64px 24px;text-align:center}
+.cta h2{font-size:clamp(26px,4vw,46px);font-weight:900;color:#fff;letter-spacing:-1.5px;margin-bottom:14px}
+.cta p{font-size:17px;color:rgba(255,255,255,.85);max-width:460px;margin:0 auto 28px}
+.cta-p{background:#fff;color:#ea580c;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:15px;font-weight:800;display:inline-block}
+footer{background:#0a0f1e;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:1px solid rgba(255,255,255,.06)}
+.fl{font-size:17px;font-weight:900;color:#f97316}footer nav a{color:#475569;text-decoration:none;font-size:13px;margin-left:20px}
+</style></head>
+<body>
+<div class="hero">
+  <div class="hi">
+    <div>
+      <div class="badge">⚡ Sửa máy ngay trong ngày — Bảo hành 6 tháng</div>
+      <h1>Sửa điện thoại & laptop <span>nhanh, uy tín</span> — Lấy liền 2 giờ</h1>
+      <p class="sub">Trung tâm sửa chữa chuyên nghiệp, kỹ thuật viên được chứng nhận Apple, Samsung, Dell. Linh kiện chính hãng, báo giá minh bạch trước khi sửa.</p>
+      <div class="btns"><a href="#" class="bp">📞 Báo giá miễn phí</a><a href="#" class="bs">Xem bảng giá</a></div>
+    </div>
+    <div class="trust">
+      <div class="ti"><div class="ti-n">10K+</div><div class="ti-l">Thiết bị đã sửa</div></div>
+      <div class="ti"><div class="ti-n">98%</div><div class="ti-l">Khách hài lòng</div></div>
+      <div class="ti"><div class="ti-n">6 tháng</div><div class="ti-l">Bảo hành linh kiện</div></div>
+      <div class="ti"><div class="ti-n">2 giờ</div><div class="ti-l">Sửa xong lấy liền</div></div>
+    </div>
+  </div>
+</div>
+<section class="services c">
+  <div class="sl">Dịch vụ</div>
+  <div class="st">Chúng tôi sửa được gì?</div>
+  <div class="sg">
+    <div class="sc"><div class="sc-i">📱</div><h3>Màn hình iPhone</h3><div class="sc-price">Từ 490K</div><p>Thay màn hình chính hãng, cảm ứng mượt, màu chuẩn. Bảo hành 6 tháng.</p></div>
+    <div class="sc"><div class="sc-i">🔋</div><h3>Pin điện thoại</h3><div class="sc-price">Từ 290K</div><p>Pin dung lượng gốc, kiểm tra sức khoẻ pin sau thay. Bảo hành 12 tháng.</p></div>
+    <div class="sc"><div class="sc-i">💻</div><h3>Màn hình laptop</h3><div class="sc-price">Từ 890K</div><p>Thay panel IPS/OLED, độ phân giải Full HD trở lên. Bảo hành 6 tháng.</p></div>
+    <div class="sc"><div class="sc-i">⌨️</div><h3>Bàn phím / trackpad</h3><div class="sc-price">Từ 490K</div><p>Thay từng phím hoặc cả cụm bàn phím, lấy liền trong ngày.</p></div>
+    <div class="sc"><div class="sc-i">💾</div><h3>Ổ cứng / SSD</h3><div class="sc-price">Từ 650K</div><p>Nâng cấp SSD M.2, cứu dữ liệu ổ cứng hỏng. Tư vấn miễn phí.</p></div>
+    <div class="sc"><div class="sc-i">🔌</div><h3>Cổng sạc / board mạch</h3><div class="sc-price">Báo giá</div><p>Sửa cổng sạc Type-C, Lightning, kiểm tra và sửa linh kiện bo mạch.</p></div>
+  </div>
+  <div class="guarantee">
+    <div class="g-icon">🛡</div>
+    <div class="g-content">
+      <h3>Cam kết bảo hành — Báo giá trước — Không phí ẩn</h3>
+      <p>Báo giá chính xác trước khi bắt đầu. Không phát sinh thêm. Không sửa được, hoàn tiền 100% phí kiểm tra.</p>
+      <div class="g-tags"><span class="gt">Linh kiện chính hãng</span><span class="gt">KTV được chứng nhận</span><span class="gt">Bảo hành 6–12 tháng</span><span class="gt">Hoàn tiền nếu không sửa được</span></div>
+    </div>
+  </div>
+</section>
+<div class="cta">
+  <h2>Máy hỏng? Gọi ngay — sửa liền!</h2>
+  <p>Miễn phí kiểm tra và báo giá. Đến cửa hàng hoặc đặt lịch tại nhà trong bán kính 10km.</p>
+  <a href="#" class="cta-p">📞 Gọi ngay: 0909 xxx xxx</a>
+</div>
+<footer class="c"><div class="fl">TechFix Pro</div><nav><a href="#">Dịch vụ</a><a href="#">Bảng giá</a><a href="#">Bảo hành</a><a href="#">Liên hệ</a></nav></footer>
+</body></html>`
+
+const LP_COFFEE = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Georgia',serif;color:#1a0e04;background:#fdfaf5;line-height:1.7}
+.c{max-width:1100px;margin:0 auto;padding:0 24px}
+.hero{background:linear-gradient(160deg,#2c1810 0%,#4a2c1a 40%,#3d2210 100%);padding:96px 24px;text-align:center;position:relative;overflow:hidden}
+.h-dec{position:absolute;font-size:120px;opacity:.04;user-select:none}.h-dec.a{top:0;left:5%}.h-dec.b{bottom:0;right:5%}
+.htag{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#d4a864;font-family:'Segoe UI',sans-serif;margin-bottom:18px}
+h1{font-size:clamp(36px,6vw,80px);font-weight:400;font-style:italic;color:#f5e8d0;line-height:1.1;margin-bottom:18px}
+h1 strong{font-weight:700;font-style:normal;color:#d4a864}
+.sub{font-size:17px;color:#a08060;max-width:480px;margin:0 auto 36px;font-family:'Segoe UI',sans-serif;line-height:1.8}
+.btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.bp{background:#d4a864;color:#2c1810;padding:14px 34px;border-radius:99px;text-decoration:none;font-size:14px;font-weight:800;font-family:'Segoe UI',sans-serif}
+.bs{background:transparent;color:#d4a864;padding:13px 34px;border-radius:99px;text-decoration:none;font-size:14px;font-weight:600;font-family:'Segoe UI',sans-serif;border:1.5px solid rgba(212,168,100,.4)}
+.menu{padding:72px 24px;background:#fff}
+.sl{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#a08060;margin-bottom:8px;font-family:'Segoe UI',sans-serif}
+.st{font-size:clamp(26px,3.5vw,48px);font-weight:400;font-style:italic;color:#1a0e04;margin-bottom:12px}
+.menu-tabs{display:flex;gap:0;border-bottom:2px solid #f0e8d8;margin-bottom:32px;flex-wrap:wrap}
+.tab{padding:10px 24px;font-size:14px;font-weight:600;color:#a08060;cursor:pointer;font-family:'Segoe UI',sans-serif;border-bottom:2px solid transparent;margin-bottom:-2px}
+.tab.act{color:#2c1810;border-color:#d4a864}
+.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.mc{background:#fdfaf5;border-radius:4px;overflow:hidden;border:1px solid #f0e8d8}
+.mc:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,24,16,.08)}
+.mc-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:60px}
+.mc-img.e{background:linear-gradient(135deg,#2c1810,#6b3a1e)}.mc-img.l{background:linear-gradient(135deg,#c8a878,#e8c898)}.mc-img.s{background:linear-gradient(135deg,#3a5a3a,#5a8a5a)}.mc-img.m{background:linear-gradient(135deg,#4a3a2a,#8a6a4a)}
+.mc-body{padding:16px}.mc-name{font-size:16px;font-weight:700;color:#1a0e04;margin-bottom:4px;font-family:'Segoe UI',sans-serif}
+.mc-desc{font-size:12px;color:#a08060;line-height:1.5;margin-bottom:10px;font-family:'Segoe UI',sans-serif}
+.mc-price{font-size:18px;font-weight:700;color:#d4a864;font-family:'Segoe UI',sans-serif}
+.story{background:#2c1810;color:#f5e8d0;padding:72px 24px}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1100px;margin:0 auto}
+@media(max-width:640px){.sg{grid-template-columns:1fr}}
+.story-media{background:linear-gradient(135deg,#4a2c1a,#6b3a1e);border-radius:8px;height:380px;display:flex;align-items:center;justify-content:center;font-size:80px;opacity:.6}
+.sl2{color:#d4a864}.st2{font-size:clamp(24px,3.5vw,44px);font-weight:400;font-style:italic;color:#f5e8d0;margin-bottom:16px}
+.story-text{font-size:15px;color:#a08060;line-height:1.9;font-family:'Segoe UI',sans-serif}
+.story-stats{display:flex;gap:32px;flex-wrap:wrap;margin-top:28px}
+.ss{text-align:center}.ss-n{font-size:32px;font-weight:700;color:#d4a864;font-family:'Segoe UI',sans-serif}.ss-l{font-size:12px;color:#6a4e3a;font-family:'Segoe UI',sans-serif}
+.cta{background:linear-gradient(160deg,#1a0e04,#2c1810);padding:72px 24px;text-align:center}
+.cta h2{font-size:clamp(28px,4vw,56px);font-weight:400;font-style:italic;color:#f5e8d0;margin-bottom:14px}
+.cta p{font-size:17px;color:#a08060;max-width:460px;margin:0 auto 32px;font-family:'Segoe UI',sans-serif}
+footer{background:#0a0605;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.fl{font-size:18px;font-weight:400;font-style:italic;color:#d4a864}footer nav a{color:#4a3a2a;text-decoration:none;font-size:13px;margin-left:20px;font-family:'Segoe UI',sans-serif}
+</style></head>
+<body>
+<div class="hero">
+  <div class="h-dec a">☕</div><div class="h-dec b">☕</div>
+  <div class="htag">✦ Rang xay thủ công · Trực tiếp từ vườn cà phê</div>
+  <h1>Ly cà phê <strong>đúng nghĩa</strong> của người Việt</h1>
+  <p class="sub">Từ những hạt cà phê được tuyển chọn kỹ lưỡng từ Đà Lạt và Buôn Ma Thuột, chúng tôi mang đến một tách thuần khiết với hương vị không thể nhầm lẫn.</p>
+  <div class="btns"><a href="#" class="bp">☕ Khám phá thực đơn</a><a href="#" class="bs">Câu chuyện của chúng tôi</a></div>
+</div>
+<section class="menu c">
+  <div class="sl">Thực đơn</div>
+  <div class="st">Những gì chúng tôi pha</div>
+  <div class="menu-tabs"><div class="tab act">Cà phê</div><div class="tab">Trà & Thảo mộc</div><div class="tab">Bánh ngọt</div><div class="tab">Combo</div></div>
+  <div class="mg">
+    <div class="mc"><div class="mc-img e">☕</div><div class="mc-body"><div class="mc-name">Espresso Robusta</div><div class="mc-desc">Robusta Buôn Ma Thuột rang đậm, vị đắng mạnh, crema vàng ươm đặc trưng.</div><div class="mc-price">45.000đ</div></div></div>
+    <div class="mc"><div class="mc-img l">🥛</div><div class="mc-body"><div class="mc-name">Cà phê sữa đá</div><div class="mc-desc">Pha phin truyền thống, sữa đặc Ông Thọ — vị ngọt đậm đà đúng chất Việt.</div><div class="mc-price">35.000đ</div></div></div>
+    <div class="mc"><div class="mc-img s">🍵</div><div class="mc-body"><div class="mc-name">Cold Brew Arabica</div><div class="mc-desc">Arabica Đà Lạt ủ lạnh 12 tiếng — vị chua nhẹ, hậu ngọt thanh, uống nguyên chất.</div><div class="mc-price">65.000đ</div></div></div>
+    <div class="mc"><div class="mc-img m">🫙</div><div class="mc-body"><div class="mc-name">Bạc xỉu đặc biệt</div><div class="mc-desc">Ít cà phê, nhiều sữa tươi — dành cho những ai yêu hương cà phê nhưng ngại đắng.</div><div class="mc-price">40.000đ</div></div></div>
+  </div>
+</section>
+<section class="story">
+  <div class="sg">
+    <div class="story-media">☕</div>
+    <div>
+      <div class="sl2 sl">Câu chuyện</div>
+      <div class="st2">Hành trình từ vườn đến ly</div>
+      <p class="story-text">Mỗi hạt cà phê đều có câu chuyện riêng. Chúng tôi làm việc trực tiếp với 12 nông hộ tại Đà Lạt và Buôn Ma Thuột, mua với giá công bằng, rang tươi mỗi tuần.<br><br>Không qua trung gian. Không pha sẵn. Từng ly là một cam kết với bạn và với người trồng cà phê.</p>
+      <div class="story-stats">
+        <div class="ss"><div class="ss-n">12</div><div class="ss-l">Nông hộ đối tác</div></div>
+        <div class="ss"><div class="ss-n">8 năm</div><div class="ss-l">Kinh nghiệm rang xay</div></div>
+        <div class="ss"><div class="ss-n">3 cơ sở</div><div class="ss-l">tại TP.HCM</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="cta">
+  <h2>Cà phê ngon nhất là cà phê bạn thưởng thức ngay hôm nay</h2>
+  <p>Đặt bàn trước hoặc order online, chúng tôi chuẩn bị để bạn không phải chờ đợi.</p>
+  <div class="btns" style="justify-content:center"><a href="#" class="bp">📍 Tìm cửa hàng gần nhất</a><a href="#" class="bs">Order online</a></div>
+</div>
+<footer class="c"><div class="fl">Mộc Coffee</div><nav><a href="#">Thực đơn</a><a href="#">Cửa hàng</a><a href="#">Câu chuyện</a><a href="#">Nhượng quyền</a></nav></footer>
+</body></html>`
+
+const LP_LOGISTICS = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;background:#f8fafc;line-height:1.6}
+.c{max-width:1200px;margin:0 auto;padding:0 24px}
+.hero{background:linear-gradient(135deg,#0f1e3d,#1e3a8a);padding:80px 24px;position:relative;overflow:hidden}
+.map-bg{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 0);background-size:30px 30px}
+.hi{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1200px;margin:0 auto;position:relative;z-index:1}
+@media(max-width:640px){.hi{grid-template-columns:1fr}}
+.badge{display:inline-block;background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.5);color:#93c5fd;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:700;letter-spacing:.5px;margin-bottom:16px}
+h1{font-size:clamp(28px,3.5vw,54px);font-weight:900;line-height:1.1;color:#f1f5f9;margin-bottom:16px;letter-spacing:-1.5px}
+h1 span{color:#3b82f6}.sub{font-size:16px;color:#64748b;margin-bottom:28px;line-height:1.7}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.bp{background:#3b82f6;color:#fff;padding:13px 24px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:800}
+.bs{background:rgba(255,255,255,.06);color:#94a3b8;padding:13px 24px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;border:1px solid rgba(255,255,255,.1)}
+.track-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px}
+.track-box h3{font-size:15px;font-weight:700;color:#f1f5f9;margin-bottom:16px}
+.track-input{display:flex;gap:8px}
+.tinp{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:11px 14px;font-size:14px;color:#f1f5f9;outline:none}
+.tinp::placeholder{color:#475569}
+.tbtn{background:#3b82f6;color:#fff;padding:11px 18px;border-radius:8px;font-size:13px;font-weight:700;border:none;cursor:pointer;white-space:nowrap}
+.track-steps{margin-top:20px;display:grid;gap:10px}
+.ts{display:flex;gap:12px;align-items:center}
+.ts-dot{width:12px;height:12px;border-radius:50%;background:#3b82f6;flex-shrink:0}.ts-dot.done{background:#22c55e}.ts-dot.pend{background:#334155}
+.ts-label{font-size:13px;font-weight:600;color:#94a3b8}.ts-label.done{color:#4ade80}.ts-label.cur{color:#f1f5f9}
+.ts-time{font-size:11px;color:#475569;margin-left:auto}
+.sl{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#3b82f6;margin-bottom:8px}
+.st{font-size:clamp(24px,3vw,40px);font-weight:900;color:#1e293b;margin-bottom:12px}
+.services{padding:64px 24px;background:#fff}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:32px}
+.sc{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:24px;transition:all .3s}
+.sc:hover{border-color:#3b82f6;transform:translateY(-3px)}
+.sc-i{font-size:34px;margin-bottom:12px}.sc h3{font-size:16px;font-weight:700;color:#1e293b;margin-bottom:6px}
+.sc-detail{font-size:13px;color:#64748b;line-height:1.5;margin-bottom:12px}
+.sc-tag{display:inline-block;background:#dbeafe;color:#2563eb;border-radius:99px;padding:4px 10px;font-size:11px;font-weight:700}
+.network{padding:64px 24px;background:#f1f5f9}
+.nm{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;margin-top:32px}
+.ni{padding:24px;text-align:center;border-right:1px solid #e2e8f0}.ni:last-child{border:none}
+.ni-n{font-size:34px;font-weight:900;color:#1e3a8a;margin-bottom:4px}.ni-l{font-size:12px;color:#64748b}
+.cta{background:linear-gradient(135deg,#0f1e3d,#1e3a8a);padding:72px 24px;text-align:center}
+.cta h2{font-size:clamp(26px,4vw,46px);font-weight:900;color:#f1f5f9;letter-spacing:-1.5px;margin-bottom:14px}
+.cta p{font-size:17px;color:#64748b;max-width:500px;margin:0 auto 32px}
+footer{background:#0a1020;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.fl{font-size:17px;font-weight:900;color:#3b82f6}footer nav a{color:#475569;text-decoration:none;font-size:13px;margin-left:20px}
+</style></head>
+<body>
+<div class="hero">
+  <div class="map-bg"></div>
+  <div class="hi">
+    <div>
+      <div class="badge">🚚 Giao hàng đúng hẹn — Theo dõi real-time 24/7</div>
+      <h1>Logistics <span>đáng tin cậy</span> cho doanh nghiệp Việt</h1>
+      <p class="sub">Vận chuyển nội địa và quốc tế, kho bãi thông minh, last-mile delivery tích hợp với 50+ sàn TMĐT. Tiết kiệm 30% chi phí vận chuyển ngay hôm nay.</p>
+      <div class="btns"><a href="#" class="bp">🚀 Nhận báo giá ngay</a><a href="#" class="bs">Xem giải pháp</a></div>
+    </div>
+    <div class="track-box">
+      <h3>📦 Theo dõi đơn hàng</h3>
+      <div class="track-input"><input class="tinp" type="text" placeholder="Nhập mã vận đơn..."><button class="tbtn">Tra cứu</button></div>
+      <div class="track-steps">
+        <div class="ts"><div class="ts-dot done"></div><div class="ts-label done">Đã lấy hàng — TP.HCM</div><div class="ts-time">06:30</div></div>
+        <div class="ts"><div class="ts-dot done"></div><div class="ts-label done">Đang phân loại tại hub</div><div class="ts-time">09:15</div></div>
+        <div class="ts"><div class="ts-dot"></div><div class="ts-label cur">Đang vận chuyển → Hà Nội</div><div class="ts-time">Hiện tại</div></div>
+        <div class="ts"><div class="ts-dot pend"></div><div class="ts-label">Giao đến người nhận</div><div class="ts-time">Dự kiến 15:00</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="services c">
+  <div class="sl">Giải pháp</div>
+  <div class="st">Dịch vụ vận chuyển toàn diện</div>
+  <div class="sg">
+    <div class="sc"><div class="sc-i">🚚</div><h3>Giao nhanh nội địa</h3><div class="sc-detail">Giao trong ngày tại TP.HCM, 24–48h liên tỉnh. Theo dõi real-time, POD điện tử.</div><span class="sc-tag">Từ 18.000đ/kg</span></div>
+    <div class="sc"><div class="sc-i">✈</div><h3>Vận chuyển quốc tế</h3><div class="sc-detail">Xuất nhập khẩu đường hàng không và đường biển, hải quan trọn gói, door-to-door.</div><span class="sc-tag">25+ quốc gia</span></div>
+    <div class="sc"><div class="sc-i">🏭</div><h3>Kho thông minh (3PL)</h3><div class="sc-detail">Kho vận hành theo WMS, pick-pack-ship tự động, tích hợp Shopify/Haravan/Tiki.</div><span class="sc-tag">10 tỉnh thành</span></div>
+    <div class="sc"><div class="sc-i">🛵</div><h3>Last-mile delivery</h3><div class="sc-detail">Đội shipper 500+ người, SLA giao trong 4 giờ nội thành, đổi trả dễ dàng.</div><span class="sc-tag">4h nội thành</span></div>
+  </div>
+</section>
+<section class="network c">
+  <div class="sl">Mạng lưới</div>
+  <div class="st">Con số nói lên tất cả</div>
+  <div class="nm">
+    <div class="ni"><div class="ni-n">63</div><div class="ni-l">Tỉnh thành phủ sóng</div></div>
+    <div class="ni"><div class="ni-n">25+</div><div class="ni-l">Quốc gia quốc tế</div></div>
+    <div class="ni"><div class="ni-n">15K</div><div class="ni-l">Đơn hàng/ngày</div></div>
+    <div class="ni"><div class="ni-n">99.2%</div><div class="ni-l">Giao đúng hẹn</div></div>
+    <div class="ni"><div class="ni-n">500+</div><div class="ni-l">Doanh nghiệp tin dùng</div></div>
+  </div>
+</section>
+<div class="cta">
+  <h2>Tối ưu chuỗi cung ứng — Giảm chi phí — Tăng tốc độ</h2>
+  <p>Chuyên gia logistics sẽ phân tích và đề xuất giải pháp phù hợp miễn phí trong 24 giờ.</p>
+  <div class="btns" style="justify-content:center"><a href="#" class="bp">📞 Tư vấn miễn phí</a><a href="#" class="bs">Xem bảng giá</a></div>
+</div>
+<footer class="c"><div class="fl">VietShip Logistics</div><nav><a href="#">Dịch vụ</a><a href="#">Tra cứu</a><a href="#">Đối tác</a><a href="#">Liên hệ</a></nav></footer>
+</body></html>`
+
+const ARTICLE_LONGFORM = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Georgia',serif;color:#1a1a2e;background:#fff;line-height:1.8}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 280px;gap:64px}
+@media(max-width:768px){.wrap{grid-template-columns:1fr}}
+.sidebar{display:block}@media(max-width:768px){.sidebar{display:none}}
+.toc{position:sticky;top:32px;background:#f8f9fa;border-left:3px solid #dc2626;padding:24px;border-radius:0 8px 8px 0}
+.toc-title{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#dc2626;margin-bottom:14px;font-family:'Segoe UI',sans-serif}
+.toc a{display:block;font-size:13px;color:#475569;text-decoration:none;padding:5px 0;border-bottom:1px solid #e2e8f0;line-height:1.4;font-family:'Segoe UI',sans-serif}
+.toc a:last-child{border:none}.toc a:hover{color:#dc2626}
+.toc a.h3{padding-left:14px;font-size:12px;color:#64748b}
+.art-meta{padding:48px 0 32px;border-bottom:2px solid #f1f5f9}
+.cat-tag{display:inline-block;background:#fef2f2;color:#dc2626;border-radius:4px;padding:5px 12px;font-size:12px;font-weight:700;font-family:'Segoe UI',sans-serif;margin-bottom:16px}
+.art-meta h1{font-size:clamp(28px,3.5vw,46px);font-weight:700;line-height:1.2;color:#0f172a;margin-bottom:16px}
+.art-meta .deck{font-size:18px;color:#64748b;line-height:1.6;font-family:'Segoe UI',sans-serif;margin-bottom:20px}
+.meta-row{display:flex;gap:20px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',sans-serif}
+.author{display:flex;align-items:center;gap:10px}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#dc2626,#f97316);display:flex;align-items:center;justify-content:center;font-size:16px}
+.author-name{font-size:14px;font-weight:700;color:#1e293b}.author-role{font-size:12px;color:#94a3b8}
+.meta-item{font-size:13px;color:#64748b}
+.hero-img{width:100%;height:320px;background:linear-gradient(135deg,#1e293b,#dc2626);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:80px;margin:28px 0;opacity:.8}
+.art-body{padding-bottom:48px}
+.art-body h2{font-size:clamp(20px,2.5vw,28px);font-weight:700;color:#0f172a;margin:36px 0 14px;padding-top:8px;border-top:2px solid #fee2e2}
+.art-body h3{font-size:18px;font-weight:700;color:#1e293b;margin:24px 0 10px}
+.art-body p{font-size:16px;color:#374151;line-height:1.85;margin-bottom:18px}
+.art-body strong{color:#0f172a}
+.pullquote{border-left:4px solid #dc2626;background:#fef2f2;padding:20px 24px;margin:28px 0;border-radius:0 8px 8px 0}
+.pullquote p{font-size:18px;font-style:italic;color:#b91c1c;margin:0;line-height:1.6}
+.infobox{background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:20px 24px;margin:28px 0}
+.infobox-title{font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#0369a1;margin-bottom:10px;font-family:'Segoe UI',sans-serif}
+.infobox ul{padding-left:18px;font-size:15px;color:#0c4a6e;line-height:1.9}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:32px;padding-top:24px;border-top:1px solid #f1f5f9}
+.tag{background:#f8fafc;border:1px solid #e2e8f0;color:#475569;padding:6px 14px;border-radius:99px;font-size:13px;font-family:'Segoe UI',sans-serif}
+</style></head>
+<body>
+<div style="padding:24px 0">
+<div class="wrap">
+<article>
+  <div class="art-meta">
+    <span class="cat-tag">Phân tích chuyên sâu</span>
+    <h1>Kinh tế Việt Nam 2025: Những động lực tăng trưởng mới sau làn sóng chuyển dịch chuỗi cung ứng toàn cầu</h1>
+    <p class="deck">Với hơn 38 tỷ USD vốn FDI thu hút trong năm 2024, Việt Nam đang bước vào giai đoạn tăng trưởng chất lượng — nhưng liệu chúng ta đã sẵn sàng cho cú nhảy vọt tiếp theo?</p>
+    <div class="meta-row">
+      <div class="author"><div class="av">✍</div><div><div class="author-name">Nguyễn Minh Hoàng</div><div class="author-role">Phóng viên kinh tế cao cấp</div></div></div>
+      <span class="meta-item">📅 08 tháng 6, 2025</span>
+      <span class="meta-item">⏱ Đọc trong 12 phút</span>
+    </div>
+  </div>
+  <div class="hero-img">🏭</div>
+  <div class="art-body">
+    <h2 id="s1">1. Bối cảnh: Tại sao Việt Nam trở thành điểm đến hàng đầu?</h2>
+    <p>Khi căng thẳng địa chính trị Mỹ–Trung leo thang từ 2018, các tập đoàn đa quốc gia bắt đầu tìm kiếm giải pháp thay thế cho công xưởng thế giới. Việt Nam, với lợi thế chi phí lao động cạnh tranh, hiệp định thương mại tự do diện rộng và vị trí địa lý chiến lược, nổi lên như lựa chọn hàng đầu trong chiến lược "China+1".</p>
+    <p>Samsung, Intel, LG, và gần đây là Apple thông qua Foxconn và Luxshare — tất cả đều đã chuyển một phần đáng kể chuỗi cung ứng sang Việt Nam. Theo Tổng cục Thống kê, xuất khẩu điện tử chiếm 38% tổng kim ngạch xuất khẩu năm 2024, tăng từ mức 22% năm 2018.</p>
+    <div class="pullquote"><p>"Việt Nam không còn chỉ là nơi lắp ráp — chúng ta đang dần trở thành mắt xích không thể thiếu trong chuỗi giá trị toàn cầu."</p></div>
+    <h2 id="s2">2. Những điểm nghẽn cần giải quyết</h2>
+    <h3>2.1 Hạ tầng logistics</h3>
+    <p>Dù đầu tư công vào hạ tầng tăng mạnh, chi phí logistics của Việt Nam vẫn ở mức 16–17% GDP, cao hơn đáng kể so với mức 8–10% của các nền kinh tế phát triển. Hệ thống cảng biển, đặc biệt khu vực miền Bắc, đang chịu áp lực quá tải.</p>
+    <div class="infobox">
+      <div class="infobox-title">Số liệu quan trọng</div>
+      <ul>
+        <li>Chi phí logistics: 16–17% GDP (mục tiêu 2030: xuống 10%)</li>
+        <li>Thiếu hụt nhân lực kỹ thuật cao: ước tính 500.000 người đến 2030</li>
+        <li>Tỷ lệ nội địa hoá linh kiện điện tử: chỉ đạt 40% (mục tiêu 60%)</li>
+        <li>Chỉ số hiệu quả logistics (LPI): xếp hạng 39/160 quốc gia</li>
+      </ul>
+    </div>
+    <h3>2.2 Nguồn nhân lực chất lượng cao</h3>
+    <p>Đây là thách thức cốt lõi. Các tập đoàn công nghệ cần kỹ sư R&D, chuyên gia tự động hoá và quản lý chuỗi cung ứng — nhưng hệ thống giáo dục đại học Việt Nam chưa đáp ứng kịp. Nhiều tập đoàn lớn như Samsung đã phải tự đào tạo tại chỗ, tốn kém cả thời gian lẫn chi phí.</p>
+    <h2 id="s3">3. Triển vọng 2025–2030</h2>
+    <p>Theo dự báo của ADB và World Bank, tăng trưởng GDP Việt Nam sẽ duy trì ở mức 6–6,5% trong giai đoạn 2025–2030, đặt trong nhóm các nền kinh tế năng động nhất châu Á. Tuy nhiên, để tận dụng cơ hội từ làn sóng FDI và tránh "bẫy thu nhập trung bình", Việt Nam cần đồng thời cải thiện chất lượng thể chế, nâng cấp hạ tầng và đầu tư mạnh vào giáo dục nghề và STEM.</p>
+    <p>Chiến lược "Make in Vietnam" của Chính phủ, nếu được triển khai quyết liệt, có thể giúp tỷ lệ nội địa hoá của ngành điện tử tăng lên 60% vào 2030 — một cú nhảy vọt có ý nghĩa chiến lược.</p>
+    <div class="tags"><span class="tag">Kinh tế vĩ mô</span><span class="tag">FDI</span><span class="tag">Chuỗi cung ứng</span><span class="tag">Tăng trưởng</span><span class="tag">Công nghiệp</span></div>
+  </div>
+</article>
+<aside class="sidebar">
+  <div class="toc">
+    <div class="toc-title">Mục lục bài viết</div>
+    <a href="#s1">1. Bối cảnh tăng trưởng</a>
+    <a href="#s2">2. Những điểm nghẽn</a>
+    <a class="h3" href="#">2.1 Hạ tầng logistics</a>
+    <a class="h3" href="#">2.2 Nguồn nhân lực</a>
+    <a href="#s3">3. Triển vọng 2025–2030</a>
+  </div>
+</aside>
+</div>
+</div>
+</body></html>`
+
+const ARTICLE_RECIPE = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1c1c1c;background:#fffdf8;line-height:1.7}
+.c{max-width:780px;margin:0 auto;padding:0 24px}
+.hero-img{width:100%;height:360px;background:linear-gradient(135deg,#92400e,#d97706);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:100px;margin-bottom:28px}
+.cat{display:inline-block;background:#fef3c7;color:#92400e;border-radius:99px;padding:5px 14px;font-size:12px;font-weight:700;margin-bottom:14px}
+h1{font-size:clamp(26px,3.5vw,42px);font-weight:800;color:#1c1c1c;line-height:1.2;margin-bottom:14px}
+.deck{font-size:17px;color:#6b7280;line-height:1.7;margin-bottom:20px}
+.meta-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid #f3f4f6}
+.mi{display:flex;align-items:center;gap:6px;font-size:13px;color:#6b7280}
+.mi strong{color:#1c1c1c}
+.quick-info{background:#fff8ed;border:1px solid #fcd34d;border-radius:16px;padding:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:16px;margin-bottom:32px;text-align:center}
+.qi-n{font-size:24px;font-weight:900;color:#92400e;margin-bottom:2px}.qi-l{font-size:12px;color:#a16207;font-weight:600}
+.ingredients{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;margin-bottom:28px}
+.sec-title{font-size:14px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#92400e;margin-bottom:16px}
+.ing-group{margin-bottom:16px}.ing-group h3{font-size:14px;font-weight:700;color:#374151;margin-bottom:8px}
+.ing-list{list-style:none}
+.ing-list li{padding:7px 0;border-bottom:1px solid #f9fafb;font-size:15px;color:#374151;display:flex;justify-content:space-between}
+.ing-list li:last-child{border:none}.ing-amount{font-weight:700;color:#92400e}
+.steps{margin-bottom:28px}
+.step{display:flex;gap:18px;margin-bottom:24px;align-items:flex-start}
+.step-n{width:36px;height:36px;border-radius:50%;background:#d97706;color:#fff;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
+.step-body h3{font-size:16px;font-weight:700;color:#1c1c1c;margin-bottom:6px}
+.step-body p{font-size:15px;color:#4b5563;line-height:1.7}
+.tip-box{background:linear-gradient(135deg,#fef3c7,#fff8ed);border-left:4px solid #f59e0b;border-radius:0 12px 12px 0;padding:18px 22px;margin-bottom:28px}
+.tip-box strong{font-size:13px;color:#92400e;display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
+.tip-box p{font-size:14px;color:#78350f;line-height:1.6}
+.nutrition{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:20px 24px;margin-bottom:28px}
+.nut-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;margin-top:14px}
+.nut-item{text-align:center;background:#fff;border-radius:8px;padding:12px}
+.nut-n{font-size:20px;font-weight:900;color:#16a34a;margin-bottom:2px}.nut-l{font-size:11px;color:#6b7280;font-weight:600}
+.rating-box{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:20px 24px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.rb-score{font-size:52px;font-weight:900;color:#f59e0b}.rb-stars{font-size:20px;color:#f59e0b;margin-bottom:4px}
+.rb-count{font-size:13px;color:#9ca3af}
+</style></head>
+<body>
+<div style="padding:32px 0">
+<div class="c">
+  <div class="hero-img">🍜</div>
+  <span class="cat">🍳 Ẩm thực · Nấu ăn tại nhà</span>
+  <h1>Bún bò Huế chuẩn vị — Công thức gia truyền 3 đời</h1>
+  <p class="deck">Tô bún bò đúng điệu phải có nước dùng đậm đà, sả tươi thơm nức, thịt mềm tan — và cái bí quyết không phải ở nguyên liệu mà ở cách nêm nếm theo thứ tự đúng.</p>
+  <div class="meta-row">
+    <span class="mi">👩‍🍳 <strong>Bếp Bà Năm</strong></span>
+    <span class="mi">⏱ Chuẩn bị: <strong>30 phút</strong></span>
+    <span class="mi">🔥 Nấu: <strong>2 giờ</strong></span>
+    <span class="mi">🍽 Khẩu phần: <strong>6 người</strong></span>
+    <span class="mi">📊 Độ khó: <strong>Trung bình</strong></span>
+  </div>
+  <div class="quick-info">
+    <div><div class="qi-n">30'</div><div class="qi-l">Chuẩn bị</div></div>
+    <div><div class="qi-n">2h</div><div class="qi-l">Nấu nướng</div></div>
+    <div><div class="qi-n">6</div><div class="qi-l">Khẩu phần</div></div>
+    <div><div class="qi-n">4.9⭐</div><div class="qi-l">Đánh giá</div></div>
+  </div>
+  <div class="ingredients">
+    <div class="sec-title">Nguyên liệu</div>
+    <div class="ing-group">
+      <h3>Nước dùng</h3>
+      <ul class="ing-list">
+        <li>Xương ống heo <span class="ing-amount">1 kg</span></li>
+        <li>Bắp bò / nạm bò <span class="ing-amount">500 g</span></li>
+        <li>Sả tươi <span class="ing-amount">5 cây</span></li>
+        <li>Mắm ruốc Huế <span class="ing-amount">2 thìa canh</span></li>
+        <li>Ớt khô / ớt bột <span class="ing-amount">3 trái</span></li>
+        <li>Hành tím nướng <span class="ing-amount">4 củ</span></li>
+      </ul>
+    </div>
+    <div class="ing-group">
+      <h3>Thành phần ăn kèm</h3>
+      <ul class="ing-list">
+        <li>Bún tươi sợi to <span class="ing-amount">1 kg</span></li>
+        <li>Giò heo (khoanh) <span class="ing-amount">2 khoanh</span></li>
+        <li>Chả Huế / chả cua <span class="ing-amount">200 g</span></li>
+        <li>Rau sống (bắp chuối, rau muống) <span class="ing-amount">vừa đủ</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="steps">
+    <div class="sec-title">Các bước thực hiện</div>
+    <div class="step"><div class="step-n">1</div><div class="step-body"><h3>Chần xương và thịt</h3><p>Cho xương ống và bắp bò vào nồi nước sôi, chần 5 phút rồi đổ bỏ nước đầu. Rửa sạch xương dưới vòi nước lạnh để loại bỏ tạp chất, đảm bảo nước dùng trong và thơm.</p></div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-body"><h3>Nấu nước dùng</h3><p>Cho xương vào nồi 3 lít nước lạnh, đun sôi rồi hạ lửa nhỏ. Thêm sả đập dập, hành tím nướng. Hầm 1.5 giờ, liên tục vớt bọt để nước trong.</p></div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-body"><h3>Nêm mắm ruốc — bí quyết quan trọng nhất</h3><p>Hoà tan mắm ruốc với chút nước lọc, lọc qua rây rồi mới cho vào nồi. Không cho mắm ruốc thô thẳng vào nồi — đây là lý do nhiều người nấu bị tanh. Nêm thêm muối, đường phèn, bột ngọt theo khẩu vị.</p></div></div>
+    <div class="step"><div class="step-n">4</div><div class="step-body"><h3>Làm sa tế ớt</h3><p>Phi thơm sả băm và tỏi với dầu ăn, thêm ớt bột, đảo đều đến khi dầu chuyển màu đỏ đẹp. Sa tế là linh hồn của bún bò — làm riêng, không nấu chung với nước dùng.</p></div></div>
+    <div class="step"><div class="step-n">5</div><div class="step-body"><h3>Trình bày và thưởng thức</h3><p>Trụng bún vào nước sôi, xếp vào tô. Thêm thịt bò, giò heo, chả Huế. Chan nước dùng sôi, thêm sa tế theo sở thích. Ăn kèm rau sống và chanh tươi.</p></div></div>
+  </div>
+  <div class="tip-box"><strong>💡 Mẹo từ bếp trưởng</strong><p>Cho một ít cà chua xay nhuyễn vào nước dùng giúp màu đẹp tự nhiên hơn mà không cần phẩm màu. Nước dùng ngon nhất nếu nấu xong để qua đêm, hôm sau hâm lại — vị ngấm sâu hơn hẳn.</p></div>
+  <div class="nutrition">
+    <div class="sec-title">Thông tin dinh dưỡng (mỗi tô)</div>
+    <div class="nut-grid">
+      <div class="nut-item"><div class="nut-n">420</div><div class="nut-l">kcal</div></div>
+      <div class="nut-item"><div class="nut-n">32g</div><div class="nut-l">Protein</div></div>
+      <div class="nut-item"><div class="nut-n">48g</div><div class="nut-l">Carbs</div></div>
+      <div class="nut-item"><div class="nut-n">12g</div><div class="nut-l">Chất béo</div></div>
+    </div>
+  </div>
+  <div class="rating-box">
+    <div class="rb-score">4.9</div>
+    <div><div class="rb-stars">★★★★★</div><div class="rb-count">238 người đã thử công thức này</div></div>
+  </div>
+</div>
+</div>
+</body></html>`
+
+const ARTICLE_TRAVEL = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;background:#f8faff;line-height:1.7}
+.c{max-width:820px;margin:0 auto;padding:0 24px}
+.hero{width:100%;height:400px;background:linear-gradient(160deg,#0c4a6e,#0284c7);border-radius:0 0 24px 24px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:36px;margin-bottom:0;color:#fff;text-align:center;position:relative;overflow:hidden}
+.hero-emoji{font-size:80px;position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);opacity:.2}
+.hero-tag{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:5px 14px;font-size:12px;font-weight:700;margin-bottom:10px;position:relative}
+.hero h1{font-size:clamp(22px,3.5vw,38px);font-weight:900;line-height:1.2;position:relative}
+.quick-stats{background:#fff;border-radius:16px;padding:18px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.06);margin:0 0 28px}
+.qs-n{font-size:20px;font-weight:900;color:#0284c7;margin-bottom:2px}.qs-l{font-size:11px;color:#64748b;font-weight:600}
+.intro{font-size:17px;color:#374151;line-height:1.8;margin:24px 0 32px;padding-bottom:24px;border-bottom:2px solid #e2e8f0}
+.sec-label{font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#0284c7;margin-bottom:8px}
+.sec-title{font-size:clamp(20px,2.5vw,28px);font-weight:800;color:#0c4a6e;margin-bottom:16px}
+.day{background:#fff;border-radius:16px;padding:24px;margin-bottom:16px;border-left:4px solid #0284c7;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.day-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.day-n{background:#0284c7;color:#fff;border-radius:8px;padding:4px 12px;font-size:12px;font-weight:800}
+.day-title{font-size:17px;font-weight:700;color:#0c4a6e}
+.timeline{display:grid;gap:10px}
+.tl-item{display:flex;gap:14px;align-items:flex-start}
+.tl-time{font-size:12px;font-weight:700;color:#0284c7;white-space:nowrap;width:52px;flex-shrink:0;padding-top:2px}
+.tl-dot{width:8px;height:8px;border-radius:50%;background:#0284c7;margin-top:6px;flex-shrink:0}
+.tl-body h4{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:2px}
+.tl-body p{font-size:13px;color:#64748b;line-height:1.5}
+.tip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:24px 0}
+.tip-card{background:#fff;border-radius:12px;padding:18px;border:1px solid #e2e8f0}
+.tip-card h3{font-size:14px;font-weight:700;color:#0c4a6e;margin-bottom:6px}
+.tip-card p{font-size:13px;color:#64748b;line-height:1.5}
+.cost-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;margin:16px 0;font-size:14px}
+.cost-table th{background:#0c4a6e;color:#fff;padding:12px 16px;text-align:left;font-weight:700}
+.cost-table td{padding:11px 16px;border-bottom:1px solid #f1f5f9;color:#374151}
+.cost-table tr:last-child td{border:none;font-weight:700;color:#0c4a6e}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:24px 0;border-radius:12px;overflow:hidden}
+.gp{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:36px}
+.gp.a{background:linear-gradient(135deg,#bfdbfe,#93c5fd)}.gp.b{background:linear-gradient(135deg,#d1fae5,#6ee7b7)}.gp.c{background:linear-gradient(135deg,#fef3c7,#fcd34d)}.gp.d{background:linear-gradient(135deg,#fce7f3,#f9a8d4)}.gp.e{background:linear-gradient(135deg,#e0e7ff,#a5b4fc)}.gp.f{background:linear-gradient(135deg,#ccfbf1,#5eead4)}
+</style></head>
+<body>
+<div class="hero">
+  <div class="hero-emoji">🏝</div>
+  <div class="hero-tag">📍 Phú Quốc, Kiên Giang</div>
+  <h1>Cẩm nang Phú Quốc 4 ngày 3 đêm — Từ A đến Z cho người đi lần đầu</h1>
+</div>
+<div style="padding:28px 0">
+<div class="c">
+  <div class="quick-stats">
+    <div><div class="qs-n">4N3Đ</div><div class="qs-l">Thời gian</div></div>
+    <div><div class="qs-n">6–9tr</div><div class="qs-l">Ngân sách/người</div></div>
+    <div><div class="qs-n">11–4</div><div class="qs-l">Tháng đẹp nhất</div></div>
+    <div><div class="qs-n">⭐ 4.8</div><div class="qs-l">Đánh giá tuyến</div></div>
+  </div>
+  <p class="intro">Phú Quốc — "đảo ngọc" của Việt Nam — ngày càng trở thành điểm đến quốc tế với hạ tầng du lịch hoàn thiện. Nhưng để trải nghiệm đúng chất, bạn cần biết đâu là nơi xứng đáng với tiền bạc và thời gian. Cẩm nang này được cập nhật tháng 5/2025, dựa trên thực tế khám phá của biên tập viên du lịch.</p>
+  <div class="sec-label">Lịch trình chi tiết</div>
+  <div class="sec-title">4 ngày khám phá đảo ngọc</div>
+  <div class="day">
+    <div class="day-head"><span class="day-n">NGÀY 1</span><span class="day-title">Đến nơi · Bãi Sao · Chợ đêm</span></div>
+    <div class="timeline">
+      <div class="tl-item"><span class="tl-time">10:00</span><div class="tl-dot"></div><div class="tl-body"><h4>Đáp xuống sân bay Phú Quốc</h4><p>Thuê xe máy hoặc grab về khách sạn, nhận phòng sớm nếu được.</p></div></div>
+      <div class="tl-item"><span class="tl-time">13:00</span><div class="tl-dot"></div><div class="tl-body"><h4>Bãi Sao — bãi biển đẹp nhất đảo</h4><p>Cát trắng mịn, nước trong xanh. Đến trước 14h để có chỗ đẹp. Tránh nhà hàng sát bờ — leo lên đồi ăn cơm cá địa phương ngon hơn và rẻ hơn nhiều.</p></div></div>
+      <div class="tl-item"><span class="tl-time">19:00</span><div class="tl-dot"></div><div class="tl-body"><h4>Chợ đêm Phú Quốc</h4><p>Ăn hải sản tươi sống, thử bánh mì Phú Quốc, mua nước mắm về làm quà. Cò kéo nhiều — cứ đi thẳng và so giá trước khi ngồi.</p></div></div>
+    </div>
+  </div>
+  <div class="day">
+    <div class="day-head"><span class="day-n">NGÀY 2</span><span class="day-title">Snorkeling · Câu cá · Hoàng hôn</span></div>
+    <div class="timeline">
+      <div class="tl-item"><span class="tl-time">07:30</span><div class="tl-dot"></div><div class="tl-body"><h4>Tour lặn ngắm san hô 3 đảo</h4><p>Đặt trước 1 ngày, giá ~600K/người. Chọn tour nhỏ (dưới 20 người) để trải nghiệm tốt hơn. Mang kem chống nắng không chứa oxybenzone bảo vệ san hô.</p></div></div>
+      <div class="tl-item"><span class="tl-time">17:00</span><div class="tl-dot"></div><div class="tl-body"><h4>Xem hoàng hôn tại Mũi Ông Đội</h4><p>Hoàng hôn đẹp nhất đảo, leo bộ 20 phút từ bãi đỗ xe. Đi sớm để có chỗ ngồi đẹp nhất trên đỉnh đồi.</p></div></div>
+    </div>
+  </div>
+  <div class="sec-label">Chi phí tham khảo</div>
+  <div class="sec-title">Ngân sách 4N3Đ</div>
+  <table class="cost-table">
+    <tr><th>Hạng mục</th><th>Tiết kiệm</th><th>Thoải mái</th></tr>
+    <tr><td>Vé máy bay khứ hồi</td><td>1.800K</td><td>3.200K</td></tr>
+    <tr><td>Khách sạn (3 đêm)</td><td>900K</td><td>3.000K</td></tr>
+    <tr><td>Ăn uống</td><td>1.200K</td><td>2.500K</td></tr>
+    <tr><td>Tour & vui chơi</td><td>800K</td><td>2.000K</td></tr>
+    <tr><td>Di chuyển & phát sinh</td><td>400K</td><td>800K</td></tr>
+    <tr><td><strong>Tổng cộng/người</strong></td><td><strong>~5.1tr</strong></td><td><strong>~11.5tr</strong></td></tr>
+  </table>
+  <div class="sec-label">Kinh nghiệm</div>
+  <div class="sec-title">Những điều cần biết</div>
+  <div class="tip-grid">
+    <div class="tip-card"><h3>🛵 Di chuyển</h3><p>Thuê xe máy 150K/ngày, đi lại tự do nhất. Grab có nhưng đắt hơn nhiều so với xe tự lái.</p></div>
+    <div class="tip-card"><h3>🌦 Thời tiết</h3><p>Tháng 11–4 đẹp nhất. Tháng 5–10 có mưa lớn, sóng cao, nhiều tour hủy. Nên tránh.</p></div>
+    <div class="tip-card"><h3>🍽 Ăn gì?</h3><p>Ghẹ hấp, cua rang me, gỏi cá trích, bún quậy. Tránh quán ở mặt đường chính — leo vào hẻm sẽ ngon hơn và rẻ hơn.</p></div>
+    <div class="tip-card"><h3>💰 Tiết kiệm</h3><p>Mua combo vé Vinpearl Land trước online 20% rẻ hơn. Hải sản giá thị trường ở chợ Dương Đông rẻ hơn bờ biển 40%.</p></div>
+  </div>
+  <div class="gallery"><div class="gp a">🏝</div><div class="gp b">🐟</div><div class="gp c">🌅</div><div class="gp d">🍜</div><div class="gp e">🛵</div><div class="gp f">🌊</div></div>
+</div>
+</div>
+</body></html>`
+
+const ARTICLE_OPINION = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Georgia',serif;color:#111;background:#fafafa;line-height:1.85}
+.c{max-width:700px;margin:0 auto;padding:0 24px}
+.dateline{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#999;margin:40px 0 16px;font-family:'Segoe UI',sans-serif}
+.label{display:inline-block;background:#111;color:#fff;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;margin-bottom:14px;font-family:'Segoe UI',sans-serif}
+h1{font-size:clamp(28px,4vw,48px);font-weight:700;line-height:1.15;color:#111;margin-bottom:16px;letter-spacing:-.5px}
+.byline{display:flex;align-items:center;gap:12px;padding:16px 0;border-top:1px solid #222;border-bottom:1px solid #222;margin-bottom:28px;font-family:'Segoe UI',sans-serif}
+.by-av{width:40px;height:40px;border-radius:50%;background:#111;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0}
+.by-name{font-size:14px;font-weight:700;color:#111}.by-role{font-size:12px;color:#777}
+.by-sep{flex:1}.by-date{font-size:13px;color:#777}
+.lede{font-size:20px;color:#111;line-height:1.65;font-weight:400;margin-bottom:28px;font-style:italic;border-left:3px solid #111;padding-left:20px}
+.art-body p{font-size:17px;color:#222;line-height:1.85;margin-bottom:22px}
+.art-body strong{color:#111}
+.art-body h2{font-size:22px;font-weight:700;color:#111;margin:36px 0 14px;letter-spacing:-.3px}
+.pullquote{text-align:center;padding:36px 0;margin:36px 0;border-top:2px solid #111;border-bottom:2px solid #111}
+.pullquote p{font-size:clamp(18px,2.5vw,26px);font-style:italic;line-height:1.4;color:#111}
+.pullquote cite{display:block;font-size:13px;color:#777;margin-top:12px;font-style:normal;font-family:'Segoe UI',sans-serif}
+.counterpoint{background:#f4f4f4;border-radius:4px;padding:24px;margin:28px 0}
+.cp-label{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#777;margin-bottom:12px;font-family:'Segoe UI',sans-serif}
+.cp-text{font-size:15px;color:#444;line-height:1.7}
+.conclusion{border-top:3px double #111;margin-top:36px;padding-top:24px}
+.conclusion p{font-size:17px;line-height:1.85;color:#222;margin-bottom:18px}
+.author-card{background:#fff;border:1px solid #e5e5e5;border-radius:4px;padding:24px;display:flex;gap:18px;align-items:flex-start;margin-top:36px;font-family:'Segoe UI',sans-serif}
+.ac-av{width:64px;height:64px;border-radius:50%;background:#111;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;flex-shrink:0}
+.ac-name{font-size:16px;font-weight:700;color:#111;margin-bottom:4px}.ac-role{font-size:13px;color:#777;margin-bottom:8px}
+.ac-bio{font-size:13px;color:#555;line-height:1.6}
+</style></head>
+<body>
+<div style="padding:32px 0">
+<div class="c">
+  <div class="dateline">Thứ Hai, 8 tháng 6 năm 2025</div>
+  <span class="label">Bình luận</span>
+  <h1>AI không lấy đi việc làm của bạn — chính bạn đang từ bỏ nó</h1>
+  <div class="byline">
+    <div class="by-av">✍</div>
+    <div><div class="by-name">Lê Trung Kiên</div><div class="by-role">Chuyên gia Công nghệ & Xã hội</div></div>
+    <div class="by-sep"></div>
+    <div class="by-date">8 tháng 6, 2025 · 7 phút đọc</div>
+  </div>
+  <p class="lede">Trong mỗi cuộc cách mạng công nghiệp, những người mất việc không phải vì máy móc quá giỏi — mà vì họ từ chối học cách làm việc cùng máy móc.</p>
+  <div class="art-body">
+    <p>Cứ vài tuần lại có một tiêu đề giật gân về "AI sẽ xoá sổ X triệu việc làm vào năm 2030". Và cứ mỗi lần như vậy, một làn sóng lo lắng lan rộng trong giới văn phòng, kế toán, luật sư, nhà báo — những người vốn nghĩ mình được bảo vệ bởi "kỹ năng tri thức".</p>
+    <p>Nhưng có một sự thật mà các bản báo cáo đó không nói thẳng: <strong>AI không hoạt động một mình. Nó luôn cần người biết hướng dẫn nó.</strong></p>
+    <h2>Khoảng cách không phải về năng lực — mà về tư duy</h2>
+    <p>Nhìn vào những người đang thực sự bị đe doạ bởi AI, bạn sẽ thấy một mẫu số chung: họ làm công việc lặp lại, theo quy trình cố định, không đòi hỏi phán đoán hay bối cảnh. Không phải vì họ kém thông minh — mà vì công việc của họ được thiết kế để không cần thông minh.</p>
+    <p>Ngược lại, những người AI đang <em>giải phóng</em> — chứ không thay thế — là những người dùng nó như một cộng sự đắc lực: nhà báo dùng AI tổng hợp dữ liệu để tập trung viết phần phân tích; luật sư dùng AI rà soát hợp đồng để dành thời gian cho chiến lược tố tụng; thiết kế sư dùng AI tạo 50 phác thảo trong 10 phút để tinh chỉnh ý tưởng tốt nhất.</p>
+    <div class="pullquote"><p>"Không phải AI vs con người. Đó là con người dùng AI vs con người không dùng AI."</p><cite>— Từ một cuộc hội thảo về tương lai lao động, 2024</cite></div>
+    <h2>Phản biện: Nhưng không phải ai cũng có điều kiện học?</h2>
+    <div class="counterpoint">
+      <div class="cp-label">Luận điểm đối lập</div>
+      <p class="cp-text">Nhiều người lập luận rằng khoảng cách số (digital divide) khiến việc học AI trở nên bất bình đẳng — người có điều kiện và giáo dục tốt sẽ thích nghi nhanh hơn, bỏ xa những người thu nhập thấp. Đây là một lo ngại có cơ sở và không nên bác bỏ.</p>
+    </div>
+    <p>Luận điểm này có giá trị — nhưng chỉ để biện hộ cho chính sách đào tạo công cộng, không phải để ngồi chờ. Thực tế: ChatGPT miễn phí, Claude miễn phí, Gemini miễn phí. Cái cần không phải tiền mà là <strong>ý chí và sự tò mò</strong>.</p>
+  </div>
+  <div class="conclusion">
+    <p>Cách mạng AI không hỏi bạn có sẵn sàng hay không. Nó đang diễn ra. Và thay vì tranh luận về việc liệu AI có lấy việc của bạn không, câu hỏi thiết thực hơn là: <strong>Bạn đang học gì ngày hôm nay?</strong></p>
+    <p>Không ai hứa hẹn quá trình này dễ dàng. Nhưng lịch sử không một lần nào thưởng cho người đứng nhìn.</p>
+  </div>
+  <div class="author-card">
+    <div class="ac-av">👤</div>
+    <div><div class="ac-name">Lê Trung Kiên</div><div class="ac-role">Chuyên gia Công nghệ & Xã hội · Cố vấn chuyển đổi số</div><div class="ac-bio">15 năm nghiên cứu tác động công nghệ đến thị trường lao động. Cựu thành viên nhóm tư vấn chính sách AI của Bộ KH&CN. Tác giả cuốn "Máy làm gì trong khi bạn ngủ?"</div></div>
+  </div>
+</div>
+</div>
+</body></html>`
+
+const ARTICLE_MARKET = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;background:#f8fafc;line-height:1.6}
+.c{max-width:900px;margin:0 auto;padding:0 24px}
+.report-header{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:#fff;padding:48px 24px;margin-bottom:0}
+.rh-inner{max-width:900px;margin:0 auto}
+.rh-tag{display:inline-block;background:rgba(34,197,94,.2);border:1px solid rgba(34,197,94,.4);color:#4ade80;border-radius:4px;padding:5px 12px;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:14px}
+.rh-title{font-size:clamp(24px,3.5vw,44px);font-weight:900;line-height:1.15;letter-spacing:-1px;margin-bottom:12px}
+.rh-sub{font-size:16px;color:rgba(255,255,255,.65);margin-bottom:24px;max-width:600px;line-height:1.6}
+.rh-meta{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.5)}
+.kpi-row{background:#fff;padding:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;border-bottom:2px solid #f1f5f9}
+.kpi{padding:16px 20px;border-right:1px solid #f1f5f9;text-align:center}
+.kpi:last-child{border:none}
+.kpi-n{font-size:28px;font-weight:900;margin-bottom:4px}
+.kpi-n.up{color:#16a34a}.kpi-n.down{color:#dc2626}.kpi-n.neu{color:#2563eb}
+.kpi-l{font-size:11px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.kpi-chg{font-size:12px;font-weight:700;margin-top:4px}
+.kpi-chg.up{color:#16a34a}.kpi-chg.down{color:#dc2626}
+.body{padding:32px 24px}
+.sec-label{font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#22c55e;margin-bottom:8px}
+.sec-title{font-size:clamp(18px,2.5vw,28px);font-weight:900;color:#0f172a;margin-bottom:14px;letter-spacing:-.5px}
+.sec-body{font-size:15px;color:#374151;line-height:1.8;margin-bottom:24px}
+.chart-placeholder{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:24px;margin-bottom:24px}
+.chart-title{font-size:13px;font-weight:700;color:#1e293b;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.chart-note{font-size:11px;color:#94a3b8}
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:160px;padding-bottom:8px;border-bottom:2px solid #e2e8f0}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+.bar{width:100%;border-radius:4px 4px 0 0;transition:height .3s}
+.bar.g{background:linear-gradient(to top,#16a34a,#4ade80)}
+.bar.b{background:linear-gradient(to top,#2563eb,#60a5fa)}
+.bar-label{font-size:10px;color:#64748b;text-align:center}
+.bar-val{font-size:11px;font-weight:700;color:#1e293b}
+.data-table{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border-radius:12px;overflow:hidden;margin-bottom:24px}
+.data-table th{background:#0f2027;color:#fff;padding:12px 16px;text-align:left;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+.data-table td{padding:12px 16px;border-bottom:1px solid #f1f5f9}
+.data-table tr:hover td{background:#f8fafc}
+.td-up{color:#16a34a;font-weight:700}.td-down{color:#dc2626;font-weight:700}
+.outlook{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0;border-radius:12px;padding:24px;margin-bottom:24px}
+.outlook-title{font-size:14px;font-weight:800;color:#15803d;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.outlook-items{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.outlook-items{grid-template-columns:1fr}}
+.oi{background:#fff;border-radius:8px;padding:14px}
+.oi-head{font-size:13px;font-weight:700;color:#15803d;margin-bottom:4px}.oi-body{font-size:13px;color:#374151;line-height:1.5}
+.risk{background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:24px}
+.risk-title{font-size:14px;font-weight:800;color:#dc2626;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.risk-list{list-style:none}
+.risk-list li{padding:8px 0;border-bottom:1px solid #fee2e2;font-size:14px;color:#374151;display:flex;gap:8px}
+.risk-list li:last-child{border:none}
+.risk-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap}
+.rb-high{background:#fee2e2;color:#dc2626}.rb-med{background:#fef3c7;color:#d97706}
+</style></head>
+<body>
+<div class="report-header">
+  <div class="rh-inner">
+    <span class="rh-tag">📊 BÁO CÁO PHÂN TÍCH THỊ TRƯỜNG</span>
+    <div class="rh-title">Thị trường bất động sản Việt Nam<br>Quý 2/2025 — Phân tích & Dự báo</div>
+    <p class="rh-sub">Phân tích toàn diện về xu hướng giá, thanh khoản và dòng tiền trong phân khúc nhà ở và bất động sản công nghiệp tại 5 thành phố lớn.</p>
+    <div class="rh-meta"><span>📅 Phát hành: Tháng 6/2025</span><span>🏢 Bộ phận Research — VNPropAdvisory</span><span>📑 Cập nhật hàng quý</span></div>
+  </div>
+</div>
+<div class="kpi-row c">
+  <div class="kpi"><div class="kpi-n up">+8.4%</div><div class="kpi-l">Giá nhà ở TP.HCM</div><div class="kpi-chg up">↑ so Q1/2025</div></div>
+  <div class="kpi"><div class="kpi-n up">+12.1%</div><div class="kpi-l">BĐS công nghiệp</div><div class="kpi-chg up">↑ Cao nhất 3 năm</div></div>
+  <div class="kpi"><div class="kpi-n down">−22%</div><div class="kpi-l">Giao dịch căn hộ</div><div class="kpi-chg down">↓ Thanh khoản thấp</div></div>
+  <div class="kpi"><div class="kpi-n neu">7.2%</div><div class="kpi-l">Lãi suất cho vay</div><div class="kpi-chg up">↓ Giảm 0.5%</div></div>
+</div>
+<div class="body c">
+  <div class="sec-label">Tổng quan</div>
+  <div class="sec-title">Thị trường phân hoá mạnh theo phân khúc</div>
+  <p class="sec-body">Quý 2/2025 chứng kiến sự phân hoá rõ rệt: trong khi BĐS công nghiệp và logistics tiếp tục lập đỉnh nhờ dòng FDI mạnh, phân khúc căn hộ trung-cao cấp tại TP.HCM và Hà Nội tiếp tục trầm lắng do thanh khoản thấp và áp lực lãi vay. Giá đất nền vùng ven đang phục hồi nhẹ sau giai đoạn đông lạnh kéo dài 18 tháng.</p>
+  <div class="chart-placeholder">
+    <div class="chart-title">Tăng trưởng giá theo phân khúc (YoY, %)<span class="chart-note">Nguồn: VNPropAdvisory Research</span></div>
+    <div class="bar-chart">
+      <div class="bar-wrap"><div class="bar-val">+12%</div><div class="bar g" style="height:100%"></div><div class="bar-label">BĐS CN</div></div>
+      <div class="bar-wrap"><div class="bar-val">+8.4%</div><div class="bar g" style="height:70%"></div><div class="bar-label">Nhà phố HCM</div></div>
+      <div class="bar-wrap"><div class="bar-val">+6.2%</div><div class="bar b" style="height:52%"></div><div class="bar-label">Nhà phố HN</div></div>
+      <div class="bar-wrap"><div class="bar-val">+4.1%</div><div class="bar b" style="height:34%"></div><div class="bar-label">Đất nền</div></div>
+      <div class="bar-wrap"><div class="bar-val">+1.8%</div><div class="bar b" style="height:15%"></div><div class="bar-label">Căn hộ CC</div></div>
+    </div>
+  </div>
+  <table class="data-table">
+    <tr><th>Thị trường</th><th>Phân khúc</th><th>Giá TB (triệu/m²)</th><th>Thay đổi QoQ</th><th>Thanh khoản</th></tr>
+    <tr><td>TP.HCM Q1–Q3</td><td>Căn hộ cao cấp</td><td>95–150</td><td class="td-up">+2.1%</td><td>Thấp</td></tr>
+    <tr><td>TP.HCM Q7–Q9</td><td>Nhà phố</td><td>180–350</td><td class="td-up">+3.8%</td><td>Trung bình</td></tr>
+    <tr><td>Hà Nội Hoàng Mai</td><td>Chung cư</td><td>45–65</td><td class="td-up">+5.2%</td><td>Khá tốt</td></tr>
+    <tr><td>Bình Dương</td><td>BĐS công nghiệp</td><td>240–400</td><td class="td-up">+10.5%</td><td>Rất cao</td></tr>
+    <tr><td>Long An</td><td>Đất nền khu CN</td><td>15–25</td><td class="td-up">+7.3%</td><td>Cao</td></tr>
+  </table>
+  <div class="outlook">
+    <div class="outlook-title">🔭 Dự báo Q3/2025</div>
+    <div class="outlook-items">
+      <div class="oi"><div class="oi-head">BĐS Công nghiệp</div><div class="oi-body">Tiếp tục tăng 8–12% nhờ FDI từ Hàn Quốc, Nhật Bản. Thiếu cung trầm trọng tại Bình Dương, Long An.</div></div>
+      <div class="oi"><div class="oi-head">Căn hộ trung cấp</div><div class="oi-body">Phục hồi nhẹ khi lãi vay giảm về 7%. Phân khúc dưới 3 tỷ/căn có thanh khoản tốt nhất.</div></div>
+      <div class="oi"><div class="oi-head">Nhà phố TP.HCM</div><div class="oi-body">Đi ngang đến cuối năm. Mặt tiền tuyến 1 vẫn giữ giá, hẻm rộng có thể điều chỉnh nhẹ.</div></div>
+      <div class="oi"><div class="oi-head">Đất nền vùng ven</div><div class="oi-body">Phục hồi chậm, phụ thuộc hạ tầng giao thông. Không có câu chuyện đầu cơ như 2021.</div></div>
+    </div>
+  </div>
+  <div class="risk">
+    <div class="risk-title">⚠ Rủi ro cần theo dõi</div>
+    <ul class="risk-list">
+      <li><span class="risk-badge rb-high">Cao</span>Lãi suất thế giới tăng trở lại gây áp lực lên dòng vốn FDI và thanh khoản tín dụng bất động sản.</li>
+      <li><span class="risk-badge rb-high">Cao</span>Siết tín dụng vào BĐS tiếp tục — tỷ lệ cho vay BĐS/tổng dư nợ cần duy trì dưới 20%.</li>
+      <li><span class="risk-badge rb-med">Vừa</span>Chậm giải ngân hạ tầng công ảnh hưởng đến kết nối vùng ven, làm trì hoãn hồi phục đất nền.</li>
+      <li><span class="risk-badge rb-med">Vừa</span>Pháp lý dự án chưa hoàn thiện — nhiều dự án lớn vẫn chờ cấp phép từ 2022.</li>
+    </ul>
+  </div>
+</div>
+</body></html>`
+
+const ARTICLE_STARTUP = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;background:#fff;line-height:1.7}
+.c{max-width:820px;margin:0 auto;padding:0 24px}
+.cover{background:linear-gradient(135deg,#1c1c1c,#f97316);padding:64px 24px;color:#fff;text-align:center}
+.cover-tag{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:6px 16px;font-size:12px;font-weight:700;margin-bottom:18px}
+.cover h1{font-size:clamp(28px,4vw,52px);font-weight:900;line-height:1.1;letter-spacing:-1.5px;margin-bottom:14px}
+.cover p{font-size:17px;color:rgba(255,255,255,.8);max-width:540px;margin:0 auto 24px;line-height:1.6}
+.cover-meta{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.6)}
+.intro-block{background:#fff;padding:36px 24px;border-bottom:2px solid #f1f5f9}
+.intro-block p{font-size:17px;color:#374151;line-height:1.85;max-width:820px;margin:0 auto}
+.timeline-section{padding:48px 24px;background:#fafafa}
+.sec-label{font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#f97316;margin-bottom:8px}
+.sec-title{font-size:clamp(22px,3vw,34px);font-weight:900;color:#1e293b;margin-bottom:32px;letter-spacing:-.5px}
+.tl{position:relative;padding-left:36px}
+.tl::before{content:'';position:absolute;left:11px;top:0;bottom:0;width:2px;background:#f1f5f9}
+.tl-item{position:relative;margin-bottom:36px}
+.tl-dot{position:absolute;left:-31px;top:5px;width:22px;height:22px;border-radius:50%;background:#f97316;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;border:3px solid #fff;box-shadow:0 0 0 2px #f97316}
+.tl-year{font-size:11px;font-weight:800;letter-spacing:1px;color:#f97316;margin-bottom:6px}
+.tl-item h3{font-size:18px;font-weight:800;color:#0f172a;margin-bottom:6px}
+.tl-item p{font-size:15px;color:#475569;line-height:1.7}
+.tl-metrics{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.tm{background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:5px 12px;font-size:13px;font-weight:700;color:#c2410c}
+.tl-quote{background:#fff7ed;border-left:3px solid #f97316;padding:14px 18px;margin-top:14px;border-radius:0 8px 8px 0;font-size:14px;font-style:italic;color:#92400e;line-height:1.6}
+.lessons{padding:48px 24px;background:#fff}
+.lesson-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:24px}
+.lesson-card{background:#f8fafc;border-radius:12px;padding:22px;border-top:3px solid #f97316}
+.lesson-n{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#f97316;margin-bottom:8px}
+.lesson-card h3{font-size:16px;font-weight:700;color:#0f172a;margin-bottom:8px}
+.lesson-card p{font-size:14px;color:#475569;line-height:1.6}
+.cta-block{background:linear-gradient(135deg,#0f172a,#1e293b);padding:48px 24px;text-align:center;color:#fff}
+.cta-block h2{font-size:clamp(22px,3.5vw,38px);font-weight:900;letter-spacing:-1px;margin-bottom:12px}
+.cta-block p{font-size:16px;color:#64748b;max-width:480px;margin:0 auto 24px}
+.cta-btn{display:inline-block;background:#f97316;color:#fff;padding:13px 30px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:800}
+</style></head>
+<body>
+<div class="cover">
+  <span class="cover-tag">🚀 Câu Chuyện Startup</span>
+  <h1>Từ 0 đến 2 triệu người dùng trong 3 năm — Hành trình của FastPay Vietnam</h1>
+  <p>Không có văn phòng, không có nhà đầu tư ban đầu, chỉ có 3 nhà sáng lập và một bài toán rất thực: người Việt giao dịch tiền mặt quá nhiều.</p>
+  <div class="cover-meta"><span>✍ Phỏng vấn độc quyền</span><span>📅 Tháng 5/2025</span><span>⏱ 10 phút đọc</span></div>
+</div>
+<div class="intro-block"><p>Năm 2019, Nguyễn Thành Đạt, Lê Minh Phúc và Trần Thu Hà gặp nhau tại một hackathon ở Hà Nội. Họ không biết rằng 36 giờ làm việc liên tục sẽ đặt nền móng cho một trong những startup fintech phát triển nhanh nhất Đông Nam Á. Đây là câu chuyện của họ — không có phần nào được tô vẽ.</p></div>
+<section class="timeline-section c">
+  <div class="sec-label">Hành trình</div>
+  <div class="sec-title">Dòng thời gian FastPay</div>
+  <div class="tl">
+    <div class="tl-item"><div class="tl-dot">1</div><div class="tl-year">T11/2019</div><h3>Ngày đầu: Hackathon và cái bắt tay định mệnh</h3><p>Ba kỹ sư cùng xây prototype ứng dụng thanh toán P2P trong 36 giờ. Không ai nghĩ sẽ thật sự startup — cho đến khi họ đứng nhất và được trao 50 triệu tiền thưởng.</p><div class="tl-metrics"><span class="tm">3 nhà sáng lập</span><span class="tm">36 giờ code</span><span class="tm">50tr tiền thưởng</span></div><div class="tl-quote">"Chúng tôi không có kế hoạch khởi nghiệp. Chúng tôi chỉ thấy một bài toán thú vị." — Nguyễn Thành Đạt, CEO</div></div>
+    <div class="tl-item"><div class="tl-dot">2</div><div class="tl-year">Q1/2020</div><h3>6 tháng tự bỏ tiền túi — và gần như bỏ cuộc</h3><p>MVP ra mắt tháng 3/2020, đúng lúc COVID-19 bùng phát. Nghịch lý: lockdown lại là cú hích. Người dùng buộc phải chuyển sang thanh toán online. FastPay tăng 300% người dùng trong tháng 4.</p><div class="tl-metrics"><span class="tm">1.200 người dùng đầu tiên</span><span class="tm">+300% trong tháng 4</span></div></div>
+    <div class="tl-item"><div class="tl-dot">3</div><div class="tl-year">T9/2020</div><h3>Seed round $800K — Hành trình 47 email từ chối</h3><p>Mất 8 tháng và 47 lần pitch thất bại trước khi một quỹ Singapore nhìn ra tiềm năng. Đạt chia sẻ: "Email từ chối thứ 47 đến lúc 2 giờ sáng. Email thứ 48 vào sáng hôm sau là lời đồng ý đầu tiên."</p><div class="tl-metrics"><span class="tm">$800K seed</span><span class="tm">47 lần từ chối trước đó</span></div></div>
+    <div class="tl-item"><div class="tl-dot">4</div><div class="tl-year">2021–2022</div><h3>Tăng trưởng x10 — Và bài học đau đớn về scale</h3><p>Từ 50.000 lên 500.000 người dùng trong 12 tháng. Nhưng hạ tầng không theo kịp — 3 lần sập server trong một tháng khiến công ty suýt mất tất cả. Đây là giai đoạn đau đớn nhất nhưng cũng học được nhiều nhất.</p><div class="tl-metrics"><span class="tm">500K người dùng</span><span class="tm">Series A $5M</span><span class="tm">3 lần sập server</span></div></div>
+    <div class="tl-item"><div class="tl-dot">5</div><div class="tl-year">2024</div><h3>2 triệu người dùng — và mắt nhìn ra Đông Nam Á</h3><p>FastPay đạt 2 triệu người dùng hoạt động, xử lý 15 triệu giao dịch/tháng với tổng giá trị $180 triệu. Series B $18M từ quỹ Mỹ, chuẩn bị bước vào thị trường Indonesia và Thái Lan.</p><div class="tl-metrics"><span class="tm">2M người dùng</span><span class="tm">$18M Series B</span><span class="tm">Mở rộng SEA</span></div></div>
+  </div>
+</section>
+<section class="lessons c">
+  <div class="sec-label">Bài học</div>
+  <div class="sec-title">5 điều FastPay học được</div>
+  <div class="lesson-grid">
+    <div class="lesson-card"><div class="lesson-n">01</div><h3>Timing quan trọng hơn ý tưởng</h3><p>COVID không phải kế hoạch — nhưng nó đúng lúc. Timing thị trường chiếm 40% thành công của một startup.</p></div>
+    <div class="lesson-card"><div class="lesson-n">02</div><h3>Từ chối là bộ lọc, không phải phán xét</h3><p>47 "không" trước khi có "có" đầu tiên. Mỗi lần từ chối là phản hồi miễn phí — nếu bạn đủ khiêm tốn để lắng nghe.</p></div>
+    <div class="lesson-card"><div class="lesson-n">03</div><h3>Scale hạ tầng trước khi scale marketing</h3><p>Bài học đắt giá nhất: mất 3 tháng rebuild backend khi đang ở đỉnh tăng trưởng. Đừng scale người dùng nhanh hơn khả năng phục vụ.</p></div>
+    <div class="lesson-card"><div class="lesson-n">04</div><h3>Đội ngũ sáng lập phải bổ sung nhau</h3><p>CEO (vision), CTO (tech), COO (ops) — 3 góc nhìn khác nhau, 1 mục tiêu chung. Đồng thuận không có nghĩa là đồng ý tất cả.</p></div>
+  </div>
+</section>
+<div class="cta-block">
+  <h2>Bạn cũng đang xây dựng một startup?</h2>
+  <p>Đọc thêm các câu chuyện founder Việt và tài nguyên miễn phí cho early-stage startup.</p>
+  <a href="#" class="cta-btn">Đọc thêm câu chuyện startup →</a>
+</div>
+</body></html>`
+
+const ARTICLE_PRODUCT_LAUNCH = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;background:#08080f;line-height:1.6}
+.c{max-width:900px;margin:0 auto;padding:0 24px}
+.hero{background:linear-gradient(160deg,#0f0f1a,#1a1a3e);padding:96px 24px;text-align:center;position:relative;overflow:hidden}
+.glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(99,102,241,.15),transparent 70%);pointer-events:none}
+.pre-tag{display:inline-block;background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.4);color:#a5b4fc;border-radius:99px;padding:7px 18px;font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:24px;position:relative}
+h1{font-size:clamp(32px,5vw,68px);font-weight:900;line-height:1.05;letter-spacing:-2px;color:#f1f5f9;margin-bottom:18px;position:relative}
+h1 span{background:linear-gradient(135deg,#6366f1,#8b5cf6,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:18px;color:#64748b;max-width:540px;margin:0 auto 36px;line-height:1.65;position:relative}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+.hb-p{background:#6366f1;color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-size:15px;font-weight:800;box-shadow:0 0 32px rgba(99,102,241,.35)}
+.hb-s{background:rgba(255,255,255,.06);color:#e2e8f0;padding:14px 32px;border-radius:10px;text-decoration:none;font-size:15px;font-weight:600;border:1px solid rgba(255,255,255,.1)}
+.features{padding:80px 24px;background:#0d0d1a}
+.sl{font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#6366f1;margin-bottom:10px}
+.st{font-size:clamp(24px,3vw,40px);font-weight:900;color:#f1f5f9;margin-bottom:12px;letter-spacing:-.5px}
+.st-sub{font-size:16px;color:#475569;margin-bottom:36px;max-width:520px}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.feat{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:26px;transition:all .3s}
+.feat:hover{border-color:rgba(99,102,241,.4);background:rgba(99,102,241,.05)}
+.feat-i{font-size:32px;margin-bottom:14px}
+.feat h3{font-size:17px;font-weight:700;color:#f1f5f9;margin-bottom:8px}
+.feat p{font-size:14px;color:#64748b;line-height:1.65}
+.feat-badge{display:inline-block;background:rgba(99,102,241,.2);color:#a5b4fc;border-radius:99px;padding:3px 10px;font-size:11px;font-weight:700;margin-top:10px}
+.specs{padding:72px 24px;background:#0a0a14}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;margin-top:32px}
+@media(max-width:640px){.spec-grid{grid-template-columns:1fr}}
+.spec-list{list-style:none}
+.spec-item{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:14px}
+.spec-key{color:#64748b}.spec-val{color:#f1f5f9;font-weight:600;text-align:right}
+.spec-highlight{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:24px}
+.sh-n{font-size:42px;font-weight:900;background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.sh-l{font-size:13px;color:#64748b;margin-bottom:16px}
+.sh-list{font-size:13px;color:#94a3b8;line-height:2.2}
+.pricing{padding:72px 24px;background:#0d0d1a}
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:36px}
+.pc{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px}
+.pc.pop{background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(139,92,246,.1));border-color:rgba(99,102,241,.4)}
+.pc-name{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;margin-bottom:12px}
+.pc.pop .pc-name{color:#a5b4fc}
+.pc-p{font-size:38px;font-weight:900;color:#f1f5f9;margin-bottom:4px}
+.pc-per{font-size:13px;color:#475569;margin-bottom:20px}
+.pc-btn{display:block;padding:12px;border-radius:99px;text-align:center;font-weight:700;font-size:14px;text-decoration:none;margin-bottom:20px;background:rgba(255,255,255,.07);color:#f1f5f9}
+.pc.pop .pc-btn{background:#6366f1;color:#fff}
+.pc-feats{font-size:13px;color:#475569;line-height:2.2}
+.pc.pop .pc-feats{color:#94a3b8}
+.cta{background:linear-gradient(135deg,#4338ca,#6366f1);padding:72px 24px;text-align:center}
+.cta h2{font-size:clamp(26px,4vw,48px);font-weight:900;color:#fff;letter-spacing:-1.5px;margin-bottom:14px}
+.cta p{font-size:17px;color:rgba(255,255,255,.75);max-width:480px;margin:0 auto 28px}
+</style></head>
+<body>
+<div class="hero">
+  <div class="glow"></div>
+  <span class="pre-tag">✨ Ra mắt chính thức — Tháng 6/2025</span>
+  <h1>Giới thiệu <span>FlowAI 3.0</span> — Nền tảng tự động hoá nội dung thế hệ mới</h1>
+  <p class="hero-sub">Viết, chỉnh sửa và xuất bản nội dung đa kênh nhanh gấp 10 lần với AI được đào tạo chuyên biệt cho thị trường Việt Nam.</p>
+  <div class="hero-btns"><a href="#" class="hb-p">🚀 Dùng thử miễn phí 14 ngày</a><a href="#" class="hb-s">Xem demo trực tiếp →</a></div>
+</div>
+<section class="features c">
+  <div class="sl">Tính năng mới</div>
+  <div class="st">FlowAI 3.0 mang đến điều gì?</div>
+  <p class="st-sub">Được thiết kế lại hoàn toàn dựa trên 50.000 phản hồi từ người dùng phiên bản 2.x.</p>
+  <div class="feat-grid">
+    <div class="feat"><div class="feat-i">🧠</div><h3>AI Multi-modal</h3><p>Nhận đầu vào từ văn bản, hình ảnh và URL — tự động tổng hợp thành nội dung bài viết, caption hay email marketing.</p><span class="feat-badge">Mới hoàn toàn</span></div>
+    <div class="feat"><div class="feat-i">⚡</div><h3>Real-time Collaboration</h3><p>Làm việc cùng đội nhóm trên cùng một tài liệu với AI assistant riêng cho từng người, không xung đột phiên bản.</p><span class="feat-badge">Nâng cấp lớn</span></div>
+    <div class="feat"><div class="feat-i">🎨</div><h3>Brand Voice AI</h3><p>Học phong cách viết từ nội dung hiện tại của bạn — mọi output đều nhất quán với giọng thương hiệu dù người dùng nào tạo ra.</p><span class="feat-badge">Độc quyền</span></div>
+    <div class="feat"><div class="feat-i">📊</div><h3>Performance Analytics</h3><p>Theo dõi hiệu quả từng nội dung, gợi ý tối ưu dựa trên dữ liệu thực tế từ kênh phân phối.</p><span class="feat-badge">Mới hoàn toàn</span></div>
+    <div class="feat"><div class="feat-i">🔗</div><h3>100+ Integrations</h3><p>Kết nối trực tiếp với WordPress, Shopify, Facebook Ads, Google Docs, Slack và 95 nền tảng khác.</p></div>
+    <div class="feat"><div class="feat-i">🌏</div><h3>Vietnamese-first NLP</h3><p>Model ngôn ngữ được fine-tune riêng cho tiếng Việt — không còn lỗi dấu thanh hay cấu trúc câu kỳ lạ.</p><span class="feat-badge">Cải tiến mạnh</span></div>
+  </div>
+</section>
+<section class="pricing c">
+  <div class="sl">Bảng giá</div>
+  <div class="st">Giá ra mắt — Có hiệu lực đến 30/6/2025</div>
+  <div class="price-grid">
+    <div class="pc"><div class="pc-name">Starter</div><div class="pc-p">199K</div><div class="pc-per">/ tháng · 1 workspace</div><a href="#" class="pc-btn">Bắt đầu miễn phí</a><div class="pc-feats">✓ 50.000 từ/tháng<br>✓ 5 brand voices<br>✓ 20 integrations<br>✓ Email support</div></div>
+    <div class="pc pop"><div class="pc-name">Pro · Phổ biến nhất</div><div class="pc-p">499K</div><div class="pc-per">/ tháng · 5 workspaces</div><a href="#" class="pc-btn">Dùng thử 14 ngày</a><div class="pc-feats">✓ Không giới hạn từ<br>✓ Unlimited brand voices<br>✓ 100+ integrations<br>✓ Multi-modal AI<br>✓ Priority support</div></div>
+    <div class="pc"><div class="pc-name">Enterprise</div><div class="pc-p">Liên hệ</div><div class="pc-per">/ tháng · Không giới hạn</div><a href="#" class="pc-btn">Tư vấn ngay</a><div class="pc-feats">✓ Custom AI model<br>✓ SSO & SAML<br>✓ SLA 99.9%<br>✓ Dedicated CSM<br>✓ On-premise option</div></div>
+  </div>
+</section>
+<div class="cta">
+  <h2>Bắt đầu tạo nội dung thông minh hơn ngay hôm nay</h2>
+  <p>14 ngày dùng thử miễn phí, không cần thẻ tín dụng, không tự gia hạn.</p>
+  <div class="hero-btns"><a href="#" class="hb-p">Dùng thử miễn phí 14 ngày</a><a href="#" class="hb-s">Đặt lịch demo</a></div>
+</div>
+</body></html>`
+
+const ARTICLE_GUIDE = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;background:#f0fdf4;line-height:1.7}
+.c{max-width:820px;margin:0 auto;padding:0 24px}
+.hero{background:linear-gradient(135deg,#064e3b,#059669);padding:64px 24px;color:#fff;text-align:center}
+.hero-tag{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:6px 16px;font-size:12px;font-weight:700;margin-bottom:16px}
+.hero h1{font-size:clamp(26px,4vw,48px);font-weight:900;line-height:1.15;letter-spacing:-1px;margin-bottom:14px}
+.hero p{font-size:17px;color:rgba(255,255,255,.8);max-width:540px;margin:0 auto 24px;line-height:1.65}
+.hero-progress{background:rgba(255,255,255,.12);border-radius:12px;padding:20px 24px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:600px;margin:0 auto}
+.hp-step{background:rgba(255,255,255,.15);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;color:#fff}
+.body{padding:32px 24px}
+.module{background:#fff;border-radius:16px;margin-bottom:20px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.mod-head{background:linear-gradient(135deg,#059669,#34d399);padding:18px 24px;display:flex;align-items:center;gap:14px;cursor:pointer}
+.mod-n{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex-shrink:0}
+.mod-title{font-size:17px;font-weight:700;color:#fff;flex:1}
+.mod-time{font-size:12px;color:rgba(255,255,255,.75)}
+.mod-body{padding:24px}
+.step-list{list-style:none}
+.step-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #f1f5f9;align-items:flex-start}
+.step-item:last-child{border:none}
+.si-check{width:22px;height:22px;border-radius:50%;border:2px solid #059669;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.si-check.done{background:#059669;border-color:#059669;color:#fff;font-size:12px}
+.si-content h4{font-size:15px;font-weight:700;color:#1e293b;margin-bottom:4px}
+.si-content p{font-size:13px;color:#64748b;line-height:1.5}
+.si-badge{display:inline-block;background:#dcfce7;color:#15803d;border-radius:99px;padding:2px 8px;font-size:11px;font-weight:700;margin-top:6px}
+.tip-inline{background:#f0fdf4;border-left:3px solid #059669;padding:12px 16px;margin-top:10px;border-radius:0 8px 8px 0;font-size:13px;color:#065f46;line-height:1.5}
+.resource-box{background:#fff;border:1px solid #bbf7d0;border-radius:12px;padding:20px 24px;margin:24px 0}
+.rb-title{font-size:13px;font-weight:800;color:#059669;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.res-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.res-item{background:#f0fdf4;border-radius:8px;padding:10px 14px;font-size:13px;color:#064e3b;font-weight:600;display:flex;gap:8px;align-items:center}
+.quiz{background:linear-gradient(135deg,#064e3b,#065f46);border-radius:16px;padding:28px;margin:24px 0;color:#fff;text-align:center}
+.quiz h3{font-size:20px;font-weight:800;margin-bottom:8px}
+.quiz p{font-size:14px;color:rgba(255,255,255,.75);margin-bottom:18px}
+.quiz-btn{display:inline-block;background:#34d399;color:#064e3b;padding:11px 28px;border-radius:99px;text-decoration:none;font-size:14px;font-weight:800}
+.progress-bar{background:#d1fae5;border-radius:99px;height:8px;margin:0 0 20px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(to right,#059669,#34d399);border-radius:99px;width:35%}
+</style></head>
+<body>
+<div class="hero">
+  <span class="hero-tag">📘 Hướng Dẫn Người Mới</span>
+  <h1>Học Digital Marketing từ đầu — Lộ trình 30 ngày có kiểm chứng</h1>
+  <p>Từ zero đến có thể tự chạy chiến dịch quảng cáo đầu tiên, viết content thu hút và hiểu số liệu — không cần kinh nghiệm trước.</p>
+  <div class="hero-progress">
+    <span class="hp-step">Tuần 1: Nền tảng</span>
+    <span class="hp-step">Tuần 2: Nội dung</span>
+    <span class="hp-step">Tuần 3: Quảng cáo</span>
+    <span class="hp-step">Tuần 4: Phân tích</span>
+  </div>
+</div>
+<div class="body c">
+  <div class="progress-bar"><div class="progress-fill"></div></div>
+  <div style="font-size:13px;color:#64748b;margin-bottom:24px">Tiến độ của bạn: 35% hoàn thành · Còn lại ~19 ngày</div>
+  <div class="module">
+    <div class="mod-head"><div class="mod-n">1</div><div class="mod-title">Tuần 1: Hiểu bức tranh tổng thể Digital Marketing</div><span class="mod-time">✅ Hoàn thành</span></div>
+    <div class="mod-body">
+      <ul class="step-list">
+        <li class="step-item"><div class="si-check done">✓</div><div class="si-content"><h4>Digital Marketing là gì và tại sao quan trọng?</h4><p>Tổng quan về 6 kênh chính: SEO, SEM, Social Media, Email, Content, Affiliate. Hiểu Customer Journey.</p><span class="si-badge">Đã học</span></div></li>
+        <li class="step-item"><div class="si-check done">✓</div><div class="si-content"><h4>Phân tích đối thủ và thị trường</h4><p>Dùng SimilarWeb, Facebook Ad Library và Google Trends để research thị trường miễn phí.</p><span class="si-badge">Đã học</span></div></li>
+        <li class="step-item"><div class="si-check done">✓</div><div class="si-content"><h4>Xây dựng Buyer Persona</h4><p>Template tạo chân dung khách hàng chi tiết với 12 câu hỏi quan trọng nhất.</p><span class="si-badge">Đã học</span></div></li>
+      </ul>
+    </div>
+  </div>
+  <div class="module">
+    <div class="mod-head"><div class="mod-n">2</div><div class="mod-title">Tuần 2: Tạo nội dung thu hút</div><span class="mod-time">⏳ Đang học · 3/5 bài</span></div>
+    <div class="mod-body">
+      <ul class="step-list">
+        <li class="step-item"><div class="si-check done">✓</div><div class="si-content"><h4>Copywriting cơ bản: Công thức AIDA và PAS</h4><p>Học 2 công thức viết quảng cáo kinh điển, áp dụng ngay vào bài tập thực hành.</p></div></li>
+        <li class="step-item"><div class="si-check done">✓</div><div class="si-content"><h4>Viết caption Facebook / Instagram hiệu quả</h4><p>7 dạng caption phổ biến nhất, hook đầu tiên quan trọng như thế nào, CTA tối ưu.</p></div></li>
+        <li class="step-item"><div class="si-check"></div><div class="si-content"><h4>SEO cơ bản: Keyword Research cho người mới</h4><p>Dùng Google Keyword Planner và Ubersuggest miễn phí để tìm từ khoá tiềm năng.</p><div class="tip-inline">💡 Tip: Tập trung vào "long-tail keywords" — ít cạnh tranh hơn nhưng ý định mua cao hơn.</div></div></li>
+        <li class="step-item" style="opacity:.5"><div class="si-check"></div><div class="si-content"><h4>Tạo lịch đăng bài content calendar</h4><p>Template Google Sheet quản lý content 30 ngày, batch creation để tiết kiệm thời gian.</p></div></li>
+        <li class="step-item" style="opacity:.5"><div class="si-check"></div><div class="si-content"><h4>Thiết kế đơn giản với Canva</h4><p>20 template phổ biến nhất, nguyên tắc màu sắc và font chữ cho người không học thiết kế.</p></div></li>
+      </ul>
+    </div>
+  </div>
+  <div class="resource-box">
+    <div class="rb-title">📎 Tài nguyên tải về miễn phí</div>
+    <div class="res-list">
+      <div class="res-item">📄 Template Buyer Persona</div>
+      <div class="res-item">📊 Content Calendar 30 ngày</div>
+      <div class="res-item">📝 50 Hook Caption mạnh</div>
+      <div class="res-item">🎯 Checklist SEO On-page</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <h3>🧠 Kiểm tra kiến thức Tuần 2</h3>
+    <p>10 câu hỏi trắc nghiệm — Cần đạt 80% để mở khoá Tuần 3</p>
+    <a href="#" class="quiz-btn">Bắt đầu quiz →</a>
+  </div>
+</div>
+</body></html>`
+
+const ARTICLE_FAQ = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;background:#faf5ff;line-height:1.7}
+.c{max-width:820px;margin:0 auto;padding:0 24px}
+.hero{background:linear-gradient(135deg,#4f46e5,#7c3aed);padding:56px 24px;text-align:center;color:#fff}
+.hero-tag{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:6px 14px;font-size:12px;font-weight:700;margin-bottom:14px}
+.hero h1{font-size:clamp(24px,4vw,44px);font-weight:900;line-height:1.15;margin-bottom:12px;letter-spacing:-.5px}
+.hero p{font-size:16px;color:rgba(255,255,255,.8);max-width:480px;margin:0 auto 28px}
+.search-box{max-width:480px;margin:0 auto;display:flex;gap:0;background:#fff;border-radius:99px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.sb-input{flex:1;padding:13px 20px;font-size:14px;border:none;outline:none;color:#1e293b}
+.sb-btn{background:#4f46e5;color:#fff;padding:13px 20px;border:none;cursor:pointer;font-size:14px;font-weight:700;white-space:nowrap}
+.cat-nav{background:#fff;padding:16px 24px;border-bottom:1px solid #e9d5ff;position:sticky;top:0;z-index:10}
+.cat-list{display:flex;gap:8px;flex-wrap:wrap;max-width:820px;margin:0 auto}
+.cat-btn{padding:7px 16px;border-radius:99px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:#f5f3ff;color:#7c3aed}
+.cat-btn.act{background:#4f46e5;color:#fff}
+.body{padding:32px 24px}
+.faq-group{margin-bottom:32px}
+.fg-title{font-size:14px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#7c3aed;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #e9d5ff}
+.faq-item{background:#fff;border-radius:12px;margin-bottom:10px;border:1px solid #e9d5ff;overflow:hidden}
+.faq-q{padding:18px 20px;font-size:16px;font-weight:700;color:#1e293b;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q:hover{background:#faf5ff}
+.faq-icon{font-size:18px;color:#7c3aed;flex-shrink:0;transition:transform .2s}
+.faq-a{padding:0 20px 18px;font-size:15px;color:#475569;line-height:1.75}
+.faq-a p{margin-bottom:12px}.faq-a p:last-child{margin:0}
+.faq-a ul{padding-left:20px;margin-bottom:12px}
+.faq-a li{margin-bottom:6px}
+.faq-a .note{background:#f5f3ff;border-left:3px solid #7c3aed;padding:10px 14px;border-radius:0 8px 8px 0;font-size:14px;color:#4f46e5}
+.helpful{display:flex;gap:8px;align-items:center;margin-top:12px;font-size:13px;color:#94a3b8}
+.hb{background:#f5f3ff;border:none;padding:5px 14px;border-radius:99px;font-size:13px;font-weight:600;cursor:pointer;color:#7c3aed}
+.contact-box{background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:16px;padding:32px;text-align:center;color:#fff;margin:24px 0}
+.contact-box h3{font-size:22px;font-weight:800;margin-bottom:8px}
+.contact-box p{font-size:15px;color:rgba(255,255,255,.8);margin-bottom:20px}
+.cb-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.cbb{padding:11px 22px;border-radius:99px;font-size:14px;font-weight:700;text-decoration:none}
+.cbb.p{background:#fff;color:#4f46e5}.cbb.s{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+</style></head>
+<body>
+<div class="hero">
+  <span class="hero-tag">❓ Trung tâm Hỗ trợ</span>
+  <h1>Câu hỏi thường gặp</h1>
+  <p>Tìm câu trả lời nhanh cho những thắc mắc phổ biến nhất về dịch vụ của chúng tôi.</p>
+  <div class="search-box"><input class="sb-input" type="text" placeholder="Tìm kiếm câu hỏi..."><button class="sb-btn">Tìm kiếm</button></div>
+</div>
+<div class="cat-nav"><div class="cat-list"><button class="cat-btn act">Tất cả</button><button class="cat-btn">Tài khoản</button><button class="cat-btn">Thanh toán</button><button class="cat-btn">Sử dụng</button><button class="cat-btn">Bảo mật</button><button class="cat-btn">Kỹ thuật</button></div></div>
+<div class="body c">
+  <div class="faq-group">
+    <div class="fg-title">Tài khoản & Đăng ký</div>
+    <div class="faq-item">
+      <div class="faq-q">Làm thế nào để tạo tài khoản? <span class="faq-icon">＋</span></div>
+      <div class="faq-a"><p>Bạn chỉ cần email hợp lệ để đăng ký trong vòng 30 giây. Truy cập trang đăng ký, nhập email và mật khẩu, xác nhận qua link gửi về hộp thư và bắt đầu sử dụng ngay.</p><p>Chúng tôi cũng hỗ trợ đăng nhập bằng tài khoản Google và Facebook để tiện lợi hơn.</p><div class="helpful"><span>Bài viết này có hữu ích không?</span><button class="hb">👍 Có</button><button class="hb">👎 Không</button></div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Tôi có thể thay đổi email đăng ký không? <span class="faq-icon">＋</span></div>
+      <div class="faq-a"><p>Có, bạn có thể đổi email trong phần Cài đặt tài khoản → Thông tin cá nhân. Lưu ý:</p><ul><li>Email mới phải chưa được đăng ký trong hệ thống</li><li>Cần xác nhận bằng mật khẩu hiện tại</li><li>Gửi link xác nhận đến cả email cũ và mới</li></ul><div class="note">⚠ Sau khi đổi email, bạn sẽ cần đăng nhập lại trên tất cả thiết bị.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Một tài khoản có dùng được trên nhiều thiết bị không? <span class="faq-icon">＋</span></div>
+      <div class="faq-a"><p>Có. Gói Starter cho phép đăng nhập đồng thời trên 2 thiết bị. Gói Pro và Enterprise không giới hạn số thiết bị.</p></div>
+    </div>
+  </div>
+  <div class="faq-group">
+    <div class="fg-title">Thanh toán & Gói dịch vụ</div>
+    <div class="faq-item">
+      <div class="faq-q">Có thể thanh toán bằng những hình thức nào? <span class="faq-icon">＋</span></div>
+      <div class="faq-a"><p>Chúng tôi hỗ trợ đầy đủ các phương thức phổ biến tại Việt Nam:</p><ul><li>Thẻ tín dụng/ghi nợ Visa, Mastercard, JCB</li><li>Chuyển khoản ngân hàng (VietQR)</li><li>Ví điện tử: MoMo, ZaloPay, VNPay</li><li>Trả góp 0% qua thẻ tín dụng (kỳ hạn 3–12 tháng)</li></ul></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Tôi có thể huỷ đăng ký bất kỳ lúc nào không? <span class="faq-icon">＋</span></div>
+      <div class="faq-a"><p>Có. Bạn có thể huỷ bất kỳ lúc nào trong phần Cài đặt → Gói dịch vụ. Sau khi huỷ, tài khoản vẫn hoạt động đầy đủ đến hết chu kỳ thanh toán hiện tại. <strong>Chúng tôi không hoàn tiền cho thời gian sử dụng đã qua</strong>, nhưng sẽ không tính phí cho các chu kỳ tiếp theo.</p></div>
+    </div>
+  </div>
+  <div class="faq-group">
+    <div class="fg-title">Bảo mật</div>
+    <div class="faq-item">
+      <div class="faq-q">Dữ liệu của tôi được bảo vệ như thế nào? <span class="faq-icon">＋</span></div>
+      <div class="faq-a"><p>Chúng tôi tuân thủ tiêu chuẩn bảo mật ISO 27001 và GDPR. Dữ liệu của bạn được mã hoá AES-256 khi lưu trữ và TLS 1.3 khi truyền tải. Chúng tôi không bán hoặc chia sẻ dữ liệu người dùng với bên thứ ba.</p><div class="note">🔒 Máy chủ đặt tại Singapore, sao lưu tự động mỗi 6 giờ với giữ lại 30 ngày.</div></div>
+    </div>
+  </div>
+  <div class="contact-box">
+    <h3>Không tìm thấy câu trả lời?</h3>
+    <p>Đội hỗ trợ của chúng tôi online từ 8:00–22:00 mỗi ngày, kể cả cuối tuần.</p>
+    <div class="cb-btns"><a href="#" class="cbb p">💬 Chat trực tiếp</a><a href="#" class="cbb s">📧 Gửi email hỗ trợ</a></div>
+  </div>
+</div>
+</body></html>`
+
+const ARTICLE_EBOOK = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;background:#0c0c1e;line-height:1.7}
+.c{max-width:900px;margin:0 auto;padding:0 24px}
+.hero{padding:80px 24px;background:linear-gradient(160deg,#0c0c1e,#1a1a3e);position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:0;right:0;width:500px;height:500px;background:radial-gradient(circle,rgba(99,102,241,.1),transparent 70%)}
+.hero-inner{display:grid;grid-template-columns:1fr 320px;gap:64px;align-items:center;position:relative}
+@media(max-width:680px){.hero-inner{grid-template-columns:1fr}}
+.htag{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#6366f1;margin-bottom:16px}
+.hero h1{font-size:clamp(28px,3.5vw,50px);font-weight:900;line-height:1.1;color:#f1f5f9;margin-bottom:16px;letter-spacing:-1px}
+.hero h1 span{background:linear-gradient(135deg,#6366f1,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-desc{font-size:16px;color:#64748b;margin-bottom:28px;line-height:1.7;max-width:440px}
+.hero-stats{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.hs{text-align:left}.hs-n{font-size:22px;font-weight:900;color:#6366f1}.hs-l{font-size:12px;color:#475569}
+.book-cta{display:flex;flex-direction:column;gap:10px}
+.bc-p{background:#6366f1;color:#fff;padding:14px 24px;border-radius:10px;text-decoration:none;font-size:15px;font-weight:800;text-align:center;box-shadow:0 0 24px rgba(99,102,241,.3)}
+.bc-s{background:rgba(255,255,255,.06);color:#94a3b8;padding:13px 24px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;border:1px solid rgba(255,255,255,.1);text-align:center}
+.book-visual{background:linear-gradient(135deg,#1e1e3e,#2d2d5e);border-radius:16px;padding:32px;text-align:center;border:1px solid rgba(99,102,241,.2)}
+.bv-cover{width:160px;height:220px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:8px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:60px;box-shadow:0 20px 40px rgba(0,0,0,.4);transform:rotate(-3deg)}
+.bv-title{font-size:15px;font-weight:800;color:#f1f5f9;margin-bottom:4px}
+.bv-author{font-size:12px;color:#6366f1}
+.bv-pages{font-size:12px;color:#475569;margin-top:4px}
+.contents{padding:64px 24px;background:#0f0f1e}
+.sl{font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#6366f1;margin-bottom:8px}
+.st{font-size:clamp(22px,3vw,36px);font-weight:900;color:#f1f5f9;margin-bottom:12px;letter-spacing:-.5px}
+.chap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:28px}
+.chap{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:20px;transition:all .2s}
+.chap:hover{border-color:rgba(99,102,241,.3)}
+.chap-n{font-size:11px;font-weight:700;color:#6366f1;margin-bottom:8px;letter-spacing:1px}
+.chap h3{font-size:15px;font-weight:700;color:#f1f5f9;margin-bottom:6px}
+.chap p{font-size:12px;color:#475569;line-height:1.5}
+.chap-pages{font-size:11px;color:#334155;margin-top:8px}
+.preview{padding:48px 24px;background:#0c0c1e}
+.preview-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:32px}
+.pb-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#6366f1;margin-bottom:16px}
+.pb-title{font-size:20px;font-weight:800;color:#f1f5f9;margin-bottom:16px}
+.pb-text{font-size:15px;color:#94a3b8;line-height:1.8;margin-bottom:16px}
+.pb-blur{filter:blur(4px);pointer-events:none;user-select:none;opacity:.5;font-size:15px;color:#94a3b8;line-height:1.8}
+.pb-cta{text-align:center;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.07)}
+.pb-cta p{font-size:14px;color:#475569;margin-bottom:12px}
+.reviews{padding:48px 24px;background:#0f0f1e}
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:24px}
+.rev{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:20px}
+.rev-stars{color:#f59e0b;font-size:14px;margin-bottom:10px}
+.rev-text{font-size:14px;color:#94a3b8;line-height:1.6;margin-bottom:12px;font-style:italic}
+.rev-name{font-size:13px;font-weight:700;color:#f1f5f9}.rev-role{font-size:12px;color:#475569}
+</style></head>
+<body>
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner c">
+    <div>
+      <div class="htag">📘 Sách điện tử · Self-help</div>
+      <h1>Làm chủ <span>tư duy sắc bén</span> trong thế giới nhiễu loạn thông tin</h1>
+      <p class="hero-desc">Một framework thực tế để ra quyết định tốt hơn, tư duy phản biện và thoát khỏi bẫy thông tin sai lệch — không cần bằng triết học.</p>
+      <div class="hero-stats">
+        <div class="hs"><div class="hs-n">264</div><div class="hs-l">Trang</div></div>
+        <div class="hs"><div class="hs-n">4.9⭐</div><div class="hs-l">3.200+ đánh giá</div></div>
+        <div class="hs"><div class="hs-n">18K+</div><div class="hs-l">Người đọc</div></div>
+      </div>
+      <div class="book-cta">
+        <a href="#" class="bc-p">📥 Tải ngay — 89.000đ</a>
+        <a href="#" class="bc-s">Đọc thử 3 chương đầu miễn phí</a>
+      </div>
+    </div>
+    <div class="book-visual">
+      <div class="bv-cover">🧠</div>
+      <div class="bv-title">Tư Duy Sắc Bén</div>
+      <div class="bv-author">Phạm Tuấn Anh</div>
+      <div class="bv-pages">264 trang · PDF + EPUB</div>
+    </div>
+  </div>
+</div>
+<section class="contents c">
+  <div class="sl">Nội dung</div>
+  <div class="st">Bạn sẽ học được gì?</div>
+  <div class="chap-grid">
+    <div class="chap"><div class="chap-n">Chương 1–2</div><h3>Não bộ không hoạt động như bạn nghĩ</h3><p>Tại sao chúng ta mắc lỗi tư duy và không nhận ra. 12 thiên kiến nhận thức phổ biến nhất.</p><div class="chap-pages">Trang 1–48</div></div>
+    <div class="chap"><div class="chap-n">Chương 3–5</div><h3>Framework ra quyết định trong 3 bước</h3><p>Phương pháp đơn giản để phân tích thông tin, đặt câu hỏi đúng và tránh quyết định vội.</p><div class="chap-pages">Trang 49–112</div></div>
+    <div class="chap"><div class="chap-n">Chương 6–8</div><h3>Phát hiện thông tin sai lệch và thao túng</h3><p>Công cụ kiểm chứng nguồn tin, nhận biết fallacy logic và đọc hiểu dữ liệu thống kê.</p><div class="chap-pages">Trang 113–178</div></div>
+    <div class="chap"><div class="chap-n">Chương 9–11</div><h3>Xây dựng thói quen tư duy dài hạn</h3><p>Hệ thống ghi chú, đọc sách hiệu quả và xây dựng "second brain" cá nhân.</p><div class="chap-pages">Trang 179–264</div></div>
+  </div>
+</section>
+<section class="preview c">
+  <div class="preview-box">
+    <div class="pb-label">📖 Đọc thử — Chương 1</div>
+    <div class="pb-title">Tại sao chúng ta tin những điều không đúng?</div>
+    <p class="pb-text">Não người không được thiết kế để tìm sự thật — nó được thiết kế để sống sót. Trong hàng triệu năm tiến hoá, việc phản ứng nhanh quan trọng hơn việc phân tích chính xác. Một con người nguyên thuỷ phán đoán sai rằng bóng tối là hổ và bỏ chạy — không có gì xảy ra. Nhưng nếu thực sự là hổ mà không chạy? Không còn cơ hội để sửa sai.</p>
+    <p class="pb-text">Thiên kiến nhận thức (cognitive bias) là tàn dư của cơ chế tồn tại đó. Trong thế giới hiện đại...</p>
+    <p class="pb-blur">Tuy nhiên, điều quan trọng cần hiểu là những thiên kiến này không phải khuyết điểm cá nhân — chúng là đặc điểm chung của loài người. Người thông minh mắc thiên kiến không kém người bình thường. Trên thực tế, đôi khi càng thông minh càng dễ bị thao túng bởi thiên kiến, vì não bộ có thể tự tạo ra các lý lẽ hợp lý hoá cho quyết định cảm tính.</p>
+    <div class="pb-cta"><p>Đọc đầy đủ 264 trang với 89.000đ — Nhận file ngay sau thanh toán</p><a href="#" class="bc-p" style="display:inline-block;padding:12px 28px;font-size:14px">📥 Mua sách ngay</a></div>
+  </div>
+</section>
+<section class="reviews c">
+  <div class="sl">Đánh giá</div>
+  <div class="st">Độc giả nói gì</div>
+  <div class="rev-grid">
+    <div class="rev"><div class="rev-stars">★★★★★</div><p class="rev-text">"Tôi đọc nhiều sách self-help nhưng đây là cuốn đầu tiên cho tôi công cụ thực hành được ngay, không chỉ là lý thuyết suông."</p><div class="rev-name">Nguyễn Thị Lan</div><div class="rev-role">Marketing Manager · 32 tuổi</div></div>
+    <div class="rev"><div class="rev-stars">★★★★★</div><p class="rev-text">"Chương 6 về nhận biết thông tin sai lệch thay đổi cách tôi đọc báo hoàn toàn. Một cuốn sách nên đọc trong thời đại mạng xã hội."</p><div class="rev-name">Trần Minh Đức</div><div class="rev-role">Giảng viên đại học</div></div>
+    <div class="rev"><div class="rev-stars">★★★★☆</div><p class="rev-text">"Súc tích, có dẫn chứng khoa học rõ ràng. Mỗi chương đều có bài tập áp dụng ngay — đây là điểm khác biệt lớn so với các sách cùng thể loại."</p><div class="rev-name">Lê Hoàng Phúc</div><div class="rev-role">Kỹ sư phần mềm · 28 tuổi</div></div>
+  </div>
+</section>
+</body></html>`
+
 export const TEMPLATES: Template[] = [
   {
     id: 'lp-skincare',
@@ -6190,6 +8031,206 @@ export const TEMPLATES: Template[] = [
     gradient: 'from-cyan-500 to-blue-600',
     accentColor: '#06b6d4',
     html: ARTICLE_DATAVISUAL,
+  },
+  {
+    id: 'lp-clinic',
+    name: 'Landing Page Phòng Khám',
+    category: 'landing',
+    description: 'Trang dịch vụ y tế với danh sách chuyên khoa, quy trình đặt lịch, đội ngũ bác sĩ và testimonial.',
+    tags: ['Y tế', 'Phòng khám', 'Bác sĩ'],
+    gradient: 'from-sky-500 to-blue-700',
+    accentColor: '#0369a1',
+    html: LP_CLINIC,
+  },
+  {
+    id: 'lp-consultant',
+    name: 'Landing Page Tư Vấn Chiến Lược',
+    category: 'landing',
+    description: 'Trang tư vấn B2B cao cấp với dark theme, case studies, số liệu kết quả và CTA đặt lịch tư vấn.',
+    tags: ['Tư vấn', 'B2B', 'Chiến lược'],
+    gradient: 'from-slate-800 to-indigo-900',
+    accentColor: '#6366f1',
+    html: LP_CONSULTANT,
+  },
+  {
+    id: 'lp-photographer',
+    name: 'Landing Page Studio Nhiếp Ảnh',
+    category: 'landing',
+    description: 'Portfolio nhiếp ảnh nghệ thuật với full-screen hero, gallery grid, bảng giá gói chụp và liên hệ.',
+    tags: ['Nhiếp ảnh', 'Studio', 'Portfolio'],
+    gradient: 'from-gray-800 to-slate-950',
+    accentColor: '#ffffff',
+    html: LP_PHOTOGRAPHER,
+  },
+  {
+    id: 'lp-kindergarten',
+    name: 'Landing Page Trường Mầm Non',
+    category: 'landing',
+    description: 'Trang tuyển sinh mầm non vui tươi với màu sắc rực rỡ, chương trình học, đội ngũ giáo viên và thống kê.',
+    tags: ['Giáo dục', 'Mầm non', 'Trẻ em'],
+    gradient: 'from-amber-400 to-green-500',
+    accentColor: '#f59e0b',
+    html: LP_KINDERGARTEN,
+  },
+  {
+    id: 'lp-yoga',
+    name: 'Landing Page Studio Yoga',
+    category: 'landing',
+    description: 'Trang yoga thiền định tông tím-cam thanh thoát với lịch học, gói hội viên và triết lý thương hiệu.',
+    tags: ['Yoga', 'Thiền', 'Sức khoẻ'],
+    gradient: 'from-purple-500 to-orange-400',
+    accentColor: '#6b3fa0',
+    html: LP_YOGA,
+  },
+  {
+    id: 'lp-legal',
+    name: 'Landing Page Văn Phòng Luật',
+    category: 'landing',
+    description: 'Trang văn phòng luật tông đen-vàng sang trọng với lĩnh vực chuyên môn, đội ngũ luật sư và chứng nhận.',
+    tags: ['Luật sư', 'Pháp lý', 'B2B'],
+    gradient: 'from-slate-800 to-yellow-900',
+    accentColor: '#d4a520',
+    html: LP_LEGAL,
+  },
+  {
+    id: 'lp-recruitment',
+    name: 'Landing Page Tuyển Dụng',
+    category: 'landing',
+    description: 'Trang tuyển dụng/việc làm với danh sách hot jobs, bộ lọc ngành nghề, quy trình ứng tuyển và thống kê nền tảng.',
+    tags: ['Tuyển dụng', 'HR', 'Việc làm'],
+    gradient: 'from-blue-500 to-indigo-700',
+    accentColor: '#2563eb',
+    html: LP_RECRUITMENT,
+  },
+  {
+    id: 'lp-tech-repair',
+    name: 'Landing Page Sửa Chữa Điện Tử',
+    category: 'landing',
+    description: 'Trang sửa chữa điện thoại/laptop với bảng giá dịch vụ, cam kết bảo hành và CTA báo giá nhanh.',
+    tags: ['Điện tử', 'Sửa chữa', 'Bảo hành'],
+    gradient: 'from-slate-800 to-orange-700',
+    accentColor: '#f97316',
+    html: LP_TECH_REPAIR,
+  },
+  {
+    id: 'lp-coffee',
+    name: 'Landing Page Quán Cà Phê',
+    category: 'landing',
+    description: 'Trang thương hiệu cà phê tông nâu ấm cúng với thực đơn, câu chuyện thương hiệu và chương trình loyalty.',
+    tags: ['Cà phê', 'F&B', 'Thương hiệu'],
+    gradient: 'from-amber-900 to-yellow-800',
+    accentColor: '#d4a864',
+    html: LP_COFFEE,
+  },
+  {
+    id: 'lp-logistics',
+    name: 'Landing Page Vận Chuyển & Logistics',
+    category: 'landing',
+    description: 'Trang dịch vụ logistics B2B với widget theo dõi đơn hàng real-time, mạng lưới phủ sóng và giải pháp vận chuyển.',
+    tags: ['Vận chuyển', 'Logistics', 'B2B'],
+    gradient: 'from-slate-800 to-blue-800',
+    accentColor: '#3b82f6',
+    html: LP_LOGISTICS,
+  },
+  {
+    id: 'article-longform',
+    name: 'Bài Viết Long-form (Sidebar TOC)',
+    category: 'article',
+    description: 'Bài phân tích chuyên sâu với sidebar mục lục, pullquote, infobox số liệu và thông tin tác giả.',
+    tags: ['Long-form', 'Phân tích', 'Journalism'],
+    gradient: 'from-red-600 to-rose-700',
+    accentColor: '#dc2626',
+    html: ARTICLE_LONGFORM,
+  },
+  {
+    id: 'article-recipe',
+    name: 'Bài Công Thức Nấu Ăn',
+    category: 'article',
+    description: 'Bài viết công thức nấu ăn với danh sách nguyên liệu, hướng dẫn từng bước, mẹo nấu và thông tin dinh dưỡng.',
+    tags: ['Nấu ăn', 'Công thức', 'Ẩm thực'],
+    gradient: 'from-amber-600 to-orange-700',
+    accentColor: '#d97706',
+    html: ARTICLE_RECIPE,
+  },
+  {
+    id: 'article-travel',
+    name: 'Cẩm Nang Du Lịch',
+    category: 'article',
+    description: 'Cẩm nang du lịch chi tiết với lịch trình theo ngày, bảng chi phí, mẹo du lịch và gallery ảnh.',
+    tags: ['Du lịch', 'Lịch trình', 'Cẩm nang'],
+    gradient: 'from-sky-600 to-blue-800',
+    accentColor: '#0284c7',
+    html: ARTICLE_TRAVEL,
+  },
+  {
+    id: 'article-opinion',
+    name: 'Bài Bình Luận / Editorial',
+    category: 'article',
+    description: 'Bài bình luận báo chí tông đen trắng nghiêm túc với byline, pullquote, counterpoint và author card.',
+    tags: ['Opinion', 'Editorial', 'Báo chí'],
+    gradient: 'from-zinc-700 to-zinc-900',
+    accentColor: '#111111',
+    html: ARTICLE_OPINION,
+  },
+  {
+    id: 'article-market',
+    name: 'Báo Cáo Phân Tích Thị Trường',
+    category: 'article',
+    description: 'Báo cáo thị trường chuyên nghiệp với KPI header, biểu đồ thanh, bảng dữ liệu và phân tích rủi ro.',
+    tags: ['Báo cáo', 'Data', 'Kinh doanh'],
+    gradient: 'from-slate-700 to-green-800',
+    accentColor: '#22c55e',
+    html: ARTICLE_MARKET,
+  },
+  {
+    id: 'article-startup',
+    name: 'Câu Chuyện Startup (Timeline)',
+    category: 'article',
+    description: 'Câu chuyện hành trình startup với timeline dọc, metrics từng giai đoạn, quote founder và bài học rút ra.',
+    tags: ['Startup', 'Founder', 'Timeline'],
+    gradient: 'from-orange-500 to-red-600',
+    accentColor: '#f97316',
+    html: ARTICLE_STARTUP,
+  },
+  {
+    id: 'article-product-launch',
+    name: 'Bài Ra Mắt Sản Phẩm',
+    category: 'article',
+    description: 'Trang giới thiệu sản phẩm SaaS/tech với dark theme, feature grid, specs kỹ thuật và bảng giá ra mắt.',
+    tags: ['Ra mắt', 'Sản phẩm', 'Tech'],
+    gradient: 'from-indigo-600 to-violet-700',
+    accentColor: '#6366f1',
+    html: ARTICLE_PRODUCT_LAUNCH,
+  },
+  {
+    id: 'article-guide',
+    name: 'Hướng Dẫn Người Mới Bắt Đầu',
+    category: 'article',
+    description: 'Hướng dẫn học tập dạng module với progress tracking, checklist từng bước, tài nguyên tải về và quiz kiểm tra.',
+    tags: ['Hướng dẫn', 'Beginner', 'Tutorial'],
+    gradient: 'from-emerald-500 to-green-600',
+    accentColor: '#059669',
+    html: ARTICLE_GUIDE,
+  },
+  {
+    id: 'article-faq',
+    name: 'Trang FAQ / Hỏi Đáp',
+    category: 'article',
+    description: 'Trang FAQ với thanh tìm kiếm, điều hướng theo danh mục, accordion câu hỏi và hộp liên hệ hỗ trợ.',
+    tags: ['FAQ', 'Hỏi đáp', 'Support'],
+    gradient: 'from-violet-600 to-purple-700',
+    accentColor: '#4f46e5',
+    html: ARTICLE_FAQ,
+  },
+  {
+    id: 'article-ebook',
+    name: 'Trang Giới Thiệu Sách / Ebook',
+    category: 'article',
+    description: 'Trang bán sách/ebook dark theme với cover 3D, mục lục chương, đoạn đọc thử và đánh giá độc giả.',
+    tags: ['Sách', 'Ebook', 'Self-help'],
+    gradient: 'from-zinc-700 to-indigo-800',
+    accentColor: '#6366f1',
+    html: ARTICLE_EBOOK,
   },
 ]
 

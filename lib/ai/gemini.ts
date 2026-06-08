@@ -1,8 +1,32 @@
-const GEMINI_MODELS = [
-  "gemini-2.5-flash",
-  "gemini-2.5-flash-lite",
-  "gemini-2.0-flash",
-];
+export type ContentType = "landing" | "article" | "ads";
+
+interface ModelRoute {
+  models: string[];
+  temperature: number;
+}
+
+// Model routing: chọn model tốt nhất cho từng loại nội dung
+// landing/ads → gemini-2.5-pro (reasoning phức tạp, creativity cao)
+// article → gemini-2.5-flash (viết cấu trúc, nhanh, tiết kiệm)
+const ROUTE: Record<ContentType, ModelRoute> = {
+  landing: {
+    models: ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.0-flash"],
+    temperature: 0.8,
+  },
+  ads: {
+    models: ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.0-flash"],
+    temperature: 0.9,
+  },
+  article: {
+    models: ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash"],
+    temperature: 0.6,
+  },
+};
+
+const DEFAULT_ROUTE: ModelRoute = {
+  models: ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash"],
+  temperature: 0.7,
+};
 
 function geminiUrl(model: string) {
   return `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
@@ -113,7 +137,7 @@ export interface GeminiMessage {
   parts: [{ text: string }];
 }
 
-export type GeminiResponseType = "question" | "confirm" | "html" | "error";
+export type GeminiResponseType = "question" | "confirm" | "html" | "ready_for_image" | "error";
 
 export interface GeminiQuestion {
   type: "question";
@@ -134,11 +158,73 @@ export interface GeminiHtml {
   content: string;
 }
 
+export interface GeminiReadyForImage {
+  type: "ready_for_image";
+  imagePrompt: string;
+  aspectRatio: "1:1" | "16:9" | "9:16" | "4:3";
+}
+
 export type GeminiResponse =
   | GeminiQuestion
   | GeminiConfirm
   | GeminiHtml
+  | GeminiReadyForImage
   | { type: "error"; content: string };
+
+const ADS_SYSTEM_PROMPT = `Bạn là chuyên gia tư vấn quảng cáo, nhiệm vụ là hỏi đủ thông tin để tạo ra banner quảng cáo đẹp mắt bằng AI image generation.
+
+═══════════════════════════════════════
+QUY TẮC HỎI BẮT BUỘC
+═══════════════════════════════════════
+
+QUAN TRỌNG: KHÔNG BAO GIỜ tạo banner ngay từ đầu. Phải hỏi đủ 5 mục bên dưới.
+Mỗi lượt chỉ 1 câu hỏi (có thể gộp 2 ý liên quan).
+Luôn kèm ví dụ cụ thể. Đừng hỏi những gì user đã nói rõ.
+
+📢 QUẢNG CÁO — phải hỏi đủ 5 mục:
+1. Nền tảng chạy (Facebook / Instagram / Google / TikTok / Zalo / khác)
+2. Mục tiêu chiến dịch (tăng nhận diện / thu lead / chốt sale / tăng follow)
+3. Đối tượng mục tiêu & insight nổi bật
+4. Ưu đãi / USP chính muốn truyền tải (giảm giá bao nhiêu %, thông điệp gì)
+5. Phong cách sáng tạo & màu sắc chủ đạo
+
+═══════════════════════════════════════
+ĐỊNH DẠNG PHẢN HỒI — BẮT BUỘC TUYỆT ĐỐI
+═══════════════════════════════════════
+
+⚠️ Mọi response PHẢI là một JSON object hợp lệ duy nhất. Không được viết text nào ngoài JSON.
+
+Khi hỏi:
+{"type":"question","question":"Câu hỏi?","hint":"Ví dụ cụ thể","options":["A","B","C","D"]}
+
+Khi đã hỏi đủ 5 mục — xác nhận lại:
+{"type":"confirm","items":["Nền tảng: ...","Mục tiêu: ...","Đối tượng: ...","USP: ...","Phong cách: ..."],"question":"Mình đã có đủ thông tin để tạo banner cho bạn! Xem lại nhé?","options":["Tạo banner ngay!","Muốn chỉnh màu sắc","Muốn đổi thông điệp","Bổ sung thêm thông tin"]}
+
+Khi user xác nhận → tạo image prompt cho Imagen 3:
+{"type":"ready_for_image","imagePrompt":"...prompt tiếng Anh chi tiết...","aspectRatio":"1:1"}
+
+═══════════════════════════════════════
+QUY TẮC TẠO IMAGE PROMPT
+═══════════════════════════════════════
+
+imagePrompt PHẢI bằng tiếng Anh, 80-150 từ, mô tả đầy đủ:
+- Loại: "Professional advertising banner for [product/service]"
+- Visual chính: sản phẩm, hình ảnh gợi cảm xúc, bối cảnh
+- Màu sắc & phong cách: màu cụ thể (hex hoặc tên màu tiếng Anh), modern/vibrant/elegant/bold...
+- Text trên banner: headline ngắn gọn (<=5 từ), offer (VD: "50% OFF"), CTA button text
+- Style: "commercial advertising photography, clean layout, high quality, sharp, professional"
+- KHÔNG dùng dấu nháy kép " bên trong imagePrompt — dùng dấu nháy đơn ' hoặc bỏ qua
+
+aspectRatio theo nền tảng:
+- Facebook/Instagram feed, Zalo, mặc định: "1:1"
+- Facebook/Instagram Story, TikTok, Reels: "9:16"
+- Google Display, YouTube, banner ngang: "16:9"
+- Pinterest: "4:3"
+
+QUAN TRỌNG:
+- TUYỆT ĐỐI KHÔNG dùng dấu nháy kép " bên trong string value của JSON
+- options PHẢI cụ thể, tự nhiên — không phải 'Lựa chọn 1'
+- 3-4 options mỗi câu`
 
 // Walk character-by-character to extract the first balanced JSON object.
 // Handles the case where Gemini returns multiple JSON objects in one response.
@@ -265,16 +351,18 @@ const RETRYABLE = new Set([429, 500, 503]);
 const MAX_ATTEMPTS = 3; // 1 lần gốc + 2 lần retry
 const RETRY_BASE_MS = 1000; // 1s, 2s (exponential backoff)
 
-async function fetchGemini(
+async function fetchGeminiWithPrompt(
   apiKey: string,
   model: string,
   messages: GeminiMessage[],
+  temperature: number = 0.7,
+  systemPrompt: string = SYSTEM_PROMPT,
 ): Promise<Response> {
   const body = JSON.stringify({
-    systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+    systemInstruction: { parts: [{ text: systemPrompt }] },
     contents: messages,
     generationConfig: {
-      temperature: 0.7,
+      temperature,
       maxOutputTokens: 65536,
       responseMimeType: "application/json",
     },
@@ -291,10 +379,7 @@ async function fetchGemini(
 
     const res = await fetch(geminiUrl(model), {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-goog-api-key": apiKey,
-      },
+      headers: { "Content-Type": "application/json", "X-goog-api-key": apiKey },
       body,
     });
 
@@ -310,24 +395,30 @@ async function fetchGemini(
   return lastRes!;
 }
 
+// Keep old name as alias so existing call sites (if any) don't break
+const fetchGemini = fetchGeminiWithPrompt
+
 export async function chatWithGemini(
   messages: GeminiMessage[],
+  contentType?: ContentType,
 ): Promise<GeminiResponse> {
   const apiKey = process.env.GOOGLE_AI_API_KEY;
   if (!apiKey) throw new Error("GOOGLE_AI_API_KEY is not configured");
 
+  const { models, temperature } = contentType ? ROUTE[contentType] : DEFAULT_ROUTE;
+  const systemPrompt = contentType === "ads" ? ADS_SYSTEM_PROMPT : SYSTEM_PROMPT;
+  console.log(`[Gemini] content=${contentType ?? "default"} → primary=${models[0]} temp=${temperature}`);
+
   let res: Response | null = null;
   let lastErr = "";
 
-  for (const model of GEMINI_MODELS) {
-    res = await fetchGemini(apiKey, model, messages);
+  for (const model of models) {
+    res = await fetchGeminiWithPrompt(apiKey, model, messages, temperature, systemPrompt);
     if (res.ok) break;
     lastErr = await res.text();
     // Only fallback on overload/server errors; stop on auth/quota errors
     if (res.status !== 429 && res.status !== 503 && res.status !== 500) break;
-    console.warn(
-      `[Gemini] ${model} returned ${res.status}, trying next model...`,
-    );
+    console.warn(`[Gemini] ${model} returned ${res.status}, trying next model...`);
   }
 
   if (!res || !res.ok) {
@@ -393,6 +484,18 @@ export async function chatWithGemini(
     ) {
       const p = parsed as Record<string, unknown>;
       return { type: "html", content: p.content as string };
+    }
+
+    if (
+      (parsed as Record<string, unknown>).type === "ready_for_image" &&
+      (parsed as Record<string, unknown>).imagePrompt
+    ) {
+      const p = parsed as Record<string, unknown>;
+      const validRatios = ["1:1", "16:9", "9:16", "4:3"];
+      const aspectRatio = validRatios.includes(p.aspectRatio as string)
+        ? (p.aspectRatio as "1:1" | "16:9" | "9:16" | "4:3")
+        : "1:1";
+      return { type: "ready_for_image", imagePrompt: p.imagePrompt as string, aspectRatio };
     }
   }
 

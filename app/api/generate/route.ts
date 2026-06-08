@@ -11,6 +11,7 @@ export const runtime = 'nodejs'
 
 const generateSchema = z.object({
   prompt: z.string().min(1).max(500),
+  contentType: z.enum(['landing', 'article', 'ads']).optional(),
 })
 
 export async function POST(req: NextRequest) {
@@ -35,7 +36,7 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     )
   }
-  const { prompt } = parsed.data
+  const { prompt, contentType } = parsed.data
 
   // 3. Plan gate — check quota before calling AI
   const gate = await checkAndIncrementGeneration(userId)
@@ -62,7 +63,7 @@ export async function POST(req: NextRequest) {
 
   // 5. Call Claude
   try {
-    const block = await generateBlock(prompt)
+    const block = await generateBlock(prompt, contentType)
 
     let projectId: string | null = null
     try {
