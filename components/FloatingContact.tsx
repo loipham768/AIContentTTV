@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { Phone, MessageCircle, X, ArrowUp } from 'lucide-react'
 
-const HIDDEN_PATHS = ['/admin', '/editor']
+const HIDDEN_PATHS = ['/admin', '/editor', '/demo']
 
 export default function FloatingContact() {
   const pathname = usePathname()
