@@ -517,6 +517,52 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
         )}
       </div>
 
+      {/* Guest AI locked bar — shown at bottom of editor in demo mode */}
+      {guestMode && !isPreview && (
+        <div className="flex-shrink-0 border-t border-slate-200 bg-white shadow-[0_-4px_16px_rgba(0,0,0,0.06)]">
+          <div className="flex items-center justify-between px-4 pt-2.5 pb-1">
+            <div className="flex items-center gap-1.5">
+              <div className="w-5 h-5 rounded-md bg-gradient-to-br from-slate-300 to-slate-400 flex items-center justify-center">
+                <Sparkles className="w-3 h-3 text-white" />
+              </div>
+              <span className="text-xs font-semibold text-slate-500">Tạo nội dung với AI</span>
+            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-2 px-4 pb-3">
+            <div className="flex-1 relative">
+              <textarea
+                disabled
+                placeholder="Để sử dụng AI tạo nội dung, bạn cần đăng ký tài khoản và kích hoạt gói dịch vụ..."
+                rows={2}
+                className="w-full resize-none rounded-xl px-3.5 py-2.5 text-sm border border-slate-200 bg-slate-50 text-slate-400 cursor-not-allowed placeholder:text-slate-400"
+              />
+              <div className="absolute inset-0 rounded-xl flex items-center justify-center bg-white/60 backdrop-blur-[1px]">
+                <Link
+                  href="/login?tab=register"
+                  className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-xs font-semibold rounded-lg shadow-lg shadow-indigo-500/25 hover:opacity-90 transition-opacity"
+                >
+                  <UserPlus className="w-3.5 h-3.5" />
+                  Đăng ký để dùng AI
+                </Link>
+              </div>
+            </div>
+            <button
+              disabled
+              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 text-slate-400 cursor-not-allowed sm:w-auto w-full flex-shrink-0"
+            >
+              <Sparkles className="w-4 h-4 flex-shrink-0" />
+              Tạo nội dung
+            </button>
+          </div>
+          <p className="px-4 pb-3 text-[11px] text-slate-400 leading-relaxed">
+            Tính năng AI yêu cầu đăng ký tài khoản và kích hoạt gói dịch vụ.{" "}
+            <Link href="/login?tab=register" className="text-indigo-500 hover:text-indigo-700 font-medium underline underline-offset-2">
+              Đăng ký miễn phí ngay →
+            </Link>
+          </p>
+        </div>
+      )}
+
       {/* Floating exit button — fixed above GrapesJS canvas overlay when in preview */}
       {isPreview && (
         <button
