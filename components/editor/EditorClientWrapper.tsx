@@ -534,7 +534,7 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
                 disabled
                 placeholder="Để sử dụng AI tạo nội dung, bạn cần đăng ký tài khoản và kích hoạt gói dịch vụ..."
                 rows={2}
-                className="w-full resize-none rounded-xl px-3.5 py-2.5 text-sm border border-slate-200 bg-slate-50 text-slate-400 cursor-not-allowed placeholder:text-slate-400"
+                className="w-full resize-none rounded-xl px-3.5 py-2.5 text-sm border border-slate-200 bg-slate-50 cursor-not-allowed placeholder:text-slate-600 placeholder:font-medium"
               />
               <div className="absolute inset-0 rounded-xl flex items-center justify-center bg-white/60 backdrop-blur-[1px]">
                 <Link
