@@ -14,16 +14,28 @@ export async function authorize(
   credentials: Record<string, unknown> | undefined,
 ) {
   const parsed = signInSchema.safeParse(credentials);
-  if (!parsed.success) return null;
+  if (!parsed.success) {
+    console.warn('[auth] validate fail:', parsed.error.issues[0]?.message);
+    return null;
+  }
 
   await dbConnect();
-  const user = (await User.findOne({ email: parsed.data.email }).lean()) as any;
-  if (!user) return null;
+  const user = (await User.findOne({ email: parsed.data.email.toLowerCase() }).lean()) as any;
+  if (!user) {
+    console.warn('[auth] user not found:', parsed.data.email);
+    return null;
+  }
 
   const valid = await bcrypt.compare(parsed.data.password, user.passwordHash);
-  if (!valid) return null;
+  if (!valid) {
+    console.warn('[auth] wrong password for:', parsed.data.email);
+    return null;
+  }
 
-  if (user.isActive === false) return null;
+  if (user.isActive === false) {
+    console.warn('[auth] account inactive:', parsed.data.email);
+    return null;
+  }
 
   return { id: user._id.toString(), email: user.email as string };
 }

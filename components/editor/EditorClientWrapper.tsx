@@ -5,8 +5,9 @@ import type { Editor, Component } from "grapesjs";
 import { resolveCssVariables } from "@/lib/cssIsolation";
 import {
   Loader2, LayoutGrid, Palette, Layers, History,
-  Trash2, Copy, ArrowUp, ArrowDown, EyeOff, Monitor, X, Sparkles,
+  Trash2, Copy, ArrowUp, ArrowDown, EyeOff, Monitor, X, Sparkles, UserPlus,
 } from "lucide-react";
+import Link from "next/link";
 import TopBar from "@/components/editor/TopBar";
 import ImagePickerModal from "@/components/editor/ImagePickerModal";
 
@@ -39,9 +40,10 @@ interface EditorClientWrapperProps {
   projectId?: string | null
   canExport: boolean
   plan: string
+  guestMode?: boolean
 }
 
-export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, initialData, projectId: initialProjectId, canExport, plan }: EditorClientWrapperProps) {
+export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, initialData, projectId: initialProjectId, canExport, plan, guestMode = false }: EditorClientWrapperProps) {
   const editorRef = useRef<Editor | null>(null);
   const [historyKey, setHistoryKey] = useState(0);
   const [editorInstance, setEditorInstance] = useState<Editor | null>(null);
@@ -339,9 +341,27 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
         onTogglePreview={handleTogglePreview}
         canExport={canExport}
         plan={plan}
-        onSave={handleSave}
+        onSave={guestMode ? undefined : handleSave}
         saveStatus={saveStatus}
+        guestMode={guestMode}
       />
+
+      {/* Guest mode signup banner */}
+      {guestMode && !isPreview && (
+        <div className="flex items-center gap-3 px-4 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-xs flex-shrink-0">
+          <Sparkles className="w-3.5 h-3.5 flex-shrink-0 opacity-80" />
+          <p className="flex-1 leading-relaxed">
+            <span className="font-semibold">Bạn đang dùng bản demo.</span>{" "}
+            Đăng ký miễn phí để lưu dự án, dùng AI tạo nội dung và xuất HTML.
+          </p>
+          <Link
+            href="/login?tab=register"
+            className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white text-indigo-700 font-semibold rounded-lg hover:bg-indigo-50 transition-colors whitespace-nowrap"
+          >
+            <UserPlus className="w-3 h-3" /> Đăng ký miễn phí
+          </Link>
+        </div>
+      )}
 
       {/* Edit hint banner — shown when content is loaded (AI or template), auto-dismissed after 12s */}
       {showEditHint && !isPreview && (

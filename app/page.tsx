@@ -44,7 +44,7 @@ import {
 import { Suspense } from "react";
 import PricingSection from "@/components/pricing/PricingSection";
 import HashScroll from "@/components/HashScroll";
-import ReviewsSection, { getReviewStats } from "@/components/reviews/ReviewsSection";
+import { getReviewStats, getCarouselReviews, getUserHasReviewed } from "@/components/reviews/ReviewsSection";
 
 import ScrollReveal from "@/components/ScrollReveal";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
@@ -423,7 +423,11 @@ export default async function LandingPage() {
       };
   }
 
-  const reviewStats = await getReviewStats();
+  const [reviewStats, carouselReviews, hasReviewed] = await Promise.all([
+    getReviewStats(),
+    getCarouselReviews(),
+    session?.user?.id ? getUserHasReviewed(session.user.id) : Promise.resolve(false),
+  ]);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -649,12 +653,12 @@ export default async function LandingPage() {
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 )}
-                <a
-                  href="#how-it-works"
-                  className="inline-flex items-center justify-center px-6 py-3.5 text-base font-semibold text-indigo-700 bg-white border border-indigo-200 rounded-xl hover:bg-indigo-50 transition-colors shadow-sm"
+                <Link
+                  href="/demo"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base font-semibold text-indigo-700 bg-white border border-indigo-200 rounded-xl hover:bg-indigo-50 transition-colors shadow-sm"
                 >
-                  Xem cách hoạt động
-                </a>
+                  <MousePointer2 className="w-4 h-4" /> Thử editor ngay
+                </Link>
               </div>
 
               {/* Stats */}
@@ -1403,10 +1407,10 @@ export default async function LandingPage() {
           {/* CTA */}
           <ScrollReveal className="text-center mt-10">
             <Link
-              href={isLoggedIn ? "/create" : "/login?tab=register"}
+              href={isLoggedIn ? "/create" : "/demo"}
               className="inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-indigo-500/25"
             >
-              <Zap className="w-4 h-4" /> Thử editor ngay — miễn phí
+              <MousePointer2 className="w-4 h-4" /> Thử editor ngay — không cần đăng ký
             </Link>
           </ScrollReveal>
         </div>
@@ -1705,7 +1709,12 @@ export default async function LandingPage() {
       </section>
 
       {/* ── Testimonials ───────────────────────────────────────────── */}
-      <TestimonialsCarousel />
+      <TestimonialsCarousel
+        realReviews={carouselReviews}
+        reviewStats={reviewStats}
+        userId={session?.user?.id ?? undefined}
+        hasReviewed={hasReviewed}
+      />
 
       {/* ── Pricing ────────────────────────────────────────────────── */}
       <PricingSection isLoggedIn={isLoggedIn} />
@@ -1799,9 +1808,6 @@ export default async function LandingPage() {
           </div>
         </ScrollReveal>
       </section>
-
-      {/* ── User Reviews ───────────────────────────────────────────── */}
-      <ReviewsSection userId={session?.user?.id ?? undefined} />
 
       {/* ── Footer ─────────────────────────────────────────────────── */}
       <footer style={{ background: "#06040f" }} className="text-gray-400">

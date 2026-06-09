@@ -17,7 +17,12 @@ export const metadata = {
   },
 }
 
-export default async function TemplatesPage() {
+export default async function TemplatesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ type?: string }>
+}) {
+  const { type } = await searchParams
   const session = await auth()
   const isLoggedIn = !!session?.user?.id
 
@@ -40,6 +45,7 @@ export default async function TemplatesPage() {
       fullName={userDoc?.fullName ?? ''}
       avatarUrl={userDoc?.avatarUrl ?? ''}
       plan={planInfo?.plan ?? 'free'}
+      initialCategory={type}
     />
   )
 }

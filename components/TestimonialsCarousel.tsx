@@ -1,8 +1,24 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star, Quote, CheckCircle2, LogIn } from "lucide-react";
+import Link from "next/link";
+import ReviewForm from "@/components/reviews/ReviewForm";
 
-const TESTIMONIALS = [
+interface RealReview {
+  _id: any;
+  userName: string;
+  content: string;
+  rating: number;
+  plan?: string;
+}
+
+interface ReviewStats {
+  avg: number;
+  count: number;
+  dist: { star: number; count: number }[];
+}
+
+const STATIC_TESTIMONIALS = [
   {
     name: "Nguyễn Thị Lan",
     role: "Content Writer · Haravan",
@@ -69,7 +85,61 @@ const TESTIMONIALS = [
   },
 ];
 
-export default function TestimonialsCarousel() {
+const REAL_GRADIENTS = [
+  "from-indigo-500 to-violet-600",
+  "from-violet-500 to-pink-600",
+  "from-amber-500 to-orange-600",
+  "from-emerald-500 to-teal-600",
+  "from-cyan-500 to-blue-600",
+  "from-rose-500 to-pink-600",
+  "from-sky-500 to-blue-500",
+  "from-fuchsia-500 to-purple-600",
+  "from-lime-500 to-green-600",
+  "from-teal-500 to-cyan-600",
+];
+
+const PLAN_LABELS: Record<string, string> = {
+  designer: "Designer",
+  basic: "Basic",
+  pro: "Pro",
+};
+
+type CardItem = {
+  name: string;
+  role: string;
+  quote: string;
+  gradient: string;
+  initial: string;
+  rating: number;
+  verified: boolean;
+};
+
+export default function TestimonialsCarousel({
+  realReviews = [],
+  reviewStats,
+  userId,
+  hasReviewed = false,
+}: {
+  realReviews?: RealReview[];
+  reviewStats?: ReviewStats;
+  userId?: string;
+  hasReviewed?: boolean;
+}) {
+  const mappedReal: CardItem[] = realReviews.map((r, i) => ({
+    name: r.userName,
+    role: r.plan ? `${PLAN_LABELS[r.plan] ?? r.plan} · AITaoPage` : "Người dùng AITaoPage",
+    quote: r.content,
+    gradient: REAL_GRADIENTS[i % REAL_GRADIENTS.length],
+    initial: r.userName.charAt(0).toUpperCase(),
+    rating: r.rating,
+    verified: true,
+  }));
+
+  const allItems: CardItem[] = [
+    ...STATIC_TESTIMONIALS.map((t) => ({ ...t, rating: 5, verified: false })),
+    ...mappedReal,
+  ];
+
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
   const [inView, setInView] = useState(false);
@@ -86,13 +156,12 @@ export default function TestimonialsCarousel() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const total = TESTIMONIALS.length;
-  const maxIdx = total - visible;
+  const total = allItems.length;
+  const maxIdx = Math.max(0, total - visible);
 
-  // Clamp idx when visible count changes (e.g. on resize)
   useEffect(() => {
-    setIdx((i) => Math.min(i, Math.max(0, total - visible)));
-  }, [visible, total]);
+    setIdx((i) => Math.min(i, maxIdx));
+  }, [visible, maxIdx]);
 
   const next = useCallback(
     () => setIdx((i) => (i >= maxIdx ? 0 : i + 1)),
@@ -151,13 +220,13 @@ export default function TestimonialsCarousel() {
             className="flex transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${idx * (100 / visible)}%)` }}
           >
-            {TESTIMONIALS.map((t) => (
+            {allItems.map((item, i) => (
               <div
-                key={t.name}
+                key={`${item.name}-${i}`}
                 className="shrink-0 px-3"
                 style={{ width: `${100 / visible}%` }}
               >
-                <TestimonialCard {...t} />
+                <TestimonialCard {...item} />
               </div>
             ))}
           </div>
@@ -197,17 +266,104 @@ export default function TestimonialsCarousel() {
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
+
+        {/* Rating summary + review form */}
+        <div className="mt-12 grid lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
+
+          {/* Stats strip — chỉ hiện khi có >= 3 đánh giá */}
+          {reviewStats && reviewStats.count >= 3 ? (
+            <div className="flex flex-col sm:flex-row items-center gap-6 px-6 py-5 rounded-2xl border border-white/6" style={{ background: "rgba(255,255,255,0.03)" }}>
+              {/* Avg + stars */}
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="text-5xl font-black text-white tabular-nums leading-none">{reviewStats.avg}</span>
+                <div className="flex flex-col gap-1.5">
+                  <span className="flex items-center gap-0.5">
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <Star
+                        key={s}
+                        className="w-4 h-4"
+                        fill={s <= Math.round(reviewStats.avg) ? "#f59e0b" : "none"}
+                        stroke={s <= Math.round(reviewStats.avg) ? "#f59e0b" : "#374151"}
+                        strokeWidth={1.5}
+                      />
+                    ))}
+                  </span>
+                  <p className="text-xs text-gray-500">{reviewStats.count} đánh giá thực</p>
+                </div>
+              </div>
+
+              <div className="w-px h-12 bg-white/8 hidden sm:block shrink-0" />
+
+              {/* Distribution bars */}
+              <div className="flex-1 w-full space-y-1.5">
+                {reviewStats.dist.map(({ star, count }) => {
+                  const pct = reviewStats.count > 0 ? Math.round((count / reviewStats.count) * 100) : 0;
+                  return (
+                    <div key={star} className="flex items-center gap-2">
+                      <span className="text-[11px] text-gray-600 w-2.5 shrink-0 text-right">{star}</span>
+                      <Star className="w-2.5 h-2.5 shrink-0" fill="#f59e0b" stroke="none" />
+                      <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-700"
+                          style={{
+                            width: `${pct}%`,
+                            background: star >= 4 ? "#f59e0b" : star === 3 ? "#6366f1" : "#374151",
+                          }}
+                        />
+                      </div>
+                      <span className="text-[11px] text-gray-700 w-3 shrink-0">{count}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-white/6 px-6 py-5 flex items-center justify-center" style={{ background: "rgba(255,255,255,0.03)" }}>
+              <p className="text-sm text-gray-600">Chưa đủ đánh giá để hiển thị thống kê.</p>
+            </div>
+          )}
+
+          {/* Form panel */}
+          <div
+            className="rounded-2xl border border-white/8 p-5 relative overflow-hidden"
+            style={{ background: "linear-gradient(150deg, rgba(99,102,241,0.08), #0d0b1f 55%)" }}
+          >
+            <div
+              className="absolute -top-8 left-1/2 -translate-x-1/2 w-40 h-24 pointer-events-none opacity-50"
+              style={{ background: "radial-gradient(ellipse, rgba(99,102,241,0.35), transparent 70%)" }}
+            />
+            <div className="relative">
+              <h3 className="text-sm font-bold text-white mb-1">
+                {hasReviewed ? "✓ Đã gửi đánh giá" : "Chia sẻ trải nghiệm của bạn"}
+              </h3>
+              <p className="text-xs text-gray-500 mb-5">
+                {hasReviewed
+                  ? "Đánh giá của bạn đang chờ duyệt và sẽ xuất hiện sớm."
+                  : "Đánh giá thực giúp cộng đồng và giúp AITaoPage phát triển."}
+              </p>
+              {userId ? (
+                <ReviewForm hasReviewed={hasReviewed} />
+              ) : (
+                <Link
+                  href="/login"
+                  className="flex items-center justify-center gap-2 w-full py-3 text-white text-sm font-bold rounded-xl transition-all"
+                  style={{ background: "linear-gradient(135deg, #4f46e5, #7c3aed)" }}
+                >
+                  <LogIn className="w-4 h-4" /> Đăng nhập để đánh giá
+                </Link>
+              )}
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
   );
 }
 
-type CardProps = (typeof TESTIMONIALS)[number];
-
-function TestimonialCard({ name, role, quote, gradient, initial }: CardProps) {
+function TestimonialCard({ name, role, quote, gradient, initial, rating, verified }: CardItem) {
   return (
     <div className="relative h-full group">
-      {/* Glow on hover */}
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500/0 to-violet-500/0 group-hover:from-indigo-500/10 group-hover:to-violet-500/10 transition-all duration-300" />
 
       <div className="relative h-full flex flex-col bg-white/[0.07] backdrop-blur-md rounded-2xl p-6 border border-white/10 group-hover:border-white/25 group-hover:bg-white/[0.11] transition-all duration-300">
@@ -217,10 +373,19 @@ function TestimonialCard({ name, role, quote, gradient, initial }: CardProps) {
         </div>
 
         {/* Stars */}
-        <div className="flex gap-1 mb-4">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+        <div className="flex items-center gap-1 mb-4">
+          {[1, 2, 3, 4, 5].map((s) => (
+            <Star
+              key={s}
+              className="w-4 h-4"
+              fill={s <= rating ? "#f59e0b" : "none"}
+              stroke={s <= rating ? "#f59e0b" : "#4b5563"}
+              strokeWidth={1.5}
+            />
           ))}
+          {verified && (
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 ml-1.5 shrink-0" />
+          )}
         </div>
 
         {/* Quote */}

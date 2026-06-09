@@ -6,6 +6,7 @@ import type { Editor } from "grapesjs";
 import grapesjs from "grapesjs";
 import { registerBlocks } from "@/lib/editor/blocks";
 import { styleSectors } from "@/lib/editor/styleConfig";
+import { registerVietnameseTraits } from "@/lib/editor/componentTraits";
 import {
   registerTextGradientType,
   registerBgGradientType,
@@ -24,6 +25,82 @@ const gradientPlugin = (editor: Editor) => {
   registerTextGradientType(editor);
   registerBgGradientType(editor);
 };
+
+// ─── "Xem thêm mẫu" buttons ──────────────────────────────────────────────────
+
+const SEE_MORE_DEFS = [
+  { label: 'Mẫu bài viết',     type: 'article' },
+  { label: 'Mẫu Landing Page', type: 'landing' },
+  { label: 'Mẫu Quảng cáo',   type: 'ads'     },
+]
+
+function findCategoryContainer(
+  panel: HTMLElement,
+  label: string,
+): HTMLElement | null {
+  // Walk all text nodes; find the one whose trimmed text === label
+  const walker = document.createTreeWalker(panel, NodeFilter.SHOW_TEXT, null)
+  let textNode: Text | null = null
+  while (walker.nextNode()) {
+    const t = walker.currentNode as Text
+    if (t.textContent?.trim() === label) { textNode = t; break }
+  }
+  if (!textNode) return null
+
+  // Walk up: find first ancestor with ≥ 2 child elements (title + blocks container)
+  let el: HTMLElement | null = textNode.parentElement
+  while (el && el !== panel) {
+    if (el.children.length >= 2) return el
+    el = el.parentElement as HTMLElement
+  }
+  return null
+}
+
+function injectSeeMoreLinks(retries = 8) {
+  const panel = document.getElementById('gjs-blocks-panel')
+  if (!panel) {
+    if (retries > 0) setTimeout(() => injectSeeMoreLinks(retries - 1), 300)
+    return
+  }
+
+  let pendingCount = 0
+  SEE_MORE_DEFS.forEach(({ label, type }) => {
+    if (panel.querySelector(`[data-see-more="${type}"]`)) return // already injected
+
+    const container = findCategoryContainer(panel, label)
+    if (!container) { pendingCount++; return }
+
+    const a = document.createElement('a')
+    a.setAttribute('data-see-more', type)
+    a.href    = `/templates?type=${type}`
+    a.target  = '_blank'
+    a.rel     = 'noopener noreferrer'
+    a.style.cssText = [
+      'display:flex', 'align-items:center', 'justify-content:center', 'gap:5px',
+      'margin:3px 8px 8px', 'padding:7px 10px',
+      'background:#f0f4ff', 'border:1.5px dashed #c7d2fe', 'border-radius:8px',
+      'font-size:11px', 'font-weight:700', 'color:#4f46e5', 'text-decoration:none',
+      "font-family:'Segoe UI',system-ui,sans-serif", 'cursor:pointer',
+      'box-sizing:border-box', 'transition:background .15s,border-color .15s',
+    ].join(';')
+    a.textContent = '+ Xem thêm mẫu'
+    a.addEventListener('mouseenter', () => {
+      a.style.background   = '#e0e7ff'
+      a.style.borderColor  = '#a5b4fc'
+    })
+    a.addEventListener('mouseleave', () => {
+      a.style.background   = '#f0f4ff'
+      a.style.borderColor  = '#c7d2fe'
+    })
+    container.appendChild(a)
+  })
+
+  if (pendingCount > 0 && retries > 0) {
+    setTimeout(() => injectSeeMoreLinks(retries - 1), 400)
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 const PROP_PLACEHOLDERS: Record<string, string> = {
   color: "#0f172a",
@@ -196,18 +273,27 @@ export default function GrapesEditor({
 }: GrapesEditorProps) {
   function handleEditor(editor: Editor) {
     registerBlocks(editor);
+    registerVietnameseTraits(editor);
 
     editor.on("load", () => {
-      const panel = document.getElementById("gjs-styles-panel");
-      if (!panel) return;
-      const obs = new MutationObserver(() => {
+      const stylesPanel = document.getElementById("gjs-styles-panel");
+      if (stylesPanel) {
+        const obs = new MutationObserver(() => {
+          injectPlaceholders();
+          syncTagSelector(editor);
+        });
+        obs.observe(stylesPanel, { childList: true, subtree: true });
         injectPlaceholders();
-        syncTagSelector(editor);
-      });
-      obs.observe(panel, { childList: true, subtree: true });
-      injectPlaceholders();
-      // Inject lần đầu sau khi GrapesJS render xong
-      setTimeout(() => syncTagSelector(editor), 150);
+        setTimeout(() => syncTagSelector(editor), 150);
+      }
+
+      // "Xem thêm mẫu" links — inject after blocks render, re-inject on panel changes
+      setTimeout(() => injectSeeMoreLinks(), 400);
+      const blocksPanel = document.getElementById("gjs-blocks-panel");
+      if (blocksPanel) {
+        const blocksObs = new MutationObserver(() => injectSeeMoreLinks(0));
+        blocksObs.observe(blocksPanel, { childList: true, subtree: false });
+      }
     });
 
     // Tag selector luôn sync theo selection (setTimeout(0) để chờ React render style panel)
@@ -301,6 +387,27 @@ export default function GrapesEditor({
           styleManager: {
             appendTo: "#gjs-styles-panel",
             sectors: styleSectors,
+          },
+          i18n: {
+            messages: {
+              en: {
+                styleManager: {
+                  empty: 'Chọn một phần tử để chỉnh sửa kiểu dáng',
+                  layer: 'Lớp',
+                  fileButton: 'Hình ảnh',
+                  sectors: {
+                    // Override GrapesJS built-in English sector names
+                    typography: 'Kiểu chữ',
+                    dimension: 'Kích thước',
+                    layout: 'Bố cục (Flex/Grid)',
+                    general: 'Chung',
+                    decorations: 'Trang trí',
+                    extra: 'Bổ sung',
+                    flex: 'Flex',
+                  },
+                },
+              },
+            },
           },
           // @ts-expect-error — allowScripts is a valid GrapesJS option not in older type defs
           allowScripts: 1,

@@ -16,20 +16,26 @@ interface Props {
   fullName?: string;
   avatarUrl?: string;
   plan?: string;
+  initialCategory?: string;
 }
 
 type Tab = "all" | TemplateCategory;
 
 const TABS: { id: Tab; label: string; icon: string }[] = [
-  { id: "all", label: "Tất cả", icon: "✦" },
-  { id: "landing", label: "Landing Page", icon: "🏠" },
-  { id: "article", label: "Bài viết", icon: "📝" },
-  { id: "ads", label: "Quảng cáo", icon: "📣" },
+  { id: "all",     label: "Tất cả",       icon: "✦" },
+  { id: "landing", label: "Landing Page",  icon: "🏠" },
+  { id: "article", label: "Bài viết",      icon: "📝" },
+  { id: "ads",     label: "Quảng cáo",     icon: "📣" },
 ];
 
-export default function TemplatesClient({ templates, isLoggedIn = false, userEmail, fullName, avatarUrl, plan = 'free' }: Props) {
+function toTab(raw?: string): Tab {
+  if (raw === "landing" || raw === "article" || raw === "ads") return raw;
+  return "all";
+}
+
+export default function TemplatesClient({ templates, isLoggedIn = false, userEmail, fullName, avatarUrl, plan = 'free', initialCategory }: Props) {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<Tab>("all");
+  const [activeTab, setActiveTab] = useState<Tab>(toTab(initialCategory));
   const [previewTemplate, setPreviewTemplate] = useState<Template | null>(null);
   const [previewDevice, setPreviewDevice] = useState<"desktop" | "tablet" | "mobile">("desktop");
 

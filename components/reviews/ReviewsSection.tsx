@@ -46,7 +46,7 @@ export const getReviewStats = unstable_cache(
     const [stats, recent] = await Promise.all([
       Review.aggregate([
         { $match: { isApproved: true } },
-        { $group: { _id: null, avg: { $avg: '$rating' }, count: { $sum: 1 } } },
+        { $group: { _id: null, avg: { $avg: '$rating' }, count: { $sum: 1 }, dist: { $push: '$rating' } } },
       ]),
       Review.find({ isApproved: true })
         .sort({ createdAt: -1 })
@@ -54,11 +54,33 @@ export const getReviewStats = unstable_cache(
         .lean() as Promise<any[]>,
     ])
     const s = stats[0]
-    return { avg: s ? +s.avg.toFixed(1) : 0, count: s?.count ?? 0, recent }
+    const dist = [5, 4, 3, 2, 1].map((star) => ({
+      star,
+      count: (s?.dist ?? []).filter((r: number) => r === star).length,
+    }))
+    return { avg: s ? +s.avg.toFixed(1) : 0, count: s?.count ?? 0, recent, dist }
   },
   ['review-stats'],
   { revalidate: 3600 }
 )
+
+export const getCarouselReviews = unstable_cache(
+  async () => {
+    await dbConnect()
+    return Review.find({ isApproved: true })
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .select('userName content rating plan')
+      .lean() as Promise<{ _id: any; userName: string; content: string; rating: number; plan?: string }[]>
+  },
+  ['carousel-reviews'],
+  { revalidate: 3600 }
+)
+
+export async function getUserHasReviewed(userId: string): Promise<boolean> {
+  await dbConnect()
+  return !!(await Review.findOne({ userId }).lean())
+}
 
 const getPublicReviews = unstable_cache(
   async () => {
