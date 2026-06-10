@@ -528,38 +528,23 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
               <span className="text-xs font-semibold text-slate-500">Tạo nội dung với AI</span>
             </div>
           </div>
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-2 px-4 pb-3">
-            <div className="flex-1 relative">
-              <textarea
-                disabled
-                placeholder="Để sử dụng AI tạo nội dung, bạn cần đăng ký tài khoản và kích hoạt gói dịch vụ..."
-                rows={2}
-                className="w-full resize-none rounded-xl px-3.5 py-2.5 text-sm border border-slate-200 bg-slate-50 cursor-not-allowed placeholder:text-slate-600 placeholder:font-medium"
-              />
-              <div className="absolute inset-0 rounded-xl flex items-center justify-center bg-white/60 backdrop-blur-[1px]">
-                <Link
-                  href="/login?tab=register"
-                  className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-xs font-semibold rounded-lg shadow-lg shadow-indigo-500/25 hover:opacity-90 transition-opacity"
-                >
-                  <UserPlus className="w-3.5 h-3.5" />
-                  Đăng ký để dùng AI
-                </Link>
-              </div>
+          <div className="flex flex-col sm:flex-row items-center gap-3 px-4 pb-4">
+            <div className="flex-1 rounded-xl border border-indigo-100 bg-indigo-50 px-4 py-3">
+              <p className="text-sm font-semibold text-indigo-900 mb-0.5">
+                Để sử dụng AI tạo nội dung, bạn cần đăng ký tài khoản và kích hoạt gói dịch vụ.
+              </p>
+              <p className="text-xs text-indigo-600">
+                Gói miễn phí cho phép thử nghiệm ngay sau khi đăng ký.
+              </p>
             </div>
-            <button
-              disabled
-              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 text-slate-400 cursor-not-allowed sm:w-auto w-full flex-shrink-0"
+            <Link
+              href="/login?tab=register"
+              className="flex-shrink-0 flex items-center gap-1.5 px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-indigo-500/25 hover:opacity-90 transition-opacity w-full sm:w-auto justify-center"
             >
-              <Sparkles className="w-4 h-4 flex-shrink-0" />
-              Tạo nội dung
-            </button>
-          </div>
-          <p className="px-4 pb-3 text-[11px] text-slate-400 leading-relaxed">
-            Tính năng AI yêu cầu đăng ký tài khoản và kích hoạt gói dịch vụ.{" "}
-            <Link href="/login?tab=register" className="text-indigo-500 hover:text-indigo-700 font-medium underline underline-offset-2">
-              Đăng ký miễn phí ngay →
+              <UserPlus className="w-4 h-4" />
+              Đăng ký miễn phí
             </Link>
-          </p>
+          </div>
         </div>
       )}
 
