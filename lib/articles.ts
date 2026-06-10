@@ -2575,4 +2575,259 @@ một số câu hỏi chẳng hạn: <b>Phong cách bạn muốn là gì?</b> <b
 <p>Internal linking là một trong những tác động SEO on-page hiệu quả nhất mà không tốn chi phí. Xây dựng silo structure, dùng anchor text đa dạng, và chắc chắn không có orphan pages — 3 việc này, nếu làm đúng trong 3 tháng, sẽ thấy kết quả rõ ràng trên Google Search Console. Bắt đầu với việc audit website hiện tại: có bao nhiêu trang orphan? Đó là điểm bắt đầu lý tưởng.</p>
     `.trim(),
   },
+
+  "mau-prompt-ai-viet-content-ban-hang-2026": {
+    slug: "mau-prompt-ai-viet-content-ban-hang-2026",
+    title: "50+ Mẫu Prompt AI Viết Content Bán Hàng — Copy & Dùng Ngay 2026",
+    description:
+      "Bộ sưu tập 50+ mẫu prompt AI viết content bán hàng hiệu quả cho Facebook Ads, landing page, mô tả sản phẩm, email marketing và TikTok. Copy và dùng ngay, không cần chỉnh sửa nhiều.",
+    category: "Content",
+    readTime: "12 phút",
+    publishedDate: "2026-06-10",
+    author: "AITaoPage",
+    keywords: [
+      "mẫu prompt AI viết content",
+      "prompt viết content bán hàng",
+      "prompt AI tiếng Việt",
+      "cách viết prompt AI hiệu quả",
+      "prompt AI marketing",
+    ],
+    content: `
+<h2>Tại sao prompt AI quan trọng hơn bạn nghĩ?</h2>
+<p>Cùng một công cụ AI, nhưng người biết viết prompt nhận về content chuyên nghiệp trong 30 giây, người không biết nhận về nội dung nhạt nhẽo phải sửa cả tiếng. <strong>Prompt là ngôn ngữ giao tiếp với AI</strong> — viết đúng thì AI hiểu đúng, viết sai thì AI đoán mò.</p>
+<p>Thực tế: 80% người dùng AI chỉ viết vài từ như "viết bài quảng cáo kem dưỡng da" và nhận output chung chung. 20% còn lại viết prompt đúng cách và nhận content gần như sẵn sàng đăng ngay. Bài viết này cho bạn công thức và 50+ mẫu thực chiến để thuộc vào nhóm 20% đó.</p>
+
+<h2>Cấu trúc prompt AI hoàn hảo — công thức 5C</h2>
+<p>Mọi prompt hiệu quả đều có đủ 5 yếu tố sau:</p>
+<ol>
+<li><strong>Context (Bối cảnh):</strong> Sản phẩm là gì? Dành cho ai? Giá bao nhiêu?</li>
+<li><strong>Command (Nhiệm vụ):</strong> Viết gì? Facebook Ads? Mô tả sản phẩm? Caption?</li>
+<li><strong>Criteria (Tiêu chí):</strong> Dài bao nhiêu từ? Bao nhiêu phiên bản? Bao gồm gì?</li>
+<li><strong>Character (Nhân vật/Tone):</strong> Tone thương hiệu — chuyên nghiệp, gần gũi, hài hước?</li>
+<li><strong>Constraints (Giới hạn):</strong> Tránh điều gì? Không dùng từ nào?</li>
+</ol>
+<p>Không nhất thiết phải có đủ 5C trong mọi prompt, nhưng càng nhiều thì output càng chính xác.</p>
+
+<h2>Mẫu prompt viết Facebook Ads</h2>
+
+<h3>Prompt #1 — Facebook Ads cơ bản (áp dụng được ngay)</h3>
+<blockquote>
+<em>Viết 3 phiên bản content quảng cáo Facebook cho [tên sản phẩm], dành cho [đối tượng mục tiêu], giá [giá tiền]. Lợi ích chính: [lợi ích 1], [lợi ích 2], [lợi ích 3]. Mỗi phiên bản có hook khác nhau (câu hỏi / câu chuyện / con số). Bao gồm CTA và hashtag. Tone gần gũi, tiếng Việt tự nhiên. Độ dài mỗi phiên bản: 80–120 từ.</em>
+</blockquote>
+
+<h3>Prompt #2 — Facebook Ads nhấn mạnh kết quả trước/sau</h3>
+<blockquote>
+<em>Tạo content Facebook Ads theo công thức Before-After-Bridge cho [sản phẩm]. Before: khách hàng đang gặp [vấn đề cụ thể]. After: kết quả sau khi dùng [sản phẩm] là [kết quả]. Bridge: [sản phẩm] giải quyết bằng cách [cơ chế hoạt động ngắn gọn]. Thêm social proof: [số lượng khách hàng] đã dùng. CTA: [hành động mong muốn]. Tone: ấm áp, chân thực.</em>
+</blockquote>
+
+<h3>Prompt #3 — Facebook Ads tạo urgency</h3>
+<blockquote>
+<em>Viết content Facebook Ads cho [sản phẩm] nhấn mạnh flash sale kết thúc [thời gian]. Bắt đầu bằng hook về giá ưu đãi. Liệt kê 3 lợi ích chính. Thêm scarcity thực tế: "chỉ còn [số lượng] suất". CTA rõ ràng. Không dùng từ "siêu rẻ" hay "khuyến mãi sốc". Giữ tone chuyên nghiệp nhưng có urgency.</em>
+</blockquote>
+
+<h3>Prompt #4 — Facebook Ads cho sản phẩm B2B / dịch vụ</h3>
+<blockquote>
+<em>Viết 2 phiên bản Facebook Ads cho [dịch vụ/sản phẩm B2B], target [chức danh/ngành nghề] tại Việt Nam. Phiên bản 1: nhấn mạnh tiết kiệm chi phí/thời gian (nêu con số cụ thể). Phiên bản 2: nhấn mạnh kết quả kinh doanh. Tone chuyên nghiệp, không hoa mỹ. Bao gồm câu hỏi mở đầu để tạo engagement.</em>
+</blockquote>
+
+<h3>Prompt #5 — Viết nhiều hook để A/B test</h3>
+<blockquote>
+<em>Viết 5 câu hook khác nhau (câu mở đầu) cho quảng cáo [sản phẩm] dành cho [đối tượng]. Mỗi hook dùng một công thức khác nhau: (1) câu hỏi vào vấn đề, (2) con số gây shock, (3) câu chuyện ngắn 1 câu, (4) tuyên bố ngược chiều, (5) cảnh báo. Chỉ cần câu hook, không cần viết cả bài.</em>
+</blockquote>
+
+<h2>Mẫu prompt viết landing page</h2>
+
+<h3>Prompt #6 — Landing page bán hàng hoàn chỉnh</h3>
+<blockquote>
+<em>Viết nội dung landing page bán hàng đầy đủ cho [sản phẩm], giá [giá tiền], dành cho [đối tượng]. Cấu trúc: (1) Hero headline + subheadline, (2) 3 pain points của khách hàng, (3) Giải pháp = sản phẩm + 5 lợi ích, (4) 3 testimonial (tạo ví dụ thực tế), (5) FAQ 5 câu, (6) Offer + CTA. Tone: thuyết phục nhưng không gây áp lực. Viết tiếng Việt tự nhiên.</em>
+</blockquote>
+
+<h3>Prompt #7 — Headline landing page (nhiều biến thể)</h3>
+<blockquote>
+<em>Tạo 8 headline cho landing page của [sản phẩm], dành cho [đối tượng]. Mỗi headline dùng công thức khác nhau: kết quả + thời gian, không cần X vẫn Y, con số cụ thể, câu hỏi, so sánh, bí quyết, cảnh báo, cam kết. Headline dưới 12 từ, tập trung vào lợi ích, không nhắc tên sản phẩm.</em>
+</blockquote>
+
+<h3>Prompt #8 — Section Social Proof cho landing page</h3>
+<blockquote>
+<em>Viết 5 testimonial thực tế (dạng quote) cho [sản phẩm]. Mỗi testimonial có: tên (tên Việt Nam thực tế), thành phố, kết quả cụ thể đạt được sau [thời gian], và 1 câu về trải nghiệm dùng. Kết quả phải đo được (con số, thời gian, so sánh trước/sau). Không dùng từ "tuyệt vời" hay "chất lượng cao".</em>
+</blockquote>
+
+<h3>Prompt #9 — FAQ landing page</h3>
+<blockquote>
+<em>Viết 8 câu hỏi FAQ và trả lời cho landing page bán [sản phẩm/dịch vụ]. Câu hỏi phải phản ánh đúng lo ngại thực sự của người mua: giá có đáng không, giao hàng bao lâu, dùng có hiệu quả không, đổi trả thế nào, phù hợp với [đặc điểm cụ thể] không. Trả lời ngắn gọn, trực tiếp, không vòng vo. Kết thúc mỗi câu trả lời bằng một cam kết nhỏ.</em>
+</blockquote>
+
+<h3>Prompt #10 — CTA và offer cho landing page</h3>
+<blockquote>
+<em>Viết 3 phiên bản CTA section cho landing page [sản phẩm], mỗi phiên bản nhấn mạnh một góc độ khác nhau: (1) giá trị/tiết kiệm, (2) urgency/scarcity, (3) đảo ngược rủi ro (hoàn tiền). Mỗi phiên bản gồm: dòng chú thích nhỏ, headline CTA, sub-text, nút CTA text. Dưới 50 từ mỗi phiên bản.</em>
+</blockquote>
+
+<h2>Mẫu prompt viết mô tả sản phẩm</h2>
+
+<h3>Prompt #11 — Mô tả sản phẩm cho Haravan / Shopify</h3>
+<blockquote>
+<em>Viết mô tả sản phẩm đầy đủ cho [tên sản phẩm], thành phần chính [thành phần], dành cho [đối tượng], giá [giá]. Cấu trúc: (1) câu mở đầu thu hút (nói về người dùng, không phải sản phẩm), (2) 4 lợi ích chính dạng bullet, (3) thành phần + lý do tốt, (4) hướng dẫn sử dụng 3 bước, (5) cam kết hoàn tiền. Tổng 150–200 từ. Không dùng "cao cấp" hay "chất lượng tốt".</em>
+</blockquote>
+
+<h3>Prompt #12 — Mô tả sản phẩm mỹ phẩm</h3>
+<blockquote>
+<em>Viết mô tả sản phẩm cho kem dưỡng [loại kem], thành phần nổi bật: [thành phần]. Dành cho da [loại da], phụ nữ [độ tuổi]. Nhấn mạnh: [kết quả 1], [kết quả 2] sau [thời gian]. Không paraben, không cồn. Thêm câu hỏi tu từ ở đầu, bullet lợi ích, hướng dẫn dùng buổi tối. Tone: gần gũi như bạn tư vấn cho chị em. 180 từ.</em>
+</blockquote>
+
+<h3>Prompt #13 — Mô tả sản phẩm thực phẩm / TPBVSK</h3>
+<blockquote>
+<em>Viết mô tả sản phẩm thực phẩm chức năng [tên sản phẩm], thành phần [thành phần], công dụng [công dụng]. Không dùng từ "chữa bệnh" hay "điều trị". Thay vào đó nhấn mạnh: hỗ trợ, tăng cường, cải thiện. Bao gồm: đối tượng phù hợp, cách dùng, liều dùng, lưu ý. Tone khoa học nhưng dễ hiểu. 150 từ.</em>
+</blockquote>
+
+<h3>Prompt #14 — Mô tả sản phẩm thời trang</h3>
+<blockquote>
+<em>Viết mô tả sản phẩm cho [tên sản phẩm thời trang], chất liệu [chất liệu], có size [size range], màu sắc [màu]. Nhấn mạnh: cảm giác khi mặc, phù hợp dịp gì, cách phối đồ (2 gợi ý). Thêm hướng dẫn bảo quản. Tone: trẻ trung, tự tin. Bao gồm thông tin giao hàng và đổi trả ở cuối. 160 từ.</em>
+</blockquote>
+
+<h3>Prompt #15 — Title sản phẩm cho Shopee / Lazada (SEO)</h3>
+<blockquote>
+<em>Tạo 5 tiêu đề sản phẩm cho [sản phẩm] để đăng Shopee/Lazada. Mỗi tiêu đề dài 100–120 ký tự. Bắt đầu bằng từ khóa chính, bao gồm: đặc điểm nổi bật, đối tượng dùng, và từ khóa phụ liên quan. Không dùng ký tự đặc biệt. Tránh lặp từ nhiều lần.</em>
+</blockquote>
+
+<h2>Mẫu prompt viết email marketing</h2>
+
+<h3>Prompt #16 — Email giới thiệu sản phẩm mới</h3>
+<blockquote>
+<em>Viết email marketing giới thiệu [sản phẩm mới] đến danh sách khách hàng cũ của shop [tên shop]. Subject line: tạo tò mò, không spam. Body: nhắc lại mối quan hệ với khách → giới thiệu sản phẩm mới với 3 điểm khác biệt → offer đặc biệt dành riêng cho khách cũ (giảm [%] hoặc quà tặng) → CTA. Tone thân mật, như viết thư cho bạn. 200 từ.</em>
+</blockquote>
+
+<h3>Prompt #17 — Email chăm sóc khách hàng sau mua</h3>
+<blockquote>
+<em>Viết chuỗi 3 email tự động gửi sau khi khách mua [sản phẩm]: Email 1 (ngay sau mua): cảm ơn + hướng dẫn sử dụng đúng cách. Email 2 (ngày thứ 7): hỏi thăm trải nghiệm + mẹo dùng hiệu quả hơn. Email 3 (ngày thứ 21): nhắc tái đặt hàng + ưu đãi khách cũ. Mỗi email dưới 150 từ, subject line hấp dẫn, tone chân thành.</em>
+</blockquote>
+
+<h3>Prompt #18 — Email flash sale</h3>
+<blockquote>
+<em>Viết email flash sale cho [sản phẩm] giảm [%] trong [thời gian]. Subject line tạo urgency không spam-like. Nội dung: thông báo sale → sản phẩm được giảm + giá trước/sau → countdown đến kết thúc → 1 testimonial ngắn → CTA nút lớn. Không quá 120 từ trong body. Tone: hào hứng nhưng không gào thét.</em>
+</blockquote>
+
+<h3>Prompt #19 — Email winback khách không mua lại</h3>
+<blockquote>
+<em>Viết email "chúng tôi nhớ bạn" gửi đến khách đã mua [sản phẩm] cách đây 3 tháng nhưng chưa quay lại. Bắt đầu bằng việc nhắc nhở thành tích/kết quả họ đã đạt (giả định tích cực). Giới thiệu cái mới của shop. Offer đặc biệt chỉ dành cho họ với mã [tên mã giảm giá]. Deadline rõ ràng. 150 từ, tone ấm áp, không áp lực.</em>
+</blockquote>
+
+<h3>Prompt #20 — Subject line email (nhiều biến thể)</h3>
+<blockquote>
+<em>Tạo 10 subject line email marketing cho [chiến dịch/sản phẩm]. Mỗi subject line dùng tâm lý khác nhau: (1) FOMO, (2) tò mò, (3) lợi ích trực tiếp, (4) con số, (5) câu hỏi cá nhân, (6) bí mật, (7) kết quả, (8) xã hội chứng minh, (9) cảnh báo, (10) cảm xúc. Dưới 50 ký tự mỗi cái. Tránh từ spam-filter: "miễn phí", "URGENT", dấu chấm than nhiều.</em>
+</blockquote>
+
+<h2>Mẫu prompt viết caption mạng xã hội</h2>
+
+<h3>Prompt #21 — Caption Instagram / Facebook thông thường</h3>
+<blockquote>
+<em>Viết 3 caption cho ảnh sản phẩm [mô tả ảnh] của [tên shop]. Phiên bản 1: storytelling ngắn (kể câu chuyện ngắn liên quan đến sản phẩm). Phiên bản 2: value post (chia sẻ mẹo/kiến thức liên quan). Phiên bản 3: engagement bait (kêu gọi comment với câu hỏi dễ trả lời). Mỗi caption 60–100 từ, kết thúc bằng 5–8 hashtag liên quan.</em>
+</blockquote>
+
+<h3>Prompt #22 — Script video TikTok ngắn (15–30 giây)</h3>
+<blockquote>
+<em>Viết script video TikTok 30 giây cho [sản phẩm]. Cấu trúc: [0–3 giây] Hook bằng câu hỏi hoặc kết quả gây tò mò. [3–10 giây] Vấn đề: mô tả vấn đề khách hàng đang gặp. [10–25 giây] Demo/giới thiệu sản phẩm giải quyết vấn đề. [25–30 giây] CTA nhẹ. Ghi chú action cho từng đoạn (quay cảnh gì). Tone: tự nhiên, không đọc quảng cáo.</em>
+</blockquote>
+
+<h3>Prompt #23 — Caption Zalo OA</h3>
+<blockquote>
+<em>Viết bài đăng Zalo OA giới thiệu [sản phẩm/ưu đãi] của [tên shop]. Bắt đầu bằng emoji hấp dẫn. Nội dung: giới thiệu ưu đãi → 3 điểm lợi ích → thông tin đặt hàng rõ ràng → CTA. Không quá 200 từ. Dùng emoji hợp lý (5–8 cái). Kết thúc bằng thông tin liên hệ và giờ làm việc.</em>
+</blockquote>
+
+<h3>Prompt #24 — Series nội dung 7 ngày cho trang mạng xã hội</h3>
+<blockquote>
+<em>Tạo lịch nội dung 7 ngày cho trang Facebook/Instagram bán [sản phẩm/dịch vụ]. Mỗi ngày có chủ đề: Thứ 2 (giáo dục/tips), Thứ 3 (sản phẩm), Thứ 4 (testimonial), Thứ 5 (behind-the-scenes), Thứ 6 (ưu đãi/sale), Thứ 7 (engagement), Chủ nhật (cảm hứng). Cho mỗi ngày: idea nội dung + caption ngắn 50 từ + loại hình ảnh gợi ý.</em>
+</blockquote>
+
+<h2>Mẫu prompt viết content website / blog</h2>
+
+<h3>Prompt #25 — Outline bài blog chuẩn SEO</h3>
+<blockquote>
+<em>Tạo outline chi tiết cho bài blog về chủ đề "[từ khóa chính]". Target: [đối tượng đọc]. Search intent: [thông tin / mua hàng / so sánh]. Outline gồm: Title tag (60 ký tự, có từ khóa), Meta description (155 ký tự), H1, 5–7 H2 với 2–3 H3 mỗi H2, suggested word count cho từng section, nội dung key points cần cover. Bao gồm gợi ý internal link đến các chủ đề liên quan.</em>
+</blockquote>
+
+<h3>Prompt #26 — Phần giới thiệu bài blog thu hút</h3>
+<blockquote>
+<em>Viết phần intro 150 từ cho bài blog về "[chủ đề]". Bắt đầu bằng hook (câu hỏi, con số gây shock, hoặc câu chuyện ngắn). Đoạn 2: mô tả vấn đề/tình huống mà người đọc đang gặp. Đoạn 3: preview những gì họ sẽ học được từ bài này (không dùng "trong bài viết này tôi sẽ"). Kết: câu dẫn vào nội dung chính. Tone: chuyên gia nhưng gần gũi, không học thuật.</em>
+</blockquote>
+
+<h3>Prompt #27 — Trang "Về chúng tôi" thuyết phục</h3>
+<blockquote>
+<em>Viết trang "Về chúng tôi" cho [tên doanh nghiệp], [lĩnh vực kinh doanh], thành lập [năm]. Cấu trúc: (1) Vấn đề chúng tôi nhìn thấy trong ngành (không bắt đầu bằng "Chúng tôi là..."), (2) Sứ mệnh và cách chúng tôi khác biệt, (3) Con số ấn tượng ([số khách hàng], [doanh thu], [năm hoạt động]), (4) Đội ngũ ngắn gọn, (5) CTA. 250 từ, tone tự tin nhưng không khoe khoang.</em>
+</blockquote>
+
+<h2>Mẹo nâng cao: Cách viết prompt AI ngày càng tốt hơn</h2>
+
+<h3>Kỹ thuật #1: Few-shot prompting — cho AI xem ví dụ mẫu</h3>
+<p>Thay vì chỉ mô tả, hãy đưa ra 1–2 ví dụ về style bạn muốn:</p>
+<blockquote>
+<em>Viết content Facebook Ads theo phong cách giống ví dụ này: "[dán ví dụ content bạn thích vào đây]". Sản phẩm: [sản phẩm của bạn]. Giữ nguyên cấu trúc và tone, thay nội dung theo sản phẩm mới.</em>
+</blockquote>
+
+<h3>Kỹ thuật #2: Role prompting — giao vai trò cho AI</h3>
+<blockquote>
+<em>Bạn là copywriter chuyên viết quảng cáo cho thị trường Việt Nam với 10 năm kinh nghiệm. Bạn hiểu tâm lý người tiêu dùng Việt và biết cách viết content chuyển đổi cao. Hãy viết [nhiệm vụ] cho [sản phẩm].</em>
+</blockquote>
+
+<h3>Kỹ thuật #3: Iterate — yêu cầu AI tự cải thiện</h3>
+<p>Sau khi nhận output đầu tiên, không hài lòng? Đừng bắt đầu lại từ đầu, hãy yêu cầu cải thiện:</p>
+<blockquote>
+<em>Output trên tốt nhưng [điểm chưa ưng ý]. Hãy viết lại version 2: [yêu cầu cụ thể]. Giữ nguyên [điểm tốt đã có].</em>
+</blockquote>
+
+<h3>Kỹ thuật #4: Constraint prompting — giới hạn giúp AI tập trung hơn</h3>
+<p>Thêm ràng buộc cụ thể để AI không viết lan man:</p>
+<ul>
+<li>"Không dùng từ: tuyệt vời, chất lượng cao, uy tín"</li>
+<li>"Mỗi câu dưới 20 từ"</li>
+<li>"Dùng đúng [số từ] từ"</li>
+<li>"Không dùng emoji"</li>
+<li>"Viết dưới góc độ người dùng, không phải người bán"</li>
+</ul>
+
+<h2>Template prompt nhanh — copy ngay không cần sửa</h2>
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+<thead>
+<tr style="background:#f1f5f9">
+<th style="padding:10px;text-align:left;border:1px solid #e2e8f0">Mục tiêu</th>
+<th style="padding:10px;text-align:left;border:1px solid #e2e8f0">Prompt siêu ngắn (điền vào chỗ trống)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding:8px;border:1px solid #e2e8f0">Facebook Ads nhanh</td>
+<td style="padding:8px;border:1px solid #e2e8f0">"Viết 3 Facebook Ads cho [sản phẩm], dành cho [đối tượng], nhấn mạnh [lợi ích chính]. Tone gần gũi. 100 từ mỗi bài."</td>
+</tr>
+<tr style="background:#f8fafc">
+<td style="padding:8px;border:1px solid #e2e8f0">Mô tả sản phẩm</td>
+<td style="padding:8px;border:1px solid #e2e8f0">"Mô tả sản phẩm [tên], dành cho [đối tượng], giá [giá]. 5 lợi ích + cách dùng + cam kết. 150 từ."</td>
+</tr>
+<tr>
+<td style="padding:8px;border:1px solid #e2e8f0">Caption ảnh sản phẩm</td>
+<td style="padding:8px;border:1px solid #e2e8f0">"Caption cho ảnh [mô tả ảnh]. Storytelling 80 từ + 6 hashtag."</td>
+</tr>
+<tr style="background:#f8fafc">
+<td style="padding:8px;border:1px solid #e2e8f0">Email flash sale</td>
+<td style="padding:8px;border:1px solid #e2e8f0">"Email flash sale [sản phẩm] giảm [%] đến [ngày]. Subject line + 100 từ body + CTA."</td>
+</tr>
+<tr>
+<td style="padding:8px;border:1px solid #e2e8f0">Headline landing page</td>
+<td style="padding:8px;border:1px solid #e2e8f0">"5 headline landing page cho [sản phẩm] dành cho [đối tượng]. Tập trung vào lợi ích, dưới 10 từ."</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Lỗi phổ biến khi viết prompt AI</h2>
+<ul>
+<li><strong>Prompt quá ngắn:</strong> "Viết quảng cáo kem dưỡng da" → AI không biết bạn muốn gì cụ thể</li>
+<li><strong>Không nói rõ đối tượng:</strong> Content cho mẹ bỉm sữa khác hoàn toàn với content cho Gen Z</li>
+<li><strong>Không giới hạn độ dài:</strong> AI mặc định viết dài — nói rõ số từ bạn cần</li>
+<li><strong>Không yêu cầu tone:</strong> "Chuyên nghiệp", "gần gũi", "hài hước" sẽ ra output hoàn toàn khác nhau</li>
+<li><strong>Không review output:</strong> Dùng AI output 100% không chỉnh sửa — thường dễ nhận ra là AI viết</li>
+</ul>
+
+<h2>Kết luận</h2>
+<p>50+ mẫu prompt trong bài này là điểm xuất phát — không phải công thức cố định. Hãy tùy chỉnh theo sản phẩm, đối tượng và tone thương hiệu của bạn. Sau vài lần sử dụng, bạn sẽ phát triển được "ngôn ngữ riêng" khi giao tiếp với AI — và đó là lúc năng suất tạo content của bạn tăng lên gấp bội.</p>
+<p>Điều quan trọng nhất: luôn đọc và chỉnh sửa output trước khi đăng. AI tạo bản nháp tốt, bạn thêm vào đó kinh nghiệm thực tế và giọng điệu thương hiệu — đó mới là content thật sự hiệu quả.</p>
+    `.trim(),
+  },
 };

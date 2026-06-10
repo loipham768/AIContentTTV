@@ -291,8 +291,7 @@ export default async function ArticlePage({
                   </p>
                   <Link
                     href={ctaHref}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-white font-extrabold rounded-xl hover:bg-indigo-50 transition-colors shadow text-sm"
-                    style={{ color: "inherit" }}
+                    className={`inline-flex items-center gap-2 px-5 py-2.5 bg-white font-extrabold rounded-xl hover:bg-indigo-50 transition-colors shadow text-sm ${c.text}`}
                   >
                     {ctaLabel} <ArrowRight className="w-4 h-4" />
                   </Link>
