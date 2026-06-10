@@ -1,8 +1,8 @@
 import type { Editor } from 'grapesjs'
 
 const F   = `font-family:'Segoe UI',system-ui,-apple-system,sans-serif;`
-const LP  = { label: 'Mẫu Landing Page', order: 9 }
-const ADS = { label: 'Mẫu Quảng cáo',   order: 10 }
+const LP  = { id: 'landing-templates', label: 'Mẫu Landing Page', order: 9 }
+const ADS = { id: 'ad-templates',      label: 'Mẫu Quảng cáo',   order: 10 }
 
 // ─── Shared helpers ────────────────────────────────────────────────────────
 
@@ -483,7 +483,7 @@ export function registerLandingTemplates(editor: Editor) {
             </div>
             <p style="font-size:14px;color:#64748b;line-height:1.65;margin:0 0 14px;${F}">${desc}</p>
             <div style="display:flex;flex-wrap:wrap;gap:8px;">
-              ${features.map(f=>`<span style="padding:4px 12px;background:#f0f4ff;color:#4338ca;font-size:12px;font-weight:600;border-radius:9999px;${F}">${f}</span>`).join('')}
+              ${(features as string[]).map((f:string)=>`<span style="padding:4px 12px;background:#f0f4ff;color:#4338ca;font-size:12px;font-weight:600;border-radius:9999px;${F}">${f}</span>`).join('')}
             </div>
           </div>
           <a href="#lien-he" style="flex-shrink:0;padding:12px 24px;background:#4f46e5;color:#fff;text-decoration:none;border-radius:10px;font-size:14px;font-weight:700;align-self:center;${F}">Tìm hiểu</a>
