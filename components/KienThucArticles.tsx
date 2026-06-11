@@ -127,6 +127,10 @@ const CAT: Record<
   },
 };
 
+function isNew(publishedDate: string) {
+  return (Date.now() - new Date(publishedDate).getTime()) / 86_400_000 <= 7;
+}
+
 const CATEGORY_ORDER: CategoryKey[] = [
   "Hướng dẫn",
   "Landing Page",
@@ -281,9 +285,16 @@ export default function KienThucArticles({ articles, isLoggedIn }: Props) {
                       {i + 1}
                     </span>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-sm font-bold text-gray-900 group-hover:text-teal-700 transition-colors leading-snug line-clamp-2">
-                        {article.title}
-                      </h3>
+                      <div className="flex items-start gap-1.5">
+                        <h3 className="text-sm font-bold text-gray-900 group-hover:text-teal-700 transition-colors leading-snug line-clamp-2 flex-1">
+                          {article.title}
+                        </h3>
+                        {isNew(article.publishedDate) && (
+                          <span className="flex-shrink-0 text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-green-500 text-white leading-none mt-0.5">
+                            Mới
+                          </span>
+                        )}
+                      </div>
                       <div className="flex items-center justify-between mt-2">
                         <span className="flex items-center gap-1 text-xs text-gray-400">
                           <Clock className="w-3 h-3" /> {article.readTime}
@@ -352,9 +363,19 @@ export default function KienThucArticles({ articles, isLoggedIn }: Props) {
                           className="group flex flex-col p-4 rounded-xl bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                           style={{ border: `1px solid ${c.border}` }}
                         >
-                          <h4 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2 flex-1">
-                            {article.title}
-                          </h4>
+                          <div className="flex items-start gap-1.5 flex-1">
+                            <h4 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2 flex-1">
+                              {article.title}
+                            </h4>
+                            {isNew(article.publishedDate) && (
+                              <span className="relative flex-shrink-0 mt-0.5">
+                                <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-75" />
+                                <span className="relative text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-green-500 text-white leading-none inline-block">
+                                  Mới
+                                </span>
+                              </span>
+                            )}
+                          </div>
                           <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-gray-100">
                             <span className="flex items-center gap-1 text-xs text-gray-400">
                               <Clock className="w-3 h-3" /> {article.readTime}
@@ -427,9 +448,16 @@ function FilteredGrid({
               className="group flex flex-col p-4 rounded-xl bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
               style={{ border: `1px solid ${c.border}` }}
             >
-              <h3 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2 flex-1">
-                {article.title}
-              </h3>
+              <div className="flex items-start gap-1.5 flex-1">
+                <h3 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2 flex-1">
+                  {article.title}
+                </h3>
+                {isNew(article.publishedDate) && (
+                  <span className="flex-shrink-0 text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-green-500 text-white leading-none mt-0.5">
+                    Mới
+                  </span>
+                )}
+              </div>
               <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-gray-100">
                 <span className="flex items-center gap-1 text-xs text-gray-400">
                   <Clock className="w-3 h-3" /> {article.readTime}
