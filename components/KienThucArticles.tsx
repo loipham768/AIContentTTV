@@ -15,7 +15,8 @@ import {
   ChevronRight,
   LayoutGrid,
 } from "lucide-react";
-import type { Article } from "@/lib/articles";
+import type { ArticleMeta as Article } from "@/lib/articles-db";
+import { ARTICLES_PAGE_SIZE, FILTERED_PAGE_SIZE } from "@/lib/constants";
 
 type CategoryKey =
   | "Hướng dẫn"
@@ -129,51 +130,74 @@ const CAT: Record<
 
 // 3 gradient variants per category (angle + color stops)
 const PALETTES: Record<CategoryKey, string[]> = {
-  "Landing Page":  ["135deg,#6366f1,#7c3aed", "160deg,#4f46e5,#2563eb", "115deg,#8b5cf6,#4338ca"],
-  "Hướng dẫn":    ["135deg,#14b8a6,#0891b2", "155deg,#10b981,#0d9488", "120deg,#06b6d4,#0e7490"],
-  "So sánh":      ["135deg,#8b5cf6,#7c3aed", "150deg,#a855f7,#6d28d9", "120deg,#7c3aed,#4f46e5"],
-  "Quảng cáo":    ["135deg,#f43f5e,#ec4899", "150deg,#e11d48,#db2777", "120deg,#fb7185,#be185d"],
-  "Kỹ thuật":     ["135deg,#10b981,#0d9488", "155deg,#059669,#0891b2", "115deg,#34d399,#065f46"],
-  Content:         ["135deg,#f59e0b,#f97316", "150deg,#d97706,#ea580c", "120deg,#fbbf24,#c2410c"],
-  SEO:             ["135deg,#3b82f6,#4f46e5", "155deg,#1d4ed8,#2563eb", "115deg,#60a5fa,#1e40af"],
+  "Landing Page": [
+    "135deg,#6366f1,#7c3aed",
+    "160deg,#4f46e5,#2563eb",
+    "115deg,#8b5cf6,#4338ca",
+  ],
+  "Hướng dẫn": [
+    "135deg,#14b8a6,#0891b2",
+    "155deg,#10b981,#0d9488",
+    "120deg,#06b6d4,#0e7490",
+  ],
+  "So sánh": [
+    "135deg,#8b5cf6,#7c3aed",
+    "150deg,#a855f7,#6d28d9",
+    "120deg,#7c3aed,#4f46e5",
+  ],
+  "Quảng cáo": [
+    "135deg,#f43f5e,#ec4899",
+    "150deg,#e11d48,#db2777",
+    "120deg,#fb7185,#be185d",
+  ],
+  "Kỹ thuật": [
+    "135deg,#10b981,#0d9488",
+    "155deg,#059669,#0891b2",
+    "115deg,#34d399,#065f46",
+  ],
+  Content: [
+    "135deg,#f59e0b,#f97316",
+    "150deg,#d97706,#ea580c",
+    "120deg,#fbbf24,#c2410c",
+  ],
+  SEO: [
+    "135deg,#3b82f6,#4f46e5",
+    "155deg,#1d4ed8,#2563eb",
+    "115deg,#60a5fa,#1e40af",
+  ],
 };
 
 // 4 decorative layouts — picked by slug hash
 const DECORS = [
   // 0: hai vòng tròn góc
-  (
-    <>
-      <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-white/10" />
-      <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-white/10" />
-    </>
-  ),
+  <>
+    <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-white/10" />
+    <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-white/10" />
+  </>,
   // 1: ba vòng nhỏ rải rác
-  (
-    <>
-      <div className="absolute top-3 right-4 w-16 h-16 rounded-full bg-white/10" />
-      <div className="absolute top-12 right-16 w-8 h-8 rounded-full bg-white/15" />
-      <div className="absolute bottom-3 left-6 w-14 h-14 rounded-full bg-white/10" />
-    </>
-  ),
+  <>
+    <div className="absolute top-3 right-4 w-16 h-16 rounded-full bg-white/10" />
+    <div className="absolute top-12 right-16 w-8 h-8 rounded-full bg-white/15" />
+    <div className="absolute bottom-3 left-6 w-14 h-14 rounded-full bg-white/10" />
+  </>,
   // 2: vòng lớn lệch trái + điểm nhỏ phải
-  (
-    <>
-      <div className="absolute -left-10 top-1/2 -translate-y-1/2 w-44 h-44 rounded-full bg-white/10" />
-      <div className="absolute top-3 right-5 w-10 h-10 rounded-full bg-white/15" />
-      <div className="absolute bottom-4 right-10 w-6 h-6 rounded-full bg-white/10" />
-    </>
-  ),
+  <>
+    <div className="absolute -left-10 top-1/2 -translate-y-1/2 w-44 h-44 rounded-full bg-white/10" />
+    <div className="absolute top-3 right-5 w-10 h-10 rounded-full bg-white/15" />
+    <div className="absolute bottom-4 right-10 w-6 h-6 rounded-full bg-white/10" />
+  </>,
   // 3: kẻ sọc chéo nhạt + vòng nhỏ
-  (
-    <>
-      <div
-        className="absolute inset-0 opacity-[0.07]"
-        style={{ backgroundImage: "repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 1px,transparent 14px)" }}
-      />
-      <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-white/10" />
-      <div className="absolute bottom-3 left-4 w-10 h-10 rounded-full bg-white/10" />
-    </>
-  ),
+  <>
+    <div
+      className="absolute inset-0 opacity-[0.07]"
+      style={{
+        backgroundImage:
+          "repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 1px,transparent 14px)",
+      }}
+    />
+    <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-white/10" />
+    <div className="absolute bottom-3 left-4 w-10 h-10 rounded-full bg-white/10" />
+  </>,
 ];
 
 function slugHash(slug: string) {
@@ -206,12 +230,16 @@ function Thumbnail({
   step?: number;
 }) {
   const h = slugHash(article.slug);
-  const palette = PALETTES[article.category as CategoryKey] ?? PALETTES["Content"];
+  const palette =
+    PALETTES[article.category as CategoryKey] ?? PALETTES["Content"];
   const bg = `linear-gradient(${palette[h % palette.length]})`;
   const decor = DECORS[h % DECORS.length];
 
   return (
-    <div className="relative h-36 overflow-hidden flex-shrink-0" style={{ background: bg }}>
+    <div
+      className="relative h-36 overflow-hidden flex-shrink-0"
+      style={{ background: bg }}
+    >
       {article.image ? (
         <img
           src={article.image}
@@ -229,7 +257,10 @@ function Thumbnail({
         </>
       )}
       {step !== undefined && (
-        <span className="absolute bottom-2.5 left-2.5 z-10 w-6 h-6 rounded-lg bg-white/90 text-xs font-extrabold flex items-center justify-center shadow-sm" style={{ color: "#374151" }}>
+        <span
+          className="absolute bottom-2.5 left-2.5 z-10 w-6 h-6 rounded-lg bg-white/90 text-xs font-extrabold flex items-center justify-center shadow-sm"
+          style={{ color: "#374151" }}
+        >
           {step}
         </span>
       )}
@@ -248,26 +279,157 @@ const CATEGORY_ORDER: CategoryKey[] = [
   "So sánh",
 ];
 
+type CatGroup = { articles: Article[]; total: number };
+
 interface Props {
-  articles: Article[];
+  initialGroups: Record<string, CatGroup>;
   isLoggedIn: boolean;
 }
 
-export default function KienThucArticles({ articles, isLoggedIn }: Props) {
+const GROUP_PAGE_SIZE = ARTICLES_PAGE_SIZE;
+
+function getPageNums(current: number, total: number): (number | "…")[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const pages: (number | "…")[] = [1];
+  if (current > 3) pages.push("…");
+  for (
+    let p = Math.max(2, current - 1);
+    p <= Math.min(total - 1, current + 1);
+    p++
+  )
+    pages.push(p);
+  if (current < total - 2) pages.push("…");
+  pages.push(total);
+  return pages;
+}
+
+function Pagination({
+  page,
+  total,
+  pageSize,
+  onChange,
+  accentColor,
+}: {
+  page: number;
+  total: number;
+  pageSize: number;
+  onChange: (p: number) => void;
+  accentColor?: string;
+}) {
+  const totalPages = Math.ceil(total / pageSize);
+  if (totalPages <= 1) return null;
+  const nums = getPageNums(page, totalPages);
+  const accent = accentColor ?? "linear-gradient(135deg,#4338ca,#7c3aed)";
+  return (
+    <div className="flex flex-col items-center gap-2 py-3">
+      <p className="text-xs text-gray-400">
+        <span className="font-semibold text-gray-600">
+          {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, total)}
+        </span>{" "}
+        / {total} bài
+      </p>
+      <div className="flex items-center gap-1">
+        <button
+          onClick={() => onChange(page - 1)}
+          disabled={page === 1}
+          className="px-3 py-1.5 text-xs font-bold rounded-lg border border-gray-200 bg-white text-gray-500 hover:border-indigo-300 hover:text-indigo-600 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          ←
+        </button>
+        {nums.map((n, i) =>
+          n === "…" ? (
+            <span key={`e${i}`} className="px-1.5 text-xs text-gray-400">
+              …
+            </span>
+          ) : (
+            <button
+              key={n}
+              onClick={() => onChange(n as number)}
+              className="w-8 h-8 text-xs font-bold rounded-lg border transition-all"
+              style={
+                page === n
+                  ? {
+                      background: accent,
+                      color: "#fff",
+                      borderColor: "transparent",
+                      boxShadow: "0 2px 8px rgba(99,102,241,0.3)",
+                    }
+                  : {
+                      background: "#fff",
+                      color: "#374151",
+                      borderColor: "#e5e7eb",
+                    }
+              }
+            >
+              {n}
+            </button>
+          ),
+        )}
+        <button
+          onClick={() => onChange(page + 1)}
+          disabled={page === totalPages}
+          className="px-3 py-1.5 text-xs font-bold rounded-lg border border-gray-200 bg-white text-gray-500 hover:border-indigo-300 hover:text-indigo-600 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          →
+        </button>
+      </div>
+    </div>
+  );
+}
+
+type CatState = CatGroup & {
+  page: number;
+  loading: boolean;
+  allLoaded: boolean;
+};
+
+export default function KienThucArticles({ initialGroups, isLoggedIn }: Props) {
   const [active, setActive] = useState<"all" | CategoryKey>("all");
+  const [catData, setCatData] = useState<Record<string, CatState>>(() =>
+    Object.fromEntries(
+      Object.entries(initialGroups).map(([cat, g]) => [
+        cat,
+        {
+          ...g,
+          page: 1,
+          loading: false,
+          allLoaded: g.articles.length >= g.total,
+        },
+      ]),
+    ),
+  );
 
-  const tutorials = articles.filter((a) => a.category === "Hướng dẫn");
-  const knowledge = articles.filter((a) => a.category !== "Hướng dẫn");
+  const totalAll = Object.values(catData).reduce((s, d) => s + d.total, 0);
+  const tutorials = catData["Hướng dẫn"]?.articles ?? [];
+  const tutorialTotal = catData["Hướng dẫn"]?.total ?? 0;
+  const knowledgeTotal = totalAll - tutorialTotal;
 
-  // Count per category for filter chips
-  const counts = CATEGORY_ORDER.reduce<Record<string, number>>((acc, cat) => {
-    acc[cat] = articles.filter((a) => a.category === cat).length;
-    return acc;
-  }, {});
+  async function fetchPage(cat: string, page: number, limit = GROUP_PAGE_SIZE) {
+    setCatData((prev) => ({ ...prev, [cat]: { ...prev[cat], loading: true } }));
+    const res = await fetch(
+      `/api/articles?category=${encodeURIComponent(cat)}&page=${page}&limit=${limit}`,
+    );
+    const data: CatGroup = await res.json();
+    setCatData((prev) => ({
+      ...prev,
+      [cat]: {
+        ...data,
+        page,
+        loading: false,
+        allLoaded: data.articles.length >= data.total,
+      },
+    }));
+  }
+
+  async function handleFilter(cat: "all" | CategoryKey) {
+    setActive(cat);
+    if (cat === "all") return;
+    const current = catData[cat];
+    await fetchPage(cat, 1, FILTERED_PAGE_SIZE);
+  }
 
   // Filtered flat list when a category is active
-  const filtered =
-    active === "all" ? [] : articles.filter((a) => a.category === active);
+  const filtered = active === "all" ? [] : (catData[active]?.articles ?? []);
 
   return (
     <div className="space-y-8">
@@ -275,7 +437,7 @@ export default function KienThucArticles({ articles, isLoggedIn }: Props) {
       <div className="flex flex-wrap gap-2">
         {/* All chip */}
         <button
-          onClick={() => setActive("all")}
+          onClick={() => handleFilter("all")}
           className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold transition-all duration-150 border"
           style={
             active === "all"
@@ -302,61 +464,74 @@ export default function KienThucArticles({ articles, isLoggedIn }: Props) {
                 : { background: "#f3f4f6", color: "#6b7280" }
             }
           >
-            {articles.length}
+            {totalAll}
           </span>
         </button>
 
         {/* Category chips */}
-        {CATEGORY_ORDER.filter((cat) => (counts[cat] ?? 0) > 0).map((cat) => {
-          const c = CAT[cat];
-          const isActive = active === cat;
-          return (
-            <button
-              key={cat}
-              onClick={() => setActive(cat)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold transition-all duration-150 border"
-              style={
-                isActive
-                  ? {
-                      background: c.filterActiveBg,
-                      color: c.filterActiveText,
-                      borderColor: "transparent",
-                      boxShadow: `0 2px 8px ${c.filterActiveBg}55`,
-                    }
-                  : {
-                      background: "#fff",
-                      color: "#374151",
-                      borderColor: "#e5e7eb",
-                    }
-              }
-            >
-              {c.icon}
-              {cat}
-              <span
-                className="text-xs px-1.5 py-0.5 rounded-full"
+        {CATEGORY_ORDER.filter((cat) => (catData[cat]?.total ?? 0) > 0).map(
+          (cat) => {
+            const c = CAT[cat];
+            const isActive = active === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => handleFilter(cat)}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold transition-all duration-150 border"
                 style={
                   isActive
-                    ? { background: "rgba(255,255,255,0.25)", color: "#fff" }
-                    : { background: "#f3f4f6", color: "#6b7280" }
+                    ? {
+                        background: c.filterActiveBg,
+                        color: c.filterActiveText,
+                        borderColor: "transparent",
+                        boxShadow: `0 2px 8px ${c.filterActiveBg}55`,
+                      }
+                    : {
+                        background: "#fff",
+                        color: "#374151",
+                        borderColor: "#e5e7eb",
+                      }
                 }
               >
-                {counts[cat]}
-              </span>
-            </button>
-          );
-        })}
+                {c.icon}
+                {cat}
+                <span
+                  className="text-xs px-1.5 py-0.5 rounded-full"
+                  style={
+                    isActive
+                      ? { background: "rgba(255,255,255,0.25)", color: "#fff" }
+                      : { background: "#f3f4f6", color: "#6b7280" }
+                  }
+                >
+                  {catData[cat]?.total ?? 0}
+                </span>
+              </button>
+            );
+          },
+        )}
       </div>
 
       {/* ── Filtered flat grid ── */}
-      {active !== "all" && (
-        <FilteredGrid articles={filtered} category={active} />
-      )}
+      {active !== "all" &&
+        (catData[active]?.loading ? (
+          <div className="text-center py-16 text-gray-400 text-sm">
+            Đang tải...
+          </div>
+        ) : (
+          <FilteredGrid
+            articles={filtered}
+            category={active}
+            total={catData[active]?.total ?? 0}
+            page={catData[active]?.page ?? 1}
+            onPageChange={(p) => fetchPage(active, p, FILTERED_PAGE_SIZE)}
+          />
+        ))}
 
       {/* ── Default two-section layout ── */}
       {active === "all" && (
         <>
           {/* Tutorials */}
-          {tutorials.length > 0 && (
+          {tutorialTotal > 0 && (
             <section
               className="rounded-2xl overflow-hidden border border-teal-100"
               style={{
@@ -378,10 +553,12 @@ export default function KienThucArticles({ articles, isLoggedIn }: Props) {
                   </div>
                 </div>
                 <span className="text-xs font-bold text-teal-600 bg-teal-100 px-2.5 py-1 rounded-full">
-                  {tutorials.length} bài
+                  {tutorialTotal} bài
                 </span>
               </div>
-              <div className="px-4 pb-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <div
+                className={`px-4 pt-1 grid sm:grid-cols-2 lg:grid-cols-3 gap-3 transition-opacity duration-150 ${catData["Hướng dẫn"]?.loading ? "opacity-50 pointer-events-none" : ""}`}
+              >
                 {tutorials.map((article, i) => (
                   <Link
                     key={article.slug}
@@ -392,7 +569,7 @@ export default function KienThucArticles({ articles, isLoggedIn }: Props) {
                       article={article}
                       grad="from-teal-500 to-cyan-600"
                       icon={<GraduationCap className="w-3.5 h-3.5" />}
-                      step={i + 1}
+                      step={((catData["Hướng dẫn"]?.page ?? 1) - 1) * GROUP_PAGE_SIZE + i + 1}
                     />
                     <div className="flex flex-col flex-1 min-w-0 p-3">
                       <h3 className="text-sm font-bold text-gray-900 group-hover:text-teal-700 transition-colors leading-snug line-clamp-2">
@@ -411,6 +588,15 @@ export default function KienThucArticles({ articles, isLoggedIn }: Props) {
                   </Link>
                 ))}
               </div>
+              <div className="border-t border-teal-100">
+                <Pagination
+                  page={catData["Hướng dẫn"]?.page ?? 1}
+                  total={tutorialTotal}
+                  pageSize={GROUP_PAGE_SIZE}
+                  accentColor="#0d9488"
+                  onChange={(p) => fetchPage("Hướng dẫn", p)}
+                />
+              </div>
             </section>
           )}
 
@@ -425,23 +611,32 @@ export default function KienThucArticles({ articles, isLoggedIn }: Props) {
               />
               Kiến thức AI Marketing
               <span className="text-sm font-medium text-gray-400">
-                {knowledge.length} bài
+                {knowledgeTotal} bài
               </span>
             </h2>
 
-            {(["Landing Page", "Content", "Quảng cáo", "SEO", "Kỹ thuật", "So sánh"] as CategoryKey[])
-              .map((cat) => ({
-                cat,
-                items: knowledge.filter((a) => a.category === cat),
-              }))
-              .filter((g) => g.items.length > 0)
-              .map(({ cat, items }) => {
+            {(
+              [
+                "Landing Page",
+                "Content",
+                "Quảng cáo",
+                "SEO",
+                "Kỹ thuật",
+                "So sánh",
+              ] as CategoryKey[]
+            )
+              .map((cat) => ({ cat, d: catData[cat] }))
+              .filter((g) => (g.d?.total ?? 0) > 0)
+              .map(({ cat, d }) => {
                 const c = CAT[cat];
                 return (
                   <div
                     key={cat}
                     className="rounded-2xl overflow-hidden"
-                    style={{ border: `1px solid ${c.border}`, background: c.sectionBg }}
+                    style={{
+                      border: `1px solid ${c.border}`,
+                      background: c.sectionBg,
+                    }}
                   >
                     <div
                       className="flex items-center gap-2.5 px-5 py-3.5 border-b"
@@ -458,36 +653,28 @@ export default function KienThucArticles({ articles, isLoggedIn }: Props) {
                       <span
                         className={`text-xs font-bold px-2 py-0.5 rounded-full ${c.bg} ${c.text}`}
                       >
-                        {items.length} bài
+                        {d.total} bài
                       </span>
                     </div>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4">
-                      {items.map((article) => (
-                        <Link
+                    <div
+                      className={`grid sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4 transition-opacity duration-150 ${d.loading ? "opacity-50 pointer-events-none" : ""}`}
+                    >
+                      {d.articles.map((article) => (
+                        <ArticleCard
                           key={article.slug}
-                          href={`/kien-thuc/${article.slug}`}
-                          className="group flex flex-col rounded-xl bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
-                          style={{ border: `1px solid ${c.border}` }}
-                        >
-                          <Thumbnail article={article} grad={c.grad} icon={c.icon} />
-                          <div className="flex flex-col flex-1 p-3">
-                            <h4 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2">
-                              {article.title}
-                            </h4>
-                            <p className="mt-1.5 text-xs text-gray-500 leading-relaxed line-clamp-2 flex-1">
-                              {article.description}
-                            </p>
-                            <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-gray-100">
-                              <span className="flex items-center gap-1 text-xs text-gray-400">
-                                <Clock className="w-3 h-3" /> {article.readTime}
-                              </span>
-                              <span className={`flex items-center gap-0.5 text-xs font-bold ${c.text}`}>
-                                Đọc <ArrowRight className="w-3 h-3" />
-                              </span>
-                            </div>
-                          </div>
-                        </Link>
+                          article={article}
+                          c={c}
+                        />
                       ))}
+                    </div>
+                    <div className="border-t border-gray-100">
+                      <Pagination
+                        page={d.page}
+                        total={d.total}
+                        pageSize={GROUP_PAGE_SIZE}
+                        accentColor={c.filterActiveBg}
+                        onChange={(p) => fetchPage(cat, p)}
+                      />
                     </div>
                   </div>
                 );
@@ -499,16 +686,58 @@ export default function KienThucArticles({ articles, isLoggedIn }: Props) {
   );
 }
 
+function ArticleCard({
+  article,
+  c,
+}: {
+  article: Article;
+  c: (typeof CAT)[CategoryKey];
+}) {
+  return (
+    <Link
+      href={`/kien-thuc/${article.slug}`}
+      className="group flex flex-col rounded-xl bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
+      style={{ border: `1px solid ${c.border}` }}
+    >
+      <Thumbnail article={article} grad={c.grad} icon={c.icon} />
+      <div className="flex flex-col flex-1 p-3">
+        <h3 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2">
+          {article.title}
+        </h3>
+        <p className="mt-1.5 text-xs text-gray-500 leading-relaxed line-clamp-2 flex-1">
+          {article.description}
+        </p>
+        <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-gray-100">
+          <span className="flex items-center gap-1 text-xs text-gray-400">
+            <Clock className="w-3 h-3" /> {article.readTime}
+          </span>
+          <span
+            className={`flex items-center gap-0.5 text-xs font-bold ${c.text}`}
+          >
+            Đọc <ArrowRight className="w-3 h-3" />
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 function FilteredGrid({
   articles,
   category,
+  total,
+  page,
+  onPageChange,
 }: {
   articles: Article[];
   category: CategoryKey;
+  total: number;
+  page: number;
+  onPageChange: (p: number) => void;
 }) {
   const c = CAT[category];
 
-  if (articles.length === 0) {
+  if (total === 0) {
     return (
       <div className="text-center py-16 text-gray-400 text-sm">
         Chưa có bài viết trong mục này.
@@ -537,36 +766,22 @@ function FilteredGrid({
           <span
             className={`text-xs font-bold px-2 py-0.5 rounded-full ${c.bg} ${c.text}`}
           >
-            {articles.length} bài
+            {total} bài
           </span>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4">
           {articles.map((article) => (
-            <Link
-              key={article.slug}
-              href={`/kien-thuc/${article.slug}`}
-              className="group flex flex-col rounded-xl bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
-              style={{ border: `1px solid ${c.border}` }}
-            >
-              <Thumbnail article={article} grad={c.grad} icon={c.icon} />
-              <div className="flex flex-col flex-1 p-3">
-                <h3 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2">
-                  {article.title}
-                </h3>
-                <p className="mt-1.5 text-xs text-gray-500 leading-relaxed line-clamp-2 flex-1">
-                  {article.description}
-                </p>
-                <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-gray-100">
-                  <span className="flex items-center gap-1 text-xs text-gray-400">
-                    <Clock className="w-3 h-3" /> {article.readTime}
-                  </span>
-                  <span className={`flex items-center gap-0.5 text-xs font-bold ${c.text}`}>
-                    Đọc <ArrowRight className="w-3 h-3" />
-                  </span>
-                </div>
-              </div>
-            </Link>
+            <ArticleCard key={article.slug} article={article} c={c} />
           ))}
+        </div>
+        <div className="border-t border-gray-100">
+          <Pagination
+            page={page}
+            total={total}
+            pageSize={FILTERED_PAGE_SIZE}
+            accentColor={c.filterActiveBg}
+            onChange={onPageChange}
+          />
         </div>
       </div>
     </section>

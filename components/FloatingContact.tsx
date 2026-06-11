@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { Phone, MessageCircle, X, ArrowUp } from 'lucide-react'
+import { SUPPORT_PHONE, SUPPORT_PHONE_DISPLAY } from '@/lib/constants'
 
 const HIDDEN_PATHS = ['/admin', '/editor', '/demo']
 
@@ -38,7 +39,7 @@ export default function FloatingContact() {
       }`}>
 
         <a
-          href="https://zalo.me/0969986786"
+          href={`https://zalo.me/${SUPPORT_PHONE}`}
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center gap-2"
@@ -56,12 +57,12 @@ export default function FloatingContact() {
         </a>
 
         <a
-          href="tel:0969986786"
+          href={`tel:${SUPPORT_PHONE}`}
           className="group flex items-center gap-2"
           tabIndex={open ? 0 : -1}
         >
           <span className="hidden md:block bg-white text-gray-700 text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-            0969 986 786
+            {SUPPORT_PHONE_DISPLAY}
           </span>
           <span className="md:hidden bg-white/95 backdrop-blur text-gray-800 text-xs font-semibold px-2.5 py-1 rounded-full shadow-md whitespace-nowrap">
             Gọi ngay

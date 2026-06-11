@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { auth } from '@/auth'
+import { SITE_URL } from '@/lib/constants'
 import { redirect } from 'next/navigation'
 import { getUserPlanInfo } from '@/lib/planGate'
 import CreatePageClient from '@/components/create/CreatePageClient'
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Tạo nội dung AI — AITaoPage',
     description: 'Tạo landing page, bài viết, quảng cáo chuẩn HTML chỉ trong 60 giây với AI.',
-    url: 'https://taopage.vn/create',
+    url: `${SITE_URL}/create`,
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
   },
 }

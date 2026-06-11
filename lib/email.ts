@@ -1,10 +1,10 @@
 import { Resend } from "resend";
+import { SITE_URL, SUPPORT_EMAIL } from "@/lib/constants";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const FROM = process.env.EMAIL_FROM ?? "AITaoPage <onboarding@resend.dev>";
-const BASE_URL = process.env.NEXTAUTH_URL ?? "https://aitaopage.vn";
-const SUPPORT_EMAIL = "admin@aitaopage.vn";
+const BASE_URL = process.env.NEXTAUTH_URL ?? SITE_URL;
 const CURRENT_YEAR = new Date().getFullYear();
 
 

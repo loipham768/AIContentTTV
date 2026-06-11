@@ -1,4 +1,5 @@
 import { auth } from '@/auth'
+import { SITE_URL } from '@/lib/constants'
 import { dbConnect } from '@/lib/mongodb'
 import User from '@/models/User'
 import { TEMPLATES } from '@/lib/templates'
@@ -12,7 +13,7 @@ export const metadata = {
   openGraph: {
     title: 'Thư viện mẫu — AITaoPage',
     description: 'Khám phá hàng trăm mẫu landing page, bài viết và quảng cáo được tạo sẵn bằng AI.',
-    url: 'https://taopage.vn/templates',
+    url: `${SITE_URL}/templates`,
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
   },
 }

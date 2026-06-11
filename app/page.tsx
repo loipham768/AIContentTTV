@@ -55,6 +55,7 @@ import UserMenu from "@/components/UserMenu";
 import ScrollHeaderWrapper from "@/components/ScrollHeaderWrapper";
 import { dbConnect } from "@/lib/mongodb";
 import User from "@/models/User";
+import { SITE_URL, SUPPORT_EMAIL, SUPPORT_PHONE, SUPPORT_PHONE_DISPLAY } from "@/lib/constants";
 
 /* ── Tính năng thực tế đã xây dựng ─────────────────────────────── */
 
@@ -435,7 +436,7 @@ export default async function LandingPage() {
     name: "AITaoPage",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    url: "https://taopage.vn",
+    url: SITE_URL,
     description:
       "Công cụ AI tạo landing page, bài viết và quảng cáo HTML chuẩn inline CSS trong 60 giây cho thị trường Việt Nam.",
     offers: {
@@ -718,7 +719,7 @@ export default async function LandingPage() {
                     <div className="w-3 h-3 rounded-full bg-green-500" />
                   </div>
                   <div className="flex-1 bg-gray-700/70 rounded text-gray-400 text-xs px-3 py-1 text-center truncate">
-                    https://taopage.vn/create
+                    {SITE_URL}/create
                   </div>
                 </div>
 
@@ -1826,22 +1827,22 @@ export default async function LandingPage() {
               </p>
               <div className="flex flex-col gap-2.5">
                 <a
-                  href="tel:0969986786"
+                  href={`tel:${SUPPORT_PHONE}`}
                   className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors group"
                 >
                   <span className="w-7 h-7 rounded-lg bg-white/5 group-hover:bg-indigo-500/20 flex items-center justify-center transition-colors">
                     <Phone className="w-3.5 h-3.5" />
                   </span>
-                  0969 986 786
+                  {SUPPORT_PHONE_DISPLAY}
                 </a>
                 <a
-                  href="mailto:admin@taopage.vn"
+                  href={`mailto:${SUPPORT_EMAIL}`}
                   className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors group"
                 >
                   <span className="w-7 h-7 rounded-lg bg-white/5 group-hover:bg-indigo-500/20 flex items-center justify-center transition-colors">
                     <Mail className="w-3.5 h-3.5" />
                   </span>
-                  admin@taopage.vn
+                  {SUPPORT_EMAIL}
                 </a>
               </div>
             </div>
@@ -1926,7 +1927,7 @@ export default async function LandingPage() {
             </p>
             <div className="flex items-center gap-5">
               <a
-                href="https://zalo.me/0969986786"
+                href={`https://zalo.me/${SUPPORT_PHONE}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gray-400 transition-colors inline-flex items-center gap-1"

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { dbConnect } from "@/lib/mongodb";
 import Order from "@/models/Order";
 import { BANK_INFO, CREDIT_PACKS } from "@/lib/planConfig";
+import { SUPPORT_EMAIL } from "@/lib/constants";
 import Link from "next/link";
 import {
   CheckCircle2,
@@ -398,10 +399,10 @@ export default async function CheckoutPage({
                 <p className="mt-2 text-xs text-gray-400 text-center">
                   Cần hỗ trợ?{" "}
                   <a
-                    href="mailto:admin@taopage.vn"
+                    href={`mailto:${SUPPORT_EMAIL}`}
                     className="underline hover:text-gray-600"
                   >
-                    admin@taopage.vn
+                    {SUPPORT_EMAIL}
                   </a>
                 </p>
               </div>

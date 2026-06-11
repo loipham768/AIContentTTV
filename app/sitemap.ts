@@ -1,11 +1,13 @@
 import { MetadataRoute } from "next";
-import { ARTICLES } from "@/lib/articles";
+import { getAllSlugs } from "@/lib/articles-db";
+import { SITE_URL as BASE_URL } from "@/lib/constants";
 
-const BASE_URL = "https://taopage.vn";
+export const revalidate = 3600;
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const articleUrls = Object.values(ARTICLES).map((article) => ({
-    url: `${BASE_URL}/kien-thuc/${article.slug}`,
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const slugs = await getAllSlugs();
+  const articleUrls = slugs.map((slug) => ({
+    url: `${BASE_URL}/kien-thuc/${slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.7,
@@ -42,6 +44,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.5,
     },
-...articleUrls,
+    ...articleUrls,
   ];
 }

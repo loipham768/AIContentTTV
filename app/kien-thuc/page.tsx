@@ -1,18 +1,21 @@
 import Link from "next/link";
 import { BookOpen, ArrowRight, Sparkles } from "lucide-react";
 import Logo from "@/components/Logo";
-import { ARTICLES } from "@/lib/articles";
+import { getInitialGroups, ARTICLES_PAGE_SIZE } from "@/lib/articles-db";
 import { auth } from "@/auth";
 import KienThucArticles from "@/components/KienThucArticles";
+import { SITE_URL } from "@/lib/constants";
+
+export const revalidate = 3600; // ISR: recheck every hour
 
 export const metadata = {
   title: "Kiến thức AI Content | AITaoPage",
   description: "Hướng dẫn, mẹo và chiến lược tạo nội dung bằng AI cho thị trường Việt Nam.",
-  alternates: { canonical: "https://taopage.vn/kien-thuc" },
+  alternates: { canonical: `${SITE_URL}/kien-thuc` },
   openGraph: {
     title: "Kiến thức AI Content | AITaoPage",
     description: "Hướng dẫn, mẹo và chiến lược tạo nội dung bằng AI cho thị trường Việt Nam.",
-    url: "https://taopage.vn/kien-thuc",
+    url: `${SITE_URL}/kien-thuc`,
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };
@@ -21,9 +24,9 @@ export default async function KienThucPage() {
   const session = await auth();
   const isLoggedIn = !!session?.user?.id;
 
-  const articles = Object.values(ARTICLES).sort(
-    (a, b) =>
-      new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
+  const initialGroups = await getInitialGroups(
+    ["Hướng dẫn", "Landing Page", "So sánh", "Quảng cáo", "Kỹ thuật", "Content", "SEO"],
+    ARTICLES_PAGE_SIZE,
   );
 
   return (
@@ -93,7 +96,7 @@ export default async function KienThucPage() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-10">
         {/* ── Articles with filter ── */}
-        <KienThucArticles articles={articles} isLoggedIn={isLoggedIn} />
+        <KienThucArticles initialGroups={initialGroups} isLoggedIn={isLoggedIn} />
 
         {/* ── CTA ── */}
         <section

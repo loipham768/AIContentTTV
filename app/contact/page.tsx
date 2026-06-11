@@ -2,10 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Phone, Mail, ArrowLeft, Clock, Zap, MessageCircle, ChevronRight } from 'lucide-react'
 import Logo from '@/components/Logo'
+import { SUPPORT_EMAIL, SUPPORT_PHONE, SUPPORT_PHONE_DISPLAY } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Liên hệ hỗ trợ — AITaoPage',
-  description: 'Liên hệ đội ngũ AITaoPage để được hỗ trợ nhanh nhất. Hotline: 0969 986 786 · Email: admin@taopage.vn',
+  description: `Liên hệ đội ngũ AITaoPage để được hỗ trợ nhanh nhất. Hotline: ${SUPPORT_PHONE_DISPLAY} · Email: ${SUPPORT_EMAIL}`,
 }
 
 const FAQS = [
@@ -82,7 +83,7 @@ export default function ContactPage() {
 
           {/* Phone card */}
           <a
-            href="tel:0969986786"
+            href={`tel:${SUPPORT_PHONE}`}
             className="group relative bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-8 overflow-hidden hover:shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 hover:-translate-y-1"
           >
             {/* Decorative circle */}
@@ -100,7 +101,7 @@ export default function ContactPage() {
               </div>
 
               <p className="text-white/70 text-sm font-medium mb-1 uppercase tracking-widest">Điện thoại / Zalo</p>
-              <p className="text-4xl font-black text-white mb-2 tracking-tight">0969 986 786</p>
+              <p className="text-4xl font-black text-white mb-2 tracking-tight">{SUPPORT_PHONE_DISPLAY}</p>
               <p className="text-white/60 text-sm mb-6">Gọi hoặc nhắn Zalo · phản hồi trong vài phút</p>
 
               <div className="flex items-center gap-2 text-white font-semibold text-sm group-hover:gap-3 transition-all">
@@ -111,7 +112,7 @@ export default function ContactPage() {
 
           {/* Email card */}
           <a
-            href="mailto:admin@taopage.vn"
+            href={`mailto:${SUPPORT_EMAIL}`}
             className="group relative bg-[#0f0c29] border border-white/10 rounded-2xl p-8 overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300 hover:-translate-y-1"
           >
             <div className="absolute -top-8 -right-8 w-36 h-36 rounded-full bg-indigo-600/20" />
@@ -128,7 +129,7 @@ export default function ContactPage() {
               </div>
 
               <p className="text-white/40 text-sm font-medium mb-1 uppercase tracking-widest">Email</p>
-              <p className="text-3xl font-black text-white mb-2 tracking-tight break-all">admin@taopage.vn</p>
+              <p className="text-3xl font-black text-white mb-2 tracking-tight break-all">{SUPPORT_EMAIL}</p>
               <p className="text-white/40 text-sm mb-6">Phản hồi trong 2–8 giờ làm việc</p>
 
               <div className="flex items-center gap-2 text-indigo-400 font-semibold text-sm group-hover:gap-3 transition-all">
@@ -204,13 +205,13 @@ export default function ContactPage() {
             Không cần email dài dòng. Chụp màn hình, nhắn một câu là đủ.
           </p>
           <a
-            href="https://zalo.me/0969986786"
+            href={`https://zalo.me/${SUPPORT_PHONE}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 bg-emerald-500 hover:bg-emerald-400 text-white font-black px-10 py-4 rounded-2xl transition-all hover:shadow-xl hover:shadow-emerald-500/30 hover:-translate-y-0.5 text-lg"
           >
             <Phone className="w-5 h-5" />
-            Mở Zalo · 0969 986 786
+            Mở Zalo · {SUPPORT_PHONE_DISPLAY}
           </a>
         </div>
       </section>

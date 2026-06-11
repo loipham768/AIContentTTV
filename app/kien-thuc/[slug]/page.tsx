@@ -1,6 +1,14 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ARTICLES } from "@/lib/articles";
+import { getArticleBySlug, getAllSlugs, getArticlesMeta } from "@/lib/articles-db";
+import { SITE_URL } from "@/lib/constants";
+
+export const revalidate = 86400; // ISR: 24h
+
+export async function generateStaticParams() {
+  const slugs = await getAllSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
 import Logo from "@/components/Logo";
 import ArticleBody from "@/components/ArticleBody";
 import { auth } from "@/auth";
@@ -101,13 +109,13 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = ARTICLES[slug];
+  const article = await getArticleBySlug(slug);
   if (!article) return {};
   return {
     title: `${article.title} | AITaoPage`,
     description: article.description,
     keywords: article.keywords.join(", "),
-    alternates: { canonical: `https://taopage.vn/kien-thuc/${slug}` },
+    alternates: { canonical: `${SITE_URL}/kien-thuc/${slug}` },
     openGraph: {
       title: article.title,
       description: article.description,
@@ -124,14 +132,17 @@ export default async function ArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const [{ slug }, session] = await Promise.all([params, auth()]);
-  const article = ARTICLES[slug];
+  const [article, allMeta] = await Promise.all([
+    getArticleBySlug(slug),
+    getArticlesMeta(),
+  ]);
   if (!article) notFound();
 
   const isLoggedIn = !!session?.user?.id;
   const ctaHref = isLoggedIn ? "/create" : "/login";
   const ctaLabel = isLoggedIn ? "Tạo nội dung ngay" : "Dùng thử miễn phí";
 
-  const allOther = Object.values(ARTICLES).filter((a) => a.slug !== slug);
+  const allOther = allMeta.filter((a) => a.slug !== slug);
   const relatedArticles = [
     ...allOther.filter((a) => a.category === article.category).slice(0, 3),
     ...allOther.filter((a) => a.category !== article.category),

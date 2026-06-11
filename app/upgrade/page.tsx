@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { auth } from "@/auth";
+import { SITE_URL } from "@/lib/constants";
 import { redirect } from "next/navigation";
 import { dbConnect } from "@/lib/mongodb";
 import Order from "@/models/Order";
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     title: "Nâng cấp gói — AITaoPage",
     description:
       "Nâng cấp lên Basic hoặc Pro để tạo không giới hạn landing page, bài viết và quảng cáo bằng AI.",
-    url: "https://taopage.vn/upgrade",
+    url: `${SITE_URL}/upgrade`,
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };
