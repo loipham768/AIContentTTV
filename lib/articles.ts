@@ -8,6 +8,7 @@ export interface Article {
   author: string;
   keywords: string[];
   content: string; // HTML string
+  image?: string;  // optional cover image path e.g. /articles/slug.jpg
 }
 
 export const ARTICLES: Record<string, Article> = {

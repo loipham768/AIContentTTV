@@ -127,8 +127,115 @@ const CAT: Record<
   },
 };
 
+// 3 gradient variants per category (angle + color stops)
+const PALETTES: Record<CategoryKey, string[]> = {
+  "Landing Page":  ["135deg,#6366f1,#7c3aed", "160deg,#4f46e5,#2563eb", "115deg,#8b5cf6,#4338ca"],
+  "Hướng dẫn":    ["135deg,#14b8a6,#0891b2", "155deg,#10b981,#0d9488", "120deg,#06b6d4,#0e7490"],
+  "So sánh":      ["135deg,#8b5cf6,#7c3aed", "150deg,#a855f7,#6d28d9", "120deg,#7c3aed,#4f46e5"],
+  "Quảng cáo":    ["135deg,#f43f5e,#ec4899", "150deg,#e11d48,#db2777", "120deg,#fb7185,#be185d"],
+  "Kỹ thuật":     ["135deg,#10b981,#0d9488", "155deg,#059669,#0891b2", "115deg,#34d399,#065f46"],
+  Content:         ["135deg,#f59e0b,#f97316", "150deg,#d97706,#ea580c", "120deg,#fbbf24,#c2410c"],
+  SEO:             ["135deg,#3b82f6,#4f46e5", "155deg,#1d4ed8,#2563eb", "115deg,#60a5fa,#1e40af"],
+};
+
+// 4 decorative layouts — picked by slug hash
+const DECORS = [
+  // 0: hai vòng tròn góc
+  (
+    <>
+      <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-white/10" />
+      <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-white/10" />
+    </>
+  ),
+  // 1: ba vòng nhỏ rải rác
+  (
+    <>
+      <div className="absolute top-3 right-4 w-16 h-16 rounded-full bg-white/10" />
+      <div className="absolute top-12 right-16 w-8 h-8 rounded-full bg-white/15" />
+      <div className="absolute bottom-3 left-6 w-14 h-14 rounded-full bg-white/10" />
+    </>
+  ),
+  // 2: vòng lớn lệch trái + điểm nhỏ phải
+  (
+    <>
+      <div className="absolute -left-10 top-1/2 -translate-y-1/2 w-44 h-44 rounded-full bg-white/10" />
+      <div className="absolute top-3 right-5 w-10 h-10 rounded-full bg-white/15" />
+      <div className="absolute bottom-4 right-10 w-6 h-6 rounded-full bg-white/10" />
+    </>
+  ),
+  // 3: kẻ sọc chéo nhạt + vòng nhỏ
+  (
+    <>
+      <div
+        className="absolute inset-0 opacity-[0.07]"
+        style={{ backgroundImage: "repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 1px,transparent 14px)" }}
+      />
+      <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-white/10" />
+      <div className="absolute bottom-3 left-4 w-10 h-10 rounded-full bg-white/10" />
+    </>
+  ),
+];
+
+function slugHash(slug: string) {
+  return slug.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+}
+
 function isNew(publishedDate: string) {
   return (Date.now() - new Date(publishedDate).getTime()) / 86_400_000 <= 7;
+}
+
+function NewBadge() {
+  return (
+    <span className="absolute top-2.5 right-2.5 z-10 inline-flex">
+      <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-75" />
+      <span className="relative text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-green-500 text-white leading-none">
+        Mới
+      </span>
+    </span>
+  );
+}
+
+function Thumbnail({
+  article,
+  icon,
+  step,
+}: {
+  article: Article;
+  grad?: string;
+  icon: React.ReactNode;
+  step?: number;
+}) {
+  const h = slugHash(article.slug);
+  const palette = PALETTES[article.category as CategoryKey] ?? PALETTES["Content"];
+  const bg = `linear-gradient(${palette[h % palette.length]})`;
+  const decor = DECORS[h % DECORS.length];
+
+  return (
+    <div className="relative h-36 overflow-hidden flex-shrink-0" style={{ background: bg }}>
+      {article.image ? (
+        <img
+          src={article.image}
+          alt={article.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+      ) : (
+        <>
+          {decor}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-inner">
+              <span className="scale-[2.2]">{icon}</span>
+            </div>
+          </div>
+        </>
+      )}
+      {step !== undefined && (
+        <span className="absolute bottom-2.5 left-2.5 z-10 w-6 h-6 rounded-lg bg-white/90 text-xs font-extrabold flex items-center justify-center shadow-sm" style={{ color: "#374151" }}>
+          {step}
+        </span>
+      )}
+      {isNew(article.publishedDate) && <NewBadge />}
+    </div>
+  );
 }
 
 const CATEGORY_ORDER: CategoryKey[] = [
@@ -279,23 +386,22 @@ export default function KienThucArticles({ articles, isLoggedIn }: Props) {
                   <Link
                     key={article.slug}
                     href={`/kien-thuc/${article.slug}`}
-                    className="group flex items-start gap-3 p-4 rounded-xl bg-white border border-teal-100 hover:border-teal-300 hover:shadow-lg transition-all duration-200"
+                    className="group flex flex-col rounded-xl bg-white border border-teal-100 hover:border-teal-300 hover:shadow-lg transition-all duration-200 overflow-hidden"
                   >
-                    <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-gradient-to-br from-teal-500 to-cyan-600 text-white text-xs font-extrabold flex items-center justify-center shadow-sm">
-                      {i + 1}
-                    </span>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start gap-1.5">
-                        <h3 className="text-sm font-bold text-gray-900 group-hover:text-teal-700 transition-colors leading-snug line-clamp-2 flex-1">
-                          {article.title}
-                        </h3>
-                        {isNew(article.publishedDate) && (
-                          <span className="flex-shrink-0 text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-green-500 text-white leading-none mt-0.5">
-                            Mới
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex items-center justify-between mt-2">
+                    <Thumbnail
+                      article={article}
+                      grad="from-teal-500 to-cyan-600"
+                      icon={<GraduationCap className="w-3.5 h-3.5" />}
+                      step={i + 1}
+                    />
+                    <div className="flex flex-col flex-1 min-w-0 p-3">
+                      <h3 className="text-sm font-bold text-gray-900 group-hover:text-teal-700 transition-colors leading-snug line-clamp-2">
+                        {article.title}
+                      </h3>
+                      <p className="mt-1.5 text-xs text-gray-500 leading-relaxed line-clamp-2 flex-1">
+                        {article.description}
+                      </p>
+                      <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-gray-100">
                         <span className="flex items-center gap-1 text-xs text-gray-400">
                           <Clock className="w-3 h-3" /> {article.readTime}
                         </span>
@@ -360,31 +466,25 @@ export default function KienThucArticles({ articles, isLoggedIn }: Props) {
                         <Link
                           key={article.slug}
                           href={`/kien-thuc/${article.slug}`}
-                          className="group flex flex-col p-4 rounded-xl bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                          className="group flex flex-col rounded-xl bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
                           style={{ border: `1px solid ${c.border}` }}
                         >
-                          <div className="flex items-start gap-1.5 flex-1">
-                            <h4 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2 flex-1">
+                          <Thumbnail article={article} grad={c.grad} icon={c.icon} />
+                          <div className="flex flex-col flex-1 p-3">
+                            <h4 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2">
                               {article.title}
                             </h4>
-                            {isNew(article.publishedDate) && (
-                              <span className="relative flex-shrink-0 mt-0.5">
-                                <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-75" />
-                                <span className="relative text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-green-500 text-white leading-none inline-block">
-                                  Mới
-                                </span>
+                            <p className="mt-1.5 text-xs text-gray-500 leading-relaxed line-clamp-2 flex-1">
+                              {article.description}
+                            </p>
+                            <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-gray-100">
+                              <span className="flex items-center gap-1 text-xs text-gray-400">
+                                <Clock className="w-3 h-3" /> {article.readTime}
                               </span>
-                            )}
-                          </div>
-                          <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-gray-100">
-                            <span className="flex items-center gap-1 text-xs text-gray-400">
-                              <Clock className="w-3 h-3" /> {article.readTime}
-                            </span>
-                            <span
-                              className={`flex items-center gap-0.5 text-xs font-bold ${c.text}`}
-                            >
-                              Đọc <ArrowRight className="w-3 h-3" />
-                            </span>
+                              <span className={`flex items-center gap-0.5 text-xs font-bold ${c.text}`}>
+                                Đọc <ArrowRight className="w-3 h-3" />
+                              </span>
+                            </div>
                           </div>
                         </Link>
                       ))}
@@ -445,28 +545,25 @@ function FilteredGrid({
             <Link
               key={article.slug}
               href={`/kien-thuc/${article.slug}`}
-              className="group flex flex-col p-4 rounded-xl bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+              className="group flex flex-col rounded-xl bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
               style={{ border: `1px solid ${c.border}` }}
             >
-              <div className="flex items-start gap-1.5 flex-1">
-                <h3 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2 flex-1">
+              <Thumbnail article={article} grad={c.grad} icon={c.icon} />
+              <div className="flex flex-col flex-1 p-3">
+                <h3 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2">
                   {article.title}
                 </h3>
-                {isNew(article.publishedDate) && (
-                  <span className="flex-shrink-0 text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-green-500 text-white leading-none mt-0.5">
-                    Mới
+                <p className="mt-1.5 text-xs text-gray-500 leading-relaxed line-clamp-2 flex-1">
+                  {article.description}
+                </p>
+                <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-gray-100">
+                  <span className="flex items-center gap-1 text-xs text-gray-400">
+                    <Clock className="w-3 h-3" /> {article.readTime}
                   </span>
-                )}
-              </div>
-              <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-gray-100">
-                <span className="flex items-center gap-1 text-xs text-gray-400">
-                  <Clock className="w-3 h-3" /> {article.readTime}
-                </span>
-                <span
-                  className={`flex items-center gap-0.5 text-xs font-bold ${c.text}`}
-                >
-                  Đọc <ArrowRight className="w-3 h-3" />
-                </span>
+                  <span className={`flex items-center gap-0.5 text-xs font-bold ${c.text}`}>
+                    Đọc <ArrowRight className="w-3 h-3" />
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
