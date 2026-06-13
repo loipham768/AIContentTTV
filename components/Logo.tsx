@@ -82,6 +82,7 @@ interface LogoProps {
   dark?: boolean
   className?: string
   uid?: string
+  href?: string
 }
 
 export default function Logo({
@@ -90,9 +91,10 @@ export default function Logo({
   dark = false,
   className = '',
   uid = 'a',
+  href = '/',
 }: LogoProps) {
   return (
-    <Link href="/" className={`inline-flex items-center gap-2.5 select-none ${className}`}>
+    <Link href={href} className={`inline-flex items-center gap-2.5 select-none ${className}`}>
       <LogoIcon size={iconSize} uid={uid} />
       {!iconOnly && (
         <span className="font-extrabold text-[1.05rem] leading-none tracking-tight whitespace-nowrap">

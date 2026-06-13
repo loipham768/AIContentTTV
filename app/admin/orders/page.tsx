@@ -21,6 +21,18 @@ function p(v: unknown): number {
   return isNaN(n) || n < 1 ? 1 : n
 }
 
+const VALID_OS = ['paid', 'awaiting_confirmation', 'pending', 'expired'] as const
+type OrderStatus = typeof VALID_OS[number] | ''
+
+function buildStatusFilter(os: OrderStatus): Record<string, unknown> {
+  const now = new Date()
+  if (os === 'paid')                   return { status: 'paid' }
+  if (os === 'awaiting_confirmation')  return { status: 'awaiting_confirmation' }
+  if (os === 'pending')                return { status: 'pending', expiresAt: { $gt: now } }
+  if (os === 'expired')                return { $or: [{ status: 'cancelled' }, { status: 'pending', expiresAt: { $lte: now } }] }
+  return {}
+}
+
 async function getData(userId: string, sp: Record<string, string>) {
   await dbConnect()
   const me = await User.findById(userId).lean() as any
@@ -28,11 +40,19 @@ async function getData(userId: string, sp: Record<string, string>) {
 
   const oq = (sp.oq ?? '').trim()
   const op = p(sp.op)
+  const os: OrderStatus = (VALID_OS as readonly string[]).includes(sp.os ?? '') ? sp.os as OrderStatus : ''
 
-  const [pendingCount, orderEmailMatches] = await Promise.all([
+  const now = new Date()
+
+  // Count by status (always on full collection, ignoring search query)
+  const [cntPaid, cntAwaiting, cntPending, cntExpired, pendingCount, orderEmailMatches] = await Promise.all([
+    Order.countDocuments({ status: 'paid' }),
+    Order.countDocuments({ status: 'awaiting_confirmation' }),
+    Order.countDocuments({ status: 'pending', expiresAt: { $gt: now } }),
+    Order.countDocuments({ $or: [{ status: 'cancelled' }, { status: 'pending', expiresAt: { $lte: now } }] }),
     Order.countDocuments({
       $or: [
-        { status: 'pending', expiresAt: { $gt: new Date() } },
+        { status: 'pending', expiresAt: { $gt: now } },
         { status: 'awaiting_confirmation' },
       ],
     }),
@@ -42,19 +62,23 @@ async function getData(userId: string, sp: Record<string, string>) {
       : [],
   ])
 
-  const ordersFilter = oq
+  const statusFilter = buildStatusFilter(os)
+  const searchFilter = oq
     ? {
         $or: [
           { orderId: { $regex: escapeRegex(oq), $options: 'i' } },
-          { status: { $regex: escapeRegex(oq), $options: 'i' } },
           ...(orderEmailMatches.length ? [{ userId: { $in: orderEmailMatches } }] : []),
         ],
       }
     : {}
 
+  const combinedFilter = oq && os
+    ? { $and: [statusFilter, searchFilter] }
+    : os ? statusFilter : oq ? searchFilter : {}
+
   const [ordersTotal, ordersRaw] = await Promise.all([
-    Order.countDocuments(ordersFilter),
-    Order.find(ordersFilter).sort({ createdAt: -1 }).skip((op - 1) * PAGE_SIZE).limit(PAGE_SIZE).lean(),
+    Order.countDocuments(combinedFilter),
+    Order.find(combinedFilter).sort({ createdAt: -1 }).skip((op - 1) * PAGE_SIZE).limit(PAGE_SIZE).lean(),
   ])
 
   const userIds = (ordersRaw as any[]).map((o: any) => o.userId)
@@ -81,7 +105,16 @@ async function getData(userId: string, sp: Record<string, string>) {
     createdAt:       (o.createdAt as Date).toISOString(),
   }))
 
-  return { orderRows, ordersTotal, ordersPage: op, pendingCount, meId: userId }
+  return {
+    orderRows, ordersTotal, ordersPage: op, pendingCount, meId: userId, ordersStatus: os,
+    ordersStatusCounts: {
+      all:      cntPaid + cntAwaiting + cntPending + cntExpired,
+      paid:     cntPaid,
+      awaiting: cntAwaiting,
+      pending:  cntPending,
+      expired:  cntExpired,
+    },
+  }
 }
 
 export default async function AdminOrdersPage({
@@ -106,6 +139,8 @@ export default async function AdminOrdersPage({
           initialOrders={data.orderRows}
           ordersTotal={data.ordersTotal}
           ordersPage={data.ordersPage}
+          ordersStatus={data.ordersStatus}
+          ordersStatusCounts={data.ordersStatusCounts}
           pendingCount={data.pendingCount}
           meId={data.meId}
           singleSection="orders"

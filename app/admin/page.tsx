@@ -380,7 +380,7 @@ export default async function AdminPage() {
                     {STATUS_LABEL[effStatus] ?? effStatus}
                   </span>
                   <span className="flex-shrink-0 text-[11px] text-gray-400 hidden sm:block">
-                    {new Date(o.createdAt).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' })}
+                    {`${new Date(o.createdAt).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}, ${new Date(o.createdAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`}
                   </span>
                 </div>
               )
@@ -415,7 +415,7 @@ export default async function AdminPage() {
                   {PLAN_LABELS[u.plan] ?? u.plan}
                 </span>
                 <span className="flex-shrink-0 text-[11px] text-gray-400 hidden sm:block">
-                  {new Date(u.createdAt).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' })}
+                  {`${new Date(u.createdAt).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}, ${new Date(u.createdAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`}
                 </span>
               </div>
             ))}

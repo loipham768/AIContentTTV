@@ -169,11 +169,11 @@ function SidebarContent({
         {/* Logo */}
         <div className={collapsed ? "flex justify-center" : "flex-1 min-w-0"}>
           {collapsed ? (
-            <Link href="/" className="block">
+            <Link href="/admin" className="block">
               <LogoIcon size={32} uid="admin-sb" />
             </Link>
           ) : (
-            <Logo iconSize={28} uid="admin-sb" dark />
+            <Logo iconSize={28} uid="admin-sb" dark href="/admin" />
           )}
         </div>
 
@@ -192,7 +192,9 @@ function SidebarContent({
       </div>
 
       {/* ── Nav ── */}
-      <nav className={`flex-1 overflow-y-auto py-4 space-y-5 ${collapsed ? "px-2" : "px-3"}`}>
+      <nav
+        className={`flex-1 overflow-y-auto py-4 space-y-5 ${collapsed ? "px-2" : "px-3"}`}
+      >
         {navGroups.map((group, gi) => (
           <div key={gi}>
             {!collapsed && group.title && (
@@ -203,7 +205,9 @@ function SidebarContent({
             {collapsed && gi > 0 && (
               <div className="h-px bg-slate-800 mx-1 mb-3" />
             )}
-            <div className={`space-y-0.5 ${collapsed ? "flex flex-col items-center gap-0.5" : ""}`}>
+            <div
+              className={`space-y-0.5 ${collapsed ? "flex flex-col items-center gap-0.5" : ""}`}
+            >
               {group.items.map((item) => (
                 <NavLink
                   key={item.href}
@@ -219,27 +223,11 @@ function SidebarContent({
       </nav>
 
       {/* ── Footer ── */}
-      <div className={`border-t border-slate-800 py-3 ${collapsed ? "px-2" : "px-3"}`}>
-        {collapsed ? (
-          <a
-            href="/"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Xem trang chính"
-            className="flex items-center justify-center w-10 h-10 rounded-xl text-slate-500 hover:text-slate-300 hover:bg-slate-800 transition-all mx-auto"
-          >
-            <ExternalLink className="w-4 h-4" />
-          </a>
-        ) : (
-          <a
-            href="/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-slate-500 hover:text-slate-300 hover:bg-slate-800 transition-all"
-          >
-            <ExternalLink className="w-4 h-4 flex-shrink-0" />
-            <span>Xem trang chính</span>
-          </a>
+      <div
+        className={`border-t border-slate-800 py-3 ${collapsed ? "px-2" : "px-3"}`}
+      >
+        {!collapsed && (
+          <p className="text-xs text-slate-500 center">© 2026 AITaoPage</p>
         )}
       </div>
     </div>
@@ -276,7 +264,9 @@ export default function AdminLayoutShell({
   function toggleCollapse() {
     setCollapsed((prev) => {
       const next = !prev;
-      try { localStorage.setItem("admin-sidebar-collapsed", next ? "1" : "0"); } catch {}
+      try {
+        localStorage.setItem("admin-sidebar-collapsed", next ? "1" : "0");
+      } catch {}
       return next;
     });
   }
@@ -355,7 +345,9 @@ export default function AdminLayoutShell({
 
   function getPageTitle() {
     if (pathname === "/admin/content") {
-      return section === "articles" ? "Bài viết (Kiến thức)" : "Mẫu (Templates)";
+      return section === "articles"
+        ? "Bài viết (Kiến thức)"
+        : "Mẫu (Templates)";
     }
     const pathLabels: Record<string, string> = {
       "/admin": "Dashboard",
@@ -427,15 +419,28 @@ export default function AdminLayoutShell({
 
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-sm min-w-0">
-            <span className="text-gray-400 font-medium hidden sm:inline">Admin</span>
+            <span className="text-gray-400 font-medium hidden sm:inline">
+              Admin
+            </span>
             <ChevronRight className="w-3.5 h-3.5 text-gray-300 hidden sm:inline flex-shrink-0" />
             <span className="font-semibold text-gray-900 truncate">
               {getPageTitle()}
             </span>
           </div>
 
+          {/* View site */}
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Xem trang chủ"
+            className="ml-auto p-2 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors flex-shrink-0"
+          >
+            <ExternalLink className="w-4 h-4" />
+          </a>
+
           {/* Urgent badges */}
-          <div className="ml-auto flex items-center gap-2">
+          <div className="flex items-center gap-2">
             {pendingOrdersCount > 0 && (
               <Link
                 href="/admin?tab=orders"

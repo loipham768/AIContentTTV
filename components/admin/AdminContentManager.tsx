@@ -151,7 +151,14 @@ const textareaCls = `${inputCls} resize-y font-mono leading-relaxed`;
 
 // ─── Confirm modal ────────────────────────────────────────────────────────────
 
-function ConfirmDelete({ name, onConfirm, onCancel }: { name: string; onConfirm: () => void; onCancel: () => void }) {
+function ConfirmDelete({ name, onConfirm, onCancel }: { name: string; onConfirm: () => Promise<void>; onCancel: () => void }) {
+  const [loading, setLoading] = useState(false);
+
+  async function handleConfirm() {
+    setLoading(true);
+    try { await onConfirm(); } finally { setLoading(false); }
+  }
+
   return (
     <div className="fixed inset-0 z-[150] bg-black/50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full">
@@ -166,8 +173,11 @@ function ConfirmDelete({ name, onConfirm, onCancel }: { name: string; onConfirm:
         </div>
         <p className="text-xs text-gray-500 mb-5">Hành động này không thể hoàn tác.</p>
         <div className="flex gap-2">
-          <button onClick={onCancel} className="flex-1 py-2 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-50">Huỷ</button>
-          <button onClick={onConfirm} className="flex-1 py-2 rounded-lg bg-red-600 text-white text-sm font-semibold hover:bg-red-700">Xoá</button>
+          <button onClick={onCancel} disabled={loading} className="flex-1 py-2 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-50">Huỷ</button>
+          <button onClick={handleConfirm} disabled={loading} className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg bg-red-600 text-white text-sm font-semibold hover:bg-red-700 disabled:opacity-70 disabled:cursor-not-allowed">
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+            {loading ? "Đang xoá…" : "Xoá"}
+          </button>
         </div>
       </div>
     </div>
@@ -486,6 +496,7 @@ function TemplatesTab() {
   const [page, setPage] = useState(1);
   const [catFilter, setCatFilter] = useState("");
   const [loading, setLoading] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [formOpen, setFormOpen] = useState(false);
   const [editForm, setEditForm] = useState<TemplateForm | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string } | null>(null);
@@ -507,19 +518,24 @@ function TemplatesTab() {
   useEffect(() => { load(1, catFilter); }, [catFilter]);
 
   async function openEdit(id: string) {
-    const res = await fetch(`/api/admin/templates/${id}`);
-    const doc = await res.json();
-    setEditForm({
-      id: doc.id,
-      name: doc.name,
-      category: doc.category,
-      description: doc.description ?? "",
-      tags: (doc.tags ?? []).join(", "),
-      gradient: doc.gradient ?? "",
-      accentColor: doc.accentColor ?? "#6366f1",
-      html: doc.html ?? "",
-    });
-    setFormOpen(true);
+    setEditingId(id);
+    try {
+      const res = await fetch(`/api/admin/templates/${id}`);
+      const doc = await res.json();
+      setEditForm({
+        id: doc.id,
+        name: doc.name,
+        category: doc.category,
+        description: doc.description ?? "",
+        tags: (doc.tags ?? []).join(", "),
+        gradient: doc.gradient ?? "",
+        accentColor: doc.accentColor ?? "#6366f1",
+        html: doc.html ?? "",
+      });
+      setFormOpen(true);
+    } finally {
+      setEditingId(null);
+    }
   }
 
   async function handleSave(form: TemplateForm) {
@@ -616,8 +632,8 @@ function TemplatesTab() {
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-1 justify-end">
-                    <button onClick={() => openEdit(item.id)} className="p-1.5 rounded-lg hover:bg-indigo-50 text-gray-400 hover:text-indigo-600 transition-colors">
-                      <Pencil className="w-3.5 h-3.5" />
+                    <button onClick={() => openEdit(item.id)} disabled={editingId === item.id} className="p-1.5 rounded-lg hover:bg-indigo-50 text-gray-400 hover:text-indigo-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                      {editingId === item.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Pencil className="w-3.5 h-3.5" />}
                     </button>
                     <button onClick={() => setDeleteTarget({ id: item.id, name: item.name })} className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-600 transition-colors">
                       <Trash2 className="w-3.5 h-3.5" />
@@ -666,6 +682,7 @@ function ArticlesTab() {
   const [page, setPage] = useState(1);
   const [catFilter, setCatFilter] = useState("");
   const [loading, setLoading] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [formOpen, setFormOpen] = useState(false);
   const [editForm, setEditForm] = useState<ArticleForm | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<{ slug: string; name: string } | null>(null);
@@ -687,21 +704,26 @@ function ArticlesTab() {
   useEffect(() => { load(1, catFilter); }, [catFilter]);
 
   async function openEdit(slug: string) {
-    const res = await fetch(`/api/admin/articles/${slug}`);
-    const doc = await res.json();
-    setEditForm({
-      slug: doc.slug,
-      title: doc.title,
-      description: doc.description ?? "",
-      category: doc.category,
-      readTime: doc.readTime ?? "5 phút đọc",
-      publishedDate: doc.publishedDate ?? "",
-      author: doc.author ?? "AITaoPage",
-      keywords: (doc.keywords ?? []).join(", "),
-      image: doc.image ?? "",
-      content: doc.content ?? "",
-    });
-    setFormOpen(true);
+    setEditingId(slug);
+    try {
+      const res = await fetch(`/api/admin/articles/${slug}`);
+      const doc = await res.json();
+      setEditForm({
+        slug: doc.slug,
+        title: doc.title,
+        description: doc.description ?? "",
+        category: doc.category,
+        readTime: doc.readTime ?? "5 phút đọc",
+        publishedDate: doc.publishedDate ?? "",
+        author: doc.author ?? "AITaoPage",
+        keywords: (doc.keywords ?? []).join(", "),
+        image: doc.image ?? "",
+        content: doc.content ?? "",
+      });
+      setFormOpen(true);
+    } finally {
+      setEditingId(null);
+    }
   }
 
   async function handleSave(form: ArticleForm) {
@@ -783,8 +805,8 @@ function ArticlesTab() {
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-1 justify-end">
-                    <button onClick={() => openEdit(item.slug)} className="p-1.5 rounded-lg hover:bg-teal-50 text-gray-400 hover:text-teal-600 transition-colors">
-                      <Pencil className="w-3.5 h-3.5" />
+                    <button onClick={() => openEdit(item.slug)} disabled={editingId === item.slug} className="p-1.5 rounded-lg hover:bg-teal-50 text-gray-400 hover:text-teal-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                      {editingId === item.slug ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Pencil className="w-3.5 h-3.5" />}
                     </button>
                     <button onClick={() => setDeleteTarget({ slug: item.slug, name: item.title })} className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-600 transition-colors">
                       <Trash2 className="w-3.5 h-3.5" />

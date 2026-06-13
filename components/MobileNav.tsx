@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'
-import { Menu, X, BookOpen, LayoutTemplate, Tag, MessageSquare, LogIn, Sparkles, Zap, LogOut } from 'lucide-react'
+import { Menu, X, BookOpen, LayoutTemplate, Tag, MessageSquare, LogIn, Sparkles, Zap, LogOut, ShieldCheck } from 'lucide-react'
 import UserAvatar from './UserAvatar'
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
   userName?: string
   avatarUrl?: string
   email?: string
+  isAdmin?: boolean
 }
 
 const NAV_LINKS = [
@@ -20,7 +21,7 @@ const NAV_LINKS = [
   { href: '/contact',    icon: MessageSquare,  label: 'Liên hệ'     },
 ]
 
-export default function MobileNav({ isLoggedIn, userName, avatarUrl, email }: Props) {
+export default function MobileNav({ isLoggedIn, userName, avatarUrl, email, isAdmin }: Props) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -109,6 +110,15 @@ export default function MobileNav({ isLoggedIn, userName, avatarUrl, email }: Pr
                 >
                   <Zap className="w-4 h-4" /> Tạo nội dung ngay
                 </Link>
+                {isAdmin && (
+                  <Link
+                    href="/admin"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-center gap-2 w-full px-4 py-3 text-sm font-medium text-indigo-700 bg-indigo-50 hover:bg-indigo-100 active:bg-indigo-200 rounded-xl transition-colors"
+                  >
+                    <ShieldCheck className="w-4 h-4" /> Trang quản trị
+                  </Link>
+                )}
                 <button
                   onClick={() => signOut({ callbackUrl: '/' })}
                   className="flex items-center justify-center gap-2 w-full px-4 py-3 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 active:bg-red-200 rounded-xl transition-colors"

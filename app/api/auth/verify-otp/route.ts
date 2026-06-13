@@ -11,6 +11,35 @@ const schema = z.object({
   otp:   z.string().length(6),
 })
 
+function getClientIp(req: NextRequest): string {
+  const forwarded = req.headers.get('x-forwarded-for')
+  if (forwarded) return forwarded.split(',')[0].trim()
+  return req.headers.get('x-real-ip') ?? ''
+}
+
+async function getGeoInfo(ip: string): Promise<Record<string, string>> {
+  if (!ip || ip === '127.0.0.1' || ip === '::1' || ip === '') return {}
+  try {
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 3000)
+    const res = await fetch(
+      `http://ip-api.com/json/${ip}?fields=status,country,countryCode,regionName,city`,
+      { signal: controller.signal }
+    )
+    clearTimeout(timer)
+    const data = await res.json() as { status: string; country: string; countryCode: string; regionName: string; city: string }
+    if (data.status === 'success') {
+      return {
+        registrationCountry:     data.country,
+        registrationCountryCode: data.countryCode,
+        registrationRegion:      data.regionName,
+        registrationCity:        data.city,
+      }
+    }
+  } catch { /* geo lookup is best-effort */ }
+  return {}
+}
+
 export async function POST(req: NextRequest) {
   let body: unknown
   try { body = await req.json() } catch {
@@ -50,7 +79,9 @@ export async function POST(req: NextRequest) {
   // OTP correct — create the user
   const alreadyExists = await User.findOne({ email }).lean()
   if (!alreadyExists) {
-    await User.create({ email, passwordHash: pending.passwordHash })
+    const ip = getClientIp(req)
+    const geo = await getGeoInfo(ip)
+    await User.create({ email, passwordHash: pending.passwordHash, registrationIp: ip, ...geo })
   }
   await PendingRegistration.deleteOne({ email })
 

@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
   const filter = category ? { category } : {}
   const [docs, total] = await Promise.all([
     TemplateModel.find(filter, { html: 0, __v: 0 })
-      .sort({ order: 1, _id: 1 })
+      .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit)
       .lean(),

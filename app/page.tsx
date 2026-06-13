@@ -410,17 +410,19 @@ export default async function LandingPage() {
   const session = await auth();
   const isLoggedIn = !!session?.user;
 
-  let userProfile: { fullName: string; avatarUrl: string } | null = null;
+  let userProfile: { fullName: string; avatarUrl: string; isAdmin: boolean } | null = null;
   if (session?.user?.id) {
     await dbConnect();
     const u = (await User.findById(session.user.id, {
       fullName: 1,
       avatarUrl: 1,
+      isAdmin: 1,
     }).lean()) as any;
     if (u)
       userProfile = {
         fullName: u.fullName ?? "",
         avatarUrl: u.avatarUrl ?? "",
+        isAdmin: u.isAdmin === true,
       };
   }
 
@@ -519,6 +521,7 @@ export default async function LandingPage() {
                   avatarUrl={userProfile?.avatarUrl}
                   fullName={userProfile?.fullName}
                   email={session!.user!.email ?? ""}
+                  isAdmin={userProfile?.isAdmin ?? false}
                 />
               </div>
             ) : (
@@ -547,6 +550,7 @@ export default async function LandingPage() {
             }
             avatarUrl={userProfile?.avatarUrl}
             email={session?.user?.email ?? undefined}
+            isAdmin={userProfile?.isAdmin ?? false}
           />
         </div>
       </ScrollHeaderWrapper>

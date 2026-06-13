@@ -20,6 +20,7 @@ import {
   Tag,
   Star,
   CheckCircle,
+  Loader2,
 } from "lucide-react";
 import ActivateUserButton from "./ActivateUserButton";
 import ToggleUserButton from "./ToggleUserButton";
@@ -46,6 +47,10 @@ export interface UserRow {
   generationsUsed: number;
   projectCount: number;
   createdAt: string;
+  registrationIp?: string;
+  registrationCity?: string;
+  registrationCountry?: string;
+  registrationRegion?: string;
 }
 
 export interface ProjectRow {
@@ -99,10 +104,14 @@ export interface ReviewRow {
   createdAt: string;
 }
 
+interface OrderStatusCounts { all: number; paid: number; awaiting: number; pending: number; expired: number }
+
 interface Props {
   initialOrders?: OrderRow[];
   ordersTotal?: number;
   ordersPage?: number;
+  ordersStatus?: string;
+  ordersStatusCounts?: OrderStatusCounts;
   initialUsers?: UserRow[];
   usersTotal?: number;
   usersPage?: number;
@@ -114,7 +123,10 @@ interface Props {
   feedbackPage?: number;
   initialReviews?: ReviewRow[];
   reviewsTotal?: number;
+  reviewsAllTotal?: number;
   reviewPendingCount?: number;
+  reviewsPage?: number;
+  reviewsFilter?: string;
   pendingCount?: number;
   meId?: string;
   singleSection?: Tab;
@@ -168,6 +180,13 @@ function formatVnd(n: number) {
   return n.toLocaleString("vi-VN") + "đ";
 }
 
+function fmtDatetime(iso: string) {
+  const d = new Date(iso)
+  const date = d.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })
+  const time = d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true })
+  return `${date}, ${time}`
+}
+
 
 function planLimit(plan: string): string {
   const limits = PLAN_LIMITS[plan as keyof typeof PLAN_LIMITS];
@@ -216,9 +235,8 @@ function Pagination({
   total: number;
   onPage: (p: number) => void;
 }) {
+  if (total === 0) return null;
   const totalPages = Math.ceil(total / PAGE_SIZE);
-  if (totalPages <= 1) return null;
-
   const start = (page - 1) * PAGE_SIZE + 1;
   const end = Math.min(page * PAGE_SIZE, total);
 
@@ -241,8 +259,9 @@ function Pagination({
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 border-t border-gray-100 bg-gray-50/50">
       <span className="text-xs text-gray-500">
-        {start}–{end} / {total}
+        {start}–{end} / {total} bản ghi
       </span>
+      {totalPages > 1 && (
       <div className="flex items-center gap-1">
         <button
           disabled={page === 1}
@@ -281,6 +300,7 @@ function Pagination({
           <ChevronRight className="w-4 h-4" />
         </button>
       </div>
+      )}
     </div>
   );
 }
@@ -353,13 +373,7 @@ function FeedbackItem({
           {FEEDBACK_STATUS_LABELS[fb.status] ?? fb.status}
         </span>
         <span className="ml-auto text-xs text-gray-400">
-          {new Date(fb.createdAt).toLocaleString("vi-VN", {
-            hour12: false,
-            day: "2-digit",
-            month: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
+          {fmtDatetime(fb.createdAt)}
         </span>
       </div>
 
@@ -429,6 +443,8 @@ export default function AdminDashboard({
   initialProjects = EMPTY_PROJECTS,
   initialOrders = EMPTY_ORDERS,
   ordersTotal = 0,
+  ordersStatus = '',
+  ordersStatusCounts,
   usersTotal = 0,
   projectsTotal = 0,
   ordersPage = 1,
@@ -439,7 +455,10 @@ export default function AdminDashboard({
   feedbackPage = 1,
   initialReviews = EMPTY_REVIEWS,
   reviewsTotal = 0,
+  reviewsAllTotal = 0,
   reviewPendingCount = 0,
+  reviewsPage = 1,
+  reviewsFilter = '',
   pendingCount = 0,
   meId = "",
   singleSection,
@@ -456,8 +475,8 @@ export default function AdminDashboard({
       const params = new URLSearchParams(searchParams.toString());
       params.set("tab", t);
       // Reset pagination và search của tất cả tabs khi chuyển tab
-      params.delete("op"); params.delete("up"); params.delete("pp"); params.delete("fp");
-      params.delete("oq"); params.delete("uq"); params.delete("pq"); params.delete("fs");
+      params.delete("op"); params.delete("up"); params.delete("pp"); params.delete("fp"); params.delete("rp");
+      params.delete("oq"); params.delete("uq"); params.delete("pq"); params.delete("fs"); params.delete("rf"); params.delete("os");
       router.replace(`?${params.toString()}`, { scroll: false });
     },
     [router, searchParams],
@@ -469,6 +488,7 @@ export default function AdminDashboard({
   const [orders, setOrders] = useState(initialOrders);
   const [feedbackList, setFeedbackList] = useState(initialFeedback);
   const [reviewList, setReviewList] = useState(initialReviews);
+  const [reviewLoading, setReviewLoading] = useState<Record<string, 'approve' | 'delete'>>({});
 
   // Sync local state when server re-fetches on navigation
   useEffect(() => { setOrders(initialOrders); }, [initialOrders]);
@@ -479,16 +499,20 @@ export default function AdminDashboard({
 
   // Controlled search inputs, initialized from current URL params
   const [ordersQ, setOrdersQ] = useState(searchParams.get("oq") ?? "");
+  const [ordersStatusState, setOrdersStatusState] = useState(searchParams.get("os") ?? ordersStatus);
   const [usersQ, setUsersQ] = useState(searchParams.get("uq") ?? "");
   const [projectsQ, setProjectsQ] = useState(searchParams.get("pq") ?? "");
   const [feedbackStatus, setFeedbackStatus] = useState(searchParams.get("fs") ?? "");
+  const [reviewsFilterState, setReviewsFilterState] = useState(searchParams.get("rf") ?? reviewsFilter);
 
   // Reset search inputs khi tab thay đổi (setTab đã xóa params khỏi URL)
   useEffect(() => {
     setOrdersQ(searchParams.get("oq") ?? "");
+    setOrdersStatusState(searchParams.get("os") ?? "");
     setUsersQ(searchParams.get("uq") ?? "");
     setProjectsQ(searchParams.get("pq") ?? "");
     setFeedbackStatus(searchParams.get("fs") ?? "");
+    setReviewsFilterState(searchParams.get("rf") ?? "");
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab]);
 
@@ -541,6 +565,20 @@ export default function AdminDashboard({
     router.replace(`?${params.toString()}`, { scroll: false });
   }
 
+  function handleReviewsFilter(v: string) {
+    setReviewsFilterState(v);
+    const params = new URLSearchParams(searchParams.toString());
+    v ? params.set("rf", v) : params.delete("rf");
+    params.delete("rp");
+    router.replace(`?${params.toString()}`, { scroll: false });
+  }
+
+  function goReviewsPage(p: number) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("rp", String(p));
+    router.replace(`?${params.toString()}`, { scroll: false });
+  }
+
   function handleOrdersSearch(v: string) {
     setOrdersQ(v);
     if (ordersDebounceRef.current) clearTimeout(ordersDebounceRef.current);
@@ -572,6 +610,14 @@ export default function AdminDashboard({
       params.delete("pp");
       router.replace(`?${params.toString()}`, { scroll: false });
     }, 350);
+  }
+
+  function handleOrdersStatus(v: string) {
+    setOrdersStatusState(v);
+    const params = new URLSearchParams(searchParams.toString());
+    v ? params.set("os", v) : params.delete("os");
+    params.delete("op");
+    router.replace(`?${params.toString()}`, { scroll: false });
   }
 
   function goOrdersPage(p: number) {
@@ -666,17 +712,50 @@ export default function AdminDashboard({
       {tab === "orders" && (
         <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
           <div className="px-4 sm:px-6 py-3 border-b border-gray-100 flex flex-wrap items-center gap-2">
-            <h2 className="font-semibold text-gray-900 mr-auto">Đơn hàng</h2>
-            {pendingCount > 0 && (
-              <span className="flex items-center gap-1 text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
-                <Clock className="w-3.5 h-3.5" /> {pendingCount} đơn cần xử lý
-              </span>
-            )}
-            <SearchBox
-              value={ordersQ}
-              onChange={handleOrdersSearch}
-              placeholder="Tìm mã đơn, email, trạng thái…"
-            />
+            <h2 className="font-semibold text-gray-900">Đơn hàng</h2>
+            {/* Status filter buttons */}
+            {([
+              { v: '',                      label: 'Tất cả',        cnt: ordersStatusCounts?.all,      cls: 'indigo' },
+              { v: 'paid',                  label: 'Đã thanh toán', cnt: ordersStatusCounts?.paid,     cls: 'emerald' },
+              { v: 'awaiting_confirmation', label: 'Chờ xác nhận',  cnt: ordersStatusCounts?.awaiting, cls: 'blue' },
+              { v: 'pending',               label: 'Chờ thanh toán',cnt: ordersStatusCounts?.pending,  cls: 'amber' },
+              { v: 'expired',               label: 'Hết hạn/Huỷ',   cnt: ordersStatusCounts?.expired,  cls: 'red' },
+            ] as const).map(({ v, label, cnt, cls }) => {
+              const active = ordersStatusState === v
+              const colorMap: Record<string, { btn: string; badge: string }> = {
+                indigo:  { btn: 'bg-indigo-50 border-indigo-300 text-indigo-700',   badge: 'bg-indigo-200 text-indigo-800' },
+                emerald: { btn: 'bg-emerald-50 border-emerald-300 text-emerald-700', badge: 'bg-emerald-200 text-emerald-800' },
+                blue:    { btn: 'bg-blue-50 border-blue-300 text-blue-700',         badge: 'bg-blue-200 text-blue-800' },
+                amber:   { btn: 'bg-amber-50 border-amber-300 text-amber-700',       badge: 'bg-amber-200 text-amber-800' },
+                red:     { btn: 'bg-red-50 border-red-300 text-red-700',            badge: 'bg-red-200 text-red-800' },
+              }
+              const c = colorMap[cls]
+              return (
+                <button
+                  key={v}
+                  onClick={() => handleOrdersStatus(v)}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-lg border transition-colors ${
+                    active ? c.btn : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
+                  }`}
+                >
+                  {label}
+                  {cnt !== undefined && (
+                    <span className={`min-w-[18px] text-center px-1 rounded-full text-[10px] font-bold ${
+                      active ? c.badge : 'bg-gray-100 text-gray-500'
+                    }`}>
+                      {cnt}
+                    </span>
+                  )}
+                </button>
+              )
+            })}
+            <div className="ml-auto">
+              <SearchBox
+                value={ordersQ}
+                onChange={handleOrdersSearch}
+                placeholder="Tìm mã đơn, email…"
+              />
+            </div>
           </div>
 
           {/* Desktop */}
@@ -764,13 +843,7 @@ export default function AdminDashboard({
                       )}
                     </td>
                     <td className="px-4 py-3.5 text-xs text-gray-500 whitespace-nowrap">
-                      {new Date(order.createdAt).toLocaleString("vi-VN", {
-                        hour12: false,
-                        day: "2-digit",
-                        month: "2-digit",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
+                      {fmtDatetime(order.createdAt)}
                     </td>
                     <td className="px-4 py-3.5">
                       <div className="flex items-center gap-1.5 flex-wrap">
@@ -850,13 +923,7 @@ export default function AdminDashboard({
                   </span>
                 </div>
                 <p className="text-xs text-gray-400">
-                  {new Date(order.createdAt).toLocaleString("vi-VN", {
-                    hour12: false,
-                    day: "2-digit",
-                    month: "2-digit",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
+                  {fmtDatetime(order.createdAt)}
                 </p>
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {order.paymentProofUrl && (
@@ -953,6 +1020,11 @@ export default function AdminDashboard({
                           <span className="ml-1.5 text-blue-400">(bạn)</span>
                         )}
                       </p>
+                      {(user.registrationCity || user.registrationCountry) && (
+                        <p className="text-[10px] text-indigo-500 mt-0.5 truncate" title={user.registrationIp}>
+                          📍 {[user.registrationCity, user.registrationCountry].filter(Boolean).join(", ")}
+                        </p>
+                      )}
                       <div className="flex flex-wrap gap-1 mt-1">
                         {!user.isActive && (
                           <span className="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full font-medium">
@@ -1009,13 +1081,13 @@ export default function AdminDashboard({
                     </td>
                     <td className="px-4 py-3.5 text-xs text-gray-500 whitespace-nowrap">
                       {user.planExpiresAt ? (
-                        new Date(user.planExpiresAt).toLocaleDateString("vi-VN")
+                        fmtDatetime(user.planExpiresAt)
                       ) : (
                         <span className="text-gray-300">—</span>
                       )}
                     </td>
                     <td className="px-4 py-3.5 text-xs text-gray-500 whitespace-nowrap">
-                      {new Date(user.createdAt).toLocaleDateString("vi-VN")}
+                      {fmtDatetime(user.createdAt)}
                     </td>
                     <td className="px-4 py-3.5">
                       {user._id !== meId ? (
@@ -1070,6 +1142,11 @@ export default function AdminDashboard({
                     </p>
                     {user.fullName && (
                       <p className="text-xs text-gray-400">{user.fullName}</p>
+                    )}
+                    {(user.registrationCity || user.registrationCountry) && (
+                      <p className="text-[10px] text-indigo-500 truncate" title={user.registrationIp}>
+                        📍 {[user.registrationCity, user.registrationCountry].filter(Boolean).join(", ")}
+                      </p>
                     )}
                   </div>
                   <span
@@ -1135,7 +1212,7 @@ export default function AdminDashboard({
                   <div className="flex gap-1.5">
                     <span className="text-gray-400">Tham gia:</span>
                     <span className="font-semibold text-gray-700">
-                      {new Date(user.createdAt).toLocaleDateString("vi-VN")}
+                      {fmtDatetime(user.createdAt)}
                     </span>
                   </div>
                 </div>
@@ -1236,7 +1313,7 @@ export default function AdminDashboard({
                       </p>
                     </td>
                     <td className="px-4 py-3.5 text-xs text-gray-500 whitespace-nowrap">
-                      {new Date(project.createdAt).toLocaleDateString("vi-VN")}
+                      {fmtDatetime(project.createdAt)}
                     </td>
                     <td className="px-4 py-3.5">
                       <div className="flex items-center gap-1.5">
@@ -1278,7 +1355,7 @@ export default function AdminDashboard({
                     {project.name}
                   </span>
                   <span className="flex-shrink-0 text-xs text-gray-400">
-                    {new Date(project.createdAt).toLocaleDateString("vi-VN")}
+                    {fmtDatetime(project.createdAt)}
                   </span>
                 </div>
                 <p className="text-xs text-gray-500">{project.userEmail}</p>
@@ -1369,15 +1446,52 @@ export default function AdminDashboard({
       {/* ── Reviews ── */}
       {tab === "reviews" && (
         <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
-          <div className="px-4 sm:px-6 py-3 border-b border-gray-100 flex items-center gap-2">
-            <h2 className="font-semibold text-gray-900 mr-auto">Đánh giá người dùng</h2>
+          {/* Header */}
+          <div className="px-4 sm:px-6 py-3 border-b border-gray-100 flex flex-wrap items-center gap-2">
+            <h2 className="font-semibold text-gray-900">Đánh giá người dùng</h2>
             {reviewPendingCount > 0 && (
               <span className="text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
                 {reviewPendingCount} chờ duyệt
               </span>
             )}
-            <span className="text-xs text-gray-400">{reviewsTotal} tổng</span>
+            <span className="text-xs text-gray-400 mr-auto">{reviewsTotal} tổng</span>
+            {/* Filter buttons */}
+            {([
+              { f: '',         label: 'Tất cả',    count: reviewsAllTotal },
+              { f: 'pending',  label: 'Chờ duyệt', count: reviewPendingCount },
+              { f: 'approved', label: 'Đã duyệt',  count: reviewsAllTotal - reviewPendingCount },
+            ] as const).map(({ f, label, count }) => {
+              const active = reviewsFilterState === f
+              return (
+                <button
+                  key={f}
+                  onClick={() => handleReviewsFilter(f)}
+                  className={`flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-lg border transition-colors ${
+                    active
+                      ? f === 'pending'
+                        ? 'bg-amber-50 border-amber-300 text-amber-700'
+                        : f === 'approved'
+                        ? 'bg-emerald-50 border-emerald-300 text-emerald-700'
+                        : 'bg-indigo-50 border-indigo-300 text-indigo-700'
+                      : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
+                  }`}
+                >
+                  {label}
+                  <span className={`min-w-[18px] text-center px-1 rounded-full text-[10px] font-bold ${
+                    active
+                      ? f === 'pending'  ? 'bg-amber-200 text-amber-800'
+                      : f === 'approved' ? 'bg-emerald-200 text-emerald-800'
+                      : 'bg-indigo-200 text-indigo-800'
+                      : 'bg-gray-100 text-gray-500'
+                  }`}>
+                    {count}
+                  </span>
+                </button>
+              )
+            })}
           </div>
+
+          {/* List */}
           <div className="divide-y divide-gray-50">
             {reviewList.length === 0 && (
               <div className="px-6 py-10 text-center text-sm text-gray-400">Chưa có đánh giá nào.</div>
@@ -1399,33 +1513,47 @@ export default function AdminDashboard({
                     ))}
                   </div>
                   <p className="text-sm text-gray-600 line-clamp-2">"{r.content}"</p>
-                  <p className="text-xs text-gray-400 mt-1">{new Date(r.createdAt).toLocaleString("vi-VN")}</p>
+                  <p className="text-xs text-gray-400 mt-1">{fmtDatetime(r.createdAt)}</p>
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">
                   {!r.isApproved && (
                     <button
+                      disabled={!!reviewLoading[r._id]}
                       onClick={async () => {
-                        await fetch(`/api/admin/reviews/${r._id}`, { method: "PATCH", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ action: "approve" }) });
-                        setReviewList(prev => prev.map(x => x._id === r._id ? { ...x, isApproved: true } : x));
+                        setReviewLoading(p => ({ ...p, [r._id]: 'approve' }))
+                        try {
+                          await fetch(`/api/admin/reviews/${r._id}`, { method: "PATCH", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ action: "approve" }) });
+                          setReviewList(prev => prev.map(x => x._id === r._id ? { ...x, isApproved: true } : x));
+                        } finally { setReviewLoading(p => { const n = { ...p }; delete n[r._id]; return n }) }
                       }}
-                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg hover:bg-emerald-100 transition-colors"
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg hover:bg-emerald-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <CheckCircle className="w-3.5 h-3.5" /> Duyệt
+                      {reviewLoading[r._id] === 'approve' ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle className="w-3.5 h-3.5" />} Duyệt
                     </button>
                   )}
                   <button
+                    disabled={!!reviewLoading[r._id]}
                     onClick={async () => {
-                      await fetch(`/api/admin/reviews/${r._id}`, { method: "PATCH", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ action: "reject" }) });
-                      setReviewList(prev => prev.filter(x => x._id !== r._id));
+                      setReviewLoading(p => ({ ...p, [r._id]: 'delete' }))
+                      try {
+                        await fetch(`/api/admin/reviews/${r._id}`, { method: "PATCH", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ action: "reject" }) });
+                        setReviewList(prev => prev.filter(x => x._id !== r._id));
+                      } finally { setReviewLoading(p => { const n = { ...p }; delete n[r._id]; return n }) }
                     }}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Trash2 className="w-3.5 h-3.5" /> Xoá
+                    {reviewLoading[r._id] === 'delete' ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />} Xoá
                   </button>
                 </div>
               </div>
             ))}
           </div>
+
+          <Pagination
+            page={reviewsPage}
+            total={reviewsTotal}
+            onPage={goReviewsPage}
+          />
         </div>
       )}
 

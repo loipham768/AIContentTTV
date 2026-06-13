@@ -124,11 +124,15 @@ function TemplateCard({
   isLoggedIn,
   onPreview,
   onUse,
+  isPreviewLoading = false,
+  isUseLoading = false,
 }: {
   tpl: TemplateMeta;
   isLoggedIn: boolean;
   onPreview: (tpl: TemplateMeta) => void;
   onUse: (tpl: TemplateMeta) => void;
+  isPreviewLoading?: boolean;
+  isUseLoading?: boolean;
 }) {
   const catMeta = CATEGORY_META[tpl.category];
   return (
@@ -145,9 +149,11 @@ function TemplateCard({
         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 z-20">
           <button
             onClick={() => onPreview(tpl)}
-            className="flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-lg px-3 py-1.5 text-xs font-semibold hover:bg-white transition-colors"
+            disabled={isPreviewLoading}
+            className="flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-lg px-3 py-1.5 text-xs font-semibold hover:bg-white transition-colors cursor-pointer disabled:opacity-70 disabled:cursor-wait"
           >
-            <ExternalLink className="w-3 h-3" /> Xem trước
+            {isPreviewLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : <ExternalLink className="w-3 h-3" />}
+            {isPreviewLoading ? "Đang tải..." : "Xem trước"}
           </button>
         </div>
       </div>
@@ -171,10 +177,17 @@ function TemplateCard({
         </div>
         <button
           onClick={() => onUse(tpl)}
-          className="w-full py-2 rounded-xl text-sm font-semibold text-white transition-all active:scale-[0.98] flex items-center justify-center gap-1.5"
+          disabled={isUseLoading}
+          className="w-full py-2 rounded-xl text-sm font-semibold text-white transition-all active:scale-[0.98] flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-80 disabled:cursor-wait"
           style={{ background: `linear-gradient(135deg, ${tpl.accentColor}, ${tpl.accentColor}cc)` }}
         >
-          {isLoggedIn ? <>Dùng mẫu này →</> : <><Lock className="w-3.5 h-3.5" /> Đăng nhập để dùng</>}
+          {isUseLoading ? (
+            <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Đang mở...</>
+          ) : isLoggedIn ? (
+            <>Dùng mẫu này →</>
+          ) : (
+            <><Lock className="w-3.5 h-3.5" /> Đăng nhập để dùng</>
+          )}
         </button>
       </div>
     </div>
@@ -188,6 +201,8 @@ function CategorySection({
   onPreview,
   onUse,
   onPageChange,
+  previewLoadingId,
+  useLoadingId,
 }: {
   category: TemplateCategory;
   data: CatState;
@@ -195,6 +210,8 @@ function CategorySection({
   onPreview: (tpl: TemplateMeta) => void;
   onUse: (tpl: TemplateMeta) => void;
   onPageChange: (p: number) => void;
+  previewLoadingId: string | null;
+  useLoadingId: string | null;
 }) {
   const catMeta = CATEGORY_META[category];
   if (data.total === 0) return null;
@@ -210,7 +227,15 @@ function CategorySection({
       </div>
       <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 transition-opacity duration-150 ${data.loading ? "opacity-50 pointer-events-none" : ""}`}>
         {data.templates.map((tpl) => (
-          <TemplateCard key={tpl.id} tpl={tpl} isLoggedIn={isLoggedIn} onPreview={onPreview} onUse={onUse} />
+          <TemplateCard
+            key={tpl.id}
+            tpl={tpl}
+            isLoggedIn={isLoggedIn}
+            onPreview={onPreview}
+            onUse={onUse}
+            isPreviewLoading={previewLoadingId === tpl.id}
+            isUseLoading={useLoadingId === tpl.id}
+          />
         ))}
       </div>
       <div className="border-t border-gray-100">
@@ -244,6 +269,8 @@ export default function TemplatesClient({
   const [previewHtml, setPreviewHtml] = useState<string>("");
   const [previewLoading, setPreviewLoading] = useState(false);
   const [previewDevice, setPreviewDevice] = useState<"desktop" | "tablet" | "mobile">("desktop");
+  const [previewLoadingId, setPreviewLoadingId] = useState<string | null>(null);
+  const [useLoadingId, setUseLoadingId] = useState<string | null>(null);
 
   const totalAll = Object.values(catData).reduce((s, d) => s + d.total, 0);
 
@@ -265,6 +292,7 @@ export default function TemplatesClient({
   }
 
   async function openPreview(tpl: TemplateMeta) {
+    setPreviewLoadingId(tpl.id);
     setPreviewMeta(tpl);
     setPreviewHtml("");
     setPreviewLoading(true);
@@ -275,6 +303,7 @@ export default function TemplatesClient({
       setPreviewHtml(full.html ?? "");
     } finally {
       setPreviewLoading(false);
+      setPreviewLoadingId(null);
     }
   }
 
@@ -283,6 +312,7 @@ export default function TemplatesClient({
       router.push("/login");
       return;
     }
+    setUseLoadingId(tpl.id);
     router.push(`/editor?template=${tpl.id}`);
   }
 
@@ -398,6 +428,8 @@ export default function TemplatesClient({
                 onPreview={openPreview}
                 onUse={handleUse}
                 onPageChange={(p) => fetchPage(cat, p)}
+                previewLoadingId={previewLoadingId}
+                useLoadingId={useLoadingId}
               />
             ))}
           </div>
@@ -423,6 +455,8 @@ export default function TemplatesClient({
                       isLoggedIn={isLoggedIn}
                       onPreview={openPreview}
                       onUse={handleUse}
+                      isPreviewLoading={previewLoadingId === tpl.id}
+                      isUseLoading={useLoadingId === tpl.id}
                     />
                   ))}
                 </div>
@@ -486,10 +520,17 @@ export default function TemplatesClient({
 
             <button
               onClick={(e) => { e.stopPropagation(); handleUse(previewMeta); }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white flex-shrink-0 transition-opacity hover:opacity-90"
+              disabled={useLoadingId === previewMeta.id}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white flex-shrink-0 transition-opacity hover:opacity-90 cursor-pointer disabled:opacity-80 disabled:cursor-wait"
               style={{ background: previewMeta.accentColor }}
             >
-              {isLoggedIn ? (
+              {useLoadingId === previewMeta.id ? (
+                <>
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                  <span className="hidden sm:inline">Đang mở...</span>
+                  <span className="sm:hidden">...</span>
+                </>
+              ) : isLoggedIn ? (
                 <>
                   <Sparkles className="w-3 h-3" />
                   <span className="hidden sm:inline">Dùng mẫu này</span>

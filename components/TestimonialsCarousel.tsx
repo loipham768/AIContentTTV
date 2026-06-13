@@ -1,11 +1,18 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { ChevronLeft, ChevronRight, Star, Quote, CheckCircle2, LogIn } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Star,
+  Quote,
+  CheckCircle2,
+  LogIn,
+  Sparkles,
+} from "lucide-react";
 import Link from "next/link";
 import ReviewForm from "@/components/reviews/ReviewForm";
 
 interface RealReview {
-  _id: any;
   userName: string;
   content: string;
   rating: number;
@@ -127,7 +134,9 @@ export default function TestimonialsCarousel({
 }) {
   const mappedReal: CardItem[] = realReviews.map((r, i) => ({
     name: r.userName,
-    role: r.plan ? `${PLAN_LABELS[r.plan] ?? r.plan} · AITaoPage` : "Người dùng AITaoPage",
+    role: r.plan
+      ? `${PLAN_LABELS[r.plan] ?? r.plan} · AITaoPage`
+      : "Người dùng AITaoPage",
     quote: r.content,
     gradient: REAL_GRADIENTS[i % REAL_GRADIENTS.length],
     initial: r.userName.charAt(0).toUpperCase(),
@@ -172,7 +181,10 @@ export default function TestimonialsCarousel({
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-    const obs = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.1 });
+    const obs = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.1 },
+    );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
@@ -242,20 +254,64 @@ export default function TestimonialsCarousel({
             <ChevronLeft className="w-5 h-5" />
           </button>
 
-          {/* Dot indicators */}
-          <div className="flex items-center gap-2">
-            {Array.from({ length: maxIdx + 1 }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setIdx(i)}
-                aria-label={`Trang ${i + 1}`}
-                className={`rounded-full transition-all duration-300 ${
-                  i === idx
-                    ? "w-7 h-2.5 bg-indigo-400"
-                    : "w-2.5 h-2.5 bg-white/20 hover:bg-white/40"
-                }`}
-              />
-            ))}
+          {/* Dot indicators — sliding window max 5 */}
+          <div className="flex items-center gap-1.5">
+            {(() => {
+              const total = maxIdx + 1;
+              if (total <= 7) {
+                return Array.from({ length: total }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setIdx(i)}
+                    aria-label={`Trang ${i + 1}`}
+                    className={`rounded-full transition-all duration-300 ${
+                      i === idx
+                        ? "w-7 h-2.5 bg-indigo-400"
+                        : "w-2.5 h-2.5 bg-white/20 hover:bg-white/40"
+                    }`}
+                  />
+                ));
+              }
+              const WIN = 5;
+              let start = Math.max(0, idx - Math.floor(WIN / 2));
+              const end = Math.min(total - 1, start + WIN - 1);
+              if (end - start < WIN - 1) start = Math.max(0, end - WIN + 1);
+              const dots = [];
+              if (start > 0)
+                dots.push(
+                  <span
+                    key="pre"
+                    className="w-1.5 h-1.5 rounded-full bg-white/15 block"
+                  />,
+                );
+              for (let i = start; i <= end; i++) {
+                const dist = Math.abs(i - idx);
+                const isActive = i === idx;
+                dots.push(
+                  <button
+                    key={i}
+                    onClick={() => setIdx(i)}
+                    aria-label={`Trang ${i + 1}`}
+                    style={{
+                      opacity: dist === 0 ? 1 : dist === 1 ? 0.55 : 0.3,
+                    }}
+                    className={`rounded-full transition-all duration-300 ${
+                      isActive
+                        ? "w-7 h-2.5 bg-indigo-400"
+                        : "w-2.5 h-2.5 bg-white/40 hover:bg-white/60"
+                    }`}
+                  />,
+                );
+              }
+              if (end < total - 1)
+                dots.push(
+                  <span
+                    key="post"
+                    className="w-1.5 h-1.5 rounded-full bg-white/15 block"
+                  />,
+                );
+              return dots;
+            })()}
           </div>
 
           <button
@@ -269,27 +325,40 @@ export default function TestimonialsCarousel({
 
         {/* Rating summary + review form */}
         <div className="mt-12 grid lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
-
-          {/* Stats strip — chỉ hiện khi có >= 3 đánh giá */}
-          {reviewStats && reviewStats.count >= 3 ? (
-            <div className="flex flex-col sm:flex-row items-center gap-6 px-6 py-5 rounded-2xl border border-white/6" style={{ background: "rgba(255,255,255,0.03)" }}>
+          {/* Stats strip */}
+          {reviewStats && reviewStats.count >= 1 ? (
+            <div
+              className="flex flex-col sm:flex-row items-center gap-6 px-6 py-5 rounded-2xl border border-white/6"
+              style={{ background: "rgba(255,255,255,0.03)" }}
+            >
               {/* Avg + stars */}
-              <div className="flex items-center gap-3 shrink-0">
-                <span className="text-5xl font-black text-white tabular-nums leading-none">{reviewStats.avg}</span>
-                <div className="flex flex-col gap-1.5">
-                  <span className="flex items-center gap-0.5">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <Star
-                        key={s}
-                        className="w-4 h-4"
-                        fill={s <= Math.round(reviewStats.avg) ? "#f59e0b" : "none"}
-                        stroke={s <= Math.round(reviewStats.avg) ? "#f59e0b" : "#374151"}
-                        strokeWidth={1.5}
-                      />
-                    ))}
+              <div className="flex flex-col items-center sm:items-start gap-1 shrink-0">
+                <div className="flex items-end gap-2">
+                  <span className="text-5xl font-black text-white tabular-nums leading-none">
+                    {reviewStats.avg}
                   </span>
-                  <p className="text-xs text-gray-500">{reviewStats.count} đánh giá thực</p>
+                  <span className="text-sm text-gray-400 mb-1 whitespace-nowrap">
+                    / 5
+                  </span>
                 </div>
+                <span className="flex items-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star
+                      key={s}
+                      className="w-4 h-4"
+                      fill={
+                        s <= Math.round(reviewStats.avg) ? "#f59e0b" : "none"
+                      }
+                      stroke={
+                        s <= Math.round(reviewStats.avg) ? "#f59e0b" : "#374151"
+                      }
+                      strokeWidth={1.5}
+                    />
+                  ))}
+                </span>
+                <p className="text-xs text-gray-500 whitespace-nowrap">
+                  {reviewStats.count} người dùng đã đánh giá
+                </p>
               </div>
 
               <div className="w-px h-12 bg-white/8 hidden sm:block shrink-0" />
@@ -297,71 +366,132 @@ export default function TestimonialsCarousel({
               {/* Distribution bars */}
               <div className="flex-1 w-full space-y-1.5">
                 {reviewStats.dist.map(({ star, count }) => {
-                  const pct = reviewStats.count > 0 ? Math.round((count / reviewStats.count) * 100) : 0;
+                  const pct =
+                    reviewStats.count > 0
+                      ? Math.round((count / reviewStats.count) * 100)
+                      : 0;
                   return (
                     <div key={star} className="flex items-center gap-2">
-                      <span className="text-[11px] text-gray-600 w-2.5 shrink-0 text-right">{star}</span>
-                      <Star className="w-2.5 h-2.5 shrink-0" fill="#f59e0b" stroke="none" />
+                      <span className="text-[11px] text-gray-600 w-2.5 shrink-0 text-right">
+                        {star}
+                      </span>
+                      <Star
+                        className="w-2.5 h-2.5 shrink-0"
+                        fill="#f59e0b"
+                        stroke="none"
+                      />
                       <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
                         <div
                           className="h-full rounded-full transition-all duration-700"
                           style={{
                             width: `${pct}%`,
-                            background: star >= 4 ? "#f59e0b" : star === 3 ? "#6366f1" : "#374151",
+                            background:
+                              star >= 4
+                                ? "#f59e0b"
+                                : star === 3
+                                  ? "#6366f1"
+                                  : "#374151",
                           }}
                         />
                       </div>
-                      <span className="text-[11px] text-gray-700 w-3 shrink-0">{count}</span>
+                      <span className="text-[11px] text-gray-700 w-3 shrink-0">
+                        {count}
+                      </span>
                     </div>
                   );
                 })}
               </div>
             </div>
           ) : (
-            <div className="rounded-2xl border border-white/6 px-6 py-5 flex items-center justify-center" style={{ background: "rgba(255,255,255,0.03)" }}>
-              <p className="text-sm text-gray-600">Chưa đủ đánh giá để hiển thị thống kê.</p>
+            <div
+              className="rounded-2xl border border-white/6 px-6 py-5 flex flex-col items-center justify-center gap-2 text-center"
+              style={{ background: "rgba(255,255,255,0.03)" }}
+            >
+              <span className="flex items-center gap-0.5">
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <Star
+                    key={s}
+                    className="w-5 h-5"
+                    fill="#f59e0b"
+                    stroke="none"
+                  />
+                ))}
+              </span>
+              <p className="text-sm font-semibold text-white">
+                Hãy là người đầu tiên!
+              </p>
+              <p className="text-xs text-gray-600">
+                Chia sẻ trải nghiệm thực để giúp cộng đồng.
+              </p>
             </div>
           )}
 
           {/* Form panel */}
           <div
             className="rounded-2xl border border-white/8 p-5 relative overflow-hidden"
-            style={{ background: "linear-gradient(150deg, rgba(99,102,241,0.08), #0d0b1f 55%)" }}
+            style={{
+              background:
+                "linear-gradient(150deg, rgba(99,102,241,0.08), #0d0b1f 55%)",
+            }}
           >
             <div
               className="absolute -top-8 left-1/2 -translate-x-1/2 w-40 h-24 pointer-events-none opacity-50"
-              style={{ background: "radial-gradient(ellipse, rgba(99,102,241,0.35), transparent 70%)" }}
+              style={{
+                background:
+                  "radial-gradient(ellipse, rgba(99,102,241,0.35), transparent 70%)",
+              }}
             />
             <div className="relative">
-              <h3 className="text-sm font-bold text-white mb-1">
-                {hasReviewed ? "✓ Đã gửi đánh giá" : "Chia sẻ trải nghiệm của bạn"}
-              </h3>
-              <p className="text-xs text-gray-500 mb-5">
-                {hasReviewed
-                  ? "Đánh giá của bạn đang chờ duyệt và sẽ xuất hiện sớm."
-                  : "Đánh giá thực giúp cộng đồng và giúp AITaoPage phát triển."}
-              </p>
-              {userId ? (
-                <ReviewForm hasReviewed={hasReviewed} />
+              {hasReviewed ? (
+                <div className="text-center py-4">
+                  <div className="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-3">
+                    <Sparkles className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <p className="font-bold text-white mb-1">Cảm ơn bạn! 🎉</p>
+                  <p className="text-xs text-gray-500 leading-relaxed">
+                    Đánh giá đang chờ duyệt và sẽ xuất hiện sớm.
+                  </p>
+                </div>
               ) : (
-                <Link
-                  href="/login"
-                  className="flex items-center justify-center gap-2 w-full py-3 text-white text-sm font-bold rounded-xl transition-all"
-                  style={{ background: "linear-gradient(135deg, #4f46e5, #7c3aed)" }}
-                >
-                  <LogIn className="w-4 h-4" /> Đăng nhập để đánh giá
-                </Link>
+                <>
+                  <h3 className="text-sm font-bold text-white mb-1">
+                    Chia sẻ trải nghiệm của bạn
+                  </h3>
+                  <p className="text-xs text-gray-500 mb-5">
+                    Đánh giá thực giúp cộng đồng và giúp AITaoPage phát triển.
+                  </p>
+                  {userId ? (
+                    <ReviewForm hasReviewed={false} />
+                  ) : (
+                    <Link
+                      href="/login"
+                      className="flex items-center justify-center gap-2 w-full py-3 text-white text-sm font-bold rounded-xl transition-all hover:opacity-90"
+                      style={{
+                        background: "linear-gradient(135deg, #4f46e5, #7c3aed)",
+                      }}
+                    >
+                      <LogIn className="w-4 h-4" /> Đăng nhập để đánh giá
+                    </Link>
+                  )}
+                </>
               )}
             </div>
           </div>
-
         </div>
       </div>
     </section>
   );
 }
 
-function TestimonialCard({ name, role, quote, gradient, initial, rating, verified }: CardItem) {
+function TestimonialCard({
+  name,
+  role,
+  quote,
+  gradient,
+  initial,
+  rating,
+  verified,
+}: CardItem) {
   return (
     <div className="relative h-full group">
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500/0 to-violet-500/0 group-hover:from-indigo-500/10 group-hover:to-violet-500/10 transition-all duration-300" />

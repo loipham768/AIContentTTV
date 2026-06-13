@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { Loader2 } from 'lucide-react'
 
 interface Props {
   userId: string
@@ -43,7 +44,7 @@ export default function ToggleUserButton({ userId, field, currentValue, label, v
       disabled={loading}
       className={`px-2.5 py-1 text-xs font-medium rounded-lg border transition-colors disabled:opacity-50 ${variant === 'danger' ? dangerStyle : neutralStyle}`}
     >
-      {loading ? '...' : isActive ? label[0] : label[1]}
+      {loading ? <Loader2 className="w-3 h-3 animate-spin" /> : isActive ? label[0] : label[1]}
     </button>
   )
 }

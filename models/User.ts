@@ -36,6 +36,13 @@ const UserSchema = new mongoose.Schema(
     // Monthly usage counter — reset lazily when usageMonth changes
     usageMonth:      { type: String, default: '' },  // 'YYYY-MM'
     generationsUsed: { type: Number, default: 0 },
+
+    // Registration location (for marketing analytics)
+    registrationIp:          { type: String, default: '' },
+    registrationCountry:     { type: String, default: '' },
+    registrationCountryCode: { type: String, default: '' },
+    registrationRegion:      { type: String, default: '' },
+    registrationCity:        { type: String, default: '' },
   },
   { timestamps: true }
 )

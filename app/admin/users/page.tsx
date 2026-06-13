@@ -49,19 +49,23 @@ async function getData(userId: string, sp: Record<string, string>) {
   const countMap: Record<string, number> = Object.fromEntries((projectCounts as any[]).map((c: any) => [c._id, c.count]))
 
   const userRows: UserRow[] = (usersRaw as any[]).map(u => ({
-    _id:             u._id.toString(),
-    email:           u.email as string,
-    fullName:        u.fullName ?? '',
-    isActive:        u.isActive !== false,
-    isAdmin:         !!u.isAdmin,
-    paidUntil:       u.paidUntil ? (u.paidUntil as Date).toISOString() : null,
-    plan:            u.plan ?? 'free',
-    planExpiresAt:   u.planExpiresAt ? (u.planExpiresAt as Date).toISOString() : null,
-    credits:         u.credits ?? 0,
-    creditsTotal:    u.creditsTotal ?? 0,
-    generationsUsed: u.generationsUsed ?? 0,
-    projectCount:    countMap[u._id.toString()] ?? 0,
-    createdAt:       (u.createdAt as Date).toISOString(),
+    _id:                  u._id.toString(),
+    email:                u.email as string,
+    fullName:             u.fullName ?? '',
+    isActive:             u.isActive !== false,
+    isAdmin:              !!u.isAdmin,
+    paidUntil:            u.paidUntil ? (u.paidUntil as Date).toISOString() : null,
+    plan:                 u.plan ?? 'free',
+    planExpiresAt:        u.planExpiresAt ? (u.planExpiresAt as Date).toISOString() : null,
+    credits:              u.credits ?? 0,
+    creditsTotal:         u.creditsTotal ?? 0,
+    generationsUsed:      u.generationsUsed ?? 0,
+    projectCount:         countMap[u._id.toString()] ?? 0,
+    createdAt:            (u.createdAt as Date).toISOString(),
+    registrationIp:       u.registrationIp ?? '',
+    registrationCity:     u.registrationCity ?? '',
+    registrationCountry:  u.registrationCountry ?? '',
+    registrationRegion:   u.registrationRegion ?? '',
   }))
 
   return { userRows, usersTotal, usersPage: up, meId: userId }

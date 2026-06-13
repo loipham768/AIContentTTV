@@ -3,16 +3,17 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'
-import { User, LogOut, ChevronDown } from 'lucide-react'
+import { User, LogOut, ChevronDown, ShieldCheck } from 'lucide-react'
 import UserAvatar from './UserAvatar'
 
 interface Props {
   avatarUrl?: string
   fullName?: string
   email: string
+  isAdmin?: boolean
 }
 
-export default function UserMenu({ avatarUrl, fullName, email }: Props) {
+export default function UserMenu({ avatarUrl, fullName, email, isAdmin }: Props) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -55,6 +56,16 @@ export default function UserMenu({ avatarUrl, fullName, email }: Props) {
               <User className="w-4 h-4" />
               Hồ sơ của tôi
             </Link>
+            {isAdmin && (
+              <Link
+                href="/admin"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 px-4 py-2.5 text-sm text-indigo-700 hover:bg-indigo-50 transition-colors font-medium"
+              >
+                <ShieldCheck className="w-4 h-4" />
+                Trang quản trị
+              </Link>
+            )}
             <button
               onClick={() => signOut({ callbackUrl: '/' })}
               className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
