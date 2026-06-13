@@ -3,6 +3,7 @@ import { Be_Vietnam_Pro, JetBrains_Mono } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import BackToTop from "@/components/BackToTop";
 import FloatingContact from "@/components/FloatingContact";
+import ActivityTracker from "@/components/ActivityTracker";
 import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
@@ -61,6 +62,7 @@ export default function RootLayout({
         className={`${beVietnamPro.variable} ${jetBrainsMono.variable} antialiased`}
       >
         <NextTopLoader color="#4f46e5" height={3} showSpinner={false} />
+        <ActivityTracker />
         {children}
         <BackToTop />
         <FloatingContact />

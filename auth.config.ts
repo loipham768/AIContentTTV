@@ -17,6 +17,7 @@ export const authConfig: NextAuthConfig = {
         nextUrl.pathname.startsWith('/admin') ||
         (nextUrl.pathname.startsWith('/api/') &&
           !nextUrl.pathname.startsWith('/api/auth/') &&
+          !nextUrl.pathname.startsWith('/api/ping') &&
           !nextUrl.pathname.startsWith('/api/admin/seed-reviews'))
       if (isProtected && !isLoggedIn) return false
       return true

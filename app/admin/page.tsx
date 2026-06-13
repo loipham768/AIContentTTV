@@ -6,6 +6,7 @@ import Project from '@/models/Project'
 import Order from '@/models/Order'
 import Feedback from '@/models/Feedback'
 import Review from '@/models/Review'
+import PageView from '@/models/PageView'
 import {
   Users, LayoutTemplate, TrendingUp, ShoppingCart,
   Star, MessageSquarePlus, ArrowUpRight, ArrowDownRight,
@@ -31,6 +32,14 @@ async function getDashboardData(userId: string) {
   const endOfLastMonth = new Date(startOfMonth.getTime() - 1)
   const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
   const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+  const todayStr = now.toISOString().slice(0, 10)
+  const startOfToday = new Date(todayStr + 'T00:00:00.000Z')
+
+  // Build last-14-days date strings for chart
+  const last14 = Array.from({ length: 14 }, (_, i) => {
+    const d = new Date(now.getTime() - (13 - i) * 24 * 60 * 60 * 1000)
+    return d.toISOString().slice(0, 10)
+  })
 
   const [
     totalUsers,
@@ -51,6 +60,9 @@ async function getDashboardData(userId: string) {
     recentUsers,
     totalFeedback,
     totalReviews,
+    todayActiveUsers,
+    todayAnonCount,
+    dailyChart,
   ] = await Promise.all([
     User.countDocuments(),
     User.countDocuments({ createdAt: { $gte: startOfMonth } }),
@@ -85,6 +97,21 @@ async function getDashboardData(userId: string) {
     User.find({}, { email: 1, fullName: 1, plan: 1, createdAt: 1 }).sort({ createdAt: -1 }).limit(6).lean(),
     Feedback.countDocuments(),
     Review.countDocuments(),
+    // Today's active registered users
+    User.find(
+      { lastActiveAt: { $gte: startOfToday } },
+      { email: 1, fullName: 1, plan: 1, lastActiveAt: 1 }
+    ).sort({ lastActiveAt: -1 }).limit(20).lean(),
+    // Today's anonymous visitors
+    PageView.countDocuments({ date: todayStr, userId: null }),
+    // Daily chart: last 14 days
+    PageView.aggregate([
+      { $match: { date: { $in: last14 } } },
+      { $group: {
+        _id: { date: '$date', anon: { $cond: [{ $eq: ['$userId', null] }, true, false] } },
+        count: { $sum: 1 },
+      }},
+    ]),
   ])
 
   // Enrich recent orders with user emails
@@ -104,6 +131,23 @@ async function getDashboardData(userId: string) {
     (planCounts as any[]).map((p: any) => [p._id ?? 'free', p.count])
   )
 
+  // Build chart: [{date, registered, anonymous}]
+  const chartMap: Record<string, { registered: number; anonymous: number }> = {}
+  for (const d of last14) chartMap[d] = { registered: 0, anonymous: 0 }
+  for (const row of (dailyChart as any[])) {
+    const date = row._id.date as string
+    if (!chartMap[date]) continue
+    if (row._id.anon) chartMap[date].anonymous = row.count
+    else chartMap[date].registered = row.count
+  }
+  const activityChart = last14.map(date => ({
+    date,
+    label: date.slice(5), // 'MM-DD'
+    registered: chartMap[date].registered,
+    anonymous: chartMap[date].anonymous,
+    total: chartMap[date].registered + chartMap[date].anonymous,
+  }))
+
   return {
     totalUsers,
     newUsersThisMonth,
@@ -121,6 +165,14 @@ async function getDashboardData(userId: string) {
     reviewPending,
     totalFeedback,
     totalReviews,
+    todayActiveUsers: (todayActiveUsers as any[]).map((u: any) => ({
+      email: u.email as string,
+      fullName: u.fullName ?? '',
+      plan: u.plan ?? 'free',
+      lastActiveAt: (u.lastActiveAt as Date).toISOString(),
+    })),
+    todayAnonCount: todayAnonCount as number,
+    activityChart,
     recentOrders: (recentOrders as any[]).map((o: any) => ({
       orderId: o.orderId,
       userEmail: emailMap[o.userId] ?? o.userId,
@@ -424,7 +476,65 @@ export default async function AdminPage() {
 
       </div>
 
-      {/* ── Row 5: Interaction summary ── */}
+      {/* ── Row 5: Today's activity ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+        {/* Active users today */}
+        <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-50">
+            <div>
+              <h3 className="font-semibold text-gray-900 text-sm">Hoạt động hôm nay</h3>
+              <p className="text-xs text-gray-400 mt-0.5">
+                {d.todayActiveUsers.length} thành viên · {d.todayAnonCount} khách ẩn danh
+              </p>
+            </div>
+            <Link href="/admin/users" className="text-xs text-indigo-500 hover:text-indigo-700 flex items-center gap-1">
+              Xem users <ArrowUpRight className="w-3 h-3" />
+            </Link>
+          </div>
+          <div className="divide-y divide-gray-50 max-h-72 overflow-y-auto">
+            {d.todayActiveUsers.length === 0 && (
+              <p className="px-5 py-8 text-center text-sm text-gray-400">Chưa có thành viên nào hoạt động hôm nay.</p>
+            )}
+            {d.todayActiveUsers.map((u, i) => (
+              <div key={i} className="flex items-center gap-3 px-5 py-3 hover:bg-gray-50/60 transition-colors">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-xs font-bold">
+                    {(u.fullName || u.email).charAt(0).toUpperCase()}
+                  </span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-medium text-gray-900 truncate">{u.fullName || u.email}</p>
+                  {u.fullName && <p className="text-xs text-gray-400 truncate">{u.email}</p>}
+                </div>
+                <span className={`flex-shrink-0 text-[11px] font-semibold px-2 py-0.5 rounded-full ${PLAN_TEXT[u.plan] ?? 'text-gray-600'} bg-gray-50 border border-gray-100`}>
+                  {PLAN_LABELS[u.plan] ?? u.plan}
+                </span>
+                <span className="flex-shrink-0 text-[11px] text-gray-400 hidden sm:block">
+                  {new Date(u.lastActiveAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 14-day activity chart */}
+        <div className="bg-white rounded-2xl border border-gray-100 p-5">
+          <h3 className="font-semibold text-gray-900 text-sm mb-4">Lượt truy cập 14 ngày qua</h3>
+          <ActivityChart data={d.activityChart} />
+          <div className="flex items-center gap-4 mt-3">
+            <span className="flex items-center gap-1.5 text-xs text-gray-500">
+              <span className="w-2.5 h-2.5 rounded-sm bg-indigo-400 inline-block" /> Thành viên
+            </span>
+            <span className="flex items-center gap-1.5 text-xs text-gray-500">
+              <span className="w-2.5 h-2.5 rounded-sm bg-gray-200 inline-block" /> Ẩn danh
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      {/* ── Row 6: Interaction summary ── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <SummaryCard label="Tổng đơn hàng" value={totalOrders} href="/admin/orders" icon={<ShoppingCart className="w-4 h-4 text-indigo-400" />} />
         <SummaryCard label="Tổng dự án" value={d.totalProjects} href="/admin/projects" icon={<LayoutTemplate className="w-4 h-4 text-purple-400" />} />
@@ -470,6 +580,59 @@ function StatCard({
   )
 
   return href ? <Link href={href} className="block">{inner}</Link> : inner
+}
+
+function ActivityChart({ data }: {
+  data: { date: string; label: string; registered: number; anonymous: number; total: number }[]
+}) {
+  const maxVal = Math.max(...data.map(d => d.total), 1)
+  const COL = 32   // units per column — wide enough for label
+  const BAR_W = 20
+  const BAR_PAD = (COL - BAR_W) / 2
+  const H = 72     // bar area height
+  const LABEL_H = 16
+  const W = data.length * COL
+
+  return (
+    <div className="w-full">
+      <svg viewBox={`0 0 ${W} ${H + LABEL_H}`} className="w-full" preserveAspectRatio="none" style={{ height: 88 }}>
+        {data.map((d, i) => {
+          const x = i * COL + BAR_PAD
+          const regH = Math.round((d.registered / maxVal) * H)
+          const anonH = Math.round((d.anonymous / maxVal) * H)
+          const totalH = regH + anonH
+          const dayNum = d.date.slice(8) // "DD" only — 2 chars, fits cleanly
+          // Show label every 2nd bar to avoid crowding on small screens
+          const showLabel = i % 2 === 0
+
+          return (
+            <g key={d.date}>
+              {anonH > 0 && (
+                <rect x={x} y={H - anonH} width={BAR_W} height={anonH} rx={2} fill="#e5e7eb" />
+              )}
+              {regH > 0 && (
+                <rect x={x} y={H - totalH} width={BAR_W} height={regH} rx={2} fill="#818cf8" />
+              )}
+              {totalH === 0 && (
+                <rect x={x} y={H - 3} width={BAR_W} height={3} rx={1} fill="#f3f4f6" />
+              )}
+              {showLabel && (
+                <text
+                  x={x + BAR_W / 2}
+                  y={H + 11}
+                  textAnchor="middle"
+                  fontSize={9}
+                  fill="#9ca3af"
+                >
+                  {dayNum}
+                </text>
+              )}
+            </g>
+          )
+        })}
+      </svg>
+    </div>
+  )
 }
 
 function SummaryCard({

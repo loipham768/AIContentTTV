@@ -37,6 +37,9 @@ const UserSchema = new mongoose.Schema(
     usageMonth:      { type: String, default: '' },  // 'YYYY-MM'
     generationsUsed: { type: Number, default: 0 },
 
+    // Activity tracking
+    lastActiveAt: { type: Date, default: null },
+
     // Registration location (for marketing analytics)
     registrationIp:          { type: String, default: '' },
     registrationCountry:     { type: String, default: '' },
