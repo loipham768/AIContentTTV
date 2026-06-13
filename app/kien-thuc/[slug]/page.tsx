@@ -6,8 +6,13 @@ import { SITE_URL } from "@/lib/constants";
 export const revalidate = 86400; // ISR: 24h
 
 export async function generateStaticParams() {
-  const slugs = await getAllSlugs();
-  return slugs.map((slug) => ({ slug }));
+  try {
+    const slugs = await getAllSlugs();
+    return slugs.map((slug) => ({ slug }));
+  } catch {
+    // DB not available at build time — pages generated on-demand via ISR
+    return [];
+  }
 }
 import Logo from "@/components/Logo";
 import ArticleBody from "@/components/ArticleBody";
