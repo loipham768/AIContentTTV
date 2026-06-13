@@ -5,7 +5,12 @@ import { SITE_URL as BASE_URL } from "@/lib/constants";
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const slugs = await getAllSlugs();
+  let slugs: string[] = [];
+  try {
+    slugs = await getAllSlugs();
+  } catch {
+    // DB not available at build time — sitemap generated without articles
+  }
   const articleUrls = slugs.map((slug) => ({
     url: `${BASE_URL}/kien-thuc/${slug}`,
     lastModified: new Date(),
