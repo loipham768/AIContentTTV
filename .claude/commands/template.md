@@ -68,21 +68,24 @@ Tạo file `.claude/pending-templates.json` chứa mảng 6 object:
 
 Cập nhật `.claude/template-progress.json`: đổi `"done": false` thành `"done": true` cho 6 template vừa tạo. Cập nhật `"last_updated"` thành ngày hôm nay.
 
+## Bước 5.5: Tự động import vào database
+
+Chạy lệnh sau để import thẳng vào MongoDB — KHÔNG cần người dùng làm gì thủ công:
+
+```bash
+node scripts/import-templates.mjs
+```
+
+Hiển thị output của lệnh cho người dùng thấy (các dòng ✅ / ⏭ / ❌).
+
 ## Bước 6: Báo cáo và hướng dẫn
 
 Thông báo:
 
 ```
-✅ Đã tạo 6 template — Ngày [X]
+✅ Đã tạo và import 6 template — Ngày [X]
 
-📁 File: .claude/pending-templates.json
-
-Cách thêm vào hệ thống:
-1. Mở file .claude/pending-templates.json
-2. Với từng object trong mảng, vào Admin → Mẫu → Thêm mới
-3. Điền các field: Tên, Category, ID, Mô tả, Tags, Gradient, Màu accent
-4. Paste nội dung field "html" vào textarea Nội dung HTML
-5. Nhấn Xem trước để kiểm tra, sau đó Lưu
+[output từ lệnh import]
 
 Tiến độ: [X*6]/[tổng] template hoàn thành
 Ngày tiếp theo: [danh sách 6 tên template của ngày kế]

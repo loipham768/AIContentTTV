@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   X,
   ExternalLink,
@@ -85,7 +85,7 @@ function Pagination({
         <button
           onClick={() => onChange(page - 1)}
           disabled={page === 1}
-          className="px-3 py-1.5 text-xs font-bold rounded-lg border border-gray-200 bg-white text-gray-500 hover:border-indigo-300 hover:text-indigo-600 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+          className="px-3 py-1.5 text-xs font-bold rounded-lg border border-gray-200 bg-white text-gray-500 hover:border-indigo-300 hover:text-indigo-600 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
         >
           ←
         </button>
@@ -96,7 +96,7 @@ function Pagination({
             <button
               key={n}
               onClick={() => onChange(n as number)}
-              className="w-8 h-8 text-xs font-bold rounded-lg border transition-all"
+              className="w-8 h-8 text-xs font-bold rounded-lg border transition-all cursor-pointer"
               style={
                 page === n
                   ? { background: "linear-gradient(135deg,#4338ca,#7c3aed)", color: "#fff", borderColor: "transparent" }
@@ -110,13 +110,20 @@ function Pagination({
         <button
           onClick={() => onChange(page + 1)}
           disabled={page === Math.ceil(total / pageSize)}
-          className="px-3 py-1.5 text-xs font-bold rounded-lg border border-gray-200 bg-white text-gray-500 hover:border-indigo-300 hover:text-indigo-600 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+          className="px-3 py-1.5 text-xs font-bold rounded-lg border border-gray-200 bg-white text-gray-500 hover:border-indigo-300 hover:text-indigo-600 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
         >
           →
         </button>
       </div>
     </div>
   );
+}
+
+const NEW_DAYS = 7
+
+function isNew(createdAt?: string) {
+  if (!createdAt) return false
+  return Date.now() - new Date(createdAt).getTime() < NEW_DAYS * 86_400_000
 }
 
 function TemplateCard({
@@ -135,6 +142,7 @@ function TemplateCard({
   isUseLoading?: boolean;
 }) {
   const catMeta = CATEGORY_META[tpl.category];
+  const newTemplate = isNew(tpl.createdAt);
   return (
     <div className="group bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-indigo-200 transition-all duration-200">
       <div
@@ -142,11 +150,17 @@ function TemplateCard({
       >
         <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-8 translate-x-8" />
         <div className="absolute bottom-0 left-0 w-16 h-16 bg-black/10 rounded-full translate-y-6 -translate-x-6" />
+        {newTemplate && (
+          <div className="absolute top-2.5 left-2.5 z-20 flex items-center gap-1 bg-emerald-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse inline-block" />
+            Mới
+          </div>
+        )}
         <div className="text-4xl mb-2 relative z-10">{catMeta.icon}</div>
         <div className="relative z-10 px-4 text-center">
           <div className="text-white font-bold text-sm leading-tight">{tpl.name}</div>
         </div>
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 z-20">
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:flex items-center justify-center gap-2 z-20">
           <button
             onClick={() => onPreview(tpl)}
             disabled={isPreviewLoading}
@@ -175,6 +189,16 @@ function TemplateCard({
             </span>
           ))}
         </div>
+        {/* Nút xem trước chỉ hiện trên mobile — desktop dùng hover overlay */}
+        <button
+          onClick={() => onPreview(tpl)}
+          disabled={isPreviewLoading}
+          className="sm:hidden w-full mb-2 py-2 rounded-xl text-sm font-semibold border-2 border-gray-200 text-gray-700 bg-white transition-all active:scale-[0.98] flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-60 disabled:cursor-wait"
+        >
+          {isPreviewLoading
+            ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Đang tải...</>
+            : <><ExternalLink className="w-3.5 h-3.5" /> Xem trước</>}
+        </button>
         <button
           onClick={() => onUse(tpl)}
           disabled={isUseLoading}
@@ -263,6 +287,28 @@ export default function TemplatesClient({
       ]),
     ),
   );
+
+  const tabsScrollRef = useRef<HTMLDivElement>(null);
+  const [tabsScrollState, setTabsScrollState] = useState({ left: false, right: true });
+
+  useEffect(() => {
+    const el = tabsScrollRef.current;
+    if (!el) return;
+    function update() {
+      if (!el) return;
+      setTabsScrollState({
+        left: el.scrollLeft > 4,
+        right: el.scrollLeft + el.clientWidth < el.scrollWidth - 4,
+      });
+    }
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
 
   // Preview state
   const [previewMeta, setPreviewMeta] = useState<TemplateMeta | null>(null);
@@ -382,38 +428,62 @@ export default function TemplatesClient({
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-8 overflow-x-auto pb-1">
-          {TABS.map((tab) => {
-            const count =
-              tab.id === "all"
-                ? totalAll
-                : (catData[tab.id]?.total ?? 0);
-            return (
-              <button
-                key={tab.id}
-                onClick={() => handleTabChange(tab.id)}
-                className={[
-                  "flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all border",
-                  activeTab === tab.id
-                    ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
-                    : "bg-white text-gray-600 border-gray-200 hover:border-indigo-300 hover:text-indigo-600",
-                ].join(" ")}
-              >
-                <span>{tab.icon}</span>
-                {tab.label}
-                <span
-                  className="text-xs px-1.5 py-0.5 rounded-full"
-                  style={
+        <div className="relative mb-8">
+          {/* Fade trái */}
+          <div
+            className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 z-10 transition-opacity duration-200"
+            style={{
+              background: "linear-gradient(to right, #f9fafb, transparent)",
+              opacity: tabsScrollState.left ? 1 : 0,
+            }}
+          />
+          {/* Fade phải + icon gợi ý cuộn */}
+          <div
+            className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 z-10 flex items-center justify-end pr-1 transition-opacity duration-200"
+            style={{
+              background: "linear-gradient(to left, #f9fafb, transparent)",
+              opacity: tabsScrollState.right ? 1 : 0,
+            }}
+          >
+            <span className="text-gray-400 text-xs">›</span>
+          </div>
+          <div
+            ref={tabsScrollRef}
+            className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {TABS.map((tab) => {
+              const count =
+                tab.id === "all"
+                  ? totalAll
+                  : (catData[tab.id]?.total ?? 0);
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTabChange(tab.id)}
+                  className={[
+                    "flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all border cursor-pointer",
                     activeTab === tab.id
-                      ? { background: "rgba(255,255,255,0.25)", color: "#fff" }
-                      : { background: "#f3f4f6", color: "#6b7280" }
-                  }
+                      ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
+                      : "bg-white text-gray-600 border-gray-200 hover:border-indigo-300 hover:text-indigo-600",
+                  ].join(" ")}
                 >
-                  {count}
-                </span>
-              </button>
-            );
-          })}
+                  <span>{tab.icon}</span>
+                  {tab.label}
+                  <span
+                    className="text-xs px-1.5 py-0.5 rounded-full"
+                    style={
+                      activeTab === tab.id
+                        ? { background: "rgba(255,255,255,0.25)", color: "#fff" }
+                        : { background: "#f3f4f6", color: "#6b7280" }
+                    }
+                  >
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* All view — grouped by category */}

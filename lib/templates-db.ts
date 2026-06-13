@@ -11,6 +11,7 @@ export interface TemplateMeta {
   tags: string[]
   gradient: string
   accentColor: string
+  createdAt?: string
 }
 
 export interface Template extends TemplateMeta {
@@ -28,7 +29,7 @@ export async function getTemplatesByCategory(
   await dbConnect()
   const [docs, total] = await Promise.all([
     TemplateModel.find({ category }, META_PROJ)
-      .sort({ order: 1, _id: 1 })
+      .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit)
       .lean(),
@@ -46,7 +47,7 @@ export async function getInitialTemplateGroups(
     categories.map(async (cat) => {
       const [docs, total] = await Promise.all([
         TemplateModel.find({ category: cat }, META_PROJ)
-          .sort({ order: 1, _id: 1 })
+          .sort({ createdAt: -1 })
           .limit(pageSize)
           .lean(),
         TemplateModel.countDocuments({ category: cat }),
@@ -67,7 +68,7 @@ export async function getFirstTemplateHtml(category: TemplateCategory): Promise<
   await dbConnect()
   const doc = await TemplateModel
     .findOne({ category }, { id: 1, html: 1, _id: 0 })
-    .sort({ order: 1, _id: 1 })
+    .sort({ createdAt: -1 })
     .lean() as unknown as { id: string; html: string } | null
   return doc
 }

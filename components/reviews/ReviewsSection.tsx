@@ -51,6 +51,7 @@ export const getReviewStats = unstable_cache(
       Review.find({ isApproved: true })
         .sort({ createdAt: -1 })
         .limit(5)
+        .select('-_id userName rating content plan createdAt')
         .lean() as Promise<any[]>,
     ])
     const s = stats[0]
@@ -58,7 +59,14 @@ export const getReviewStats = unstable_cache(
       star,
       count: (s?.dist ?? []).filter((r: number) => r === star).length,
     }))
-    return { avg: s ? +s.avg.toFixed(1) : 0, count: s?.count ?? 0, recent, dist }
+    const safeRecent = recent.map((r: any) => ({
+      userName: r.userName ?? '',
+      rating: r.rating ?? 0,
+      content: r.content ?? '',
+      plan: r.plan ?? '',
+      createdAt: r.createdAt ? new Date(r.createdAt).toISOString() : '',
+    }))
+    return { avg: s ? +s.avg.toFixed(1) : 0, count: s?.count ?? 0, recent: safeRecent, dist }
   },
   ['review-stats'],
   { revalidate: 3600 }

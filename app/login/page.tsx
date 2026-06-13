@@ -35,5 +35,5 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const initialPlan = isCredits ? `credits:${pack}` : plan
   const initialTab = params.tab === 'register' ? 'register' : undefined
 
-  return <LoginRegisterCard callbackUrl={callbackUrl} initialPlan={initialPlan} initialTab={initialTab} />
+  return <LoginRegisterCard callbackUrl={callbackUrl} initialPlan={initialPlan} initialTab={initialTab} initialBilling={billing} />
 }

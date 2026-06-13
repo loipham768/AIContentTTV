@@ -332,7 +332,7 @@ function Pagination({
         <button
           onClick={() => onChange(page - 1)}
           disabled={page === 1}
-          className="px-3 py-1.5 text-xs font-bold rounded-lg border border-gray-200 bg-white text-gray-500 hover:border-indigo-300 hover:text-indigo-600 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+          className="px-3 py-1.5 text-xs font-bold rounded-lg border border-gray-200 bg-white text-gray-500 hover:border-indigo-300 hover:text-indigo-600 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
         >
           ←
         </button>
@@ -345,7 +345,7 @@ function Pagination({
             <button
               key={n}
               onClick={() => onChange(n as number)}
-              className="w-8 h-8 text-xs font-bold rounded-lg border transition-all"
+              className="w-8 h-8 text-xs font-bold rounded-lg border transition-all cursor-pointer"
               style={
                 page === n
                   ? {
@@ -368,7 +368,7 @@ function Pagination({
         <button
           onClick={() => onChange(page + 1)}
           disabled={page === totalPages}
-          className="px-3 py-1.5 text-xs font-bold rounded-lg border border-gray-200 bg-white text-gray-500 hover:border-indigo-300 hover:text-indigo-600 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+          className="px-3 py-1.5 text-xs font-bold rounded-lg border border-gray-200 bg-white text-gray-500 hover:border-indigo-300 hover:text-indigo-600 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
         >
           →
         </button>

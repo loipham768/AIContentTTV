@@ -23,7 +23,6 @@ import {
   Loader2,
 } from "lucide-react";
 import ActivateUserButton from "./ActivateUserButton";
-import ToggleUserButton from "./ToggleUserButton";
 import DeleteProjectButton from "./DeleteProjectButton";
 import ActivateOrderButton from "./ActivateOrderButton";
 import RejectOrderButton from "./RejectOrderButton";
@@ -1091,22 +1090,12 @@ export default function AdminDashboard({
                     </td>
                     <td className="px-4 py-3.5">
                       {user._id !== meId ? (
-                        <div className="flex items-center gap-1.5 flex-wrap">
+                        <div className="flex items-center gap-1.5">
                           <ActivateUserButton
                             userId={user._id}
                             isActive={user.isActive}
                             paidUntil={user.paidUntil}
                             onUpdate={(patch) => updateUser(user._id, patch)}
-                          />
-                          <ToggleUserButton
-                            userId={user._id}
-                            field="isAdmin"
-                            currentValue={user.isAdmin}
-                            label={["Bỏ Admin", "Cấp Admin"]}
-                            variant="neutral"
-                            onToggle={(v) =>
-                              updateUser(user._id, { isAdmin: v })
-                            }
                           />
                           <DeleteUserButton
                             userId={user._id}
@@ -1218,20 +1207,12 @@ export default function AdminDashboard({
                 </div>
 
                 {user._id !== meId && (
-                  <div className="flex flex-wrap gap-1.5 pt-1">
+                  <div className="flex gap-1.5 pt-1">
                     <ActivateUserButton
                       userId={user._id}
                       isActive={user.isActive}
                       paidUntil={user.paidUntil}
                       onUpdate={(patch) => updateUser(user._id, patch)}
-                    />
-                    <ToggleUserButton
-                      userId={user._id}
-                      field="isAdmin"
-                      currentValue={user.isAdmin}
-                      label={["Bỏ Admin", "Cấp Admin"]}
-                      variant="neutral"
-                      onToggle={(v) => updateUser(user._id, { isAdmin: v })}
                     />
                     <DeleteUserButton
                       userId={user._id}

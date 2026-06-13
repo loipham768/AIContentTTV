@@ -15,33 +15,29 @@ import {
   CheckCircle2,
   Crown,
 } from "lucide-react";
+import { PLAN_PRICES } from "@/lib/planConfig";
 
 const emailSchema = z.string().email();
 const passwordSchema = z.string().min(8);
 
 type PlanOption = "free" | "designer" | "basic" | "pro";
 
-const PLAN_OPTIONS: {
-  id: PlanOption;
-  label: string;
-  price: string;
-  desc: string;
-}[] = [
-  { id: "free", label: "Miễn phí", price: "0đ", desc: "4 lượt AI/tháng" },
-  {
-    id: "designer",
-    label: "Designer",
-    price: "59.000đ",
-    desc: "Editor, không AI",
-  },
-  { id: "basic", label: "Basic", price: "99.000đ", desc: "25 lượt AI/tháng" },
-  { id: "pro", label: "Pro", price: "199.000đ", desc: "AI không giới hạn" },
-];
+function fmt(n: number) {
+  return n.toLocaleString("vi-VN") + "đ";
+}
+
+const PLAN_DESCS: Record<PlanOption, string> = {
+  free: "4 lượt AI/tháng",
+  designer: "Editor, không AI",
+  basic: "25 lượt AI/tháng",
+  pro: "AI không giới hạn",
+};
 
 interface LoginRegisterCardProps {
   callbackUrl?: string;
   initialPlan?: string;
   initialTab?: "login" | "register";
+  initialBilling?: "monthly" | "yearly";
 }
 
 type Tab = "login" | "register";
@@ -51,6 +47,7 @@ export function LoginRegisterCard({
   callbackUrl = "/",
   initialPlan = "",
   initialTab,
+  initialBilling = "monthly",
 }: LoginRegisterCardProps) {
   const isCreditsIntent = initialPlan.startsWith("credits:");
   const creditsPackId = isCreditsIntent ? initialPlan.split(":")[1] : "";
@@ -77,6 +74,7 @@ export function LoginRegisterCard({
   const [showPassword, setShowPassword] = useState(false);
   const [resendCooldown, setResendCooldown] = useState(0);
   const [selectedPlan, setSelectedPlan] = useState<PlanOption>(validInitial);
+  const [billing, setBilling] = useState<"monthly" | "yearly">(initialBilling);
   const otpRef = useRef<HTMLInputElement>(null);
 
   // Countdown for resend button
@@ -195,7 +193,7 @@ export function LoginRegisterCard({
         selectedPlan === "basic" ||
         selectedPlan === "pro"
       ) {
-        window.location.href = `/upgrade?plan=${selectedPlan}`;
+        window.location.href = `/upgrade?plan=${selectedPlan}&billing=${billing}`;
       } else {
         window.location.href = callbackUrl;
       }
@@ -373,45 +371,88 @@ export function LoginRegisterCard({
                     <p className="text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wide">
                       Chọn gói của bạn
                     </p>
+
+                    {/* Billing toggle — chỉ hiện khi chọn gói trả phí */}
+                    {selectedPlan !== "free" && (
+                      <div className="flex justify-center mb-3">
+                        <div className="inline-flex bg-slate-100 rounded-lg p-0.5 gap-0.5">
+                          <button
+                            type="button"
+                            onClick={() => setBilling("monthly")}
+                            className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${
+                              billing === "monthly"
+                                ? "bg-white text-indigo-700 shadow-sm"
+                                : "text-slate-500 hover:text-slate-700"
+                            }`}
+                          >
+                            Hàng tháng
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setBilling("yearly")}
+                            className={`px-3 py-1 text-xs font-semibold rounded-md transition-all flex items-center gap-1 ${
+                              billing === "yearly"
+                                ? "bg-white text-indigo-700 shadow-sm"
+                                : "text-slate-500 hover:text-slate-700"
+                            }`}
+                          >
+                            Hàng năm
+                            <span className={`text-[10px] font-bold px-1 py-0.5 rounded-full ${billing === "yearly" ? "text-emerald-600 bg-emerald-100" : "text-emerald-500"}`}>
+                              -20%
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
                     <div className="grid grid-cols-2 gap-2 justify-items-center">
-                      {PLAN_OPTIONS.map((opt) => (
-                        <button
-                          key={opt.id}
-                          type="button"
-                          onClick={() => setSelectedPlan(opt.id)}
-                          className={`relative w-full flex flex-col justify-center items-center gap-0.5 rounded-xl border-2 py-3 px-2 text-center transition-all ${
-                            selectedPlan === opt.id
-                              ? opt.id === "free"
-                                ? "border-slate-400 bg-slate-50"
-                                : "border-indigo-500 bg-indigo-50"
-                              : "border-slate-200 bg-white hover:border-slate-300"
-                          }`}
-                        >
-                          {opt.id !== "free" && (
-                            <Crown
-                              className={`w-3 h-3 mb-0.5 ${selectedPlan === opt.id ? "text-indigo-500" : "text-slate-400"}`}
-                            />
-                          )}
-                          <span
-                            className={`text-xs font-bold ${selectedPlan === opt.id && opt.id !== "free" ? "text-indigo-700" : "text-slate-800"}`}
+                      {(["free", "designer", "basic", "pro"] as PlanOption[]).map((id) => {
+                        const label = id === "free" ? "Miễn phí" : id === "designer" ? "Designer" : id === "basic" ? "Basic" : "Pro";
+                        const price = id === "free"
+                          ? "0đ"
+                          : billing === "yearly"
+                            ? `${fmt(Math.round(PLAN_PRICES[id].yearly / 12))}/th`
+                            : fmt(PLAN_PRICES[id].monthly);
+                        const desc = PLAN_DESCS[id];
+                        return (
+                          <button
+                            key={id}
+                            type="button"
+                            onClick={() => setSelectedPlan(id)}
+                            className={`relative w-full flex flex-col justify-center items-center gap-0.5 rounded-xl border-2 py-3 px-2 text-center transition-all ${
+                              selectedPlan === id
+                                ? id === "free"
+                                  ? "border-slate-400 bg-slate-50"
+                                  : "border-indigo-500 bg-indigo-50"
+                                : "border-slate-200 bg-white hover:border-slate-300"
+                            }`}
                           >
-                            {opt.label}
-                          </span>
-                          <span
-                            className={`text-[10px] font-semibold ${selectedPlan === opt.id && opt.id !== "free" ? "text-indigo-600" : "text-slate-500"}`}
-                          >
-                            {opt.price}
-                          </span>
-                          <span className="text-[9px] text-slate-400 leading-tight">
-                            {opt.desc}
-                          </span>
-                          {selectedPlan === opt.id && (
-                            <CheckCircle2
-                              className={`absolute top-1.5 right-1.5 w-3 h-3 ${opt.id === "free" ? "text-slate-500" : "text-indigo-500"}`}
-                            />
-                          )}
-                        </button>
-                      ))}
+                            {id !== "free" && (
+                              <Crown
+                                className={`w-3 h-3 mb-0.5 ${selectedPlan === id ? "text-indigo-500" : "text-slate-400"}`}
+                              />
+                            )}
+                            <span
+                              className={`text-xs font-bold ${selectedPlan === id && id !== "free" ? "text-indigo-700" : "text-slate-800"}`}
+                            >
+                              {label}
+                            </span>
+                            <span
+                              className={`text-[10px] font-semibold ${selectedPlan === id && id !== "free" ? "text-indigo-600" : "text-slate-500"}`}
+                            >
+                              {price}
+                            </span>
+                            <span className="text-[9px] text-slate-400 leading-tight">
+                              {desc}
+                            </span>
+                            {selectedPlan === id && (
+                              <CheckCircle2
+                                className={`absolute top-1.5 right-1.5 w-3 h-3 ${id === "free" ? "text-slate-500" : "text-indigo-500"}`}
+                              />
+                            )}
+                          </button>
+                        );
+                      })}
                     </div>
                     {(selectedPlan === "designer" ||
                       selectedPlan === "basic" ||
@@ -423,8 +464,8 @@ export function LoginRegisterCard({
                           ? "Designer"
                           : selectedPlan === "basic"
                             ? "Basic"
-                            : "Pro"}
-                        .
+                            : "Pro"}{" "}
+                        ({billing === "yearly" ? "theo năm" : "theo tháng"}).
                       </p>
                     )}
                     {selectedPlan === "free" && (
