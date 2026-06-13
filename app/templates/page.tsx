@@ -2,11 +2,13 @@ import { auth } from '@/auth'
 import { SITE_URL } from '@/lib/constants'
 import { dbConnect } from '@/lib/mongodb'
 import User from '@/models/User'
-import { TEMPLATES } from '@/lib/templates'
+import { getInitialTemplateGroups } from '@/lib/templates-db'
 import { getUserPlanInfo } from '@/lib/planGate'
 import TemplatesClient from '@/components/templates/TemplatesClient'
+import { TEMPLATES_PAGE_SIZE } from '@/lib/constants'
 
 export const runtime = 'nodejs'
+export const revalidate = 3600
 export const metadata = {
   title: 'Thư viện mẫu — AITaoPage',
   description: 'Khám phá hàng trăm mẫu landing page, bài viết và quảng cáo được tạo sẵn bằng AI. Dùng ngay, chỉnh sửa theo thương hiệu của bạn.',
@@ -18,35 +20,26 @@ export const metadata = {
   },
 }
 
-export default async function TemplatesPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ type?: string }>
-}) {
-  const { type } = await searchParams
+export default async function TemplatesPage() {
   const session = await auth()
   const isLoggedIn = !!session?.user?.id
 
-  let userDoc: any = null
-  let planInfo = null
-
-  if (isLoggedIn) {
-    await dbConnect()
-    ;[userDoc, planInfo] = await Promise.all([
-      User.findById(session!.user!.id, { fullName: 1, avatarUrl: 1 }).lean(),
-      getUserPlanInfo(session!.user!.id),
-    ])
-  }
+  const [initialGroups, userDoc, planInfo] = await Promise.all([
+    getInitialTemplateGroups(['landing', 'article', 'ads'], TEMPLATES_PAGE_SIZE),
+    isLoggedIn
+      ? (await dbConnect(), User.findById(session!.user!.id, { fullName: 1, avatarUrl: 1 }).lean())
+      : Promise.resolve(null),
+    isLoggedIn ? getUserPlanInfo(session!.user!.id) : Promise.resolve(null),
+  ])
 
   return (
     <TemplatesClient
-      templates={TEMPLATES}
+      initialGroups={initialGroups}
       isLoggedIn={isLoggedIn}
       userEmail={session?.user?.email ?? ''}
-      fullName={userDoc?.fullName ?? ''}
-      avatarUrl={userDoc?.avatarUrl ?? ''}
+      fullName={(userDoc as any)?.fullName ?? ''}
+      avatarUrl={(userDoc as any)?.avatarUrl ?? ''}
       plan={planInfo?.plan ?? 'free'}
-      initialCategory={type}
     />
   )
 }

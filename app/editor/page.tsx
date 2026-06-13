@@ -6,7 +6,7 @@ import Project from '@/models/Project'
 import User from '@/models/User'
 import EditorClientWrapper from '@/components/editor/EditorClientWrapper'
 import { getUserPlanInfo } from '@/lib/planGate'
-import { TEMPLATES } from '@/lib/templates'
+import { getTemplateById } from '@/lib/templates-db'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default async function EditorPage({
     }).lean()
     if (project) initialData = project.blockData as object
   } else if (templateId) {
-    const tpl = TEMPLATES.find((t) => t.id === templateId)
+    const tpl = await getTemplateById(templateId)
     if (tpl) {
       const { preprocessTemplateForEditor } = await import('@/lib/serverCssIsolation')
       const processedHtml = await preprocessTemplateForEditor(tpl.html)

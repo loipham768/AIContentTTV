@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-06-11",
-  "completed": ["landing-page-la-gi"],
+  "last_updated": "2026-06-13",
+  "completed": ["landing-page-la-gi", "html-la-gi-bai-viet-html-dep"],
   "articles": [
     { "day": 1, "slug": "landing-page-la-gi", "title": "Landing page là gì? Tại sao mọi người bán hàng online cần landing page", "keyword": "landing page là gì", "category": "Landing Page", "words": 1500, "done": true },
-    { "day": 2, "slug": "html-la-gi-bai-viet-html-dep", "title": "HTML là gì? Tại sao bài viết HTML đẹp hơn bài viết thường trên CMS", "keyword": "bài viết html đẹp", "category": "Kỹ thuật", "words": 1200, "done": false },
+    { "day": 2, "slug": "html-la-gi-bai-viet-html-dep", "title": "HTML là gì? Tại sao bài viết HTML đẹp hơn bài viết thường trên CMS", "keyword": "bài viết html đẹp", "category": "Kỹ thuật", "words": 1200, "done": true },
     { "day": 3, "slug": "inline-css-la-gi", "title": "Inline CSS là gì? Tại sao nên dùng inline CSS cho bài viết WordPress", "keyword": "inline css là gì", "category": "Kỹ thuật", "words": 1200, "done": false },
     { "day": 4, "slug": "editor-keo-tha-la-gi", "title": "Editor kéo thả là gì? So sánh các loại page builder phổ biến 2026", "keyword": "editor kéo thả", "category": "So sánh", "words": 1500, "done": false },
     { "day": 5, "slug": "ai-viet-content-la-gi", "title": "AI viết content là gì? Ưu nhược điểm thực tế khi dùng AI tạo nội dung", "keyword": "AI viết content", "category": "Content", "words": 1500, "done": false },

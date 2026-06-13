@@ -1,5 +1,5 @@
 import EditorClientWrapper from '@/components/editor/EditorClientWrapper'
-import { TEMPLATES } from '@/lib/templates'
+import { getFirstTemplateHtml } from '@/lib/templates-db'
 import { preprocessTemplateForEditor } from '@/lib/serverCssIsolation'
 import type { Metadata } from 'next'
 
@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 export const runtime = 'nodejs'
 
 export default async function DemoPage() {
-  const tpl = TEMPLATES.find(t => t.category === 'landing') ?? TEMPLATES[0]
-  const processedHtml = await preprocessTemplateForEditor(tpl.html)
+  const tpl = await getFirstTemplateHtml('landing')
+  const processedHtml = tpl ? await preprocessTemplateForEditor(tpl.html) : ''
 
   return (
     <EditorClientWrapper

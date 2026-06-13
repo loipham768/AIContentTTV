@@ -1,0 +1,40 @@
+{
+  "last_updated": "2026-06-13",
+  "note": "Mỗi ngày tạo 6 mẫu: 2 landing, 2 ads, 2 article. Style phải đa dạng, không lặp lại.",
+  "templates": [
+    { "day": 1, "id": "lp-my-pham-glow", "name": "Landing Page Mỹ Phẩm Glow", "category": "landing", "niche": "Mỹ phẩm / Skincare", "style": "Sang trọng, pastel hồng-trắng, hero lớn", "done": false },
+    { "day": 1, "id": "lp-khoa-hoc-online", "name": "Landing Page Khóa Học Online", "category": "landing", "niche": "Giáo dục / E-learning", "style": "Hiện đại, xanh navy-tím, có countdown timer", "done": false },
+    { "day": 1, "id": "ads-sale-flash", "name": "Quảng Cáo Sale Flash", "category": "ads", "niche": "Thương mại điện tử / Sale", "style": "Bold, đỏ-cam, chữ lớn giật gân", "done": false },
+    { "day": 1, "id": "ads-fb-thuc-pham", "name": "Quảng Cáo Thực Phẩm Facebook", "category": "ads", "niche": "Thực phẩm / Ẩm thực", "style": "Ấm áp, nâu vàng, food photography style", "done": false },
+    { "day": 1, "id": "article-review-san-pham", "name": "Bài Viết Review Sản Phẩm", "category": "article", "niche": "Review / Đánh giá", "style": "Clean blog, xếp hạng sao, bảng so sánh", "done": false },
+    { "day": 1, "id": "article-tin-tuc", "name": "Bài Viết Tin Tức", "category": "article", "niche": "Tin tức / Báo chí", "style": "News style, ảnh lớn đầu bài, sidebar info", "done": false },
+
+    { "day": 2, "id": "lp-spa-tham-my", "name": "Landing Page Spa & Thẩm Mỹ", "category": "landing", "niche": "Spa / Làm đẹp", "style": "Sang trọng, tím-vàng gold, elegant serif", "done": false },
+    { "day": 2, "id": "lp-nha-hang", "name": "Landing Page Nhà Hàng", "category": "landing", "niche": "F&B / Nhà hàng", "style": "Tối màu, vàng gold, dark luxury dining", "done": false },
+    { "day": 2, "id": "ads-fb-thoi-trang", "name": "Quảng Cáo Thời Trang Facebook", "category": "ads", "niche": "Thời trang / Fashion", "style": "Minimal chic, đen-trắng, high fashion", "done": false },
+    { "day": 2, "id": "ads-gg-display-dv", "name": "Google Display Dịch Vụ", "category": "ads", "niche": "Dịch vụ / Agency", "style": "Professional, xanh dương, corporate clean", "done": false },
+    { "day": 2, "id": "article-huong-dan", "name": "Bài Viết Hướng Dẫn Step-by-Step", "category": "article", "niche": "Hướng dẫn / Tutorial", "style": "Numbered steps, icon mỗi bước, progress visual", "done": false },
+    { "day": 2, "id": "article-so-sanh", "name": "Bài Viết So Sánh Sản Phẩm", "category": "article", "niche": "So sánh / Comparison", "style": "Bảng so sánh đẹp, verdict card, pro/con list", "done": false },
+
+    { "day": 3, "id": "lp-bat-dong-san", "name": "Landing Page Bất Động Sản", "category": "landing", "niche": "Bất động sản", "style": "Premium, xanh lá-vàng, luxury real estate", "done": false },
+    { "day": 3, "id": "lp-gym-fitness", "name": "Landing Page Gym & Fitness", "category": "landing", "niche": "Thể dục / Fitness", "style": "Năng động, đen-cam neon, bold athletic", "done": false },
+    { "day": 3, "id": "ads-fb-su-kien", "name": "Quảng Cáo Sự Kiện Facebook", "category": "ads", "niche": "Sự kiện / Event", "style": "Vibrant, gradient tím-xanh, party vibe", "done": false },
+    { "day": 3, "id": "ads-zalo-khuyen-mai", "name": "Banner Khuyến Mãi Zalo", "category": "ads", "niche": "Khuyến mãi / Promotion", "style": "Xanh Zalo, clean, icon badge giảm giá", "done": false },
+    { "day": 3, "id": "article-case-study", "name": "Bài Viết Case Study", "category": "article", "niche": "Case study / Thành công", "style": "Professional, số liệu nổi bật, quote block", "done": false },
+    { "day": 3, "id": "article-faq", "name": "Bài Viết FAQ & Hỏi Đáp", "category": "article", "niche": "FAQ / Q&A", "style": "Accordion style, icon hỏi-đáp, clean layout", "done": false },
+
+    { "day": 4, "id": "lp-khoa-hoc-lap-trinh", "name": "Landing Page Khóa Học Lập Trình", "category": "landing", "niche": "Tech / Lập trình", "style": "Dark mode, xanh code, terminal aesthetic", "done": false },
+    { "day": 4, "id": "lp-thuc-pham-sach", "name": "Landing Page Thực Phẩm Sạch", "category": "landing", "niche": "Thực phẩm hữu cơ", "style": "Xanh lá natural, organic feel, earthy tones", "done": false },
+    { "day": 4, "id": "ads-fb-bat-dong-san", "name": "Quảng Cáo Bất Động Sản Facebook", "category": "ads", "niche": "Bất động sản", "style": "Premium blue-gold, luxury property feel", "done": false },
+    { "day": 4, "id": "ads-banner-app", "name": "Banner Quảng Cáo App Mobile", "category": "ads", "niche": "App / SaaS", "style": "Gradient tím-xanh, mobile mockup, modern", "done": false },
+    { "day": 4, "id": "article-checklist", "name": "Bài Viết Dạng Checklist", "category": "article", "niche": "Tips / Checklist", "style": "Checkbox visual, highlight card, scannable", "done": false },
+    { "day": 4, "id": "article-listicle", "name": "Bài Viết Top 10 Listicle", "category": "article", "niche": "Top list / Listicle", "style": "Numbered bold, card per item, visual rich", "done": false },
+
+    { "day": 5, "id": "lp-du-lich", "name": "Landing Page Du Lịch", "category": "landing", "niche": "Du lịch / Travel", "style": "Xanh biển-trắng, airy travel feel, hero panorama", "done": false },
+    { "day": 5, "id": "lp-tai-chinh", "name": "Landing Page Tài Chính / Fintech", "category": "landing", "niche": "Tài chính / Đầu tư", "style": "Xanh navy-xanh lá, trustworthy, corporate", "done": false },
+    { "day": 5, "id": "ads-fb-giam-can", "name": "Quảng Cáo Giảm Cân Facebook", "category": "ads", "niche": "Sức khỏe / Weight loss", "style": "Xanh lá-trắng, before/after visual, energetic", "done": false },
+    { "day": 5, "id": "ads-story-instagram", "name": "Instagram Story Quảng Cáo", "category": "ads", "niche": "Social media / Instagram", "style": "9:16 vertical, gradient pastel, swipe-up style", "done": false },
+    { "day": 5, "id": "article-interview", "name": "Bài Viết Phỏng Vấn Chuyên Gia", "category": "article", "niche": "Interview / Expert", "style": "Q&A format, avatar chuyên gia, pull quote", "done": false },
+    { "day": 5, "id": "article-infographic-text", "name": "Bài Viết Dạng Infographic", "category": "article", "niche": "Thống kê / Data visual", "style": "Stat blocks, progress bars, data-heavy visual", "done": false }
+  ]
+}

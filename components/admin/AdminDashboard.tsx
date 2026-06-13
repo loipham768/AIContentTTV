@@ -100,28 +100,38 @@ export interface ReviewRow {
 }
 
 interface Props {
-  initialOrders: OrderRow[];
-  ordersTotal: number;
-  ordersPage: number;
-  initialUsers: UserRow[];
-  usersTotal: number;
-  usersPage: number;
-  initialProjects: ProjectRow[];
-  projectsTotal: number;
-  projectsPage: number;
-  initialFeedback: FeedbackRow[];
-  feedbackTotal: number;
-  feedbackPage: number;
-  initialReviews: ReviewRow[];
-  reviewsTotal: number;
-  reviewPendingCount: number;
-  pendingCount: number;
-  meId: string;
+  initialOrders?: OrderRow[];
+  ordersTotal?: number;
+  ordersPage?: number;
+  initialUsers?: UserRow[];
+  usersTotal?: number;
+  usersPage?: number;
+  initialProjects?: ProjectRow[];
+  projectsTotal?: number;
+  projectsPage?: number;
+  initialFeedback?: FeedbackRow[];
+  feedbackTotal?: number;
+  feedbackPage?: number;
+  initialReviews?: ReviewRow[];
+  reviewsTotal?: number;
+  reviewPendingCount?: number;
+  pendingCount?: number;
+  meId?: string;
+  singleSection?: Tab;
 }
 
 type Tab = "users" | "content" | "orders" | "feedback" | "reviews";
 
 const PAGE_SIZE = ADMIN_PAGE_SIZE;
+
+// Stable empty-array defaults — defined outside the component so their
+// reference never changes between renders, preventing the sync useEffects
+// from triggering an infinite re-render loop when a prop is omitted.
+const EMPTY_ORDERS: OrderRow[] = [];
+const EMPTY_USERS: UserRow[] = [];
+const EMPTY_PROJECTS: ProjectRow[] = [];
+const EMPTY_FEEDBACK: FeedbackRow[] = [];
+const EMPTY_REVIEWS: ReviewRow[] = [];
 
 const PLAN_LABELS: Record<string, string> = {
   free: "Free",
@@ -415,30 +425,31 @@ function FeedbackItem({
 }
 
 export default function AdminDashboard({
-  initialUsers,
-  initialProjects,
-  initialOrders,
-  ordersTotal,
-  usersTotal,
-  projectsTotal,
-  ordersPage,
-  usersPage,
-  projectsPage,
-  initialFeedback,
-  feedbackTotal,
-  feedbackPage,
-  initialReviews,
-  reviewsTotal,
-  reviewPendingCount,
-  pendingCount,
-  meId,
+  initialUsers = EMPTY_USERS,
+  initialProjects = EMPTY_PROJECTS,
+  initialOrders = EMPTY_ORDERS,
+  ordersTotal = 0,
+  usersTotal = 0,
+  projectsTotal = 0,
+  ordersPage = 1,
+  usersPage = 1,
+  projectsPage = 1,
+  initialFeedback = EMPTY_FEEDBACK,
+  feedbackTotal = 0,
+  feedbackPage = 1,
+  initialReviews = EMPTY_REVIEWS,
+  reviewsTotal = 0,
+  reviewPendingCount = 0,
+  pendingCount = 0,
+  meId = "",
+  singleSection,
 }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const VALID_TABS: Tab[] = ["orders", "users", "content", "feedback", "reviews"];
   const rawTab = searchParams.get("tab") as Tab | null;
-  const tab: Tab = rawTab && VALID_TABS.includes(rawTab) ? rawTab : "orders";
+  const tab: Tab = singleSection ?? (rawTab && VALID_TABS.includes(rawTab) ? rawTab : "orders");
 
   const setTab = useCallback(
     (t: Tab) => {
@@ -615,8 +626,8 @@ export default function AdminDashboard({
 
   return (
     <div className="space-y-6">
-      {/* Tab bar */}
-      <div className="flex flex-wrap items-center gap-1 p-1 bg-slate-100 rounded-xl w-fit">
+      {/* Tab bar — ẩn khi dùng single-section route */}
+      {!singleSection && <div className="flex flex-wrap items-center gap-1 p-1 bg-slate-100 rounded-xl w-fit">
         {tabBtn(
           "orders",
           <ShoppingCart className="w-4 h-4" />,
@@ -649,7 +660,7 @@ export default function AdminDashboard({
           reviewsTotal,
           reviewPendingCount > 0,
         )}
-      </div>
+      </div>}
 
       {/* ── Orders ── */}
       {tab === "orders" && (
