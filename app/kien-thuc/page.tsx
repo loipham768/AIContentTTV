@@ -24,10 +24,15 @@ export default async function KienThucPage() {
   const session = await auth();
   const isLoggedIn = !!session?.user?.id;
 
-  const initialGroups = await getInitialGroups(
-    ["Hướng dẫn", "Landing Page", "So sánh", "Quảng cáo", "Kỹ thuật", "Content", "SEO"],
-    ARTICLES_PAGE_SIZE,
-  );
+  let initialGroups: Awaited<ReturnType<typeof getInitialGroups>> = {};
+  try {
+    initialGroups = await getInitialGroups(
+      ["Hướng dẫn", "Landing Page", "So sánh", "Quảng cáo", "Kỹ thuật", "Content", "SEO"],
+      ARTICLES_PAGE_SIZE,
+    );
+  } catch {
+    // DB not available at build time
+  }
 
   return (
     <div className="min-h-screen" style={{ background: "#f4f6fb" }}>

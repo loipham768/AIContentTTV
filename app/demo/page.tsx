@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 }
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 export default async function DemoPage() {
   const tpl = await getFirstTemplateHtml('landing')
