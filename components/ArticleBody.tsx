@@ -24,6 +24,17 @@ export default function ArticleBody({ html }: Props) {
       img.style.cursor = "zoom-in"
     })
 
+    // Wrap tables in a scrollable container so they don't overflow on mobile
+    container.querySelectorAll<HTMLTableElement>("table").forEach((table) => {
+      if (table.parentElement?.dataset.tableScroll) return
+      const wrapper = document.createElement("div")
+      wrapper.dataset.tableScroll = "1"
+      wrapper.style.cssText = "overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1.5rem 0;"
+      table.style.margin = "0"
+      table.parentNode?.insertBefore(wrapper, table)
+      wrapper.appendChild(table)
+    })
+
     // Event delegation — one stable listener on the container, survives re-renders
     function handleClick(e: MouseEvent) {
       const target = e.target as HTMLElement

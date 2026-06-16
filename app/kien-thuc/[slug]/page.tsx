@@ -253,9 +253,9 @@ export default async function ArticlePage({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
         <div className="grid lg:grid-cols-[1fr_296px] gap-8">
           {/* ── Article ── */}
-          <div className="space-y-6">
+          <div className="space-y-6 min-w-0">
             <div
-              className="rounded-2xl border border-gray-200 shadow-sm p-8 sm:p-10"
+              className="rounded-2xl border border-gray-200 shadow-sm p-4 sm:p-8 lg:p-10"
               style={{ background: "#fff" }}
             >
               <ArticleBody html={article.content} />
