@@ -1,7 +1,7 @@
 import { dbConnect } from './mongodb'
 import TemplateModel from '@/models/Template'
 
-export type TemplateCategory = 'landing' | 'article' | 'ads'
+export type TemplateCategory = 'landing' | 'article' | 'ads' | 'portfolio' | 'cv'
 
 export interface TemplateMeta {
   id: string

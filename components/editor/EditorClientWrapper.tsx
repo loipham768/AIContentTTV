@@ -39,11 +39,12 @@ interface EditorClientWrapperProps {
   initialData?: object | null
   projectId?: string | null
   canExport: boolean
+  canPublish?: boolean
   plan: string
   guestMode?: boolean
 }
 
-export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, initialData, projectId: initialProjectId, canExport, plan, guestMode = false }: EditorClientWrapperProps) {
+export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, initialData, projectId: initialProjectId, canExport, canPublish = false, plan, guestMode = false }: EditorClientWrapperProps) {
   const editorRef = useRef<Editor | null>(null);
   const [historyKey, setHistoryKey] = useState(0);
   const [editorInstance, setEditorInstance] = useState<Editor | null>(null);
@@ -340,7 +341,9 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
         isPreview={isPreview}
         onTogglePreview={handleTogglePreview}
         canExport={canExport}
+        canPublish={canPublish}
         plan={plan}
+        projectId={currentProjectId}
         onSave={guestMode ? undefined : handleSave}
         saveStatus={saveStatus}
         guestMode={guestMode}

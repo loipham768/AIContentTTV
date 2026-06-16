@@ -17,6 +17,8 @@ import {
   PenTool,
   Download,
   ImageIcon,
+  Globe,
+  Link2,
 } from "lucide-react";
 import Logo from "@/components/Logo";
 import Link from "next/link";
@@ -42,16 +44,18 @@ interface CurrentQuestion {
 }
 
 type Phase = "initial" | "questioning" | "generating" | "done" | "error";
+type Mode = "describe" | "clone";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 type SampleItem = { text: string; desc: string };
-type ContentTypeId = "landing" | "article" | "ads";
+type ContentTypeId = "landing" | "article" | "ads" | "portfolio";
 
 const CONTENT_META: Record<ContentTypeId, { label: string; desc: string }> = {
   landing: { label: "Landing page", desc: "Trang giới thiệu, bán hàng" },
   article: { label: "Bài viết", desc: "Blog, CMS, tin tức" },
   ads: { label: "Quảng cáo", desc: "Facebook, Google Ads" },
+  portfolio: { label: "Portfolio & CV", desc: "Trang cá nhân, xin việc" },
 };
 
 const CONTENT_POOL: Record<ContentTypeId, SampleItem[]> = {
@@ -521,13 +525,30 @@ const CONTENT_POOL: Record<ContentTypeId, SampleItem[]> = {
       desc: "Healthcare",
     },
   ],
+  portfolio: [
+    { text: "Portfolio cho lập trình viên Frontend React 3 năm kinh nghiệm", desc: "Frontend Dev" },
+    { text: "CV online cho Backend Developer Python & NodeJS", desc: "Backend Dev" },
+    { text: "Portfolio fullstack developer tìm việc tại công ty startup", desc: "Fullstack Dev" },
+    { text: "Portfolio UI/UX Designer với showcase dự án Figma", desc: "Designer" },
+    { text: "Portfolio Graphic Designer với các dự án branding & logo", desc: "Graphic Design" },
+    { text: "CV online cho Digital Marketing Manager 5 năm kinh nghiệm", desc: "Marketing" },
+    { text: "Portfolio Content Creator & Copywriter", desc: "Content" },
+    { text: "CV chuyên nghiệp cho Business Analyst tìm việc mới", desc: "Business" },
+    { text: "Trang cá nhân Freelancer đa lĩnh vực tìm khách hàng", desc: "Freelancer" },
+    { text: "Portfolio nhiếp ảnh gia chụp ảnh cưới & sự kiện", desc: "Photography" },
+    { text: "CV cho giáo viên tiếng Anh với chứng chỉ IELTS 8.0", desc: "Giáo viên" },
+    { text: "CV chuyên nghiệp cho Kế toán trưởng 7 năm kinh nghiệm", desc: "Kế toán" },
+    { text: "Portfolio tư vấn chiến lược & quản lý dự án", desc: "Consultant" },
+    { text: "Portfolio Mobile Developer iOS & Android", desc: "Mobile Dev" },
+    { text: "Trang cá nhân cho SEO Specialist xin việc", desc: "SEO" },
+  ],
 };
 
 function shufflePick(items: SampleItem[], n: number): SampleItem[] {
   return [...items].sort(() => Math.random() - 0.5).slice(0, n);
 }
 
-const CONTENT_TYPE_IDS: ContentTypeId[] = ["landing", "article", "ads"];
+const CONTENT_TYPE_IDS: ContentTypeId[] = ["landing", "article", "ads", "portfolio"];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -558,9 +579,14 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
   const [displayedSamples, setDisplayedSamples] = useState<SampleItem[]>([]);
   const [initialInput, setInitialInput] = useState("");
 
+  const [mode, setMode] = useState<Mode>("describe");
+  const [cloneUrl, setCloneUrl] = useState("");
+  const [cloneError, setCloneError] = useState("");
+
   const bottomRef = useRef<HTMLDivElement>(null);
   const customInputRef = useRef<HTMLTextAreaElement>(null);
   const initialInputRef = useRef<HTMLTextAreaElement>(null);
+  const cloneInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -568,22 +594,26 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
 
   // ── Core: send a user answer to Gemini ──────────────────────────────────────
 
-  async function sendAnswer(answerText: string, questionText: string) {
+  async function sendAnswer(answerText: string, currentQ: CurrentQuestion) {
     const trimmed = answerText.trim();
     if (!trimmed) return;
 
     // Add to display history
     setHistory((prev) => [
       ...prev,
-      { question: questionText, answer: trimmed },
+      { question: currentQ.question, answer: trimmed },
     ]);
     setCurrent(null);
     setCustom("");
 
-    // Build updated message list for API
+    // Reconstruct the JSON that Gemini originally returned so history stays consistent
+    const modelJson = currentQ.isConfirm
+      ? JSON.stringify({ type: "confirm", question: currentQ.question, items: currentQ.items ?? [], options: currentQ.options })
+      : JSON.stringify({ type: "question", question: currentQ.question, ...(currentQ.hint ? { hint: currentQ.hint } : {}), options: currentQ.options });
+
     const modelMsg: GeminiMessage = {
       role: "model",
-      parts: [{ text: questionText }],
+      parts: [{ text: modelJson }],
     };
     const userMsg: GeminiMessage = {
       role: "user",
@@ -680,6 +710,12 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
         return;
       }
 
+      if (data.type === "error") {
+        setErrorMsg(data.content ?? "Đã xảy ra lỗi. Vui lòng thử lại.");
+        setPhase("error");
+        return;
+      }
+
       setErrorMsg("Phản hồi không hợp lệ. Vui lòng thử lại.");
       setPhase("error");
     } catch {
@@ -707,19 +743,19 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
 
   function handleOptionClick(option: string) {
     if (!current) return;
-    sendAnswer(option, current.question);
+    sendAnswer(option, current);
   }
 
   function handleCustomSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!current || !custom.trim()) return;
-    sendAnswer(custom, current.question);
+    sendAnswer(custom, current);
   }
 
   function handleCustomKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      if (current && custom.trim()) sendAnswer(custom, current.question);
+      if (current && custom.trim()) sendAnswer(custom, current);
     }
   }
 
@@ -743,7 +779,66 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
     setSelectedType(null);
     setDisplayedSamples([]);
     setInitialInput("");
-    setTimeout(() => initialInputRef.current?.focus(), 100);
+    setCloneUrl("");
+    setCloneError("");
+    setTimeout(() => {
+      if (mode === "clone") cloneInputRef.current?.focus();
+      else initialInputRef.current?.focus();
+    }, 100);
+  }
+
+  async function handleCloneSubmit(e?: React.FormEvent) {
+    e?.preventDefault();
+    const trimmed = cloneUrl.trim();
+    if (!trimmed) return;
+    setCloneError("");
+
+    // Basic URL validation on client
+    try {
+      new URL(trimmed);
+    } catch {
+      setCloneError("URL không hợp lệ. Ví dụ: https://example.com");
+      return;
+    }
+
+    setInitialPrompt(trimmed);
+    setPhase("questioning"); // reuse loading UI (questioning + no current = dots)
+    setCurrent(null);
+    setLongWait(false);
+    longWaitTimer.current = setTimeout(() => setLongWait(true), 5000);
+
+    try {
+      const res = await fetch("/api/clone-url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: trimmed }),
+      });
+      const data = await res.json();
+
+      if (longWaitTimer.current) {
+        clearTimeout(longWaitTimer.current);
+        longWaitTimer.current = null;
+      }
+      setLongWait(false);
+
+      if (!res.ok) {
+        setErrorMsg(data.error ?? "Đã xảy ra lỗi. Vui lòng thử lại.");
+        setPhase("error");
+        return;
+      }
+
+      setProjectId(data.projectId ?? null);
+      setGeneratedImage(null);
+      setPhase("done");
+    } catch {
+      if (longWaitTimer.current) {
+        clearTimeout(longWaitTimer.current);
+        longWaitTimer.current = null;
+      }
+      setLongWait(false);
+      setErrorMsg("Không thể kết nối máy chủ. Vui lòng thử lại.");
+      setPhase("error");
+    }
   }
 
   // ─── Render ─────────────────────────────────────────────────────────────────
@@ -860,7 +955,7 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
         {/* ── Initial screen ── */}
         {phase === "initial" && (
           <div className="flex flex-col items-center flex-1">
-            <div className="text-center mb-7">
+            <div className="text-center mb-6">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium mb-5">
                 <Sparkles className="w-3.5 h-3.5" />
                 Tạo Landing page/Bài viết/Quảng cáo với AI
@@ -873,8 +968,88 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
               </p>
             </div>
 
-            {/* Type selector */}
-            <div className="w-full grid grid-cols-3 gap-2 mb-4">
+            {/* Mode toggle */}
+            <div className="w-full flex gap-2 mb-5 p-1 bg-white/[0.04] rounded-xl border border-white/[0.06]">
+              <button
+                onClick={() => setMode("describe")}
+                className={[
+                  "flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-semibold transition-all",
+                  mode === "describe"
+                    ? "bg-indigo-600 text-white shadow-sm"
+                    : "text-slate-400 hover:text-slate-200",
+                ].join(" ")}
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                Mô tả nội dung
+              </button>
+              <button
+                onClick={() => { setMode("clone"); setTimeout(() => cloneInputRef.current?.focus(), 100); }}
+                className={[
+                  "flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-semibold transition-all",
+                  mode === "clone"
+                    ? "bg-indigo-600 text-white shadow-sm"
+                    : "text-slate-400 hover:text-slate-200",
+                ].join(" ")}
+              >
+                <Globe className="w-3.5 h-3.5" />
+                Clone từ URL
+              </button>
+            </div>
+
+            {/* Clone URL mode */}
+            {mode === "clone" && (
+              <div className="w-full flex flex-col gap-4">
+                <div className="bg-indigo-500/5 border border-indigo-500/20 rounded-xl px-4 py-3 flex items-start gap-2.5">
+                  <Globe className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Nhập URL bất kỳ — AI sẽ tải trang, phân tích cấu trúc và tạo ra HTML tương tự để bạn chỉnh sửa trong editor.
+                  </p>
+                </div>
+
+                <form onSubmit={handleCloneSubmit} className="w-full bg-white/[0.04] border border-white/10 rounded-2xl p-4 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Link2 className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                    <input
+                      ref={cloneInputRef}
+                      type="url"
+                      value={cloneUrl}
+                      onChange={(e) => { setCloneUrl(e.target.value); setCloneError(""); }}
+                      onKeyDown={(e) => { if (e.key === "Enter") handleCloneSubmit(); }}
+                      placeholder="https://example.com"
+                      className="flex-1 bg-transparent text-white text-sm placeholder:text-slate-500 focus:outline-none"
+                    />
+                  </div>
+                  {cloneError && (
+                    <p className="text-xs text-red-400 flex items-center gap-1.5">
+                      <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                      {cloneError}
+                    </p>
+                  )}
+                  <div className="flex items-center justify-between pt-2 border-t border-white/5">
+                    <span className="text-xs text-slate-500">Tốt nhất với trang server-rendered (không cần JS)</span>
+                    <button
+                      type="submit"
+                      disabled={!cloneUrl.trim()}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-30 disabled:cursor-not-allowed text-white text-xs font-semibold transition-all"
+                    >
+                      <Globe className="w-3 h-3" />
+                      Phân tích
+                    </button>
+                  </div>
+                </form>
+
+                <div className="flex items-start gap-2 px-1">
+                  <Info className="w-3.5 h-3.5 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    Tính năng này tái tạo <span className="text-slate-400">cấu trúc & phong cách</span> trang gốc, không phải clone chính xác 100%. Kết quả ~70–80% giống. Sử dụng 1 lượt tạo.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Type selector — only in describe mode */}
+            {mode === "describe" && (<>
+            <div className="w-full grid grid-cols-2 gap-2 mb-4">
               {CONTENT_TYPE_IDS.map((typeId) => {
                 const meta = CONTENT_META[typeId];
                 const active = selectedType === typeId;
@@ -978,6 +1153,7 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
                 </p>
               </div>
             </div>
+            </>)}
           </div>
         )}
 
@@ -1112,7 +1288,7 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
                     className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 text-sm transition-all"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
-                    {generatedImage ? "Tạo banner mới" : "Tạo trang mới"}
+                    {generatedImage ? "Tạo banner mới" : mode === "clone" ? "Clone trang mới" : "Tạo trang mới"}
                   </button>
                 </div>
               )}

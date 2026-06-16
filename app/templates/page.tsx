@@ -25,7 +25,7 @@ export default async function TemplatesPage() {
   const isLoggedIn = !!session?.user?.id
 
   const [initialGroups, userDoc, planInfo] = await Promise.all([
-    getInitialTemplateGroups(['landing', 'article', 'ads'], TEMPLATES_PAGE_SIZE),
+    getInitialTemplateGroups(['landing', 'article', 'ads', 'portfolio', 'cv'], TEMPLATES_PAGE_SIZE),
     isLoggedIn
       ? (await dbConnect(), User.findById(session!.user!.id, { fullName: 1, avatarUrl: 1 }).lean())
       : Promise.resolve(null),

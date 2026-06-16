@@ -11,7 +11,7 @@ export const runtime = 'nodejs'
 
 const generateSchema = z.object({
   prompt: z.string().min(1).max(500),
-  contentType: z.enum(['landing', 'article', 'ads']).optional(),
+  contentType: z.enum(['landing', 'article', 'ads', 'portfolio']).optional(),
 })
 
 export async function POST(req: NextRequest) {

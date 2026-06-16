@@ -3,6 +3,7 @@ export type Plan = "free" | "designer" | "basic" | "pro";
 export interface PlanLimits {
   generationsPerMonth: number; // Infinity = unlimited, 0 = none
   canExport: boolean;
+  canPublish: boolean;
   historyDays: number | null;
   maxTemplates: number;
 }
@@ -11,24 +12,28 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
   free: {
     generationsPerMonth: 4,
     canExport: false,
+    canPublish: false,
     historyDays: null,
     maxTemplates: 3,
   },
   designer: {
     generationsPerMonth: 0,
     canExport: true,
+    canPublish: true,
     historyDays: 30,
     maxTemplates: Infinity,
   },
   basic: {
     generationsPerMonth: 25,
     canExport: true,
+    canPublish: true,
     historyDays: 30,
     maxTemplates: Infinity,
   },
   pro: {
     generationsPerMonth: Infinity,
     canExport: true,
+    canPublish: true,
     historyDays: null,
     maxTemplates: Infinity,
   },

@@ -39,13 +39,15 @@ interface Props {
 type Tab = "all" | TemplateCategory;
 
 const TABS: { id: Tab; label: string; icon: string }[] = [
-  { id: "all",     label: "Tất cả",       icon: "✦" },
-  { id: "landing", label: "Landing Page",  icon: "🏠" },
-  { id: "article", label: "Bài viết",      icon: "📝" },
-  { id: "ads",     label: "Quảng cáo",     icon: "📣" },
+  { id: "all",       label: "Tất cả",       icon: "✦" },
+  { id: "landing",   label: "Landing Page",  icon: "🏠" },
+  { id: "article",   label: "Bài viết",      icon: "📝" },
+  { id: "ads",       label: "Quảng cáo",     icon: "📣" },
+  { id: "portfolio", label: "Portfolio",     icon: "🎨" },
+  { id: "cv",        label: "CV / Hồ sơ",   icon: "📄" },
 ];
 
-const CATEGORY_ORDER: TemplateCategory[] = ["landing", "article", "ads"];
+const CATEGORY_ORDER: TemplateCategory[] = ["landing", "article", "ads", "portfolio", "cv"];
 
 type CatState = CatGroup & { page: number; loading: boolean };
 

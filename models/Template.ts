@@ -4,7 +4,7 @@ const TemplateSchema = new mongoose.Schema(
   {
     id:          { type: String, required: true, unique: true },
     name:        { type: String, required: true },
-    category:    { type: String, required: true, enum: ['landing', 'article', 'ads'] },
+    category:    { type: String, required: true, enum: ['landing', 'article', 'ads', 'portfolio', 'cv'] },
     description: { type: String, required: true },
     tags:        [{ type: String }],
     gradient:    { type: String, required: true },

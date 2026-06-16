@@ -15,6 +15,7 @@ import {
   Code2,
   Plus,
   Download,
+  FileText,
   Lock,
   Crown,
   LayoutTemplate,
@@ -26,13 +27,17 @@ import {
   AlertCircle,
   ChevronDown,
   Copy,
+  Globe,
+  ExternalLink,
+  RefreshCw,
+  EyeOff as Unpublish,
 } from "lucide-react";
 import Logo from "@/components/Logo";
 import Link from "next/link";
 import UserAvatar from "@/components/UserAvatar";
 
 type SaveStatus = "idle" | "saving" | "saved" | "error";
-type ExportAction = "copy" | "download";
+type ExportAction = "copy" | "download" | "pdf";
 
 interface TopBarProps {
   editorRef: React.RefObject<Editor | null>;
@@ -43,7 +48,9 @@ interface TopBarProps {
   isPreview: boolean;
   onTogglePreview: () => void;
   canExport: boolean;
+  canPublish?: boolean;
   plan: string;
+  projectId?: string | null;
   onSave?: () => Promise<void>;
   saveStatus?: SaveStatus;
   guestMode?: boolean;
@@ -58,7 +65,9 @@ export default function TopBar({
   isPreview,
   onTogglePreview,
   canExport,
+  canPublish = false,
   plan,
+  projectId,
   onSave,
   saveStatus = "idle",
   guestMode = false,
@@ -69,6 +78,7 @@ export default function TopBar({
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState<string | null>(null);
   const [exported, setExported] = useState(false);
+  const [pdfExported, setPdfExported] = useState(false);
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
   const [zoom, setZoom] = useState(100);
@@ -78,6 +88,14 @@ export default function TopBar({
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [exportConfirm, setExportConfirm] = useState<ExportAction | null>(null);
   const exportMenuRef = useRef<HTMLDivElement>(null);
+
+  // Publish state
+  const [publishLoading, setPublishLoading] = useState(false);
+  const [publishedSlug, setPublishedSlug] = useState<string | null>(null);
+  const [publishedUrl, setPublishedUrl] = useState<string | null>(null);
+  const [showPublishModal, setShowPublishModal] = useState(false);
+  const [publishLinkCopied, setPublishLinkCopied] = useState(false);
+  const [unpublishPending, setUnpublishPending] = useState(false);
 
   useEffect(() => {
     if (!editor) return;
@@ -98,6 +116,20 @@ export default function TopBar({
     return () => clearTimeout(t);
   }, [clearPending]);
 
+  // Load publish status when projectId is available
+  useEffect(() => {
+    if (!projectId || guestMode) return;
+    fetch(`/api/publish?projectId=${projectId}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.published) {
+          setPublishedSlug(data.slug);
+          setPublishedUrl(data.url);
+        }
+      })
+      .catch(() => {});
+  }, [projectId, guestMode]);
+
   useEffect(() => {
     if (!showExportMenu) return;
     function handleClick(e: MouseEvent) {
@@ -112,34 +144,28 @@ export default function TopBar({
     return () => document.removeEventListener("mousedown", handleClick);
   }, [showExportMenu]);
 
-  // Generate interactive scripts for slider/navbar blocks based on IDs in the exported HTML.
-  // This runs client-side because GrapesJS may strip <script> tags from getHtml() output.
+  // Extract interactive JS scripts from HTML (sliders, navbars)
   function generateInteractiveScripts(html: string): string {
-    const parts: string[] = [];
-
-    // Slider: detect id="sXXXXX-wrap" + id="sXXXXX-dots"
-    const sliderRe = /id="(s[a-z0-9]{4,8})-wrap"/g;
-    let m: RegExpExecArray | null;
+    const parts: string[] = []
+    const sliderRe = /id="(s[a-z0-9]{4,8})-wrap"/g
+    let m: RegExpExecArray | null
     while ((m = sliderRe.exec(html)) !== null) {
-      const sid = m[1];
-      if (!html.includes(`id="${sid}-dots"`)) continue;
+      const sid = m[1]
+      if (!html.includes(`id="${sid}-dots"`)) continue
       parts.push(
         `(function(){var wrap=document.getElementById('${sid}-wrap');if(!wrap)return;var track=document.getElementById('${sid}');var dots=Array.from(document.getElementById('${sid}-dots').querySelectorAll('button'));var cur=0,total=3,timer=null;function goTo(n){cur=(n%total+total)%total;track.scrollTo({left:cur*track.offsetWidth,behavior:'smooth'});dots.forEach(function(d,i){d.style.width=i===cur?'28px':'7px';d.style.background=i===cur?'rgba(255,255,255,0.95)':'rgba(255,255,255,0.45)';});}dots.forEach(function(d,i){d.addEventListener('click',function(e){e.stopPropagation();goTo(i);resetTimer();});});function startTimer(){timer=setInterval(function(){goTo(cur+1);},4000);}function resetTimer(){clearInterval(timer);startTimer();}wrap.addEventListener('mouseenter',function(){clearInterval(timer);});wrap.addEventListener('mouseleave',startTimer);startTimer();track.addEventListener('scroll',function(){var idx=Math.round(track.scrollLeft/track.offsetWidth);if(idx!==cur){cur=idx;dots.forEach(function(d,i){d.style.width=i===cur?'28px':'7px';d.style.background=i===cur?'rgba(255,255,255,0.95)':'rgba(255,255,255,0.45)';});}},{passive:true});})();`,
-      );
+      )
     }
-
-    // Navbar: detect <nav ... id="nXXXXX" ...> with toggle button
-    const navRe = /<nav\b[^>]*id="(n[a-z0-9]{4,8})"[^>]*>/g;
+    const navRe = /<nav\b[^>]*id="(n[a-z0-9]{4,8})"[^>]*>/g
     while ((m = navRe.exec(html)) !== null) {
-      const nid = m[1];
-      if (!html.includes(`id="${nid}-toggle"`)) continue;
+      const nid = m[1]
+      if (!html.includes(`id="${nid}-toggle"`)) continue
       parts.push(
         `(function(){var nav=document.getElementById('${nid}');if(!nav)return;var toggle=document.getElementById('${nid}-toggle');var mobile=document.getElementById('${nid}-mobile');var menu=document.getElementById('${nid}-menu');nav.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var href=a.getAttribute('href');if(!href||href==="#")return;var target=document.querySelector(href);if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});}if(mobile&&mobile.style.display!=="none"){mobile.style.display="none";}});a.addEventListener('mouseenter',function(){a.style.background='#f1f5f9';a.style.color='#4f46e5';});a.addEventListener('mouseleave',function(){a.style.background='';a.style.color='';});});function checkBreak(){var sm=window.innerWidth<768;if(toggle)toggle.style.display=sm?'flex':'none';if(menu)menu.style.display=sm?'none':'flex';if(mobile&&!sm)mobile.style.display='none';}toggle&&toggle.addEventListener('click',function(){mobile.style.display=mobile.style.display==="none"?'block':'none';});checkBreak();window.addEventListener('resize',checkBreak);var links=Array.from(nav.querySelectorAll('a[href^="#"]'));window.addEventListener('scroll',function(){var scrollY=window.scrollY+80;var active=null;links.forEach(function(a){var t=document.querySelector(a.getAttribute('href'));if(t&&t.offsetTop<=scrollY)active=a;});links.forEach(function(a){a.style.color=a===active?'#4f46e5':'';a.style.fontWeight=a===active?'700':'';});},{passive:true});})();`,
-      );
+      )
     }
-
-    if (parts.length === 0) return "";
-    return `<script>\n${parts.join("\n")}\n</script>`;
+    if (parts.length === 0) return ""
+    return `<script>\n${parts.join("\n")}\n</script>`
   }
 
   // Server-side export: HTML + CSS sent to /api/export-html, returns clean inlined HTML
@@ -226,6 +252,117 @@ ${body}${scripts ? "\n" + scripts : ""}
     URL.revokeObjectURL(url);
     setExported(true);
     setTimeout(() => setExported(false), 3000);
+  }
+
+  async function handleExportPdf() {
+    if (!canExport) {
+      setShowUpgrade(true);
+      return;
+    }
+    const ed = editorRef.current;
+    if (!ed) return;
+
+    setLoading(true);
+    try {
+      const res = await fetch("/api/export-pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          html: ed.getHtml(),
+          css: ed.getCss() ?? "",
+          format: "A4",
+          landscape: false,
+        }),
+      });
+      if (res.status === 403) {
+        const data = await res.json().catch(() => ({}));
+        if (data.upgradeRequired) setShowUpgrade(true);
+        setCopyError(data.error ?? "Tài khoản không có quyền xuất PDF.");
+        setTimeout(() => setCopyError(null), 5000);
+        return;
+      }
+      if (!res.ok) {
+        setCopyError("Đã xảy ra lỗi khi tạo PDF. Vui lòng thử lại.");
+        setTimeout(() => setCopyError(null), 3000);
+        return;
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "export.pdf";
+      a.click();
+      URL.revokeObjectURL(url);
+      setPdfExported(true);
+      setTimeout(() => setPdfExported(false), 3000);
+    } catch {
+      setCopyError("Đã xảy ra lỗi. Vui lòng thử lại.");
+      setTimeout(() => setCopyError(null), 3000);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handlePublish() {
+    if (!canPublish) {
+      setShowUpgrade(true);
+      return;
+    }
+    if (!projectId) {
+      // Prompt user to save first
+      setCopyError("Hãy lưu dự án trước khi xuất bản.");
+      setTimeout(() => setCopyError(null), 4000);
+      return;
+    }
+
+    const ed = editorRef.current;
+    if (!ed) return;
+
+    setPublishLoading(true);
+    try {
+      const res = await fetch("/api/publish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          projectId,
+          html: ed.getHtml(),
+          css: ed.getCss() ?? "",
+        }),
+      });
+      if (res.status === 403) {
+        const data = await res.json().catch(() => ({}));
+        if (data.upgradeRequired) setShowUpgrade(true);
+        return;
+      }
+      if (!res.ok) {
+        setCopyError("Xuất bản thất bại. Vui lòng thử lại.");
+        setTimeout(() => setCopyError(null), 3000);
+        return;
+      }
+      const data = await res.json();
+      setPublishedSlug(data.slug);
+      setPublishedUrl(data.url);
+      setShowPublishModal(true);
+    } catch {
+      setCopyError("Đã xảy ra lỗi. Vui lòng thử lại.");
+      setTimeout(() => setCopyError(null), 3000);
+    } finally {
+      setPublishLoading(false);
+    }
+  }
+
+  async function handleUnpublish() {
+    if (!publishedSlug) return;
+    setUnpublishPending(false);
+    try {
+      await fetch(`/api/publish/${publishedSlug}`, { method: "DELETE" });
+      setPublishedSlug(null);
+      setPublishedUrl(null);
+      setShowPublishModal(false);
+    } catch {
+      setCopyError("Gỡ xuất bản thất bại.");
+      setTimeout(() => setCopyError(null), 3000);
+    }
   }
 
   function handleZoomIn() {
@@ -442,6 +579,42 @@ ${body}${scripts ? "\n" + scripts : ""}
             </button>
           )}
 
+          {/* Publish button */}
+          {!guestMode && (
+            <button
+              onClick={publishedSlug ? () => setShowPublishModal(true) : handlePublish}
+              disabled={publishLoading}
+              title={
+                !canPublish
+                  ? "Nâng cấp để xuất bản trang"
+                  : publishedSlug
+                  ? "Xem thông tin xuất bản"
+                  : "Xuất bản trang công khai"
+              }
+              className={`relative flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                !canPublish
+                  ? "text-slate-500 cursor-not-allowed"
+                  : publishedSlug
+                  ? "text-emerald-400 hover:bg-slate-700"
+                  : publishLoading
+                  ? "text-slate-400 cursor-wait"
+                  : "text-slate-300 hover:text-white hover:bg-slate-700"
+              }`}
+            >
+              {publishLoading ? (
+                <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+              ) : (
+                <Globe className="w-3.5 h-3.5" />
+              )}
+              {publishedSlug && (
+                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 border border-slate-900" />
+              )}
+              <span className="hidden sm:inline">
+                {publishLoading ? "Đang xuất bản..." : publishedSlug ? "Đã xuất bản" : "Xuất bản"}
+              </span>
+            </button>
+          )}
+
           {/* Export dropdown */}
           <div className="relative" ref={exportMenuRef}>
             <button
@@ -494,8 +667,17 @@ ${body}${scripts ? "\n" + scripts : ""}
                   }}
                   className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-xs text-slate-200 hover:bg-slate-700 hover:text-white transition-colors"
                 >
-                  <Download className="w-3.5 h-3.5 text-slate-400" /> Tải file
-                  HTML
+                  <Download className="w-3.5 h-3.5 text-slate-400" /> Tải file HTML
+                </button>
+                <div className="h-px bg-slate-700" />
+                <button
+                  onClick={() => {
+                    setShowExportMenu(false);
+                    setExportConfirm("pdf");
+                  }}
+                  className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-xs text-slate-200 hover:bg-slate-700 hover:text-white transition-colors"
+                >
+                  <FileText className="w-3.5 h-3.5 text-slate-400" /> Xuất PDF
                 </button>
               </div>
             )}
@@ -556,6 +738,85 @@ ${body}${scripts ? "\n" + scripts : ""}
         </div>
       </div>
 
+      {/* Publish modal */}
+      {showPublishModal && publishedUrl && (
+        <div
+          className="fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center p-4"
+          onClick={() => { setShowPublishModal(false); setUnpublishPending(false); }}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
+                <Globe className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h3 className="font-bold text-gray-900 text-sm">Trang đã được xuất bản</h3>
+                <p className="text-xs text-gray-400 mt-0.5">Ai cũng có thể truy cập qua link này</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 p-2.5 bg-slate-50 border border-slate-200 rounded-xl mb-4">
+              <span className="flex-1 text-xs text-slate-600 truncate font-mono">{publishedUrl}</span>
+              <button
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(publishedUrl);
+                    setPublishLinkCopied(true);
+                    setTimeout(() => setPublishLinkCopied(false), 2500);
+                  } catch {}
+                }}
+                className={`flex-shrink-0 flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  publishLinkCopied
+                    ? "bg-emerald-100 text-emerald-700"
+                    : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-100"
+                }`}
+              >
+                {publishLinkCopied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                {publishLinkCopied ? "Đã sao chép" : "Sao chép"}
+              </button>
+            </div>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  if (!unpublishPending) { setUnpublishPending(true); return; }
+                  handleUnpublish();
+                }}
+                className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl transition-colors ${
+                  unpublishPending
+                    ? "bg-red-500 text-white"
+                    : "text-slate-500 border border-slate-200 hover:bg-red-50 hover:text-red-600 hover:border-red-200"
+                }`}
+              >
+                <Unpublish className="w-3.5 h-3.5" />
+                {unpublishPending ? "Xác nhận gỡ?" : "Gỡ xuất bản"}
+              </button>
+              <a
+                href={publishedUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-indigo-600 border border-indigo-200 rounded-xl hover:bg-indigo-50 transition-colors"
+                onClick={() => setShowPublishModal(false)}
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                Mở trang
+              </a>
+              <button
+                onClick={handlePublish}
+                disabled={publishLoading}
+                className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-60"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${publishLoading ? "animate-spin" : ""}`} />
+                Cập nhật
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Export confirm modal */}
       {exportConfirm && (
         <div
@@ -570,13 +831,15 @@ ${body}${scripts ? "\n" + scripts : ""}
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center flex-shrink-0">
                 {exportConfirm === "copy" ? (
                   <Copy className="w-5 h-5 text-white" />
+                ) : exportConfirm === "pdf" ? (
+                  <FileText className="w-5 h-5 text-white" />
                 ) : (
                   <Download className="w-5 h-5 text-white" />
                 )}
               </div>
               <div>
                 <h3 className="font-bold text-gray-900 text-sm">
-                  {exportConfirm === "copy" ? "Sao chép HTML" : "Tải file HTML"}
+                  {exportConfirm === "copy" ? "Sao chép HTML" : exportConfirm === "pdf" ? "Xuất PDF" : "Tải file HTML"}
                 </h3>
                 <p className="text-xs text-gray-400 mt-0.5">
                   Xác nhận xuất nội dung
@@ -584,10 +847,11 @@ ${body}${scripts ? "\n" + scripts : ""}
               </div>
             </div>
             <p className="text-sm text-gray-600 mb-5 leading-relaxed">
-              Toàn bộ nội dung sẽ được xử lý và CSS nhúng inline —{" "}
               {exportConfirm === "copy"
-                ? "sẵn sàng dán vào Haravan, Sapo, các Editor hoặc bất kỳ nền tảng nào."
-                : "tải xuống dưới dạng file index.html sẵn sàng dùng ngay."}
+                ? "Toàn bộ nội dung sẽ được xử lý và CSS nhúng inline — sẵn sàng dán vào Haravan, Sapo, các Editor hoặc bất kỳ nền tảng nào."
+                : exportConfirm === "pdf"
+                ? "Nội dung sẽ được render trên server và xuất thành file PDF — chất lượng cao, giữ nguyên font chữ và màu sắc. Phù hợp cho portfolio, CV."
+                : "Toàn bộ nội dung sẽ được xử lý và CSS nhúng inline — tải xuống dưới dạng file index.html sẵn sàng dùng ngay."}
             </p>
             <div className="flex gap-2">
               <button
@@ -601,6 +865,7 @@ ${body}${scripts ? "\n" + scripts : ""}
                   const action = exportConfirm;
                   setExportConfirm(null);
                   if (action === "copy") handleCopyHtml();
+                  else if (action === "pdf") handleExportPdf();
                   else handleExportHtml();
                 }}
                 className="flex-1 py-2 text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl hover:opacity-90 transition-opacity"
@@ -628,7 +893,7 @@ ${body}${scripts ? "\n" + scripts : ""}
               </div>
               <div>
                 <h3 className="font-bold text-gray-900">
-                  {guestMode ? "Đăng ký để xuất HTML" : "Nâng cấp để xuất HTML"}
+                  {guestMode ? "Đăng ký để tiếp tục" : "Nâng cấp để mở khoá"}
                 </h3>
                 <p className="text-xs text-gray-500">
                   {guestMode ? "Tạo tài khoản miễn phí để tiếp tục" : "Tính năng dành cho gói Basic và Pro"}
@@ -638,7 +903,7 @@ ${body}${scripts ? "\n" + scripts : ""}
             <p className="text-sm text-gray-600 mb-5">
               {guestMode
                 ? "Đây là bản demo. Đăng ký tài khoản miễn phí để lưu dự án và dùng AI tạo nội dung."
-                : <>Gói miễn phí không hỗ trợ sao chép mã HTML. Nâng cấp lên gói{" "}<strong>Basic (99.000đ/tháng)</strong> để mở khoá tính năng này.</>
+                : <>Gói miễn phí không hỗ trợ xuất HTML và xuất bản trang. Nâng cấp lên gói{" "}<strong>Basic (99.000đ/tháng)</strong> để mở khoá tính năng này.</>
               }
             </p>
             <div className="flex gap-2">
@@ -677,6 +942,15 @@ ${body}${scripts ? "\n" + scripts : ""}
         >
           <span className="w-2 h-2 rounded-full bg-blue-400" />
           Đã tải index.html!
+        </div>
+      )}
+      {pdfExported && (
+        <div
+          className="fixed bottom-24 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-slate-900 text-white px-5 py-2.5 rounded-full shadow-xl text-sm font-medium z-50 border border-slate-700"
+          role="status"
+        >
+          <span className="w-2 h-2 rounded-full bg-rose-400" />
+          Đã tải export.pdf!
         </div>
       )}
       {copyError && (

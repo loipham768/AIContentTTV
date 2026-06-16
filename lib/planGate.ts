@@ -96,6 +96,27 @@ export async function checkExportAllowed(userId: string): Promise<GateResult> {
   return { allowed: true }
 }
 
+export async function checkPublishAllowed(userId: string): Promise<GateResult> {
+  const user = await loadAndRefreshUser(userId)
+  if (!user) return { allowed: false, reason: 'Không tìm thấy tài khoản.', code: 'not_found', upgradeRequired: false }
+
+  const plan: Plan = user.plan ?? 'free'
+  const limits = PLAN_LIMITS[plan]
+
+  await user.save()
+
+  if (!limits.canPublish) {
+    return {
+      allowed: false,
+      reason: 'Gói miễn phí không hỗ trợ xuất bản trang. Vui lòng nâng cấp lên gói Basic hoặc Pro.',
+      code: 'plan_required',
+      upgradeRequired: true,
+    }
+  }
+
+  return { allowed: true }
+}
+
 export async function getUserPlanInfo(userId: string) {
   const user = await loadAndRefreshUser(userId)
   if (!user) return null
@@ -107,6 +128,7 @@ export async function getUserPlanInfo(userId: string) {
   return {
     plan,
     canExport:        limits.canExport,
+    canPublish:       limits.canPublish,
     generationsUsed:  user.generationsUsed,
     generationsLimit: limits.generationsPerMonth,
     credits:          user.credits,

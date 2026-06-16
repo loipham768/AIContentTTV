@@ -44,7 +44,11 @@ import {
 import { Suspense } from "react";
 import PricingSection from "@/components/pricing/PricingSection";
 import HashScroll from "@/components/HashScroll";
-import { getReviewStats, getCarouselReviews, getUserHasReviewed } from "@/components/reviews/ReviewsSection";
+import {
+  getReviewStats,
+  getCarouselReviews,
+  getUserHasReviewed,
+} from "@/components/reviews/ReviewsSection";
 
 import ScrollReveal from "@/components/ScrollReveal";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
@@ -55,7 +59,12 @@ import UserMenu from "@/components/UserMenu";
 import ScrollHeaderWrapper from "@/components/ScrollHeaderWrapper";
 import { dbConnect } from "@/lib/mongodb";
 import User from "@/models/User";
-import { SITE_URL, SUPPORT_EMAIL, SUPPORT_PHONE, SUPPORT_PHONE_DISPLAY } from "@/lib/constants";
+import {
+  SITE_URL,
+  SUPPORT_EMAIL,
+  SUPPORT_PHONE,
+  SUPPORT_PHONE_DISPLAY,
+} from "@/lib/constants";
 
 /* ── Tính năng thực tế đã xây dựng ─────────────────────────────── */
 
@@ -183,6 +192,24 @@ const CONTENT_TYPES = [
       "Tin nhắn Zalo OA, SMS marketing",
     ],
   },
+  {
+    emoji: "💼",
+    grad: "from-teal-500 to-emerald-600",
+    bg: "from-teal-50 to-emerald-50",
+    border: "border-teal-100",
+    title: "Portfolio & CV Xin Việc",
+    desc: "Trang cá nhân chuyên nghiệp để gây ấn tượng nhà tuyển dụng — AI hỏi đáp để hiểu đúng kỹ năng và phong cách của bạn.",
+    badge: "Gây ấn tượng HR",
+    badgeColor: "bg-teal-100 text-teal-700",
+    examples: [
+      "CV online cho lập trình viên, designer",
+      "Portfolio showcase dự án freelancer",
+      "Trang cá nhân Marketing & Content Creator",
+      "CV chuyên nghiệp cho kinh doanh, tài chính",
+      "Portfolio nhiếp ảnh, thiết kế đồ hoạ",
+      "Trang kết hợp CV + portfolio dự án",
+    ],
+  },
 ];
 
 const USE_CASE_TAGS = [
@@ -250,6 +277,14 @@ const USE_CASE_TAGS = [
   {
     label: "Thú cưng & pet shop",
     color: "bg-amber-50 text-amber-700 border-amber-200",
+  },
+  {
+    label: "Freelancer & Portfolio",
+    color: "bg-teal-50 text-teal-700 border-teal-200",
+  },
+  {
+    label: "CV xin việc lập trình viên",
+    color: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
   {
     label: "Và mọi ý tưởng khác…",
@@ -410,7 +445,11 @@ export default async function LandingPage() {
   const session = await auth();
   const isLoggedIn = !!session?.user;
 
-  let userProfile: { fullName: string; avatarUrl: string; isAdmin: boolean } | null = null;
+  let userProfile: {
+    fullName: string;
+    avatarUrl: string;
+    isAdmin: boolean;
+  } | null = null;
   if (session?.user?.id) {
     await dbConnect();
     const u = (await User.findById(session.user.id, {
@@ -429,7 +468,9 @@ export default async function LandingPage() {
   const [reviewStats, carouselReviews, hasReviewed] = await Promise.all([
     getReviewStats(),
     getCarouselReviews(),
-    session?.user?.id ? getUserHasReviewed(session.user.id) : Promise.resolve(false),
+    session?.user?.id
+      ? getUserHasReviewed(session.user.id)
+      : Promise.resolve(false),
   ]);
 
   const jsonLd = {
@@ -582,7 +623,7 @@ export default async function LandingPage() {
             <div className="flex-1 text-center lg:text-left">
               <div className="hero-badge inline-flex items-center gap-2 px-3 py-1.5 mb-6 text-xs font-semibold text-violet-700 bg-violet-50 rounded-full border border-violet-200">
                 <Sparkles className="w-3.5 h-3.5" />
-                Công cụ AI tạo nội dung cho thị trường Việt Nam
+                Công cụ AI tạo nội dung & Portfolio cho thị trường Việt Nam
               </div>
 
               <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
@@ -593,10 +634,11 @@ export default async function LandingPage() {
               </h1>
 
               <p className="hero-subtitle text-lg sm:text-xl text-gray-500 max-w-xl mx-auto lg:mx-0 mb-6">
-                Mô tả bằng tiếng Việt, AI tạo HTML chuẩn inline CSS. Chỉnh sửa
-                kéo thả trong editor — xuất ra dùng được ở{" "}
+                Mô tả bằng tiếng Việt, AI tạo HTML chuẩn inline CSS — từ
+                landing page, bài viết, quảng cáo đến portfolio & CV xin việc.
+                Chỉnh sửa kéo thả —{" "}
                 <span className="font-semibold text-gray-700">
-                  bất kỳ đâu bạn muốn
+                  xuất ra dùng được ở bất kỳ đâu
                 </span>
                 .
               </p>
@@ -630,6 +672,10 @@ export default async function LandingPage() {
                   {
                     label: "📣 Quảng Cáo",
                     color: "bg-rose-100 text-rose-700 border-rose-200",
+                  },
+                  {
+                    label: "💼 Portfolio & CV",
+                    color: "bg-teal-100 text-teal-700 border-teal-200",
                   },
                 ].map(({ label, color }) => (
                   <span
@@ -670,7 +716,7 @@ export default async function LandingPage() {
               <div className="hero-stats flex flex-wrap justify-center lg:justify-start gap-6 mt-7 pt-7 sm:gap-8 sm:mt-10 sm:pt-10 border-t border-violet-100">
                 {[
                   {
-                    value: "3 loại",
+                    value: "4 loại",
                     label: "nội dung có thể tạo",
                     grad: "from-indigo-700 to-violet-600",
                   },
@@ -743,7 +789,7 @@ export default async function LandingPage() {
                         Bạn muốn tạo loại nội dung nào?
                       </div>
                       <div className="flex gap-1.5 flex-wrap">
-                        {["🏠 Landing Page", "📝 Bài viết", "📣 Quảng cáo"].map(
+                        {["🏠 Landing Page", "📝 Bài viết", "📣 Quảng cáo", "💼 Portfolio"].map(
                           (t) => (
                             <span
                               key={t}
@@ -874,42 +920,52 @@ export default async function LandingPage() {
             </p>
           </ScrollReveal>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-8 sm:mb-12">
+          <div className="grid sm:grid-cols-2 gap-5 mb-8 sm:mb-12">
             {CONTENT_TYPES.map((ct, i) => (
               <ScrollReveal key={ct.title} delay={i * 80} className="h-full">
                 <div
-                  className={`h-full rounded-2xl bg-gradient-to-br ${ct.bg} border ${ct.border} p-6 flex flex-col`}
+                  className={`h-full rounded-2xl bg-gradient-to-br ${ct.bg} border ${ct.border} p-6 flex flex-col gap-5`}
                 >
-                  <div
-                    className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${ct.grad} flex items-center justify-center text-2xl mb-4 shadow-md flex-shrink-0`}
-                  >
-                    {ct.emoji}
-                  </div>
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-lg font-bold text-gray-900">
-                      {ct.title}
-                    </h3>
-                    <span
-                      className={`text-xs font-semibold px-2 py-0.5 rounded-full ${ct.badgeColor} flex-shrink-0 ml-2`}
+                  {/* Top: icon + title + badge + desc */}
+                  <div className="flex items-start gap-4">
+                    <div
+                      className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${ct.grad} flex items-center justify-center text-2xl shadow-md flex-shrink-0`}
                     >
-                      {ct.badge}
-                    </span>
+                      {ct.emoji}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                        <h3 className="text-base font-bold text-gray-900">
+                          {ct.title}
+                        </h3>
+                        <span
+                          className={`text-xs font-semibold px-2 py-0.5 rounded-full ${ct.badgeColor} flex-shrink-0`}
+                        >
+                          {ct.badge}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-500 leading-relaxed">
+                        {ct.desc}
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-sm text-gray-600 mb-4">{ct.desc}</p>
-                  <ul className="space-y-1.5 flex-1">
+                  {/* Divider */}
+                  <div className="border-t border-black/5" />
+                  {/* Examples: 2 columns, 6 items */}
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-2.5">
                     {ct.examples.map((ex) => (
-                      <li
+                      <div
                         key={ex}
-                        className="flex items-center gap-2 text-sm text-gray-700"
+                        className="flex items-start gap-1.5 text-xs text-gray-700"
                       >
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />{" "}
-                        {ex}
-                      </li>
+                        <CheckCircle2 className="w-3 h-3 text-emerald-500 flex-shrink-0 mt-0.5" />
+                        <span>{ex}</span>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                   <Link
                     href={isLoggedIn ? "/create" : "/login?tab=register"}
-                    className={`mt-5 block text-center py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r ${ct.grad} text-white hover:opacity-90 transition-opacity shadow-sm`}
+                    className={`mt-auto block text-center py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r ${ct.grad} text-white hover:opacity-90 transition-opacity shadow-sm`}
                   >
                     Tạo {ct.title} →
                   </Link>
@@ -1415,7 +1471,8 @@ export default async function LandingPage() {
               href={isLoggedIn ? "/create" : "/demo"}
               className="inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-indigo-500/25"
             >
-              <MousePointer2 className="w-4 h-4" /> Thử editor ngay — không cần đăng ký
+              <MousePointer2 className="w-4 h-4" /> Thử editor ngay — không cần
+              đăng ký
             </Link>
           </ScrollReveal>
         </div>

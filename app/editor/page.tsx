@@ -54,6 +54,7 @@ export default async function EditorPage({
       initialData={initialData}
       projectId={projectId && mongoose.Types.ObjectId.isValid(projectId) ? projectId : null}
       canExport={planInfo?.canExport ?? false}
+      canPublish={planInfo?.canPublish ?? false}
       plan={planInfo?.plan ?? 'free'}
     />
   )

@@ -1,4 +1,4 @@
-export type ContentType = "landing" | "article" | "ads";
+export type ContentType = "landing" | "article" | "ads" | "portfolio";
 
 interface ModelRoute {
   models: string[];
@@ -6,7 +6,7 @@ interface ModelRoute {
 }
 
 // Model routing: chọn model tốt nhất cho từng loại nội dung
-// landing/ads → gemini-2.5-pro (reasoning phức tạp, creativity cao)
+// landing/ads/portfolio → gemini-2.5-pro (reasoning phức tạp, creativity cao)
 // article → gemini-2.5-flash (viết cấu trúc, nhanh, tiết kiệm)
 const ROUTE: Record<ContentType, ModelRoute> = {
   landing: {
@@ -20,6 +20,10 @@ const ROUTE: Record<ContentType, ModelRoute> = {
   article: {
     models: ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash"],
     temperature: 0.6,
+  },
+  portfolio: {
+    models: ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.0-flash"],
+    temperature: 0.75,
   },
 };
 
@@ -226,6 +230,66 @@ QUAN TRỌNG:
 - options PHẢI cụ thể, tự nhiên — không phải 'Lựa chọn 1'
 - 3-4 options mỗi câu`
 
+const PORTFOLIO_SYSTEM_PROMPT = `Bạn là chuyên gia tư vấn thiết kế Portfolio & CV online, nhiệm vụ là hỏi đủ thông tin để tạo ra trang cá nhân chuyên nghiệp 80–90% ngay lần đầu.
+
+═══════════════════════════════════════
+QUY TẮC HỎI BẮT BUỘC
+═══════════════════════════════════════
+
+QUAN TRỌNG: KHÔNG BAO GIỜ tạo HTML ngay từ đầu. Phải hỏi đủ 6 mục trong checklist trước.
+Mỗi lượt chỉ 1 câu hỏi. Đừng hỏi những gì user đã nói rõ.
+
+💼 PORTFOLIO & CV — phải hỏi đủ 6 mục:
+1. Họ tên đầy đủ & vị trí/nghề nghiệp mục tiêu
+2. Loại trang: CV/Resume thuần / Portfolio dự án / Kết hợp cả hai
+3. Kỹ năng chuyên môn & công cụ thành thạo
+4. Các dự án / thành tích nổi bật (tên, mô tả ngắn, vai trò)
+5. Phong cách thiết kế & màu sắc (tối hiện đại / sáng sạch / sáng tạo / corporate)
+6. Thông tin liên hệ (email, điện thoại, LinkedIn, GitHub, website...)
+
+═══════════════════════════════════════
+ĐỊNH DẠNG PHẢN HỒI — BẮT BUỘC
+═══════════════════════════════════════
+
+⚠️ Mọi response PHẢI là một JSON object hợp lệ duy nhất. Không text nào ngoài JSON.
+
+Khi hỏi:
+{"type":"question","question":"Câu hỏi?","hint":"Ví dụ cụ thể","options":["A","B","C","D"]}
+
+Khi đã hỏi đủ 6 mục — xác nhận:
+{"type":"confirm","items":["Tên / vị trí: ...","Loại trang: ...","Kỹ năng: ...","Dự án: ...","Phong cách: ...","Liên hệ: ..."],"question":"Mình đã có đủ thông tin để tạo Portfolio/CV cho bạn! Xem lại nhé?","options":["Tạo ngay!","Muốn chỉnh phong cách","Muốn thêm dự án","Bổ sung thêm thông tin"]}
+
+Khi user xác nhận → tạo HTML:
+{"type":"html","content":"<!DOCTYPE html>...toàn bộ mã HTML..."}
+
+QUAN TRỌNG:
+- LUÔN trả về JSON hợp lệ, KHÔNG text nào bên ngoài JSON
+- TUYỆT ĐỐI KHÔNG dùng dấu nháy kép " bên trong string value của JSON
+
+═══════════════════════════════════════
+YÊU CẦU KHI TẠO HTML PORTFOLIO/CV
+═══════════════════════════════════════
+
+- Cấu trúc đầy đủ từ <!DOCTYPE html> đến </html>
+- CSS viết trong thẻ <style> trong <head>; có thể dùng Google Fonts qua @import
+
+SECTIONS theo loại:
+CV/Resume: Header (tên, vị trí, contact) → Summary → Skills → Experience → Education → CTA liên hệ
+Portfolio: Header hero → About → Skills → Projects showcase (cards) → Experience → Contact
+Kết hợp: Header hero → About → Skills → Projects → Experience → Education → Contact
+
+CSS — QUY TẮC BẮT BUỘC:
+  * TUYỆT ĐỐI KHÔNG dùng CSS custom properties hay CSS variables (:root, var(--x))
+  * Luôn viết giá trị trực tiếp: background-color: #1b4332
+
+RESPONSIVE — BẮT BUỘC:
+  * Dùng flexbox hoặc CSS grid cho layout
+  * Media query @media (max-width: 768px): cột đơn, font nhỏ lại
+
+TUYỆT ĐỐI không có <script> hay JavaScript
+Nội dung bằng tiếng Việt (trừ tên công nghệ/tool)
+Nếu thiếu thông tin cụ thể, tạo nội dung mẫu và thêm <!-- TODO: thay thế nội dung này -->`
+
 // Walk character-by-character to extract the first balanced JSON object.
 // Handles the case where Gemini returns multiple JSON objects in one response.
 function extractFirstJson(text: string): unknown | null {
@@ -406,7 +470,12 @@ export async function chatWithGemini(
   if (!apiKey) throw new Error("GOOGLE_AI_API_KEY is not configured");
 
   const { models, temperature } = contentType ? ROUTE[contentType] : DEFAULT_ROUTE;
-  const systemPrompt = contentType === "ads" ? ADS_SYSTEM_PROMPT : SYSTEM_PROMPT;
+  const systemPrompt =
+    contentType === "ads"
+      ? ADS_SYSTEM_PROMPT
+      : contentType === "portfolio"
+        ? PORTFOLIO_SYSTEM_PROMPT
+        : SYSTEM_PROMPT;
   console.log(`[Gemini] content=${contentType ?? "default"} → primary=${models[0]} temp=${temperature}`);
 
   let res: Response | null = null;
@@ -450,15 +519,7 @@ export async function chatWithGemini(
         type: "question",
         question: p.question as string,
         hint: (p.hint as string | undefined) ?? undefined,
-        // If Gemini returned empty options, inject generic fallbacks so the UI always shows choices
-        options:
-          opts.length >= 2
-            ? opts
-            : [
-                "Đúng rồi, phù hợp",
-                "Cần điều chỉnh thêm",
-                "Bạn tư vấn giúp mình",
-              ],
+        options: opts,
       };
     }
 
@@ -520,11 +581,10 @@ export async function chatWithGemini(
     return { type: "html", content: extracted };
   }
 
-  // Final fallback: something unexpected — never expose raw JSON/text to UI
+  // Final fallback: return error so client shows retry UI instead of looping
   console.warn("[Gemini] Could not parse response, raw text:", rawText.slice(0, 200));
   return {
-    type: "question",
-    question: "Bạn có thể mô tả thêm về nội dung bạn muốn tạo không?",
-    options: ["Tiếp tục", "Bắt đầu lại", "Bạn tư vấn giúp mình"],
+    type: "error",
+    content: "AI trả về phản hồi không hợp lệ. Vui lòng thử lại.",
   };
 }

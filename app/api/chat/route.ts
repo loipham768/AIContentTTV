@@ -19,7 +19,7 @@ const chatSchema = z.object({
   messages: z.array(messageSchema).min(1).max(40),
   initialPrompt: z.string().max(500).optional(),
   isFinal: z.boolean().optional(), // true only when the conversation produces HTML
-  contentType: z.enum(['landing', 'article', 'ads']).optional(),
+  contentType: z.enum(['landing', 'article', 'ads', 'portfolio']).optional(),
 })
 
 export async function POST(req: NextRequest) {
