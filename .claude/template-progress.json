@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-06-13",
-  "note": "Mỗi ngày tạo 6 mẫu: 2 landing, 2 ads, 2 article. Style phải đa dạng, không lặp lại.",
+  "last_updated": "2026-06-16",
+  "note": "Ngày 1-5: 2 landing + 2 ads + 2 article. Ngày 6+: 3 portfolio + 3 cv. Dùng /template để tự động tạo theo kế hoạch.",
   "templates": [
     { "day": 1, "id": "lp-my-pham-glow", "name": "Landing Page Mỹ Phẩm Glow", "category": "landing", "niche": "Mỹ phẩm / Skincare", "style": "Sang trọng, pastel hồng-trắng, hero lớn", "done": true },
     { "day": 1, "id": "lp-khoa-hoc-online", "name": "Landing Page Khóa Học Online", "category": "landing", "niche": "Giáo dục / E-learning", "style": "Hiện đại, xanh navy-tím, có countdown timer", "done": true },
@@ -35,6 +35,27 @@
     { "day": 5, "id": "ads-fb-giam-can", "name": "Quảng Cáo Giảm Cân Facebook", "category": "ads", "niche": "Sức khỏe / Weight loss", "style": "Xanh lá-trắng, before/after visual, energetic", "done": false },
     { "day": 5, "id": "ads-story-instagram", "name": "Instagram Story Quảng Cáo", "category": "ads", "niche": "Social media / Instagram", "style": "9:16 vertical, gradient pastel, swipe-up style", "done": false },
     { "day": 5, "id": "article-interview", "name": "Bài Viết Phỏng Vấn Chuyên Gia", "category": "article", "niche": "Interview / Expert", "style": "Q&A format, avatar chuyên gia, pull quote", "done": false },
-    { "day": 5, "id": "article-infographic-text", "name": "Bài Viết Dạng Infographic", "category": "article", "niche": "Thống kê / Data visual", "style": "Stat blocks, progress bars, data-heavy visual", "done": false }
+    { "day": 5, "id": "article-infographic-text", "name": "Bài Viết Dạng Infographic", "category": "article", "niche": "Thống kê / Data visual", "style": "Stat blocks, progress bars, data-heavy visual", "done": false },
+
+    { "day": 6, "id": "portfolio-creative-designer", "name": "Portfolio Designer Sáng Tạo", "category": "portfolio", "niche": "UI/UX / Brand Design", "style": "Dark nền, gradient tím-hồng, showcase dự án grid", "done": true },
+    { "day": 6, "id": "portfolio-developer", "name": "Portfolio Developer Dark Mode", "category": "portfolio", "niche": "Fullstack / Lập trình viên", "style": "Dark mode, terminal aesthetic, GitHub-inspired", "done": true },
+    { "day": 6, "id": "portfolio-photographer", "name": "Portfolio Nhiếp Ảnh Tối Giản", "category": "portfolio", "niche": "Nhiếp ảnh / Photography", "style": "Minimal đen-trắng, masonry gallery, elegant", "done": true },
+    { "day": 6, "id": "cv-modern-professional", "name": "CV Hiện Đại 2 Cột", "category": "cv", "niche": "Marketing / Business", "style": "2-column, sidebar tối, thanh kỹ năng, timeline", "done": true },
+    { "day": 6, "id": "cv-classic-clean", "name": "CV Cổ Điển Sạch Sẽ", "category": "cv", "niche": "Kỹ thuật / Backend", "style": "ATS-friendly, 1 cột, serif typography", "done": true },
+    { "day": 6, "id": "cv-creative-sidebar", "name": "CV Sáng Tạo Màu Sắc", "category": "cv", "niche": "Content Creator / Marketing", "style": "Sidebar xanh-emerald gradient, timeline sáng tạo", "done": true },
+
+    { "day": 7, "id": "portfolio-freelancer", "name": "Portfolio Freelancer / Tư Vấn", "category": "portfolio", "niche": "Freelancer / Consultant", "style": "Clean navy-teal, service-focused, trust signals", "done": false },
+    { "day": 7, "id": "portfolio-teacher", "name": "Portfolio Giáo Viên / Gia Sư", "category": "portfolio", "niche": "Giáo dục / Gia sư", "style": "Ấm áp cam-vàng, thân thiện, achievement highlights", "done": false },
+    { "day": 7, "id": "portfolio-musician", "name": "Portfolio Nhạc Sĩ / Nghệ Sĩ", "category": "portfolio", "niche": "Âm nhạc / Nghệ thuật", "style": "Dark moody, gradient tím đậm, full-screen immersive", "done": false },
+    { "day": 7, "id": "cv-startup-pm", "name": "CV Startup / Product Manager", "category": "cv", "niche": "Product / Startup", "style": "Modern purple-pink, metric-heavy, bold layout", "done": false },
+    { "day": 7, "id": "cv-intern-student", "name": "CV Sinh Viên Thực Tập", "category": "cv", "niche": "Sinh viên / Intern", "style": "Light blue, fresh clean, project-focused", "done": false },
+    { "day": 7, "id": "cv-executive", "name": "CV Giám Đốc / Senior Executive", "category": "cv", "niche": "C-level / Senior Manager", "style": "Dark navy premium, sophisticated, leadership focus", "done": false },
+
+    { "day": 8, "id": "portfolio-video-editor", "name": "Portfolio Video Editor / Motion", "category": "portfolio", "niche": "Video / Motion Design", "style": "Cinematic dark, neon accent, showreel-style", "done": false },
+    { "day": 8, "id": "portfolio-architect", "name": "Portfolio Kiến Trúc Sư", "category": "portfolio", "niche": "Kiến trúc / Nội thất", "style": "Minimal geometric, white space, blueprint accent", "done": false },
+    { "day": 8, "id": "portfolio-writer", "name": "Portfolio Nhà Văn / Biên Tập", "category": "portfolio", "niche": "Viết lách / Editorial", "style": "Literary serif, warm cream, editorial magazine style", "done": false },
+    { "day": 8, "id": "cv-sales-bd", "name": "CV Sales / Business Development", "category": "cv", "niche": "Sales / Kinh doanh", "style": "Năng động đỏ-cam, KPI highlight, achievement badges", "done": false },
+    { "day": 8, "id": "cv-engineer-tech", "name": "CV Kỹ Sư Xây Dựng / Cơ Khí", "category": "cv", "niche": "Kỹ sư / Xây dựng", "style": "Professional xanh dương, structured, technical skills", "done": false },
+    { "day": 8, "id": "cv-finance-accounting", "name": "CV Tài Chính / Kế Toán", "category": "cv", "niche": "Tài chính / Kế toán", "style": "Trustworthy green-navy, clean numbers, formal", "done": false }
   ]
 }
