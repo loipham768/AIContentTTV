@@ -5,6 +5,11 @@ import { dbConnect } from '@/lib/mongodb'
 import Project from '@/models/Project'
 import RateLimit from '@/models/RateLimit'
 import { checkAndIncrementGeneration } from '@/lib/planGate'
+import { preprocessTemplateForEditor } from '@/lib/serverCssIsolation'
+import { Agent } from 'undici'
+
+// Undici default connectTimeout is 10s — increase to 30s for slow sites
+const fetchAgent = new Agent({ connect: { timeout: 30_000 } })
 
 export const runtime = 'nodejs'
 
@@ -55,8 +60,10 @@ async function fetchPageHtml(url: string): Promise<string> {
       Accept: 'text/html,application/xhtml+xml',
       'Accept-Language': 'vi-VN,vi;q=0.9,en;q=0.8',
     },
-    signal: AbortSignal.timeout(15000),
+    signal: AbortSignal.timeout(30_000),
     redirect: 'follow',
+    // @ts-ignore — undici dispatcher for longer connect timeout
+    dispatcher: fetchAgent,
   })
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   const contentType = res.headers.get('content-type') ?? ''
@@ -110,7 +117,7 @@ async function callGeminiForHtml(pageUrl: string, pageHtml: string): Promise<str
     })
     if (!res.ok) {
       lastErr = await res.text()
-      if (res.status !== 429 && res.status !== 503 && res.status !== 500) break
+      if (![404, 429, 500, 503].includes(res.status)) break
       console.warn(`[clone-url] ${model} returned ${res.status}, trying next...`)
       continue
     }
@@ -118,11 +125,13 @@ async function callGeminiForHtml(pageUrl: string, pageHtml: string): Promise<str
     const rawText: string = data.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
     if (!rawText) throw new Error('Gemini returned empty response')
 
+    console.log(`[clone-url] ${model} raw response: ${rawText.length} chars, starts: ${rawText.slice(0, 120).replace(/\n/g, '\\n')}`)
+
     // Extract HTML robustly — Gemini sometimes adds preamble text or markdown fences
     let html = rawText
 
-    // Case 1: wrapped in markdown ```html ... ```
-    const fenceMatch = html.match(/```(?:html)?\s*([\s\S]*?)```/i)
+    // Case 1: wrapped in markdown ```html ... ``` (greedy to grab full block)
+    const fenceMatch = html.match(/```(?:html)?\s*([\s\S]*)```/i)
     if (fenceMatch) {
       html = fenceMatch[1].trim()
     } else {
@@ -138,6 +147,23 @@ async function callGeminiForHtml(pageUrl: string, pageHtml: string): Promise<str
     if (!html || (!html.includes('<html') && !html.includes('<!DOCTYPE'))) {
       throw new Error('Gemini did not return valid HTML')
     }
+
+    // Verify body exists and has actual content (truncated responses only contain <head>)
+    const bodyTagIdx = html.search(/<body[^>]*>/i)
+    if (bodyTagIdx === -1) {
+      console.warn(`[clone-url] ${model} HTML has no <body> tag (${html.length} chars), retrying...`)
+      lastErr = 'HTML missing body tag'
+      continue
+    }
+    const bodyOpenTag = html.match(/<body[^>]*>/i)![0]
+    const afterBody = html.slice(bodyTagIdx + bodyOpenTag.length).replace(/<\/body>[\s\S]*$/i, '').trim()
+    if (afterBody.length < 50) {
+      console.warn(`[clone-url] ${model} HTML body too short (${afterBody.length} chars), retrying...`)
+      lastErr = 'HTML body content too short'
+      continue
+    }
+
+    console.log(`[clone-url] ${model} OK: ${html.length} chars, body content: ${afterBody.length} chars`)
     return html
   }
 
@@ -198,10 +224,17 @@ export async function POST(req: NextRequest) {
     rawHtml = await fetchPageHtml(url)
   } catch (fetchErr) {
     await RateLimit.deleteOne({ userId }).catch(() => {})
-    console.error('[/api/clone-url] fetch error:', fetchErr)
-    const msg = fetchErr instanceof Error ? fetchErr.message : 'Lỗi không xác định'
+    const errName = fetchErr instanceof Error ? (fetchErr as any).name ?? '' : ''
+    const errCode = (fetchErr as any)?.cause?.code ?? ''
+    let msg = 'Lỗi không xác định'
+    if (errName === 'TimeoutError' || errName === 'AbortError' || errCode === 'UND_ERR_CONNECT_TIMEOUT') {
+      msg = 'Kết nối tới URL quá chậm hoặc bị từ chối (timeout). Trang có thể dùng Cloudflare hoặc chặn bot.'
+    } else if (fetchErr instanceof Error) {
+      msg = fetchErr.message
+    }
+    console.error(`[/api/clone-url] fetch error (${errName}/${errCode}):`, msg)
     return NextResponse.json(
-      { error: `Không thể tải trang: ${msg}. Hãy kiểm tra URL hoặc thử trang khác.` },
+      { error: `Không thể tải trang: ${msg}` },
       { status: 400 },
     )
   }
@@ -210,9 +243,13 @@ export async function POST(req: NextRequest) {
 
   // Call Gemini to recreate HTML
   try {
-    const html = await callGeminiForHtml(url, cleanedHtml)
+    const rawHtmlFromAi = await callGeminiForHtml(url, cleanedHtml)
 
-    console.log(`[clone-url] HTML generated: ${html.length} chars, starts: ${html.slice(0, 80)}`)
+    console.log(`[clone-url] HTML generated: ${rawHtmlFromAi.length} chars, starts: ${rawHtmlFromAi.slice(0, 80)}`)
+
+    // Inline CSS into element style attributes — same preprocessing as templates,
+    // so GrapesJS can render the content correctly in the editor canvas.
+    const html = await preprocessTemplateForEditor(rawHtmlFromAi)
 
     let projectId: string | null = null
     try {

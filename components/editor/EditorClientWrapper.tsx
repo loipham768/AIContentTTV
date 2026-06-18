@@ -85,10 +85,6 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
     if (initialData) {
       const data = initialData as Record<string, unknown>;
       if (data.type === 'html' && typeof data.html === 'string') {
-        // Parse the full Gemini HTML to separate <style> from body content.
-        // GrapesJS setComponents() drops <head>/<style>, so we must extract CSS
-        // manually and inject it via setStyle() so editor.getCss() returns it
-        // and the juice css-isolation step can inline it correctly on export.
         const parser = new DOMParser();
         const doc = parser.parseFromString(data.html, 'text/html');
 
@@ -96,19 +92,26 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
           .map(s => s.textContent ?? '')
           .join('\n');
 
-        // Resolve var() before loading into GrapesJS — GrapesJS may drop :root
-        // declarations through setStyle()/getCss(), leaving var() unresolvable on export.
         const styleContent = rawCss.trim() ? resolveCssVariables(rawCss) : rawCss;
+        // If body is empty (HTML was truncated / only head), fall back to full HTML string
+        const bodyHtml = doc.body.innerHTML.trim() || data.html;
 
-        editor.setComponents(doc.body.innerHTML);
-        if (styleContent.trim()) {
-          editor.setStyle(styleContent);
-        }
+        // Defer to 'load' so the canvas iframe is ready before injecting content.
+        // Calling setComponents/setStyle before 'load' silently produces a blank canvas.
+        const onLoad = () => {
+          editor.off('load', onLoad);
+          editor.setComponents(bodyHtml);
+          if (styleContent.trim()) {
+            editor.setStyle(styleContent);
+          }
+          setHistoryKey(k => k + 1);
+        };
+        editor.on('load', onLoad);
       } else {
         // GrapesJS project JSON (legacy Claude format)
         editor.loadProjectData(initialData as Parameters<typeof editor.loadProjectData>[0]);
+        setHistoryKey(k => k + 1);
       }
-      setHistoryKey(k => k + 1);
     }
 
     // When user changes "color" via style manager, sync -webkit-text-fill-color so gradient-text

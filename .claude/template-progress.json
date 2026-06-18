@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-16",
+  "last_updated": "2026-06-17",
   "note": "Ngày 1-5: 2 landing + 2 ads + 2 article. Ngày 6+: 3 portfolio + 3 cv. Dùng /template để tự động tạo theo kế hoạch.",
   "templates": [
     { "day": 1, "id": "lp-my-pham-glow", "name": "Landing Page Mỹ Phẩm Glow", "category": "landing", "niche": "Mỹ phẩm / Skincare", "style": "Sang trọng, pastel hồng-trắng, hero lớn", "done": true },
@@ -9,12 +9,12 @@
     { "day": 1, "id": "article-review-san-pham", "name": "Bài Viết Review Sản Phẩm", "category": "article", "niche": "Review / Đánh giá", "style": "Clean blog, xếp hạng sao, bảng so sánh", "done": true },
     { "day": 1, "id": "article-tin-tuc", "name": "Bài Viết Tin Tức", "category": "article", "niche": "Tin tức / Báo chí", "style": "News style, ảnh lớn đầu bài, sidebar info", "done": true },
 
-    { "day": 2, "id": "lp-spa-tham-my", "name": "Landing Page Spa & Thẩm Mỹ", "category": "landing", "niche": "Spa / Làm đẹp", "style": "Sang trọng, tím-vàng gold, elegant serif", "done": false },
-    { "day": 2, "id": "lp-nha-hang", "name": "Landing Page Nhà Hàng", "category": "landing", "niche": "F&B / Nhà hàng", "style": "Tối màu, vàng gold, dark luxury dining", "done": false },
-    { "day": 2, "id": "ads-fb-thoi-trang", "name": "Quảng Cáo Thời Trang Facebook", "category": "ads", "niche": "Thời trang / Fashion", "style": "Minimal chic, đen-trắng, high fashion", "done": false },
-    { "day": 2, "id": "ads-gg-display-dv", "name": "Google Display Dịch Vụ", "category": "ads", "niche": "Dịch vụ / Agency", "style": "Professional, xanh dương, corporate clean", "done": false },
-    { "day": 2, "id": "article-huong-dan", "name": "Bài Viết Hướng Dẫn Step-by-Step", "category": "article", "niche": "Hướng dẫn / Tutorial", "style": "Numbered steps, icon mỗi bước, progress visual", "done": false },
-    { "day": 2, "id": "article-so-sanh", "name": "Bài Viết So Sánh Sản Phẩm", "category": "article", "niche": "So sánh / Comparison", "style": "Bảng so sánh đẹp, verdict card, pro/con list", "done": false },
+    { "day": 2, "id": "lp-spa-tham-my", "name": "Landing Page Spa & Thẩm Mỹ", "category": "landing", "niche": "Spa / Làm đẹp", "style": "Sang trọng, tím-vàng gold, elegant serif", "done": true },
+    { "day": 2, "id": "lp-nha-hang", "name": "Landing Page Nhà Hàng", "category": "landing", "niche": "F&B / Nhà hàng", "style": "Tối màu, vàng gold, dark luxury dining", "done": true },
+    { "day": 2, "id": "ads-fb-thoi-trang", "name": "Quảng Cáo Thời Trang Facebook", "category": "ads", "niche": "Thời trang / Fashion", "style": "Minimal chic, đen-trắng, high fashion", "done": true },
+    { "day": 2, "id": "ads-gg-display-dv", "name": "Google Display Dịch Vụ", "category": "ads", "niche": "Dịch vụ / Agency", "style": "Professional, xanh dương, corporate clean", "done": true },
+    { "day": 2, "id": "article-huong-dan", "name": "Bài Viết Hướng Dẫn Step-by-Step", "category": "article", "niche": "Hướng dẫn / Tutorial", "style": "Numbered steps, icon mỗi bước, progress visual", "done": true },
+    { "day": 2, "id": "article-so-sanh", "name": "Bài Viết So Sánh Sản Phẩm", "category": "article", "niche": "So sánh / Comparison", "style": "Bảng so sánh đẹp, verdict card, pro/con list", "done": true },
 
     { "day": 3, "id": "lp-bat-dong-san", "name": "Landing Page Bất Động Sản", "category": "landing", "niche": "Bất động sản", "style": "Premium, xanh lá-vàng, luxury real estate", "done": false },
     { "day": 3, "id": "lp-gym-fitness", "name": "Landing Page Gym & Fitness", "category": "landing", "niche": "Thể dục / Fitness", "style": "Năng động, đen-cam neon, bold athletic", "done": false },

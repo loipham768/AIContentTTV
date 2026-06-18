@@ -1,54 +1,56 @@
 import { MetadataRoute } from "next";
-import { getAllSlugs } from "@/lib/articles-db";
+import { getArticlesMeta } from "@/lib/articles-db";
 import { SITE_URL as BASE_URL } from "@/lib/constants";
 
 export const revalidate = 3600;
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  let slugs: string[] = [];
-  try {
-    slugs = await getAllSlugs();
-  } catch {
-    // DB not available at build time — sitemap generated without articles
-  }
-  const articleUrls = slugs.map((slug) => ({
-    url: `${BASE_URL}/kien-thuc/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
+// Static pages with their actual creation/last-significant-update dates
+const STATIC_PAGES: MetadataRoute.Sitemap = [
+  {
+    url: BASE_URL,
+    lastModified: new Date("2026-05-19"),
+    changeFrequency: "weekly",
+    priority: 1,
+  },
+  {
+    url: `${BASE_URL}/kien-thuc`,
+    lastModified: new Date("2026-05-19"),
+    changeFrequency: "weekly",
+    priority: 0.8,
+  },
+  {
+    url: `${BASE_URL}/templates`,
+    lastModified: new Date("2026-05-19"),
+    changeFrequency: "weekly",
     priority: 0.7,
-  }));
+  },
+  {
+    url: `${BASE_URL}/upgrade`,
+    lastModified: new Date("2026-05-19"),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  },
+  {
+    url: `${BASE_URL}/contact`,
+    lastModified: new Date("2026-05-19"),
+    changeFrequency: "monthly",
+    priority: 0.5,
+  },
+];
 
-  return [
-    {
-      url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${BASE_URL}/kien-thuc`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/templates`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  let articleUrls: MetadataRoute.Sitemap = [];
+  try {
+    const articles = await getArticlesMeta();
+    articleUrls = articles.map((article) => ({
+      url: `${BASE_URL}/kien-thuc/${article.slug}`,
+      lastModified: new Date(article.publishedDate),
+      changeFrequency: "monthly" as const,
       priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/upgrade`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    ...articleUrls,
-  ];
+    }));
+  } catch {
+    // DB not available — sitemap generated without articles
+  }
+
+  return [...STATIC_PAGES, ...articleUrls];
 }

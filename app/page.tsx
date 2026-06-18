@@ -40,6 +40,8 @@ import {
   ArrowUp,
   ArrowDown,
   X,
+  Share2,
+  Link2,
 } from "lucide-react";
 import { Suspense } from "react";
 import PricingSection from "@/components/pricing/PricingSection";
@@ -118,20 +120,28 @@ const FEATURES = [
     desc: "Tất cả nội dung lưu tự động vào tài khoản — mở lại, chỉnh sửa tiếp bất kỳ lúc nào.",
   },
   {
-    icon: <ShieldCheck className="w-5 h-5 text-white" />,
-    iconGrad: "from-slate-500 to-gray-700",
-    cardGrad: "from-slate-50/90 to-gray-50/50",
-    bar: "from-slate-400 to-gray-500",
-    title: "Bảo mật theo gói — chặn tại server",
-    desc: "Giới hạn lượt tạo và xuất HTML được kiểm tra phía server, không thể vượt qua dù dùng DevTools hay Postman.",
+    icon: <FileDown className="w-5 h-5 text-white" />,
+    iconGrad: "from-rose-500 to-red-600",
+    cardGrad: "from-rose-50/90 to-red-50/50",
+    bar: "from-rose-400 to-red-500",
+    title: "Xuất PDF chuyên nghiệp",
+    desc: "Tải PDF chất lượng cao từ nội dung đã thiết kế — phù hợp in ấn, gửi hồ sơ hoặc lưu trữ tài liệu không cần phần mềm thêm.",
   },
   {
-    icon: <Layers className="w-5 h-5 text-white" />,
-    iconGrad: "from-cyan-400 to-blue-500",
-    cardGrad: "from-cyan-50/90 to-blue-50/50",
-    bar: "from-cyan-400 to-blue-400",
-    title: "Tạo được nhiều loại nội dung, 1 công cụ",
-    desc: "Landing page bán hàng, bài viết blog/CMS, nội dung quảng cáo Facebook & Google — tất cả trong một nơi.",
+    icon: <Share2 className="w-5 h-5 text-white" />,
+    iconGrad: "from-teal-500 to-cyan-600",
+    cardGrad: "from-teal-50/90 to-cyan-50/50",
+    bar: "from-teal-400 to-cyan-500",
+    title: "Xuất bản & chia sẻ link",
+    desc: "Xuất bản lên internet với một click — nhận link công khai chia sẻ ngay, ai cũng xem được mà không cần tài khoản.",
+  },
+  {
+    icon: <Link2 className="w-5 h-5 text-white" />,
+    iconGrad: "from-sky-500 to-blue-600",
+    cardGrad: "from-sky-50/90 to-blue-50/50",
+    bar: "from-sky-400 to-blue-500",
+    title: "Clone website từ URL",
+    desc: "Dán link bất kỳ trang web — AI tự động phân tích bố cục, màu sắc, typography rồi tái tạo thành HTML chỉnh sửa được ngay trong editor.",
   },
 ];
 
@@ -376,8 +386,8 @@ const STEPS = [
     step: "03",
     stepGrad: "from-emerald-500 to-teal-600",
     wrapGrad: "from-emerald-100/80 to-teal-100/60",
-    title: "Chỉnh sửa kéo thả — xuất ra dùng ngay",
-    desc: "Kéo thả, chỉnh màu, font trong editor. Xong: sao chép HTML hoặc tải file .html — dán vào Haravan, Sapo, WordPress, email, landing page tự host, hay bất kỳ đâu bạn muốn.",
+    title: "Chỉnh sửa kéo thả — xuất ra theo cách bạn muốn",
+    desc: "Kéo thả, chỉnh màu, font trong editor. Xong: sao chép HTML, tải file .html, xuất PDF chất lượng cao, hoặc xuất bản link chia sẻ công khai — tất cả chỉ một click.",
     preview: (
       <div className="bg-white rounded-xl border border-emerald-100 p-4 shadow-sm">
         <div className="flex items-center gap-2 mb-3">
@@ -405,12 +415,18 @@ const STEPS = [
           <span className="text-gray-500">&gt;</span>
           <span className="text-green-300">Khóa học...</span>
         </div>
-        <div className="flex gap-2">
-          <button className="flex-1 flex items-center justify-center gap-1.5 bg-emerald-500 text-white text-xs py-2 rounded-lg font-semibold">
+        <div className="grid grid-cols-2 gap-1.5">
+          <button className="flex items-center justify-center gap-1.5 bg-emerald-500 text-white text-xs py-2 rounded-lg font-semibold">
             <Copy className="w-3 h-3" /> Sao chép HTML
           </button>
-          <button className="flex items-center justify-center gap-1.5 bg-slate-700 text-white text-xs py-2 px-3 rounded-lg font-semibold">
-            <FileDown className="w-3 h-3" /> Tải file
+          <button className="flex items-center justify-center gap-1.5 bg-slate-700 text-white text-xs py-2 rounded-lg font-semibold">
+            <FileDown className="w-3 h-3" /> Tải .html
+          </button>
+          <button className="flex items-center justify-center gap-1.5 bg-rose-600 text-white text-xs py-2 rounded-lg font-semibold">
+            <FileDown className="w-3 h-3" /> Xuất PDF
+          </button>
+          <button className="flex items-center justify-center gap-1.5 bg-teal-600 text-white text-xs py-2 rounded-lg font-semibold">
+            <Share2 className="w-3 h-3" /> Xuất bản link
           </button>
         </div>
       </div>
@@ -636,9 +652,9 @@ export default async function LandingPage() {
               <p className="hero-subtitle text-lg sm:text-xl text-gray-500 max-w-xl mx-auto lg:mx-0 mb-6">
                 Mô tả bằng tiếng Việt, AI tạo HTML chuẩn inline CSS — từ
                 landing page, bài viết, quảng cáo đến portfolio & CV xin việc.
-                Chỉnh sửa kéo thả —{" "}
+                Chỉnh sửa kéo thả — xuất HTML, PDF, hoặc{" "}
                 <span className="font-semibold text-gray-700">
-                  xuất ra dùng được ở bất kỳ đâu
+                  xuất bản link chia sẻ công khai ngay lập tức
                 </span>
                 .
               </p>
@@ -646,15 +662,19 @@ export default async function LandingPage() {
               {/* Export anywhere strip */}
               <div className="flex items-center gap-2 justify-center lg:justify-start mb-5 sm:mb-8 flex-wrap">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-700">
-                  <FileDown className="w-3.5 h-3.5" /> Tải file .html
-                </span>
-                <span className="text-gray-300 text-xs">·</span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-700">
                   <Copy className="w-3.5 h-3.5" /> Sao chép HTML
                 </span>
                 <span className="text-gray-300 text-xs">·</span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-violet-50 border border-violet-200 text-xs font-semibold text-violet-700">
-                  <Globe className="w-3.5 h-3.5" /> Dán vào bất kỳ CMS nào
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-700">
+                  <FileDown className="w-3.5 h-3.5" /> Tải file .html
+                </span>
+                <span className="text-gray-300 text-xs">·</span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700">
+                  <FileDown className="w-3.5 h-3.5" /> Xuất PDF
+                </span>
+                <span className="text-gray-300 text-xs">·</span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-teal-50 border border-teal-200 text-xs font-semibold text-teal-700">
+                  <Share2 className="w-3.5 h-3.5" /> Xuất bản link
                 </span>
               </div>
 
@@ -1438,10 +1458,10 @@ export default async function LandingPage() {
                 desc: "Kiểm tra giao diện desktop và mobile ngay trong editor",
               },
               {
-                icon: <FileDown className="w-5 h-5" />,
-                bg: "bg-blue-50 text-blue-600",
-                title: "Xuất ngay khi xong",
-                desc: "Sao chép HTML hoặc tải file .html — dán vào bất kỳ đâu",
+                icon: <Share2 className="w-5 h-5" />,
+                bg: "bg-teal-50 text-teal-600",
+                title: "HTML · PDF · Link xuất bản",
+                desc: "Sao chép HTML, tải .html, xuất PDF, hoặc xuất bản link chia sẻ — tất cả trong 1 click",
               },
             ].map(({ icon, bg, title, desc }) => (
               <div
@@ -1465,6 +1485,55 @@ export default async function LandingPage() {
             ))}
           </div>
 
+          {/* Export & Publish highlight */}
+          <ScrollReveal delay={100}>
+            <div className="mt-8 rounded-2xl border border-indigo-100 bg-white shadow-sm overflow-hidden">
+              <div className="px-6 py-4 border-b border-gray-100 bg-gray-50/60">
+                <p className="text-center text-xs font-semibold text-gray-500 uppercase tracking-widest">
+                  4 cách xuất bản & chia sẻ nội dung
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-100">
+                {[
+                  {
+                    icon: <Copy className="w-5 h-5 text-emerald-600" />,
+                    bg: "bg-emerald-50",
+                    title: "Sao chép HTML",
+                    desc: "Inline CSS sẵn sàng — dán thẳng vào Haravan, Sapo, WordPress",
+                  },
+                  {
+                    icon: <FileDown className="w-5 h-5 text-blue-600" />,
+                    bg: "bg-blue-50",
+                    title: "Tải file .html",
+                    desc: "File HTML hoàn chỉnh — self-host hoặc lưu trữ cục bộ",
+                  },
+                  {
+                    icon: <FileDown className="w-5 h-5 text-rose-600" />,
+                    bg: "bg-rose-50",
+                    title: "Xuất PDF",
+                    desc: "PDF chất lượng cao — in ấn, gửi hồ sơ, lưu tài liệu",
+                  },
+                  {
+                    icon: <Share2 className="w-5 h-5 text-teal-600" />,
+                    bg: "bg-teal-50",
+                    title: "Xuất bản link",
+                    desc: "Link công khai — chia sẻ ngay, ai cũng xem được trực tiếp",
+                  },
+                ].map(({ icon, bg, title, desc }) => (
+                  <div key={title} className="flex flex-col items-center text-center gap-3 p-5">
+                    <div className={`w-11 h-11 rounded-xl ${bg} flex items-center justify-center`}>
+                      {icon}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 text-sm mb-1">{title}</p>
+                      <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+
           {/* CTA */}
           <ScrollReveal className="text-center mt-10">
             <Link
@@ -1473,6 +1542,156 @@ export default async function LandingPage() {
             >
               <MousePointer2 className="w-4 h-4" /> Thử editor ngay — không cần
               đăng ký
+            </Link>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Clone Website ──────────────────────────────────────────── */}
+      <section className="py-10 sm:py-16" style={{ background: "#f0f9ff" }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <ScrollReveal className="text-center mb-6 sm:mb-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 text-xs font-semibold text-sky-700 bg-sky-50 rounded-full border border-sky-200">
+              <Link2 className="w-3.5 h-3.5" /> Tính năng độc quyền
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+              Clone bất kỳ website nào chỉ bằng URL
+            </h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">
+              Dán link một trang web, AI tự động phân tích bố cục, màu sắc,
+              typography rồi tái tạo thành HTML chỉnh sửa được — chỉ trong vài
+              giây.
+            </p>
+          </ScrollReveal>
+
+          <div className="flex flex-col md:flex-row items-center gap-5 md:gap-8 mb-6">
+            {/* Left — input demo */}
+            <ScrollReveal className="flex-1 w-full" from="left">
+              <div className="bg-white rounded-2xl border border-sky-100 shadow-lg p-6">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">
+                  Bước 1 — Dán URL trang muốn clone
+                </p>
+                <div className="flex items-center gap-2.5 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 mb-5">
+                  <Globe className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                  <span className="text-sm text-gray-500 flex-1 font-mono truncate">
+                    https://example.com/landing
+                  </span>
+                  <span className="text-xs font-semibold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-lg border border-sky-200 flex-shrink-0">
+                    Phân tích →
+                  </span>
+                </div>
+                <div className="flex flex-col gap-3">
+                  {[
+                    "AI fetch HTML trang gốc",
+                    "Phân tích bố cục, màu sắc, typography",
+                    "Tái tạo HTML hoàn chỉnh bằng AI",
+                    "Mở thẳng trong editor để chỉnh sửa",
+                  ].map((step, i) => (
+                    <div key={step} className="flex items-center gap-3">
+                      <div className="w-6 h-6 rounded-full bg-sky-100 text-sky-700 text-xs font-bold flex items-center justify-center flex-shrink-0">
+                        {i + 1}
+                      </div>
+                      <span className="text-sm text-gray-600">{step}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </ScrollReveal>
+
+            <div className="hidden md:flex items-center text-sky-300">
+              <ArrowRight className="w-8 h-8" />
+            </div>
+
+            {/* Right — result preview */}
+            <ScrollReveal className="flex-1 w-full" from="right" delay={100}>
+              <div className="bg-white rounded-2xl border border-emerald-100 shadow-lg overflow-hidden">
+                <div className="flex items-center gap-2 px-4 py-3 bg-emerald-50 border-b border-emerald-100">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                  <span className="text-xs font-semibold text-emerald-700">
+                    Tái tạo xong
+                  </span>
+                  <span className="ml-auto text-xs text-gray-400">~5s</span>
+                </div>
+                <div className="p-5 space-y-3">
+                  <div className="h-20 bg-gradient-to-r from-sky-600 to-blue-700 rounded-xl flex flex-col items-center justify-center text-white gap-1">
+                    <div className="text-xs font-bold tracking-wide">
+                      GIAO DIỆN ĐÃ TÁI TẠO
+                    </div>
+                    <div className="text-[10px] text-sky-200">
+                      Giữ nguyên bố cục · màu sắc · typography
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    {["Hero", "Features", "CTA"].map((s) => (
+                      <div
+                        key={s}
+                        className="h-8 bg-sky-50 border border-sky-100 rounded-lg flex items-center justify-center text-[10px] font-medium text-sky-600"
+                      >
+                        {s}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex gap-2">
+                    <div className="flex-1 h-9 bg-sky-600 rounded-lg flex items-center justify-center gap-1.5 text-white text-xs font-semibold">
+                      <Code2 className="w-3.5 h-3.5" /> Mở trong editor
+                    </div>
+                    <div className="flex-1 h-9 bg-gray-100 rounded-lg flex items-center justify-center gap-1.5 text-gray-600 text-xs font-semibold">
+                      <Copy className="w-3.5 h-3.5" /> Sao chép HTML
+                    </div>
+                  </div>
+                  <p className="text-[10px] text-gray-400 text-center">
+                    Kết quả ~70–80% giống trang gốc · Sử dụng 1 lượt tạo
+                  </p>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          {/* Use cases */}
+          <ScrollReveal delay={120}>
+            <div className="grid sm:grid-cols-3 gap-4 mb-6">
+              {[
+                {
+                  emoji: "🎨",
+                  title: "Lấy cảm hứng thiết kế",
+                  desc: "Clone trang đẹp của đối thủ hoặc tham khảo, rồi chỉnh lại theo thương hiệu của bạn",
+                },
+                {
+                  emoji: "⚡",
+                  title: "Khởi đầu nhanh hơn",
+                  desc: "Không cần thiết kế từ đầu — dùng bố cục trang sẵn có làm điểm xuất phát",
+                },
+                {
+                  emoji: "📐",
+                  title: "Tái sử dụng layout hay",
+                  desc: "Thấy layout đẹp trên mạng? Clone về, thay nội dung và màu sắc là xong",
+                },
+              ].map(({ emoji, title, desc }) => (
+                <div
+                  key={title}
+                  className="bg-white border border-sky-100 rounded-2xl p-5 shadow-sm flex items-start gap-4"
+                >
+                  <span className="text-2xl flex-shrink-0">{emoji}</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 text-sm mb-1">
+                      {title}
+                    </h3>
+                    <p className="text-xs text-gray-500 leading-relaxed">
+                      {desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal className="text-center">
+            <Link
+              href={isLoggedIn ? "/create" : "/login?tab=register"}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-md shadow-sky-500/25"
+            >
+              <Link2 className="w-4 h-4" /> Thử clone website ngay
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </ScrollReveal>
         </div>
@@ -1496,7 +1715,7 @@ export default async function LandingPage() {
             </p>
           </ScrollReveal>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {FEATURES.map(
               ({ icon, iconGrad, cardGrad, bar, title, desc }, i) => (
                 <ScrollReveal key={title} delay={i * 50} className="h-full">
@@ -1639,6 +1858,12 @@ export default async function LandingPage() {
                     label: "Email marketing",
                     badge: "Mới",
                     badgeColor: "bg-emerald-100 text-emerald-700",
+                  },
+                  {
+                    emoji: "💼",
+                    label: "Portfolio & CV xin việc",
+                    badge: "Mới",
+                    badgeColor: "bg-teal-100 text-teal-700",
                   },
                 ].map(({ emoji, label, badge, badgeColor }) => (
                   <div
@@ -1822,6 +2047,11 @@ export default async function LandingPage() {
                   q: "AI nào được dùng để tạo nội dung?",
                   a: "AITaoPage sử dụng AI thế hệ mới để tạo nội dung — tối ưu riêng cho từng loại yêu cầu: tạo nhanh khối HTML từ một câu mô tả hoặc hỏi đáp nhiều bước cho landing page, nội dung phức tạp.",
                   accent: "border-l-emerald-400",
+                },
+                {
+                  q: "Link xuất bản là gì và ai có thể xem?",
+                  a: "Khi nhấn 'Xuất bản', hệ thống tạo một trang web công khai với URL duy nhất — bất kỳ ai có link đều xem được ngay, không cần đăng nhập hay tài khoản. Dùng để chia sẻ qua Zalo, Facebook, email hoặc dán vào bio. Tính năng xuất PDF cũng có sẵn ngay trong editor, tải file PDF chất lượng cao chỉ một click.",
+                  accent: "border-l-teal-400",
                 },
               ] as const
             ).map(({ q, a, accent }, i) => (
