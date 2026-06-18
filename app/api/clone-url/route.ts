@@ -6,11 +6,6 @@ import Project from '@/models/Project'
 import RateLimit from '@/models/RateLimit'
 import { checkAndIncrementGeneration } from '@/lib/planGate'
 import { preprocessTemplateForEditor } from '@/lib/serverCssIsolation'
-import { Agent } from 'undici'
-
-// Undici default connectTimeout is 10s — increase to 30s for slow sites
-const fetchAgent = new Agent({ connect: { timeout: 30_000 } })
-
 export const runtime = 'nodejs'
 
 const cloneSchema = z.object({
@@ -62,8 +57,6 @@ async function fetchPageHtml(url: string): Promise<string> {
     },
     signal: AbortSignal.timeout(30_000),
     redirect: 'follow',
-    // @ts-ignore — undici dispatcher for longer connect timeout
-    dispatcher: fetchAgent,
   })
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   const contentType = res.headers.get('content-type') ?? ''
