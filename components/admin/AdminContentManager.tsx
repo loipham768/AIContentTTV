@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import {
   Plus, Pencil, Trash2, X, Save, Loader2, Search,
   LayoutTemplate, BookOpen, ChevronLeft, ChevronRight, Eye,
-  AlertTriangle, CheckCircle2,
+  AlertTriangle, CheckCircle2, ExternalLink,
 } from "lucide-react";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -21,6 +21,7 @@ interface TemplateMeta {
   gradient: string;
   accentColor: string;
   order: number;
+  createdAt?: string;
 }
 
 interface TemplateForm {
@@ -62,14 +63,21 @@ interface ArticleForm {
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const TEMPLATE_CATEGORIES = [
-  { value: "landing", label: "Landing Page" },
-  { value: "article", label: "Bài viết" },
-  { value: "ads",     label: "Quảng cáo" },
+  { value: "landing",   label: "Landing Page", badge: "bg-indigo-50 text-indigo-700" },
+  { value: "article",   label: "Bài viết",     badge: "bg-teal-50 text-teal-700" },
+  { value: "ads",       label: "Quảng cáo",    badge: "bg-amber-50 text-amber-700" },
+  { value: "portfolio", label: "Portfolio",     badge: "bg-violet-50 text-violet-700" },
+  { value: "cv",        label: "CV",            badge: "bg-rose-50 text-rose-700" },
 ];
 
 const ARTICLE_CATEGORIES = [
-  "Hướng dẫn", "Landing Page", "So sánh", "Quảng cáo",
-  "Kỹ thuật", "Content", "SEO",
+  { value: "Hướng dẫn",  badge: "bg-blue-50 text-blue-700" },
+  { value: "Landing Page", badge: "bg-indigo-50 text-indigo-700" },
+  { value: "So sánh",    badge: "bg-violet-50 text-violet-700" },
+  { value: "Quảng cáo",  badge: "bg-amber-50 text-amber-700" },
+  { value: "Kỹ thuật",   badge: "bg-cyan-50 text-cyan-700" },
+  { value: "Content",    badge: "bg-emerald-50 text-emerald-700" },
+  { value: "SEO",        badge: "bg-rose-50 text-rose-700" },
 ];
 
 const GRADIENT_PRESETS = [
@@ -107,7 +115,7 @@ const EMPTY_TEMPLATE: TemplateForm = {
 };
 
 const EMPTY_ARTICLE: ArticleForm = {
-  slug: "", title: "", description: "", category: "Hướng dẫn",
+  slug: "", title: "", description: "", category: ARTICLE_CATEGORIES[0].value,
   readTime: "5 phút đọc", publishedDate: new Date().toISOString().slice(0, 10),
   author: "AITaoPage", keywords: "", image: "", content: "",
 };
@@ -413,7 +421,7 @@ function ArticleFormPanel({
               <Field label="Danh mục" required>
                 <select className={inputCls} value={form.category} onChange={(e) => set("category", e.target.value)}>
                   {ARTICLE_CATEGORIES.map((c) => (
-                    <option key={c} value={c}>{c}</option>
+                    <option key={c.value} value={c.value}>{c.value}</option>
                   ))}
                 </select>
               </Field>
@@ -597,12 +605,13 @@ function TemplatesTab() {
               <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide">Mẫu</th>
               <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide hidden sm:table-cell">Danh mục</th>
               <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide hidden md:table-cell">Tags</th>
+              <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wide hidden lg:table-cell">Ngày thêm</th>
               <th className="px-4 py-3 w-24" />
             </tr>
           </thead>
           <tbody className={`divide-y divide-gray-100 ${loading ? "opacity-50" : ""}`}>
             {items.length === 0 && !loading && (
-              <tr><td colSpan={4} className="text-center py-12 text-gray-400 text-sm">Chưa có mẫu nào. Thêm mẫu đầu tiên!</td></tr>
+              <tr><td colSpan={5} className="text-center py-12 text-gray-400 text-sm">Chưa có mẫu nào. Thêm mẫu đầu tiên!</td></tr>
             )}
             {items.map((item) => (
               <tr key={item.id} className="hover:bg-gray-50 transition-colors">
@@ -619,9 +628,14 @@ function TemplatesTab() {
                   </div>
                 </td>
                 <td className="px-4 py-3 hidden sm:table-cell">
-                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700">
-                    {TEMPLATE_CATEGORIES.find((c) => c.value === item.category)?.label ?? item.category}
-                  </span>
+                  {(() => {
+                    const cat = TEMPLATE_CATEGORIES.find((c) => c.value === item.category);
+                    return (
+                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${cat?.badge ?? "bg-gray-100 text-gray-600"}`}>
+                        {cat?.label ?? item.category}
+                      </span>
+                    );
+                  })()}
                 </td>
                 <td className="px-4 py-3 hidden md:table-cell">
                   <div className="flex flex-wrap gap-1">
@@ -630,8 +644,25 @@ function TemplatesTab() {
                     ))}
                   </div>
                 </td>
+                <td className="px-4 py-3 hidden lg:table-cell text-xs text-gray-500 whitespace-nowrap">
+                  {item.createdAt ? (
+                    <>
+                      <span>{new Date(item.createdAt).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })}</span>
+                      <span className="block text-gray-400">{new Date(item.createdAt).toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })}</span>
+                    </>
+                  ) : "—"}
+                </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-1 justify-end">
+                    <a
+                      href={`/api/templates/${item.id}/preview`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-1.5 rounded-lg hover:bg-violet-50 text-gray-400 hover:text-violet-600 transition-colors"
+                      title="Xem mẫu"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
                     <button onClick={() => openEdit(item.id)} disabled={editingId === item.id} className="p-1.5 rounded-lg hover:bg-indigo-50 text-gray-400 hover:text-indigo-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                       {editingId === item.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Pencil className="w-3.5 h-3.5" />}
                     </button>
@@ -766,7 +797,7 @@ function ArticlesTab() {
           onChange={(e) => { setCatFilter(e.target.value); setPage(1); }}
         >
           <option value="">Tất cả danh mục</option>
-          {ARTICLE_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+          {ARTICLE_CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.value}</option>)}
         </select>
         <span className="text-xs text-gray-400 flex-1">{total} bài viết</span>
         <button
@@ -798,13 +829,29 @@ function ArticlesTab() {
                   <p className="text-xs text-gray-400">/kien-thuc/{item.slug}</p>
                 </td>
                 <td className="px-4 py-3 hidden sm:table-cell">
-                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-teal-50 text-teal-700">{item.category}</span>
+                  {(() => {
+                    const cat = ARTICLE_CATEGORIES.find((c) => c.value === item.category);
+                    return (
+                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${cat?.badge ?? "bg-gray-100 text-gray-600"}`}>
+                        {item.category}
+                      </span>
+                    );
+                  })()}
                 </td>
                 <td className="px-4 py-3 hidden md:table-cell text-xs text-gray-500">
                   {item.publishedDate}
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-1 justify-end">
+                    <a
+                      href={`/kien-thuc/${item.slug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-1.5 rounded-lg hover:bg-violet-50 text-gray-400 hover:text-violet-600 transition-colors"
+                      title="Xem bài viết"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
                     <button onClick={() => openEdit(item.slug)} disabled={editingId === item.slug} className="p-1.5 rounded-lg hover:bg-teal-50 text-gray-400 hover:text-teal-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                       {editingId === item.slug ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Pencil className="w-3.5 h-3.5" />}
                     </button>

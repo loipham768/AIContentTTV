@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@/auth";
 import {
@@ -5,16 +6,12 @@ import {
   LayoutTemplate,
   Code2,
   Globe,
-  History,
-  CheckCircle2,
   ArrowRight,
   Sparkles,
   Copy,
   MousePointer2,
   MessageSquare,
-  ShieldCheck,
   FileDown,
-  Layers,
   BookOpen,
   Tag,
   LogIn,
@@ -22,28 +19,12 @@ import {
   Phone,
   Mail,
   ArrowUpRight,
-  Monitor,
-  Smartphone,
-  Eye,
-  Undo2,
-  Redo2,
-  Palette,
-  MoveHorizontal,
-  ZoomIn,
-  ZoomOut,
-  Plus,
-  Crown,
-  Check,
-  ChevronDown,
-  Trash2,
-  LayoutGrid,
-  ArrowUp,
-  ArrowDown,
-  X,
   Share2,
   Link2,
+  ExternalLink,
 } from "lucide-react";
 import { Suspense } from "react";
+import { unstable_cache } from "next/cache";
 import PricingSection from "@/components/pricing/PricingSection";
 import HashScroll from "@/components/HashScroll";
 import {
@@ -51,24 +32,25 @@ import {
   getCarouselReviews,
   getUserHasReviewed,
 } from "@/components/reviews/ReviewsSection";
-
 import ScrollReveal from "@/components/ScrollReveal";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import Logo from "@/components/Logo";
-import UserAvatar from "@/components/UserAvatar";
 import MobileNav from "@/components/MobileNav";
 import UserMenu from "@/components/UserMenu";
 import ScrollHeaderWrapper from "@/components/ScrollHeaderWrapper";
 import { dbConnect } from "@/lib/mongodb";
 import User from "@/models/User";
+import ArticleModel from "@/models/Article";
+import TemplateModel from "@/models/Template";
 import {
   SITE_URL,
   SUPPORT_EMAIL,
   SUPPORT_PHONE,
   SUPPORT_PHONE_DISPLAY,
+  CATEGORY_META,
 } from "@/lib/constants";
 
-/* ── Tính năng thực tế đã xây dựng ─────────────────────────────── */
+/* ── Features (6 tính năng chính) ──────────────────────────────── */
 
 const FEATURES = [
   {
@@ -76,16 +58,8 @@ const FEATURES = [
     iconGrad: "from-violet-500 to-purple-600",
     cardGrad: "from-violet-50/90 to-purple-50/50",
     bar: "from-violet-400 to-purple-500",
-    title: "AI hỏi đáp để hiểu đúng yêu cầu",
-    desc: "AI đặt câu hỏi từng bước — màu sắc, phong cách, đối tượng — rồi tạo landing page chuẩn theo ý bạn.",
-  },
-  {
-    icon: <Zap className="w-5 h-5 text-white" />,
-    iconGrad: "from-amber-400 to-yellow-500",
-    cardGrad: "from-amber-50/90 to-yellow-50/50",
-    bar: "from-amber-400 to-yellow-400",
-    title: "Tạo nhanh với AI",
-    desc: "Nhập một câu mô tả, AI tạo khối HTML hoàn chỉnh trong chưa đầy 1 giây — không cần hỏi thêm.",
+    title: "AI hỏi đáp thông minh",
+    desc: "AI đặt câu hỏi từng bước — màu sắc, phong cách, đối tượng — rồi tạo nội dung chuẩn theo đúng ý bạn.",
   },
   {
     icon: <LayoutTemplate className="w-5 h-5 text-white" />,
@@ -100,24 +74,8 @@ const FEATURES = [
     iconGrad: "from-emerald-400 to-teal-600",
     cardGrad: "from-emerald-50/90 to-teal-50/50",
     bar: "from-emerald-400 to-teal-500",
-    title: "Xuất HTML — dùng được ở bất kỳ đâu",
-    desc: "CSS nhúng inline vào từng thẻ, không cần stylesheet riêng. Sao chép hoặc tải file .html — dán vào CMS, gửi email, self-host, hoặc bất kỳ nền tảng nào.",
-  },
-  {
-    icon: <Globe className="w-5 h-5 text-white" />,
-    iconGrad: "from-orange-400 to-rose-500",
-    cardGrad: "from-orange-50/90 to-rose-50/50",
-    bar: "from-orange-400 to-rose-400",
-    title: "Tương thích mọi CMS Việt Nam",
-    desc: "Dán HTML vào Haravan, Sapo, WordPress, Shopify, TinyMCE, CKEditor — hoạt động hoàn hảo ngay lập tức.",
-  },
-  {
-    icon: <History className="w-5 h-5 text-white" />,
-    iconGrad: "from-pink-500 to-fuchsia-600",
-    cardGrad: "from-pink-50/90 to-fuchsia-50/50",
-    bar: "from-pink-400 to-fuchsia-500",
-    title: "Lưu & mở lại dự án",
-    desc: "Tất cả nội dung lưu tự động vào tài khoản — mở lại, chỉnh sửa tiếp bất kỳ lúc nào.",
+    title: "HTML inline CSS — dán vào bất kỳ đâu",
+    desc: "CSS nhúng trực tiếp vào từng thẻ. Sao chép rồi dán vào Haravan, Sapo, WordPress, Shopify — hoạt động ngay lập tức.",
   },
   {
     icon: <FileDown className="w-5 h-5 text-white" />,
@@ -125,15 +83,7 @@ const FEATURES = [
     cardGrad: "from-rose-50/90 to-red-50/50",
     bar: "from-rose-400 to-red-500",
     title: "Xuất PDF chuyên nghiệp",
-    desc: "Tải PDF chất lượng cao từ nội dung đã thiết kế — phù hợp in ấn, gửi hồ sơ hoặc lưu trữ tài liệu không cần phần mềm thêm.",
-  },
-  {
-    icon: <Share2 className="w-5 h-5 text-white" />,
-    iconGrad: "from-teal-500 to-cyan-600",
-    cardGrad: "from-teal-50/90 to-cyan-50/50",
-    bar: "from-teal-400 to-cyan-500",
-    title: "Xuất bản & chia sẻ link",
-    desc: "Xuất bản lên internet với một click — nhận link công khai chia sẻ ngay, ai cũng xem được mà không cần tài khoản.",
+    desc: "Tải PDF chất lượng cao từ nội dung đã thiết kế — phù hợp in ấn, gửi hồ sơ hoặc lưu trữ tài liệu.",
   },
   {
     icon: <Link2 className="w-5 h-5 text-white" />,
@@ -141,11 +91,19 @@ const FEATURES = [
     cardGrad: "from-sky-50/90 to-blue-50/50",
     bar: "from-sky-400 to-blue-500",
     title: "Clone website từ URL",
-    desc: "Dán link bất kỳ trang web — AI tự động phân tích bố cục, màu sắc, typography rồi tái tạo thành HTML chỉnh sửa được ngay trong editor.",
+    desc: "Dán link bất kỳ trang web — AI phân tích bố cục, màu sắc rồi tái tạo thành HTML chỉnh sửa được ngay trong editor.",
+  },
+  {
+    icon: <Share2 className="w-5 h-5 text-white" />,
+    iconGrad: "from-teal-500 to-cyan-600",
+    cardGrad: "from-teal-50/90 to-cyan-50/50",
+    bar: "from-teal-400 to-cyan-500",
+    title: "Xuất bản & chia sẻ link công khai",
+    desc: "Xuất bản lên internet với một click — nhận link chia sẻ ngay, ai cũng xem được mà không cần tài khoản.",
   },
 ];
 
-/* ── Loại nội dung có thể tạo ───────────────────────────────────── */
+/* ── Loại nội dung ──────────────────────────────────────────────── */
 
 const CONTENT_TYPES = [
   {
@@ -154,17 +112,9 @@ const CONTENT_TYPES = [
     bg: "from-indigo-50 to-violet-50",
     border: "border-indigo-100",
     title: "Landing Page",
-    desc: "Trang đích chuyển đổi cao cho bất kỳ sản phẩm, dịch vụ hay ý tưởng nào — AI hỏi đáp để hiểu đúng ý bạn trước khi tạo.",
+    desc: "Trang đích chuyển đổi cao cho bất kỳ sản phẩm, dịch vụ hay ý tưởng nào — AI hỏi đáp để hiểu đúng ý bạn.",
     badge: "Hỏi đáp thông minh",
     badgeColor: "bg-violet-100 text-violet-700",
-    examples: [
-      "Bán sản phẩm skincare, thực phẩm",
-      "Khóa học online, coaching",
-      "Agency / freelancer / portfolio",
-      "Ra mắt app, SaaS, startup",
-      "Phòng khám, spa, gym, nhà hàng",
-      "Bất động sản, dự án nhà đất",
-    ],
   },
   {
     emoji: "📝",
@@ -175,14 +125,6 @@ const CONTENT_TYPES = [
     desc: "Nội dung chuẩn SEO, đúng định dạng CMS — AI tạo cả bố cục HTML lẫn văn bản, dán thẳng vào WordPress hay Haravan.",
     badge: "Blog & SEO",
     badgeColor: "bg-blue-100 text-blue-700",
-    examples: [
-      "Blog SEO bài dài lên Top Google",
-      "Review & so sánh sản phẩm",
-      "Hướng dẫn, tutorial từng bước",
-      "Mô tả sản phẩm thương mại điện tử",
-      "Tin tức nội bộ, thông báo",
-      "Câu hỏi thường gặp (FAQ)",
-    ],
   },
   {
     emoji: "📣",
@@ -193,267 +135,257 @@ const CONTENT_TYPES = [
     desc: "Nội dung chạy ads và email marketing được tối ưu tỷ lệ click — ngắn gọn, đúng thông điệp, sẵn sàng chạy ngay.",
     badge: "Ads chuyển đổi",
     badgeColor: "bg-rose-100 text-rose-700",
-    examples: [
-      "Banner Facebook & Instagram Ads",
-      "Google Display Ads, Responsive Ads",
-      "Email marketing / newsletter",
-      "Carousel quảng cáo nhiều sản phẩm",
-      "Popup khuyến mãi, flash sale",
-      "Tin nhắn Zalo OA, SMS marketing",
-    ],
   },
   {
     emoji: "💼",
     grad: "from-teal-500 to-emerald-600",
     bg: "from-teal-50 to-emerald-50",
     border: "border-teal-100",
-    title: "Portfolio & CV Xin Việc",
+    title: "Portfolio & CV",
     desc: "Trang cá nhân chuyên nghiệp để gây ấn tượng nhà tuyển dụng — AI hỏi đáp để hiểu đúng kỹ năng và phong cách của bạn.",
     badge: "Gây ấn tượng HR",
     badgeColor: "bg-teal-100 text-teal-700",
-    examples: [
-      "CV online cho lập trình viên, designer",
-      "Portfolio showcase dự án freelancer",
-      "Trang cá nhân Marketing & Content Creator",
-      "CV chuyên nghiệp cho kinh doanh, tài chính",
-      "Portfolio nhiếp ảnh, thiết kế đồ hoạ",
-      "Trang kết hợp CV + portfolio dự án",
-    ],
   },
 ];
 
-const USE_CASE_TAGS = [
-  {
-    label: "Shop thời trang",
-    color: "bg-violet-50 text-violet-700 border-violet-200",
-  },
-  {
-    label: "Phòng khám nha khoa",
-    color: "bg-blue-50 text-blue-700 border-blue-200",
-  },
-  {
-    label: "Khóa học ngoại ngữ",
-    color: "bg-indigo-50 text-indigo-700 border-indigo-200",
-  },
-  {
-    label: "Nhà hàng & quán cà phê",
-    color: "bg-amber-50 text-amber-700 border-amber-200",
-  },
-  {
-    label: "Dịch vụ luật sư",
-    color: "bg-slate-50 text-slate-700 border-slate-200",
-  },
-  {
-    label: "Bất động sản",
-    color: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  },
-  { label: "Spa & làm đẹp", color: "bg-pink-50 text-pink-700 border-pink-200" },
-  {
-    label: "Phòng gym & yoga",
-    color: "bg-orange-50 text-orange-700 border-orange-200",
-  },
-  {
-    label: "Startup & SaaS",
-    color: "bg-cyan-50 text-cyan-700 border-cyan-200",
-  },
-  {
-    label: "Agency marketing",
-    color: "bg-violet-50 text-violet-700 border-violet-200",
-  },
-  {
-    label: "Trung tâm gia sư",
-    color: "bg-yellow-50 text-yellow-700 border-yellow-200",
-  },
-  {
-    label: "Cửa hàng điện tử",
-    color: "bg-blue-50 text-blue-700 border-blue-200",
-  },
-  {
-    label: "Du lịch & tour",
-    color: "bg-teal-50 text-teal-700 border-teal-200",
-  },
-  {
-    label: "Tư vấn tài chính",
-    color: "bg-green-50 text-green-700 border-green-200",
-  },
-  {
-    label: "Event & hội thảo",
-    color: "bg-rose-50 text-rose-700 border-rose-200",
-  },
-  {
-    label: "Vận chuyển & logistics",
-    color: "bg-slate-50 text-slate-700 border-slate-200",
-  },
-  {
-    label: "Thú cưng & pet shop",
-    color: "bg-amber-50 text-amber-700 border-amber-200",
-  },
-  {
-    label: "Freelancer & Portfolio",
-    color: "bg-teal-50 text-teal-700 border-teal-200",
-  },
-  {
-    label: "CV xin việc lập trình viên",
-    color: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  },
-  {
-    label: "Và mọi ý tưởng khác…",
-    color:
-      "bg-gradient-to-r from-indigo-50 to-violet-50 text-indigo-700 border-indigo-200 font-semibold",
-  },
-];
-
-/* ── Quy trình thực tế ───────────────────────────────────────────── */
+/* ── 3 bước đơn giản ────────────────────────────────────────────── */
 
 const STEPS = [
   {
     step: "01",
     stepGrad: "from-violet-500 to-purple-600",
-    wrapGrad: "from-violet-100/80 to-purple-100/60",
     title: "Chọn loại nội dung & mô tả",
-    desc: "Chọn Landing Page, Bài viết hoặc Quảng cáo. AI sẽ hỏi thêm để hiểu đúng ý bạn — màu sắc, phong cách, đối tượng mục tiêu.",
-    preview: (
-      <div className="bg-white rounded-xl border border-violet-100 p-4 shadow-sm space-y-2">
-        <div className="text-xs text-gray-400 mb-3 font-medium">
-          AI đang hỏi thêm thông tin...
-        </div>
-        <div className="bg-violet-50 rounded-lg p-3 text-sm text-gray-700 border border-violet-100">
-          Bạn muốn tạo landing page cho sản phẩm hay dịch vụ?
-        </div>
-        <div className="bg-indigo-600 rounded-lg p-3 text-sm text-white self-end ml-8">
-          Bán khóa học lập trình web cho người mới bắt đầu
-        </div>
-        <div className="bg-violet-50 rounded-lg p-3 text-sm text-gray-700 border border-violet-100">
-          Màu chủ đạo bạn muốn dùng là gì?
-        </div>
-        <div className="flex gap-2 mt-2">
-          {["Xanh dương", "Tím", "Tối (Dark)"].map((c) => (
-            <span
-              key={c}
-              className="text-xs px-2 py-1 bg-white border border-gray-200 rounded-full text-gray-600 cursor-pointer hover:border-violet-300"
-            >
-              {c}
-            </span>
-          ))}
-        </div>
-      </div>
-    ),
+    desc: "Chọn Landing Page, Bài viết, Quảng cáo hoặc Portfolio. AI hỏi thêm để hiểu đúng ý bạn — màu sắc, phong cách, đối tượng mục tiêu.",
   },
   {
     step: "02",
     stepGrad: "from-blue-500 to-indigo-600",
-    wrapGrad: "from-blue-100/80 to-indigo-100/60",
     title: "AI tạo HTML hoàn chỉnh",
-    desc: "Sau khi thu thập đủ thông tin, AI tạo ra trang HTML đầy đủ — hero, tính năng, CTA, footer — trong vài giây.",
-    preview: (
-      <div className="bg-white rounded-xl border border-blue-100 p-4 shadow-sm">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-          <span className="text-xs text-gray-500">
-            AI đang tạo landing page...
-          </span>
-          <span className="ml-auto text-xs font-medium text-blue-600">~3s</span>
-        </div>
-        <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg p-4 text-white">
-          <div className="text-xs text-blue-200 mb-1">
-            KHÓA HỌC LẬP TRÌNH WEB
-          </div>
-          <div className="font-bold text-base mb-1">
-            Từ 0 đến Junior Developer
-          </div>
-          <div className="text-blue-100 text-xs mb-3">
-            Học trong 3 tháng — có việc làm ngay
-          </div>
-          <div className="flex gap-2">
-            <div className="bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1.5 rounded-lg">
-              Đăng ký ngay
-            </div>
-            <div className="border border-white/40 text-white text-xs px-3 py-1.5 rounded-lg">
-              Xem chương trình
-            </div>
-          </div>
-        </div>
-        <div className="mt-2 flex items-center gap-1.5">
-          <Sparkles className="w-3 h-3 text-indigo-500" />
-          <span className="text-xs text-gray-400">
-            HTML đầy đủ · inline CSS · sẵn sàng chỉnh sửa
-          </span>
-        </div>
-      </div>
-    ),
+    desc: "Sau khi có đủ thông tin, AI tạo HTML đầy đủ trong vài giây — hero, tính năng, CTA, footer — inline CSS sẵn sàng dùng ngay.",
   },
   {
     step: "03",
     stepGrad: "from-emerald-500 to-teal-600",
-    wrapGrad: "from-emerald-100/80 to-teal-100/60",
-    title: "Chỉnh sửa kéo thả — xuất ra theo cách bạn muốn",
-    desc: "Kéo thả, chỉnh màu, font trong editor. Xong: sao chép HTML, tải file .html, xuất PDF chất lượng cao, hoặc xuất bản link chia sẻ công khai — tất cả chỉ một click.",
-    preview: (
-      <div className="bg-white rounded-xl border border-emerald-100 p-4 shadow-sm">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="flex gap-1">
-            <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-            <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-            <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
-          </div>
-          <span className="text-xs text-gray-400">GrapesJS Editor</span>
-        </div>
-        <div className="text-xs font-mono bg-gray-900 rounded-lg p-3 text-left leading-relaxed mb-3">
-          <span className="text-blue-400">&lt;div</span>
-          <span className="text-yellow-300"> style</span>
-          <span className="text-gray-300">
-            =&quot;background:#2563eb;...&quot;
-          </span>
-          <span className="text-blue-400">&gt;</span>
-          <br />
-          <span className="text-gray-500 ml-3">&lt;</span>
-          <span className="text-blue-400">h1</span>
-          <span className="text-yellow-300"> style</span>
-          <span className="text-gray-300">
-            =&quot;color:#fff;font-size:32px&quot;
-          </span>
-          <span className="text-gray-500">&gt;</span>
-          <span className="text-green-300">Khóa học...</span>
-        </div>
-        <div className="grid grid-cols-2 gap-1.5">
-          <button className="flex items-center justify-center gap-1.5 bg-emerald-500 text-white text-xs py-2 rounded-lg font-semibold">
-            <Copy className="w-3 h-3" /> Sao chép HTML
-          </button>
-          <button className="flex items-center justify-center gap-1.5 bg-slate-700 text-white text-xs py-2 rounded-lg font-semibold">
-            <FileDown className="w-3 h-3" /> Tải .html
-          </button>
-          <button className="flex items-center justify-center gap-1.5 bg-rose-600 text-white text-xs py-2 rounded-lg font-semibold">
-            <FileDown className="w-3 h-3" /> Xuất PDF
-          </button>
-          <button className="flex items-center justify-center gap-1.5 bg-teal-600 text-white text-xs py-2 rounded-lg font-semibold">
-            <Share2 className="w-3 h-3" /> Xuất bản link
-          </button>
-        </div>
-      </div>
-    ),
+    title: "Chỉnh sửa & xuất theo cách bạn muốn",
+    desc: "Kéo thả, chỉnh màu, font trong editor. Sao chép HTML, tải .html, xuất PDF, hoặc xuất bản link công khai — tất cả một click.",
   },
 ];
+
+/* ── CMS Badges (marquee) ───────────────────────────────────────── */
 
 const CMS_BADGES = [
   { name: "Haravan", color: "text-orange-600 border-orange-200 bg-orange-50" },
   { name: "Sapo", color: "text-blue-600 border-blue-200 bg-blue-50" },
-  {
-    name: "WordPress",
-    color: "text-indigo-600 border-indigo-200 bg-indigo-50",
-  },
+  { name: "WordPress", color: "text-indigo-600 border-indigo-200 bg-indigo-50" },
   { name: "Shopify", color: "text-green-700 border-green-200 bg-green-50" },
   { name: "TinyMCE", color: "text-violet-600 border-violet-200 bg-violet-50" },
   { name: "CKEditor", color: "text-rose-600 border-rose-200 bg-rose-50" },
   { name: "Haravan", color: "text-orange-600 border-orange-200 bg-orange-50" },
   { name: "Sapo", color: "text-blue-600 border-blue-200 bg-blue-50" },
-  {
-    name: "WordPress",
-    color: "text-indigo-600 border-indigo-200 bg-indigo-50",
-  },
+  { name: "WordPress", color: "text-indigo-600 border-indigo-200 bg-indigo-50" },
   { name: "Shopify", color: "text-green-700 border-green-200 bg-green-50" },
   { name: "TinyMCE", color: "text-violet-600 border-violet-200 bg-violet-50" },
   { name: "CKEditor", color: "text-rose-600 border-rose-200 bg-rose-50" },
 ];
+
+/* ── Article thumbnail palettes & icons ────────────────────────── */
+
+const ARTICLE_PALETTES: Record<string, string> = {
+  "Hướng dẫn":  "from-teal-500 to-cyan-600",
+  "Landing Page": "from-indigo-500 to-violet-600",
+  "So sánh":    "from-violet-500 to-purple-600",
+  "Quảng cáo":  "from-rose-500 to-pink-600",
+  "Kỹ thuật":   "from-emerald-500 to-teal-600",
+  "Content":    "from-amber-500 to-orange-500",
+  "SEO":        "from-blue-500 to-indigo-600",
+};
+
+const ARTICLE_ICONS: Record<string, string> = {
+  "Hướng dẫn":  "🎓",
+  "Landing Page": "🏠",
+  "So sánh":    "📊",
+  "Quảng cáo":  "📣",
+  "Kỹ thuật":   "⚙️",
+  "Content":    "📝",
+  "SEO":        "🔍",
+};
+
+/* ── Mini template preview per category ────────────────────────── */
+
+function MiniPreview({ category, gradient, accentColor }: { category: string; gradient: string; accentColor: string }) {
+  if (category === "article") {
+    return (
+      <div className="h-40 bg-white relative overflow-hidden">
+        <div className={`h-1.5 w-full bg-gradient-to-r ${gradient}`} />
+        <div className="p-3 pt-2.5">
+          <div className="flex gap-1 mb-2 items-center">
+            <div className="w-8 h-1 rounded" style={{ background: `${accentColor}60` }} />
+            <div className="w-1 h-1 bg-gray-200 rounded-full" />
+            <div className="w-12 h-1 bg-gray-200 rounded" />
+          </div>
+          <div className="w-full h-2.5 bg-gray-800 rounded mb-1" />
+          <div className="w-4/5 h-2.5 bg-gray-700 rounded mb-2.5" />
+          <div className="flex gap-2 mb-2.5">
+            <div className="w-10 h-1 bg-gray-200 rounded" />
+            <div className="w-px h-1 bg-gray-200" />
+            <div className="w-8 h-1 bg-gray-200 rounded" />
+          </div>
+          {[1,2,3,4].map(i => (
+            <div key={i} className={`h-1 bg-gray-100 rounded mb-1.5 ${i === 4 ? "w-1/2" : "w-full"}`} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (category === "portfolio") {
+    return (
+      <div className="h-40 bg-gray-900 relative overflow-hidden">
+        <div className="p-3">
+          <div className="flex items-center gap-2 mb-3">
+            <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradient} flex-shrink-0`} />
+            <div>
+              <div className="w-16 h-1.5 bg-white/80 rounded mb-1" />
+              <div className="w-10 h-1 bg-white/40 rounded" />
+            </div>
+            <div className="ml-auto w-12 h-4 rounded-lg" style={{ background: `${accentColor}90` }} />
+          </div>
+          <div className="grid grid-cols-3 gap-1.5">
+            {["from-indigo-400 to-violet-500","from-teal-400 to-cyan-500","from-rose-400 to-pink-500",
+              "from-amber-400 to-orange-500","from-blue-400 to-indigo-500","from-emerald-400 to-teal-500"].map((g, i) => (
+              <div key={i} className={`h-10 rounded-lg bg-gradient-to-br ${g}`} />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (category === "cv") {
+    return (
+      <div className="h-40 bg-white relative overflow-hidden flex">
+        <div className={`w-14 bg-gradient-to-b ${gradient} flex-shrink-0 p-2 flex flex-col items-center gap-1.5 pt-3`}>
+          <div className="w-8 h-8 rounded-full bg-white/30 mb-0.5" />
+          <div className="w-8 h-1 bg-white/70 rounded" />
+          <div className="w-6 h-1 bg-white/50 rounded" />
+          <div className="mt-2 w-full space-y-1">
+            {[0.7,0.9,0.6,0.8].map((o,i) => (
+              <div key={i} className="h-0.5 rounded" style={{ background: `rgba(255,255,255,${o})` }} />
+            ))}
+          </div>
+        </div>
+        <div className="flex-1 p-2.5">
+          <div className="w-20 h-2 bg-gray-800 rounded mb-1" />
+          <div className="w-14 h-1 bg-gray-400 rounded mb-2" />
+          <div className="w-full h-px bg-gray-100 mb-1.5" />
+          {[1,2].map(i => (
+            <div key={i} className="mb-2">
+              <div className="w-16 h-1.5 bg-gray-700 rounded mb-0.5" />
+              <div className="w-10 h-1 bg-gray-300 rounded mb-1" />
+              <div className="w-full h-0.5 bg-gray-100 rounded" />
+              <div className="w-3/4 h-0.5 bg-gray-100 rounded mt-0.5" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (category === "ads") {
+    return (
+      <div className={`h-40 bg-gradient-to-br ${gradient} relative overflow-hidden`}>
+        <div className="absolute inset-0 bg-black/25" />
+        <div className="absolute -right-6 -top-6 w-28 h-28 bg-white/10 rounded-full" />
+        <div className="absolute -left-4 -bottom-4 w-20 h-20 bg-white/10 rounded-full" />
+        <div className="absolute inset-0 p-4 flex flex-col justify-center">
+          <div className="w-14 h-4 rounded-full bg-yellow-400/90 mb-2.5 flex items-center px-2">
+            <div className="w-8 h-1 bg-yellow-900/40 rounded" />
+          </div>
+          <div className="w-28 h-3 bg-white/90 rounded mb-1.5" />
+          <div className="w-20 h-2 bg-white/60 rounded mb-3" />
+          <div className="w-20 h-6 bg-yellow-400 rounded-lg shadow-lg" />
+        </div>
+      </div>
+    );
+  }
+
+  /* landing (default) */
+  return (
+    <div className={`h-40 bg-gradient-to-br ${gradient} relative overflow-hidden`}>
+      <div className="absolute inset-0 p-3 flex flex-col">
+        <div className="flex items-center gap-1 mb-2.5">
+          <div className="w-12 h-1.5 bg-white/60 rounded" />
+          <div className="ml-auto flex gap-1">
+            <div className="w-5 h-1.5 bg-white/30 rounded" />
+            <div className="w-5 h-1.5 bg-white/30 rounded" />
+            <div className="w-10 h-1.5 bg-yellow-300/80 rounded" />
+          </div>
+        </div>
+        <div className="flex-1 flex flex-col items-center justify-center text-center gap-1.5">
+          <div className="w-28 h-2.5 bg-white/90 rounded" />
+          <div className="w-20 h-1.5 bg-white/60 rounded" />
+          <div className="w-16 h-1.5 bg-white/50 rounded" />
+          <div className="w-16 h-5 bg-yellow-400/90 rounded-lg mt-1.5" />
+        </div>
+        <div className="flex gap-1.5 mt-1">
+          {[1,2,3].map(i => (
+            <div key={i} className="flex-1 bg-white/10 rounded p-1.5 flex flex-col items-center gap-1">
+              <div className="w-3 h-3 rounded bg-white/30" />
+              <div className="w-full h-0.5 bg-white/25 rounded" />
+              <div className="w-3/4 h-0.5 bg-white/20 rounded" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Server cache functions ─────────────────────────────────────── */
+
+const getHomeTemplates = unstable_cache(
+  async () => {
+    await dbConnect();
+    const docs = await TemplateModel.find({}, { html: 0, __v: 0, _id: 0 })
+      .sort({ createdAt: -1 })
+      .limit(6)
+      .lean();
+    return docs as Array<{
+      id: string;
+      name: string;
+      category: string;
+      description: string;
+      gradient: string;
+      accentColor: string;
+    }>;
+  },
+  ["home-templates"],
+  { revalidate: 3600 }
+);
+
+const getHomeArticles = unstable_cache(
+  async () => {
+    await dbConnect();
+    const docs = await ArticleModel.find(
+      {},
+      { content: 0, keywords: 0, __v: 0, _id: 0 }
+    )
+      .sort({ publishedDate: -1 })
+      .limit(3)
+      .lean();
+    return docs as Array<{
+      slug: string;
+      title: string;
+      description: string;
+      category: string;
+      readTime: string;
+      publishedDate: string;
+      image: string | null;
+    }>;
+  },
+  ["home-articles"],
+  { revalidate: 3600 }
+);
 
 /* ── Page ───────────────────────────────────────────────────────── */
 
@@ -481,13 +413,16 @@ export default async function LandingPage() {
       };
   }
 
-  const [reviewStats, carouselReviews, hasReviewed] = await Promise.all([
-    getReviewStats(),
-    getCarouselReviews(),
-    session?.user?.id
-      ? getUserHasReviewed(session.user.id)
-      : Promise.resolve(false),
-  ]);
+  const [reviewStats, carouselReviews, hasReviewed, homeTemplates, homeArticles] =
+    await Promise.all([
+      getReviewStats(),
+      getCarouselReviews(),
+      session?.user?.id
+        ? getUserHasReviewed(session.user.id)
+        : Promise.resolve(false),
+      getHomeTemplates(),
+      getHomeArticles(),
+    ]);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -535,12 +470,12 @@ export default async function LandingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+
       {/* ── Navbar ─────────────────────────────────────────────────── */}
       <ScrollHeaderWrapper>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Logo iconSize={32} uid="nav" />
 
-          {/* Desktop nav — ẩn hoàn toàn trên mobile */}
           <nav className="hidden md:flex items-center gap-1">
             <Link
               href="/kien-thuc"
@@ -599,7 +534,6 @@ export default async function LandingPage() {
             )}
           </nav>
 
-          {/* Mobile — chỉ hiện hamburger */}
           <MobileNav
             isLoggedIn={isLoggedIn}
             userName={
@@ -659,27 +593,8 @@ export default async function LandingPage() {
                 .
               </p>
 
-              {/* Export anywhere strip */}
-              <div className="flex items-center gap-2 justify-center lg:justify-start mb-5 sm:mb-8 flex-wrap">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-700">
-                  <Copy className="w-3.5 h-3.5" /> Sao chép HTML
-                </span>
-                <span className="text-gray-300 text-xs">·</span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-700">
-                  <FileDown className="w-3.5 h-3.5" /> Tải file .html
-                </span>
-                <span className="text-gray-300 text-xs">·</span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700">
-                  <FileDown className="w-3.5 h-3.5" /> Xuất PDF
-                </span>
-                <span className="text-gray-300 text-xs">·</span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-teal-50 border border-teal-200 text-xs font-semibold text-teal-700">
-                  <Share2 className="w-3.5 h-3.5" /> Xuất bản link
-                </span>
-              </div>
-
               {/* Content type pills */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-5 sm:mb-8">
+              <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-6 sm:mb-8">
                 {[
                   {
                     label: "🏠 Landing Page",
@@ -728,7 +643,7 @@ export default async function LandingPage() {
                   href="/demo"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base font-semibold text-indigo-700 bg-white border border-indigo-200 rounded-xl hover:bg-indigo-50 transition-colors shadow-sm"
                 >
-                  <MousePointer2 className="w-4 h-4" /> Thử editor ngay
+                  <MousePointer2 className="w-4 h-4" /> Xem demo
                 </Link>
               </div>
 
@@ -795,7 +710,6 @@ export default async function LandingPage() {
 
                 <div className="flex bg-gray-100" style={{ height: "340px" }}>
                   <div className="flex-1 p-3 overflow-hidden flex flex-col gap-2">
-                    {/* AI chat UI */}
                     <div className="bg-white rounded-xl p-3 shadow-sm border border-gray-200 flex flex-col gap-2 flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <div className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
@@ -809,16 +723,19 @@ export default async function LandingPage() {
                         Bạn muốn tạo loại nội dung nào?
                       </div>
                       <div className="flex gap-1.5 flex-wrap">
-                        {["🏠 Landing Page", "📝 Bài viết", "📣 Quảng cáo", "💼 Portfolio"].map(
-                          (t) => (
-                            <span
-                              key={t}
-                              className={`text-xs px-2 py-1 rounded-full border ${t.startsWith("🏠") ? "bg-indigo-600 text-white border-indigo-600" : "bg-white border-gray-200 text-gray-600"}`}
-                            >
-                              {t}
-                            </span>
-                          ),
-                        )}
+                        {[
+                          "🏠 Landing Page",
+                          "📝 Bài viết",
+                          "📣 Quảng cáo",
+                          "💼 Portfolio",
+                        ].map((t) => (
+                          <span
+                            key={t}
+                            className={`text-xs px-2 py-1 rounded-full border ${t.startsWith("🏠") ? "bg-indigo-600 text-white border-indigo-600" : "bg-white border-gray-200 text-gray-600"}`}
+                          >
+                            {t}
+                          </span>
+                        ))}
                       </div>
                       <div className="bg-violet-50 rounded-lg p-2.5 text-xs text-gray-700 border border-violet-100 mt-1">
                         Landing page cho sản phẩm hay dịch vụ gì?
@@ -899,7 +816,7 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      {/* ── CMS Compatibility strip ─────────────────────────────────── */}
+      {/* ── CMS Compatibility Strip ────────────────────────────────── */}
       <section
         className="py-6 sm:py-10 overflow-hidden"
         style={{
@@ -926,615 +843,153 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      {/* ── Content Types ──────────────────────────────────────────── */}
-      <section className="py-12 md:py-24" style={{ background: "#fafaff" }}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <ScrollReveal className="text-center mb-8 sm:mb-14">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-              Tạo bất kỳ loại nội dung nào bạn cần
+      {/* ── Demo: Before → After ───────────────────────────────────── */}
+      <section
+        className="relative overflow-hidden py-12 md:py-20"
+        style={{
+          background:
+            "linear-gradient(135deg, #06040f 0%, #0f0a2e 55%, #050310 100%)",
+        }}
+      >
+        <div className="pointer-events-none absolute -left-32 top-1/4 w-96 h-96 bg-indigo-600/30 blur-3xl rounded-full animate-blob" />
+        <div className="pointer-events-none absolute -right-32 bottom-1/4 w-80 h-80 bg-violet-700/25 blur-3xl rounded-full animate-blob-2" />
+
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
+          <ScrollReveal className="text-center mb-10 sm:mb-14">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+              Xem kết quả thực tế
             </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
-              Bạn chỉ cần mô tả ý tưởng bằng tiếng Việt — AI hiểu ngữ cảnh và
-              tạo ra đúng loại nội dung phù hợp, dù là landing page, bài viết
-              hay quảng cáo.
+            <p className="text-indigo-300/70">
+              Mô tả bằng tiếng Việt — Claude &amp; Gemini AI tạo nội dung, mở thẳng trong editor để chỉnh sửa
             </p>
           </ScrollReveal>
 
-          <div className="grid sm:grid-cols-2 gap-5 mb-8 sm:mb-12">
-            {CONTENT_TYPES.map((ct, i) => (
-              <ScrollReveal key={ct.title} delay={i * 80} className="h-full">
-                <div
-                  className={`h-full rounded-2xl bg-gradient-to-br ${ct.bg} border ${ct.border} p-6 flex flex-col gap-5`}
-                >
-                  {/* Top: icon + title + badge + desc */}
-                  <div className="flex items-start gap-4">
-                    <div
-                      className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${ct.grad} flex items-center justify-center text-2xl shadow-md flex-shrink-0`}
-                    >
-                      {ct.emoji}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap mb-1.5">
-                        <h3 className="text-base font-bold text-gray-900">
-                          {ct.title}
-                        </h3>
-                        <span
-                          className={`text-xs font-semibold px-2 py-0.5 rounded-full ${ct.badgeColor} flex-shrink-0`}
-                        >
-                          {ct.badge}
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-500 leading-relaxed">
-                        {ct.desc}
-                      </p>
-                    </div>
+          <div className="flex flex-col md:flex-row items-stretch gap-6">
+            {/* LEFT: User input */}
+            <ScrollReveal className="flex-1" from="left">
+              <div className="h-full bg-white/[0.06] backdrop-blur-md rounded-2xl border border-white/10 p-6 flex flex-col">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center border border-indigo-400/30">
+                    <MousePointer2 className="w-4 h-4 text-indigo-400" />
                   </div>
-                  {/* Divider */}
-                  <div className="border-t border-black/5" />
-                  {/* Examples: 2 columns, 6 items */}
-                  <div className="grid grid-cols-2 gap-x-3 gap-y-2.5">
-                    {ct.examples.map((ex) => (
-                      <div
-                        key={ex}
-                        className="flex items-start gap-1.5 text-xs text-gray-700"
-                      >
-                        <CheckCircle2 className="w-3 h-3 text-emerald-500 flex-shrink-0 mt-0.5" />
-                        <span>{ex}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <Link
-                    href={isLoggedIn ? "/create" : "/login?tab=register"}
-                    className={`mt-auto block text-center py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r ${ct.grad} text-white hover:opacity-90 transition-opacity shadow-sm`}
-                  >
-                    Tạo {ct.title} →
-                  </Link>
+                  <span className="font-semibold text-gray-200">Bạn mô tả</span>
+                  <span className="ml-auto text-[11px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/20">Landing Page</span>
                 </div>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          {/* Use-case tag cloud */}
-          <ScrollReveal delay={120}>
-            <div className="rounded-2xl border border-indigo-100 bg-white px-4 py-5 sm:px-6 sm:py-7 shadow-sm">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-5 text-center">
-                Phù hợp với mọi ngành nghề, mọi ý tưởng
-              </p>
-              <div className="flex flex-wrap justify-center gap-2.5">
-                {USE_CASE_TAGS.map(({ label, color }) => (
-                  <span
-                    key={label}
-                    className={`inline-flex items-center px-3.5 py-1.5 rounded-full text-xs border ${color}`}
-                  >
-                    {label}
-                  </span>
-                ))}
+                <div className="bg-white/10 rounded-xl border border-white/10 p-4 flex-1 text-sm text-gray-300 leading-relaxed">
+                  Tạo landing page bán khóa học lập trình Python. Đối tượng: sinh viên và người đi làm muốn chuyển ngành. Màu chủ đạo xanh navy. Nút CTA &ldquo;Đăng ký học thử miễn phí&rdquo;.
+                </div>
+                <div className="mt-4 flex items-center gap-2 text-sm text-indigo-400/70">
+                  <Sparkles className="w-4 h-4 text-violet-400" />
+                  Claude AI phân tích &amp; tạo nội dung
+                </div>
               </div>
+            </ScrollReveal>
+
+            {/* Arrow */}
+            <div className="flex items-center justify-center md:flex-col gap-2 text-indigo-400 shrink-0">
+              <div className="hidden md:flex flex-col items-center gap-1">
+                <div className="w-px h-8 bg-indigo-500/40" />
+                <ArrowRight className="w-6 h-6 rotate-90" />
+                <div className="w-px h-8 bg-indigo-500/40" />
+              </div>
+              <ArrowRight className="w-6 h-6 md:hidden" />
             </div>
-          </ScrollReveal>
+
+            {/* RIGHT: Editor opens with AI content */}
+            <ScrollReveal className="flex-1" from="right" delay={100}>
+              <div className="h-full bg-white/[0.06] backdrop-blur-md rounded-2xl border border-white/10 p-6 flex flex-col">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center border border-emerald-400/30">
+                    <LayoutTemplate className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <span className="font-semibold text-gray-200">Editor mở với nội dung AI</span>
+                </div>
+                {/* Mini editor mockup */}
+                <div className="flex-1 rounded-xl overflow-hidden border border-white/10 bg-gray-900 flex flex-col">
+                  {/* Editor toolbar */}
+                  <div className="bg-gray-800/80 px-3 py-2 flex items-center gap-2 border-b border-white/10">
+                    <div className="flex gap-1">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
+                    </div>
+                    <div className="flex-1 flex items-center justify-center gap-2">
+                      <div className="w-16 h-1.5 bg-white/20 rounded" />
+                      <div className="w-10 h-1.5 bg-white/20 rounded" />
+                      <div className="w-14 h-1.5 bg-white/20 rounded" />
+                    </div>
+                    <div className="w-14 h-5 rounded bg-emerald-500/80 flex items-center justify-center">
+                      <div className="w-8 h-1 bg-white/70 rounded" />
+                    </div>
+                  </div>
+                  {/* Canvas preview */}
+                  <div className="flex-1 bg-gradient-to-br from-blue-900 to-indigo-900 p-5 flex flex-col justify-between relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-10"
+                      style={{ backgroundImage: "radial-gradient(circle at 1px 1px,white 1px,transparent 0)", backgroundSize: "20px 20px" }}
+                    />
+                    <div className="relative">
+                      <div className="w-3/4 h-3 bg-white/90 rounded mb-2" />
+                      <div className="w-1/2 h-2 bg-white/50 rounded mb-1" />
+                      <div className="w-2/3 h-2 bg-white/40 rounded mb-4" />
+                      <div className="w-28 h-7 bg-blue-400 rounded-lg shadow-lg" />
+                    </div>
+                    {/* Selection ring on button */}
+                    <div className="relative self-start mt-2 border border-blue-400 rounded px-2 py-1 flex items-center gap-1.5">
+                      <div className="w-12 h-1.5 bg-white/40 rounded" />
+                      <div className="w-8 h-1 bg-white/25 rounded" />
+                      <div className="absolute -top-1 -left-1 w-2 h-2 bg-blue-400 rounded-sm" />
+                      <div className="absolute -top-1 -right-1 w-2 h-2 bg-blue-400 rounded-sm" />
+                      <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-blue-400 rounded-sm" />
+                      <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-blue-400 rounded-sm" />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="text-xs text-indigo-400/60">
+                    Kéo thả · Thêm ảnh · Thay màu · Xuất HTML
+                  </span>
+                  <span className="text-xs text-indigo-400/60">
+                    0 JS · CSS inline
+                  </span>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
-      {/* ── How it works ───────────────────────────────────────────── */}
+      {/* ── 3 bước đơn giản ────────────────────────────────────────── */}
       <section
         id="how-it-works"
-        className="py-12 md:py-24"
-        style={{
-          background:
-            "linear-gradient(160deg, #faf9ff 0%, #ffffff 55%, #f5f3ff 100%)",
-        }}
+        className="py-12 md:py-20"
+        style={{ background: "linear-gradient(180deg,#f5f4fb 0%,#edeaf8 100%)" }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <ScrollReveal className="text-center mb-10 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-              Chỉ 3 bước
+          <ScrollReveal className="text-center mb-10 sm:mb-14">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+              Chỉ 3 bước đơn giản
             </h2>
             <p className="text-gray-500">
               Từ ý tưởng đến HTML production-ready trong chưa đầy một phút
             </p>
           </ScrollReveal>
 
-          <div className="flex flex-col gap-12 sm:gap-20">
-            {STEPS.map(
-              ({ step, stepGrad, wrapGrad, title, desc, preview }, i) => (
+          <div className="grid sm:grid-cols-3 gap-6 lg:gap-10">
+            {STEPS.map(({ step, stepGrad, title, desc }, i) => (
+              <ScrollReveal key={step} delay={i * 100} className="text-center">
                 <div
-                  key={step}
-                  className={`flex flex-col ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-6 md:gap-10`}
+                  className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${stepGrad} text-white font-extrabold text-xl mb-5 shadow-lg`}
                 >
-                  <ScrollReveal
-                    className="flex-1"
-                    from={i % 2 === 0 ? "left" : "right"}
-                  >
-                    <div
-                      className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br ${stepGrad} text-white font-extrabold text-lg mb-5 shadow-lg`}
-                    >
-                      {step}
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                      {title}
-                    </h3>
-                    <p className="text-gray-500 text-lg leading-relaxed">
-                      {desc}
-                    </p>
-                  </ScrollReveal>
-                  <ScrollReveal
-                    className="flex-1 w-full"
-                    from={i % 2 === 0 ? "right" : "left"}
-                    delay={100}
-                  >
-                    <div
-                      className={`rounded-2xl overflow-hidden shadow-xl p-1.5 bg-gradient-to-br ${wrapGrad} border border-white/60`}
-                    >
-                      {preview}
-                    </div>
-                  </ScrollReveal>
+                  {step}
                 </div>
-              ),
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Editor Showcase ────────────────────────────────────────── */}
-      <section
-        className="py-12 md:py-24 overflow-hidden"
-        style={{ background: "#f8f7ff" }}
-      >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <ScrollReveal className="text-center mb-8 sm:mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 text-xs font-semibold text-indigo-700 bg-indigo-50 rounded-full border border-indigo-200">
-              <MousePointer2 className="w-3.5 h-3.5" /> Editor kéo thả
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-              Chỉnh sửa trực tiếp — không cần code
-            </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
-              Sau khi AI tạo HTML, bạn mở ngay trong editor. Kéo thả khối, click
-              để đổi màu, font, khoảng cách — mọi thứ cập nhật tức thì trên
-              canvas.
-            </p>
-          </ScrollReveal>
-
-          {/* Editor mockup — matches real editor layout */}
-          <ScrollReveal>
-            <div className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/10 select-none">
-              {/* ── TopBar (dark) — giống hệt editor thật ── */}
-              <div
-                className="flex items-center justify-between px-3 bg-slate-900 border-b border-slate-800 gap-2"
-                style={{ height: "52px" }}
-              >
-                {/* Left: Logo + Plus + Templates */}
-                <div className="flex items-center gap-1.5 flex-shrink-0">
-                  <div className="inline-flex items-center gap-2">
-                    <div className="w-[26px] h-[26px] rounded-[6px] bg-gradient-to-br from-indigo-900 to-violet-700 flex items-center justify-center flex-shrink-0">
-                      <Zap className="w-3 h-3 text-white" />
-                    </div>
-                    <span className="hidden md:inline font-extrabold text-[0.95rem] leading-none tracking-tight text-white/90 whitespace-nowrap">
-                      AI<span className="text-white/40">Tao</span>
-                      <span className="text-white/25 font-semibold">Page</span>
-                    </span>
-                  </div>
-                  <button className="p-1.5 rounded-lg text-slate-400">
-                    <Plus className="w-3.5 h-3.5" />
-                  </button>
-                  <button className="p-1.5 rounded-lg text-slate-400">
-                    <LayoutTemplate className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-
-                {/* Center: controls */}
-                <div className="flex items-center gap-1 flex-1 justify-center">
-                  <div className="flex items-center bg-slate-800 rounded-lg p-0.5 gap-0.5">
-                    <span className="p-1.5 rounded-md text-slate-500">
-                      <Undo2 className="w-3.5 h-3.5" />
-                    </span>
-                    <span className="p-1.5 rounded-md text-slate-400">
-                      <Redo2 className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-                  <div className="hidden sm:flex items-center bg-slate-800 rounded-lg p-0.5 gap-0.5">
-                    <span className="p-1.5 rounded-md bg-white text-slate-800">
-                      <Monitor className="w-3.5 h-3.5" />
-                    </span>
-                    <span className="p-1.5 text-slate-400">
-                      <Smartphone className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-                  <div className="hidden md:flex items-center bg-slate-800 rounded-lg overflow-hidden">
-                    <span className="px-1.5 py-1.5 text-slate-400">
-                      <ZoomOut className="w-3 h-3" />
-                    </span>
-                    <span className="px-1.5 py-1 text-xs font-mono text-slate-300 w-9 text-center">
-                      100%
-                    </span>
-                    <span className="px-1.5 py-1.5 text-slate-400">
-                      <ZoomIn className="w-3 h-3" />
-                    </span>
-                  </div>
-                  <div className="w-px h-4 bg-slate-700 mx-0.5" />
-                  <span className="flex items-center gap-1 px-2 py-1.5 text-xs text-slate-300 rounded-lg">
-                    <Eye className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Preview</span>
-                  </span>
-                  <span className="hidden sm:flex items-center gap-1 px-2 py-1.5 text-xs text-slate-400 rounded-lg">
-                    <Trash2 className="w-3.5 h-3.5" />
-                    <span className="hidden xl:inline">Xóa</span>
-                  </span>
-                </div>
-
-                {/* Right: Save + Export + badge + avatar */}
-                <div className="flex items-center gap-1.5 flex-shrink-0">
-                  <span className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs text-emerald-400">
-                    <Check className="w-3.5 h-3.5" />
-                    <span className="hidden md:inline">Đã lưu</span>
-                  </span>
-                  <span className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-800 rounded-lg text-xs text-slate-300">
-                    <Code2 className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Xuất HTML</span>
-                    <ChevronDown className="w-3 h-3" />
-                  </span>
-                  <div className="w-px h-4 bg-slate-700 mx-0.5" />
-                  <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-gradient-to-r from-indigo-500 to-violet-500">
-                    <Crown className="w-2.5 h-2.5" /> Basic
-                  </span>
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
-                    L
-                  </div>
-                </div>
-              </div>
-
-              {/* ── Edit hint banner (indigo) ── */}
-              <div className="flex items-center gap-2.5 px-4 py-2 bg-indigo-600 text-white text-xs">
-                <Sparkles className="w-3.5 h-3.5 flex-shrink-0 opacity-80" />
-                <p className="flex-1 leading-relaxed">
-                  <span className="font-semibold">
-                    Mọi thứ đều chỉnh sửa được!
-                  </span>{" "}
-                  Nhấn vào bất kỳ phần tử nào để đổi màu, font, gradient, hình
-                  ảnh... Kéo thả các khối ở bên trái để thêm nội dung mới.
-                </p>
-                <X className="w-3.5 h-3.5 opacity-60 flex-shrink-0" />
-              </div>
-
-              {/* ── Component action bar (white) ── */}
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-white border-b border-slate-200">
-                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold border border-blue-100">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />{" "}
-                  Hero Section
-                </span>
-                <div className="flex items-center gap-0.5 ml-auto">
-                  <span className="p-1.5 rounded-lg text-slate-500">
-                    <ArrowUp className="w-3.5 h-3.5" />
-                  </span>
-                  <span className="p-1.5 rounded-lg text-slate-500">
-                    <ArrowDown className="w-3.5 h-3.5" />
-                  </span>
-                  <div className="w-px h-4 bg-slate-200 mx-1" />
-                  <span className="p-1.5 rounded-lg text-slate-500">
-                    <Copy className="w-3.5 h-3.5" />
-                  </span>
-                  <span className="p-1.5 rounded-lg text-red-400">
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </div>
-
-              {/* ── Main area: Left panel + Canvas + Right panel ── */}
-              <div className="flex" style={{ height: "380px" }}>
-                {/* Left: Blocks panel — white, like real editor */}
-                <div className="w-52 border-r border-slate-200 bg-white hidden md:flex flex-col flex-shrink-0 overflow-hidden">
-                  <div
-                    className="px-3 py-2.5 border-b border-slate-200 bg-slate-50 flex items-center gap-2"
-                    style={{ minHeight: "44px" }}
-                  >
-                    <div className="w-6 h-6 rounded-md bg-blue-100 flex items-center justify-center flex-shrink-0">
-                      <LayoutGrid className="w-3.5 h-3.5 text-blue-600" />
-                    </div>
-                    <span className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                      Khối
-                    </span>
-                  </div>
-                  <div className="flex-1 overflow-y-auto p-2">
-                    <div className="grid grid-cols-2 gap-1.5">
-                      {[
-                        { emoji: "𝐓", label: "Tiêu đề" },
-                        { emoji: "¶", label: "Đoạn văn" },
-                        { emoji: "⬜", label: "Nút CTA" },
-                        { emoji: "🖼", label: "Hình ảnh" },
-                        { emoji: "⊞", label: "Cột đôi" },
-                        { emoji: "🏠", label: "Hero", active: true },
-                        { emoji: "≡", label: "Navbar" },
-                        { emoji: "⚡", label: "Tính năng" },
-                        { emoji: "💬", label: "Đánh giá" },
-                        { emoji: "🔖", label: "Footer" },
-                      ].map(
-                        ({
-                          emoji,
-                          label,
-                          active,
-                        }: {
-                          emoji: string;
-                          label: string;
-                          active?: boolean;
-                        }) => (
-                          <div
-                            key={label}
-                            className={`flex flex-col items-center justify-center gap-1.5 p-2.5 rounded-lg border cursor-grab text-center transition-colors ${active ? "border-blue-200 bg-blue-50" : "border-slate-200 bg-white hover:border-slate-300"}`}
-                          >
-                            <span className="text-lg leading-none">
-                              {emoji}
-                            </span>
-                            <span
-                              className={`text-[10px] leading-tight ${active ? "text-blue-700 font-medium" : "text-slate-600"}`}
-                            >
-                              {label}
-                            </span>
-                          </div>
-                        ),
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Center: Canvas — gray bg, page inside */}
-                <div className="flex-1 bg-gray-100 relative overflow-hidden">
-                  <div className="relative mt-5">
-                    {/* Selected Hero — blue border + handles */}
-                    <div className="bg-gradient-to-r from-indigo-600 to-violet-700 px-6 sm:px-10 py-8 text-white relative">
-                      <div className="absolute inset-0 border-2 border-blue-400 pointer-events-none">
-                        <div className="absolute -top-[22px] left-0 bg-blue-500 text-white text-[9px] font-bold px-2 py-0.5 flex items-center gap-1">
-                          <MoveHorizontal className="w-2.5 h-2.5" /> Hero
-                          Section
-                        </div>
-                        <div className="absolute top-0 left-0 w-2 h-2 bg-blue-400 -translate-x-1 -translate-y-1" />
-                        <div className="absolute top-0 right-0 w-2 h-2 bg-blue-400 translate-x-1 -translate-y-1" />
-                        <div className="absolute bottom-0 left-0 w-2 h-2 bg-blue-400 -translate-x-1 translate-y-1" />
-                        <div className="absolute bottom-0 right-0 w-2 h-2 bg-blue-400 translate-x-1 translate-y-1" />
-                      </div>
-                      <div className="text-xs text-indigo-200 uppercase tracking-widest mb-1">
-                        Khóa học online
-                      </div>
-                      <div className="text-xl sm:text-2xl font-extrabold leading-snug mb-3">
-                        Học lập trình Web từ A→Z
-                        <br className="hidden sm:block" /> trong 3 tháng
-                      </div>
-                      <div className="inline-block bg-yellow-400 text-gray-900 font-bold px-5 py-2 rounded-xl text-sm shadow-lg">
-                        Đăng ký ngay →
-                      </div>
-                    </div>
-                    <div className="bg-white border-b border-gray-200 px-6 sm:px-10 py-5 grid grid-cols-3 gap-3 text-center">
-                      {["✅ 120+ bài học", "🎓 Chứng chỉ", "🏆 Hỗ trợ 1-1"].map(
-                        (f) => (
-                          <div
-                            key={f}
-                            className="text-xs sm:text-sm text-gray-700 font-medium"
-                          >
-                            {f}
-                          </div>
-                        ),
-                      )}
-                    </div>
-                    <div className="bg-gray-50 px-6 sm:px-10 py-5 flex flex-col items-center gap-1">
-                      <div className="text-base font-extrabold text-gray-900">
-                        Chỉ 2.990.000đ
-                      </div>
-                      <div className="text-xs text-gray-500 mb-2">
-                        Trọn đời · Cập nhật miễn phí
-                      </div>
-                      <div className="inline-block bg-indigo-600 text-white px-7 py-2 rounded-xl text-sm font-semibold shadow">
-                        Mua ngay
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right: Style/Layers/History panel — white, like real editor */}
-                <div className="w-60 border-l border-slate-200 bg-white hidden lg:flex flex-col flex-shrink-0 overflow-hidden">
-                  {/* 3-tab bar */}
-                  <div className="flex border-b border-slate-200 bg-slate-50">
-                    <button className="flex-1 flex items-center justify-center gap-1 py-2.5 text-xs font-semibold text-blue-600 border-b-2 border-blue-500 bg-white">
-                      <Palette className="w-3 h-3" /> Kiểu dáng
-                    </button>
-                    <button className="flex-1 flex items-center justify-center gap-1 py-2.5 text-xs font-semibold text-slate-500 border-b-2 border-transparent hover:text-slate-700">
-                      <Layers className="w-3 h-3" /> Lớp
-                    </button>
-                    <button className="flex-1 flex items-center justify-center gap-1 py-2.5 text-xs font-semibold text-slate-500 border-b-2 border-transparent hover:text-slate-700">
-                      <History className="w-3 h-3" /> Lịch sử
-                    </button>
-                  </div>
-                  {/* Style panel content */}
-                  <div className="flex-1 overflow-y-auto">
-                    {/* Thẻ HTML selector row */}
-                    <div className="px-3 pt-3 pb-2">
-                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
-                        Thẻ HTML
-                      </p>
-                      <div className="h-7 border border-slate-200 rounded-lg bg-white flex items-center px-2.5 text-xs text-slate-700 font-mono">
-                        div — Khối
-                      </div>
-                    </div>
-                    {/* Typography sector */}
-                    <div className="border-t border-slate-100">
-                      <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 border-b border-slate-200">
-                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex-1">
-                          Kiểu chữ
-                        </span>
-                        <ChevronDown className="w-3 h-3 text-slate-400" />
-                      </div>
-                      <div className="p-3 space-y-2.5">
-                        <div className="grid grid-cols-2 gap-2">
-                          <div>
-                            <p className="text-[9px] text-slate-500 mb-1">
-                              Cỡ chữ
-                            </p>
-                            <div className="h-7 border border-slate-200 rounded-lg flex items-center px-2 text-xs text-slate-700 font-mono">
-                              28px
-                            </div>
-                          </div>
-                          <div>
-                            <p className="text-[9px] text-slate-500 mb-1">
-                              Độ đậm
-                            </p>
-                            <div className="h-7 border border-slate-200 rounded-lg flex items-center px-2 text-xs text-slate-700 font-mono">
-                              700
-                            </div>
-                          </div>
-                        </div>
-                        <div>
-                          <p className="text-[9px] text-slate-500 mb-1">
-                            Màu chữ
-                          </p>
-                          <div className="h-7 border border-slate-200 rounded-lg flex items-center px-2 gap-2">
-                            <div className="w-4 h-4 rounded bg-white border border-slate-300 flex-shrink-0" />
-                            <span className="text-xs text-slate-700 font-mono">
-                              #ffffff
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Background sector */}
-                    <div className="border-t border-slate-100">
-                      <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 border-b border-slate-200">
-                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex-1">
-                          Nền
-                        </span>
-                        <ChevronDown className="w-3 h-3 text-slate-400" />
-                      </div>
-                      <div className="p-3">
-                        <p className="text-[9px] text-slate-500 mb-1">
-                          Màu nền
-                        </p>
-                        <div className="h-7 border border-slate-200 rounded-lg flex items-center px-2 gap-2">
-                          <div className="w-4 h-4 rounded bg-gradient-to-r from-indigo-600 to-violet-700 border border-slate-300 flex-shrink-0" />
-                          <span className="text-xs text-slate-500 font-mono">
-                            gradient
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Collapsed sectors */}
-                    <div className="border-t border-slate-100">
-                      <div className="flex items-center gap-2 px-3 py-2 bg-slate-50">
-                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex-1">
-                          Khoảng cách
-                        </span>
-                        <ChevronDown className="w-3 h-3 text-slate-400 -rotate-90" />
-                      </div>
-                    </div>
-                    <div className="border-t border-slate-100">
-                      <div className="flex items-center gap-2 px-3 py-2 bg-slate-50">
-                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex-1">
-                          Kích thước
-                        </span>
-                        <ChevronDown className="w-3 h-3 text-slate-400 -rotate-90" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          {/* 4 key editor capabilities */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
-            {[
-              {
-                icon: <MousePointer2 className="w-5 h-5" />,
-                bg: "bg-indigo-50 text-indigo-600",
-                title: "Kéo & Thả dễ dàng",
-                desc: "Kéo khối từ panel vào canvas, sắp xếp thứ tự trong tích tắc",
-              },
-              {
-                icon: <Palette className="w-5 h-5" />,
-                bg: "bg-violet-50 text-violet-600",
-                title: "Chỉnh style real-time",
-                desc: "Click vào phần tử — đổi màu, font, padding, bo góc tức thì",
-              },
-              {
-                icon: <Smartphone className="w-5 h-5" />,
-                bg: "bg-emerald-50 text-emerald-600",
-                title: "Xem trước Responsive",
-                desc: "Kiểm tra giao diện desktop và mobile ngay trong editor",
-              },
-              {
-                icon: <Share2 className="w-5 h-5" />,
-                bg: "bg-teal-50 text-teal-600",
-                title: "HTML · PDF · Link xuất bản",
-                desc: "Sao chép HTML, tải .html, xuất PDF, hoặc xuất bản link chia sẻ — tất cả trong 1 click",
-              },
-            ].map(({ icon, bg, title, desc }) => (
-              <div
-                key={title}
-                className="flex items-start gap-3 p-4 rounded-2xl bg-white border border-gray-100 shadow-sm"
-              >
-                <div
-                  className={`w-10 h-10 rounded-xl ${bg} flex items-center justify-center flex-shrink-0`}
-                >
-                  {icon}
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900 text-sm mb-0.5">
-                    {title}
-                  </p>
-                  <p className="text-xs text-gray-500 leading-relaxed">
-                    {desc}
-                  </p>
-                </div>
-              </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  {title}
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
+              </ScrollReveal>
             ))}
           </div>
 
-          {/* Export & Publish highlight */}
-          <ScrollReveal delay={100}>
-            <div className="mt-8 rounded-2xl border border-indigo-100 bg-white shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-100 bg-gray-50/60">
-                <p className="text-center text-xs font-semibold text-gray-500 uppercase tracking-widest">
-                  4 cách xuất bản & chia sẻ nội dung
-                </p>
-              </div>
-              <div className="grid sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-100">
-                {[
-                  {
-                    icon: <Copy className="w-5 h-5 text-emerald-600" />,
-                    bg: "bg-emerald-50",
-                    title: "Sao chép HTML",
-                    desc: "Inline CSS sẵn sàng — dán thẳng vào Haravan, Sapo, WordPress",
-                  },
-                  {
-                    icon: <FileDown className="w-5 h-5 text-blue-600" />,
-                    bg: "bg-blue-50",
-                    title: "Tải file .html",
-                    desc: "File HTML hoàn chỉnh — self-host hoặc lưu trữ cục bộ",
-                  },
-                  {
-                    icon: <FileDown className="w-5 h-5 text-rose-600" />,
-                    bg: "bg-rose-50",
-                    title: "Xuất PDF",
-                    desc: "PDF chất lượng cao — in ấn, gửi hồ sơ, lưu tài liệu",
-                  },
-                  {
-                    icon: <Share2 className="w-5 h-5 text-teal-600" />,
-                    bg: "bg-teal-50",
-                    title: "Xuất bản link",
-                    desc: "Link công khai — chia sẻ ngay, ai cũng xem được trực tiếp",
-                  },
-                ].map(({ icon, bg, title, desc }) => (
-                  <div key={title} className="flex flex-col items-center text-center gap-3 p-5">
-                    <div className={`w-11 h-11 rounded-xl ${bg} flex items-center justify-center`}>
-                      {icon}
-                    </div>
-                    <div>
-                      <p className="font-semibold text-gray-900 text-sm mb-1">{title}</p>
-                      <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </ScrollReveal>
-
-          {/* CTA */}
           <ScrollReveal className="text-center mt-10">
             <Link
               href={isLoggedIn ? "/create" : "/demo"}
@@ -1547,166 +1002,163 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      {/* ── Clone Website ──────────────────────────────────────────── */}
-      <section className="py-10 sm:py-16" style={{ background: "#f0f9ff" }}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <ScrollReveal className="text-center mb-6 sm:mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 text-xs font-semibold text-sky-700 bg-sky-50 rounded-full border border-sky-200">
-              <Link2 className="w-3.5 h-3.5" /> Tính năng độc quyền
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-              Clone bất kỳ website nào chỉ bằng URL
+      {/* ── Content Types compact ──────────────────────────────────── */}
+      <section className="py-12 md:py-16 relative overflow-hidden" style={{ background: "linear-gradient(160deg,#ebebf8 0%,#e3e1f4 60%,#e8e6f6 100%)" }}>
+        <div className="pointer-events-none absolute -left-40 top-1/3 w-96 h-96 bg-indigo-400/6 blur-3xl rounded-full" />
+        <div className="pointer-events-none absolute -right-40 bottom-0 w-80 h-80 bg-violet-400/6 blur-3xl rounded-full" />
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
+          <ScrollReveal className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+              Tạo bất kỳ loại nội dung nào
             </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
-              Dán link một trang web, AI tự động phân tích bố cục, màu sắc,
-              typography rồi tái tạo thành HTML chỉnh sửa được — chỉ trong vài
-              giây.
+            <p className="text-gray-500 text-sm max-w-xl mx-auto">
+              Mô tả bằng tiếng Việt — AI hiểu và tạo đúng loại, đúng mục đích
             </p>
           </ScrollReveal>
 
-          <div className="flex flex-col md:flex-row items-center gap-5 md:gap-8 mb-6">
-            {/* Left — input demo */}
-            <ScrollReveal className="flex-1 w-full" from="left">
-              <div className="bg-white rounded-2xl border border-sky-100 shadow-lg p-6">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">
-                  Bước 1 — Dán URL trang muốn clone
-                </p>
-                <div className="flex items-center gap-2.5 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 mb-5">
-                  <Globe className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                  <span className="text-sm text-gray-500 flex-1 font-mono truncate">
-                    https://example.com/landing
-                  </span>
-                  <span className="text-xs font-semibold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-lg border border-sky-200 flex-shrink-0">
-                    Phân tích →
-                  </span>
-                </div>
-                <div className="flex flex-col gap-3">
-                  {[
-                    "AI fetch HTML trang gốc",
-                    "Phân tích bố cục, màu sắc, typography",
-                    "Tái tạo HTML hoàn chỉnh bằng AI",
-                    "Mở thẳng trong editor để chỉnh sửa",
-                  ].map((step, i) => (
-                    <div key={step} className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded-full bg-sky-100 text-sky-700 text-xs font-bold flex items-center justify-center flex-shrink-0">
-                        {i + 1}
-                      </div>
-                      <span className="text-sm text-gray-600">{step}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </ScrollReveal>
-
-            <div className="hidden md:flex items-center text-sky-300">
-              <ArrowRight className="w-8 h-8" />
-            </div>
-
-            {/* Right — result preview */}
-            <ScrollReveal className="flex-1 w-full" from="right" delay={100}>
-              <div className="bg-white rounded-2xl border border-emerald-100 shadow-lg overflow-hidden">
-                <div className="flex items-center gap-2 px-4 py-3 bg-emerald-50 border-b border-emerald-100">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                  <span className="text-xs font-semibold text-emerald-700">
-                    Tái tạo xong
-                  </span>
-                  <span className="ml-auto text-xs text-gray-400">~5s</span>
-                </div>
-                <div className="p-5 space-y-3">
-                  <div className="h-20 bg-gradient-to-r from-sky-600 to-blue-700 rounded-xl flex flex-col items-center justify-center text-white gap-1">
-                    <div className="text-xs font-bold tracking-wide">
-                      GIAO DIỆN ĐÃ TÁI TẠO
-                    </div>
-                    <div className="text-[10px] text-sky-200">
-                      Giữ nguyên bố cục · màu sắc · typography
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-3 gap-2">
-                    {["Hero", "Features", "CTA"].map((s) => (
-                      <div
-                        key={s}
-                        className="h-8 bg-sky-50 border border-sky-100 rounded-lg flex items-center justify-center text-[10px] font-medium text-sky-600"
-                      >
-                        {s}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex gap-2">
-                    <div className="flex-1 h-9 bg-sky-600 rounded-lg flex items-center justify-center gap-1.5 text-white text-xs font-semibold">
-                      <Code2 className="w-3.5 h-3.5" /> Mở trong editor
-                    </div>
-                    <div className="flex-1 h-9 bg-gray-100 rounded-lg flex items-center justify-center gap-1.5 text-gray-600 text-xs font-semibold">
-                      <Copy className="w-3.5 h-3.5" /> Sao chép HTML
-                    </div>
-                  </div>
-                  <p className="text-[10px] text-gray-400 text-center">
-                    Kết quả ~70–80% giống trang gốc · Sử dụng 1 lượt tạo
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          {/* Use cases */}
-          <ScrollReveal delay={120}>
-            <div className="grid sm:grid-cols-3 gap-4 mb-6">
-              {[
-                {
-                  emoji: "🎨",
-                  title: "Lấy cảm hứng thiết kế",
-                  desc: "Clone trang đẹp của đối thủ hoặc tham khảo, rồi chỉnh lại theo thương hiệu của bạn",
-                },
-                {
-                  emoji: "⚡",
-                  title: "Khởi đầu nhanh hơn",
-                  desc: "Không cần thiết kế từ đầu — dùng bố cục trang sẵn có làm điểm xuất phát",
-                },
-                {
-                  emoji: "📐",
-                  title: "Tái sử dụng layout hay",
-                  desc: "Thấy layout đẹp trên mạng? Clone về, thay nội dung và màu sắc là xong",
-                },
-              ].map(({ emoji, title, desc }) => (
-                <div
-                  key={title}
-                  className="bg-white border border-sky-100 rounded-2xl p-5 shadow-sm flex items-start gap-4"
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {CONTENT_TYPES.map((ct, i) => (
+              <ScrollReveal key={ct.title} delay={i * 60}>
+                <Link
+                  href={isLoggedIn ? "/create" : "/login?tab=register"}
+                  className={`block h-full rounded-2xl bg-gradient-to-br ${ct.bg} border ${ct.border} p-5 hover:shadow-md transition-all group`}
                 >
-                  <span className="text-2xl flex-shrink-0">{emoji}</span>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 text-sm mb-1">
-                      {title}
-                    </h3>
-                    <p className="text-xs text-gray-500 leading-relaxed">
-                      {desc}
-                    </p>
+                  <div
+                    className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${ct.grad} flex items-center justify-center text-2xl mb-4 shadow-md`}
+                  >
+                    {ct.emoji}
                   </div>
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal className="text-center">
-            <Link
-              href={isLoggedIn ? "/create" : "/login?tab=register"}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-md shadow-sky-500/25"
-            >
-              <Link2 className="w-4 h-4" /> Thử clone website ngay
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </ScrollReveal>
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <h3 className="text-sm font-bold text-gray-900">
+                      {ct.title}
+                    </h3>
+                    <span
+                      className={`text-xs font-semibold px-2 py-0.5 rounded-full ${ct.badgeColor}`}
+                    >
+                      {ct.badge}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500 leading-relaxed mb-3">
+                    {ct.desc}
+                  </p>
+                  <span
+                    className={`text-xs font-semibold bg-gradient-to-r ${ct.grad} bg-clip-text text-transparent group-hover:opacity-80`}
+                  >
+                    Tạo ngay →
+                  </span>
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── Features ───────────────────────────────────────────────── */}
+      {/* ── Template mới nhất từ DB ────────────────────────────────── */}
       <section
-        className="py-12 md:py-24"
-        style={{
-          background:
-            "linear-gradient(160deg, #f5f3ff 0%, #fafaff 50%, #ede9fe 100%)",
-        }}
+        className="py-12 md:py-20 relative overflow-hidden"
+        style={{ background: "linear-gradient(160deg,#eeedf9 0%,#e5e3f5 55%,#eeedf9 100%)" }}
+      >
+        <div className="pointer-events-none absolute -right-48 top-0 w-[500px] h-[500px] bg-emerald-400/5 blur-3xl rounded-full" />
+        <div className="pointer-events-none absolute -left-32 bottom-0 w-80 h-80 bg-indigo-400/5 blur-3xl rounded-full" />
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
+          <ScrollReveal>
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-1">
+                  Mẫu giao diện có sẵn
+                </h2>
+                <p className="text-gray-500 text-sm">
+                  Dùng ngay làm điểm khởi đầu, chỉnh sửa theo thương hiệu của bạn
+                </p>
+              </div>
+              <Link
+                href="/templates"
+                className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 hover:text-indigo-700 flex-shrink-0"
+              >
+                Xem tất cả mẫu <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {(homeTemplates.length > 0
+              ? homeTemplates
+              : [
+                  { id: "lp-1",   name: "Landing page bán hàng",      category: "landing",   description: "Mẫu landing page chuyển đổi cao cho e-commerce",        gradient: "from-indigo-500 to-violet-600", accentColor: "#6366f1" },
+                  { id: "art-1",  name: "Bài viết SEO chuẩn",         category: "article",   description: "Mẫu bài viết blog chuẩn SEO với heading structure",       gradient: "from-blue-500 to-cyan-500",     accentColor: "#3b82f6" },
+                  { id: "ads-1",  name: "Banner quảng cáo Facebook",   category: "ads",       description: "Banner ads tỷ lệ chuyển đổi cao cho Facebook",           gradient: "from-rose-500 to-pink-600",     accentColor: "#f43f5e" },
+                  { id: "port-1", name: "Portfolio freelancer",        category: "portfolio", description: "Trang portfolio chuyên nghiệp cho freelancer",            gradient: "from-teal-500 to-emerald-600",  accentColor: "#14b8a6" },
+                  { id: "cv-1",   name: "CV xin việc lập trình",       category: "cv",        description: "CV online nổi bật cho developer và designer",            gradient: "from-amber-500 to-orange-500",  accentColor: "#f59e0b" },
+                  { id: "lp-2",   name: "Trang giới thiệu dịch vụ",   category: "landing",   description: "Landing page dịch vụ chuyên nghiệp và uy tín",           gradient: "from-sky-500 to-blue-600",      accentColor: "#0ea5e9" },
+                ]
+            ).map((t, i) => {
+              const catMeta = CATEGORY_META[t.category as keyof typeof CATEGORY_META];
+              return (
+                <ScrollReveal key={t.id} delay={i * 60}>
+                  <div className="group bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-indigo-200 transition-all duration-200 flex flex-col h-full">
+                    {/* Mini preview + hover overlay */}
+                    <div className="relative flex-shrink-0">
+                      <MiniPreview category={t.category} gradient={t.gradient} accentColor={t.accentColor} />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:flex items-center justify-center z-20">
+                        <Link
+                          href={homeTemplates.length > 0 ? `/templates?preview=${t.id}` : "/templates"}
+                          className="flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-lg px-3 py-1.5 text-xs font-semibold hover:bg-white transition-colors"
+                        >
+                          <ExternalLink className="w-3 h-3" /> Xem trước
+                        </Link>
+                      </div>
+                    </div>
+                    {/* Card body */}
+                    <div className="p-4 flex flex-col flex-1">
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <h3 className="font-semibold text-gray-900 text-sm leading-tight">{t.name}</h3>
+                        <span
+                          className="flex-shrink-0 text-xs font-semibold px-2 py-0.5 rounded-full"
+                          style={{ background: `${t.accentColor}18`, color: t.accentColor }}
+                        >
+                          {catMeta?.label ?? t.category}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500 leading-relaxed mb-3 line-clamp-2 flex-1">{t.description}</p>
+                      {/* Mobile: Xem trước button */}
+                      <Link
+                        href={homeTemplates.length > 0 ? `/templates?preview=${t.id}` : "/templates"}
+                        className="sm:hidden w-full mb-2 py-2 rounded-xl text-sm font-semibold border-2 border-gray-200 text-gray-700 flex items-center justify-center gap-1.5"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" /> Xem trước
+                      </Link>
+                      <Link
+                        href={homeTemplates.length > 0 ? `/editor?template=${t.id}` : "/templates"}
+                        className="w-full py-2 rounded-xl text-sm font-semibold text-white flex items-center justify-center gap-1.5 hover:opacity-90 transition-opacity"
+                        style={{ background: `linear-gradient(135deg, ${t.accentColor}, ${t.accentColor}cc)` }}
+                      >
+                        Dùng mẫu này →
+                      </Link>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+
+          <div className="mt-6 text-center sm:hidden">
+            <Link
+              href="/templates"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600"
+            >
+              Xem tất cả mẫu <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Tính năng nổi bật (6 tính năng) ───────────────────────── */}
+      <section
+        className="py-12 md:py-20"
+        style={{ background: "linear-gradient(180deg,#f2f1fb 0%,#e9e7f7 50%,#f2f1fb 100%)" }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <ScrollReveal className="text-center mb-10 sm:mb-16">
+          <ScrollReveal className="text-center mb-10 sm:mb-14">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
               Tính năng đã có sẵn
             </h2>
@@ -1716,281 +1168,26 @@ export default async function LandingPage() {
           </ScrollReveal>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {FEATURES.map(
-              ({ icon, iconGrad, cardGrad, bar, title, desc }, i) => (
-                <ScrollReveal key={title} delay={i * 50} className="h-full">
-                  <div
-                    className={`relative bg-gradient-to-br ${cardGrad} rounded-2xl p-5 border border-white/80 shadow-sm card-lift h-full overflow-hidden flex flex-col`}
-                  >
-                    <div
-                      className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${bar}`}
-                    />
-                    <div
-                      className={`w-10 h-10 rounded-xl bg-gradient-to-br ${iconGrad} flex items-center justify-center mb-3 shadow-md mt-3 flex-shrink-0`}
-                    >
-                      {icon}
-                    </div>
-                    <h3 className="font-semibold text-gray-900 mb-1.5 text-sm">
-                      {title}
-                    </h3>
-                    <p className="text-xs text-gray-600 leading-relaxed">
-                      {desc}
-                    </p>
-                  </div>
-                </ScrollReveal>
-              ),
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Templates update section ───────────────────────────────── */}
-      <section
-        className="py-10 sm:py-20 overflow-hidden"
-        style={{
-          background:
-            "linear-gradient(160deg, #f0fdf4 0%, #ecfdf5 50%, #f0fdf4 100%)",
-        }}
-      >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-12 bg-white rounded-3xl border border-emerald-100 shadow-md overflow-hidden">
-            {/* Left content */}
-            <div className="flex-1 px-5 py-7 sm:px-8 sm:py-10 lg:py-12">
-              <ScrollReveal>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 text-xs font-semibold text-emerald-700 bg-emerald-50 rounded-full border border-emerald-200">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  Cập nhật thường xuyên
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-snug mb-4">
-                  Chúng tôi liên tục bổ sung mẫu giao diện
-                  <span className="text-emerald-600"> mới nhất, đẹp nhất</span>
-                </h2>
-                <p className="text-gray-500 leading-relaxed mb-6">
-                  Đội ngũ thiết kế của chúng tôi liên tục cập nhật kho mẫu với
-                  những giao diện hiện đại, bắt xu hướng — từ landing page bán
-                  hàng, trang dịch vụ, đến banner quảng cáo chuyển đổi cao. Tất
-                  cả đều được tối ưu inline CSS, dán vào CMS là dùng được ngay.
-                </p>
-
-                <div className="grid grid-cols-2 gap-3 mb-6 sm:mb-8">
-                  {[
-                    {
-                      icon: (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                      ),
-                      text: "Mẫu mới bổ sung hàng tuần",
-                    },
-                    {
-                      icon: (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                      ),
-                      text: "Tối ưu cho thị trường Việt Nam",
-                    },
-                    {
-                      icon: (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                      ),
-                      text: "Dùng ngay làm điểm khởi đầu với AI",
-                    },
-                    {
-                      icon: (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                      ),
-                      text: "Miễn phí cho mọi tài khoản",
-                    },
-                  ].map(({ icon, text }) => (
-                    <div
-                      key={text}
-                      className="flex items-start gap-2 text-sm text-gray-700"
-                    >
-                      {icon}
-                      <span>{text}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Link
-                  href="/templates"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-md"
+            {FEATURES.map(({ icon, iconGrad, cardGrad, bar, title, desc }, i) => (
+              <ScrollReveal key={title} delay={i * 60} className="h-full">
+                <div
+                  className={`relative bg-gradient-to-br ${cardGrad} rounded-2xl p-5 border border-white/80 shadow-sm card-lift h-full overflow-hidden flex flex-col`}
                 >
-                  <LayoutTemplate className="w-4 h-4" /> Khám phá kho mẫu
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </ScrollReveal>
-            </div>
-
-            {/* Right: template category cards */}
-            <ScrollReveal
-              className="flex-1 w-full lg:max-w-sm px-5 py-7 sm:px-8 sm:py-10 lg:py-12 lg:border-l border-emerald-100"
-              from="right"
-            >
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-5">
-                Các loại mẫu có sẵn
-              </p>
-              <div className="space-y-3">
-                {[
-                  {
-                    emoji: "🛒",
-                    label: "Landing page bán hàng",
-                    badge: "Phổ biến",
-                    badgeColor: "bg-violet-100 text-violet-700",
-                  },
-                  {
-                    emoji: "📚",
-                    label: "Trang khóa học online",
-                    badge: "Mới",
-                    badgeColor: "bg-emerald-100 text-emerald-700",
-                  },
-                  {
-                    emoji: "🏢",
-                    label: "Trang giới thiệu dịch vụ",
-                    badge: "Mới",
-                    badgeColor: "bg-emerald-100 text-emerald-700",
-                  },
-                  {
-                    emoji: "📣",
-                    label: "Banner quảng cáo Facebook",
-                    badge: "Hot",
-                    badgeColor: "bg-rose-100 text-rose-700",
-                  },
-                  {
-                    emoji: "✉️",
-                    label: "Email marketing",
-                    badge: "Mới",
-                    badgeColor: "bg-emerald-100 text-emerald-700",
-                  },
-                  {
-                    emoji: "💼",
-                    label: "Portfolio & CV xin việc",
-                    badge: "Mới",
-                    badgeColor: "bg-teal-100 text-teal-700",
-                  },
-                ].map(({ emoji, label, badge, badgeColor }) => (
                   <div
-                    key={label}
-                    className="flex items-center gap-3 bg-gray-50 hover:bg-emerald-50 border border-gray-100 hover:border-emerald-200 rounded-xl px-4 py-3 transition-colors cursor-default"
+                    className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${bar}`}
+                  />
+                  <div
+                    className={`w-10 h-10 rounded-xl bg-gradient-to-br ${iconGrad} flex items-center justify-center mb-3 shadow-md mt-3 flex-shrink-0`}
                   >
-                    <span className="text-xl flex-shrink-0">{emoji}</span>
-                    <span className="text-sm text-gray-700 flex-1">
-                      {label}
-                    </span>
-                    <span
-                      className={`text-xs font-semibold px-2 py-0.5 rounded-full flex-shrink-0 ${badgeColor}`}
-                    >
-                      {badge}
-                    </span>
+                    {icon}
                   </div>
-                ))}
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Demo: Before → After ───────────────────────────────────── */}
-      <section
-        className="relative overflow-hidden py-12 md:py-24"
-        style={{
-          background:
-            "linear-gradient(135deg, #06040f 0%, #0f0a2e 55%, #050310 100%)",
-        }}
-      >
-        <div className="pointer-events-none absolute -left-32 top-1/4 w-96 h-96 bg-indigo-600/30 blur-3xl rounded-full animate-blob" />
-        <div className="pointer-events-none absolute -right-32 bottom-1/4 w-80 h-80 bg-violet-700/25 blur-3xl rounded-full animate-blob-2" />
-
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
-          <ScrollReveal className="text-center mb-10 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
-              Xem kết quả thực tế
-            </h2>
-            <p className="text-indigo-300/70">
-              Từ mô tả tiếng Việt đến HTML production-ready
-            </p>
-          </ScrollReveal>
-
-          <div className="flex flex-col md:flex-row items-stretch gap-6">
-            <ScrollReveal className="flex-1" from="left">
-              <div className="h-full bg-white/[0.06] backdrop-blur-md rounded-2xl border border-white/10 p-6 flex flex-col">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center border border-indigo-400/30">
-                    <MousePointer2 className="w-4 h-4 text-indigo-400" />
-                  </div>
-                  <span className="font-semibold text-gray-200">Bạn mô tả</span>
+                  <h3 className="font-semibold text-gray-900 mb-1.5 text-sm">
+                    {title}
+                  </h3>
+                  <p className="text-xs text-gray-600 leading-relaxed">{desc}</p>
                 </div>
-                <div className="bg-white/10 rounded-xl border border-white/10 p-4 flex-1 text-sm text-gray-300 leading-relaxed">
-                  Tạo banner quảng cáo mùa hè cho shop thời trang. Nền gradient
-                  xanh đậm sang tím. Tiêu đề &ldquo;SALE HÈ 2026&rdquo;, phụ đề
-                  &ldquo;Giảm đến 50%&rdquo;. Nút CTA màu vàng &ldquo;Mua
-                  ngay&rdquo;.
-                </div>
-                <div className="mt-4 flex items-center gap-2 text-sm text-indigo-400/70">
-                  <Zap className="w-4 h-4 text-yellow-400" />
-                  AI xử lý trong &lt; 1 giây
-                </div>
-              </div>
-            </ScrollReveal>
-
-            <div className="flex items-center justify-center md:flex-col gap-2 text-indigo-400 shrink-0">
-              <div className="hidden md:flex flex-col items-center gap-1">
-                <div className="w-px h-8 bg-indigo-500/40" />
-                <ArrowRight className="w-6 h-6 rotate-90" />
-                <div className="text-xs text-indigo-400/70">0.8s</div>
-                <div className="w-px h-8 bg-indigo-500/40" />
-              </div>
-              <ArrowRight className="w-6 h-6 md:hidden" />
-            </div>
-
-            <ScrollReveal className="flex-1" from="right" delay={100}>
-              <div className="h-full bg-white/[0.06] backdrop-blur-md rounded-2xl border border-white/10 p-6 flex flex-col">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center border border-emerald-400/30">
-                    <Sparkles className="w-4 h-4 text-emerald-400" />
-                  </div>
-                  <span className="font-semibold text-gray-200">AI tạo ra</span>
-                </div>
-                <div className="flex-1 rounded-xl overflow-hidden shadow-xl">
-                  <div className="h-full bg-gradient-to-br from-indigo-700 via-violet-600 to-purple-800 p-6 text-white flex flex-col justify-between relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-20 translate-x-20" />
-                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-violet-500/25 rounded-full translate-y-16 -translate-x-16" />
-                    <div className="relative">
-                      <div className="text-xs text-indigo-200 tracking-widest uppercase mb-2 font-medium">
-                        Bộ sưu tập hè 2026
-                      </div>
-                      <h3 className="text-3xl font-black tracking-tight leading-none mb-1">
-                        SALE HÈ
-                      </h3>
-                      <h3 className="text-3xl font-black tracking-tight text-yellow-300 mb-4">
-                        2026
-                      </h3>
-                      <p className="text-indigo-100 text-sm mb-6">
-                        Giảm đến{" "}
-                        <span className="text-yellow-300 font-bold text-lg">
-                          50%
-                        </span>{" "}
-                        toàn bộ
-                        <br />
-                        sản phẩm thời trang hot nhất!
-                      </p>
-                      <button className="bg-yellow-400 text-gray-900 font-bold px-6 py-2.5 rounded-xl text-sm shadow-lg">
-                        Mua ngay →
-                      </button>
-                    </div>
-                    <div className="relative mt-4 bg-white/10 rounded-lg px-3 py-2 text-xs text-indigo-200 font-mono truncate">
-                      &lt;div
-                      style=&quot;background:linear-gradient(135deg,#4338ca...&quot;&gt;
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="text-xs text-indigo-400/60">
-                    HTML inline CSS · 0 JS · CMS-ready
-                  </span>
-                  <button className="flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300">
-                    <Copy className="w-3.5 h-3.5" /> Sao chép
-                  </button>
-                </div>
-              </div>
-            </ScrollReveal>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
@@ -2006,12 +1203,106 @@ export default async function LandingPage() {
       {/* ── Pricing ────────────────────────────────────────────────── */}
       <PricingSection isLoggedIn={isLoggedIn} />
 
+      {/* ── Bài viết mới nhất ─────────────────────────────────────── */}
+      <section className="py-12 md:py-20 relative overflow-hidden" style={{ background: "linear-gradient(160deg,#09070f 0%,#0d0b1e 60%,#070512 100%)" }}>
+        <div className="pointer-events-none absolute -right-40 top-1/4 w-96 h-96 bg-indigo-600/10 blur-3xl rounded-full" />
+        <div className="pointer-events-none absolute -left-32 bottom-0 w-72 h-72 bg-violet-700/8 blur-3xl rounded-full" />
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
+          <ScrollReveal>
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <h2 className="text-3xl font-bold text-white mb-1">
+                  Kiến thức & Hướng dẫn
+                </h2>
+                <p className="text-gray-400 text-sm">
+                  Bài viết về landing page, HTML, AI content và marketing Việt Nam
+                </p>
+              </div>
+              <Link
+                href="/kien-thuc"
+                className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-400 hover:text-indigo-300 flex-shrink-0"
+              >
+                Xem tất cả bài viết <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          {homeArticles.length > 0 ? (
+            <div className="grid sm:grid-cols-3 gap-5">
+              {homeArticles.map((a, i) => (
+                <ScrollReveal key={a.slug} delay={i * 80}>
+                  <Link href={`/kien-thuc/${a.slug}`} className="block group">
+                    <article className="rounded-xl border border-white/10 bg-white/[0.04] overflow-hidden hover:bg-white/[0.07] hover:border-white/20 transition-all h-full">
+                      {a.image ? (
+                        <div className="relative h-40">
+                          <Image
+                            src={a.image}
+                            alt={a.title}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            sizes="(max-width: 640px) 100vw, 33vw"
+                          />
+                        </div>
+                      ) : (
+                        <div className={`h-40 bg-gradient-to-br ${ARTICLE_PALETTES[a.category] ?? "from-indigo-500 to-violet-600"} flex items-center justify-center relative overflow-hidden`}>
+                          <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-white/10" />
+                          <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-white/10" />
+                          <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner relative z-10">
+                            <span className="text-2xl">{ARTICLE_ICONS[a.category] ?? "📖"}</span>
+                          </div>
+                        </div>
+                      )}
+                      <div className="p-4">
+                        <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
+                          <span className="capitalize">{a.category}</span>
+                          <span>·</span>
+                          <span>{a.readTime}</span>
+                        </div>
+                        <h3 className="font-bold text-gray-100 text-sm leading-snug mb-2 group-hover:text-indigo-300 transition-colors line-clamp-2">
+                          {a.title}
+                        </h3>
+                        <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">
+                          {a.description}
+                        </p>
+                        <div className="mt-3 text-xs font-semibold text-indigo-400 group-hover:text-indigo-300">
+                          Đọc tiếp →
+                        </div>
+                      </div>
+                    </article>
+                  </Link>
+                </ScrollReveal>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <BookOpen className="w-12 h-12 text-white/20 mx-auto mb-4" />
+              <p className="text-gray-500 mb-4">
+                Đang cập nhật bài viết mới...
+              </p>
+              <Link
+                href="/kien-thuc"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-400"
+              >
+                Xem thư viện kiến thức <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          )}
+
+          <div className="mt-6 text-center sm:hidden">
+            <Link
+              href="/kien-thuc"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-400"
+            >
+              Xem tất cả bài viết <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── FAQ ────────────────────────────────────────────────────── */}
       <section
-        className="py-12 md:py-24"
-        style={{
-          background: "linear-gradient(135deg, #f0edff 0%, #ede9fe 100%)",
-        }}
+        className="py-12 md:py-20"
+        style={{ background: "linear-gradient(180deg,#f5f4fb 0%,#edeaf8 100%)" }}
         id="faq"
       >
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
@@ -2070,7 +1361,7 @@ export default async function LandingPage() {
 
       {/* ── CTA banner ─────────────────────────────────────────────── */}
       <section
-        className="relative overflow-hidden py-12 md:py-24"
+        className="relative overflow-hidden py-12 md:py-20"
         style={{
           background:
             "linear-gradient(135deg, #06040f 0%, #1a0f4e 40%, #2d1b69 75%, #1e1260 100%)",
@@ -2103,11 +1394,9 @@ export default async function LandingPage() {
 
       {/* ── Footer ─────────────────────────────────────────────────── */}
       <footer style={{ background: "#06040f" }} className="text-gray-400">
-        {/* Top gradient line */}
         <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-6 sm:pt-14 sm:pb-8">
-          {/* Main columns */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8 sm:gap-10 sm:mb-12">
             {/* Brand */}
             <div className="col-span-2 md:col-span-1">
@@ -2162,7 +1451,7 @@ export default async function LandingPage() {
               </ul>
             </div>
 
-            {/* Tài nguyên */}
+            {/* Tài nguyên — thêm SEO links */}
             <div>
               <p className="text-xs font-semibold text-gray-300 uppercase tracking-widest mb-4">
                 Tài nguyên
@@ -2170,6 +1459,18 @@ export default async function LandingPage() {
               <ul className="space-y-3 text-sm">
                 {[
                   { href: "/kien-thuc", label: "Blog kiến thức" },
+                  {
+                    href: "/kien-thuc/landing-page-la-gi",
+                    label: "Landing page là gì",
+                  },
+                  {
+                    href: "/kien-thuc/ai-viet-content-la-gi",
+                    label: "AI viết content",
+                  },
+                  {
+                    href: "/kien-thuc/inline-css-la-gi",
+                    label: "Inline CSS là gì",
+                  },
                   { href: "/#faq", label: "Câu hỏi thường gặp" },
                   { href: "/contact", label: "Liên hệ hỗ trợ" },
                 ].map(({ href, label }) => (
@@ -2211,7 +1512,6 @@ export default async function LandingPage() {
             </div>
           </div>
 
-          {/* Bottom bar */}
           <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-600">
             <p>
               © {new Date().getFullYear()} AITaoPage. Tất cả quyền được bảo lưu.

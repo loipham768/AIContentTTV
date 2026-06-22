@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   X,
   ExternalLink,
@@ -280,6 +281,7 @@ export default function TemplatesClient({
   plan = "free",
 }: Props) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<Tab>("all");
   const [catData, setCatData] = useState<Record<string, CatState>>(() =>
     Object.fromEntries(
@@ -321,6 +323,33 @@ export default function TemplatesClient({
   const [useLoadingId, setUseLoadingId] = useState<string | null>(null);
 
   const totalAll = Object.values(catData).reduce((s, d) => s + d.total, 0);
+
+  // Auto-open preview khi có ?preview={id} từ trang chủ
+  useEffect(() => {
+    const previewId = searchParams.get("preview");
+    if (!previewId) return;
+    let cancelled = false;
+    (async () => {
+      setPreviewLoading(true);
+      setPreviewDevice("desktop");
+      try {
+        const res = await fetch(`/api/templates/${previewId}`);
+        const full = await res.json();
+        if (!cancelled && full?.id) {
+          setPreviewMeta({
+            id: full.id, name: full.name, category: full.category,
+            description: full.description, tags: full.tags ?? [],
+            gradient: full.gradient, accentColor: full.accentColor,
+          });
+          setPreviewHtml(full.html ?? "");
+        }
+      } finally {
+        if (!cancelled) setPreviewLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function fetchPage(cat: TemplateCategory, page: number) {
     setCatData((prev) => ({ ...prev, [cat]: { ...prev[cat], loading: true } }));

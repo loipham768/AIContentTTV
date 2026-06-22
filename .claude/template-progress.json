@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-17",
+  "last_updated": "2026-06-22",
   "note": "Ngày 1-5: 2 landing + 2 ads + 2 article. Ngày 6+: 3 portfolio + 3 cv. Dùng /template để tự động tạo theo kế hoạch.",
   "templates": [
     { "day": 1, "id": "lp-my-pham-glow", "name": "Landing Page Mỹ Phẩm Glow", "category": "landing", "niche": "Mỹ phẩm / Skincare", "style": "Sang trọng, pastel hồng-trắng, hero lớn", "done": true },
@@ -16,19 +16,19 @@
     { "day": 2, "id": "article-huong-dan", "name": "Bài Viết Hướng Dẫn Step-by-Step", "category": "article", "niche": "Hướng dẫn / Tutorial", "style": "Numbered steps, icon mỗi bước, progress visual", "done": true },
     { "day": 2, "id": "article-so-sanh", "name": "Bài Viết So Sánh Sản Phẩm", "category": "article", "niche": "So sánh / Comparison", "style": "Bảng so sánh đẹp, verdict card, pro/con list", "done": true },
 
-    { "day": 3, "id": "lp-bat-dong-san", "name": "Landing Page Bất Động Sản", "category": "landing", "niche": "Bất động sản", "style": "Premium, xanh lá-vàng, luxury real estate", "done": false },
-    { "day": 3, "id": "lp-gym-fitness", "name": "Landing Page Gym & Fitness", "category": "landing", "niche": "Thể dục / Fitness", "style": "Năng động, đen-cam neon, bold athletic", "done": false },
-    { "day": 3, "id": "ads-fb-su-kien", "name": "Quảng Cáo Sự Kiện Facebook", "category": "ads", "niche": "Sự kiện / Event", "style": "Vibrant, gradient tím-xanh, party vibe", "done": false },
-    { "day": 3, "id": "ads-zalo-khuyen-mai", "name": "Banner Khuyến Mãi Zalo", "category": "ads", "niche": "Khuyến mãi / Promotion", "style": "Xanh Zalo, clean, icon badge giảm giá", "done": false },
-    { "day": 3, "id": "article-case-study", "name": "Bài Viết Case Study", "category": "article", "niche": "Case study / Thành công", "style": "Professional, số liệu nổi bật, quote block", "done": false },
-    { "day": 3, "id": "article-faq", "name": "Bài Viết FAQ & Hỏi Đáp", "category": "article", "niche": "FAQ / Q&A", "style": "Accordion style, icon hỏi-đáp, clean layout", "done": false },
+    { "day": 3, "id": "lp-bat-dong-san", "name": "Landing Page Bất Động Sản", "category": "landing", "niche": "Bất động sản", "style": "Premium, xanh lá-vàng, luxury real estate", "done": true },
+    { "day": 3, "id": "lp-gym-fitness", "name": "Landing Page Gym & Fitness", "category": "landing", "niche": "Thể dục / Fitness", "style": "Năng động, đen-cam neon, bold athletic", "done": true },
+    { "day": 3, "id": "ads-fb-su-kien", "name": "Quảng Cáo Sự Kiện Facebook", "category": "ads", "niche": "Sự kiện / Event", "style": "Vibrant, gradient tím-xanh, party vibe", "done": true },
+    { "day": 3, "id": "ads-zalo-khuyen-mai", "name": "Banner Khuyến Mãi Zalo", "category": "ads", "niche": "Khuyến mãi / Promotion", "style": "Xanh Zalo, clean, icon badge giảm giá", "done": true },
+    { "day": 3, "id": "article-case-study", "name": "Bài Viết Case Study", "category": "article", "niche": "Case study / Thành công", "style": "Professional, số liệu nổi bật, quote block", "done": true },
+    { "day": 3, "id": "article-faq", "name": "Bài Viết FAQ & Hỏi Đáp", "category": "article", "niche": "FAQ / Q&A", "style": "Accordion style, icon hỏi-đáp, clean layout", "done": true },
 
-    { "day": 4, "id": "lp-khoa-hoc-lap-trinh", "name": "Landing Page Khóa Học Lập Trình", "category": "landing", "niche": "Tech / Lập trình", "style": "Dark mode, xanh code, terminal aesthetic", "done": false },
-    { "day": 4, "id": "lp-thuc-pham-sach", "name": "Landing Page Thực Phẩm Sạch", "category": "landing", "niche": "Thực phẩm hữu cơ", "style": "Xanh lá natural, organic feel, earthy tones", "done": false },
-    { "day": 4, "id": "ads-fb-bat-dong-san", "name": "Quảng Cáo Bất Động Sản Facebook", "category": "ads", "niche": "Bất động sản", "style": "Premium blue-gold, luxury property feel", "done": false },
-    { "day": 4, "id": "ads-banner-app", "name": "Banner Quảng Cáo App Mobile", "category": "ads", "niche": "App / SaaS", "style": "Gradient tím-xanh, mobile mockup, modern", "done": false },
-    { "day": 4, "id": "article-checklist", "name": "Bài Viết Dạng Checklist", "category": "article", "niche": "Tips / Checklist", "style": "Checkbox visual, highlight card, scannable", "done": false },
-    { "day": 4, "id": "article-listicle", "name": "Bài Viết Top 10 Listicle", "category": "article", "niche": "Top list / Listicle", "style": "Numbered bold, card per item, visual rich", "done": false },
+    { "day": 4, "id": "lp-khoa-hoc-lap-trinh", "name": "Landing Page Khóa Học Lập Trình", "category": "landing", "niche": "Tech / Lập trình", "style": "Dark mode, xanh code, terminal aesthetic", "done": true },
+    { "day": 4, "id": "lp-thuc-pham-sach", "name": "Landing Page Thực Phẩm Sạch", "category": "landing", "niche": "Thực phẩm hữu cơ", "style": "Xanh lá natural, organic feel, earthy tones", "done": true },
+    { "day": 4, "id": "ads-fb-bat-dong-san", "name": "Quảng Cáo Bất Động Sản Facebook", "category": "ads", "niche": "Bất động sản", "style": "Premium blue-gold, luxury property feel", "done": true },
+    { "day": 4, "id": "ads-banner-app", "name": "Banner Quảng Cáo App Mobile", "category": "ads", "niche": "App / SaaS", "style": "Gradient tím-xanh, mobile mockup, modern", "done": true },
+    { "day": 4, "id": "article-checklist", "name": "Bài Viết Dạng Checklist", "category": "article", "niche": "Tips / Checklist", "style": "Checkbox visual, highlight card, scannable", "done": true },
+    { "day": 4, "id": "article-listicle", "name": "Bài Viết Top 10 Listicle", "category": "article", "niche": "Top list / Listicle", "style": "Numbered bold, card per item, visual rich", "done": true },
 
     { "day": 5, "id": "lp-du-lich", "name": "Landing Page Du Lịch", "category": "landing", "niche": "Du lịch / Travel", "style": "Xanh biển-trắng, airy travel feel, hero panorama", "done": false },
     { "day": 5, "id": "lp-tai-chinh", "name": "Landing Page Tài Chính / Fintech", "category": "landing", "niche": "Tài chính / Đầu tư", "style": "Xanh navy-xanh lá, trustworthy, corporate", "done": false },
@@ -56,6 +56,12 @@
     { "day": 8, "id": "portfolio-writer", "name": "Portfolio Nhà Văn / Biên Tập", "category": "portfolio", "niche": "Viết lách / Editorial", "style": "Literary serif, warm cream, editorial magazine style", "done": false },
     { "day": 8, "id": "cv-sales-bd", "name": "CV Sales / Business Development", "category": "cv", "niche": "Sales / Kinh doanh", "style": "Năng động đỏ-cam, KPI highlight, achievement badges", "done": false },
     { "day": 8, "id": "cv-engineer-tech", "name": "CV Kỹ Sư Xây Dựng / Cơ Khí", "category": "cv", "niche": "Kỹ sư / Xây dựng", "style": "Professional xanh dương, structured, technical skills", "done": false },
-    { "day": 8, "id": "cv-finance-accounting", "name": "CV Tài Chính / Kế Toán", "category": "cv", "niche": "Tài chính / Kế toán", "style": "Trustworthy green-navy, clean numbers, formal", "done": false }
+    { "day": 8, "id": "cv-finance-accounting", "name": "CV Tài Chính / Kế Toán", "category": "cv", "niche": "Tài chính / Kế toán", "style": "Trustworthy green-navy, clean numbers, formal", "done": false },
+
+    { "day": 9, "id": "portfolio-architect", "name": "Portfolio Kiến Trúc Sư", "category": "portfolio", "niche": "Kiến trúc / Nội thất", "style": "Minimal beige-charcoal, white space, projects grid, serif elegant", "done": true },
+    { "day": 9, "id": "portfolio-doctor", "name": "Portfolio Bác Sĩ Chuyên Khoa", "category": "portfolio", "niche": "Y tế / Bác sĩ", "style": "Professional navy-teal, trust signals, booking form, timeline kinh nghiệm", "done": true },
+    { "day": 9, "id": "portfolio-chef", "name": "Portfolio Đầu Bếp Fine Dining", "category": "portfolio", "niche": "Ẩm thực / Đầu bếp", "style": "Dark luxury, gold accent, signature dishes showcase, catering booking", "done": true },
+    { "day": 9, "id": "portfolio-lawyer", "name": "Portfolio Luật Sư Chuyên Nghiệp", "category": "portfolio", "niche": "Pháp lý / Luật sư", "style": "Navy-gold formal, practice areas, case studies, fee transparency", "done": true },
+    { "day": 9, "id": "portfolio-marketing", "name": "Portfolio Marketing Manager", "category": "portfolio", "niche": "Marketing / Growth", "style": "Dark purple-pink modern, campaign metrics, skills bars, social proof", "done": true }
   ]
 }
