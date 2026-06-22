@@ -108,6 +108,15 @@ function getCat(category: string) {
   return CAT[category as CategoryKey] ?? CAT["Content"];
 }
 
+function toPlainText(html: string, maxLen = 155): string {
+  return html
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&[a-z#0-9]+;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, maxLen);
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -116,6 +125,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
   if (!article) return {};
+  const plainDesc = toPlainText(article.description);
   const ogImage = {
     url: `${SITE_URL}/og-image.png`,
     width: 1200,
@@ -124,12 +134,12 @@ export async function generateMetadata({
   };
   return {
     title: `${article.title} | AITaoPage`,
-    description: article.description,
+    description: plainDesc,
     keywords: article.keywords.join(", "),
     alternates: { canonical: `${SITE_URL}/kien-thuc/${slug}` },
     openGraph: {
       title: article.title,
-      description: article.description,
+      description: plainDesc,
       url: `${SITE_URL}/kien-thuc/${slug}`,
       siteName: "AITaoPage",
       locale: "vi_VN",
@@ -141,7 +151,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: article.title,
-      description: article.description,
+      description: plainDesc,
       images: [`${SITE_URL}/og-image.png`],
     },
   };
