@@ -116,6 +116,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
   if (!article) return {};
+  const ogImage = {
+    url: `${SITE_URL}/og-image.png`,
+    width: 1200,
+    height: 630,
+    alt: article.title,
+  };
   return {
     title: `${article.title} | AITaoPage`,
     description: article.description,
@@ -124,9 +130,19 @@ export async function generateMetadata({
     openGraph: {
       title: article.title,
       description: article.description,
+      url: `${SITE_URL}/kien-thuc/${slug}`,
+      siteName: "AITaoPage",
+      locale: "vi_VN",
       type: "article",
       publishedTime: article.publishedDate,
       authors: [article.author],
+      images: [ogImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.description,
+      images: [`${SITE_URL}/og-image.png`],
     },
   };
 }
