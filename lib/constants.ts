@@ -13,4 +13,4 @@ export const CATEGORY_META = {
   cv:        { label: 'CV / Hồ sơ',  icon: '📄', desc: 'CV xin việc, hồ sơ năng lực' },
 } as const
 export const FILTERED_PAGE_SIZE = 6;
-export const TEMPLATES_PAGE_SIZE = 8;
+export const TEMPLATES_PAGE_SIZE = 6;

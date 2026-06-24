@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
   if (!(await isAdmin(session.user.id))) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const body = await req.json()
-  const { id, name, category, description, tags, gradient, accentColor, html } = body
+  const { id, name, category, description, tags, gradient, accentColor, image, html } = body
 
   if (!id || !name || !category || !html) {
     return NextResponse.json({ error: 'id, name, category, html are required' }, { status: 400 })
@@ -57,6 +57,7 @@ export async function POST(req: NextRequest) {
     tags: Array.isArray(tags) ? tags : [],
     gradient: gradient ?? 'from-indigo-500 to-violet-600',
     accentColor: accentColor ?? '#6366f1',
+    image: image ?? null,
     html,
     order,
   })

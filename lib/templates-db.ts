@@ -11,6 +11,7 @@ export interface TemplateMeta {
   tags: string[]
   gradient: string
   accentColor: string
+  image?: string | null
   createdAt?: string
 }
 

@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import {
   Plus, Pencil, Trash2, X, Save, Loader2, Search,
   LayoutTemplate, BookOpen, ChevronLeft, ChevronRight, Eye,
-  AlertTriangle, CheckCircle2, ExternalLink,
+  AlertTriangle, CheckCircle2, ExternalLink, Upload, ImageIcon,
 } from "lucide-react";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -20,6 +20,7 @@ interface TemplateMeta {
   tags: string[];
   gradient: string;
   accentColor: string;
+  image?: string;
   order: number;
   createdAt?: string;
 }
@@ -32,6 +33,7 @@ interface TemplateForm {
   tags: string;        // comma-sep
   gradient: string;
   accentColor: string;
+  image: string;
   html: string;
 }
 
@@ -111,13 +113,13 @@ function slugify(s: string) {
 const EMPTY_TEMPLATE: TemplateForm = {
   id: "", name: "", category: "landing", description: "",
   tags: "", gradient: "from-indigo-500 to-violet-600",
-  accentColor: "#6366f1", html: "",
+  accentColor: "#6366f1", image: "", html: "",
 };
 
 const EMPTY_ARTICLE: ArticleForm = {
   slug: "", title: "", description: "", category: ARTICLE_CATEGORIES[0].value,
   readTime: "5 phút đọc", publishedDate: new Date().toISOString().slice(0, 10),
-  author: "AITaoPage", keywords: "", image: "", content: "",
+  author: "TaoPage", keywords: "", image: "", content: "",
 };
 
 // ─── Toast ───────────────────────────────────────────────────────────────────
@@ -208,6 +210,30 @@ function TemplateFormPanel({
   const [form, setForm] = useState<TemplateForm>(initial);
   const [saving, setSaving] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setUploadError("");
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("type", "template");
+      const res = await fetch("/api/admin/upload-image", { method: "POST", body: fd });
+      const data = await res.json();
+      if (!res.ok) { setUploadError(data.error ?? "Upload thất bại"); return; }
+      setForm((f) => ({ ...f, image: data.url }));
+    } catch {
+      setUploadError("Không thể kết nối máy chủ.");
+    } finally {
+      setUploading(false);
+      e.target.value = "";
+    }
+  }
 
   function set(k: keyof TemplateForm, v: string) {
     setForm((f) => {
@@ -293,6 +319,42 @@ function TemplateFormPanel({
               </Field>
             </div>
 
+            <Field label="Ảnh thumbnail (tuỳ chọn)">
+              <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+              {form.image ? (
+                <div className="relative rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={form.image} alt="preview" className="w-full h-36 object-cover" />
+                  <div className="absolute inset-0 bg-black/0 hover:bg-black/30 transition-colors flex items-center justify-center gap-2 opacity-0 hover:opacity-100">
+                    <button type="button" onClick={() => fileInputRef.current?.click()} className="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-lg text-xs font-semibold text-gray-700 shadow">
+                      <Upload className="w-3.5 h-3.5" /> Đổi ảnh
+                    </button>
+                    <button type="button" onClick={() => setForm((f) => ({ ...f, image: "" }))} className="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-lg text-xs font-semibold text-red-600 shadow">
+                      <X className="w-3.5 h-3.5" /> Xoá
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="w-full h-28 border-2 border-dashed border-gray-200 rounded-xl flex flex-col items-center justify-center gap-2 text-gray-400 hover:border-indigo-400 hover:text-indigo-500 hover:bg-indigo-50 transition-colors disabled:opacity-50"
+                >
+                  {uploading ? <Loader2 className="w-6 h-6 animate-spin" /> : <ImageIcon className="w-6 h-6" />}
+                  <span className="text-xs font-medium">{uploading ? "Đang upload..." : "Click để chọn ảnh thumbnail"}</span>
+                  <span className="text-[11px]">JPG, PNG, WebP · Tối đa 5 MB</span>
+                </button>
+              )}
+              {uploadError && <p className="text-xs text-red-500 mt-1 flex items-center gap-1"><AlertTriangle className="w-3.5 h-3.5" />{uploadError}</p>}
+              <div className="flex items-center gap-2 mt-2">
+                <div className="flex-1 h-px bg-gray-100" />
+                <span className="text-[11px] text-gray-400">hoặc dán URL</span>
+                <div className="flex-1 h-px bg-gray-100" />
+              </div>
+              <input className={`${inputCls} mt-1`} value={form.image} onChange={(e) => { setUploadError(""); set("image", e.target.value); }} placeholder="https://..." />
+            </Field>
+
             <Field label="Gradient (Tailwind classes)">
               <input className={inputCls} value={form.gradient} onChange={(e) => set("gradient", e.target.value)} placeholder="from-indigo-500 to-violet-600" />
               <div className="flex flex-wrap gap-1.5 mt-2">
@@ -373,6 +435,29 @@ function ArticleFormPanel({
   const [form, setForm] = useState<ArticleForm>(initial);
   const [saving, setSaving] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setUploadError("");
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/admin/upload-image", { method: "POST", body: fd });
+      const data = await res.json();
+      if (!res.ok) { setUploadError(data.error ?? "Upload thất bại"); return; }
+      setForm((f) => ({ ...f, image: data.url }));
+    } catch {
+      setUploadError("Không thể kết nối máy chủ.");
+    } finally {
+      setUploading(false);
+      e.target.value = "";
+    }
+  }
 
   function set(k: keyof ArticleForm, v: string) {
     setForm((f) => {
@@ -439,18 +524,50 @@ function ArticleFormPanel({
                 <input type="date" className={inputCls} value={form.publishedDate} onChange={(e) => set("publishedDate", e.target.value)} />
               </Field>
               <Field label="Tác giả">
-                <input className={inputCls} value={form.author} onChange={(e) => set("author", e.target.value)} placeholder="AITaoPage" />
+                <input className={inputCls} value={form.author} onChange={(e) => set("author", e.target.value)} placeholder="TaoPage" />
               </Field>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <Field label="Keywords (cách bởi dấu phẩy)">
-                <input className={inputCls} value={form.keywords} onChange={(e) => set("keywords", e.target.value)} placeholder="landing page, ai content..." />
-              </Field>
-              <Field label="Ảnh bìa (URL, tuỳ chọn)">
-                <input className={inputCls} value={form.image} onChange={(e) => set("image", e.target.value)} placeholder="https://..." />
-              </Field>
-            </div>
+            <Field label="Keywords (cách bởi dấu phẩy)">
+              <input className={inputCls} value={form.keywords} onChange={(e) => set("keywords", e.target.value)} placeholder="landing page, ai content..." />
+            </Field>
+
+            <Field label="Ảnh bìa">
+              <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+              {form.image ? (
+                <div className="relative rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={form.image} alt="preview" className="w-full h-40 object-cover" />
+                  <div className="absolute inset-0 bg-black/0 hover:bg-black/30 transition-colors flex items-center justify-center gap-2 opacity-0 hover:opacity-100">
+                    <button type="button" onClick={() => fileInputRef.current?.click()} className="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-lg text-xs font-semibold text-gray-700 shadow">
+                      <Upload className="w-3.5 h-3.5" /> Đổi ảnh
+                    </button>
+                    <button type="button" onClick={() => setForm((f) => ({ ...f, image: "" }))} className="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-lg text-xs font-semibold text-red-600 shadow">
+                      <X className="w-3.5 h-3.5" /> Xoá
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="w-full h-32 border-2 border-dashed border-gray-200 rounded-xl flex flex-col items-center justify-center gap-2 text-gray-400 hover:border-teal-400 hover:text-teal-500 hover:bg-teal-50 transition-colors disabled:opacity-50"
+                >
+                  {uploading ? <Loader2 className="w-6 h-6 animate-spin" /> : <ImageIcon className="w-6 h-6" />}
+                  <span className="text-xs font-medium">{uploading ? "Đang upload..." : "Click để chọn ảnh bìa"}</span>
+                  <span className="text-[11px]">JPG, PNG, WebP · Tối đa 5 MB</span>
+                </button>
+              )}
+              {uploading && !form.image && null}
+              {uploadError && <p className="text-xs text-red-500 mt-1 flex items-center gap-1"><AlertTriangle className="w-3.5 h-3.5" />{uploadError}</p>}
+              <div className="flex items-center gap-2 mt-2">
+                <div className="flex-1 h-px bg-gray-100" />
+                <span className="text-[11px] text-gray-400">hoặc dán URL</span>
+                <div className="flex-1 h-px bg-gray-100" />
+              </div>
+              <input className={`${inputCls} mt-1`} value={form.image} onChange={(e) => { setUploadError(""); set("image", e.target.value); }} placeholder="https://..." />
+            </Field>
 
             <Field label="Nội dung HTML" required>
               <textarea
@@ -538,6 +655,7 @@ function TemplatesTab() {
         tags: (doc.tags ?? []).join(", "),
         gradient: doc.gradient ?? "",
         accentColor: doc.accentColor ?? "#6366f1",
+        image: doc.image ?? "",
         html: doc.html ?? "",
       });
       setFormOpen(true);
@@ -550,6 +668,7 @@ function TemplatesTab() {
     const payload = {
       ...form,
       tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
+      image: form.image || null,
     };
     const isEdit = !!editForm;
     const res = isEdit
@@ -746,7 +865,7 @@ function ArticlesTab() {
         category: doc.category,
         readTime: doc.readTime ?? "5 phút đọc",
         publishedDate: doc.publishedDate ?? "",
-        author: doc.author ?? "AITaoPage",
+        author: doc.author ?? "TaoPage",
         keywords: (doc.keywords ?? []).join(", "),
         image: doc.image ?? "",
         content: doc.content ?? "",

@@ -149,20 +149,27 @@ function TemplateCard({
   return (
     <div className="group bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-indigo-200 transition-all duration-200">
       <div
-        className={`h-40 bg-gradient-to-br ${tpl.gradient} flex flex-col items-center justify-center relative overflow-hidden`}
+        className={`h-56 ${tpl.image ? "bg-gray-100" : `bg-gradient-to-br ${tpl.gradient}`} flex flex-col items-center justify-center relative overflow-hidden`}
       >
-        <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-8 translate-x-8" />
-        <div className="absolute bottom-0 left-0 w-16 h-16 bg-black/10 rounded-full translate-y-6 -translate-x-6" />
+        {tpl.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={tpl.image} alt={tpl.name} className="absolute inset-0 w-full h-full object-cover" />
+        ) : (
+          <>
+            <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-8 translate-x-8" />
+            <div className="absolute bottom-0 left-0 w-16 h-16 bg-black/10 rounded-full translate-y-6 -translate-x-6" />
+            <div className="text-4xl mb-2 relative z-10">{catMeta.icon}</div>
+            <div className="relative z-10 px-4 text-center">
+              <div className="text-white font-bold text-sm leading-tight">{tpl.name}</div>
+            </div>
+          </>
+        )}
         {newTemplate && (
           <div className="absolute top-2.5 left-2.5 z-20 flex items-center gap-1 bg-emerald-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse inline-block" />
             Mới
           </div>
         )}
-        <div className="text-4xl mb-2 relative z-10">{catMeta.icon}</div>
-        <div className="relative z-10 px-4 text-center">
-          <div className="text-white font-bold text-sm leading-tight">{tpl.name}</div>
-        </div>
         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:flex items-center justify-center gap-2 z-20">
           <button
             onClick={() => onPreview(tpl)}
@@ -252,7 +259,7 @@ function CategorySection({
           {data.total} mẫu
         </span>
       </div>
-      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 transition-opacity duration-150 ${data.loading ? "opacity-50 pointer-events-none" : ""}`}>
+      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 transition-opacity duration-150 ${data.loading ? "opacity-50 pointer-events-none" : ""}`}>
         {data.templates.map((tpl) => (
           <TemplateCard
             key={tpl.id}
@@ -548,7 +555,7 @@ export default function TemplatesClient({
               </div>
             ) : (
               <div className="rounded-2xl overflow-hidden border border-gray-200 bg-white">
-                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 transition-opacity duration-150`}>
+                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 transition-opacity duration-150`}>
                   {filteredData.templates.map((tpl) => (
                     <TemplateCard
                       key={tpl.id}

@@ -38,7 +38,7 @@ export async function PUT(
   const { id } = await params
   const body = await req.json()
 
-  const allowed = ['name', 'category', 'description', 'tags', 'gradient', 'accentColor', 'html']
+  const allowed = ['name', 'category', 'description', 'tags', 'gradient', 'accentColor', 'image', 'html']
   const update: Record<string, unknown> = {}
   for (const k of allowed) {
     if (k in body) update[k] = body[k]
