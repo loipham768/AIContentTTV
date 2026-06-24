@@ -10,11 +10,11 @@ import { sendNewOrderAdminEmail } from "@/lib/email";
 import { generateOrderId } from "@/lib/orderUtils";
 
 export const metadata: Metadata = {
-  title: "Nâng cấp gói — AITaoPage",
+  title: "Nâng cấp gói — TaoPage",
   description:
     "Nâng cấp lên Basic hoặc Pro để tạo không giới hạn landing page, bài viết và quảng cáo bằng AI.",
   openGraph: {
-    title: "Nâng cấp gói — AITaoPage",
+    title: "Nâng cấp gói — TaoPage",
     description:
       "Nâng cấp lên Basic hoặc Pro để tạo không giới hạn landing page, bài viết và quảng cáo bằng AI.",
     url: `${SITE_URL}/upgrade`,

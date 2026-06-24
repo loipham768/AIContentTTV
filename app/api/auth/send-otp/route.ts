@@ -9,8 +9,9 @@ import { sendOtpEmail } from '@/lib/email'
 export const runtime = 'nodejs'
 
 const schema = z.object({
-  email:    z.string().email(),
-  password: z.string().min(8),
+  email:         z.string().email(),
+  password:      z.string().min(8),
+  referralEmail: z.string().email().optional().or(z.literal('')),
 })
 
 function generateOtp() {
@@ -28,7 +29,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 })
   }
 
-  const { email, password } = parsed.data
+  const { email, password, referralEmail } = parsed.data
 
   await dbConnect()
 
@@ -36,6 +37,16 @@ export async function POST(req: NextRequest) {
   const existing = await User.findOne({ email }).lean()
   if (existing) {
     return NextResponse.json({ error: 'Email này đã được sử dụng' }, { status: 409 })
+  }
+
+  // Validate referral email if provided
+  let validatedReferralEmail = ''
+  if (referralEmail && referralEmail !== email) {
+    const referrer = await User.findOne({ email: referralEmail }).lean()
+    if (!referrer) {
+      return NextResponse.json({ error: 'Email giới thiệu không tồn tại trong hệ thống' }, { status: 400 })
+    }
+    validatedReferralEmail = referralEmail.toLowerCase().trim()
   }
 
   // Rate-limit: don't resend within 60 seconds
@@ -55,7 +66,7 @@ export async function POST(req: NextRequest) {
 
   await PendingRegistration.findOneAndUpdate(
     { email },
-    { email, passwordHash, otp, attempts: 0, expiresAt, sentAt: now },
+    { email, passwordHash, otp, attempts: 0, expiresAt, sentAt: now, referralEmail: validatedReferralEmail },
     { upsert: true, new: true },
   )
 

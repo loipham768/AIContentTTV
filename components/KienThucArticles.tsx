@@ -548,7 +548,7 @@ export default function KienThucArticles({ initialGroups, isLoggedIn }: Props) {
                       Bắt đầu từ đây
                     </h2>
                     <p className="text-xs text-gray-500 mt-0.5">
-                      Hướng dẫn sử dụng AITaoPage
+                      Hướng dẫn sử dụng TaoPage
                     </p>
                   </div>
                 </div>

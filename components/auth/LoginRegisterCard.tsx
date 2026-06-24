@@ -14,6 +14,7 @@ import {
   ShieldCheck,
   CheckCircle2,
   Crown,
+  Gift,
 } from "lucide-react";
 import { PLAN_PRICES } from "@/lib/planConfig";
 
@@ -64,6 +65,8 @@ export function LoginRegisterCard({
   const [step, setStep] = useState<Step>("form");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [referralEmail, setReferralEmail] = useState("");
+  const [referralStatus, setReferralStatus] = useState<"idle" | "checking" | "valid" | "invalid">("idle");
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{
@@ -98,7 +101,27 @@ export function LoginRegisterCard({
     setError("");
     setFieldErrors({});
     setOtp("");
+    setReferralEmail("");
+    setReferralStatus("idle");
     if (t === "register") setSelectedPlan(validInitial);
+  }
+
+  async function checkReferralEmail(val: string) {
+    if (!val || !emailSchema.safeParse(val).success) {
+      setReferralStatus("idle");
+      return;
+    }
+    if (val.toLowerCase() === email.toLowerCase()) {
+      setReferralStatus("invalid");
+      return;
+    }
+    setReferralStatus("checking");
+    try {
+      const res = await fetch(`/api/auth/check-referral?email=${encodeURIComponent(val)}`);
+      setReferralStatus(res.ok ? "valid" : "invalid");
+    } catch {
+      setReferralStatus("idle");
+    }
   }
 
   function validateFields() {
@@ -140,7 +163,7 @@ export function LoginRegisterCard({
       const res = await fetch("/api/auth/send-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, referralEmail: referralEmail.trim() || undefined }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -559,6 +582,51 @@ export function LoginRegisterCard({
                     </p>
                   )}
                 </div>
+
+                {/* Referral email (register only) */}
+                {tab === "register" && (
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1.5">
+                      Email người giới thiệu{" "}
+                      <span className="text-slate-400 font-normal text-xs">(không bắt buộc)</span>
+                    </label>
+                    <div className="relative">
+                      <Gift className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                      <input
+                        type="email"
+                        value={referralEmail}
+                        onChange={(e) => {
+                          setReferralEmail(e.target.value);
+                          setReferralStatus("idle");
+                        }}
+                        onBlur={(e) => checkReferralEmail(e.target.value)}
+                        className={`${inputClass} pl-10 pr-9 ${
+                          referralStatus === "valid"
+                            ? "border-emerald-400 focus:ring-emerald-500/20"
+                            : referralStatus === "invalid"
+                            ? "border-red-300 focus:ring-red-500/20"
+                            : ""
+                        }`}
+                        placeholder="nguoi-gioi-thieu@example.com"
+                        autoComplete="off"
+                      />
+                      {referralStatus === "checking" && (
+                        <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 animate-spin" />
+                      )}
+                      {referralStatus === "valid" && (
+                        <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-500" />
+                      )}
+                    </div>
+                    {referralStatus === "valid" && (
+                      <p className="text-emerald-600 text-xs mt-1 flex items-center gap-1">
+                        <Gift className="w-3 h-3" /> Bạn và người giới thiệu mỗi người nhận +5 lượt tạo nội dung!
+                      </p>
+                    )}
+                    {referralStatus === "invalid" && (
+                      <p className="text-red-500 text-xs mt-1">Email giới thiệu không hợp lệ hoặc không tồn tại</p>
+                    )}
+                  </div>
+                )}
 
                 {error && (
                   <p className="text-red-500 text-sm bg-red-50 border border-red-100 rounded-lg px-3 py-2">

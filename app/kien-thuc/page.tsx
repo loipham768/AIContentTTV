@@ -9,11 +9,11 @@ import { SITE_URL } from "@/lib/constants";
 export const revalidate = 3600; // ISR: recheck every hour
 
 export const metadata = {
-  title: "Kiến thức AI Content | AITaoPage",
+  title: "Kiến thức AI Content | TaoPage",
   description: "Hướng dẫn, mẹo và chiến lược tạo nội dung bằng AI cho thị trường Việt Nam.",
   alternates: { canonical: `${SITE_URL}/kien-thuc` },
   openGraph: {
-    title: "Kiến thức AI Content | AITaoPage",
+    title: "Kiến thức AI Content | TaoPage",
     description: "Hướng dẫn, mẹo và chiến lược tạo nội dung bằng AI cho thị trường Việt Nam.",
     url: `${SITE_URL}/kien-thuc`,
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
@@ -151,7 +151,7 @@ export default async function KienThucPage() {
       >
         <Logo iconSize={22} uid="kb-footer" className="inline-flex mb-3 brightness-75" />
         <p className="mt-1">
-          © 2026 AITaoPage ·{" "}
+          © 2026 TaoPage ·{" "}
           <Link href="/" className="hover:text-gray-300 transition-colors">
             Trang chủ
           </Link>{" "}

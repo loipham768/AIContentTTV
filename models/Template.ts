@@ -9,6 +9,7 @@ const TemplateSchema = new mongoose.Schema(
     tags:        [{ type: String }],
     gradient:    { type: String, required: true },
     accentColor: { type: String, required: true },
+    image:       { type: String, default: null },
     html:        { type: String, required: true },
     order:       { type: Number, default: 0 },
   },

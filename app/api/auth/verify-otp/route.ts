@@ -76,12 +76,37 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: `Mã OTP không đúng. Còn ${left} lần thử.` }, { status: 400 })
   }
 
+  // Bonus credits awarded on referral (adjust amounts here)
+  const REFERRAL_BONUS_NEW_USER = 5
+  const REFERRAL_BONUS_REFERRER = 5
+
   // OTP correct — create the user
   const alreadyExists = await User.findOne({ email }).lean()
   if (!alreadyExists) {
     const ip = getClientIp(req)
     const geo = await getGeoInfo(ip)
-    await User.create({ email, passwordHash: pending.passwordHash, registrationIp: ip, ...geo })
+    const referralEmail = pending.referralEmail || ''
+
+    const newUser: Record<string, unknown> = {
+      email,
+      passwordHash: pending.passwordHash,
+      registrationIp: ip,
+      ...geo,
+    }
+
+    if (referralEmail) {
+      newUser.referredBy = referralEmail
+      newUser.credits = REFERRAL_BONUS_NEW_USER
+      newUser.creditsTotal = REFERRAL_BONUS_NEW_USER
+
+      // Track referral count for referrer (no credit bonus)
+      await User.updateOne(
+        { email: referralEmail },
+        { $inc: { referralCount: 1 } }
+      )
+    }
+
+    await User.create(newUser)
   }
   await PendingRegistration.deleteOne({ email })
 

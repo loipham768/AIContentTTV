@@ -20,7 +20,8 @@ import {
   Mail,
   ArrowUpRight,
   Share2,
-  Link2,
+  Layers,
+  // Link2,  // TODO: dùng lại khi mở tính năng clone từ website
   ExternalLink,
 } from "lucide-react";
 import { Suspense } from "react";
@@ -33,6 +34,7 @@ import {
   getUserHasReviewed,
 } from "@/components/reviews/ReviewsSection";
 import ScrollReveal from "@/components/ScrollReveal";
+import FaqAccordion from "@/components/FaqAccordion";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import Logo from "@/components/Logo";
 import MobileNav from "@/components/MobileNav";
@@ -85,13 +87,22 @@ const FEATURES = [
     title: "Xuất PDF chuyên nghiệp",
     desc: "Tải PDF chất lượng cao từ nội dung đã thiết kế — phù hợp in ấn, gửi hồ sơ hoặc lưu trữ tài liệu.",
   },
+  // TODO: Mở lại khi tính năng clone từ website sẵn sàng
+  // {
+  //   icon: <Link2 className="w-5 h-5 text-white" />,
+  //   iconGrad: "from-sky-500 to-blue-600",
+  //   cardGrad: "from-sky-50/90 to-blue-50/50",
+  //   bar: "from-sky-400 to-blue-500",
+  //   title: "Clone website từ URL",
+  //   desc: "Dán link bất kỳ trang web — AI phân tích bố cục, màu sắc rồi tái tạo thành HTML chỉnh sửa được ngay trong editor.",
+  // },
   {
-    icon: <Link2 className="w-5 h-5 text-white" />,
-    iconGrad: "from-sky-500 to-blue-600",
-    cardGrad: "from-sky-50/90 to-blue-50/50",
-    bar: "from-sky-400 to-blue-500",
-    title: "Clone website từ URL",
-    desc: "Dán link bất kỳ trang web — AI phân tích bố cục, màu sắc rồi tái tạo thành HTML chỉnh sửa được ngay trong editor.",
+    icon: <Layers className="w-5 h-5 text-white" />,
+    iconGrad: "from-amber-500 to-orange-600",
+    cardGrad: "from-amber-50/90 to-orange-50/50",
+    bar: "from-amber-400 to-orange-500",
+    title: "Kho mẫu template đa dạng",
+    desc: "500+ mẫu landing page, quảng cáo, bài viết & portfolio được thiết kế sẵn — chọn ngay rồi tùy chỉnh theo thương hiệu trong vài giây.",
   },
   {
     icon: <Share2 className="w-5 h-5 text-white" />,
@@ -112,8 +123,8 @@ const CONTENT_TYPES = [
     bg: "from-indigo-50 to-violet-50",
     border: "border-indigo-100",
     title: "Landing Page",
-    desc: "Trang đích chuyển đổi cao cho bất kỳ sản phẩm, dịch vụ hay ý tưởng nào — AI hỏi đáp để hiểu đúng ý bạn.",
-    badge: "Hỏi đáp thông minh",
+    desc: "Flash sale, trang chốt đơn TikTok Shop, campaign Facebook/Google Ads, remarketing — AI hỏi đáp tạo đúng ý bạn.",
+    badge: "Chốt đơn nhanh",
     badgeColor: "bg-violet-100 text-violet-700",
   },
   {
@@ -132,7 +143,7 @@ const CONTENT_TYPES = [
     bg: "from-rose-50 to-pink-50",
     border: "border-rose-100",
     title: "Quảng Cáo & Marketing",
-    desc: "Nội dung chạy ads và email marketing được tối ưu tỷ lệ click — ngắn gọn, đúng thông điệp, sẵn sàng chạy ngay.",
+    desc: "Banner TikTok Shop, Facebook/Instagram Ads, Story ads, Zalo OA broadcast — copy chuyển đổi cao, sẵn sàng chạy ngay.",
     badge: "Ads chuyển đổi",
     badgeColor: "bg-rose-100 text-rose-700",
   },
@@ -176,13 +187,19 @@ const STEPS = [
 const CMS_BADGES = [
   { name: "Haravan", color: "text-orange-600 border-orange-200 bg-orange-50" },
   { name: "Sapo", color: "text-blue-600 border-blue-200 bg-blue-50" },
-  { name: "WordPress", color: "text-indigo-600 border-indigo-200 bg-indigo-50" },
+  {
+    name: "WordPress",
+    color: "text-indigo-600 border-indigo-200 bg-indigo-50",
+  },
   { name: "Shopify", color: "text-green-700 border-green-200 bg-green-50" },
   { name: "TinyMCE", color: "text-violet-600 border-violet-200 bg-violet-50" },
   { name: "CKEditor", color: "text-rose-600 border-rose-200 bg-rose-50" },
   { name: "Haravan", color: "text-orange-600 border-orange-200 bg-orange-50" },
   { name: "Sapo", color: "text-blue-600 border-blue-200 bg-blue-50" },
-  { name: "WordPress", color: "text-indigo-600 border-indigo-200 bg-indigo-50" },
+  {
+    name: "WordPress",
+    color: "text-indigo-600 border-indigo-200 bg-indigo-50",
+  },
   { name: "Shopify", color: "text-green-700 border-green-200 bg-green-50" },
   { name: "TinyMCE", color: "text-violet-600 border-violet-200 bg-violet-50" },
   { name: "CKEditor", color: "text-rose-600 border-rose-200 bg-rose-50" },
@@ -191,35 +208,46 @@ const CMS_BADGES = [
 /* ── Article thumbnail palettes & icons ────────────────────────── */
 
 const ARTICLE_PALETTES: Record<string, string> = {
-  "Hướng dẫn":  "from-teal-500 to-cyan-600",
+  "Hướng dẫn": "from-teal-500 to-cyan-600",
   "Landing Page": "from-indigo-500 to-violet-600",
-  "So sánh":    "from-violet-500 to-purple-600",
-  "Quảng cáo":  "from-rose-500 to-pink-600",
-  "Kỹ thuật":   "from-emerald-500 to-teal-600",
-  "Content":    "from-amber-500 to-orange-500",
-  "SEO":        "from-blue-500 to-indigo-600",
+  "So sánh": "from-violet-500 to-purple-600",
+  "Quảng cáo": "from-rose-500 to-pink-600",
+  "Kỹ thuật": "from-emerald-500 to-teal-600",
+  Content: "from-amber-500 to-orange-500",
+  SEO: "from-blue-500 to-indigo-600",
 };
 
 const ARTICLE_ICONS: Record<string, string> = {
-  "Hướng dẫn":  "🎓",
+  "Hướng dẫn": "🎓",
   "Landing Page": "🏠",
-  "So sánh":    "📊",
-  "Quảng cáo":  "📣",
-  "Kỹ thuật":   "⚙️",
-  "Content":    "📝",
-  "SEO":        "🔍",
+  "So sánh": "📊",
+  "Quảng cáo": "📣",
+  "Kỹ thuật": "⚙️",
+  Content: "📝",
+  SEO: "🔍",
 };
 
 /* ── Mini template preview per category ────────────────────────── */
 
-function MiniPreview({ category, gradient, accentColor }: { category: string; gradient: string; accentColor: string }) {
+function MiniPreview({
+  category,
+  gradient,
+  accentColor,
+}: {
+  category: string;
+  gradient: string;
+  accentColor: string;
+}) {
   if (category === "article") {
     return (
       <div className="h-40 bg-white relative overflow-hidden">
         <div className={`h-1.5 w-full bg-gradient-to-r ${gradient}`} />
         <div className="p-3 pt-2.5">
           <div className="flex gap-1 mb-2 items-center">
-            <div className="w-8 h-1 rounded" style={{ background: `${accentColor}60` }} />
+            <div
+              className="w-8 h-1 rounded"
+              style={{ background: `${accentColor}60` }}
+            />
             <div className="w-1 h-1 bg-gray-200 rounded-full" />
             <div className="w-12 h-1 bg-gray-200 rounded" />
           </div>
@@ -230,8 +258,11 @@ function MiniPreview({ category, gradient, accentColor }: { category: string; gr
             <div className="w-px h-1 bg-gray-200" />
             <div className="w-8 h-1 bg-gray-200 rounded" />
           </div>
-          {[1,2,3,4].map(i => (
-            <div key={i} className={`h-1 bg-gray-100 rounded mb-1.5 ${i === 4 ? "w-1/2" : "w-full"}`} />
+          {[1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              className={`h-1 bg-gray-100 rounded mb-1.5 ${i === 4 ? "w-1/2" : "w-full"}`}
+            />
           ))}
         </div>
       </div>
@@ -243,17 +274,31 @@ function MiniPreview({ category, gradient, accentColor }: { category: string; gr
       <div className="h-40 bg-gray-900 relative overflow-hidden">
         <div className="p-3">
           <div className="flex items-center gap-2 mb-3">
-            <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradient} flex-shrink-0`} />
+            <div
+              className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradient} flex-shrink-0`}
+            />
             <div>
               <div className="w-16 h-1.5 bg-white/80 rounded mb-1" />
               <div className="w-10 h-1 bg-white/40 rounded" />
             </div>
-            <div className="ml-auto w-12 h-4 rounded-lg" style={{ background: `${accentColor}90` }} />
+            <div
+              className="ml-auto w-12 h-4 rounded-lg"
+              style={{ background: `${accentColor}90` }}
+            />
           </div>
           <div className="grid grid-cols-3 gap-1.5">
-            {["from-indigo-400 to-violet-500","from-teal-400 to-cyan-500","from-rose-400 to-pink-500",
-              "from-amber-400 to-orange-500","from-blue-400 to-indigo-500","from-emerald-400 to-teal-500"].map((g, i) => (
-              <div key={i} className={`h-10 rounded-lg bg-gradient-to-br ${g}`} />
+            {[
+              "from-indigo-400 to-violet-500",
+              "from-teal-400 to-cyan-500",
+              "from-rose-400 to-pink-500",
+              "from-amber-400 to-orange-500",
+              "from-blue-400 to-indigo-500",
+              "from-emerald-400 to-teal-500",
+            ].map((g, i) => (
+              <div
+                key={i}
+                className={`h-10 rounded-lg bg-gradient-to-br ${g}`}
+              />
             ))}
           </div>
         </div>
@@ -264,13 +309,19 @@ function MiniPreview({ category, gradient, accentColor }: { category: string; gr
   if (category === "cv") {
     return (
       <div className="h-40 bg-white relative overflow-hidden flex">
-        <div className={`w-14 bg-gradient-to-b ${gradient} flex-shrink-0 p-2 flex flex-col items-center gap-1.5 pt-3`}>
+        <div
+          className={`w-14 bg-gradient-to-b ${gradient} flex-shrink-0 p-2 flex flex-col items-center gap-1.5 pt-3`}
+        >
           <div className="w-8 h-8 rounded-full bg-white/30 mb-0.5" />
           <div className="w-8 h-1 bg-white/70 rounded" />
           <div className="w-6 h-1 bg-white/50 rounded" />
           <div className="mt-2 w-full space-y-1">
-            {[0.7,0.9,0.6,0.8].map((o,i) => (
-              <div key={i} className="h-0.5 rounded" style={{ background: `rgba(255,255,255,${o})` }} />
+            {[0.7, 0.9, 0.6, 0.8].map((o, i) => (
+              <div
+                key={i}
+                className="h-0.5 rounded"
+                style={{ background: `rgba(255,255,255,${o})` }}
+              />
             ))}
           </div>
         </div>
@@ -278,7 +329,7 @@ function MiniPreview({ category, gradient, accentColor }: { category: string; gr
           <div className="w-20 h-2 bg-gray-800 rounded mb-1" />
           <div className="w-14 h-1 bg-gray-400 rounded mb-2" />
           <div className="w-full h-px bg-gray-100 mb-1.5" />
-          {[1,2].map(i => (
+          {[1, 2].map((i) => (
             <div key={i} className="mb-2">
               <div className="w-16 h-1.5 bg-gray-700 rounded mb-0.5" />
               <div className="w-10 h-1 bg-gray-300 rounded mb-1" />
@@ -293,7 +344,9 @@ function MiniPreview({ category, gradient, accentColor }: { category: string; gr
 
   if (category === "ads") {
     return (
-      <div className={`h-40 bg-gradient-to-br ${gradient} relative overflow-hidden`}>
+      <div
+        className={`h-40 bg-gradient-to-br ${gradient} relative overflow-hidden`}
+      >
         <div className="absolute inset-0 bg-black/25" />
         <div className="absolute -right-6 -top-6 w-28 h-28 bg-white/10 rounded-full" />
         <div className="absolute -left-4 -bottom-4 w-20 h-20 bg-white/10 rounded-full" />
@@ -311,7 +364,9 @@ function MiniPreview({ category, gradient, accentColor }: { category: string; gr
 
   /* landing (default) */
   return (
-    <div className={`h-40 bg-gradient-to-br ${gradient} relative overflow-hidden`}>
+    <div
+      className={`h-40 bg-gradient-to-br ${gradient} relative overflow-hidden`}
+    >
       <div className="absolute inset-0 p-3 flex flex-col">
         <div className="flex items-center gap-1 mb-2.5">
           <div className="w-12 h-1.5 bg-white/60 rounded" />
@@ -328,8 +383,11 @@ function MiniPreview({ category, gradient, accentColor }: { category: string; gr
           <div className="w-16 h-5 bg-yellow-400/90 rounded-lg mt-1.5" />
         </div>
         <div className="flex gap-1.5 mt-1">
-          {[1,2,3].map(i => (
-            <div key={i} className="flex-1 bg-white/10 rounded p-1.5 flex flex-col items-center gap-1">
+          {[1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className="flex-1 bg-white/10 rounded p-1.5 flex flex-col items-center gap-1"
+            >
               <div className="w-3 h-3 rounded bg-white/30" />
               <div className="w-full h-0.5 bg-white/25 rounded" />
               <div className="w-3/4 h-0.5 bg-white/20 rounded" />
@@ -360,7 +418,7 @@ const getHomeTemplates = unstable_cache(
     }>;
   },
   ["home-templates"],
-  { revalidate: 3600 }
+  { revalidate: 3600 },
 );
 
 const getHomeArticles = unstable_cache(
@@ -368,7 +426,7 @@ const getHomeArticles = unstable_cache(
     await dbConnect();
     const docs = await ArticleModel.find(
       {},
-      { content: 0, keywords: 0, __v: 0, _id: 0 }
+      { content: 0, keywords: 0, __v: 0, _id: 0 },
     )
       .sort({ publishedDate: -1 })
       .limit(3)
@@ -384,7 +442,7 @@ const getHomeArticles = unstable_cache(
     }>;
   },
   ["home-articles"],
-  { revalidate: 3600 }
+  { revalidate: 3600 },
 );
 
 /* ── Page ───────────────────────────────────────────────────────── */
@@ -413,16 +471,21 @@ export default async function LandingPage() {
       };
   }
 
-  const [reviewStats, carouselReviews, hasReviewed, homeTemplates, homeArticles] =
-    await Promise.all([
-      getReviewStats(),
-      getCarouselReviews(),
-      session?.user?.id
-        ? getUserHasReviewed(session.user.id)
-        : Promise.resolve(false),
-      getHomeTemplates(),
-      getHomeArticles(),
-    ]);
+  const [
+    reviewStats,
+    carouselReviews,
+    hasReviewed,
+    homeTemplates,
+    homeArticles,
+  ] = await Promise.all([
+    getReviewStats(),
+    getCarouselReviews(),
+    session?.user?.id
+      ? getUserHasReviewed(session.user.id)
+      : Promise.resolve(false),
+    getHomeTemplates(),
+    getHomeArticles(),
+  ]);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -573,22 +636,21 @@ export default async function LandingPage() {
             <div className="flex-1 text-center lg:text-left">
               <div className="hero-badge inline-flex items-center gap-2 px-3 py-1.5 mb-6 text-xs font-semibold text-violet-700 bg-violet-50 rounded-full border border-violet-200">
                 <Sparkles className="w-3.5 h-3.5" />
-                Công cụ AI tạo nội dung & Portfolio cho thị trường Việt Nam
+                Công cụ AI tạo trang bán hàng · TikTok Shop · Facebook Ads
               </div>
 
               <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
-                Landing page, bài viết,
+                Tạo trang bán hàng đẹp,
                 <br className="hidden sm:block" />
-                quảng cáo —
-                <span className="gradient-text"> xong trong 60 giây</span>
+                chốt đơn nhiều hơn —
+                <span className="gradient-text"> không cần designer</span>
               </h1>
 
               <p className="hero-subtitle text-lg sm:text-xl text-gray-500 max-w-xl mx-auto lg:mx-0 mb-6">
-                Mô tả bằng tiếng Việt, AI tạo HTML chuẩn inline CSS — từ
-                landing page, bài viết, quảng cáo đến portfolio & CV xin việc.
-                Chỉnh sửa kéo thả — xuất HTML, PDF, hoặc{" "}
+                Mô tả bằng tiếng Việt, AI tạo ngay trang bán hàng, banner quảng
+                cáo, bài viết đẹp — kéo thả chỉnh sửa,{" "}
                 <span className="font-semibold text-gray-700">
-                  xuất bản link chia sẻ công khai ngay lập tức
+                  dán vào Haravan/Sapo/TikTok bio là xong
                 </span>
                 .
               </p>
@@ -597,16 +659,16 @@ export default async function LandingPage() {
               <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-6 sm:mb-8">
                 {[
                   {
-                    label: "🏠 Landing Page",
+                    label: "🛒 Trang bán hàng",
                     color: "bg-indigo-100 text-indigo-700 border-indigo-200",
                   },
                   {
-                    label: "📝 Bài Viết & Blog",
-                    color: "bg-blue-100 text-blue-700 border-blue-200",
+                    label: "📣 Banner quảng cáo",
+                    color: "bg-rose-100 text-rose-700 border-rose-200",
                   },
                   {
-                    label: "📣 Quảng Cáo",
-                    color: "bg-rose-100 text-rose-700 border-rose-200",
+                    label: "📝 Bài viết SEO",
+                    color: "bg-blue-100 text-blue-700 border-blue-200",
                   },
                   {
                     label: "💼 Portfolio & CV",
@@ -651,8 +713,8 @@ export default async function LandingPage() {
               <div className="hero-stats flex flex-wrap justify-center lg:justify-start gap-6 mt-7 pt-7 sm:gap-8 sm:mt-10 sm:pt-10 border-t border-violet-100">
                 {[
                   {
-                    value: "4 loại",
-                    label: "nội dung có thể tạo",
+                    value: "60 giây",
+                    label: "tạo xong trang flash sale",
                     grad: "from-indigo-700 to-violet-600",
                   },
                   {
@@ -661,8 +723,8 @@ export default async function LandingPage() {
                     grad: "from-violet-700 to-purple-600",
                   },
                   {
-                    value: "6 CMS",
-                    label: "tương thích hoàn hảo",
+                    value: "TikTok · 6 CMS",
+                    label: "tương thích dán vào ngay",
                     grad: "from-indigo-600 to-blue-500",
                   },
                 ].map(({ value, label, grad }) => (
@@ -738,22 +800,22 @@ export default async function LandingPage() {
                         ))}
                       </div>
                       <div className="bg-violet-50 rounded-lg p-2.5 text-xs text-gray-700 border border-violet-100 mt-1">
-                        Landing page cho sản phẩm hay dịch vụ gì?
+                        Bạn đang bán gì? Mô tả sản phẩm và ưu đãi hôm nay?
                       </div>
                       <div className="bg-indigo-600 rounded-lg p-2.5 text-xs text-white self-end max-w-[80%]">
-                        Khóa học lập trình web fullstack, giá 2.990.000đ
+                        Son môi dưỡng ẩm 189k, giảm 30% hôm nay thôi, freeship
                       </div>
                       <div className="bg-green-50 rounded-lg p-2.5 text-xs text-gray-700 border border-green-100 flex items-center gap-1.5">
                         <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                        Đang tạo landing page...
+                        Đang tạo trang bán hàng...
                       </div>
                     </div>
-                    <div className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 rounded-xl p-3 text-white text-center flex-shrink-0">
-                      <div className="text-xs text-indigo-200 mb-0.5">
-                        KHÓA HỌC FULLSTACK
+                    <div className="bg-gradient-to-br from-rose-500 via-pink-600 to-red-600 rounded-xl p-3 text-white text-center flex-shrink-0">
+                      <div className="text-xs text-rose-200 mb-0.5">
+                        🔥 FLASH SALE HÔM NAY
                       </div>
                       <div className="font-bold text-sm mb-1.5">
-                        Từ 0 đến Junior Dev
+                        Son Môi Dưỡng Ẩm — Giảm 30%
                       </div>
                       <div className="bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full inline-block">
                         Đăng ký ngay →
@@ -816,6 +878,91 @@ export default async function LandingPage() {
         </div>
       </section>
 
+      {/* ── Dành cho ai? ───────────────────────────────────────────── */}
+      <section className="py-12 md:py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <ScrollReveal className="text-center mb-10 sm:mb-14">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+              Dành cho ai?
+            </h2>
+            <p className="text-gray-500 max-w-xl mx-auto">
+              Từ shop online đến agency — AITaoPage giúp bạn tạo nội dung chốt đơn nhanh hơn, không cần designer
+            </p>
+          </ScrollReveal>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              {
+                emoji: "🛒",
+                grad: "from-orange-500 to-rose-500",
+                bg: "bg-orange-50",
+                border: "border-orange-100",
+                accent: "text-orange-600",
+                title: "Shop online & TikTok Shop",
+                desc: "Tạo trang sản phẩm đẹp, flash sale hấp dẫn, link bio TikTok chốt đơn cao hơn — trong 60 giây.",
+                tags: ["Flash sale", "Trang sản phẩm", "Link bio TikTok", "Banner khuyến mãi"],
+              },
+              {
+                emoji: "📣",
+                grad: "from-blue-500 to-indigo-600",
+                bg: "bg-blue-50",
+                border: "border-blue-100",
+                accent: "text-blue-600",
+                title: "Chạy Facebook Ads & TikTok Ads",
+                desc: "Tạo landing page riêng cho từng campaign, tối ưu tỷ lệ chuyển đổi, không cần chờ designer.",
+                tags: ["Facebook Ads", "TikTok Ads", "Google Ads", "Zalo Ads"],
+              },
+              {
+                emoji: "🔄",
+                grad: "from-violet-500 to-purple-600",
+                bg: "bg-violet-50",
+                border: "border-violet-100",
+                accent: "text-violet-600",
+                title: "Remarketing & Email Marketing",
+                desc: "Tạo nhiều version landing page nhanh để A/B test, email HTML đẹp gửi remarketing list.",
+                tags: ["A/B Testing", "Email HTML", "Retargeting", "Multi-campaign"],
+              },
+              {
+                emoji: "✍️",
+                grad: "from-teal-500 to-cyan-600",
+                bg: "bg-teal-50",
+                border: "border-teal-100",
+                accent: "text-teal-600",
+                title: "Content Creator & Agency",
+                desc: "Bài viết HTML đẹp đăng CMS, portfolio chuyên nghiệp, CV xin việc — không cần designer riêng.",
+                tags: ["Blog SEO", "Portfolio", "CV", "CMS Content"],
+              },
+            ].map(({ emoji, grad, bg, border, accent, title, desc, tags }, i) => (
+              <ScrollReveal key={title} delay={i * 80}>
+                <div className={`h-full rounded-2xl ${bg} border ${border} p-5 flex flex-col`}>
+                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${grad} flex items-center justify-center text-2xl mb-4 shadow-md flex-shrink-0`}>
+                    {emoji}
+                  </div>
+                  <h3 className="font-bold text-gray-900 text-sm mb-2">{title}</h3>
+                  <p className="text-xs text-gray-500 leading-relaxed mb-4 flex-1">{desc}</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {tags.map((tag) => (
+                      <span key={tag} className={`text-[11px] font-semibold px-2 py-0.5 rounded-full bg-white border ${border} ${accent}`}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal className="text-center mt-10">
+            <Link
+              href={isLoggedIn ? "/create" : "/login?tab=register"}
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-indigo-500/25"
+            >
+              <Zap className="w-4 h-4" /> Bắt đầu miễn phí — không cần thẻ tín dụng
+            </Link>
+          </ScrollReveal>
+        </div>
+      </section>
+
       {/* ── CMS Compatibility Strip ────────────────────────────────── */}
       <section
         className="py-6 sm:py-10 overflow-hidden"
@@ -860,7 +1007,8 @@ export default async function LandingPage() {
               Xem kết quả thực tế
             </h2>
             <p className="text-indigo-300/70">
-              Mô tả bằng tiếng Việt — Claude &amp; Gemini AI tạo nội dung, mở thẳng trong editor để chỉnh sửa
+              Mô tả bằng tiếng Việt — Claude &amp; Gemini AI tạo nội dung, mở
+              thẳng trong editor để chỉnh sửa
             </p>
           </ScrollReveal>
 
@@ -873,10 +1021,14 @@ export default async function LandingPage() {
                     <MousePointer2 className="w-4 h-4 text-indigo-400" />
                   </div>
                   <span className="font-semibold text-gray-200">Bạn mô tả</span>
-                  <span className="ml-auto text-[11px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/20">Landing Page</span>
+                  <span className="ml-auto text-[11px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/20">
+                    Landing Page
+                  </span>
                 </div>
                 <div className="bg-white/10 rounded-xl border border-white/10 p-4 flex-1 text-sm text-gray-300 leading-relaxed">
-                  Tạo landing page bán khóa học lập trình Python. Đối tượng: sinh viên và người đi làm muốn chuyển ngành. Màu chủ đạo xanh navy. Nút CTA &ldquo;Đăng ký học thử miễn phí&rdquo;.
+                  Tạo landing page bán khóa học lập trình Python. Đối tượng:
+                  sinh viên và người đi làm muốn chuyển ngành. Màu chủ đạo xanh
+                  navy. Nút CTA &ldquo;Đăng ký học thử miễn phí&rdquo;.
                 </div>
                 <div className="mt-4 flex items-center gap-2 text-sm text-indigo-400/70">
                   <Sparkles className="w-4 h-4 text-violet-400" />
@@ -902,7 +1054,9 @@ export default async function LandingPage() {
                   <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center border border-emerald-400/30">
                     <LayoutTemplate className="w-4 h-4 text-emerald-400" />
                   </div>
-                  <span className="font-semibold text-gray-200">Editor mở với nội dung AI</span>
+                  <span className="font-semibold text-gray-200">
+                    Editor mở với nội dung AI
+                  </span>
                 </div>
                 {/* Mini editor mockup */}
                 <div className="flex-1 rounded-xl overflow-hidden border border-white/10 bg-gray-900 flex flex-col">
@@ -924,8 +1078,13 @@ export default async function LandingPage() {
                   </div>
                   {/* Canvas preview */}
                   <div className="flex-1 bg-gradient-to-br from-blue-900 to-indigo-900 p-5 flex flex-col justify-between relative overflow-hidden">
-                    <div className="absolute inset-0 opacity-10"
-                      style={{ backgroundImage: "radial-gradient(circle at 1px 1px,white 1px,transparent 0)", backgroundSize: "20px 20px" }}
+                    <div
+                      className="absolute inset-0 opacity-10"
+                      style={{
+                        backgroundImage:
+                          "radial-gradient(circle at 1px 1px,white 1px,transparent 0)",
+                        backgroundSize: "20px 20px",
+                      }}
                     />
                     <div className="relative">
                       <div className="w-3/4 h-3 bg-white/90 rounded mb-2" />
@@ -962,7 +1121,9 @@ export default async function LandingPage() {
       <section
         id="how-it-works"
         className="py-12 md:py-20"
-        style={{ background: "linear-gradient(180deg,#f5f4fb 0%,#edeaf8 100%)" }}
+        style={{
+          background: "linear-gradient(180deg,#f5f4fb 0%,#edeaf8 100%)",
+        }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <ScrollReveal className="text-center mb-10 sm:mb-14">
@@ -1003,7 +1164,13 @@ export default async function LandingPage() {
       </section>
 
       {/* ── Content Types compact ──────────────────────────────────── */}
-      <section className="py-12 md:py-16 relative overflow-hidden" style={{ background: "linear-gradient(160deg,#ebebf8 0%,#e3e1f4 60%,#e8e6f6 100%)" }}>
+      <section
+        className="py-12 md:py-16 relative overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(160deg,#ebebf8 0%,#e3e1f4 60%,#e8e6f6 100%)",
+        }}
+      >
         <div className="pointer-events-none absolute -left-40 top-1/3 w-96 h-96 bg-indigo-400/6 blur-3xl rounded-full" />
         <div className="pointer-events-none absolute -right-40 bottom-0 w-80 h-80 bg-violet-400/6 blur-3xl rounded-full" />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
@@ -1056,7 +1223,10 @@ export default async function LandingPage() {
       {/* ── Template mới nhất từ DB ────────────────────────────────── */}
       <section
         className="py-12 md:py-20 relative overflow-hidden"
-        style={{ background: "linear-gradient(160deg,#eeedf9 0%,#e5e3f5 55%,#eeedf9 100%)" }}
+        style={{
+          background:
+            "linear-gradient(160deg,#eeedf9 0%,#e5e3f5 55%,#eeedf9 100%)",
+        }}
       >
         <div className="pointer-events-none absolute -right-48 top-0 w-[500px] h-[500px] bg-emerald-400/5 blur-3xl rounded-full" />
         <div className="pointer-events-none absolute -left-32 bottom-0 w-80 h-80 bg-indigo-400/5 blur-3xl rounded-full" />
@@ -1068,7 +1238,8 @@ export default async function LandingPage() {
                   Mẫu giao diện có sẵn
                 </h2>
                 <p className="text-gray-500 text-sm">
-                  Dùng ngay làm điểm khởi đầu, chỉnh sửa theo thương hiệu của bạn
+                  Dùng ngay làm điểm khởi đầu, chỉnh sửa theo thương hiệu của
+                  bạn
                 </p>
               </div>
               <Link
@@ -1084,24 +1255,77 @@ export default async function LandingPage() {
             {(homeTemplates.length > 0
               ? homeTemplates
               : [
-                  { id: "lp-1",   name: "Landing page bán hàng",      category: "landing",   description: "Mẫu landing page chuyển đổi cao cho e-commerce",        gradient: "from-indigo-500 to-violet-600", accentColor: "#6366f1" },
-                  { id: "art-1",  name: "Bài viết SEO chuẩn",         category: "article",   description: "Mẫu bài viết blog chuẩn SEO với heading structure",       gradient: "from-blue-500 to-cyan-500",     accentColor: "#3b82f6" },
-                  { id: "ads-1",  name: "Banner quảng cáo Facebook",   category: "ads",       description: "Banner ads tỷ lệ chuyển đổi cao cho Facebook",           gradient: "from-rose-500 to-pink-600",     accentColor: "#f43f5e" },
-                  { id: "port-1", name: "Portfolio freelancer",        category: "portfolio", description: "Trang portfolio chuyên nghiệp cho freelancer",            gradient: "from-teal-500 to-emerald-600",  accentColor: "#14b8a6" },
-                  { id: "cv-1",   name: "CV xin việc lập trình",       category: "cv",        description: "CV online nổi bật cho developer và designer",            gradient: "from-amber-500 to-orange-500",  accentColor: "#f59e0b" },
-                  { id: "lp-2",   name: "Trang giới thiệu dịch vụ",   category: "landing",   description: "Landing page dịch vụ chuyên nghiệp và uy tín",           gradient: "from-sky-500 to-blue-600",      accentColor: "#0ea5e9" },
+                  {
+                    id: "lp-1",
+                    name: "Landing page bán hàng",
+                    category: "landing",
+                    description:
+                      "Mẫu landing page chuyển đổi cao cho e-commerce",
+                    gradient: "from-indigo-500 to-violet-600",
+                    accentColor: "#6366f1",
+                  },
+                  {
+                    id: "art-1",
+                    name: "Bài viết SEO chuẩn",
+                    category: "article",
+                    description:
+                      "Mẫu bài viết blog chuẩn SEO với heading structure",
+                    gradient: "from-blue-500 to-cyan-500",
+                    accentColor: "#3b82f6",
+                  },
+                  {
+                    id: "ads-1",
+                    name: "Banner quảng cáo Facebook",
+                    category: "ads",
+                    description: "Banner ads tỷ lệ chuyển đổi cao cho Facebook",
+                    gradient: "from-rose-500 to-pink-600",
+                    accentColor: "#f43f5e",
+                  },
+                  {
+                    id: "port-1",
+                    name: "Portfolio freelancer",
+                    category: "portfolio",
+                    description: "Trang portfolio chuyên nghiệp cho freelancer",
+                    gradient: "from-teal-500 to-emerald-600",
+                    accentColor: "#14b8a6",
+                  },
+                  {
+                    id: "cv-1",
+                    name: "CV xin việc lập trình",
+                    category: "cv",
+                    description: "CV online nổi bật cho developer và designer",
+                    gradient: "from-amber-500 to-orange-500",
+                    accentColor: "#f59e0b",
+                  },
+                  {
+                    id: "lp-2",
+                    name: "Trang giới thiệu dịch vụ",
+                    category: "landing",
+                    description: "Landing page dịch vụ chuyên nghiệp và uy tín",
+                    gradient: "from-sky-500 to-blue-600",
+                    accentColor: "#0ea5e9",
+                  },
                 ]
             ).map((t, i) => {
-              const catMeta = CATEGORY_META[t.category as keyof typeof CATEGORY_META];
+              const catMeta =
+                CATEGORY_META[t.category as keyof typeof CATEGORY_META];
               return (
                 <ScrollReveal key={t.id} delay={i * 60}>
                   <div className="group bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-indigo-200 transition-all duration-200 flex flex-col h-full">
                     {/* Mini preview + hover overlay */}
                     <div className="relative flex-shrink-0">
-                      <MiniPreview category={t.category} gradient={t.gradient} accentColor={t.accentColor} />
+                      <MiniPreview
+                        category={t.category}
+                        gradient={t.gradient}
+                        accentColor={t.accentColor}
+                      />
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:flex items-center justify-center z-20">
                         <Link
-                          href={homeTemplates.length > 0 ? `/templates?preview=${t.id}` : "/templates"}
+                          href={
+                            homeTemplates.length > 0
+                              ? `/templates?preview=${t.id}`
+                              : "/templates"
+                          }
                           className="flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-lg px-3 py-1.5 text-xs font-semibold hover:bg-white transition-colors"
                         >
                           <ExternalLink className="w-3 h-3" /> Xem trước
@@ -1111,26 +1335,43 @@ export default async function LandingPage() {
                     {/* Card body */}
                     <div className="p-4 flex flex-col flex-1">
                       <div className="flex items-start justify-between gap-2 mb-2">
-                        <h3 className="font-semibold text-gray-900 text-sm leading-tight">{t.name}</h3>
+                        <h3 className="font-semibold text-gray-900 text-sm leading-tight">
+                          {t.name}
+                        </h3>
                         <span
                           className="flex-shrink-0 text-xs font-semibold px-2 py-0.5 rounded-full"
-                          style={{ background: `${t.accentColor}18`, color: t.accentColor }}
+                          style={{
+                            background: `${t.accentColor}18`,
+                            color: t.accentColor,
+                          }}
                         >
                           {catMeta?.label ?? t.category}
                         </span>
                       </div>
-                      <p className="text-xs text-gray-500 leading-relaxed mb-3 line-clamp-2 flex-1">{t.description}</p>
+                      <p className="text-xs text-gray-500 leading-relaxed mb-3 line-clamp-2 flex-1">
+                        {t.description}
+                      </p>
                       {/* Mobile: Xem trước button */}
                       <Link
-                        href={homeTemplates.length > 0 ? `/templates?preview=${t.id}` : "/templates"}
+                        href={
+                          homeTemplates.length > 0
+                            ? `/templates?preview=${t.id}`
+                            : "/templates"
+                        }
                         className="sm:hidden w-full mb-2 py-2 rounded-xl text-sm font-semibold border-2 border-gray-200 text-gray-700 flex items-center justify-center gap-1.5"
                       >
                         <ExternalLink className="w-3.5 h-3.5" /> Xem trước
                       </Link>
                       <Link
-                        href={homeTemplates.length > 0 ? `/editor?template=${t.id}` : "/templates"}
+                        href={
+                          homeTemplates.length > 0
+                            ? `/editor?template=${t.id}`
+                            : "/templates"
+                        }
                         className="w-full py-2 rounded-xl text-sm font-semibold text-white flex items-center justify-center gap-1.5 hover:opacity-90 transition-opacity"
-                        style={{ background: `linear-gradient(135deg, ${t.accentColor}, ${t.accentColor}cc)` }}
+                        style={{
+                          background: `linear-gradient(135deg, ${t.accentColor}, ${t.accentColor}cc)`,
+                        }}
                       >
                         Dùng mẫu này →
                       </Link>
@@ -1155,7 +1396,10 @@ export default async function LandingPage() {
       {/* ── Tính năng nổi bật (6 tính năng) ───────────────────────── */}
       <section
         className="py-12 md:py-20"
-        style={{ background: "linear-gradient(180deg,#f2f1fb 0%,#e9e7f7 50%,#f2f1fb 100%)" }}
+        style={{
+          background:
+            "linear-gradient(180deg,#f2f1fb 0%,#e9e7f7 50%,#f2f1fb 100%)",
+        }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <ScrollReveal className="text-center mb-10 sm:mb-14">
@@ -1168,26 +1412,43 @@ export default async function LandingPage() {
           </ScrollReveal>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {FEATURES.map(({ icon, iconGrad, cardGrad, bar, title, desc }, i) => (
-              <ScrollReveal key={title} delay={i * 60} className="h-full">
-                <div
-                  className={`relative bg-gradient-to-br ${cardGrad} rounded-2xl p-5 border border-white/80 shadow-sm card-lift h-full overflow-hidden flex flex-col`}
-                >
-                  <div
-                    className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${bar}`}
-                  />
-                  <div
-                    className={`w-10 h-10 rounded-xl bg-gradient-to-br ${iconGrad} flex items-center justify-center mb-3 shadow-md mt-3 flex-shrink-0`}
+            {FEATURES.map(
+              ({ icon, iconGrad, cardGrad, bar, title, desc }, i) => {
+                const rem = FEATURES.length % 3;
+                const colClass =
+                  rem === 1 && i === FEATURES.length - 1
+                    ? "lg:col-start-2"
+                    : rem === 2 && i === FEATURES.length - 1
+                      ? "lg:col-start-3"
+                      : "";
+                return (
+                  <ScrollReveal
+                    key={title}
+                    delay={i * 60}
+                    className={`h-full ${colClass}`}
                   >
-                    {icon}
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-1.5 text-sm">
-                    {title}
-                  </h3>
-                  <p className="text-xs text-gray-600 leading-relaxed">{desc}</p>
-                </div>
-              </ScrollReveal>
-            ))}
+                    <div
+                      className={`relative bg-gradient-to-br ${cardGrad} rounded-2xl p-5 border border-white/80 shadow-sm card-lift h-full overflow-hidden flex flex-col`}
+                    >
+                      <div
+                        className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${bar}`}
+                      />
+                      <div
+                        className={`w-10 h-10 rounded-xl bg-gradient-to-br ${iconGrad} flex items-center justify-center mb-3 shadow-md mt-3 flex-shrink-0`}
+                      >
+                        {icon}
+                      </div>
+                      <h3 className="font-semibold text-gray-900 mb-1.5 text-sm">
+                        {title}
+                      </h3>
+                      <p className="text-xs text-gray-600 leading-relaxed">
+                        {desc}
+                      </p>
+                    </div>
+                  </ScrollReveal>
+                );
+              },
+            )}
           </div>
         </div>
       </section>
@@ -1204,7 +1465,13 @@ export default async function LandingPage() {
       <PricingSection isLoggedIn={isLoggedIn} />
 
       {/* ── Bài viết mới nhất ─────────────────────────────────────── */}
-      <section className="py-12 md:py-20 relative overflow-hidden" style={{ background: "linear-gradient(160deg,#09070f 0%,#0d0b1e 60%,#070512 100%)" }}>
+      <section
+        className="py-12 md:py-20 relative overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(160deg,#09070f 0%,#0d0b1e 60%,#070512 100%)",
+        }}
+      >
         <div className="pointer-events-none absolute -right-40 top-1/4 w-96 h-96 bg-indigo-600/10 blur-3xl rounded-full" />
         <div className="pointer-events-none absolute -left-32 bottom-0 w-72 h-72 bg-violet-700/8 blur-3xl rounded-full" />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
@@ -1215,7 +1482,8 @@ export default async function LandingPage() {
                   Kiến thức & Hướng dẫn
                 </h2>
                 <p className="text-gray-400 text-sm">
-                  Bài viết về landing page, HTML, AI content và marketing Việt Nam
+                  Bài viết về landing page, HTML, AI content và marketing Việt
+                  Nam
                 </p>
               </div>
               <Link
@@ -1244,11 +1512,15 @@ export default async function LandingPage() {
                           />
                         </div>
                       ) : (
-                        <div className={`h-40 bg-gradient-to-br ${ARTICLE_PALETTES[a.category] ?? "from-indigo-500 to-violet-600"} flex items-center justify-center relative overflow-hidden`}>
+                        <div
+                          className={`h-40 bg-gradient-to-br ${ARTICLE_PALETTES[a.category] ?? "from-indigo-500 to-violet-600"} flex items-center justify-center relative overflow-hidden`}
+                        >
                           <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-white/10" />
                           <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-white/10" />
                           <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner relative z-10">
-                            <span className="text-2xl">{ARTICLE_ICONS[a.category] ?? "📖"}</span>
+                            <span className="text-2xl">
+                              {ARTICLE_ICONS[a.category] ?? "📖"}
+                            </span>
                           </div>
                         </div>
                       )}
@@ -1302,7 +1574,9 @@ export default async function LandingPage() {
       {/* ── FAQ ────────────────────────────────────────────────────── */}
       <section
         className="py-12 md:py-20"
-        style={{ background: "linear-gradient(180deg,#f5f4fb 0%,#edeaf8 100%)" }}
+        style={{
+          background: "linear-gradient(180deg,#f5f4fb 0%,#edeaf8 100%)",
+        }}
         id="faq"
       >
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
@@ -1311,51 +1585,50 @@ export default async function LandingPage() {
               Câu hỏi thường gặp
             </h2>
           </ScrollReveal>
-          <div className="space-y-4">
-            {(
-              [
-                {
-                  q: "Tôi có cần biết code HTML/CSS không?",
-                  a: "Không. Bạn chỉ cần mô tả bằng tiếng Việt tự nhiên. AI tạo toàn bộ HTML và CSS, rồi bạn chỉnh sửa trực tiếp bằng cách kéo thả trong editor.",
-                  accent: "border-l-indigo-400",
-                },
-                {
-                  q: "HTML tạo ra có dán vào Haravan/Sapo được không?",
-                  a: 'Có. Khi bạn nhấn "Sao chép HTML", hệ thống xử lý phía server để nhúng toàn bộ CSS vào từng thẻ HTML (inline style). CMS không lọc bỏ định dạng vì không có thẻ <style> hay <script>.',
-                  accent: "border-l-violet-400",
-                },
-                {
-                  q: "Gói miễn phí bị giới hạn ở đâu?",
-                  a: "Gói Free: 4 lượt tạo nội dung mỗi tháng (landing page, bài viết hoặc quảng cáo...). Có thể chỉnh sửa trong editor nhưng không sao chép hay tải HTML. Giới hạn này được kiểm tra phía server — không thể vượt qua bằng DevTools.",
-                  accent: "border-l-purple-400",
-                },
-                {
-                  q: "Thanh toán như thế nào?",
-                  a: "Chuyển khoản ngân hàng — bạn chọn gói, nhận mã đơn hàng, chuyển tiền ghi mã đó vào nội dung. Đội ngũ kích hoạt thủ công trong 1–4 giờ. Thời hạn giữ đơn 24 giờ.",
-                  accent: "border-l-blue-400",
-                },
-                {
-                  q: "AI nào được dùng để tạo nội dung?",
-                  a: "AITaoPage sử dụng AI thế hệ mới để tạo nội dung — tối ưu riêng cho từng loại yêu cầu: tạo nhanh khối HTML từ một câu mô tả hoặc hỏi đáp nhiều bước cho landing page, nội dung phức tạp.",
-                  accent: "border-l-emerald-400",
-                },
-                {
-                  q: "Link xuất bản là gì và ai có thể xem?",
-                  a: "Khi nhấn 'Xuất bản', hệ thống tạo một trang web công khai với URL duy nhất — bất kỳ ai có link đều xem được ngay, không cần đăng nhập hay tài khoản. Dùng để chia sẻ qua Zalo, Facebook, email hoặc dán vào bio. Tính năng xuất PDF cũng có sẵn ngay trong editor, tải file PDF chất lượng cao chỉ một click.",
-                  accent: "border-l-teal-400",
-                },
-              ] as const
-            ).map(({ q, a, accent }, i) => (
-              <ScrollReveal key={q} delay={i * 60}>
-                <div
-                  className={`bg-white rounded-2xl p-6 border border-indigo-100 border-l-4 ${accent} card-lift shadow-sm`}
-                >
-                  <h3 className="font-semibold text-gray-900 mb-2">{q}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{a}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          <FaqAccordion
+            items={[
+              {
+                q: "Tôi bán hàng trên TikTok Shop, dùng AITaoPage được không?",
+                a: "Hoàn toàn được. Bạn tạo trang sản phẩm hoặc landing page trên AITaoPage, xuất link công khai rồi dán vào bio TikTok hoặc link trong video. Khách click vào là thấy trang bán hàng đẹp ngay — không cần tài khoản, không cần cài app.",
+                accent: "border-l-orange-400",
+              },
+              {
+                q: "Tôi chạy Facebook Ads, AITaoPage giúp gì được?",
+                a: "AITaoPage giúp bạn tạo landing page riêng cho từng campaign trong 60 giây — không cần designer, không cần code. Mỗi ad set có thể có landing page khác nhau để A/B test tỷ lệ chuyển đổi, tối ưu chi phí quảng cáo.",
+                accent: "border-l-blue-400",
+              },
+              {
+                q: "Tôi muốn làm remarketing, AITaoPage có phù hợp không?",
+                a: "Phù hợp. Bạn tạo nhiều version landing page nhanh cho các nhóm remarketing khác nhau — khách xem sản phẩm A thấy trang A, khách bỏ giỏ hàng thấy trang có ưu đãi riêng. Xuất HTML dán vào bất kỳ CMS nào hoặc dùng link xuất bản trực tiếp.",
+                accent: "border-l-violet-400",
+              },
+              {
+                q: "Tôi có cần biết code HTML/CSS không?",
+                a: "Không. Bạn chỉ cần mô tả bằng tiếng Việt tự nhiên. AI tạo toàn bộ HTML và CSS, rồi bạn chỉnh sửa trực tiếp bằng cách kéo thả trong editor.",
+                accent: "border-l-indigo-400",
+              },
+              {
+                q: "HTML tạo ra có dán vào Haravan/Sapo được không?",
+                a: 'Có. Khi bạn nhấn "Sao chép HTML", hệ thống xử lý phía server để nhúng toàn bộ CSS vào từng thẻ HTML (inline style). CMS không lọc bỏ định dạng vì không có thẻ <style> hay <script>.',
+                accent: "border-l-emerald-400",
+              },
+              {
+                q: "Gói miễn phí bị giới hạn ở đâu?",
+                a: "Gói Free: 4 lượt tạo nội dung mỗi tháng (landing page, bài viết hoặc quảng cáo...). Có thể chỉnh sửa trong editor nhưng không sao chép hay tải HTML. Giới hạn này được kiểm tra phía server — không thể vượt qua bằng DevTools.",
+                accent: "border-l-purple-400",
+              },
+              {
+                q: "Thanh toán như thế nào?",
+                a: "Chuyển khoản ngân hàng — bạn chọn gói, nhận mã đơn hàng, chuyển tiền ghi mã đó vào nội dung. Đội ngũ kích hoạt thủ công trong 1–4 giờ. Thời hạn giữ đơn 24 giờ.",
+                accent: "border-l-rose-400",
+              },
+              {
+                q: "Link xuất bản là gì và ai có thể xem?",
+                a: "Khi nhấn 'Xuất bản', hệ thống tạo một trang web công khai với URL duy nhất — bất kỳ ai có link đều xem được ngay, không cần đăng nhập hay tài khoản. Dùng để chia sẻ qua Zalo, Facebook, email hoặc dán vào bio TikTok. Tính năng xuất PDF cũng có sẵn ngay trong editor, tải file PDF chất lượng cao chỉ một click.",
+                accent: "border-l-teal-400",
+              },
+            ]}
+          />
         </div>
       </section>
 
@@ -1397,9 +1670,9 @@ export default async function LandingPage() {
         <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-6 sm:pt-14 sm:pb-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8 sm:gap-10 sm:mb-12">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 mb-8 sm:gap-10 sm:mb-12">
             {/* Brand */}
-            <div className="col-span-2 md:col-span-1">
+            <div className="col-span-2 lg:col-span-1">
               <Logo iconSize={32} uid="footer" dark className="mb-4" />
               <p className="text-sm text-gray-500 leading-relaxed mb-5">
                 Công cụ AI giúp bạn tạo nội dung HTML đẹp trong 60 giây — không
@@ -1479,6 +1752,28 @@ export default async function LandingPage() {
                       href={href}
                       className="hover:text-white transition-colors"
                     >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Dành cho */}
+            <div>
+              <p className="text-xs font-semibold text-gray-300 uppercase tracking-widest mb-4">
+                Dành cho
+              </p>
+              <ul className="space-y-3 text-sm">
+                {[
+                  { href: "/create", label: "Shop online & TikTok Shop" },
+                  { href: "/create", label: "Dân chạy Facebook Ads" },
+                  { href: "/create", label: "Remarketing & Email" },
+                  { href: "/create", label: "Content Creator" },
+                  { href: "/create", label: "Agency & Freelancer" },
+                ].map(({ href, label }) => (
+                  <li key={label}>
+                    <Link href={href} className="hover:text-white transition-colors">
                       {label}
                     </Link>
                   </li>

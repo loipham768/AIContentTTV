@@ -4,8 +4,8 @@ import { redirect } from 'next/navigation'
 import { LoginRegisterCard } from '@/components/auth/LoginRegisterCard'
 
 export const metadata: Metadata = {
-  title: 'Đăng nhập / Đăng ký — AITaoPage',
-  description: 'Đăng nhập hoặc tạo tài khoản AITaoPage để bắt đầu tạo nội dung HTML đẹp với AI.',
+  title: 'Đăng nhập / Đăng ký — TaoPage',
+  description: 'Đăng nhập hoặc tạo tài khoản TaoPage để bắt đầu tạo nội dung HTML đẹp với AI.',
   robots: { index: false, follow: false },
 }
 

@@ -12,6 +12,7 @@ import TopBar from "@/components/editor/TopBar";
 import ImagePickerModal from "@/components/editor/ImagePickerModal";
 
 
+
 const GrapesEditor = dynamic(() => import("@/components/editor/GrapesEditor"), {
   ssr: false,
   loading: () => (
@@ -424,14 +425,13 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
             </div>
             <span className="text-xs font-semibold text-slate-700 uppercase tracking-wider">Khối</span>
             <button
-              onClick={() => setMobileTab('canvas')}
-              className="gjs-mob-close ml-auto items-center justify-center w-7 h-7 rounded-lg hover:bg-slate-200 text-slate-400 hover:text-slate-700"
+              onClick={() => setMobileTab("canvas")}
+              className="gjs-mob-close ml-auto flex items-center justify-center w-7 h-7 rounded-lg hover:bg-slate-200 text-slate-400 hover:text-slate-700"
               title="Đóng"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
-          {/* Mobile hint */}
           <div className="gjs-mob-only px-3 py-2 bg-blue-50 border-b border-blue-100">
             <p className="text-xs text-blue-600">Nhấn vào khối để thêm vào canvas</p>
           </div>
@@ -440,7 +440,10 @@ export default function EditorClientWrapper({ userEmail, fullName, avatarUrl, in
 
         {/* ── Center: Canvas ─────────────────────────────────────────── */}
         <div className="flex flex-col flex-1 overflow-hidden min-w-0">
-          <GrapesEditor onEditor={handleEditor} onOpenImagePicker={openImagePicker} />
+          <GrapesEditor
+            onEditor={handleEditor}
+            onOpenImagePicker={openImagePicker}
+          />
         </div>
 
         {/* ── Right: Style / Layers / History — always mounted so GrapesJS keeps its render targets ── */}

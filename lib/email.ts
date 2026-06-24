@@ -3,7 +3,7 @@ import { SITE_URL, SUPPORT_EMAIL } from "@/lib/constants";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const FROM = process.env.EMAIL_FROM ?? "AITaoPage <onboarding@resend.dev>";
+const FROM = process.env.EMAIL_FROM ?? "TaoPage <onboarding@resend.dev>";
 const BASE_URL = process.env.NEXTAUTH_URL ?? SITE_URL;
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -55,7 +55,7 @@ function emailWrapper(content: string, previewText = "") {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>AITaoPage</title>
+  <title>TaoPage</title>
 </head>
 <body style="margin:0;padding:0;background-color:#eef2f7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;">
   ${previewText ? `<div style="display:none;max-height:0;overflow:hidden;font-size:1px;color:#eef2f7;">${previewText}&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>` : ""}
@@ -115,7 +115,7 @@ function emailWrapper(content: string, previewText = "") {
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                       <tr>
                         <td>
-                          <a href="${BASE_URL}" style="text-decoration:none;font-size:13px;font-weight:700;color:#4f46e5;">AITaoPage</a>
+                          <a href="${BASE_URL}" style="text-decoration:none;font-size:13px;font-weight:700;color:#4f46e5;">TaoPage</a>
                           <span style="font-size:12px;color:#94a3b8;"> &mdash; Tạo nội dung chuyên nghiệp bằng AI</span>
                         </td>
                       </tr>
@@ -138,7 +138,7 @@ function emailWrapper(content: string, previewText = "") {
                             &mdash; Thời gian phản hồi: trong vòng 24 giờ làm việc.
                           </p>
                           <p style="margin:0;font-size:11px;color:#cbd5e1;">
-                            © ${CURRENT_YEAR} AITaoPage. Tất cả quyền được bảo lưu.
+                            © ${CURRENT_YEAR} TaoPage. Tất cả quyền được bảo lưu.
                           </p>
                         </td>
                       </tr>
@@ -248,7 +248,7 @@ export async function sendOtpEmail(to: string, otp: string) {
   const content = `
     <h1 style="margin:0 0 6px;font-size:26px;font-weight:900;color:#0f172a;letter-spacing:-0.8px;">Xác nhận tài khoản của bạn</h1>
     <p style="margin:0 0 32px;font-size:15px;color:#64748b;line-height:1.7;">
-      Chào mừng bạn đến với <strong style="color:#4f46e5;">AITaoPage</strong>! Chúng tôi rất vui khi có bạn đồng hành.
+      Chào mừng bạn đến với <strong style="color:#4f46e5;">TaoPage</strong>! Chúng tôi rất vui khi có bạn đồng hành.
       Để hoàn tất quá trình đăng ký và bảo mật tài khoản, vui lòng nhập mã xác nhận dưới đây vào trang đăng ký.
     </p>
 
@@ -308,7 +308,7 @@ export async function sendOtpEmail(to: string, otp: string) {
           <p style="margin:0 0 10px;font-size:14px;font-weight:700;color:#991b1b;">🔒 Lưu ý bảo mật quan trọng</p>
           <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
             ${[
-              "AITaoPage <strong>không bao giờ</strong> yêu cầu bạn cung cấp mã OTP qua điện thoại, chat, hay bất kỳ kênh nào khác",
+              "TaoPage <strong>không bao giờ</strong> yêu cầu bạn cung cấp mã OTP qua điện thoại, chat, hay bất kỳ kênh nào khác",
               "Không chia sẻ mã này với bất kỳ ai kể cả nhân viên hỗ trợ",
               "Nếu bạn không yêu cầu đăng ký, hãy bỏ qua email này &mdash; tài khoản sẽ không được tạo",
             ]
@@ -335,7 +335,7 @@ export async function sendOtpEmail(to: string, otp: string) {
   const { error } = await resend.emails.send({
     from: FROM,
     to,
-    subject: `${otp} là mã xác nhận AITaoPage của bạn (hết hạn sau 10 phút)`,
+    subject: `${otp} là mã xác nhận TaoPage của bạn (hết hạn sau 10 phút)`,
     html: emailWrapper(
       content,
       `Mã xác nhận của bạn là ${otp}. Nhập ngay trong 10 phút trước khi hết hạn.`,
@@ -599,7 +599,7 @@ export async function sendOrderActivatedEmail(
     ${divider("24px")}
 
     <p style="margin:0;font-size:13px;color:#94a3b8;line-height:1.7;">
-      Cảm ơn bạn đã tin tưởng sử dụng <strong style="color:#6366f1;">AITaoPage</strong>.
+      Cảm ơn bạn đã tin tưởng sử dụng <strong style="color:#6366f1;">TaoPage</strong>.
       Nếu có bất kỳ thắc mắc nào về đơn hàng hoặc dịch vụ, đội ngũ hỗ trợ của chúng tôi luôn sẵn sàng tại
       <a href="mailto:${SUPPORT_EMAIL}" style="color:#6366f1;text-decoration:none;">${SUPPORT_EMAIL}</a>.
     </p>
@@ -608,7 +608,7 @@ export async function sendOrderActivatedEmail(
   const { error } = await resend.emails.send({
     from: FROM,
     to,
-    subject: `✅ ${planName} đã kích hoạt thành công — Bắt đầu ngay với AITaoPage!`,
+    subject: `✅ ${planName} đã kích hoạt thành công — Bắt đầu ngay với TaoPage!`,
     html: emailWrapper(
       content,
       `${planName} của bạn đã được kích hoạt! Đăng nhập và bắt đầu tạo nội dung chuyên nghiệp ngay hôm nay.`,
@@ -676,7 +676,7 @@ export async function sendOrderCancelledEmail(
     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:28px;">
       <tr>
         <td style="background:#fffbeb;border-radius:12px;border-left:4px solid #f59e0b;padding:20px 24px;">
-          <p style="margin:0 0 6px;font-size:12px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:0.5px;">Lý do từ đội ngũ AITaoPage</p>
+          <p style="margin:0 0 6px;font-size:12px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:0.5px;">Lý do từ đội ngũ TaoPage</p>
           <p style="margin:0;font-size:14px;color:#78350f;line-height:1.7;">${reason}</p>
         </td>
       </tr>
@@ -784,7 +784,7 @@ export async function sendOrderCancelledEmail(
   const { error } = await resend.emails.send({
     from: FROM,
     to,
-    subject: `Đơn hàng #${order.orderId} đã bị huỷ — AITaoPage`,
+    subject: `Đơn hàng #${order.orderId} đã bị huỷ — TaoPage`,
     html: emailWrapper(
       content,
       `Đơn hàng ${planName} (${formatVnd(order.amount)}) đã bị huỷ. Xem chi tiết và hướng xử lý trong email này.`,

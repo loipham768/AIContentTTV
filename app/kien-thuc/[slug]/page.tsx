@@ -133,7 +133,7 @@ export async function generateMetadata({
     alt: article.title,
   };
   return {
-    title: `${article.title} | AITaoPage`,
+    title: `${article.title} | TaoPage`,
     description: plainDesc,
     keywords: article.keywords.join(", "),
     alternates: { canonical: `${SITE_URL}/kien-thuc/${slug}` },
@@ -141,7 +141,7 @@ export async function generateMetadata({
       title: article.title,
       description: plainDesc,
       url: `${SITE_URL}/kien-thuc/${slug}`,
-      siteName: "AITaoPage",
+      siteName: "TaoPage",
       locale: "vi_VN",
       type: "article",
       publishedTime: article.publishedDate,
@@ -323,7 +323,7 @@ export default async function ArticlePage({
                 <div className="relative">
                   <div className="flex items-center gap-1.5 mb-2">
                     <Sparkles className="w-3.5 h-3.5 text-white/70" />
-                    <span className="text-xs font-bold text-white/70">AITaoPage</span>
+                    <span className="text-xs font-bold text-white/70">TaoPage</span>
                   </div>
                   <h2 className="text-base font-extrabold mb-1 leading-snug">
                     Áp dụng ngay những gì bạn vừa học
@@ -380,7 +380,7 @@ export default async function ArticlePage({
                   <div className="flex items-center gap-1.5 mb-2">
                     <Sparkles className="w-3.5 h-3.5 text-white/70" />
                     <span className="text-xs font-bold text-white/70">
-                      AITaoPage
+                      TaoPage
                     </span>
                   </div>
                   <h3 className="text-base font-extrabold text-white mb-2 leading-snug">
@@ -446,7 +446,7 @@ export default async function ArticlePage({
           className={`mt-8 lg:hidden relative overflow-hidden rounded-2xl bg-gradient-to-br ${c.grad} p-7 text-center text-white shadow-xl`}
         >
           <h2 className="text-lg font-extrabold mb-2">
-            Áp dụng ngay với AITaoPage
+            Áp dụng ngay với TaoPage
           </h2>
           <p className="text-white/80 text-sm mb-5">
             Tạo landing page, content bán hàng và quảng cáo chuyên nghiệp — chỉ
@@ -509,7 +509,7 @@ export default async function ArticlePage({
           className="inline-flex mb-3 brightness-75"
         />
         <p className="mt-1">
-          © 2026 AITaoPage ·{" "}
+          © 2026 TaoPage ·{" "}
           <Link href="/" className="hover:text-gray-300 transition-colors">
             Trang chủ
           </Link>{" "}

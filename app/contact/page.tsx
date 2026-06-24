@@ -5,8 +5,8 @@ import Logo from '@/components/Logo'
 import { SUPPORT_EMAIL, SUPPORT_PHONE, SUPPORT_PHONE_DISPLAY } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'Liên hệ hỗ trợ — AITaoPage',
-  description: `Liên hệ đội ngũ AITaoPage để được hỗ trợ nhanh nhất. Hotline: ${SUPPORT_PHONE_DISPLAY} · Email: ${SUPPORT_EMAIL}`,
+  title: 'Liên hệ hỗ trợ — TaoPage',
+  description: `Liên hệ đội ngũ TaoPage để được hỗ trợ nhanh nhất. Hotline: ${SUPPORT_PHONE_DISPLAY} · Email: ${SUPPORT_EMAIL}`,
 }
 
 const FAQS = [
@@ -220,7 +220,7 @@ export default function ContactPage() {
       <footer className="bg-white border-t border-gray-100">
         <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-400">
           <Logo iconSize={22} uid="contact-f" />
-          <p>© {new Date().getFullYear()} AITaoPage · Tất cả quyền được bảo lưu</p>
+          <p>© {new Date().getFullYear()} TaoPage · Tất cả quyền được bảo lưu</p>
           <div className="flex items-center gap-4">
             <Link href="/" className="hover:text-gray-700 transition-colors">Trang chủ</Link>
             <Link href="/upgrade" className="hover:text-gray-700 transition-colors">Bảng giá</Link>

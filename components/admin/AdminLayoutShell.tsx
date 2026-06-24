@@ -227,7 +227,7 @@ function SidebarContent({
         className={`border-t border-slate-800 py-3 ${collapsed ? "px-2" : "px-3"}`}
       >
         {!collapsed && (
-          <p className="text-xs text-slate-500 center">© 2026 AITaoPage</p>
+          <p className="text-xs text-slate-500 center">© 2026 TaoPage</p>
         )}
       </div>
     </div>

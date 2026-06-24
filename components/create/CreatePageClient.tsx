@@ -17,8 +17,8 @@ import {
   PenTool,
   Download,
   ImageIcon,
-  Globe,
-  Link2,
+  // Globe,  // TODO: dùng lại khi mở tính năng clone từ website
+  // Link2,  // TODO: dùng lại khi mở tính năng clone từ website
 } from "lucide-react";
 import Logo from "@/components/Logo";
 import Link from "next/link";
@@ -968,8 +968,9 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
               </p>
             </div>
 
+            {/* TODO: Mở lại tính năng clone từ website khi sẵn sàng */}
             {/* Mode toggle */}
-            <div className="w-full flex gap-2 mb-5 p-1 bg-white/[0.04] rounded-xl border border-white/[0.06]">
+            {/* <div className="w-full flex gap-2 mb-5 p-1 bg-white/[0.04] rounded-xl border border-white/[0.06]">
               <button
                 onClick={() => setMode("describe")}
                 className={[
@@ -994,10 +995,10 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
                 <Globe className="w-3.5 h-3.5" />
                 Clone từ URL
               </button>
-            </div>
+            </div> */}
 
             {/* Clone URL mode */}
-            {mode === "clone" && (
+            {/* {mode === "clone" && (
               <div className="w-full flex flex-col gap-4">
                 <div className="bg-indigo-500/5 border border-indigo-500/20 rounded-xl px-4 py-3 flex items-start gap-2.5">
                   <Globe className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
@@ -1045,7 +1046,7 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
                   </p>
                 </div>
               </div>
-            )}
+            )} */}
 
             {/* Type selector — only in describe mode */}
             {mode === "describe" && (<>
@@ -1288,7 +1289,7 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
                     className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 text-sm transition-all"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
-                    {generatedImage ? "Tạo banner mới" : mode === "clone" ? "Clone trang mới" : "Tạo trang mới"}
+                    {generatedImage ? "Tạo banner mới" : "Tạo trang mới"}
                   </button>
                 </div>
               )}

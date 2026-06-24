@@ -1,3 +1,5 @@
+import { GOOGLE_FONTS } from './googleFonts';
+
 // GrapesJS 0.22 style manager sector configuration — Vietnamese labels
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const styleSectors: any[] = [
@@ -13,14 +15,17 @@ export const styleSectors: any[] = [
         type: 'select',
         default: '',
         options: [
-          { id: '', label: '— Chọn —' },
-          { id: 'Arial, Helvetica, sans-serif', label: 'Arial' },
-          { id: "'Times New Roman', Times, serif", label: 'Times New Roman' },
-          { id: 'Georgia, serif', label: 'Georgia' },
-          { id: 'Verdana, sans-serif', label: 'Verdana' },
-          { id: 'Roboto, sans-serif', label: 'Roboto' },
-          { id: "'Open Sans', sans-serif", label: 'Open Sans' },
-          { id: "'Montserrat', sans-serif", label: 'Montserrat' },
+          { id: '', label: '— Chọn font —' },
+          // System fonts
+          { id: 'Arial, Helvetica, sans-serif',    label: 'Arial (system)' },
+          { id: "'Times New Roman', Times, serif",  label: 'Times New Roman (system)' },
+          { id: 'Georgia, serif',                   label: 'Georgia (system)' },
+          { id: 'Verdana, sans-serif',              label: 'Verdana (system)' },
+          // Google Fonts — auto-generated from GOOGLE_FONTS list
+          ...GOOGLE_FONTS.map((f) => ({
+            id: `'${f.family}', ${f.category}`,
+            label: `${f.label} (Google)`,
+          })),
         ],
       },
       { property: 'font-size', label: 'Cỡ chữ', type: 'integer', units: ['px', 'em', 'rem', '%'], default: '', placeholder: '16' },

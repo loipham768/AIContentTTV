@@ -8,7 +8,7 @@ const ArticleSchema = new mongoose.Schema(
     category:      { type: String, required: true },
     readTime:      { type: String, required: true },
     publishedDate: { type: String, required: true },
-    author:        { type: String, required: true, default: 'AITaoPage' },
+    author:        { type: String, required: true, default: 'TaoPage' },
     keywords:      [{ type: String }],
     content:       { type: String, required: true },
     image:         { type: String, default: null },

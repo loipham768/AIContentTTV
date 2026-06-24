@@ -37,6 +37,10 @@ const UserSchema = new mongoose.Schema(
     usageMonth:      { type: String, default: '' },  // 'YYYY-MM'
     generationsUsed: { type: Number, default: 0 },
 
+    // Referral
+    referredBy:      { type: String, default: '' },  // email of referrer
+    referralCount:   { type: Number, default: 0 },   // how many users this user has referred
+
     // Activity tracking
     lastActiveAt: { type: Date, default: null },
 

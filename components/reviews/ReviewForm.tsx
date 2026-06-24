@@ -108,7 +108,7 @@ export default function ReviewForm({ hasReviewed }: Props) {
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="AITaoPage giúp ích gì cho công việc của bạn? (tối thiểu 10 ký tự)"
+          placeholder="TaoPage giúp ích gì cho công việc của bạn? (tối thiểu 10 ký tự)"
           rows={4}
           maxLength={500}
           className="w-full text-sm px-4 py-3 rounded-xl border border-white/8 bg-white/4 text-gray-200 placeholder:text-gray-600 focus:border-indigo-500/40 focus:ring-2 focus:ring-indigo-500/10 outline-none resize-none transition-all"

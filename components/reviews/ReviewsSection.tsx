@@ -140,7 +140,7 @@ export default async function ReviewsSection({ userId }: Props) {
           <h2 className="text-3xl sm:text-4xl font-bold text-white">
             Người dùng nói gì về{' '}
             <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
-              AITaoPage
+              TaoPage
             </span>?
           </h2>
         </div>
@@ -161,7 +161,7 @@ export default async function ReviewsSection({ userId }: Props) {
                 <p className="text-sm text-gray-400 leading-relaxed mb-6">
                   Đánh giá của bạn đã được ghi nhận và đang chờ duyệt.
                   <br />
-                  Bạn sẽ là một trong những người đầu tiên đánh giá AITaoPage!
+                  Bạn sẽ là một trong những người đầu tiên đánh giá TaoPage!
                 </p>
                 <div
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold text-emerald-400 border border-emerald-500/25"
@@ -202,7 +202,7 @@ export default async function ReviewsSection({ userId }: Props) {
                 <h3 className="text-lg font-bold text-white mb-2">Chưa có đánh giá nào</h3>
                 <p className="text-sm text-gray-500 mb-6 leading-relaxed">
                   Đăng nhập và trở thành người đầu tiên chia sẻ<br />
-                  trải nghiệm thực với cộng đồng AITaoPage.
+                  trải nghiệm thực với cộng đồng TaoPage.
                 </p>
                 <Link
                   href="/login"
@@ -326,13 +326,13 @@ export default async function ReviewsSection({ userId }: Props) {
                       <>
                         <h3 className="text-sm font-bold text-white mb-1">Chia sẻ trải nghiệm của bạn</h3>
                         <p className="text-xs text-gray-500 mb-5">
-                          Đánh giá thực giúp cộng đồng và giúp AITaoPage phát triển.
+                          Đánh giá thực giúp cộng đồng và giúp TaoPage phát triển.
                         </p>
                         <ReviewForm hasReviewed={false} />
                       </>
                     ) : (
                       <>
-                        <h3 className="text-sm font-bold text-white mb-1">Bạn đã dùng AITaoPage chưa?</h3>
+                        <h3 className="text-sm font-bold text-white mb-1">Bạn đã dùng TaoPage chưa?</h3>
                         <p className="text-xs text-gray-500 mb-5">
                           Đăng nhập để chia sẻ trải nghiệm thực của bạn.
                         </p>

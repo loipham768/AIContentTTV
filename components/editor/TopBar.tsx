@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { GOOGLE_FONTS_URL, FONT_AWESOME_URL } from "@/lib/editor/googleFonts";
 import type { Editor } from "grapesjs";
 import {
   Eye,
@@ -237,6 +238,10 @@ export default function TopBar({
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Exported Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link rel="stylesheet" href="${GOOGLE_FONTS_URL}">
+  <link rel="stylesheet" href="${FONT_AWESOME_URL}">
   <style>*,*::before,*::after{box-sizing:border-box;}body{margin:0;padding:0;}</style>
 </head>
 <body>

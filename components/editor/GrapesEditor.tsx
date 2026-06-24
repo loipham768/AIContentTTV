@@ -11,6 +11,21 @@ import {
   registerTextGradientType,
   registerBgGradientType,
 } from "@/lib/editor/textGradientType";
+import {
+  injectGoogleFontsIntoIframe,
+  injectFontAwesomeIntoIframe,
+  FONT_AWESOME_URL,
+} from "@/lib/editor/googleFonts";
+import { ICON_CATEGORIES } from "@/lib/editor/iconsList";
+
+// SVG icon cho RTE toolbar button (không phụ thuộc Font Awesome)
+const RTE_ICON_BTN =
+  '<svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
+  '<rect x="1" y="1" width="5" height="5" rx="1" opacity=".85"/>' +
+  '<rect x="10" y="1" width="5" height="5" rx="1" opacity=".85"/>' +
+  '<rect x="1" y="10" width="5" height="5" rx="1" opacity=".85"/>' +
+  '<path d="M12.5 9.5v6M9.5 12.5h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>' +
+  '</svg>';
 
 interface GrapesEditorProps {
   onEditor: (editor: Editor) => void;
@@ -275,7 +290,183 @@ export default function GrapesEditor({
     registerBlocks(editor);
     registerVietnameseTraits(editor);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    editor.on("rte:enable", (_view: any, rte: any) => {
+      if (document.getElementById("gjs-rte-extra-btns")) return;
+      const toolbar = document.querySelector<HTMLElement>(".gjs-rte-toolbar");
+      if (!toolbar) return;
+
+      let picker: HTMLElement | null = null;
+      let offClick: ((e: MouseEvent) => void) | null = null;
+
+      function closePicker() {
+        picker?.remove();
+        picker = null;
+        if (offClick) {
+          document.removeEventListener("mousedown", offClick, true);
+          offClick = null;
+        }
+      }
+
+      function openPicker() {
+        if (picker) { closePicker(); return; }
+
+        // Đảm bảo Font Awesome đã load ở main document để preview icon
+        if (!document.getElementById("fa-cdn-main")) {
+          const link = document.createElement("link");
+          link.id = "fa-cdn-main";
+          link.rel = "stylesheet";
+          link.href = FONT_AWESOME_URL;
+          document.head.appendChild(link);
+        }
+
+        const rect = toolbar.getBoundingClientRect();
+        const PW = 320, PH = 440, GAP = 4, MARGIN = 8;
+        // Tính top: ưu tiên hiện bên dưới toolbar, nếu tràn thì hiện bên trên
+        let pTop = rect.bottom + GAP;
+        if (pTop + PH > window.innerHeight - MARGIN) {
+          pTop = Math.max(MARGIN, rect.top - PH - GAP);
+        }
+        // Tính left: clamp để không tràn phải
+        let pLeft = rect.left;
+        if (pLeft + PW > window.innerWidth - MARGIN) {
+          pLeft = Math.max(MARGIN, window.innerWidth - PW - MARGIN);
+        }
+
+        picker = document.createElement("div");
+        picker.id = "gjs-icon-picker-panel";
+        picker.style.cssText =
+          `position:fixed;top:${pTop}px;left:${pLeft}px;` +
+          `width:${PW}px;max-height:${PH}px;overflow-y:auto;background:#fff;` +
+          "border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.22);" +
+          "z-index:99999;padding:8px;";
+
+        ICON_CATEGORIES.forEach((cat) => {
+          const lbl = document.createElement("p");
+          lbl.style.cssText = "margin:6px 4px 2px;font:700 10px/1 sans-serif;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;";
+          lbl.textContent = cat.label;
+          picker!.appendChild(lbl);
+
+          const grid = document.createElement("div");
+          grid.style.cssText = "display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin-bottom:6px;";
+
+          cat.icons.forEach((icon) => {
+            const pfx = icon.prefix ?? "fa-solid";
+            const cell = document.createElement("button");
+            cell.type = "button";
+            cell.title = icon.label;
+            cell.style.cssText =
+              "all:unset;box-sizing:border-box;display:flex;align-items:center;" +
+              "justify-content:center;aspect-ratio:1/1;border-radius:6px;" +
+              "cursor:pointer;color:#64748b;font-size:14px;";
+            cell.innerHTML = `<i class="${pfx} fa-${icon.name}" style="pointer-events:none"></i>`;
+            cell.addEventListener("mouseenter", () => { cell.style.background = "#eff6ff"; cell.style.color = "#4338ca"; });
+            cell.addEventListener("mouseleave", () => { cell.style.background = ""; cell.style.color = "#64748b"; });
+
+            cell.addEventListener("mousedown", (e) => {
+              e.preventDefault();  // giữ focus canvas contenteditable
+              e.stopPropagation(); // ngăn GrapesJS deactivate RTE
+            });
+
+            cell.addEventListener("click", (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              //   (non-breaking space) sau icon: có visual width thực → user click
+              // vào vùng đó được (target = <p>, không phải <i>) → cursor đặt đúng chỗ.
+              // Không dùng ​ vì zero-width → không click được.
+              const html = `<i class="${pfx} fa-${icon.name}" data-gjs-icon style="font-size:1.1em;"></i> `;
+              const canvasDoc = editor.Canvas.getDocument();
+
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              try { (rte as any).exec("insertHTML", html); } catch {
+                try { canvasDoc?.execCommand("insertHTML", false, html); } catch { /* ignore */ }
+              }
+
+              closePicker();
+              canvasDoc?.querySelector<HTMLElement>('[contenteditable="true"]')?.focus();
+            });
+
+            grid.appendChild(cell);
+          });
+          picker!.appendChild(grid);
+        });
+
+        document.body.appendChild(picker);
+
+        // Đóng khi click ngoài (capture phase)
+        offClick = (e: MouseEvent) => {
+          const iconBtn = document.getElementById("gjs-icon-insert-btn");
+          if (!picker?.contains(e.target as Node) && e.target !== iconBtn) {
+            closePicker();
+          }
+        };
+        setTimeout(() => document.addEventListener("mousedown", offClick!, true), 0);
+      }
+
+      toolbar.style.overflow = "visible";
+
+      // Wrapper chứa tất cả extra buttons ngoài toolbar
+      const extraBtns = document.createElement("div");
+      extraBtns.id = "gjs-rte-extra-btns";
+      extraBtns.style.cssText =
+        "position:absolute;left:100%;top:0;height:100%;margin-left:3px;display:flex;align-items:stretch;";
+      toolbar.appendChild(extraBtns);
+
+      // ── Icon picker button ─────────────────────────────────────────────
+      const btn = document.createElement("span");
+      btn.id = "gjs-icon-insert-btn";
+      btn.title = "Chèn icon";
+      btn.textContent = "☺";
+      btn.style.cssText =
+        "display:inline-flex;align-items:center;padding:0 7px;" +
+        "background:#3b97e3;cursor:pointer;font-size:14px;color:#fff;" +
+        "user-select:none;border-radius:3px 0 0 3px;white-space:nowrap;";
+      btn.addEventListener("mouseenter", () => { btn.style.background = "#2176c7"; });
+      btn.addEventListener("mouseleave", () => { btn.style.background = "#3b97e3"; });
+      btn.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        openPicker();
+      });
+      extraBtns.appendChild(btn);
+
+      // ── Foreground color button ────────────────────────────────────────
+      // Icon picker button là button duy nhất trong extraBtns.
+      // Màu chữ dùng sidebar bên phải (style manager) — không thêm foreColor button
+      // để tránh xung đột giữa execCommand("foreColor") và component.setStyle().
+    });
+
+    editor.on("rte:disable", () => {
+      document.getElementById("gjs-rte-extra-btns")?.remove();
+      document.getElementById("gjs-icon-picker-panel")?.remove();
+    });
+
     editor.on("load", () => {
+      // Inject Google Fonts + Font Awesome into the canvas iframe
+      const canvasDoc = editor.Canvas.getDocument();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const canvasWinLoad = editor.Canvas.getWindow() as any;
+      if (canvasDoc) {
+        injectGoogleFontsIntoIframe(canvasDoc);
+        injectFontAwesomeIntoIframe(canvasDoc);
+
+        // Click vào <i data-gjs-icon> trong RTE mode → select nguyên icon đó
+        // Giúp foreColor từ RTE toolbar chỉ apply màu cho icon, không apply cả đoạn văn
+        canvasDoc.addEventListener('click', (e) => {
+          const target = e.target as Element;
+          if (target.tagName !== 'I' || !target.hasAttribute('data-gjs-icon')) return;
+          if (!canvasDoc.querySelector('[contenteditable="true"]')) return;
+          try {
+            const sel: Selection | null = canvasWinLoad?.getSelection?.();
+            if (!sel) return;
+            const r = canvasDoc.createRange();
+            r.selectNode(target);
+            sel.removeAllRanges();
+            sel.addRange(r);
+          } catch { /* ignore */ }
+        });
+      }
+
       const stylesPanel = document.getElementById("gjs-styles-panel");
       if (stylesPanel) {
         const obs = new MutationObserver(() => {

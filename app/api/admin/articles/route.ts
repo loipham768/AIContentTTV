@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     category,
     readTime: readTime ?? '5 phút đọc',
     publishedDate: publishedDate ?? new Date().toISOString().slice(0, 10),
-    author: author ?? 'AITaoPage',
+    author: author ?? 'TaoPage',
     keywords: Array.isArray(keywords) ? keywords : [],
     image: image ?? null,
     content,

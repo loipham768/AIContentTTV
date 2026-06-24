@@ -135,8 +135,8 @@ export default function TestimonialsCarousel({
   const mappedReal: CardItem[] = realReviews.map((r, i) => ({
     name: r.userName,
     role: r.plan
-      ? `${PLAN_LABELS[r.plan] ?? r.plan} · AITaoPage`
-      : "Người dùng AITaoPage",
+      ? `${PLAN_LABELS[r.plan] ?? r.plan} · TaoPage`
+      : "Người dùng TaoPage",
     quote: r.content,
     gradient: REAL_GRADIENTS[i % REAL_GRADIENTS.length],
     initial: r.userName.charAt(0).toUpperCase(),
@@ -458,7 +458,7 @@ export default function TestimonialsCarousel({
                     Chia sẻ trải nghiệm của bạn
                   </h3>
                   <p className="text-xs text-gray-500 mb-5">
-                    Đánh giá thực giúp cộng đồng và giúp AITaoPage phát triển.
+                    Đánh giá thực giúp cộng đồng và giúp TaoPage phát triển.
                   </p>
                   {userId ? (
                     <ReviewForm hasReviewed={false} />
