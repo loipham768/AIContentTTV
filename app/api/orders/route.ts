@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { dbConnect } from "@/lib/mongodb";
 import Order from "@/models/Order";
 import User from "@/models/User";
-import { PLAN_PRICES, CREDIT_PACKS } from "@/lib/planConfig";
+import { PLAN_PRICES, CREDIT_PACKS, CREDIT_PRICE_PER_UNIT, CREDIT_MIN_QTY, CREDIT_MAX_QTY } from "@/lib/planConfig";
 import { sendNewOrderAdminEmail } from "@/lib/email";
 import { generateOrderId } from "@/lib/orderUtils";
 
@@ -18,7 +18,7 @@ const subscriptionSchema = z.object({
 
 const creditsSchema = z.object({
   type: z.literal("credits"),
-  packId: z.enum(["c1", "c2", "c3", "c4"]),
+  qty: z.number().int().min(CREDIT_MIN_QTY).max(CREDIT_MAX_QTY),
 });
 
 const orderBodySchema = z.discriminatedUnion("type", [
@@ -61,8 +61,7 @@ export async function POST(req: NextRequest) {
           existing.plan === input.plan &&
           existing.billing === input.billing
         : existing.type === "credits" &&
-          CREDIT_PACKS.find((p) => p.id === input.packId)?.amount ===
-            existing.amount;
+          existing.amount === input.qty * CREDIT_PRICE_PER_UNIT;
 
     if (isSame) {
       return NextResponse.json(
@@ -93,15 +92,14 @@ export async function POST(req: NextRequest) {
       expiresAt,
     };
   } else {
-    const pack = CREDIT_PACKS.find((p) => p.id === input.packId);
-    if (!pack)
-      return NextResponse.json({ error: "Invalid pack" }, { status: 400 });
+    const { qty } = input;
+    const amount = qty * CREDIT_PRICE_PER_UNIT;
     orderData = {
       orderId,
       userId: session.user.id,
       type: "credits",
-      creditsHtml: pack.credits,
-      amount: pack.amount,
+      creditsHtml: qty,
+      amount,
       expiresAt,
     };
   }

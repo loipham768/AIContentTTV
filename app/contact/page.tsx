@@ -1,37 +1,48 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import { Phone, Mail, ArrowLeft, Clock, Zap, MessageCircle, ChevronRight } from 'lucide-react'
-import Logo from '@/components/Logo'
-import { SUPPORT_EMAIL, SUPPORT_PHONE, SUPPORT_PHONE_DISPLAY } from '@/lib/constants'
+import type { Metadata } from "next";
+import Link from "next/link";
+import {
+  Phone,
+  Mail,
+  ArrowLeft,
+  Clock,
+  Zap,
+  MessageCircle,
+  ChevronRight,
+} from "lucide-react";
+import Logo, { LogoIcon } from "@/components/Logo";
+import {
+  SUPPORT_EMAIL,
+  SUPPORT_PHONE,
+  SUPPORT_PHONE_DISPLAY,
+} from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: 'Liên hệ hỗ trợ — TaoPage',
+  title: "Liên hệ hỗ trợ — TaoPage",
   description: `Liên hệ đội ngũ TaoPage để được hỗ trợ nhanh nhất. Hotline: ${SUPPORT_PHONE_DISPLAY} · Email: ${SUPPORT_EMAIL}`,
-}
+};
 
 const FAQS = [
   {
-    q: 'Gói chưa kích hoạt sau khi chuyển khoản?',
-    a: 'Gói được kích hoạt trong 1–4 giờ sau chuyển khoản. Quá 4 giờ, nhắn Zalo hoặc email kèm ảnh chụp giao dịch — chúng tôi xử lý ngay.',
+    q: "Gói chưa kích hoạt sau khi chuyển khoản?",
+    a: "Gói được kích hoạt trong 1–4 giờ sau chuyển khoản. Quá 4 giờ, nhắn Zalo hoặc email kèm ảnh chụp giao dịch — chúng tôi xử lý ngay.",
   },
   {
-    q: 'Muốn nâng, hạ gói hoặc hoàn tiền?',
-    a: 'Nhắn Zalo hoặc email, đội ngũ sẽ hỗ trợ trong ngày làm việc. Hoàn tiền được xem xét trong vòng 7 ngày đầu sử dụng.',
+    q: "Muốn nâng, hạ gói hoặc hoàn tiền?",
+    a: "Nhắn Zalo hoặc email, đội ngũ sẽ hỗ trợ trong ngày làm việc. Hoàn tiền được xem xét trong vòng 7 ngày đầu sử dụng.",
   },
   {
-    q: 'Gặp lỗi kỹ thuật không dùng được?',
-    a: 'Gửi email mô tả lỗi kèm ảnh chụp màn hình. Chúng tôi phân tích và phản hồi trong vòng 4 giờ trong giờ làm việc.',
+    q: "Gặp lỗi kỹ thuật không dùng được?",
+    a: "Gửi email mô tả lỗi kèm ảnh chụp màn hình. Chúng tôi phân tích và phản hồi trong vòng 4 giờ trong giờ làm việc.",
   },
-]
+];
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white">
-
       {/* ── HEADER ── */}
       <header className="absolute top-0 left-0 right-0 z-20">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Logo iconSize={28} uid="contact-h" dark />
+          <Link href="/"><LogoIcon size={32} uid="contact-h" /></Link>
           <Link
             href="/"
             className="flex items-center gap-1.5 text-sm text-white/60 hover:text-white transition-colors"
@@ -52,8 +63,9 @@ export default function ContactPage() {
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{
-            backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)',
-            backgroundSize: '28px 28px',
+            backgroundImage:
+              "radial-gradient(circle, #fff 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
           }}
         />
 
@@ -64,15 +76,16 @@ export default function ContactPage() {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
-            Cần giúp đỡ?<br />
+            Cần giúp đỡ?
+            <br />
             <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-sky-400 bg-clip-text text-transparent">
               Nhắn ngay đi.
             </span>
           </h1>
 
           <p className="text-lg text-white/50 max-w-lg mx-auto leading-relaxed">
-            Không chatbot. Không form dài. Chỉ là một người thật sẵn sàng
-            giải quyết vấn đề của bạn — nhanh nhất có thể.
+            Không chatbot. Không form dài. Chỉ là một người thật sẵn sàng giải
+            quyết vấn đề của bạn — nhanh nhất có thể.
           </p>
         </div>
       </section>
@@ -80,7 +93,6 @@ export default function ContactPage() {
       {/* ── CONTACT CARDS — pulled up over hero ── */}
       <section className="relative max-w-4xl mx-auto px-6 -mt-12 z-10 mb-20">
         <div className="grid md:grid-cols-2 gap-4">
-
           {/* Phone card */}
           <a
             href={`tel:${SUPPORT_PHONE}`}
@@ -100,9 +112,15 @@ export default function ContactPage() {
                 </span>
               </div>
 
-              <p className="text-white/70 text-sm font-medium mb-1 uppercase tracking-widest">Điện thoại / Zalo</p>
-              <p className="text-4xl font-black text-white mb-2 tracking-tight">{SUPPORT_PHONE_DISPLAY}</p>
-              <p className="text-white/60 text-sm mb-6">Gọi hoặc nhắn Zalo · phản hồi trong vài phút</p>
+              <p className="text-white/70 text-sm font-medium mb-1 uppercase tracking-widest">
+                Điện thoại / Zalo
+              </p>
+              <p className="text-4xl font-black text-white mb-2 tracking-tight">
+                {SUPPORT_PHONE_DISPLAY}
+              </p>
+              <p className="text-white/60 text-sm mb-6">
+                Gọi hoặc nhắn Zalo · phản hồi trong vài phút
+              </p>
 
               <div className="flex items-center gap-2 text-white font-semibold text-sm group-hover:gap-3 transition-all">
                 Gọi ngay <ChevronRight className="w-4 h-4" />
@@ -128,16 +146,21 @@ export default function ContactPage() {
                 </span>
               </div>
 
-              <p className="text-white/40 text-sm font-medium mb-1 uppercase tracking-widest">Email</p>
-              <p className="text-3xl font-black text-white mb-2 tracking-tight break-all">{SUPPORT_EMAIL}</p>
-              <p className="text-white/40 text-sm mb-6">Phản hồi trong 2–8 giờ làm việc</p>
+              <p className="text-white/40 text-sm font-medium mb-1 uppercase tracking-widest">
+                Email
+              </p>
+              <p className="text-3xl font-black text-white mb-2 tracking-tight break-all">
+                {SUPPORT_EMAIL}
+              </p>
+              <p className="text-white/40 text-sm mb-6">
+                Phản hồi trong 2–8 giờ làm việc
+              </p>
 
               <div className="flex items-center gap-2 text-indigo-400 font-semibold text-sm group-hover:gap-3 transition-all">
                 Gửi email <ChevronRight className="w-4 h-4" />
               </div>
             </div>
           </a>
-
         </div>
       </section>
 
@@ -150,8 +173,16 @@ export default function ContactPage() {
           <div className="flex-1">
             <p className="font-bold text-gray-900 mb-1">Giờ hỗ trợ</p>
             <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-600">
-              <span><span className="font-semibold text-gray-800">Thứ 2 – Thứ 7</span> · 8:00 – 21:00</span>
-              <span><span className="font-semibold text-gray-800">Chủ nhật</span> · 9:00 – 17:00</span>
+              <span>
+                <span className="font-semibold text-gray-800">
+                  Thứ 2 – Thứ 7
+                </span>{" "}
+                · 8:00 – 21:00
+              </span>
+              <span>
+                <span className="font-semibold text-gray-800">Chủ nhật</span> ·
+                9:00 – 17:00
+              </span>
             </div>
           </div>
           <p className="text-xs text-amber-700 bg-amber-100 border border-amber-200 px-3 py-1.5 rounded-lg font-medium flex-shrink-0">
@@ -164,8 +195,11 @@ export default function ContactPage() {
       <section className="max-w-4xl mx-auto px-6 mb-20">
         <div className="flex items-end gap-4 mb-10">
           <h2 className="text-3xl font-black text-gray-900 leading-tight">
-            Câu hỏi<br />
-            <span className="bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent">thường gặp</span>
+            Câu hỏi
+            <br />
+            <span className="bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent">
+              thường gặp
+            </span>
           </h2>
           <div className="mb-1">
             <MessageCircle className="w-6 h-6 text-gray-300" />
@@ -196,9 +230,12 @@ export default function ContactPage() {
         <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-violet-600/20 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="relative max-w-2xl mx-auto text-center">
-          <p className="text-white/40 uppercase text-xs tracking-[0.2em] font-bold mb-4">Vẫn còn thắc mắc?</p>
+          <p className="text-white/40 uppercase text-xs tracking-[0.2em] font-bold mb-4">
+            Vẫn còn thắc mắc?
+          </p>
           <h2 className="text-3xl md:text-4xl font-black text-white mb-3 leading-tight">
-            Nhắn Zalo — phản hồi<br />
+            Nhắn Zalo — phản hồi
+            <br />
             <span className="text-emerald-400">trong vài phút.</span>
           </h2>
           <p className="text-white/40 text-sm mb-10 max-w-sm mx-auto">
@@ -219,15 +256,23 @@ export default function ContactPage() {
       {/* ── FOOTER ── */}
       <footer className="bg-white border-t border-gray-100">
         <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-400">
-          <Logo iconSize={22} uid="contact-f" />
-          <p>© {new Date().getFullYear()} TaoPage · Tất cả quyền được bảo lưu</p>
+          <Logo iconSize={60} uid="contact-f" />
+          <p>
+            © {new Date().getFullYear()} TaoPage · Tất cả quyền được bảo lưu
+          </p>
           <div className="flex items-center gap-4">
-            <Link href="/" className="hover:text-gray-700 transition-colors">Trang chủ</Link>
-            <Link href="/upgrade" className="hover:text-gray-700 transition-colors">Bảng giá</Link>
+            <Link href="/" className="hover:text-gray-700 transition-colors">
+              Trang chủ
+            </Link>
+            <Link
+              href="/upgrade"
+              className="hover:text-gray-700 transition-colors"
+            >
+              Bảng giá
+            </Link>
           </div>
         </div>
       </footer>
-
     </div>
-  )
+  );
 }

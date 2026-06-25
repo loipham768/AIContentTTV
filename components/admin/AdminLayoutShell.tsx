@@ -19,7 +19,6 @@ import {
   PanelLeftOpen,
   Activity,
 } from "lucide-react";
-import Logo from "@/components/Logo";
 import { LogoIcon } from "@/components/Logo";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -167,14 +166,10 @@ function SidebarContent({
         }`}
       >
         {/* Logo */}
-        <div className={collapsed ? "flex justify-center" : "flex-1 min-w-0"}>
-          {collapsed ? (
-            <Link href="/admin" className="block">
-              <LogoIcon size={32} uid="admin-sb" />
-            </Link>
-          ) : (
-            <Logo iconSize={28} uid="admin-sb" dark href="/admin" />
-          )}
+        <div className="flex justify-center flex-1 min-w-0">
+          <Link href="/admin" className="block">
+            <LogoIcon size={32} uid="admin-sb" />
+          </Link>
         </div>
 
         {/* Pin / unpin button */}

@@ -575,7 +575,7 @@ export default function ProfileClient({
                 </p>
                 <p className="font-bold text-gray-800 text-sm">Miễn phí</p>
                 <p className="text-xs text-gray-400 mt-0.5">
-                  4 lượt tạo / tháng
+                  5 lượt tạo / tháng
                 </p>
               </div>
               <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center shrink-0">

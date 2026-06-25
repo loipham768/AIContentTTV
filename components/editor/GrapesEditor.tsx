@@ -310,6 +310,7 @@ export default function GrapesEditor({
 
       function openPicker() {
         if (picker) { closePicker(); return; }
+        if (!toolbar) return;
 
         // Đảm bảo Font Awesome đã load ở main document để preview icon
         if (!document.getElementById("fa-cdn-main")) {

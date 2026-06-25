@@ -55,11 +55,48 @@ export async function checkAndIncrementGeneration(userId: string): Promise<GateR
 
   if (user.generationsUsed < limits.generationsPerMonth) {
     user.generationsUsed += 1
+    user.lastAiGeneratedAt = new Date()
     await user.save()
     return { allowed: true }
   }
 
   // Fallback: deduct from credits
+  if (user.credits > 0) {
+    user.credits -= 1
+    user.lastAiGeneratedAt = new Date()
+    await user.save()
+    return { allowed: true }
+  }
+
+  await user.save()
+  return {
+    allowed: false,
+    reason: 'Bạn đã dùng hết lượt tạo nội dung tháng này. Mua thêm lượt (15.000đ/lượt) hoặc nâng cấp gói Cơ bản để có 20 lượt/tháng.',
+    code: 'quota_exceeded',
+    upgradeRequired: true,
+  }
+}
+
+export async function checkOutputAllowed(userId: string): Promise<GateResult> {
+  const user = await loadAndRefreshUser(userId)
+  if (!user) return { allowed: false, reason: 'Không tìm thấy tài khoản.', code: 'not_found', upgradeRequired: false }
+
+  const plan: Plan = user.plan ?? 'free'
+
+  // Paid plans: export/copy/publish are always free
+  if (plan !== 'free') {
+    await user.save()
+    return { allowed: true }
+  }
+
+  // Free plan: every output action costs 1 lượt (same counter as AI)
+  const limits = PLAN_LIMITS[plan]
+  if (user.generationsUsed < limits.generationsPerMonth) {
+    user.generationsUsed += 1
+    await user.save()
+    return { allowed: true }
+  }
+
   if (user.credits > 0) {
     user.credits -= 1
     await user.save()
@@ -69,7 +106,7 @@ export async function checkAndIncrementGeneration(userId: string): Promise<GateR
   await user.save()
   return {
     allowed: false,
-    reason: 'Bạn đã dùng hết lượt tạo nội dung tháng này. Vui lòng nâng cấp gói hoặc nạp credits.',
+    reason: 'Bạn đã dùng hết 5 lượt tháng này. Xuất HTML, PDF, sao chép và xuất bản đều dùng chung giới hạn này. Mua thêm lượt (15.000đ/lượt) hoặc nâng cấp gói Cơ bản.',
     code: 'quota_exceeded',
     upgradeRequired: true,
   }
@@ -87,7 +124,7 @@ export async function checkExportAllowed(userId: string): Promise<GateResult> {
   if (!limits.canExport) {
     return {
       allowed: false,
-      reason: 'Gói miễn phí không hỗ trợ sao chép mã HTML. Vui lòng nâng cấp lên gói Basic hoặc Pro.',
+      reason: 'Gói của bạn không hỗ trợ xuất mã HTML. Vui lòng nâng cấp lên gói Cơ bản hoặc Pro.',
       code: 'plan_required',
       upgradeRequired: true,
     }
@@ -108,7 +145,7 @@ export async function checkPublishAllowed(userId: string): Promise<GateResult> {
   if (!limits.canPublish) {
     return {
       allowed: false,
-      reason: 'Gói miễn phí không hỗ trợ xuất bản trang. Vui lòng nâng cấp lên gói Basic hoặc Pro.',
+      reason: 'Gói miễn phí không hỗ trợ xuất bản trang. Vui lòng nâng cấp lên gói Cơ bản hoặc Pro.',
       code: 'plan_required',
       upgradeRequired: true,
     }

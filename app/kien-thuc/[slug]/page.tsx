@@ -1,6 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getArticleBySlug, getAllSlugs, getArticlesMeta } from "@/lib/articles-db";
+import {
+  getArticleBySlug,
+  getAllSlugs,
+  getArticlesMeta,
+} from "@/lib/articles-db";
 import { SITE_URL } from "@/lib/constants";
 
 export const revalidate = 86400; // ISR: 24h
@@ -189,7 +193,7 @@ export default async function ArticlePage({
         style={{ background: "#fff" }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Logo iconSize={28} uid="art-nav" />
+          <Logo iconSize={60} uid="art-nav" />
           <nav className="flex items-center gap-3">
             <Link
               href="/kien-thuc"
@@ -290,7 +294,8 @@ export default async function ArticlePage({
               {relatedArticles.length > 0 && (
                 <div className="mt-10 pt-8 border-t border-gray-100">
                   <h2 className="text-base font-extrabold text-gray-900 mb-4 flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-indigo-500" /> Đọc thêm về chủ đề này
+                    <BookOpen className="w-4 h-4 text-indigo-500" /> Đọc thêm về
+                    chủ đề này
                   </h2>
                   <div className="grid sm:grid-cols-3 gap-3">
                     {relatedArticles.map((rel) => {
@@ -301,7 +306,9 @@ export default async function ArticlePage({
                           href={`/kien-thuc/${rel.slug}`}
                           className="group flex flex-col gap-2 p-4 rounded-xl border border-gray-200 hover:border-indigo-200 hover:shadow-sm transition-all"
                         >
-                          <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${rc.grad} flex items-center justify-center text-white flex-shrink-0`}>
+                          <div
+                            className={`w-8 h-8 rounded-lg bg-gradient-to-br ${rc.grad} flex items-center justify-center text-white flex-shrink-0`}
+                          >
                             {rc.icon}
                           </div>
                           <span className="text-xs font-bold text-gray-800 group-hover:text-indigo-700 transition-colors line-clamp-2 leading-snug">
@@ -318,18 +325,33 @@ export default async function ArticlePage({
               )}
 
               {/* ── Inline CTA cuối bài ── */}
-              <div className={`mt-8 relative overflow-hidden rounded-2xl bg-gradient-to-br ${c.grad} p-6 text-white`}>
-                <div className="absolute -top-8 -right-8 w-28 h-28 rounded-full opacity-20" style={{ background: "radial-gradient(circle,#fff,transparent 70%)" }} />
+              <div
+                className={`mt-8 relative overflow-hidden rounded-2xl bg-gradient-to-br ${c.grad} p-6 text-white`}
+              >
+                <div
+                  className="absolute -top-8 -right-8 w-28 h-28 rounded-full opacity-20"
+                  style={{
+                    background: "radial-gradient(circle,#fff,transparent 70%)",
+                  }}
+                />
                 <div className="relative">
                   <div className="flex items-center gap-1.5 mb-2">
                     <Sparkles className="w-3.5 h-3.5 text-white/70" />
-                    <span className="text-xs font-bold text-white/70">TaoPage</span>
+                    <span className="text-xs font-bold text-white/70">
+                      TaoPage
+                    </span>
                   </div>
                   <h2 className="text-base font-extrabold mb-1 leading-snug">
                     Áp dụng ngay những gì bạn vừa học
                   </h2>
                   <p className="text-sm text-white/80 mb-4">
-                    Tạo {article.category === "Landing Page" ? "landing page" : article.category === "Quảng cáo" ? "quảng cáo" : "nội dung"} chuyên nghiệp bằng tiếng Việt — chỉ 60 giây, không cần code.
+                    Tạo{" "}
+                    {article.category === "Landing Page"
+                      ? "landing page"
+                      : article.category === "Quảng cáo"
+                        ? "quảng cáo"
+                        : "nội dung"}{" "}
+                    chuyên nghiệp bằng tiếng Việt — chỉ 60 giây, không cần code.
                   </p>
                   <Link
                     href={ctaHref}

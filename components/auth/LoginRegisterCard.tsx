@@ -28,9 +28,9 @@ function fmt(n: number) {
 }
 
 const PLAN_DESCS: Record<PlanOption, string> = {
-  free: "4 lượt AI/tháng",
+  free: "5 lượt AI/tháng",
   designer: "Editor, không AI",
-  basic: "25 lượt AI/tháng",
+  basic: "20 lượt AI/tháng",
   pro: "AI không giới hạn",
 };
 
@@ -60,13 +60,16 @@ export function LoginRegisterCard({
       : "free";
 
   const [tab, setTab] = useState<Tab>(
-    initialTab ?? (validInitial !== "free" || isCreditsIntent ? "register" : "login"),
+    initialTab ??
+      (validInitial !== "free" || isCreditsIntent ? "register" : "login"),
   );
   const [step, setStep] = useState<Step>("form");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [referralEmail, setReferralEmail] = useState("");
-  const [referralStatus, setReferralStatus] = useState<"idle" | "checking" | "valid" | "invalid">("idle");
+  const [referralStatus, setReferralStatus] = useState<
+    "idle" | "checking" | "valid" | "invalid"
+  >("idle");
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{
@@ -117,7 +120,9 @@ export function LoginRegisterCard({
     }
     setReferralStatus("checking");
     try {
-      const res = await fetch(`/api/auth/check-referral?email=${encodeURIComponent(val)}`);
+      const res = await fetch(
+        `/api/auth/check-referral?email=${encodeURIComponent(val)}`,
+      );
       setReferralStatus(res.ok ? "valid" : "invalid");
     } catch {
       setReferralStatus("idle");
@@ -163,7 +168,11 @@ export function LoginRegisterCard({
       const res = await fetch("/api/auth/send-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, referralEmail: referralEmail.trim() || undefined }),
+        body: JSON.stringify({
+          email,
+          password,
+          referralEmail: referralEmail.trim() || undefined,
+        }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -283,7 +292,7 @@ export function LoginRegisterCard({
       <div className="relative z-10 flex flex-col items-center gap-6 w-full max-w-md">
         {/* Brand */}
         <div className="flex flex-col items-center gap-2">
-          <Logo iconSize={44} uid="login" />
+          <Logo iconSize={60} uid="login" />
           <p className="text-sm text-slate-500">
             Tạo khối nội dung HTML chuẩn từ mô tả tiếng Việt
           </p>
@@ -420,7 +429,9 @@ export function LoginRegisterCard({
                             }`}
                           >
                             Hàng năm
-                            <span className={`text-[10px] font-bold px-1 py-0.5 rounded-full ${billing === "yearly" ? "text-emerald-600 bg-emerald-100" : "text-emerald-500"}`}>
+                            <span
+                              className={`text-[10px] font-bold px-1 py-0.5 rounded-full ${billing === "yearly" ? "text-emerald-600 bg-emerald-100" : "text-emerald-500"}`}
+                            >
                               -20%
                             </span>
                           </button>
@@ -428,14 +439,20 @@ export function LoginRegisterCard({
                       </div>
                     )}
 
-                    <div className="grid grid-cols-2 gap-2 justify-items-center">
-                      {(["free", "designer", "basic", "pro"] as PlanOption[]).map((id) => {
-                        const label = id === "free" ? "Miễn phí" : id === "designer" ? "Designer" : id === "basic" ? "Basic" : "Pro";
-                        const price = id === "free"
-                          ? "0đ"
-                          : billing === "yearly"
-                            ? `${fmt(Math.round(PLAN_PRICES[id].yearly / 12))}/th`
-                            : fmt(PLAN_PRICES[id].monthly);
+                    <div className="grid grid-cols-3 gap-2">
+                      {(["free", "basic", "pro"] as PlanOption[]).map((id) => {
+                        const label =
+                          id === "free"
+                            ? "Miễn phí"
+                            : id === "basic"
+                              ? "Cơ bản"
+                              : "Pro";
+                        const price =
+                          id === "free"
+                            ? "0đ"
+                            : billing === "yearly"
+                              ? `${fmt(Math.round(PLAN_PRICES[id].yearly / 12))}/th`
+                              : fmt(PLAN_PRICES[id].monthly);
                         const desc = PLAN_DESCS[id];
                         return (
                           <button
@@ -483,12 +500,8 @@ export function LoginRegisterCard({
                       <p className="mt-2 text-[11px] text-indigo-600 bg-indigo-50 rounded-lg px-3 py-1.5 border border-indigo-100">
                         Sau đăng ký bạn sẽ được chuyển đến trang thanh toán để
                         kích hoạt gói{" "}
-                        {selectedPlan === "designer"
-                          ? "Designer"
-                          : selectedPlan === "basic"
-                            ? "Basic"
-                            : "Pro"}{" "}
-                        ({billing === "yearly" ? "theo năm" : "theo tháng"}).
+                        {selectedPlan === "basic" ? "Cơ bản" : "Pro"} (
+                        {billing === "yearly" ? "theo năm" : "theo tháng"}).
                       </p>
                     )}
                     {selectedPlan === "free" && (
@@ -588,7 +601,9 @@ export function LoginRegisterCard({
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1.5">
                       Email người giới thiệu{" "}
-                      <span className="text-slate-400 font-normal text-xs">(không bắt buộc)</span>
+                      <span className="text-slate-400 font-normal text-xs">
+                        (không bắt buộc)
+                      </span>
                     </label>
                     <div className="relative">
                       <Gift className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -604,8 +619,8 @@ export function LoginRegisterCard({
                           referralStatus === "valid"
                             ? "border-emerald-400 focus:ring-emerald-500/20"
                             : referralStatus === "invalid"
-                            ? "border-red-300 focus:ring-red-500/20"
-                            : ""
+                              ? "border-red-300 focus:ring-red-500/20"
+                              : ""
                         }`}
                         placeholder="nguoi-gioi-thieu@example.com"
                         autoComplete="off"
@@ -619,11 +634,14 @@ export function LoginRegisterCard({
                     </div>
                     {referralStatus === "valid" && (
                       <p className="text-emerald-600 text-xs mt-1 flex items-center gap-1">
-                        <Gift className="w-3 h-3" /> Bạn và người giới thiệu mỗi người nhận +5 lượt tạo nội dung!
+                        <Gift className="w-3 h-3" /> Người giới thiệu sẽ nhận +5
+                        lượt tạo nội dung!
                       </p>
                     )}
                     {referralStatus === "invalid" && (
-                      <p className="text-red-500 text-xs mt-1">Email giới thiệu không hợp lệ hoặc không tồn tại</p>
+                      <p className="text-red-500 text-xs mt-1">
+                        Email giới thiệu không hợp lệ hoặc không tồn tại
+                      </p>
                     )}
                   </div>
                 )}

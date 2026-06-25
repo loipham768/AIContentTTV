@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import fs from 'fs'
 import { auth } from '@/auth'
-import { checkExportAllowed } from '@/lib/planGate'
+import { checkOutputAllowed } from '@/lib/planGate'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
   }
 
-  const gate = await checkExportAllowed(session.user.id)
+  const gate = await checkOutputAllowed(session.user.id)
   if (!gate.allowed) {
     return NextResponse.json(
       { error: gate.reason, code: gate.code, upgradeRequired: gate.upgradeRequired },

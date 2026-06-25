@@ -3,7 +3,7 @@ import { z } from 'zod'
 import mongoose from 'mongoose'
 import { auth } from '@/auth'
 import { dbConnect } from '@/lib/mongodb'
-import { checkPublishAllowed } from '@/lib/planGate'
+import { checkOutputAllowed } from '@/lib/planGate'
 import { serverIsolateCss } from '@/lib/serverCssIsolation'
 import { generateInteractiveScripts } from '@/lib/editor/interactiveScripts'
 import Project from '@/models/Project'
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Dữ liệu không hợp lệ.' }, { status: 400 })
   }
 
-  const gate = await checkPublishAllowed(session.user.id)
+  const gate = await checkOutputAllowed(session.user.id)
   if (!gate.allowed) {
     return NextResponse.json(
       { error: gate.reason, code: gate.code, upgradeRequired: gate.upgradeRequired },

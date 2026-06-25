@@ -13,7 +13,7 @@ interface Props {
 
 interface CreditsProps {
   type: 'credits'
-  packId: 'c1' | 'c2' | 'c3' | 'c4'
+  qty: number
   label?: string
   className?: string
 }
@@ -29,7 +29,7 @@ export default function PlanUpgradeButton(props: Props | CreditsProps) {
     try {
       const body = props.type === 'subscription'
         ? { type: 'subscription', plan: props.plan, billing: props.billing }
-        : { type: 'credits', packId: props.packId }
+        : { type: 'credits', qty: props.qty }
 
       const res = await fetch('/api/orders', {
         method: 'POST',

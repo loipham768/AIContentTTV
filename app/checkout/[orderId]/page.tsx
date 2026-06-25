@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { dbConnect } from "@/lib/mongodb";
 import Order from "@/models/Order";
-import { BANK_INFO, CREDIT_PACKS } from "@/lib/planConfig";
+import { BANK_INFO, CREDIT_MIN_QTY } from "@/lib/planConfig";
 import { SUPPORT_EMAIL } from "@/lib/constants";
 import Link from "next/link";
 import {
@@ -23,8 +23,9 @@ import { toTransferContent } from "@/lib/orderUtils";
 export const runtime = "nodejs";
 
 const PLAN_LABEL: Record<string, string> = {
-  basic: "Basic",
+  basic: "Cơ bản",
   pro: "Pro",
+  designer: "Designer",
 };
 const BILLING_LABEL: Record<string, string> = {
   monthly: "Tháng",
@@ -64,10 +65,7 @@ export default async function CheckoutPage({
   const reorderUrl =
     order.type === "subscription"
       ? `/upgrade?plan=${order.plan}&billing=${order.billing ?? "monthly"}`
-      : (() => {
-          const pack = CREDIT_PACKS.find((p) => p.amount === order.amount);
-          return pack ? `/upgrade?type=credits&pack=${pack.id}` : "/#pricing";
-        })();
+      : `/upgrade?type=credits&qty=${Math.max(CREDIT_MIN_QTY, order.creditsHtml ?? CREDIT_MIN_QTY)}`;
 
   function orderTitle() {
     if (order.type === "subscription") {

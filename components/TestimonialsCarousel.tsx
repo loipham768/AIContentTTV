@@ -216,7 +216,7 @@ export default function TestimonialsCarousel({
         <div className="text-center mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 text-xs font-medium text-violet-200 bg-indigo-500/20 rounded-full border border-violet-400/30">
             <Star className="w-3.5 h-3.5 fill-violet-200" />
-            Hơn 50 ngàn người dùng tin tưởng
+            Hơn 5k người dùng tin tưởng
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
             Khách hàng nói gì?

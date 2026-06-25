@@ -40,15 +40,21 @@ interface Props {
 type Tab = "all" | TemplateCategory;
 
 const TABS: { id: Tab; label: string; icon: string }[] = [
-  { id: "all",       label: "Tất cả",       icon: "✦" },
-  { id: "landing",   label: "Landing Page",  icon: "🏠" },
-  { id: "article",   label: "Bài viết",      icon: "📝" },
-  { id: "ads",       label: "Quảng cáo",     icon: "📣" },
-  { id: "portfolio", label: "Portfolio",     icon: "🎨" },
-  { id: "cv",        label: "CV / Hồ sơ",   icon: "📄" },
+  { id: "all", label: "Tất cả", icon: "✦" },
+  { id: "landing", label: "Landing Page", icon: "🏠" },
+  { id: "article", label: "Bài viết", icon: "📝" },
+  { id: "ads", label: "Quảng cáo", icon: "📣" },
+  { id: "portfolio", label: "Portfolio", icon: "🎨" },
+  { id: "cv", label: "CV / Hồ sơ", icon: "📄" },
 ];
 
-const CATEGORY_ORDER: TemplateCategory[] = ["landing", "article", "ads", "portfolio", "cv"];
+const CATEGORY_ORDER: TemplateCategory[] = [
+  "landing",
+  "article",
+  "ads",
+  "portfolio",
+  "cv",
+];
 
 type CatState = CatGroup & { page: number; loading: boolean };
 
@@ -56,7 +62,12 @@ function getPageNums(current: number, total: number): (number | "…")[] {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
   const pages: (number | "…")[] = [1];
   if (current > 3) pages.push("…");
-  for (let p = Math.max(2, current - 1); p <= Math.min(total - 1, current + 1); p++) pages.push(p);
+  for (
+    let p = Math.max(2, current - 1);
+    p <= Math.min(total - 1, current + 1);
+    p++
+  )
+    pages.push(p);
   if (current < total - 2) pages.push("…");
   pages.push(total);
   return pages;
@@ -94,7 +105,9 @@ function Pagination({
         </button>
         {nums.map((n, i) =>
           n === "…" ? (
-            <span key={`e${i}`} className="px-1.5 text-xs text-gray-400">…</span>
+            <span key={`e${i}`} className="px-1.5 text-xs text-gray-400">
+              …
+            </span>
           ) : (
             <button
               key={n}
@@ -102,8 +115,16 @@ function Pagination({
               className="w-8 h-8 text-xs font-bold rounded-lg border transition-all cursor-pointer"
               style={
                 page === n
-                  ? { background: "linear-gradient(135deg,#4338ca,#7c3aed)", color: "#fff", borderColor: "transparent" }
-                  : { background: "#fff", color: "#374151", borderColor: "#e5e7eb" }
+                  ? {
+                      background: "linear-gradient(135deg,#4338ca,#7c3aed)",
+                      color: "#fff",
+                      borderColor: "transparent",
+                    }
+                  : {
+                      background: "#fff",
+                      color: "#374151",
+                      borderColor: "#e5e7eb",
+                    }
               }
             >
               {n}
@@ -122,11 +143,11 @@ function Pagination({
   );
 }
 
-const NEW_DAYS = 7
+const NEW_DAYS = 7;
 
 function isNew(createdAt?: string) {
-  if (!createdAt) return false
-  return Date.now() - new Date(createdAt).getTime() < NEW_DAYS * 86_400_000
+  if (!createdAt) return false;
+  return Date.now() - new Date(createdAt).getTime() < NEW_DAYS * 86_400_000;
 }
 
 function TemplateCard({
@@ -153,14 +174,20 @@ function TemplateCard({
       >
         {tpl.image ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={tpl.image} alt={tpl.name} className="absolute inset-0 w-full h-full object-cover" />
+          <img
+            src={tpl.image}
+            alt={tpl.name}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
         ) : (
           <>
             <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-8 translate-x-8" />
             <div className="absolute bottom-0 left-0 w-16 h-16 bg-black/10 rounded-full translate-y-6 -translate-x-6" />
             <div className="text-4xl mb-2 relative z-10">{catMeta.icon}</div>
             <div className="relative z-10 px-4 text-center">
-              <div className="text-white font-bold text-sm leading-tight">{tpl.name}</div>
+              <div className="text-white font-bold text-sm leading-tight">
+                {tpl.name}
+              </div>
             </div>
           </>
         )}
@@ -176,25 +203,39 @@ function TemplateCard({
             disabled={isPreviewLoading}
             className="flex items-center gap-1.5 bg-white/90 text-gray-900 rounded-lg px-3 py-1.5 text-xs font-semibold hover:bg-white transition-colors cursor-pointer disabled:opacity-70 disabled:cursor-wait"
           >
-            {isPreviewLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : <ExternalLink className="w-3 h-3" />}
+            {isPreviewLoading ? (
+              <Loader2 className="w-3 h-3 animate-spin" />
+            ) : (
+              <ExternalLink className="w-3 h-3" />
+            )}
             {isPreviewLoading ? "Đang tải..." : "Xem trước"}
           </button>
         </div>
       </div>
       <div className="p-4">
         <div className="flex items-start justify-between gap-2 mb-2">
-          <h3 className="font-semibold text-gray-900 text-sm leading-tight">{tpl.name}</h3>
+          <h3 className="font-semibold text-gray-900 text-sm leading-tight">
+            {tpl.name}
+          </h3>
           <span
             className="flex-shrink-0 text-xs font-semibold px-2 py-0.5 rounded-full"
-            style={{ background: `${tpl.accentColor}18`, color: tpl.accentColor }}
+            style={{
+              background: `${tpl.accentColor}18`,
+              color: tpl.accentColor,
+            }}
           >
             {catMeta.label}
           </span>
         </div>
-        <p className="text-xs text-gray-500 leading-relaxed mb-3 line-clamp-2">{tpl.description}</p>
+        <p className="text-xs text-gray-500 leading-relaxed mb-3 line-clamp-2">
+          {tpl.description}
+        </p>
         <div className="flex flex-wrap gap-1 mb-4">
           {tpl.tags.map((tag) => (
-            <span key={tag} className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">
+            <span
+              key={tag}
+              className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full"
+            >
               {tag}
             </span>
           ))}
@@ -205,22 +246,34 @@ function TemplateCard({
           disabled={isPreviewLoading}
           className="sm:hidden w-full mb-2 py-2 rounded-xl text-sm font-semibold border-2 border-gray-200 text-gray-700 bg-white transition-all active:scale-[0.98] flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-60 disabled:cursor-wait"
         >
-          {isPreviewLoading
-            ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Đang tải...</>
-            : <><ExternalLink className="w-3.5 h-3.5" /> Xem trước</>}
+          {isPreviewLoading ? (
+            <>
+              <Loader2 className="w-3.5 h-3.5 animate-spin" /> Đang tải...
+            </>
+          ) : (
+            <>
+              <ExternalLink className="w-3.5 h-3.5" /> Xem trước
+            </>
+          )}
         </button>
         <button
           onClick={() => onUse(tpl)}
           disabled={isUseLoading}
           className="w-full py-2 rounded-xl text-sm font-semibold text-white transition-all active:scale-[0.98] flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-80 disabled:cursor-wait"
-          style={{ background: `linear-gradient(135deg, ${tpl.accentColor}, ${tpl.accentColor}cc)` }}
+          style={{
+            background: `linear-gradient(135deg, ${tpl.accentColor}, ${tpl.accentColor}cc)`,
+          }}
         >
           {isUseLoading ? (
-            <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Đang mở...</>
+            <>
+              <Loader2 className="w-3.5 h-3.5 animate-spin" /> Đang mở...
+            </>
           ) : isLoggedIn ? (
             <>Dùng mẫu này →</>
           ) : (
-            <><Lock className="w-3.5 h-3.5" /> Đăng nhập để dùng</>
+            <>
+              <Lock className="w-3.5 h-3.5" /> Đăng nhập để dùng
+            </>
           )}
         </button>
       </div>
@@ -254,12 +307,16 @@ function CategorySection({
     <div className="rounded-2xl overflow-hidden border border-gray-200 bg-white">
       <div className="flex items-center gap-2.5 px-5 py-3.5 border-b border-gray-100 bg-gray-50">
         <span className="text-xl">{catMeta.icon}</span>
-        <h2 className="text-sm font-extrabold text-gray-900 flex-1">{catMeta.label}</h2>
+        <h2 className="text-sm font-extrabold text-gray-900 flex-1">
+          {catMeta.label}
+        </h2>
         <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700">
           {data.total} mẫu
         </span>
       </div>
-      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 transition-opacity duration-150 ${data.loading ? "opacity-50 pointer-events-none" : ""}`}>
+      <div
+        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 transition-opacity duration-150 ${data.loading ? "opacity-50 pointer-events-none" : ""}`}
+      >
         {data.templates.map((tpl) => (
           <TemplateCard
             key={tpl.id}
@@ -273,7 +330,12 @@ function CategorySection({
         ))}
       </div>
       <div className="border-t border-gray-100">
-        <Pagination page={data.page} total={data.total} pageSize={TEMPLATES_PAGE_SIZE} onChange={onPageChange} />
+        <Pagination
+          page={data.page}
+          total={data.total}
+          pageSize={TEMPLATES_PAGE_SIZE}
+          onChange={onPageChange}
+        />
       </div>
     </div>
   );
@@ -300,7 +362,10 @@ export default function TemplatesClient({
   );
 
   const tabsScrollRef = useRef<HTMLDivElement>(null);
-  const [tabsScrollState, setTabsScrollState] = useState({ left: false, right: true });
+  const [tabsScrollState, setTabsScrollState] = useState({
+    left: false,
+    right: true,
+  });
 
   useEffect(() => {
     const el = tabsScrollRef.current;
@@ -325,7 +390,9 @@ export default function TemplatesClient({
   const [previewMeta, setPreviewMeta] = useState<TemplateMeta | null>(null);
   const [previewHtml, setPreviewHtml] = useState<string>("");
   const [previewLoading, setPreviewLoading] = useState(false);
-  const [previewDevice, setPreviewDevice] = useState<"desktop" | "tablet" | "mobile">("desktop");
+  const [previewDevice, setPreviewDevice] = useState<
+    "desktop" | "tablet" | "mobile"
+  >("desktop");
   const [previewLoadingId, setPreviewLoadingId] = useState<string | null>(null);
   const [useLoadingId, setUseLoadingId] = useState<string | null>(null);
 
@@ -344,9 +411,13 @@ export default function TemplatesClient({
         const full = await res.json();
         if (!cancelled && full?.id) {
           setPreviewMeta({
-            id: full.id, name: full.name, category: full.category,
-            description: full.description, tags: full.tags ?? [],
-            gradient: full.gradient, accentColor: full.accentColor,
+            id: full.id,
+            name: full.name,
+            category: full.category,
+            description: full.description,
+            tags: full.tags ?? [],
+            gradient: full.gradient,
+            accentColor: full.accentColor,
           });
           setPreviewHtml(full.html ?? "");
         }
@@ -354,15 +425,22 @@ export default function TemplatesClient({
         if (!cancelled) setPreviewLoading(false);
       }
     })();
-    return () => { cancelled = true; };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function fetchPage(cat: TemplateCategory, page: number) {
     setCatData((prev) => ({ ...prev, [cat]: { ...prev[cat], loading: true } }));
-    const res = await fetch(`/api/templates?category=${cat}&page=${page}&limit=${TEMPLATES_PAGE_SIZE}`);
+    const res = await fetch(
+      `/api/templates?category=${cat}&page=${page}&limit=${TEMPLATES_PAGE_SIZE}`,
+    );
     const data: CatGroup = await res.json();
-    setCatData((prev) => ({ ...prev, [cat]: { ...data, page, loading: false } }));
+    setCatData((prev) => ({
+      ...prev,
+      [cat]: { ...data, page, loading: false },
+    }));
   }
 
   async function handleTabChange(tab: Tab) {
@@ -408,7 +486,7 @@ export default function TemplatesClient({
       <header className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <Logo iconSize={28} uid="tpl-nav" />
+            <Logo iconSize={60} uid="tpl-nav" />
             <div className="hidden sm:flex items-center gap-1.5 text-sm text-gray-400">
               <span>/</span>
               <span className="font-medium text-gray-700 flex items-center gap-1">
@@ -425,7 +503,10 @@ export default function TemplatesClient({
                 >
                   <Sparkles className="w-3.5 h-3.5" /> Tạo với AI
                 </Link>
-                <Link href="/profile" title={`Gói ${plan === "free" ? "Miễn phí" : plan === "basic" ? "Basic" : "Pro"}`}>
+                <Link
+                  href="/profile"
+                  title={`Gói ${plan === "free" ? "Miễn phí" : plan === "basic" ? "Basic" : "Pro"}`}
+                >
                   {plan === "free" && (
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold text-gray-500 bg-gray-100 border border-gray-200">
                       <Sparkles className="w-2.5 h-2.5" /> Free
@@ -442,8 +523,17 @@ export default function TemplatesClient({
                     </span>
                   )}
                 </Link>
-                <Link href="/profile" title={fullName || userEmail} className="hover:opacity-80 transition-opacity">
-                  <UserAvatar avatarUrl={avatarUrl} fullName={fullName} email={userEmail} size={28} />
+                <Link
+                  href="/profile"
+                  title={fullName || userEmail}
+                  className="hover:opacity-80 transition-opacity"
+                >
+                  <UserAvatar
+                    avatarUrl={avatarUrl}
+                    fullName={fullName}
+                    email={userEmail}
+                    size={28}
+                  />
                 </Link>
               </>
             ) : (
@@ -461,8 +551,12 @@ export default function TemplatesClient({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         {/* Page header */}
         <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Thư viện mẫu</h1>
-          <p className="text-gray-500">Chọn một mẫu để bắt đầu — chỉnh sửa trực tiếp trong editor.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+            Thư viện mẫu
+          </h1>
+          <p className="text-gray-500">
+            Chọn một mẫu để bắt đầu — chỉnh sửa trực tiếp trong editor.
+          </p>
         </div>
 
         {/* Tabs */}
@@ -492,9 +586,7 @@ export default function TemplatesClient({
           >
             {TABS.map((tab) => {
               const count =
-                tab.id === "all"
-                  ? totalAll
-                  : (catData[tab.id]?.total ?? 0);
+                tab.id === "all" ? totalAll : (catData[tab.id]?.total ?? 0);
               return (
                 <button
                   key={tab.id}
@@ -512,7 +604,10 @@ export default function TemplatesClient({
                     className="text-xs px-1.5 py-0.5 rounded-full"
                     style={
                       activeTab === tab.id
-                        ? { background: "rgba(255,255,255,0.25)", color: "#fff" }
+                        ? {
+                            background: "rgba(255,255,255,0.25)",
+                            color: "#fff",
+                          }
                         : { background: "#f3f4f6", color: "#6b7280" }
                     }
                   >
@@ -527,19 +622,21 @@ export default function TemplatesClient({
         {/* All view — grouped by category */}
         {activeTab === "all" && (
           <div className="space-y-8">
-            {CATEGORY_ORDER.filter((cat) => (catData[cat]?.total ?? 0) > 0).map((cat) => (
-              <CategorySection
-                key={cat}
-                category={cat}
-                data={catData[cat]}
-                isLoggedIn={isLoggedIn}
-                onPreview={openPreview}
-                onUse={handleUse}
-                onPageChange={(p) => fetchPage(cat, p)}
-                previewLoadingId={previewLoadingId}
-                useLoadingId={useLoadingId}
-              />
-            ))}
+            {CATEGORY_ORDER.filter((cat) => (catData[cat]?.total ?? 0) > 0).map(
+              (cat) => (
+                <CategorySection
+                  key={cat}
+                  category={cat}
+                  data={catData[cat]}
+                  isLoggedIn={isLoggedIn}
+                  onPreview={openPreview}
+                  onUse={handleUse}
+                  onPageChange={(p) => fetchPage(cat, p)}
+                  previewLoadingId={previewLoadingId}
+                  useLoadingId={useLoadingId}
+                />
+              ),
+            )}
           </div>
         )}
 
@@ -547,15 +644,21 @@ export default function TemplatesClient({
         {activeTab !== "all" && filteredData && (
           <>
             {filteredData.loading ? (
-              <div className="text-center py-16 text-gray-400 text-sm">Đang tải...</div>
+              <div className="text-center py-16 text-gray-400 text-sm">
+                Đang tải...
+              </div>
             ) : filteredData.total === 0 ? (
               <div className="text-center py-20 text-gray-400">
                 <LayoutTemplate className="w-12 h-12 mx-auto mb-4 opacity-30" />
-                <p className="font-medium">Không có mẫu nào trong danh mục này.</p>
+                <p className="font-medium">
+                  Không có mẫu nào trong danh mục này.
+                </p>
               </div>
             ) : (
               <div className="rounded-2xl overflow-hidden border border-gray-200 bg-white">
-                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 transition-opacity duration-150`}>
+                <div
+                  className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 transition-opacity duration-150`}
+                >
                   {filteredData.templates.map((tpl) => (
                     <TemplateCard
                       key={tpl.id}
@@ -573,7 +676,9 @@ export default function TemplatesClient({
                     page={filteredData.page}
                     total={filteredData.total}
                     pageSize={TEMPLATES_PAGE_SIZE}
-                    onChange={(p) => fetchPage(activeTab as TemplateCategory, p)}
+                    onChange={(p) =>
+                      fetchPage(activeTab as TemplateCategory, p)
+                    }
                   />
                 </div>
               </div>
@@ -601,23 +706,46 @@ export default function TemplatesClient({
             </button>
 
             <div className="flex items-center gap-2 min-w-0 flex-1">
-              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: previewMeta.accentColor }} />
-              <span className="text-white text-sm font-semibold truncate">{previewMeta.name}</span>
-              <span className="hidden md:block text-slate-500 text-xs flex-shrink-0">— Xem trước</span>
+              <span
+                className="w-2 h-2 rounded-full flex-shrink-0"
+                style={{ background: previewMeta.accentColor }}
+              />
+              <span className="text-white text-sm font-semibold truncate">
+                {previewMeta.name}
+              </span>
+              <span className="hidden md:block text-slate-500 text-xs flex-shrink-0">
+                — Xem trước
+              </span>
             </div>
 
             <div className="flex items-center bg-slate-800 rounded-lg p-0.5 gap-0.5 flex-shrink-0">
-              {([
-                { id: "desktop", icon: <Monitor className="w-3.5 h-3.5" />, label: "Desktop" },
-                { id: "tablet",  icon: <Tablet   className="w-3.5 h-3.5" />, label: "Tablet"  },
-                { id: "mobile",  icon: <Smartphone className="w-3.5 h-3.5" />, label: "Mobile" },
-              ] as const).map((d) => (
+              {(
+                [
+                  {
+                    id: "desktop",
+                    icon: <Monitor className="w-3.5 h-3.5" />,
+                    label: "Desktop",
+                  },
+                  {
+                    id: "tablet",
+                    icon: <Tablet className="w-3.5 h-3.5" />,
+                    label: "Tablet",
+                  },
+                  {
+                    id: "mobile",
+                    icon: <Smartphone className="w-3.5 h-3.5" />,
+                    label: "Mobile",
+                  },
+                ] as const
+              ).map((d) => (
                 <button
                   key={d.id}
                   onClick={() => setPreviewDevice(d.id)}
                   title={d.label}
                   className={`flex items-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-medium transition-all ${
-                    previewDevice === d.id ? "bg-white text-slate-900 shadow-sm" : "text-slate-400 hover:text-white"
+                    previewDevice === d.id
+                      ? "bg-white text-slate-900 shadow-sm"
+                      : "text-slate-400 hover:text-white"
                   }`}
                 >
                   {d.icon}
@@ -627,7 +755,10 @@ export default function TemplatesClient({
             </div>
 
             <button
-              onClick={(e) => { e.stopPropagation(); handleUse(previewMeta); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleUse(previewMeta);
+              }}
               disabled={useLoadingId === previewMeta.id}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white flex-shrink-0 transition-opacity hover:opacity-90 cursor-pointer disabled:opacity-80 disabled:cursor-wait"
               style={{ background: previewMeta.accentColor }}
@@ -669,7 +800,12 @@ export default function TemplatesClient({
                 srcDoc={previewHtml}
                 className="border-0 block h-full flex-shrink-0"
                 style={{
-                  width: previewDevice === "desktop" ? "100%" : previewDevice === "tablet" ? "768px" : "390px",
+                  width:
+                    previewDevice === "desktop"
+                      ? "100%"
+                      : previewDevice === "tablet"
+                        ? "768px"
+                        : "390px",
                 }}
                 sandbox="allow-same-origin"
                 title={`Xem trước: ${previewMeta.name}`}

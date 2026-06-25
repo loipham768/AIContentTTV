@@ -10,11 +10,13 @@ export const revalidate = 3600; // ISR: recheck every hour
 
 export const metadata = {
   title: "Kiến thức AI Content | TaoPage",
-  description: "Hướng dẫn, mẹo và chiến lược tạo nội dung bằng AI cho thị trường Việt Nam.",
+  description:
+    "Hướng dẫn, mẹo và chiến lược tạo nội dung bằng AI cho thị trường Việt Nam.",
   alternates: { canonical: `${SITE_URL}/kien-thuc` },
   openGraph: {
     title: "Kiến thức AI Content | TaoPage",
-    description: "Hướng dẫn, mẹo và chiến lược tạo nội dung bằng AI cho thị trường Việt Nam.",
+    description:
+      "Hướng dẫn, mẹo và chiến lược tạo nội dung bằng AI cho thị trường Việt Nam.",
     url: `${SITE_URL}/kien-thuc`,
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
@@ -27,7 +29,15 @@ export default async function KienThucPage() {
   let initialGroups: Awaited<ReturnType<typeof getInitialGroups>> = {};
   try {
     initialGroups = await getInitialGroups(
-      ["Hướng dẫn", "Landing Page", "So sánh", "Quảng cáo", "Kỹ thuật", "Content", "SEO"],
+      [
+        "Hướng dẫn",
+        "Landing Page",
+        "So sánh",
+        "Quảng cáo",
+        "Kỹ thuật",
+        "Content",
+        "SEO",
+      ],
       ARTICLES_PAGE_SIZE,
     );
   } catch {
@@ -42,7 +52,7 @@ export default async function KienThucPage() {
         style={{ background: "#fff" }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Logo iconSize={30} uid="kb-nav" />
+          <Logo iconSize={60} uid="kb-nav" />
           <nav className="flex items-center gap-4">
             <Link
               href="/#pricing"
@@ -101,7 +111,10 @@ export default async function KienThucPage() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-10">
         {/* ── Articles with filter ── */}
-        <KienThucArticles initialGroups={initialGroups} isLoggedIn={isLoggedIn} />
+        <KienThucArticles
+          initialGroups={initialGroups}
+          isLoggedIn={isLoggedIn}
+        />
 
         {/* ── CTA ── */}
         <section
@@ -113,11 +126,15 @@ export default async function KienThucPage() {
         >
           <div
             className="absolute -top-16 -right-16 w-56 h-56 rounded-full opacity-20 pointer-events-none"
-            style={{ background: "radial-gradient(circle,#fff,transparent 70%)" }}
+            style={{
+              background: "radial-gradient(circle,#fff,transparent 70%)",
+            }}
           />
           <div
             className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full opacity-20 pointer-events-none"
-            style={{ background: "radial-gradient(circle,#fff,transparent 70%)" }}
+            style={{
+              background: "radial-gradient(circle,#fff,transparent 70%)",
+            }}
           />
           <div className="relative">
             <div
@@ -149,14 +166,21 @@ export default async function KienThucPage() {
         className="py-10 text-center text-xs"
         style={{ background: "#0f0f11", color: "#6b7280" }}
       >
-        <Logo iconSize={22} uid="kb-footer" className="inline-flex mb-3 brightness-75" />
+        <Logo
+          iconSize={60}
+          uid="kb-footer"
+          className="inline-flex mb-3 brightness-75"
+        />
         <p className="mt-1">
           © 2026 TaoPage ·{" "}
           <Link href="/" className="hover:text-gray-300 transition-colors">
             Trang chủ
           </Link>{" "}
           ·{" "}
-          <Link href="/kien-thuc" className="hover:text-gray-300 transition-colors">
+          <Link
+            href="/kien-thuc"
+            className="hover:text-gray-300 transition-colors"
+          >
             Kiến thức
           </Link>
         </p>

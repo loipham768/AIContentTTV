@@ -96,13 +96,10 @@ export async function POST(req: NextRequest) {
 
     if (referralEmail) {
       newUser.referredBy = referralEmail
-      newUser.credits = REFERRAL_BONUS_NEW_USER
-      newUser.creditsTotal = REFERRAL_BONUS_NEW_USER
 
-      // Track referral count for referrer (no credit bonus)
       await User.updateOne(
         { email: referralEmail },
-        { $inc: { referralCount: 1 } }
+        { $inc: { referralCount: 1, credits: REFERRAL_BONUS_REFERRER, creditsTotal: REFERRAL_BONUS_REFERRER } }
       )
     }
 

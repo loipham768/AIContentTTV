@@ -5,7 +5,14 @@ import { redirect } from "next/navigation";
 import { dbConnect } from "@/lib/mongodb";
 import Order from "@/models/Order";
 import User from "@/models/User";
-import { PLAN_PRICES, CREDIT_PACKS, type CreditPackId } from "@/lib/planConfig";
+import {
+  PLAN_PRICES,
+  CREDIT_PACKS,
+  CREDIT_PRICE_PER_UNIT,
+  CREDIT_MIN_QTY,
+  CREDIT_MAX_QTY,
+  type CreditPackId,
+} from "@/lib/planConfig";
 import { sendNewOrderAdminEmail } from "@/lib/email";
 import { generateOrderId } from "@/lib/orderUtils";
 
@@ -29,6 +36,7 @@ type SearchParams = {
   billing?: string;
   type?: string;
   pack?: string;
+  qty?: string;
 };
 
 export default async function UpgradePage({
@@ -44,7 +52,9 @@ export default async function UpgradePage({
   // Not logged in → go register, preserve all params
   if (!session?.user?.id) {
     const qs = isCredits
-      ? `type=credits&pack=${params.pack ?? ""}`
+      ? params.qty
+        ? `type=credits&qty=${params.qty}`
+        : `type=credits&pack=${params.pack ?? ""}`
       : `plan=${params.plan ?? ""}&billing=${params.billing ?? "monthly"}`;
     redirect(`/login?${qs}`);
   }
@@ -53,9 +63,23 @@ export default async function UpgradePage({
 
   // ── Credits flow ──────────────────────────────────────────────────────
   if (isCredits) {
-    const packId = params.pack as CreditPackId;
-    const pack = CREDIT_PACKS.find((p) => p.id === packId);
-    if (!pack) redirect("/#pricing");
+    let creditsCount: number;
+    let amount: number;
+
+    if (params.qty) {
+      // New qty-based flow: 15,000đ per lượt, self-selected quantity
+      const qty = parseInt(params.qty, 10);
+      if (isNaN(qty) || qty < CREDIT_MIN_QTY || qty > CREDIT_MAX_QTY) redirect("/#pricing");
+      creditsCount = qty;
+      amount = qty * CREDIT_PRICE_PER_UNIT;
+    } else {
+      // Legacy pack-based flow (backward compat for old links)
+      const packId = params.pack as CreditPackId;
+      const pack = CREDIT_PACKS.find((p) => p.id === packId);
+      if (!pack) redirect("/#pricing");
+      creditsCount = pack!.credits;
+      amount = pack!.amount;
+    }
 
     const existing = (await Order.findOne({
       userId: session.user.id,
@@ -64,11 +88,9 @@ export default async function UpgradePage({
     }).lean()) as any;
 
     if (existing) {
-      // Same credits pack → resume
-      if (existing.type === "credits" && existing.amount === pack!.amount) {
+      if (existing.type === "credits" && existing.amount === amount) {
         redirect(`/checkout/${existing.orderId}`);
       }
-      // Different → cancel old, create new
       await Order.updateOne({ _id: existing._id }, { $set: { status: "cancelled" } });
     }
 
@@ -79,8 +101,8 @@ export default async function UpgradePage({
       orderId,
       userId: session.user.id,
       type: "credits",
-      creditsHtml: pack!.credits,
-      amount: pack!.amount,
+      creditsHtml: creditsCount,
+      amount,
       expiresAt,
     });
 
@@ -91,7 +113,7 @@ export default async function UpgradePage({
       orderId,
       userEmail: userDoc?.email ?? session.user.id,
       type: "credits",
-      amount: pack!.amount,
+      amount,
     }).catch(console.error);
 
     redirect(`/checkout/${orderId}`);

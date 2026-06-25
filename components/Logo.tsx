@@ -40,7 +40,7 @@ export default function Logo({
       <img
         src="/taopage-logo.svg"
         alt="TaoPage"
-        style={{ height: "57px", width: "auto", display: "block" }}
+        style={{ height: `${iconSize}px`, width: "auto", display: "block" }}
       />
     </Link>
   );

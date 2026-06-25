@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 
 type FaqItem = {
   q: string;
-  a: string;
+  a: React.ReactNode;
   accent: string;
 };
 
@@ -38,9 +38,9 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
               className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
             >
               <div className="overflow-hidden">
-                <p className="px-6 pb-5 text-sm text-gray-500 leading-relaxed">
+                <div className="px-6 pb-5 pt-1 text-sm text-gray-500 leading-relaxed space-y-2">
                   {a}
-                </p>
+                </div>
               </div>
             </div>
           </div>

@@ -42,7 +42,8 @@ const UserSchema = new mongoose.Schema(
     referralCount:   { type: Number, default: 0 },   // how many users this user has referred
 
     // Activity tracking
-    lastActiveAt: { type: Date, default: null },
+    lastActiveAt:       { type: Date, default: null },
+    lastAiGeneratedAt:  { type: Date, default: null },
 
     // Registration location (for marketing analytics)
     registrationIp:          { type: String, default: '' },

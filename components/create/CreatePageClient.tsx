@@ -526,18 +526,51 @@ const CONTENT_POOL: Record<ContentTypeId, SampleItem[]> = {
     },
   ],
   portfolio: [
-    { text: "Portfolio cho lập trình viên Frontend React 3 năm kinh nghiệm", desc: "Frontend Dev" },
-    { text: "CV online cho Backend Developer Python & NodeJS", desc: "Backend Dev" },
-    { text: "Portfolio fullstack developer tìm việc tại công ty startup", desc: "Fullstack Dev" },
-    { text: "Portfolio UI/UX Designer với showcase dự án Figma", desc: "Designer" },
-    { text: "Portfolio Graphic Designer với các dự án branding & logo", desc: "Graphic Design" },
-    { text: "CV online cho Digital Marketing Manager 5 năm kinh nghiệm", desc: "Marketing" },
+    {
+      text: "Portfolio cho lập trình viên Frontend React 3 năm kinh nghiệm",
+      desc: "Frontend Dev",
+    },
+    {
+      text: "CV online cho Backend Developer Python & NodeJS",
+      desc: "Backend Dev",
+    },
+    {
+      text: "Portfolio fullstack developer tìm việc tại công ty startup",
+      desc: "Fullstack Dev",
+    },
+    {
+      text: "Portfolio UI/UX Designer với showcase dự án Figma",
+      desc: "Designer",
+    },
+    {
+      text: "Portfolio Graphic Designer với các dự án branding & logo",
+      desc: "Graphic Design",
+    },
+    {
+      text: "CV online cho Digital Marketing Manager 5 năm kinh nghiệm",
+      desc: "Marketing",
+    },
     { text: "Portfolio Content Creator & Copywriter", desc: "Content" },
-    { text: "CV chuyên nghiệp cho Business Analyst tìm việc mới", desc: "Business" },
-    { text: "Trang cá nhân Freelancer đa lĩnh vực tìm khách hàng", desc: "Freelancer" },
-    { text: "Portfolio nhiếp ảnh gia chụp ảnh cưới & sự kiện", desc: "Photography" },
-    { text: "CV cho giáo viên tiếng Anh với chứng chỉ IELTS 8.0", desc: "Giáo viên" },
-    { text: "CV chuyên nghiệp cho Kế toán trưởng 7 năm kinh nghiệm", desc: "Kế toán" },
+    {
+      text: "CV chuyên nghiệp cho Business Analyst tìm việc mới",
+      desc: "Business",
+    },
+    {
+      text: "Trang cá nhân Freelancer đa lĩnh vực tìm khách hàng",
+      desc: "Freelancer",
+    },
+    {
+      text: "Portfolio nhiếp ảnh gia chụp ảnh cưới & sự kiện",
+      desc: "Photography",
+    },
+    {
+      text: "CV cho giáo viên tiếng Anh với chứng chỉ IELTS 8.0",
+      desc: "Giáo viên",
+    },
+    {
+      text: "CV chuyên nghiệp cho Kế toán trưởng 7 năm kinh nghiệm",
+      desc: "Kế toán",
+    },
     { text: "Portfolio tư vấn chiến lược & quản lý dự án", desc: "Consultant" },
     { text: "Portfolio Mobile Developer iOS & Android", desc: "Mobile Dev" },
     { text: "Trang cá nhân cho SEO Specialist xin việc", desc: "SEO" },
@@ -548,7 +581,12 @@ function shufflePick(items: SampleItem[], n: number): SampleItem[] {
   return [...items].sort(() => Math.random() - 0.5).slice(0, n);
 }
 
-const CONTENT_TYPE_IDS: ContentTypeId[] = ["landing", "article", "ads", "portfolio"];
+const CONTENT_TYPE_IDS: ContentTypeId[] = [
+  "landing",
+  "article",
+  "ads",
+  "portfolio",
+];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -569,7 +607,10 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
   const [phase, setPhase] = useState<Phase>("initial");
   const [errorMsg, setErrorMsg] = useState("");
   const [projectId, setProjectId] = useState<string | null>(null);
-  const [generatedImage, setGeneratedImage] = useState<{ base64: string; mimeType: string } | null>(null);
+  const [generatedImage, setGeneratedImage] = useState<{
+    base64: string;
+    mimeType: string;
+  } | null>(null);
   const [longWait, setLongWait] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
   const longWaitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -582,6 +623,8 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
   const [mode, setMode] = useState<Mode>("describe");
   const [cloneUrl, setCloneUrl] = useState("");
   const [cloneError, setCloneError] = useState("");
+  const [blankLoading, setBlankLoading] = useState(false);
+  const [blankError, setBlankError] = useState("");
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const customInputRef = useRef<HTMLTextAreaElement>(null);
@@ -608,8 +651,18 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
 
     // Reconstruct the JSON that Gemini originally returned so history stays consistent
     const modelJson = currentQ.isConfirm
-      ? JSON.stringify({ type: "confirm", question: currentQ.question, items: currentQ.items ?? [], options: currentQ.options })
-      : JSON.stringify({ type: "question", question: currentQ.question, ...(currentQ.hint ? { hint: currentQ.hint } : {}), options: currentQ.options });
+      ? JSON.stringify({
+          type: "confirm",
+          question: currentQ.question,
+          items: currentQ.items ?? [],
+          options: currentQ.options,
+        })
+      : JSON.stringify({
+          type: "question",
+          question: currentQ.question,
+          ...(currentQ.hint ? { hint: currentQ.hint } : {}),
+          options: currentQ.options,
+        });
 
     const modelMsg: GeminiMessage = {
       role: "model",
@@ -656,7 +709,11 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: msgs, initialPrompt, contentType: selectedType ?? undefined }),
+        body: JSON.stringify({
+          messages: msgs,
+          initialPrompt,
+          contentType: selectedType ?? undefined,
+        }),
       });
 
       const data = await res.json();
@@ -787,6 +844,30 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
     }, 100);
   }
 
+  async function handleOpenBlankEditor() {
+    if (blankLoading) return;
+    setBlankLoading(true);
+    setBlankError("");
+    try {
+      const res = await fetch("/api/projects/blank", { method: "POST" });
+      if (res.status === 403) {
+        const data = await res.json().catch(() => ({}));
+        setBlankError(data.error ?? "Bạn đã hết lượt tháng này.");
+        return;
+      }
+      if (!res.ok) {
+        setBlankError("Đã xảy ra lỗi. Vui lòng thử lại.");
+        return;
+      }
+      const { projectId: pid } = await res.json();
+      router.push(`/editor?project=${pid}`);
+    } catch {
+      setBlankError("Lỗi kết nối. Vui lòng thử lại.");
+    } finally {
+      setBlankLoading(false);
+    }
+  }
+
   async function handleCloneSubmit(e?: React.FormEvent) {
     e?.preventDefault();
     const trimmed = cloneUrl.trim();
@@ -848,7 +929,7 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex flex-col">
         <header className="flex items-center justify-between px-6 py-4 border-b border-white/5 flex-shrink-0">
-          <Logo iconSize={28} uid="create-logo" dark />
+          <Logo iconSize={60} uid="create-logo" dark iconOnly />
           <div className="flex items-center gap-3">
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-gradient-to-r from-teal-500 to-cyan-500 shadow-sm shadow-teal-500/30">
               <PenTool className="w-2.5 h-2.5" /> Designer
@@ -874,13 +955,19 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
               </p>
             </div>
             <div className="flex flex-col gap-3">
-              <a
-                href="/editor"
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-sm font-semibold transition-all"
+              <button
+                onClick={handleOpenBlankEditor}
+                disabled={blankLoading}
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-sm font-semibold transition-all disabled:opacity-60"
               >
                 <Pencil className="w-4 h-4" />
-                Mở trình soạn thảo
-              </a>
+                {blankLoading ? "Đang tạo..." : "Mở trình soạn thảo"}
+              </button>
+              {blankError && (
+                <p className="text-red-400 text-xs text-center -mt-1">
+                  {blankError}
+                </p>
+              )}
               <a
                 href="/templates"
                 className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/[0.06] border border-white/10 hover:bg-white/10 text-slate-300 text-sm font-semibold transition-all"
@@ -906,7 +993,7 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex flex-col">
       {/* Nav */}
       <header className="flex items-center justify-between px-6 py-4 border-b border-white/5 flex-shrink-0">
-        <Logo iconSize={28} uid="create-logo" dark />
+        <Logo iconSize={44} uid="create-logo" dark iconOnly />
         <div className="flex items-center gap-3">
           <a
             href="/templates"
@@ -915,13 +1002,16 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
             <LayoutTemplate className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Mẫu có sẵn</span>
           </a>
-          <a
-            href="/editor"
-            className="text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1.5"
+          <button
+            onClick={handleOpenBlankEditor}
+            disabled={blankLoading}
+            className="text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1.5 disabled:opacity-50"
           >
             <Pencil className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Soạn thảo trống</span>
-          </a>
+            <span className="hidden sm:inline">
+              {blankLoading ? "Đang tạo..." : "Soạn thảo trống"}
+            </span>
+          </button>
           <Link
             href="/profile"
             title={`Gói ${plan === "free" ? "Miễn phí" : plan === "designer" ? "Designer" : plan === "basic" ? "Basic" : "Pro"} · Xem profile`}
@@ -1049,112 +1139,117 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
             )} */}
 
             {/* Type selector — only in describe mode */}
-            {mode === "describe" && (<>
-            <div className="w-full grid grid-cols-2 gap-2 mb-4">
-              {CONTENT_TYPE_IDS.map((typeId) => {
-                const meta = CONTENT_META[typeId];
-                const active = selectedType === typeId;
-                return (
-                  <button
-                    key={typeId}
-                    onClick={() => handleTypeClick(typeId)}
-                    className={[
-                      "text-left px-3 py-3 rounded-xl border transition-all",
-                      active
-                        ? "bg-indigo-600 border-indigo-500 text-white"
-                        : "bg-white/[0.03] border-white/[0.06] text-slate-400 hover:bg-white/[0.06] hover:border-white/10 hover:text-slate-200",
-                    ].join(" ")}
-                  >
-                    <div className="text-sm font-semibold leading-tight">
-                      {meta.label}
-                    </div>
-                    <div
-                      className={`text-xs mt-0.5 leading-tight ${active ? "text-indigo-200" : "text-slate-500"}`}
+            {mode === "describe" && (
+              <>
+                <div className="w-full grid grid-cols-2 gap-2 mb-4">
+                  {CONTENT_TYPE_IDS.map((typeId) => {
+                    const meta = CONTENT_META[typeId];
+                    const active = selectedType === typeId;
+                    return (
+                      <button
+                        key={typeId}
+                        onClick={() => handleTypeClick(typeId)}
+                        className={[
+                          "text-left px-3 py-3 rounded-xl border transition-all",
+                          active
+                            ? "bg-indigo-600 border-indigo-500 text-white"
+                            : "bg-white/[0.03] border-white/[0.06] text-slate-400 hover:bg-white/[0.06] hover:border-white/10 hover:text-slate-200",
+                        ].join(" ")}
+                      >
+                        <div className="text-sm font-semibold leading-tight">
+                          {meta.label}
+                        </div>
+                        <div
+                          className={`text-xs mt-0.5 leading-tight ${active ? "text-indigo-200" : "text-slate-500"}`}
+                        >
+                          {meta.desc}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Samples for selected type — click to send directly */}
+                {selectedType && displayedSamples.length > 0 && (
+                  <div className="w-full space-y-1.5 mb-4">
+                    {displayedSamples.map((sample, i) => (
+                      <button
+                        key={i}
+                        onClick={() => sendInitial(sample.text)}
+                        className="w-full text-left px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-indigo-600/20 hover:border-indigo-500/30 transition-all flex items-baseline gap-2 group"
+                      >
+                        <span className="text-sm text-slate-200 group-hover:text-white flex-1 transition-colors">
+                          {sample.text}
+                        </span>
+                        <span className="text-xs text-slate-500 flex-shrink-0">
+                          {sample.desc}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Input */}
+                <div className="w-full bg-white/[0.04] border border-white/10 rounded-2xl p-4">
+                  <textarea
+                    ref={initialInputRef}
+                    autoFocus
+                    value={initialInput}
+                    onChange={(e) => setInitialInput(e.target.value)}
+                    placeholder={
+                      selectedType
+                        ? "Không thấy gợi ý phù hợp? Nhập yêu cầu của bạn vào đây..."
+                        : "Nhập yêu cầu của bạn vào đây, hoặc chọn nhanh một loại nội dung bên trên"
+                    }
+                    rows={5}
+                    maxLength={5000}
+                    onKeyDown={handleInitialKeyDown}
+                    className="w-full resize-none bg-transparent text-white text-sm placeholder:text-slate-500 focus:outline-none leading-relaxed"
+                  />
+                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/5">
+                    <span className="text-xs text-slate-500">
+                      Enter để gửi · Shift+Enter xuống dòng
+                    </span>
+                    <button
+                      onClick={() => {
+                        if (initialInput.trim()) sendInitial(initialInput);
+                      }}
+                      disabled={!initialInput.trim()}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-30 disabled:cursor-not-allowed text-white text-xs font-semibold transition-all"
                     >
-                      {meta.desc}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
+                      <Send className="w-3 h-3" />
+                      Bắt đầu
+                    </button>
+                  </div>
+                </div>
 
-            {/* Samples for selected type — click to send directly */}
-            {selectedType && displayedSamples.length > 0 && (
-              <div className="w-full space-y-1.5 mb-4">
-                {displayedSamples.map((sample, i) => (
-                  <button
-                    key={i}
-                    onClick={() => sendInitial(sample.text)}
-                    className="w-full text-left px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-indigo-600/20 hover:border-indigo-500/30 transition-all flex items-baseline gap-2 group"
-                  >
-                    <span className="text-sm text-slate-200 group-hover:text-white flex-1 transition-colors">
-                      {sample.text}
-                    </span>
-                    <span className="text-xs text-slate-500 flex-shrink-0">
-                      {sample.desc}
-                    </span>
-                  </button>
-                ))}
-              </div>
+                {/* Disclaimer */}
+                <div className="w-full mt-3 space-y-2 px-1">
+                  <div className="flex items-start gap-2">
+                    <Info className="w-3.5 h-3.5 text-slate-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      AI sẽ tạo khung nội dung dựa trên ý tưởng của bạn — chưa
+                      hoàn chỉnh 100%. Sau khi tạo xong, bạn có thể kéo thả,
+                      chỉnh sửa từng đoạn văn, thay hình ảnh và tinh chỉnh tự do
+                      trong trình soạn thảo để ra sản phẩm cuối cùng theo đúng ý
+                      mình.
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Info className="w-3.5 h-3.5 text-amber-600/70 flex-shrink-0 mt-0.5" />
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      Một số block có hiệu ứng động như{" "}
+                      <span className="text-slate-400">
+                        slider, tab, accordion
+                      </span>
+                      ... cần JavaScript để hoạt động. Nếu trang web hoặc nền
+                      tảng bạn nhúng nội dung không cho phép script, các block
+                      này có thể hiển thị không như mong muốn.
+                    </p>
+                  </div>
+                </div>
+              </>
             )}
-
-            {/* Input */}
-            <div className="w-full bg-white/[0.04] border border-white/10 rounded-2xl p-4">
-              <textarea
-                ref={initialInputRef}
-                autoFocus
-                value={initialInput}
-                onChange={(e) => setInitialInput(e.target.value)}
-                placeholder={
-                  selectedType
-                    ? "Không thấy gợi ý phù hợp? Nhập yêu cầu của bạn vào đây..."
-                    : "Nhập yêu cầu của bạn vào đây, hoặc chọn nhanh một loại nội dung bên trên"
-                }
-                rows={5}
-                maxLength={5000}
-                onKeyDown={handleInitialKeyDown}
-                className="w-full resize-none bg-transparent text-white text-sm placeholder:text-slate-500 focus:outline-none leading-relaxed"
-              />
-              <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/5">
-                <span className="text-xs text-slate-500">
-                  Enter để gửi · Shift+Enter xuống dòng
-                </span>
-                <button
-                  onClick={() => {
-                    if (initialInput.trim()) sendInitial(initialInput);
-                  }}
-                  disabled={!initialInput.trim()}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-30 disabled:cursor-not-allowed text-white text-xs font-semibold transition-all"
-                >
-                  <Send className="w-3 h-3" />
-                  Bắt đầu
-                </button>
-              </div>
-            </div>
-
-            {/* Disclaimer */}
-            <div className="w-full mt-3 space-y-2 px-1">
-              <div className="flex items-start gap-2">
-                <Info className="w-3.5 h-3.5 text-slate-500 flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  AI sẽ tạo khung nội dung dựa trên ý tưởng của bạn — chưa hoàn
-                  chỉnh 100%. Sau khi tạo xong, bạn có thể kéo thả, chỉnh sửa
-                  từng đoạn văn, thay hình ảnh và tinh chỉnh tự do trong trình
-                  soạn thảo để ra sản phẩm cuối cùng theo đúng ý mình.
-                </p>
-              </div>
-              <div className="flex items-start gap-2">
-                <Info className="w-3.5 h-3.5 text-amber-600/70 flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  Một số block có hiệu ứng động như{" "}
-                  <span className="text-slate-400">slider, tab, accordion</span>
-                  ... cần JavaScript để hoạt động. Nếu trang web hoặc nền tảng
-                  bạn nhúng nội dung không cho phép script, các block này có thể
-                  hiển thị không như mong muốn.
-                </p>
-              </div>
-            </div>
-            </>)}
           </div>
         )}
 
@@ -1224,16 +1319,22 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
                     <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm rounded-2xl rounded-tl-sm px-4 py-3 space-y-1.5">
                       {generatedImage ? (
                         <>
-                          <p className="font-medium">Banner quảng cáo đã tạo xong!</p>
+                          <p className="font-medium">
+                            Banner quảng cáo đã tạo xong!
+                          </p>
                           <p className="text-emerald-400/80 text-xs leading-relaxed">
-                            Ảnh banner được tạo bằng Imagen 3. Tải về để dùng ngay trên Facebook, Instagram, Zalo...
+                            Ảnh banner được tạo bằng Imagen 3. Tải về để dùng
+                            ngay trên Facebook, Instagram, Zalo...
                           </p>
                         </>
                       ) : (
                         <>
-                          <p className="font-medium">Khung nội dung đã được tạo xong!</p>
+                          <p className="font-medium">
+                            Khung nội dung đã được tạo xong!
+                          </p>
                           <p className="text-emerald-400/80 text-xs leading-relaxed">
-                            Đây là bản thảo ~80% theo ý bạn. Mở trình soạn thảo để kéo thả, thay hình ảnh, chỉnh từng đoạn văn.
+                            Đây là bản thảo ~80% theo ý bạn. Mở trình soạn thảo
+                            để kéo thả, thay hình ảnh, chỉnh từng đoạn văn.
                           </p>
                         </>
                       )}
@@ -1254,7 +1355,7 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
                   {generatedImage ? (
                     <a
                       href={`data:${generatedImage.mimeType};base64,${generatedImage.base64}`}
-                      download={`banner-${Date.now()}.${generatedImage.mimeType.split('/')[1] ?? 'jpg'}`}
+                      download={`banner-${Date.now()}.${generatedImage.mimeType.split("/")[1] ?? "jpg"}`}
                       className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-sm font-semibold shadow-lg shadow-emerald-500/20 transition-all active:scale-[0.98]"
                     >
                       <Download className="w-4 h-4" />
@@ -1265,7 +1366,11 @@ export default function CreatePageClient({ plan = "free" }: { plan?: string }) {
                       onClick={() => {
                         if (isNavigating) return;
                         setIsNavigating(true);
-                        router.push(projectId ? `/editor?project=${projectId}` : "/editor");
+                        router.push(
+                          projectId
+                            ? `/editor?project=${projectId}`
+                            : "/editor",
+                        );
                       }}
                       disabled={isNavigating}
                       className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 disabled:opacity-70 disabled:cursor-not-allowed text-white text-sm font-semibold shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98]"
