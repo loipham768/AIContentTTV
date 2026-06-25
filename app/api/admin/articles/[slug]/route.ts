@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidateTag } from 'next/cache'
 import { auth } from '@/auth'
 import { dbConnect } from '@/lib/mongodb'
 import User from '@/models/User'
@@ -46,6 +47,7 @@ export async function PUT(
 
   const result = await ArticleModel.updateOne({ slug }, { $set: update })
   if (result.matchedCount === 0) return NextResponse.json({ error: 'not found' }, { status: 404 })
+  revalidateTag('home-articles')
   return NextResponse.json({ ok: true })
 }
 
