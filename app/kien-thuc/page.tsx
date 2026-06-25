@@ -6,7 +6,7 @@ import { auth } from "@/auth";
 import KienThucArticles from "@/components/KienThucArticles";
 import { SITE_URL } from "@/lib/constants";
 
-export const revalidate = 3600; // ISR: recheck every hour
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Kiến thức AI Content | TaoPage",
