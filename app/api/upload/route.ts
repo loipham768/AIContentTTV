@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { auth } from '@/auth'
 import { dbConnect } from '@/lib/mongodb'
 import UserImage from '@/models/UserImage'
 import path from 'path'
@@ -11,11 +10,6 @@ const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'im
 const MAX_SIZE = 5 * 1024 * 1024 // 5 MB
 
 export async function POST(req: NextRequest) {
-  const session = await auth()
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
   let formData: FormData
   try {
     formData = await req.formData()
@@ -48,7 +42,6 @@ export async function POST(req: NextRequest) {
   let url: string
 
   if (process.env.BLOB_READ_WRITE_TOKEN) {
-    // Production: Vercel Blob
     const { put } = await import('@vercel/blob')
     try {
       const blob = await put(`uploads/${safeName}`, file, { access: 'public' })
@@ -58,7 +51,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Lỗi lưu file. Vui lòng thử lại.' }, { status: 500 })
     }
   } else {
-    // Development: local filesystem
     try {
       const uploadDir = path.join(process.cwd(), 'public', 'uploads')
       await fs.mkdir(uploadDir, { recursive: true })
@@ -71,17 +63,10 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // Lưu metadata vào DB để hiện trong thư viện ảnh của user
   try {
     await dbConnect()
-    await UserImage.create({
-      userId: session.user.id,
-      url,
-      name: file.name,
-      size: file.size,
-    })
+    await UserImage.create({ url, name: file.name, size: file.size })
   } catch (err) {
-    // Non-fatal: file đã upload thành công, chỉ bỏ qua lỗi lưu metadata
     console.error('[/api/upload] db save error:', err)
   }
 

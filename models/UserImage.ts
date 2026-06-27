@@ -2,7 +2,7 @@ import mongoose, { InferSchemaType } from 'mongoose'
 
 const UserImageSchema = new mongoose.Schema(
   {
-    userId: { type: String, required: true, index: true },
+    userId: { type: String, required: false, index: true },
     url:    { type: String, required: true },
     name:   { type: String, required: true },
     size:   { type: Number, required: true },

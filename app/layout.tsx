@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Be_Vietnam_Pro, JetBrains_Mono } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-import BackToTop from "@/components/BackToTop";
-import FloatingContact from "@/components/FloatingContact";
-import ActivityTracker from "@/components/ActivityTracker";
 import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
@@ -22,17 +19,17 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TaoPage — Tạo nội dung HTML đẹp với AI trong 60 giây",
-  description: "Công cụ AI giúp người sáng tạo nội dung Việt Nam tạo khối HTML chuẩn CSS chỉ trong 60 giây. Kéo thả, chỉnh sửa, sao chép vào CMS ngay lập tức.",
-  keywords: "tạo landing page, AI viết content, tạo trang web HTML, công cụ AI Việt Nam, tạo nội dung AI, TaoPage",
+  title: "TaoPage — Create beautiful HTML content with AI in 60 seconds",
+  description: "AI tool that helps content creators build standard CSS HTML blocks in 60 seconds. Drag & drop, edit, and paste into your CMS instantly.",
+  keywords: "create landing page, AI content writing, create HTML webpage, AI tool, AI content creation, TaoPage",
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: SITE_URL },
   icons: {
     icon: [{ url: '/taopage-favicon.svg', type: 'image/svg+xml' }],
   },
   openGraph: {
-    title: "TaoPage — Tạo nội dung HTML đẹp với AI trong 60 giây",
-    description: "Công cụ AI giúp người sáng tạo nội dung Việt Nam tạo khối HTML chuẩn CSS chỉ trong 60 giây. Kéo thả, chỉnh sửa, sao chép vào CMS ngay lập tức.",
+    title: "TaoPage — Create beautiful HTML content with AI in 60 seconds",
+    description: "AI tool that helps content creators build standard CSS HTML blocks in 60 seconds. Drag & drop, edit, and paste into your CMS instantly.",
     url: SITE_URL,
     siteName: "TaoPage",
     images: [
@@ -40,16 +37,16 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "TaoPage — Tạo nội dung HTML với AI",
+        alt: "TaoPage — Create HTML content with AI",
       },
     ],
-    locale: "vi_VN",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "TaoPage — Tạo nội dung HTML đẹp với AI trong 60 giây",
-    description: "Công cụ AI giúp người sáng tạo nội dung Việt Nam tạo khối HTML chuẩn CSS chỉ trong 60 giây.",
+    title: "TaoPage — Create beautiful HTML content with AI in 60 seconds",
+    description: "AI tool that helps content creators build standard CSS HTML blocks in 60 seconds.",
     images: ["/og-image.png"],
   },
 };
@@ -60,15 +57,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi">
+    <html lang="en">
       <body
         className={`${beVietnamPro.variable} ${jetBrainsMono.variable} antialiased`}
       >
         <NextTopLoader color="#4f46e5" height={3} showSpinner={false} />
-        <ActivityTracker />
         {children}
-        <BackToTop />
-        <FloatingContact />
       </body>
     </html>
   );

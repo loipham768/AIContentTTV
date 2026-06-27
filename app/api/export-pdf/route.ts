@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import fs from 'fs'
-import { auth } from '@/auth'
-import { checkOutputAllowed } from '@/lib/planGate'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -14,7 +12,6 @@ const schema = z.object({
   landscape: z.boolean().default(false),
 })
 
-// Paper dimensions in CSS pixels at 96dpi
 const PAPER_DIMS: Record<string, { w: number; h: number }> = {
   A4:     { w: 794,  h: 1123 },
   Letter: { w: 816,  h: 1056 },
@@ -56,7 +53,6 @@ async function launchBrowser() {
   })
 }
 
-// Only handles colors + typography orphan/widow — no break-inside (unreliable on flex)
 const PDF_BASE_CSS = `
 *, *::before, *::after {
   -webkit-print-color-adjust: exact !important;
@@ -76,11 +72,6 @@ p, li { orphans: 3; widows: 3; }
 `
 
 export async function POST(req: NextRequest) {
-  const session = await auth()
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
   let body: unknown
   try {
     body = await req.json()
@@ -91,14 +82,6 @@ export async function POST(req: NextRequest) {
   const parsed = schema.safeParse(body)
   if (!parsed.success) {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
-  }
-
-  const gate = await checkOutputAllowed(session.user.id)
-  if (!gate.allowed) {
-    return NextResponse.json(
-      { error: gate.reason, code: gate.code, upgradeRequired: gate.upgradeRequired },
-      { status: 403 }
-    )
   }
 
   const { html, css, format, landscape } = parsed.data
@@ -128,40 +111,26 @@ ${html}
     browser = await launchBrowser()
     const page = await browser.newPage()
 
-    // Viewport must match paper width so content maps 1:1 to PDF page
     await page.setViewport({ width: pageW, height: pageH })
     await page.setContent(fullHtml, { waitUntil: 'load', timeout: 30_000 })
-
-    // Wait for fonts to render (critical for CV/portfolio typography)
     await page.evaluate(() => document.fonts.ready)
 
-    // JS-based block page-break injection.
-    // CSS break-inside: avoid is unreliable on flex/grid containers in Chrome.
-    // Instead: measure each top-level block's position, and if it would straddle
-    // a page boundary, push it down with margin-top so it starts on the next page.
     await page.evaluate((PAGE_H: number) => {
       const blocks = Array.from(document.body.children) as HTMLElement[]
-
-      // Snapshot positions before any DOM mutation
       const positions = blocks.map((el) => {
         const rect = el.getBoundingClientRect()
         const top = rect.top + window.pageYOffset
         return { el, top, bottom: top + rect.height, height: rect.height }
       })
-
       for (let i = 0; i < positions.length; i++) {
         const pos = positions[i]
         const startPage = Math.floor(pos.top / PAGE_H)
         const endPage = Math.floor((pos.bottom - 1) / PAGE_H)
-
-        // Block straddles a page boundary and fits within a single page
         if (startPage < endPage && pos.height < PAGE_H) {
           const nextPageStart = (startPage + 1) * PAGE_H
           const push = nextPageStart - pos.top
           const existingMargin = parseFloat(window.getComputedStyle(pos.el).marginTop) || 0
           pos.el.style.marginTop = (existingMargin + push) + 'px'
-
-          // Propagate the shift to all following blocks
           for (let j = i + 1; j < positions.length; j++) {
             positions[j].top += push
             positions[j].bottom += push

@@ -120,7 +120,7 @@ export default function IconPickerPanel({ editor }: IconPickerPanelProps) {
   }
 
   const allTabs = [
-    { id: "all", label: "Tất cả" },
+    { id: "all", label: "All" },
     ...ICON_CATEGORIES.map((c) => ({ id: c.id, label: c.label })),
   ];
 
@@ -134,7 +134,7 @@ export default function IconPickerPanel({ editor }: IconPickerPanelProps) {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Tìm icon..."
+            placeholder="Search icons..."
             className="w-full pl-7 pr-2 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-100"
           />
         </div>
@@ -161,7 +161,7 @@ export default function IconPickerPanel({ editor }: IconPickerPanelProps) {
       <div className="flex-1 overflow-y-auto p-2">
         {filtered.length === 0 && (
           <p className="text-center text-xs text-slate-400 py-8">
-            Không tìm thấy icon
+            No icons found
           </p>
         )}
         {filtered.map((cat) => (
@@ -177,7 +177,7 @@ export default function IconPickerPanel({ editor }: IconPickerPanelProps) {
                   key={`${cat.id}-${icon.name}`}
                   onMouseDown={(e) => handleMouseDown(e, icon)}
                   onMouseUp={() => handleMouseUp(icon)}
-                  title={`${icon.label} · Kéo thả hoặc nhấn để chèn`}
+                  title={`${icon.label} · Drag or click to insert`}
                   className="flex flex-col items-center justify-center gap-0.5 p-1.5 rounded-lg hover:bg-blue-50 hover:text-blue-600 text-slate-600 transition-colors group aspect-square cursor-grab active:cursor-grabbing select-none"
                 >
                   <i
@@ -196,7 +196,7 @@ export default function IconPickerPanel({ editor }: IconPickerPanelProps) {
       {/* Hint */}
       <div className="px-3 py-2 bg-slate-50 border-t border-slate-100 flex-shrink-0">
         <p className="text-[9px] text-slate-400 text-center leading-snug">
-          Kéo thả vào canvas · Nhấn để chèn vào chỗ đang chọn
+          Drag to canvas · Click to insert at selection
         </p>
       </div>
     </div>

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import mongoose from 'mongoose'
-import { auth } from '@/auth'
 import { dbConnect } from '@/lib/mongodb'
 import Project from '@/models/Project'
 
@@ -10,11 +9,6 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await auth()
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
   const { id } = await params
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
@@ -26,7 +20,6 @@ export async function PATCH(
   }
 
   const { blockData, name } = body as Record<string, unknown>
-
   const update: Record<string, unknown> = {}
 
   if (name !== undefined) {
@@ -54,12 +47,7 @@ export async function PATCH(
   }
 
   await dbConnect()
-
-  const project = await Project.findOneAndUpdate(
-    { _id: id, userId: session.user.id },
-    { $set: update },
-    { new: true }
-  )
+  const project = await Project.findByIdAndUpdate(id, { $set: update }, { new: true })
 
   if (!project) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
@@ -72,11 +60,6 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await auth()
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
   const { id } = await params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -84,8 +67,7 @@ export async function GET(
   }
 
   await dbConnect()
-
-  const project = await Project.findOne({ _id: id, userId: session.user.id }).lean()
+  const project = await Project.findById(id).lean()
   if (!project) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
   }
@@ -94,14 +76,9 @@ export async function GET(
 }
 
 export async function DELETE(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await auth()
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
   const { id } = await params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -109,11 +86,7 @@ export async function DELETE(
   }
 
   await dbConnect()
-
-  const deleted = await Project.findOneAndDelete({
-    _id: id,
-    userId: session.user.id,
-  })
+  const deleted = await Project.findByIdAndDelete(id)
 
   if (!deleted) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })

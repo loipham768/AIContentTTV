@@ -1,16 +1,16 @@
 ﻿import type { Editor } from 'grapesjs'
 import { registerArticleTemplates } from './articleTemplates'
-import { registerLandingTemplates } from './landingTemplates'
+import { registerReportTemplates } from './reportTemplates'
 
 const FONT = `font-family:'Segoe UI',system-ui,-apple-system,sans-serif;`
 
-const CAT_BASIC    = { id: 'co-ban',     label: 'Cơ bản',      order: 1 }
-const CAT_LAYOUT   = { id: 'bo-cuc',     label: 'Bố cục',      order: 2 }
+const CAT_BASIC    = { id: 'co-ban',     label: 'Basic',       order: 1 }
+const CAT_LAYOUT   = { id: 'bo-cuc',     label: 'Layout',      order: 2 }
 const CAT_MARKET   = { id: 'marketing',  label: 'Marketing',   order: 3 }
 const CAT_SEO      = { id: 'seo',        label: 'SEO',         order: 4 }
 const CAT_MEDIA    = { id: 'media',      label: 'Media',       order: 5 }
-const CAT_NAV      = { id: 'dieu-huong', label: 'Điều hướng',  order: 6 }
-const CAT_CONTACT  = { id: 'lien-he',    label: 'Liên hệ',     order: 7 }
+const CAT_NAV      = { id: 'dieu-huong', label: 'Navigation',  order: 6 }
+const CAT_CONTACT  = { id: 'lien-he',    label: 'Contact',     order: 7 }
 const H1   = `font-size:clamp(32px,7vw,52px);font-weight:800;letter-spacing:-0.025em;line-height:1.15;margin:0;color:#0f172a;${FONT}`
 const H2   = `font-size:clamp(26px,5vw,36px);font-weight:800;letter-spacing:-0.02em;line-height:1.2;margin:0;color:#0f172a;${FONT}`
 const H3   = `font-size:20px;font-weight:700;line-height:1.3;margin:0;color:#0f172a;${FONT}`
@@ -21,11 +21,11 @@ export function registerBlocks(editor: Editor) {
   const bm = editor.BlockManager
   console.log('[DEBUG] registerBlocks called — version 3')
   registerArticleTemplates(editor)
-  registerLandingTemplates(editor)
+  registerReportTemplates(editor)
 
   // ── SEO ─────────────────────────────────────────────────────────────────
   bm.add('toc', {
-    label: 'Mục lục bài viết',
+    label: 'Table of Contents',
     category: CAT_SEO,
     media: `<svg viewBox="0 0 32 28" fill="none"><rect x="1" y="2" width="30" height="24" rx="3" fill="#f0f4ff" stroke="#4f46e5" stroke-width="1.5"/><rect x="5" y="6" width="22" height="2.5" rx="1.25" fill="#4f46e5"/><rect x="5" y="11" width="18" height="2" rx="1" fill="#818cf8" opacity="0.7"/><rect x="7" y="15" width="16" height="2" rx="1" fill="#818cf8" opacity="0.5"/><rect x="7" y="19" width="14" height="2" rx="1" fill="#818cf8" opacity="0.35"/></svg>`,
     content: `<nav data-toc style="background-color:#f8fafc;border-width:1.5px;border-style:solid;border-color:#e0e7ff;border-radius:14px;padding:20px 24px;max-width:680px;box-sizing:border-box;${FONT}">
@@ -64,7 +64,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('article-cta', {
-    label: 'CTA bài viết',
+    label: 'Article CTA',
     category: CAT_SEO,
     media: `<svg viewBox="0 0 32 22" fill="none"><rect x="1" y="1" width="30" height="20" rx="3" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/><rect x="5" y="5" width="14" height="3" rx="1.5" fill="#4f46e5"/><rect x="5" y="10" width="22" height="2" rx="1" fill="#818cf8" opacity="0.5"/><rect x="5" y="14" width="18" height="2" rx="1" fill="#818cf8" opacity="0.35"/><rect x="20" y="5" width="7" height="9" rx="2" fill="#4f46e5"/></svg>`,
     content: `<div style="background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%);border-width:1.5px;border-style:solid;border-color:#c4b5fd;border-radius:16px;padding:28px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:20px;${FONT}">
@@ -166,21 +166,21 @@ export function registerBlocks(editor: Editor) {
 
   // ── Bố cục ──────────────────────────────────────────────────────────────
   bm.add('section', {
-    label: 'Khung',
+    label: 'Section',
     category: CAT_LAYOUT,
     media: `<svg viewBox="0 0 32 24" fill="none"><rect x="1" y="1" width="30" height="22" rx="3" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/><rect x="5" y="6" width="22" height="3" rx="1" fill="#7c3aed" opacity="0.7"/><rect x="5" y="11" width="16" height="2" rx="1" fill="#7c3aed" opacity="0.4"/><rect x="5" y="15" width="11" height="2" rx="1" fill="#7c3aed" opacity="0.25"/></svg>`,
     content: `<section style="padding:56px 24px;width:100%;box-sizing:border-box;background-color:#ffffff;"><div style="max-width:1200px;margin:0 auto;min-height:48px;"></div></section>`,
   })
 
   bm.add('1-col', {
-    label: '1 Cột',
+    label: '1 Column',
     category: CAT_LAYOUT,
     media: `<svg viewBox="0 0 32 24" fill="none"><rect x="2" y="2" width="28" height="20" rx="3" fill="#818cf8"/></svg>`,
     content: `<div style="${COL}"></div>`,
   })
 
   bm.add('2-col', {
-    label: '2 Cột',
+    label: '2 Columns',
     category: CAT_LAYOUT,
     media: `<svg viewBox="0 0 32 24" fill="none"><rect x="1" y="2" width="13" height="20" rx="2.5" fill="#818cf8"/><rect x="16" y="2" width="15" height="20" rx="2.5" fill="#c4b5fd"/></svg>`,
     content: `<div style="display:flex;flex-wrap:wrap;gap:16px;width:100%;box-sizing:border-box;">
@@ -190,7 +190,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('3-col', {
-    label: '3 Cột',
+    label: '3 Columns',
     category: CAT_LAYOUT,
     media: `<svg viewBox="0 0 32 24" fill="none"><rect x="1" y="2" width="8.5" height="20" rx="2" fill="#818cf8"/><rect x="11.5" y="2" width="9" height="20" rx="2" fill="#a5b4fc"/><rect x="22.5" y="2" width="8.5" height="20" rx="2" fill="#c4b5fd"/></svg>`,
     content: `<div style="display:flex;flex-wrap:wrap;gap:16px;width:100%;box-sizing:border-box;">
@@ -201,7 +201,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('4-col', {
-    label: '4 Cột',
+    label: '4 Columns',
     category: CAT_LAYOUT,
     media: `<svg viewBox="0 0 32 24" fill="none"><rect x="1" y="2" width="6" height="20" rx="1.5" fill="#818cf8"/><rect x="9" y="2" width="6" height="20" rx="1.5" fill="#a5b4fc"/><rect x="17" y="2" width="6" height="20" rx="1.5" fill="#c4b5fd"/><rect x="25" y="2" width="6" height="20" rx="1.5" fill="#ddd6fe"/></svg>`,
     content: `<div style="display:flex;flex-wrap:wrap;gap:12px;width:100%;box-sizing:border-box;">
@@ -224,28 +224,28 @@ export function registerBlocks(editor: Editor) {
 
   // ── Cơ bản ──────────────────────────────────────────────────────────────
   bm.add('text', {
-    label: 'Văn bản',
+    label: 'Text',
     category: CAT_BASIC,
     media: `¶`,
     content: `<p style="${BODY}margin:0;">Nhập văn bản của bạn vào đây. Bấm để chỉnh sửa nội dung.</p>`,
   })
 
   bm.add('heading', {
-    label: 'Tiêu đề',
+    label: 'Heading',
     category: CAT_BASIC,
     media: `𝐓`,
     content: `<h2 style="${H2}">Tiêu đề của bạn</h2>`,
   })
 
   bm.add('heading-sm', {
-    label: 'Tiêu đề nhỏ',
+    label: 'Subheading',
     category: CAT_BASIC,
     media: `<svg viewBox="0 0 32 22" fill="none"><rect x="2" y="2" width="18" height="4.5" rx="2" fill="#1d4ed8"/><rect x="2" y="9.5" width="28" height="3" rx="1.5" fill="#94a3b8"/><rect x="2" y="15" width="22" height="3" rx="1.5" fill="#e2e8f0"/></svg>`,
     content: `<h3 style="${H3}">Tiêu đề phụ</h3>`,
   })
 
   bm.add('image', {
-    label: 'Hình ảnh',
+    label: 'Image',
     category: CAT_BASIC,
     media: `<svg viewBox="0 0 32 26" fill="none"><rect x="1" y="1" width="30" height="24" rx="3" fill="#bfdbfe"/><rect x="1" y="1" width="30" height="24" rx="3" stroke="#60a5fa" stroke-width="1.5"/><circle cx="9" cy="8.5" r="3.5" fill="#fbbf24"/><path d="M1 19L10 12L17 17L22 13L31 19" fill="#38bdf8"/><rect x="1" y="17" width="30" height="8" rx="0" fill="#38bdf8"/></svg>`,
     content: `<img src="https://placehold.co/800x420/e0e7ff/6366f1?text=Hình+ảnh" alt="Hình ảnh" style="max-width:100%;height:auto;display:block;border-radius:14px;"/>`,
@@ -253,28 +253,28 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('button', {
-    label: 'Nút bấm',
+    label: 'Button',
     category: CAT_BASIC,
     media: `<svg viewBox="0 0 32 18" fill="none"><rect x="1" y="2" width="30" height="14" rx="7" fill="#4f46e5"/><rect x="9" y="6.5" width="14" height="3" rx="1.5" fill="white" opacity="0.85"/></svg>`,
     content: `<a href="#" style="display:inline-block;padding:13px 30px;background-color:#4f46e5;color:#fff;text-decoration:none;border-radius:10px;font-size:15px;font-weight:600;letter-spacing:0.01em;box-shadow:0 4px 12px rgba(79,70,229,0.35);${FONT}">Nút bấm</a>`,
   })
 
   bm.add('divider', {
-    label: 'Đường kẻ',
+    label: 'Divider',
     category: CAT_BASIC,
     media: `<svg viewBox="0 0 32 12" fill="none"><rect x="1" y="5.25" width="12" height="2" rx="1" fill="#cbd5e1"/><circle cx="16" cy="6.25" r="3" fill="#4f46e5"/><rect x="19" y="5.25" width="12" height="2" rx="1" fill="#cbd5e1"/></svg>`,
     content: `<hr style="border:none;border-top-width:1.5px;border-top-style:solid;border-top-color:#e2e8f0;margin:32px 0;"/>`,
   })
 
   bm.add('spacer', {
-    label: 'Khoảng trống',
+    label: 'Spacer',
     category: CAT_BASIC,
     media: `<svg viewBox="0 0 32 22" fill="none"><rect x="3" y="1" width="26" height="4.5" rx="2" fill="#94a3b8" opacity="0.45"/><path d="M13 9.5L16 7L19 9.5" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="16" y1="7.5" x2="16" y2="14.5" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="2 1.5" stroke-linecap="round"/><path d="M13 12.5L16 15L19 12.5" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="16.5" width="26" height="4.5" rx="2" fill="#94a3b8" opacity="0.45"/></svg>`,
     content: `<div style="height:56px;"></div>`,
   })
 
   bm.add('list', {
-    label: 'Danh sách',
+    label: 'List',
     category: CAT_BASIC,
     media: `📋`,
     content: `<ul style="list-style:none;padding:0;margin:0;${FONT}">
@@ -294,7 +294,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('announcement', {
-    label: 'Thông báo',
+    label: 'Announcement',
     category: CAT_MARKET,
     media: `📢`,
     content: `<div style="background-color:#4f46e5;padding:12px 24px;width:100%;box-sizing:border-box;${FONT}">
@@ -327,7 +327,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('features', {
-    label: 'Tính năng',
+    label: 'Features',
     category: CAT_MARKET,
     media: `⚡`,
     content: `<section style="padding:80px 24px;background-color:#f8fafc;width:100%;box-sizing:border-box;${FONT}">
@@ -359,7 +359,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('cta', {
-    label: 'Kêu gọi',
+    label: 'CTA',
     category: CAT_MARKET,
     media: `📣`,
     content: `<section style="background-color:#312e81;padding:80px 24px;text-align:center;color:#fff;width:100%;box-sizing:border-box;position:relative;overflow:hidden;${FONT}">
@@ -373,7 +373,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('card', {
-    label: 'Thẻ sản phẩm',
+    label: 'Product Card',
     category: CAT_MARKET,
     media: `<svg viewBox="0 0 32 26" fill="none"><rect x="1" y="1" width="30" height="24" rx="3" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/><rect x="1" y="1" width="30" height="9" rx="3" fill="#0891b2"/><rect x="1" y="7" width="30" height="3" fill="#0891b2"/><rect x="5" y="14" width="14" height="2.5" rx="1.25" fill="#334155"/><rect x="5" y="19" width="10" height="2" rx="1" fill="#94a3b8"/></svg>`,
     content: `<div style="background-color:#fff;border-radius:18px;box-shadow:0 2px 8px rgba(0,0,0,0.06),0 12px 32px rgba(79,70,229,0.09);overflow:hidden;max-width:320px;${FONT}">
@@ -393,7 +393,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('testimonial', {
-    label: 'Đánh giá',
+    label: 'Testimonial',
     category: CAT_MARKET,
     media: `💬`,
     content: `<div style="background-color:#fff;border-radius:18px;padding:32px;box-shadow:0 2px 8px rgba(0,0,0,0.05),0 8px 32px rgba(79,70,229,0.08);max-width:600px;position:relative;${FONT}">
@@ -413,7 +413,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('pricing', {
-    label: 'Bảng giá',
+    label: 'Pricing',
     category: CAT_MARKET,
     media: `💳`,
     content: `<div style="display:flex;flex-wrap:wrap;gap:20px;max-width:860px;margin:0 auto;padding:24px;box-sizing:border-box;${FONT}">
@@ -444,7 +444,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('service-table', {
-    label: 'Bảng dịch vụ',
+    label: 'Service Table',
     category: CAT_MARKET,
     media: `📊`,
     content: `<div style="width:100%;box-sizing:border-box;padding:40px 24px;background-color:#f8fafc;${FONT}">
@@ -532,14 +532,14 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('badge', {
-    label: 'Nhãn',
+    label: 'Badge',
     category: CAT_BASIC,
     media: `🏷`,
     content: `<span style="display:inline-block;padding:5px 16px;background-color:#ede9fe;color:#5b21b6;border-radius:9999px;font-size:13px;font-weight:600;${FONT}">✨ Nhãn mới</span>`,
   })
 
   bm.add('icon-text', {
-    label: 'Icon + Nội dung',
+    label: 'Icon + Content',
     category: CAT_MARKET,
     media: `<svg viewBox="0 0 32 24" fill="none"><rect x="1" y="4" width="11" height="11" rx="2.5" fill="#4f46e5"/><rect x="15" y="5" width="16" height="3" rx="1.5" fill="#334155"/><rect x="15" y="11" width="11" height="2.5" rx="1.25" fill="#94a3b8"/><rect x="1" y="19" width="30" height="2.5" rx="1.25" fill="#e2e8f0"/></svg>`,
     content: `<div style="display:flex;align-items:flex-start;gap:18px;padding:20px;${FONT}">
@@ -553,7 +553,7 @@ export function registerBlocks(editor: Editor) {
 
   // ── Landing page essentials ─────────────────────────────────────────────
   bm.add('stats', {
-    label: 'Số liệu',
+    label: 'Stats',
     category: CAT_MARKET,
     media: `📈`,
     content: `<section style="padding:64px 24px;background-color:#fff;width:100%;box-sizing:border-box;${FONT}">
@@ -579,7 +579,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('steps', {
-    label: 'Quy trình',
+    label: 'Process Steps',
     category: CAT_MARKET,
     media: `<svg viewBox="0 0 32 26" fill="none"><circle cx="8" cy="6" r="4.5" fill="#4f46e5"/><circle cx="17" cy="6" r="4.5" fill="#818cf8"/><circle cx="26" cy="6" r="4.5" fill="#c4b5fd"/><rect x="3.5" y="11.5" width="5" height="2" rx="1" fill="#4f46e5" opacity="0.5"/><rect x="3.5" y="16" width="5" height="2" rx="1" fill="#4f46e5" opacity="0.3"/><rect x="3.5" y="20.5" width="5" height="2" rx="1" fill="#4f46e5" opacity="0.2"/></svg>`,
     content: `<section style="padding:80px 24px;background-color:#f8fafc;width:100%;box-sizing:border-box;${FONT}">
@@ -616,7 +616,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('faq', {
-    label: 'Câu hỏi FAQ',
+    label: 'FAQ',
     category: CAT_MARKET,
     media: `❓`,
     content: `<section style="padding:80px 24px;background-color:#fff;width:100%;box-sizing:border-box;${FONT}">
@@ -669,7 +669,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('team', {
-    label: 'Đội ngũ',
+    label: 'Team',
     category: CAT_MARKET,
     media: `👥`,
     content: `<section style="padding:80px 24px;background-color:#f8fafc;width:100%;box-sizing:border-box;${FONT}">
@@ -728,7 +728,7 @@ export function registerBlocks(editor: Editor) {
   })
 
   bm.add('gallery', {
-    label: 'Thư viện ảnh',
+    label: 'Gallery',
     category: CAT_MEDIA,
     media: `🎞`,
     content: `<div style="padding:16px;background-color:#f8fafc;width:100%;box-sizing:border-box;">

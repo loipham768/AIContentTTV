@@ -33,20 +33,20 @@ export default function PromptBar({ editorRef, onSuccess }: PromptBarProps) {
 
       if (!res.ok) {
         setError(res.status === 429
-          ? 'Vui lòng đợi vài giây trước khi tạo nội dung mới.'
-          : 'Đã xảy ra lỗi. Vui lòng thử lại.')
+          ? 'Please wait a few seconds before generating new content.'
+          : 'An error occurred. Please try again.')
         return
       }
 
       const parsed = GrapesBlockSchema.safeParse(data.block)
       if (!parsed.success) {
-        setError('Dữ liệu nhận được không hợp lệ. Vui lòng thử lại.')
+        setError('Received invalid data. Please try again.')
         return
       }
       editorRef.current?.loadProjectData(parsed.data as Parameters<typeof editorRef.current.loadProjectData>[0])
       onSuccess?.()
     } catch {
-      setError('Đã xảy ra lỗi. Vui lòng thử lại.')
+      setError('An error occurred. Please try again.')
     } finally {
       setIsLoading(false)
     }
@@ -68,7 +68,7 @@ export default function PromptBar({ editorRef, onSuccess }: PromptBarProps) {
           <div className="w-5 h-5 rounded-md bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center">
             <Sparkles className="w-3 h-3 text-white" />
           </div>
-          <span className="text-xs font-semibold text-slate-700">Tạo nội dung với AI</span>
+          <span className="text-xs font-semibold text-slate-700">Generate content with AI</span>
         </div>
         <span className={`text-xs tabular-nums ${nearLimit ? 'text-amber-500 font-medium' : 'text-slate-400'}`}>
           {remaining}
@@ -81,7 +81,7 @@ export default function PromptBar({ editorRef, onSuccess }: PromptBarProps) {
           value={prompt}
           onChange={handlePromptChange}
           disabled={isLoading}
-          placeholder="Mô tả nội dung muốn tạo... VD: Banner khuyến mãi 50% cho shop thời trang"
+          placeholder="Describe the content you want to create... e.g. 50% discount banner for a fashion shop"
           maxLength={500}
           rows={2}
           className={[
@@ -107,12 +107,12 @@ export default function PromptBar({ editorRef, onSuccess }: PromptBarProps) {
           {isLoading ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin flex-shrink-0" />
-              <span>Đang tạo...</span>
+              <span>Generating...</span>
             </>
           ) : (
             <>
               <Sparkles className="w-4 h-4 flex-shrink-0" />
-              <span>Tạo nội dung</span>
+              <span>Generate</span>
             </>
           )}
         </button>

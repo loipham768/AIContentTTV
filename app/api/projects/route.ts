@@ -1,19 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import { auth } from '@/auth'
 import { dbConnect } from '@/lib/mongodb'
 import Project from '@/models/Project'
 
 export const runtime = 'nodejs'
 
 export async function GET() {
-  const session = await auth()
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
   await dbConnect()
-  const projects = await Project.find({ userId: session.user.id })
+  const projects = await Project.find({})
     .sort({ createdAt: -1 })
     .select('_id name prompt blockData createdAt')
     .lean()
@@ -28,11 +22,6 @@ const createSchema = z.object({
 })
 
 export async function POST(req: NextRequest) {
-  const session = await auth()
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
   let body: unknown
   try {
     body = await req.json()
@@ -55,7 +44,6 @@ export async function POST(req: NextRequest) {
 
   await dbConnect()
   const project = await Project.create({
-    userId: session.user.id,
     name: parsed.data.name,
     prompt: parsed.data.prompt,
     blockData: parsed.data.blockData,

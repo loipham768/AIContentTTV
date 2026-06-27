@@ -44,9 +44,8 @@ const gradientPlugin = (editor: Editor) => {
 // ─── "Xem thêm mẫu" buttons ──────────────────────────────────────────────────
 
 const SEE_MORE_DEFS = [
-  { label: 'Mẫu bài viết',     type: 'article' },
-  { label: 'Mẫu Landing Page', type: 'landing' },
-  { label: 'Mẫu Quảng cáo',   type: 'ads'     },
+  { label: 'Content Templates', type: 'content' },
+  { label: 'Report Templates',  type: 'report'  },
 ]
 
 function findCategoryContainer(
@@ -87,7 +86,7 @@ function injectSeeMoreLinks(retries = 8) {
 
     const a = document.createElement('a')
     a.setAttribute('data-see-more', type)
-    a.href    = `/templates?type=${type}`
+    a.href    = `/create`
     a.target  = '_blank'
     a.rel     = 'noopener noreferrer'
     a.style.cssText = [
@@ -98,7 +97,7 @@ function injectSeeMoreLinks(retries = 8) {
       "font-family:'Segoe UI',system-ui,sans-serif", 'cursor:pointer',
       'box-sizing:border-box', 'transition:background .15s,border-color .15s',
     ].join(';')
-    a.textContent = '+ Xem thêm mẫu'
+    a.textContent = '+ See more templates'
     a.addEventListener('mouseenter', () => {
       a.style.background   = '#e0e7ff'
       a.style.borderColor  = '#a5b4fc'
@@ -138,15 +137,15 @@ function injectPlaceholders() {
 }
 
 const TAG_OPTIONS = [
-  { value: "h1", label: "h1  —  Tiêu đề 1" },
-  { value: "h2", label: "h2  —  Tiêu đề 2" },
-  { value: "h3", label: "h3  —  Tiêu đề 3" },
-  { value: "h4", label: "h4  —  Tiêu đề 4" },
-  { value: "h5", label: "h5  —  Tiêu đề 5" },
-  { value: "h6", label: "h6  —  Tiêu đề 6" },
-  { value: "p", label: "p  —  Đoạn văn" },
-  { value: "span", label: "span  —  Nội tuyến" },
-  { value: "div", label: "div  —  Khối" },
+  { value: "h1", label: "h1  —  Heading 1" },
+  { value: "h2", label: "h2  —  Heading 2" },
+  { value: "h3", label: "h3  —  Heading 3" },
+  { value: "h4", label: "h4  —  Heading 4" },
+  { value: "h5", label: "h5  —  Heading 5" },
+  { value: "h6", label: "h6  —  Heading 6" },
+  { value: "p", label: "p  —  Paragraph" },
+  { value: "span", label: "span  —  Inline" },
+  { value: "div", label: "div  —  Block" },
   // { value: 'strong',     label: 'strong  —  In đậm' },
   // { value: 'em',         label: 'em  —  In nghiêng' },
   // { value: 'a',          label: 'a  —  Liên kết' },
@@ -168,7 +167,7 @@ function buildTagWidget(editor: Editor): HTMLDivElement {
   wrap.style.cssText = "padding:6px 0 10px;";
 
   const lbl = document.createElement("div");
-  lbl.textContent = "Thẻ HTML";
+  lbl.textContent = "HTML Tag";
   lbl.style.cssText =
     "font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px;";
 
@@ -180,7 +179,7 @@ function buildTagWidget(editor: Editor): HTMLDivElement {
   // Placeholder khi chưa chọn element
   const ph = document.createElement("option");
   ph.value = "";
-  ph.textContent = "— Chưa chọn phần tử —";
+  ph.textContent = "— No element selected —";
   ph.disabled = true;
   ph.selected = true;
   sel.appendChild(ph);
@@ -416,7 +415,7 @@ export default function GrapesEditor({
       // ── Icon picker button ─────────────────────────────────────────────
       const btn = document.createElement("span");
       btn.id = "gjs-icon-insert-btn";
-      btn.title = "Chèn icon";
+      btn.title = "Insert icon";
       btn.textContent = "☺";
       btn.style.cssText =
         "display:inline-flex;align-items:center;padding:0 7px;" +
@@ -584,17 +583,16 @@ export default function GrapesEditor({
             messages: {
               en: {
                 styleManager: {
-                  empty: 'Chọn một phần tử để chỉnh sửa kiểu dáng',
-                  layer: 'Lớp',
-                  fileButton: 'Hình ảnh',
+                  empty: 'Select an element to edit its style',
+                  layer: 'Layer',
+                  fileButton: 'Image',
                   sectors: {
-                    // Override GrapesJS built-in English sector names
-                    typography: 'Kiểu chữ',
-                    dimension: 'Kích thước',
-                    layout: 'Bố cục (Flex/Grid)',
-                    general: 'Chung',
-                    decorations: 'Trang trí',
-                    extra: 'Bổ sung',
+                    typography: 'Typography',
+                    dimension: 'Dimension',
+                    layout: 'Layout (Flex/Grid)',
+                    general: 'General',
+                    decorations: 'Decorations',
+                    extra: 'Extra',
                     flex: 'Flex',
                   },
                 },

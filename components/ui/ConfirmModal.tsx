@@ -45,7 +45,7 @@ export function ConfirmModal({ isOpen, title, subText, confirmLabel, confirmVari
             disabled={loading}
             className="px-4 py-2 text-sm rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50"
           >
-            Hủy
+            Cancel
           </button>
           <button
             onClick={handleConfirm}
@@ -53,7 +53,7 @@ export function ConfirmModal({ isOpen, title, subText, confirmLabel, confirmVari
             className={`${btnBase} ${btnVariant}`}
           >
             {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-            {loading ? 'Đang xử lý…' : confirmLabel}
+            {loading ? 'Processing…' : confirmLabel}
           </button>
         </div>
       </div>

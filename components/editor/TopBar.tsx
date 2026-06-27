@@ -18,11 +18,6 @@ import {
   Download,
   FileText,
   Lock,
-  Crown,
-  LayoutTemplate,
-  Sparkles,
-  Gem,
-  PenTool,
   Save,
   Check,
   AlertCircle,
@@ -32,11 +27,10 @@ import {
   ExternalLink,
   RefreshCw,
   FilePlus2,
+  Sparkles,
   EyeOff as Unpublish,
 } from "lucide-react";
 import Logo from "@/components/Logo";
-import Link from "next/link";
-import UserAvatar from "@/components/UserAvatar";
 
 type SaveStatus = "idle" | "saving" | "saved" | "error";
 type ExportAction = "copy" | "download" | "pdf";
@@ -87,7 +81,6 @@ export default function TopBar({
   const [clearPending, setClearPending] = useState(false);
   const [loading, setLoading] = useState(false);
   const [newProjectLoading, setNewProjectLoading] = useState(false);
-  const [showUpgrade, setShowUpgrade] = useState(false);
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [exportConfirm, setExportConfirm] = useState<ExportAction | null>(null);
   const exportMenuRef = useRef<HTMLDivElement>(null);
@@ -183,22 +176,15 @@ export default function TopBar({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ html: ed.getHtml(), css: ed.getCss() ?? "" }),
       });
-      if (res.status === 403) {
-        const data = await res.json().catch(() => ({}));
-        if (data.upgradeRequired) setShowUpgrade(true);
-        setCopyError(data.error ?? "Tài khoản không có quyền xuất HTML.");
-        setTimeout(() => setCopyError(null), 5000);
-        return null;
-      }
-      if (!res.ok) {
-        setCopyError("Đã xảy ra lỗi. Vui lòng thử lại.");
+        if (!res.ok) {
+        setCopyError("An error occurred. Please try again.");
         setTimeout(() => setCopyError(null), 3000);
         return null;
       }
       const { html } = await res.json();
       return html as string;
     } catch {
-      setCopyError("Đã xảy ra lỗi. Vui lòng thử lại.");
+      setCopyError("An error occurred. Please try again.");
       setTimeout(() => setCopyError(null), 3000);
       return null;
     } finally {
@@ -207,10 +193,6 @@ export default function TopBar({
   }
 
   async function handleCopyHtml() {
-    if (!canExport) {
-      setShowUpgrade(true);
-      return;
-    }
     const html = await getCleanHtml();
     if (!html) return;
     const scripts = generateInteractiveScripts(html);
@@ -221,21 +203,17 @@ export default function TopBar({
       setCopied(true);
       setTimeout(() => setCopied(false), 3000);
     } catch {
-      setCopyError("Không thể sao chép. Thử lại.");
+      setCopyError("Could not copy. Try again.");
       setTimeout(() => setCopyError(null), 3000);
     }
   }
 
   async function handleExportHtml() {
-    if (!canExport) {
-      setShowUpgrade(true);
-      return;
-    }
     const body = await getCleanHtml();
     if (!body) return;
     const scripts = generateInteractiveScripts(body);
     const full = `<!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -262,10 +240,6 @@ ${body}${scripts ? "\n" + scripts : ""}
   }
 
   async function handleExportPdf() {
-    if (!canExport) {
-      setShowUpgrade(true);
-      return;
-    }
     const ed = editorRef.current;
     if (!ed) return;
 
@@ -281,15 +255,8 @@ ${body}${scripts ? "\n" + scripts : ""}
           landscape: false,
         }),
       });
-      if (res.status === 403) {
-        const data = await res.json().catch(() => ({}));
-        if (data.upgradeRequired) setShowUpgrade(true);
-        setCopyError(data.error ?? "Tài khoản không có quyền xuất PDF.");
-        setTimeout(() => setCopyError(null), 5000);
-        return;
-      }
       if (!res.ok) {
-        setCopyError("Đã xảy ra lỗi khi tạo PDF. Vui lòng thử lại.");
+        setCopyError("An error occurred while generating PDF. Please try again.");
         setTimeout(() => setCopyError(null), 3000);
         return;
       }
@@ -303,7 +270,7 @@ ${body}${scripts ? "\n" + scripts : ""}
       setPdfExported(true);
       setTimeout(() => setPdfExported(false), 3000);
     } catch {
-      setCopyError("Đã xảy ra lỗi. Vui lòng thử lại.");
+      setCopyError("An error occurred. Please try again.");
       setTimeout(() => setCopyError(null), 3000);
     } finally {
       setLoading(false);
@@ -311,13 +278,8 @@ ${body}${scripts ? "\n" + scripts : ""}
   }
 
   async function handlePublish() {
-    if (!canPublish) {
-      setShowUpgrade(true);
-      return;
-    }
     if (!projectId) {
-      // Prompt user to save first
-      setCopyError("Hãy lưu dự án trước khi xuất bản.");
+      setCopyError("Please save your project before publishing.");
       setTimeout(() => setCopyError(null), 4000);
       return;
     }
@@ -336,13 +298,8 @@ ${body}${scripts ? "\n" + scripts : ""}
           css: ed.getCss() ?? "",
         }),
       });
-      if (res.status === 403) {
-        const data = await res.json().catch(() => ({}));
-        if (data.upgradeRequired) setShowUpgrade(true);
-        return;
-      }
       if (!res.ok) {
-        setCopyError("Xuất bản thất bại. Vui lòng thử lại.");
+        setCopyError("Publishing failed. Please try again.");
         setTimeout(() => setCopyError(null), 3000);
         return;
       }
@@ -351,7 +308,7 @@ ${body}${scripts ? "\n" + scripts : ""}
       setPublishedUrl(data.url);
       setShowPublishModal(true);
     } catch {
-      setCopyError("Đã xảy ra lỗi. Vui lòng thử lại.");
+      setCopyError("An error occurred. Please try again.");
       setTimeout(() => setCopyError(null), 3000);
     } finally {
       setPublishLoading(false);
@@ -367,7 +324,7 @@ ${body}${scripts ? "\n" + scripts : ""}
       setPublishedUrl(null);
       setShowPublishModal(false);
     } catch {
-      setCopyError("Gỡ xuất bản thất bại.");
+      setCopyError("Unpublish failed.");
       setTimeout(() => setCopyError(null), 3000);
     }
   }
@@ -392,26 +349,15 @@ ${body}${scripts ? "\n" + scripts : ""}
     setNewProjectLoading(true);
     try {
       const res = await fetch("/api/projects/blank", { method: "POST" });
-      if (res.status === 401) {
-        window.location.href = "/login";
-        return;
-      }
-      if (res.status === 403) {
-        const data = await res.json().catch(() => ({}));
-        if (data.upgradeRequired) setShowUpgrade(true);
-        setCopyError(data.error ?? "Hết lượt tạo project.");
-        setTimeout(() => setCopyError(null), 5000);
-        return;
-      }
       if (!res.ok) {
-        setCopyError("Đã xảy ra lỗi. Vui lòng thử lại.");
+        setCopyError("An error occurred. Please try again.");
         setTimeout(() => setCopyError(null), 3000);
         return;
       }
       const { projectId } = await res.json();
       window.location.href = `/editor?project=${projectId}`;
     } catch {
-      setCopyError("Lỗi kết nối. Vui lòng thử lại.");
+      setCopyError("Connection error. Please try again.");
       setTimeout(() => setCopyError(null), 3000);
     } finally {
       setNewProjectLoading(false);
@@ -459,14 +405,14 @@ ${body}${scripts ? "\n" + scripts : ""}
           <a
             href="/create"
             className="p-1.5 rounded-lg text-slate-400 hover:bg-slate-700 hover:text-white transition-all"
-            title="Tạo nội dung mới với AI"
+            title="Create new content with AI"
           >
             <Sparkles className="w-3.5 h-3.5" />
           </a>
           <button
             onClick={handleNewBlankProject}
             disabled={newProjectLoading}
-            title="Tạo project trống mới (1 lượt)"
+            title="Create new blank project"
             className={`p-1.5 rounded-lg transition-all ${
               newProjectLoading
                 ? "text-slate-600 cursor-wait"
@@ -479,13 +425,6 @@ ${body}${scripts ? "\n" + scripts : ""}
               <FilePlus2 className="w-3.5 h-3.5" />
             )}
           </button>
-          <a
-            href="/templates"
-            className="p-1.5 rounded-lg text-slate-400 hover:bg-slate-700 hover:text-white transition-all"
-            title="Thư viện mẫu"
-          >
-            <LayoutTemplate className="w-3.5 h-3.5" />
-          </a>
         </div>
 
         {/* Center controls */}
@@ -494,13 +433,13 @@ ${body}${scripts ? "\n" + scripts : ""}
             {iconBtn(
               () => editorRef.current?.runCommand("core:undo"),
               <Undo2 className="w-3.5 h-3.5" />,
-              "Hoàn tác (Ctrl+Z)",
+              "Undo (Ctrl+Z)",
               !canUndo,
             )}
             {iconBtn(
               () => editorRef.current?.runCommand("core:redo"),
               <Redo2 className="w-3.5 h-3.5" />,
-              "Làm lại (Ctrl+Y)",
+              "Redo (Ctrl+Y)",
               !canRedo,
             )}
           </div>
@@ -532,7 +471,7 @@ ${body}${scripts ? "\n" + scripts : ""}
             <button
               onClick={handleZoomOut}
               className="px-1.5 py-1.5 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
-              title="Thu nhỏ"
+              title="Zoom Out"
             >
               <ZoomOut className="w-3 h-3" />
             </button>
@@ -546,7 +485,7 @@ ${body}${scripts ? "\n" + scripts : ""}
             <button
               onClick={handleZoomIn}
               className="px-1.5 py-1.5 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
-              title="Phóng to"
+              title="Zoom In"
             >
               <ZoomIn className="w-3 h-3" />
             </button>
@@ -556,7 +495,7 @@ ${body}${scripts ? "\n" + scripts : ""}
 
           <button
             onClick={onTogglePreview}
-            title={isPreview ? "Thoát xem trước (Esc)" : "Xem trước"}
+            title={isPreview ? "Exit Preview (Esc)" : "Preview"}
             className={`flex items-center gap-1 px-2 py-1.5 text-xs font-medium rounded-lg transition-all flex-shrink-0 ${
               isPreview
                 ? "bg-indigo-500 text-white shadow-md shadow-indigo-500/30"
@@ -569,13 +508,13 @@ ${body}${scripts ? "\n" + scripts : ""}
               <Eye className="w-3.5 h-3.5" />
             )}
             <span className="hidden sm:inline text-xs">
-              {isPreview ? "Thoát" : "Preview"}
+              {isPreview ? "Exit" : "Preview"}
             </span>
           </button>
 
           <button
             onClick={handleClearCanvas}
-            title="Xóa toàn bộ canvas"
+            title="Clear entire canvas"
             className={`hidden sm:flex items-center gap-1 px-2 py-1.5 text-xs font-medium rounded-lg transition-all flex-shrink-0 ${
               clearPending
                 ? "bg-red-500 text-white shadow-md shadow-red-500/30"
@@ -584,7 +523,7 @@ ${body}${scripts ? "\n" + scripts : ""}
           >
             <Trash2 className="w-3.5 h-3.5" />
             <span className="hidden xl:inline">
-              {clearPending ? "Xác nhận?" : "Xóa"}
+              {clearPending ? "Confirm?" : "Clear"}
             </span>
           </button>
         </div>
@@ -596,7 +535,7 @@ ${body}${scripts ? "\n" + scripts : ""}
             <button
               onClick={onSave}
               disabled={saveStatus === "saving"}
-              title="Lưu tiến trình"
+              title="Save progress"
               className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 saveStatus === "saving"
                   ? "text-slate-400 cursor-wait"
@@ -618,12 +557,12 @@ ${body}${scripts ? "\n" + scripts : ""}
               )}
               <span className="hidden sm:inline">
                 {saveStatus === "saving"
-                  ? "Đang lưu..."
+                  ? "Saving..."
                   : saveStatus === "saved"
-                    ? "Đã lưu"
+                    ? "Saved"
                     : saveStatus === "error"
-                      ? "Lỗi lưu"
-                      : "Lưu"}
+                      ? "Save error"
+                      : "Save"}
               </span>
             </button>
           )}
@@ -637,10 +576,10 @@ ${body}${scripts ? "\n" + scripts : ""}
               disabled={publishLoading}
               title={
                 !canPublish
-                  ? "Nâng cấp để xuất bản trang"
+                  ? "Upgrade to publish page"
                   : publishedSlug
-                    ? "Xem thông tin xuất bản"
-                    : "Xuất bản trang công khai"
+                    ? "View publish info"
+                    : "Publish page publicly"
               }
               className={`relative flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 !canPublish
@@ -662,10 +601,10 @@ ${body}${scripts ? "\n" + scripts : ""}
               )}
               <span className="hidden sm:inline">
                 {publishLoading
-                  ? "Đang xuất bản..."
+                  ? "Publishing..."
                   : publishedSlug
-                    ? "Đã xuất bản"
-                    : "Xuất bản"}
+                    ? "Published"
+                    : "Publish"}
               </span>
             </button>
           )}
@@ -673,34 +612,16 @@ ${body}${scripts ? "\n" + scripts : ""}
           {/* Export dropdown */}
           <div className="relative" ref={exportMenuRef}>
             <button
-              onClick={() => {
-                if (!canExport) {
-                  setShowUpgrade(true);
-                  return;
-                }
-                setShowExportMenu((v) => !v);
-              }}
+              onClick={() => setShowExportMenu((v) => !v)}
               disabled={loading}
-              title={canExport ? "Xuất HTML" : "Nâng cấp để xuất HTML"}
+              title="Export HTML"
               className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                !canExport
-                  ? "text-slate-500 cursor-not-allowed"
-                  : showExportMenu
-                    ? "bg-slate-700 text-white"
-                    : "text-slate-300 hover:text-white hover:bg-slate-700"
+                showExportMenu ? "bg-slate-700 text-white" : "text-slate-300 hover:text-white hover:bg-slate-700"
               }`}
             >
-              {canExport ? (
-                <Code2 className="w-3.5 h-3.5" />
-              ) : (
-                <Lock className="w-3.5 h-3.5" />
-              )}
-              <span className="hidden sm:inline">Xuất HTML</span>
-              {canExport && (
-                <ChevronDown
-                  className={`w-3 h-3 transition-transform ${showExportMenu ? "rotate-180" : ""}`}
-                />
-              )}
+              <Code2 className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Export HTML</span>
+              <ChevronDown className={`w-3 h-3 transition-transform ${showExportMenu ? "rotate-180" : ""}`} />
             </button>
 
             {showExportMenu && (
@@ -712,7 +633,7 @@ ${body}${scripts ? "\n" + scripts : ""}
                   }}
                   className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-xs text-slate-200 hover:bg-slate-700 hover:text-white transition-colors"
                 >
-                  <Copy className="w-3.5 h-3.5 text-slate-400" /> Sao chép HTML
+                  <Copy className="w-3.5 h-3.5 text-slate-400" /> Copy HTML
                 </button>
                 <div className="h-px bg-slate-700" />
                 <button
@@ -722,8 +643,7 @@ ${body}${scripts ? "\n" + scripts : ""}
                   }}
                   className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-xs text-slate-200 hover:bg-slate-700 hover:text-white transition-colors"
                 >
-                  <Download className="w-3.5 h-3.5 text-slate-400" /> Tải file
-                  HTML
+                  <Download className="w-3.5 h-3.5 text-slate-400" /> Download HTML
                 </button>
                 <div className="h-px bg-slate-700" />
                 <button
@@ -733,64 +653,12 @@ ${body}${scripts ? "\n" + scripts : ""}
                   }}
                   className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-xs text-slate-200 hover:bg-slate-700 hover:text-white transition-colors"
                 >
-                  <FileText className="w-3.5 h-3.5 text-slate-400" /> Xuất PDF
+                  <FileText className="w-3.5 h-3.5 text-slate-400" /> Export PDF
                 </button>
               </div>
             )}
           </div>
 
-          <div className="w-px h-4 bg-slate-700 mx-0.5" />
-
-          {guestMode ? (
-            <Link
-              href="/login?tab=register"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-indigo-500 to-violet-600 text-white hover:opacity-90 transition-opacity shadow-sm shadow-indigo-500/30"
-            >
-              Đăng ký miễn phí →
-            </Link>
-          ) : (
-            <>
-              {/* Plan badge */}
-              <Link
-                href="/profile"
-                title={`Gói ${plan === "free" ? "Miễn phí" : plan === "designer" ? "Designer" : plan === "basic" ? "Basic" : "Pro"} · Xem profile`}
-              >
-                {plan === "free" && (
-                  <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold text-slate-400 bg-slate-800 border border-slate-700 hover:border-slate-500 transition-colors">
-                    <Sparkles className="w-2.5 h-2.5" /> Free
-                  </span>
-                )}
-                {plan === "designer" && (
-                  <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-gradient-to-r from-teal-500 to-cyan-500 shadow-sm shadow-teal-500/30">
-                    <PenTool className="w-2.5 h-2.5" /> Designer
-                  </span>
-                )}
-                {plan === "basic" && (
-                  <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-gradient-to-r from-indigo-500 to-violet-500 shadow-sm shadow-indigo-500/30">
-                    <Crown className="w-2.5 h-2.5" /> Basic
-                  </span>
-                )}
-                {plan === "pro" && (
-                  <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-amber-900 bg-gradient-to-r from-amber-400 to-orange-400 shadow-sm shadow-amber-500/30">
-                    <Gem className="w-2.5 h-2.5" /> Pro
-                  </span>
-                )}
-              </Link>
-
-              <Link
-                href="/profile"
-                title={fullName || userEmail}
-                className="hover:opacity-80 transition-opacity"
-              >
-                <UserAvatar
-                  avatarUrl={avatarUrl}
-                  fullName={fullName}
-                  email={userEmail}
-                  size={28}
-                />
-              </Link>
-            </>
-          )}
         </div>
       </div>
 
@@ -813,10 +681,10 @@ ${body}${scripts ? "\n" + scripts : ""}
               </div>
               <div>
                 <h3 className="font-bold text-gray-900 text-sm">
-                  Trang đã được xuất bản
+                  Page has been published
                 </h3>
                 <p className="text-xs text-gray-400 mt-0.5">
-                  Ai cũng có thể truy cập qua link này
+                  Anyone can access via this link
                 </p>
               </div>
             </div>
@@ -844,7 +712,7 @@ ${body}${scripts ? "\n" + scripts : ""}
                 ) : (
                   <Copy className="w-3 h-3" />
                 )}
-                {publishLinkCopied ? "Đã sao chép" : "Sao chép"}
+                {publishLinkCopied ? "Copied" : "Copy"}
               </button>
             </div>
 
@@ -864,7 +732,7 @@ ${body}${scripts ? "\n" + scripts : ""}
                 }`}
               >
                 <Unpublish className="w-3.5 h-3.5" />
-                {unpublishPending ? "Xác nhận gỡ?" : "Gỡ xuất bản"}
+                {unpublishPending ? "Confirm unpublish?" : "Unpublish"}
               </button>
               <a
                 href={publishedUrl}
@@ -874,7 +742,7 @@ ${body}${scripts ? "\n" + scripts : ""}
                 onClick={() => setShowPublishModal(false)}
               >
                 <ExternalLink className="w-3.5 h-3.5" />
-                Mở trang
+                Open page
               </a>
               <button
                 onClick={handlePublish}
@@ -884,7 +752,7 @@ ${body}${scripts ? "\n" + scripts : ""}
                 <RefreshCw
                   className={`w-3.5 h-3.5 ${publishLoading ? "animate-spin" : ""}`}
                 />
-                Cập nhật
+                Update
               </button>
             </div>
           </div>
@@ -914,29 +782,29 @@ ${body}${scripts ? "\n" + scripts : ""}
               <div>
                 <h3 className="font-bold text-gray-900 text-sm">
                   {exportConfirm === "copy"
-                    ? "Sao chép HTML"
+                    ? "Copy HTML"
                     : exportConfirm === "pdf"
-                      ? "Xuất PDF"
-                      : "Tải file HTML"}
+                      ? "Export PDF"
+                      : "Download HTML"}
                 </h3>
                 <p className="text-xs text-gray-400 mt-0.5">
-                  Xác nhận xuất nội dung
+                  Confirm content export
                 </p>
               </div>
             </div>
             <p className="text-sm text-gray-600 mb-5 leading-relaxed">
               {exportConfirm === "copy"
-                ? "Toàn bộ nội dung sẽ được xử lý và CSS nhúng inline — sẵn sàng dán vào Haravan, Sapo, các Editor hoặc bất kỳ nền tảng nào."
+                ? "All content will be processed with CSS inlined — ready to paste into any CMS, page builder, or platform."
                 : exportConfirm === "pdf"
-                  ? "Nội dung sẽ được render trên server và xuất thành file PDF — chất lượng cao, giữ nguyên font chữ và màu sắc. Phù hợp cho portfolio, CV."
-                  : "Toàn bộ nội dung sẽ được xử lý và CSS nhúng inline — tải xuống dưới dạng file index.html sẵn sàng dùng ngay."}
+                  ? "Content will be rendered server-side and exported as a PDF file — high quality, preserving fonts and colors. Great for portfolios and CVs."
+                  : "All content will be processed with CSS inlined — downloaded as an index.html file ready to use."}
             </p>
             <div className="flex gap-2">
               <button
                 onClick={() => setExportConfirm(null)}
                 className="flex-1 py-2 text-sm text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors"
               >
-                Hủy
+                Cancel
               </button>
               <button
                 onClick={() => {
@@ -948,67 +816,13 @@ ${body}${scripts ? "\n" + scripts : ""}
                 }}
                 className="flex-1 py-2 text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl hover:opacity-90 transition-opacity"
               >
-                Tiếp tục
+                Continue
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Upgrade prompt overlay */}
-      {showUpgrade && (
-        <div
-          className="fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center p-4"
-          onClick={() => setShowUpgrade(false)}
-        >
-          <div
-            className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
-                <Crown className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-900">
-                  {guestMode ? "Đăng ký để tiếp tục" : "Nâng cấp để mở khoá"}
-                </h3>
-                <p className="text-xs text-gray-500">
-                  {guestMode
-                    ? "Tạo tài khoản miễn phí để tiếp tục"
-                    : "Tính năng dành cho gói Basic và Pro"}
-                </p>
-              </div>
-            </div>
-            <p className="text-sm text-gray-600 mb-5">
-              {guestMode ? (
-                "Đây là bản demo. Đăng ký tài khoản miễn phí để lưu dự án và dùng AI tạo nội dung."
-              ) : (
-                <>
-                  Gói miễn phí không hỗ trợ xuất HTML và xuất bản trang. Nâng
-                  cấp lên gói <strong>Basic (69.000đ/tháng)</strong> để mở khoá
-                  tính năng này.
-                </>
-              )}
-            </p>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setShowUpgrade(false)}
-                className="flex-1 py-2 text-sm text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors"
-              >
-                Để sau
-              </button>
-              <Link
-                href={guestMode ? "/login?tab=register" : "/#pricing"}
-                onClick={() => setShowUpgrade(false)}
-                className="flex-1 py-2 text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl text-center hover:opacity-90 transition-opacity"
-              >
-                {guestMode ? "Đăng ký miễn phí" : "Xem bảng giá"}
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Toasts */}
       {copied && (
@@ -1017,7 +831,7 @@ ${body}${scripts ? "\n" + scripts : ""}
           role="status"
         >
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
-          Đã sao chép HTML!
+          HTML copied!
         </div>
       )}
       {exported && (
@@ -1026,7 +840,7 @@ ${body}${scripts ? "\n" + scripts : ""}
           role="status"
         >
           <span className="w-2 h-2 rounded-full bg-blue-400" />
-          Đã tải index.html!
+          index.html downloaded!
         </div>
       )}
       {pdfExported && (
@@ -1035,7 +849,7 @@ ${body}${scripts ? "\n" + scripts : ""}
           role="status"
         >
           <span className="w-2 h-2 rounded-full bg-rose-400" />
-          Đã tải export.pdf!
+          export.pdf downloaded!
         </div>
       )}
       {copyError && (
@@ -1052,7 +866,7 @@ ${body}${scripts ? "\n" + scripts : ""}
           role="status"
         >
           <span className="w-3 h-3 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-          Đang xử lý...
+          Processing...
         </div>
       )}
     </>

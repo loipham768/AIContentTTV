@@ -4,7 +4,7 @@ const PublishedPageSchema = new mongoose.Schema(
   {
     slug: { type: String, required: true, unique: true, index: true, maxlength: 100 },
     projectId: { type: String, required: true, index: true },
-    userId: { type: String, required: true, index: true },
+    userId: { type: String, required: false, index: true },
     htmlSnapshot: { type: String, required: true },
     title: { type: String, default: '', maxlength: 200 },
     isActive: { type: Boolean, default: true },

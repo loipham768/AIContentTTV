@@ -53,9 +53,9 @@ export default function RteIconOverlay({ onSelect, onClose }: RteIconOverlayProp
         {/* Header */}
         <div className="flex items-start justify-between px-4 py-3 border-b border-slate-100 flex-shrink-0 bg-gradient-to-r from-blue-50 to-indigo-50">
           <div>
-            <h3 className="text-sm font-semibold text-slate-800">Chèn icon tại vị trí con trỏ</h3>
+            <h3 className="text-sm font-semibold text-slate-800">Insert icon at cursor position</h3>
             <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
-              Icon xuất hiện đúng chỗ cursor đang đứng trong text
+              The icon appears exactly where the cursor is in the text
             </p>
           </div>
           <button
@@ -74,7 +74,7 @@ export default function RteIconOverlay({ onSelect, onClose }: RteIconOverlayProp
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Tìm icon..."
+              placeholder="Search icons..."
               // eslint-disable-next-line jsx-a11y/no-autofocus
               autoFocus
               className="w-full pl-8 pr-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"
@@ -86,7 +86,7 @@ export default function RteIconOverlay({ onSelect, onClose }: RteIconOverlayProp
         <div className="flex-1 overflow-y-auto p-3">
           {filtered.length === 0 && (
             <p className="text-center text-sm text-slate-400 py-10">
-              Không tìm thấy icon
+              No icons found
             </p>
           )}
           {filtered.map((cat) => (

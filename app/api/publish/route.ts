@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import mongoose from 'mongoose'
-import { auth } from '@/auth'
 import { dbConnect } from '@/lib/mongodb'
-import { checkOutputAllowed } from '@/lib/planGate'
 import { serverIsolateCss } from '@/lib/serverCssIsolation'
 import { generateInteractiveScripts } from '@/lib/editor/interactiveScripts'
 import Project from '@/models/Project'
@@ -60,13 +58,7 @@ function siteOrigin(req: NextRequest): string {
   return `${proto}://${host}`
 }
 
-// POST — publish or update a project's published page
 export async function POST(req: NextRequest) {
-  const session = await auth()
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
   let body: unknown
   try { body = await req.json() } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
@@ -77,14 +69,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Dữ liệu không hợp lệ.' }, { status: 400 })
   }
 
-  const gate = await checkOutputAllowed(session.user.id)
-  if (!gate.allowed) {
-    return NextResponse.json(
-      { error: gate.reason, code: gate.code, upgradeRequired: gate.upgradeRequired },
-      { status: 403 }
-    )
-  }
-
   const { projectId, html, css, title } = parsed.data
 
   if (!mongoose.Types.ObjectId.isValid(projectId)) {
@@ -93,12 +77,11 @@ export async function POST(req: NextRequest) {
 
   await dbConnect()
 
-  const project = await Project.findOne({ _id: projectId, userId: session.user.id }, { name: 1 }).lean()
+  const project = await Project.findById(projectId, { name: 1 }).lean()
   if (!project) {
     return NextResponse.json({ error: 'Project không tồn tại.' }, { status: 404 })
   }
 
-  // Build clean HTML snapshot
   let cleanBody: string
   try {
     cleanBody = await serverIsolateCss(html, css)
@@ -121,8 +104,7 @@ ${cleanBody}${scripts ? '\n' + scripts : ''}
 </body>
 </html>`
 
-  // Upsert: reuse slug if already published, otherwise create new
-  const existing = await PublishedPage.findOne({ projectId, userId: session.user.id })
+  const existing = await PublishedPage.findOne({ projectId })
 
   let slug: string
   if (existing) {
@@ -137,7 +119,6 @@ ${cleanBody}${scripts ? '\n' + scripts : ''}
     await PublishedPage.create({
       slug,
       projectId,
-      userId: session.user.id,
       htmlSnapshot,
       title: pageTitle,
       isActive: true,
@@ -149,25 +130,18 @@ ${cleanBody}${scripts ? '\n' + scripts : ''}
   return NextResponse.json({ slug, url, publishedAt: new Date().toISOString() })
 }
 
-// GET — list all published pages, or check status for a specific project
 export async function GET(req: NextRequest) {
-  const session = await auth()
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
   await dbConnect()
 
   const projectId = req.nextUrl.searchParams.get('projectId')
 
-  // Single project status check
   if (projectId) {
     if (!mongoose.Types.ObjectId.isValid(projectId)) {
       return NextResponse.json({ published: false })
     }
 
     const page = await PublishedPage.findOne(
-      { projectId, userId: session.user.id, isActive: true },
+      { projectId, isActive: true },
       { slug: 1, publishedAt: 1 }
     ).lean()
 
@@ -181,9 +155,8 @@ export async function GET(req: NextRequest) {
     })
   }
 
-  // List all published pages for the user
   const pages = await PublishedPage.find(
-    { userId: session.user.id, isActive: true },
+    { isActive: true },
     { slug: 1, title: 1, projectId: 1, publishedAt: 1 }
   ).sort({ publishedAt: -1 }).lean()
 

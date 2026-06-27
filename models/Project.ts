@@ -2,7 +2,7 @@ import mongoose, { InferSchemaType } from 'mongoose'
 
 const ProjectSchema = new mongoose.Schema(
   {
-    userId: { type: String, required: true, index: true },
+    userId: { type: String, required: false, index: true },
     name: { type: String, required: true, maxlength: 50 },
     prompt: { type: String, required: true, maxlength: 500 },
     blockData: { type: mongoose.Schema.Types.Mixed, required: true },

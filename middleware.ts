@@ -1,8 +1,2 @@
-import NextAuth from 'next-auth'
-import { authConfig } from '@/auth.config'
-
-export const { auth: middleware } = NextAuth(authConfig)
-
-export const config = {
-  matcher: ['/editor', '/admin/:path*', '/api/:path*'],
-}
+export { }
+export const config = { matcher: [] }

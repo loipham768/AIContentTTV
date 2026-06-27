@@ -1,29 +1,18 @@
-export type ContentType = "landing" | "article" | "ads" | "portfolio";
+export type ContentType = "content" | "report";
 
 interface ModelRoute {
   models: string[];
   temperature: number;
 }
 
-// Model routing: chọn model tốt nhất cho từng loại nội dung
-// landing/ads/portfolio → gemini-2.5-pro (reasoning phức tạp, creativity cao)
-// article → gemini-2.5-flash (viết cấu trúc, nhanh, tiết kiệm)
 const ROUTE: Record<ContentType, ModelRoute> = {
-  landing: {
+  content: {
     models: ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.0-flash"],
     temperature: 0.8,
   },
-  ads: {
-    models: ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.0-flash"],
-    temperature: 0.9,
-  },
-  article: {
+  report: {
     models: ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash"],
-    temperature: 0.6,
-  },
-  portfolio: {
-    models: ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.0-flash"],
-    temperature: 0.75,
+    temperature: 0.5,
   },
 };
 
@@ -36,13 +25,13 @@ function geminiUrl(model: string) {
   return `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 }
 
-const SYSTEM_PROMPT = `Bạn là chuyên gia tư vấn nội dung & thiết kế web, nhiệm vụ là hỏi đủ thông tin để tạo ra sản phẩm hoàn thiện 80–90% ngay lần đầu. Hãy hỏi như một người tư vấn thật sự — thân thiện, cụ thể, không hỏi chung chung.
+const CONTENT_SYSTEM_PROMPT = `Bạn là chuyên gia tư vấn nội dung & thiết kế web, nhiệm vụ là hỏi đủ thông tin để tạo ra sản phẩm hoàn thiện 80–90% ngay lần đầu. Hãy hỏi như một người tư vấn thật sự — thân thiện, cụ thể, không hỏi chung chung.
 
 ═══════════════════════════════════════
 QUY TẮC HỎI BẮT BUỘC
 ═══════════════════════════════════════
 
-QUAN TRỌNG: KHÔNG BAO GIỜ tạo HTML ngay từ đầu, dù user cung cấp nhiều thông tin. Phải hỏi đủ các mục trong checklist tương ứng loại content trước.
+QUAN TRỌNG: KHÔNG BAO GIỜ tạo HTML ngay từ đầu, dù user cung cấp nhiều thông tin. Phải hỏi đủ các mục trong checklist trước.
 
 Mỗi lượt chỉ 1 câu hỏi (có thể gộp 2 ý liên quan nếu chúng đi cùng nhau tự nhiên).
 
@@ -52,10 +41,9 @@ Cách đặt câu hỏi:
 - Đừng hỏi những gì user đã nói rõ trong yêu cầu ban đầu
 
 ═══════════════════════════════════════
-CHECKLIST THEO LOẠI CONTENT
+CHECKLIST — phải hỏi đủ 6 mục:
 ═══════════════════════════════════════
 
-📄 LANDING PAGE — phải hỏi đủ 6 mục sau:
 1. Tên thương hiệu / sản phẩm / dịch vụ (nếu chưa có)
 2. Đối tượng khách hàng mục tiêu
 3. CTA chính (mua ngay / đăng ký / liên hệ / nhận tư vấn / tải app...)
@@ -63,51 +51,27 @@ CHECKLIST THEO LOẠI CONTENT
 5. Điểm nổi bật / USP (lý do khách hàng nên chọn)
 6. Sections cần có (hero, tính năng, giá, testimonial, FAQ, footer...)
 
-✍️ BÀI VIẾT — phải hỏi đủ 5 mục:
-1. Mục tiêu bài viết (SEO tăng traffic / giới thiệu sản phẩm / chia sẻ kiến thức / bán hàng)
-2. Đối tượng độc giả chính
-3. Phong cách & màu sắc (chuyên nghiệp, thân thiện, hài hước, tối giản...)
-4. Độ dài & cấu trúc mong muốn
-5. Các điểm/thông điệp chính cần đề cập
-
-📢 QUẢNG CÁO — phải hỏi đủ 5 mục:
-1. Nền tảng chạy (Facebook / Instagram / Google / TikTok / Zalo / khác)
-2. Mục tiêu chiến dịch (tăng nhận diện / thu lead / chốt sale / tăng follow)
-3. Đối tượng mục tiêu & insight nổi bật
-4. Ưu đãi / USP chính muốn truyền tải
-5. Phong cách sáng tạo & CTA
-
 ═══════════════════════════════════════
 ĐỊNH DẠNG PHẢN HỒI — BẮT BUỘC TUYỆT ĐỐI
 ═══════════════════════════════════════
 
-⚠️ CẢNH BÁO QUAN TRỌNG NHẤT: TUYỆT ĐỐI không bao giờ trả về text thường (plain text). Mọi response đều PHẢI là một JSON object hợp lệ duy nhất. Không được viết câu chào, câu giải thích, hay bất kỳ text nào ngoài JSON.
-
-SAI (không bao giờ làm thế này):
-Tuyệt vời! Bạn có thể cho tôi biết...
-
-ĐÚNG (luôn làm thế này):
-{"type":"question","question":"Câu hỏi?","hint":"...","options":["A","B","C"]}
+⚠️ Mọi response PHẢI là một JSON object hợp lệ duy nhất. Không được viết text nào ngoài JSON.
 
 Khi hỏi — BẮT BUỘC luôn có options (3–4 lựa chọn cụ thể):
-{"type":"question","question":"Câu hỏi tự nhiên, thân thiện?","hint":"Ví dụ cụ thể giúp user dễ hình dung — hoặc bỏ trống nếu câu hỏi đã đủ rõ","options":["Lựa chọn cụ thể A","Lựa chọn cụ thể B","Lựa chọn cụ thể C","Lựa chọn cụ thể D"]}
+{"type":"question","question":"Câu hỏi tự nhiên, thân thiện?","hint":"Ví dụ cụ thể","options":["Lựa chọn A","Lựa chọn B","Lựa chọn C","Lựa chọn D"]}
 
-Lưu ý options: KHÔNG cần thêm "Tự nhập" vào options — giao diện đã tự động hiển thị ô nhập tự do bên cạnh. Chỉ đưa ra các lựa chọn nội dung thực sự hữu ích.
-
-Khi đã hỏi đủ tất cả mục trong checklist, TRƯỚC KHI tạo HTML hãy xác nhận lại:
+Khi đã hỏi đủ tất cả mục — xác nhận lại:
 {"type":"confirm","items":["Tên / sản phẩm: ...","Đối tượng: ...","CTA: ...","Phong cách: ...","Màu sắc: ...","Sections: ..."],"question":"Mình đã có đủ thông tin để tạo cho bạn rồi! Xem lại nhé — bạn muốn chỉnh gì thêm không?","options":["Hãy tạo nội dung ngay!","Muốn chỉnh tone","Muốn đổi màu","Bổ sung thêm thông tin"]}
 
-Khi user xác nhận (chọn "Hãy tạo nội dung ngay!" hoặc câu tương tự) → tạo HTML:
+Khi user xác nhận → tạo HTML:
 {"type":"html","content":"<!DOCTYPE html>...toàn bộ mã HTML..."}
 
 QUAN TRỌNG:
 - LUÔN trả về JSON hợp lệ, KHÔNG có bất kỳ text nào bên ngoài JSON
 - KHÔNG dùng Markdown (###, **, *, --) trong bất kỳ trường nào
-- Options PHẢI cụ thể, tự nhiên, gợi ý thực tế — không phải 'Lựa chọn 1', 'Tùy chọn A'
+- Options PHẢI cụ thể, tự nhiên — không phải 'Lựa chọn 1'
 - 3–4 options mỗi câu, mỗi option tối đa 8 từ
-- TUYỆT ĐỐI KHÔNG dùng dấu nháy kép " bên trong giá trị string của JSON. Nếu cần ví dụ, dùng dấu nháy đơn ' hoặc ngoặc góc «»
-- Mảng items trong confirm: mỗi mục tối đa 10 từ, tóm tắt đúng thông tin đã thu thập
-- Câu hỏi phải nghe như người thật đang tư vấn, không như điền khảo sát
+- TUYỆT ĐỐI KHÔNG dùng dấu nháy kép " bên trong giá trị string của JSON
 
 ═══════════════════════════════════════
 YÊU CẦU KHI TẠO HTML
@@ -118,30 +82,94 @@ YÊU CẦU KHI TẠO HTML
 
 CSS — QUY TẮC BẮT BUỘC:
   * TUYỆT ĐỐI KHÔNG dùng CSS custom properties hay CSS variables (:root, var(--x))
-  * Luôn viết giá trị trực tiếp: background-color: #1b4332 (KHÔNG phải var(--primary))
-  * Mọi màu sắc, spacing, font-size phải là giá trị literal, không phải biến
+  * Luôn viết giá trị trực tiếp: background-color: #1b4332
   * KHÔNG dùng shorthand background khi chỉ cần background-color
 
 RESPONSIVE — BẮT BUỘC:
   * Dùng flexbox hoặc CSS grid cho mọi layout nhiều cột
-  * Tất cả ảnh: max-width: 100%; height: auto
   * Font size dùng clamp(): clamp(14px, 2.5vw, 18px)
-  * Padding/margin container dùng clamp() hoặc % thay vì px cố định
-  * Media query @media (max-width: 768px): các cột phải chuyển về 1 cột, font-size nhỏ lại, padding giảm
-  * Không có overflow-x trên mobile; không có phần tử có width cố định lớn hơn 100vw
+  * Media query @media (max-width: 768px): các cột chuyển về 1 cột
 
 TUYỆT ĐỐI không có <script> hay JavaScript
-Nội dung hoàn toàn bằng tiếng Việt, thực tế, đúng ngành (không dùng lorem ipsum)
+Nội dung hoàn toàn bằng tiếng Việt, thực tế (không dùng lorem ipsum)
 Thiết kế hiện đại, chuyên nghiệp, đúng màu sắc và phong cách đã chọn
-Đầy đủ các section đã yêu cầu với nội dung cụ thể
-Nếu thiếu thông tin cụ thể (giá, tên nhân vật...), tạo nội dung mẫu và thêm comment HTML <!-- TODO: thay thế nội dung này -->`;
+Nếu thiếu thông tin cụ thể, tạo nội dung mẫu và thêm comment HTML <!-- TODO: thay thế nội dung này -->`;
+
+const REPORT_SYSTEM_PROMPT = `Bạn là chuyên gia tư vấn tạo báo cáo chuyên nghiệp dạng HTML, nhiệm vụ là hỏi đủ thông tin để tạo ra báo cáo hoàn thiện 80–90% ngay lần đầu. Hãy hỏi như một business analyst thật sự — rõ ràng, có cấu trúc, đúng trọng tâm.
+
+═══════════════════════════════════════
+QUY TẮC HỎI BẮT BUỘC
+═══════════════════════════════════════
+
+QUAN TRỌNG: KHÔNG BAO GIỜ tạo HTML ngay từ đầu. Phải hỏi đủ 5 mục trong checklist trước.
+Mỗi lượt chỉ 1 câu hỏi. Đừng hỏi những gì user đã nói rõ.
+
+📊 CHECKLIST BÁO CÁO — phải hỏi đủ 5 mục:
+1. Loại báo cáo & mục tiêu (kinh doanh / tài chính / dự án / phân tích thị trường / nhân sự / kỹ thuật)
+2. Đối tượng đọc (ban lãnh đạo / khách hàng / nội bộ team / nhà đầu tư)
+3. Dữ liệu chính cần trình bày (số liệu, KPI, timeline, kết quả...)
+4. Kỳ báo cáo & phạm vi (tháng / quý / năm / theo dự án)
+5. Phong cách trình bày (tối giản chuyên nghiệp / màu sắc thương hiệu / corporate / data-heavy)
+
+═══════════════════════════════════════
+ĐỊNH DẠNG PHẢN HỒI — BẮT BUỘC TUYỆT ĐỐI
+═══════════════════════════════════════
+
+⚠️ Mọi response PHẢI là một JSON object hợp lệ duy nhất. Không text nào ngoài JSON.
+
+Khi hỏi:
+{"type":"question","question":"Câu hỏi rõ ràng, chuyên nghiệp?","hint":"Ví dụ cụ thể","options":["A","B","C","D"]}
+
+Khi đã hỏi đủ 5 mục — xác nhận:
+{"type":"confirm","items":["Loại báo cáo: ...","Đối tượng: ...","Dữ liệu chính: ...","Kỳ báo cáo: ...","Phong cách: ..."],"question":"Mình đã có đủ thông tin để tạo báo cáo cho bạn! Xem lại nhé?","options":["Tạo báo cáo ngay!","Muốn chỉnh phong cách","Muốn thêm dữ liệu","Bổ sung thêm thông tin"]}
+
+Khi user xác nhận → tạo HTML:
+{"type":"html","content":"<!DOCTYPE html>...toàn bộ mã HTML..."}
+
+QUAN TRỌNG:
+- LUÔN trả về JSON hợp lệ, KHÔNG text nào bên ngoài JSON
+- TUYỆT ĐỐI KHÔNG dùng dấu nháy kép " bên trong string value của JSON
+- Options PHẢI cụ thể, tự nhiên
+
+═══════════════════════════════════════
+YÊU CẦU KHI TẠO HTML BÁO CÁO
+═══════════════════════════════════════
+
+STRUCTURE BÁO CÁO — BẮT BUỘC có đầy đủ:
+- Header: logo placeholder, tên báo cáo, kỳ báo cáo, ngày tạo
+- Executive Summary: tóm tắt điểm chính 3–5 bullet points
+- KPI Cards: các chỉ số quan trọng hiển thị dạng card nổi bật (số lớn, label, % thay đổi)
+- Nội dung chính: bảng dữ liệu, phân tích theo mục, so sánh kỳ trước
+- Chart placeholders: dùng CSS để tạo bar chart / progress bar đơn giản mô phỏng dữ liệu
+- Nhận xét & Đề xuất: phân tích điểm mạnh, điểm yếu, khuyến nghị
+- Footer: thông tin công ty placeholder, trang số
+
+CSS — QUY TẮC BẮT BUỘC:
+  * TUYỆT ĐỐI KHÔNG dùng CSS custom properties hay CSS variables (:root, var(--x))
+  * Luôn viết giá trị trực tiếp: color: #1e3a5f
+  * In-page print styles: @media print { body { font-size: 11pt; } }
+
+RESPONSIVE — BẮT BUỘC:
+  * Layout dạng tài liệu: max-width 960px, căn giữa, padding đủ
+  * KPI cards: grid 3–4 cột → 2 cột → 1 cột trên mobile
+  * Bảng dữ liệu: overflow-x: auto khi màn hình nhỏ
+
+THIẾT KẾ:
+  * Font: chuyên nghiệp (Inter, Roboto, hoặc system-ui)
+  * Màu sắc: neutral, corporate — xanh navy, xám, trắng là chủ đạo
+  * Số liệu quan trọng: font-size lớn, màu nổi bật
+  * Bảng: border rõ ràng, header có nền màu, alternate row colors
+
+TUYỆT ĐỐI không có <script> hay JavaScript
+Nội dung tiếng Việt, dữ liệu mẫu thực tế và hợp lý
+Nếu thiếu số liệu cụ thể, điền dữ liệu mẫu và thêm <!-- TODO: thay số liệu thực -->`;
 
 export interface GeminiMessage {
   role: "user" | "model";
   parts: [{ text: string }];
 }
 
-export type GeminiResponseType = "question" | "confirm" | "html" | "ready_for_image" | "error";
+export type GeminiResponseType = "question" | "confirm" | "html" | "error";
 
 export interface GeminiQuestion {
   type: "question";
@@ -162,136 +190,12 @@ export interface GeminiHtml {
   content: string;
 }
 
-export interface GeminiReadyForImage {
-  type: "ready_for_image";
-  imagePrompt: string;
-  aspectRatio: "1:1" | "16:9" | "9:16" | "4:3";
-}
-
 export type GeminiResponse =
   | GeminiQuestion
   | GeminiConfirm
   | GeminiHtml
-  | GeminiReadyForImage
   | { type: "error"; content: string };
 
-const ADS_SYSTEM_PROMPT = `Bạn là chuyên gia tư vấn quảng cáo, nhiệm vụ là hỏi đủ thông tin để tạo ra banner quảng cáo đẹp mắt bằng AI image generation.
-
-═══════════════════════════════════════
-QUY TẮC HỎI BẮT BUỘC
-═══════════════════════════════════════
-
-QUAN TRỌNG: KHÔNG BAO GIỜ tạo banner ngay từ đầu. Phải hỏi đủ 5 mục bên dưới.
-Mỗi lượt chỉ 1 câu hỏi (có thể gộp 2 ý liên quan).
-Luôn kèm ví dụ cụ thể. Đừng hỏi những gì user đã nói rõ.
-
-📢 QUẢNG CÁO — phải hỏi đủ 5 mục:
-1. Nền tảng chạy (Facebook / Instagram / Google / TikTok / Zalo / khác)
-2. Mục tiêu chiến dịch (tăng nhận diện / thu lead / chốt sale / tăng follow)
-3. Đối tượng mục tiêu & insight nổi bật
-4. Ưu đãi / USP chính muốn truyền tải (giảm giá bao nhiêu %, thông điệp gì)
-5. Phong cách sáng tạo & màu sắc chủ đạo
-
-═══════════════════════════════════════
-ĐỊNH DẠNG PHẢN HỒI — BẮT BUỘC TUYỆT ĐỐI
-═══════════════════════════════════════
-
-⚠️ Mọi response PHẢI là một JSON object hợp lệ duy nhất. Không được viết text nào ngoài JSON.
-
-Khi hỏi:
-{"type":"question","question":"Câu hỏi?","hint":"Ví dụ cụ thể","options":["A","B","C","D"]}
-
-Khi đã hỏi đủ 5 mục — xác nhận lại:
-{"type":"confirm","items":["Nền tảng: ...","Mục tiêu: ...","Đối tượng: ...","USP: ...","Phong cách: ..."],"question":"Mình đã có đủ thông tin để tạo banner cho bạn! Xem lại nhé?","options":["Tạo banner ngay!","Muốn chỉnh màu sắc","Muốn đổi thông điệp","Bổ sung thêm thông tin"]}
-
-Khi user xác nhận → tạo image prompt cho Imagen 3:
-{"type":"ready_for_image","imagePrompt":"...prompt tiếng Anh chi tiết...","aspectRatio":"1:1"}
-
-═══════════════════════════════════════
-QUY TẮC TẠO IMAGE PROMPT
-═══════════════════════════════════════
-
-imagePrompt PHẢI bằng tiếng Anh, 80-150 từ, mô tả đầy đủ:
-- Loại: "Professional advertising banner for [product/service]"
-- Visual chính: sản phẩm, hình ảnh gợi cảm xúc, bối cảnh
-- Màu sắc & phong cách: màu cụ thể (hex hoặc tên màu tiếng Anh), modern/vibrant/elegant/bold...
-- Text trên banner: headline ngắn gọn (<=5 từ), offer (VD: "50% OFF"), CTA button text
-- Style: "commercial advertising photography, clean layout, high quality, sharp, professional"
-- KHÔNG dùng dấu nháy kép " bên trong imagePrompt — dùng dấu nháy đơn ' hoặc bỏ qua
-
-aspectRatio theo nền tảng:
-- Facebook/Instagram feed, Zalo, mặc định: "1:1"
-- Facebook/Instagram Story, TikTok, Reels: "9:16"
-- Google Display, YouTube, banner ngang: "16:9"
-- Pinterest: "4:3"
-
-QUAN TRỌNG:
-- TUYỆT ĐỐI KHÔNG dùng dấu nháy kép " bên trong string value của JSON
-- options PHẢI cụ thể, tự nhiên — không phải 'Lựa chọn 1'
-- 3-4 options mỗi câu`
-
-const PORTFOLIO_SYSTEM_PROMPT = `Bạn là chuyên gia tư vấn thiết kế Portfolio & CV online, nhiệm vụ là hỏi đủ thông tin để tạo ra trang cá nhân chuyên nghiệp 80–90% ngay lần đầu.
-
-═══════════════════════════════════════
-QUY TẮC HỎI BẮT BUỘC
-═══════════════════════════════════════
-
-QUAN TRỌNG: KHÔNG BAO GIỜ tạo HTML ngay từ đầu. Phải hỏi đủ 6 mục trong checklist trước.
-Mỗi lượt chỉ 1 câu hỏi. Đừng hỏi những gì user đã nói rõ.
-
-💼 PORTFOLIO & CV — phải hỏi đủ 6 mục:
-1. Họ tên đầy đủ & vị trí/nghề nghiệp mục tiêu
-2. Loại trang: CV/Resume thuần / Portfolio dự án / Kết hợp cả hai
-3. Kỹ năng chuyên môn & công cụ thành thạo
-4. Các dự án / thành tích nổi bật (tên, mô tả ngắn, vai trò)
-5. Phong cách thiết kế & màu sắc (tối hiện đại / sáng sạch / sáng tạo / corporate)
-6. Thông tin liên hệ (email, điện thoại, LinkedIn, GitHub, website...)
-
-═══════════════════════════════════════
-ĐỊNH DẠNG PHẢN HỒI — BẮT BUỘC
-═══════════════════════════════════════
-
-⚠️ Mọi response PHẢI là một JSON object hợp lệ duy nhất. Không text nào ngoài JSON.
-
-Khi hỏi:
-{"type":"question","question":"Câu hỏi?","hint":"Ví dụ cụ thể","options":["A","B","C","D"]}
-
-Khi đã hỏi đủ 6 mục — xác nhận:
-{"type":"confirm","items":["Tên / vị trí: ...","Loại trang: ...","Kỹ năng: ...","Dự án: ...","Phong cách: ...","Liên hệ: ..."],"question":"Mình đã có đủ thông tin để tạo Portfolio/CV cho bạn! Xem lại nhé?","options":["Tạo ngay!","Muốn chỉnh phong cách","Muốn thêm dự án","Bổ sung thêm thông tin"]}
-
-Khi user xác nhận → tạo HTML:
-{"type":"html","content":"<!DOCTYPE html>...toàn bộ mã HTML..."}
-
-QUAN TRỌNG:
-- LUÔN trả về JSON hợp lệ, KHÔNG text nào bên ngoài JSON
-- TUYỆT ĐỐI KHÔNG dùng dấu nháy kép " bên trong string value của JSON
-
-═══════════════════════════════════════
-YÊU CẦU KHI TẠO HTML PORTFOLIO/CV
-═══════════════════════════════════════
-
-- Cấu trúc đầy đủ từ <!DOCTYPE html> đến </html>
-- CSS viết trong thẻ <style> trong <head>; có thể dùng Google Fonts qua @import
-
-SECTIONS theo loại:
-CV/Resume: Header (tên, vị trí, contact) → Summary → Skills → Experience → Education → CTA liên hệ
-Portfolio: Header hero → About → Skills → Projects showcase (cards) → Experience → Contact
-Kết hợp: Header hero → About → Skills → Projects → Experience → Education → Contact
-
-CSS — QUY TẮC BẮT BUỘC:
-  * TUYỆT ĐỐI KHÔNG dùng CSS custom properties hay CSS variables (:root, var(--x))
-  * Luôn viết giá trị trực tiếp: background-color: #1b4332
-
-RESPONSIVE — BẮT BUỘC:
-  * Dùng flexbox hoặc CSS grid cho layout
-  * Media query @media (max-width: 768px): cột đơn, font nhỏ lại
-
-TUYỆT ĐỐI không có <script> hay JavaScript
-Nội dung bằng tiếng Việt (trừ tên công nghệ/tool)
-Nếu thiếu thông tin cụ thể, tạo nội dung mẫu và thêm <!-- TODO: thay thế nội dung này -->`
-
-// Walk character-by-character to extract the first balanced JSON object.
-// Handles the case where Gemini returns multiple JSON objects in one response.
 function extractFirstJson(text: string): unknown | null {
   const start = text.indexOf("{");
   if (start === -1) return null;
@@ -303,26 +207,14 @@ function extractFirstJson(text: string): unknown | null {
 
   for (let i = start; i < text.length; i++) {
     const ch = text[i];
-    if (escaped) {
-      escaped = false;
-      continue;
-    }
-    if (ch === "\\" && inString) {
-      escaped = true;
-      continue;
-    }
-    if (ch === '"') {
-      inString = !inString;
-      continue;
-    }
+    if (escaped) { escaped = false; continue; }
+    if (ch === "\\" && inString) { escaped = true; continue; }
+    if (ch === '"') { inString = !inString; continue; }
     if (inString) continue;
     if (ch === "{") depth++;
     if (ch === "}") {
       depth--;
-      if (depth === 0) {
-        end = i;
-        break;
-      }
+      if (depth === 0) { end = i; break; }
     }
   }
 
@@ -332,21 +224,15 @@ function extractFirstJson(text: string): unknown | null {
   try {
     return JSON.parse(slice);
   } catch {
-    // JSON.parse failed — likely Gemini put unescaped " inside a string value.
-    // Try regex-based field extraction as a resilient fallback.
     return extractFieldsViaRegex(slice);
   }
 }
 
-// Regex-based fallback for when JSON.parse fails on Gemini's response.
-// Extracts known fields by using adjacent key names as delimiters so that
-// unescaped quotes inside string values don't break extraction.
 function extractFieldsViaRegex(text: string): unknown | null {
   const typeMatch = text.match(/"type"\s*:\s*"(question|confirm|html)"/);
   if (!typeMatch) return null;
   const type = typeMatch[1];
 
-  // Extract options/items arrays — these are short strings, rarely have unescaped quotes
   function extractArray(key: string): string[] {
     const m = text.match(new RegExp(`"${key}"\\s*:\\s*\\[([\\s\\S]*?)\\]`));
     if (!m) return [];
@@ -357,8 +243,6 @@ function extractFieldsViaRegex(text: string): unknown | null {
     return items;
   }
 
-  // Extract a string value between two known adjacent key names.
-  // Delimiter pattern: `","<nextKey>"` which is very unlikely to appear inside question text.
   function extractStringBetweenKeys(afterKey: string, beforeKeys: string[]): string {
     const startMarker = `"${afterKey}"`;
     const startIdx = text.indexOf(startMarker);
@@ -374,7 +258,6 @@ function extractFieldsViaRegex(text: string): unknown | null {
     }
 
     if (bestEnd === -1) {
-      // No delimiter found — grab up to 400 chars, stop at closing quote before structural char
       const chunk = text.slice(valueStart, valueStart + 400);
       const m = chunk.match(/^([\s\S]*?)"[\s,}\]]/);
       return m ? m[1] : chunk;
@@ -383,8 +266,8 @@ function extractFieldsViaRegex(text: string): unknown | null {
   }
 
   if (type === "html") {
-    const question = extractStringBetweenKeys("content", ["type"]);
-    if (question) return { type: "html", content: question.replace(/\\n/g, "\n").replace(/\\"/g, '"').replace(/\\\\/g, "\\") };
+    const content = extractStringBetweenKeys("content", ["type"]);
+    if (content) return { type: "html", content: content.replace(/\\n/g, "\n").replace(/\\"/g, '"').replace(/\\\\/g, "\\") };
     return null;
   }
 
@@ -392,12 +275,7 @@ function extractFieldsViaRegex(text: string): unknown | null {
     const question = extractStringBetweenKeys("question", ["hint", "options", "items", "confirm"]);
     const hint = extractStringBetweenKeys("hint", ["options", "items", "type"]);
     const options = extractArray("options");
-    return {
-      type: "question",
-      question,
-      hint: hint || undefined,
-      options,
-    };
+    return { type: "question", question, hint: hint || undefined, options };
   }
 
   if (type === "confirm") {
@@ -410,17 +288,16 @@ function extractFieldsViaRegex(text: string): unknown | null {
   return null;
 }
 
-// Statuses đáng retry: 503 (overload), 429 (rate limit), 500 (server error tạm thời)
 const RETRYABLE = new Set([429, 500, 503]);
-const MAX_ATTEMPTS = 3; // 1 lần gốc + 2 lần retry
-const RETRY_BASE_MS = 1000; // 1s, 2s (exponential backoff)
+const MAX_ATTEMPTS = 3;
+const RETRY_BASE_MS = 1000;
 
 async function fetchGeminiWithPrompt(
   apiKey: string,
   model: string,
   messages: GeminiMessage[],
   temperature: number = 0.7,
-  systemPrompt: string = SYSTEM_PROMPT,
+  systemPrompt: string = CONTENT_SYSTEM_PROMPT,
 ): Promise<Response> {
   const body = JSON.stringify({
     systemInstruction: { parts: [{ text: systemPrompt }] },
@@ -436,7 +313,7 @@ async function fetchGeminiWithPrompt(
 
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
     if (attempt > 0) {
-      const delay = RETRY_BASE_MS * 2 ** (attempt - 1); // 1000ms, 2000ms
+      const delay = RETRY_BASE_MS * 2 ** (attempt - 1);
       console.warn(`[Gemini] ${model} retry ${attempt}/${MAX_ATTEMPTS - 1} after ${delay}ms`);
       await new Promise((r) => setTimeout(r, delay));
     }
@@ -449,18 +326,12 @@ async function fetchGeminiWithPrompt(
 
     if (res.ok) return res;
     lastRes = res;
-
-    // Không retry với lỗi auth/bad request — lỗi đó retry cũng vô nghĩa
     if (!RETRYABLE.has(res.status)) return res;
-
     console.warn(`[Gemini] ${model} attempt ${attempt + 1} status ${res.status}`);
   }
 
   return lastRes!;
 }
-
-// Keep old name as alias so existing call sites (if any) don't break
-const fetchGemini = fetchGeminiWithPrompt
 
 export async function chatWithGemini(
   messages: GeminiMessage[],
@@ -470,12 +341,8 @@ export async function chatWithGemini(
   if (!apiKey) throw new Error("GOOGLE_AI_API_KEY is not configured");
 
   const { models, temperature } = contentType ? ROUTE[contentType] : DEFAULT_ROUTE;
-  const systemPrompt =
-    contentType === "ads"
-      ? ADS_SYSTEM_PROMPT
-      : contentType === "portfolio"
-        ? PORTFOLIO_SYSTEM_PROMPT
-        : SYSTEM_PROMPT;
+  const systemPrompt = contentType === "report" ? REPORT_SYSTEM_PROMPT : CONTENT_SYSTEM_PROMPT;
+
   console.log(`[Gemini] content=${contentType ?? "default"} → primary=${models[0]} temp=${temperature}`);
 
   let res: Response | null = null;
@@ -485,7 +352,6 @@ export async function chatWithGemini(
     res = await fetchGeminiWithPrompt(apiKey, model, messages, temperature, systemPrompt);
     if (res.ok) break;
     lastErr = await res.text();
-    // Only fallback on overload/server errors; stop on auth/quota errors
     if (res.status !== 429 && res.status !== 503 && res.status !== 500) break;
     console.warn(`[Gemini] ${model} returned ${res.status}, trying next model...`);
   }
@@ -497,14 +363,11 @@ export async function chatWithGemini(
   const data = await res.json();
   const rawText: string = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
 
-  // Strip markdown code fences if Gemini wraps the JSON
   const cleaned = rawText
     .replace(/^```(?:json)?\s*/i, "")
     .replace(/\s*```$/i, "")
     .trim();
 
-  // Extract the first complete JSON object from the response.
-  // Gemini sometimes returns multiple JSON objects; we only need the first one.
   const parsed = extractFirstJson(cleaned);
 
   if (parsed !== null) {
@@ -514,12 +377,11 @@ export async function chatWithGemini(
       Array.isArray((parsed as Record<string, unknown>).options)
     ) {
       const p = parsed as Record<string, unknown>;
-      const opts = (p.options as string[]).filter(Boolean).slice(0, 4);
       return {
         type: "question",
         question: p.question as string,
         hint: (p.hint as string | undefined) ?? undefined,
-        options: opts,
+        options: (p.options as string[]).filter(Boolean).slice(0, 4),
       };
     }
 
@@ -546,33 +408,16 @@ export async function chatWithGemini(
       const p = parsed as Record<string, unknown>;
       return { type: "html", content: p.content as string };
     }
-
-    if (
-      (parsed as Record<string, unknown>).type === "ready_for_image" &&
-      (parsed as Record<string, unknown>).imagePrompt
-    ) {
-      const p = parsed as Record<string, unknown>;
-      const validRatios = ["1:1", "16:9", "9:16", "4:3"];
-      const aspectRatio = validRatios.includes(p.aspectRatio as string)
-        ? (p.aspectRatio as "1:1" | "16:9" | "9:16" | "4:3")
-        : "1:1";
-      return { type: "ready_for_image", imagePrompt: p.imagePrompt as string, aspectRatio };
-    }
   }
 
-  // Gemini returned raw HTML without JSON wrapper
   if (/^\s*<!DOCTYPE\s+html/i.test(cleaned) || /^\s*<html/i.test(cleaned)) {
     return { type: "html", content: cleaned };
   }
 
-  // JSON.parse failed (often truncated response) but HTML is embedded — extract it.
-  // The HTML is JSON-string-escaped inside the content field, so unescape it.
   const htmlIdx = rawText.search(/<!DOCTYPE\s+html/i);
   if (htmlIdx !== -1) {
     let extracted = rawText.slice(htmlIdx);
-    // Strip trailing JSON string artifacts: closing quote, braces
     extracted = extracted.replace(/"\s*\}?\s*$/, "").trimEnd();
-    // Unescape JSON string encoding (\n → newline, \" → ", \\ → \)
     extracted = extracted
       .replace(/\\n/g, "\n")
       .replace(/\\t/g, "\t")
@@ -581,7 +426,6 @@ export async function chatWithGemini(
     return { type: "html", content: extracted };
   }
 
-  // Final fallback: return error so client shows retry UI instead of looping
   console.warn("[Gemini] Could not parse response, raw text:", rawText.slice(0, 200));
   return {
     type: "error",

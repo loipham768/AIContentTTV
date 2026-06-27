@@ -24,13 +24,9 @@ VÍ DỤ OUTPUT ĐÚNG (sao chép cấu trúc này, thay nội dung theo prompt)
 ${JSON.stringify(MOCK_BLOCK, null, 2)}
 `
 
-// ads → haiku (nhanh + rẻ, HTML block đơn giản)
-// landing/article/portfolio → sonnet (cần hiểu ngữ cảnh phức tạp hơn)
 const CLAUDE_ROUTES: Record<ContentType, string> = {
-  ads: 'claude-haiku-4-5-20251001',
-  landing: 'claude-sonnet-4-6',
-  article: 'claude-sonnet-4-6',
-  portfolio: 'claude-sonnet-4-6',
+  content: 'claude-sonnet-4-6',
+  report: 'claude-sonnet-4-6',
 }
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
