@@ -3,7 +3,7 @@ import { z } from 'zod'
 import fs from 'fs'
 
 export const runtime = 'nodejs'
-export const maxDuration = 60
+export const maxDuration = 10
 
 const schema = z.object({
   html: z.string().max(500_000),
