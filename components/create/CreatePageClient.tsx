@@ -12,7 +12,11 @@ import {
   Pencil,
   Info,
   FileText,
-  Globe2,
+  Briefcase,
+  BookOpen,
+  CalendarDays,
+  Receipt,
+  BarChart2,
 } from "lucide-react";
 import Logo from "@/components/Logo";
 
@@ -36,62 +40,90 @@ interface CurrentQuestion {
 
 type Phase = "initial" | "questioning" | "generating" | "done" | "error";
 
-type ContentTypeId = "content" | "report";
+type ContentTypeId = "report" | "proposal" | "case-study" | "meeting" | "quotation";
 
 type SampleItem = { text: string; desc: string };
 
-const CONTENT_META: Record<ContentTypeId, { label: string; desc: string; icon: React.ReactNode }> = {
-  content: {
-    label: "Create Content",
-    desc: "Landing pages, articles, web content",
-    icon: <Globe2 className="w-5 h-5" />,
-  },
+const CONTENT_META: Record<
+  ContentTypeId,
+  { label: string; desc: string; icon: React.ReactNode }
+> = {
   report: {
-    label: "Create Report",
-    desc: "Business reports, analysis, finance",
-    icon: <FileText className="w-5 h-5" />,
+    label: "Report",
+    desc: "Business, financial & KPI reports",
+    icon: <BarChart2 className="w-5 h-5" />,
+  },
+  proposal: {
+    label: "Proposal",
+    desc: "Project & business proposals",
+    icon: <Briefcase className="w-5 h-5" />,
+  },
+  "case-study": {
+    label: "Case Study",
+    desc: "Client success stories",
+    icon: <BookOpen className="w-5 h-5" />,
+  },
+  meeting: {
+    label: "Meeting Minutes",
+    desc: "Meeting records & action items",
+    icon: <CalendarDays className="w-5 h-5" />,
+  },
+  quotation: {
+    label: "Quotation",
+    desc: "Price quotes & one-pagers",
+    icon: <Receipt className="w-5 h-5" />,
   },
 };
 
 const CONTENT_POOL: Record<ContentTypeId, SampleItem[]> = {
-  content: [
-    { text: "Landing page selling vegan skincare products for women aged 25–35", desc: "Skincare" },
-    { text: "Landing page for enrolling in a fullstack web development course", desc: "Education" },
-    { text: "Introduction page for premium interior design services", desc: "Interior Design" },
-    { text: "Landing page for launching a fast food delivery app", desc: "Food Tech" },
-    { text: "Introduction page for a digital marketing agency", desc: "Agency" },
-    { text: "Landing page for selling new apartments in a major city", desc: "Real Estate" },
-    { text: "Landing page for monthly gym & yoga membership sign-up", desc: "Fitness" },
-    { text: "Introduction page for a cosmetic dental clinic", desc: "Dental" },
-    { text: "Landing page for launching restaurant management & POS software", desc: "SaaS F&B" },
-    { text: "Introduction page for professional wedding photography services", desc: "Photography" },
-    { text: "Top 7 AI tools to boost productivity in 2025", desc: "Tech / AI" },
-    { text: "2025 marketing trends for small and medium businesses", desc: "Marketing" },
-    { text: "Complete guide to dry-season skincare from A to Z", desc: "Beauty" },
-    { text: "Case study of an F&B brand website design project", desc: "Portfolio" },
-    { text: "Real estate market insights Q3/2025", desc: "Real Estate" },
-    { text: "Landing page for online conversational English courses", desc: "Language" },
-    { text: "Page for selling clean organic food with home delivery", desc: "Organic Food" },
-    { text: "Landing page for logo & brand identity design services", desc: "Branding" },
-    { text: "Brand story: 5-year journey of building a startup", desc: "Brand Story" },
-    { text: "Landing page for launching an online learning platform for high school students", desc: "EdTech" },
-  ],
   report: [
-    { text: "June 2025 sales performance report for a fashion store", desc: "Sales" },
-    { text: "Q2 F&B industry market analysis report", desc: "Market Analysis" },
-    { text: "Internal management software development project summary report", desc: "IT Project" },
+    { text: "June 2025 sales performance report for a fashion retailer", desc: "Sales" },
     { text: "Q2 2025 financial report for investor presentation", desc: "Finance" },
+    { text: "Q2 F&B industry market analysis report", desc: "Market Analysis" },
     { text: "May performance report for a Facebook Ads marketing campaign", desc: "Marketing" },
     { text: "HR report: recruitment, attrition, and training Q1/2025", desc: "HR" },
-    { text: "2024 business results report and 2025 plan", desc: "Annual Finance" },
+    { text: "2024 annual business results and 2025 growth plan", desc: "Annual" },
     { text: "Competitor analysis report for the e-commerce industry", desc: "Competitor" },
-    { text: "June progress report for a new urban development project", desc: "Construction" },
-    { text: "Customer satisfaction survey report after a product launch campaign", desc: "CSAT" },
-    { text: "June inventory and import/export status report", desc: "Logistics" },
+    { text: "IT project summary report for internal management system", desc: "IT Project" },
     { text: "Q2 ROI analysis report for digital marketing channels", desc: "ROI" },
-    { text: "May production activity and product quality report", desc: "Production" },
-    { text: "Business debt and cash flow status report Q2/2025", desc: "Accounting" },
-    { text: "Internal training program results report for new employees", desc: "Training" },
+    { text: "Customer satisfaction survey results after product launch", desc: "CSAT" },
+  ],
+  proposal: [
+    { text: "Project proposal for building a mobile app for a retail client", desc: "Mobile App" },
+    { text: "Website development proposal for an e-commerce startup", desc: "Web Dev" },
+    { text: "Digital marketing campaign proposal for a product launch", desc: "Marketing" },
+    { text: "Office interior renovation proposal for a corporate client", desc: "Interior" },
+    { text: "IT infrastructure upgrade proposal for a manufacturing company", desc: "IT" },
+    { text: "Partnership proposal for co-branding collaboration", desc: "Partnership" },
+    { text: "ERP implementation proposal for a mid-size enterprise", desc: "ERP" },
+    { text: "Training program proposal for new employee onboarding", desc: "HR" },
+  ],
+  "case-study": [
+    { text: "How we helped a retail chain increase online sales by 40%", desc: "Retail" },
+    { text: "Digital transformation case study for a manufacturing company", desc: "Manufacturing" },
+    { text: "Case study: reducing supply chain costs by 25% with automation", desc: "Logistics" },
+    { text: "Customer success story: scaling from 100 to 10,000 users", desc: "SaaS" },
+    { text: "Case study: CRM implementation for a nationwide retail chain", desc: "CRM" },
+    { text: "How a marketing agency tripled client ROI in 6 months", desc: "Marketing" },
+    { text: "Case study: migrating legacy systems to cloud infrastructure", desc: "Cloud" },
+  ],
+  meeting: [
+    { text: "Board meeting — Q2 2025 business review and strategy update", desc: "Board" },
+    { text: "Project kickoff meeting for new ERP implementation", desc: "Project" },
+    { text: "Weekly product team sync — sprint planning and blockers", desc: "Product" },
+    { text: "Client meeting — project requirements and scope discussion", desc: "Client" },
+    { text: "Annual strategy planning meeting — management team", desc: "Strategy" },
+    { text: "Post-mortem meeting — analysis of Q2 campaign results", desc: "Retrospective" },
+    { text: "Vendor evaluation meeting — software procurement decision", desc: "Procurement" },
+  ],
+  quotation: [
+    { text: "Quotation for website design and development services", desc: "Web Dev" },
+    { text: "Digital marketing monthly retainer service quotation", desc: "Marketing" },
+    { text: "Equipment supply quotation for manufacturing plant expansion", desc: "Equipment" },
+    { text: "One-pager: B2B SaaS product overview and pricing tiers", desc: "SaaS" },
+    { text: "IT consulting and support service quotation", desc: "IT" },
+    { text: "Corporate training program quotation and package details", desc: "Training" },
+    { text: "Branding and visual identity service pricing proposal", desc: "Branding" },
   ],
 };
 
@@ -99,9 +131,13 @@ function shufflePick(items: SampleItem[], n: number): SampleItem[] {
   return [...items].sort(() => Math.random() - 0.5).slice(0, n);
 }
 
-const CONTENT_TYPE_IDS: ContentTypeId[] = ["content", "report"];
+const CONTENT_TYPE_IDS: ContentTypeId[] = ["report", "proposal", "case-study", "meeting", "quotation"];
 
-export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: string }) {
+export default function CreatePageClient({
+  plan: _plan = "pro",
+}: {
+  plan?: string;
+}) {
   const router = useRouter();
 
   const [messages, setMessages] = useState<GeminiMessage[]>([]);
@@ -135,15 +171,31 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
     const trimmed = answerText.trim();
     if (!trimmed) return;
 
-    setHistory((prev) => [...prev, { question: currentQ.question, answer: trimmed }]);
+    setHistory((prev) => [
+      ...prev,
+      { question: currentQ.question, answer: trimmed },
+    ]);
     setCurrent(null);
     setCustom("");
 
     const modelJson = currentQ.isConfirm
-      ? JSON.stringify({ type: "confirm", question: currentQ.question, items: currentQ.items ?? [], options: currentQ.options })
-      : JSON.stringify({ type: "question", question: currentQ.question, ...(currentQ.hint ? { hint: currentQ.hint } : {}), options: currentQ.options });
+      ? JSON.stringify({
+          type: "confirm",
+          question: currentQ.question,
+          items: currentQ.items ?? [],
+          options: currentQ.options,
+        })
+      : JSON.stringify({
+          type: "question",
+          question: currentQ.question,
+          ...(currentQ.hint ? { hint: currentQ.hint } : {}),
+          options: currentQ.options,
+        });
 
-    const modelMsg: GeminiMessage = { role: "model", parts: [{ text: modelJson }] };
+    const modelMsg: GeminiMessage = {
+      role: "model",
+      parts: [{ text: modelJson }],
+    };
     const userMsg: GeminiMessage = { role: "user", parts: [{ text: trimmed }] };
     const updatedMessages = [...messages, modelMsg, userMsg];
     setMessages(updatedMessages);
@@ -172,25 +224,45 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: msgs, initialPrompt, contentType: selectedType ?? undefined }),
+        body: JSON.stringify({
+          messages: msgs,
+          initialPrompt,
+          contentType: selectedType ?? undefined,
+        }),
       });
 
       const data = await res.json();
 
-      if (longWaitTimer.current) { clearTimeout(longWaitTimer.current); longWaitTimer.current = null; }
+      if (longWaitTimer.current) {
+        clearTimeout(longWaitTimer.current);
+        longWaitTimer.current = null;
+      }
       setLongWait(false);
 
-      if (!res.ok) { setErrorMsg(data.error ?? "An error occurred. Please try again."); setPhase("error"); return; }
+      if (!res.ok) {
+        setErrorMsg(data.error ?? "An error occurred. Please try again.");
+        setPhase("error");
+        return;
+      }
 
       if (data.type === "question") {
-        setCurrent({ question: data.question, hint: data.hint, options: data.options ?? [] });
+        setCurrent({
+          question: data.question,
+          hint: data.hint,
+          options: data.options ?? [],
+        });
         setPhase("questioning");
         setTimeout(() => customInputRef.current?.focus(), 150);
         return;
       }
 
       if (data.type === "confirm") {
-        setCurrent({ question: data.question, options: data.options ?? ["Generate content now!"], items: data.items ?? [], isConfirm: true });
+        setCurrent({
+          question: data.question,
+          options: data.options ?? ["Generate content now!"],
+          items: data.items ?? [],
+          isConfirm: true,
+        });
         setPhase("questioning");
         setTimeout(() => customInputRef.current?.focus(), 150);
         return;
@@ -202,12 +274,19 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
         return;
       }
 
-      if (data.type === "error") { setErrorMsg(data.content ?? "An error occurred. Please try again."); setPhase("error"); return; }
+      if (data.type === "error") {
+        setErrorMsg(data.content ?? "An error occurred. Please try again.");
+        setPhase("error");
+        return;
+      }
 
       setErrorMsg("Invalid response. Please try again.");
       setPhase("error");
     } catch {
-      if (longWaitTimer.current) { clearTimeout(longWaitTimer.current); longWaitTimer.current = null; }
+      if (longWaitTimer.current) {
+        clearTimeout(longWaitTimer.current);
+        longWaitTimer.current = null;
+      }
       setLongWait(false);
       setErrorMsg("Cannot connect to server. Please try again.");
       setPhase("error");
@@ -270,7 +349,10 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
     setBlankError("");
     try {
       const res = await fetch("/api/projects/blank", { method: "POST" });
-      if (!res.ok) { setBlankError("An error occurred. Please try again."); return; }
+      if (!res.ok) {
+        setBlankError("An error occurred. Please try again.");
+        return;
+      }
       const { projectId: pid } = await res.json();
       router.push(`/editor?project=${pid}`);
     } catch {
@@ -292,7 +374,9 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
             className="text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1.5 disabled:opacity-50"
           >
             <Pencil className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">{blankLoading ? "Creating..." : "Blank Editor"}</span>
+            <span className="hidden sm:inline">
+              {blankLoading ? "Creating..." : "Blank Editor"}
+            </span>
           </button>
         </div>
       </header>
@@ -304,18 +388,18 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium mb-5">
                 <Sparkles className="w-3.5 h-3.5" />
-                Create smart content with AI
+                AI-powered business documents
               </div>
               <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2 tracking-tight">
-                What do you want to create today?
+                What document do you need?
               </h1>
               <p className="text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
-                Choose a content type below or enter your request
+                Choose a type below — AI will ask the right questions and generate a professional document
               </p>
             </div>
 
-            {/* 2-item type selector */}
-            <div className="w-full grid grid-cols-2 gap-3 mb-5">
+            {/* content type selector */}
+            <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-3 mb-5">
               {CONTENT_TYPE_IDS.map((typeId) => {
                 const meta = CONTENT_META[typeId];
                 const active = selectedType === typeId;
@@ -334,8 +418,12 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
                       {meta.icon}
                     </span>
                     <div>
-                      <div className="text-base font-bold leading-tight mb-0.5">{meta.label}</div>
-                      <div className={`text-xs leading-tight ${active ? "text-indigo-200" : "text-slate-500"}`}>
+                      <div className="text-base font-bold leading-tight mb-0.5">
+                        {meta.label}
+                      </div>
+                      <div
+                        className={`text-xs leading-tight ${active ? "text-indigo-200" : "text-slate-500"}`}
+                      >
                         {meta.desc}
                       </div>
                     </div>
@@ -353,8 +441,12 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
                     onClick={() => sendInitial(sample.text)}
                     className="w-full text-left px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-indigo-600/20 hover:border-indigo-500/30 transition-all flex items-baseline gap-2 group"
                   >
-                    <span className="text-sm text-slate-200 group-hover:text-white flex-1 transition-colors">{sample.text}</span>
-                    <span className="text-xs text-slate-500 flex-shrink-0">{sample.desc}</span>
+                    <span className="text-sm text-slate-200 group-hover:text-white flex-1 transition-colors">
+                      {sample.text}
+                    </span>
+                    <span className="text-xs text-slate-500 flex-shrink-0">
+                      {sample.desc}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -378,9 +470,13 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
                 className="w-full resize-none bg-transparent text-white text-sm placeholder:text-slate-500 focus:outline-none leading-relaxed"
               />
               <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/5">
-                <span className="text-xs text-slate-500">Enter to submit · Shift+Enter for new line</span>
+                <span className="text-xs text-slate-500">
+                  Enter to submit · Shift+Enter for new line
+                </span>
                 <button
-                  onClick={() => { if (initialInput.trim()) sendInitial(initialInput); }}
+                  onClick={() => {
+                    if (initialInput.trim()) sendInitial(initialInput);
+                  }}
                   disabled={!initialInput.trim()}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-30 disabled:cursor-not-allowed text-white text-xs font-semibold transition-all"
                 >
@@ -400,7 +496,8 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
             <div className="w-full mt-3 flex items-start gap-2 px-1">
               <Info className="w-3.5 h-3.5 text-slate-500 flex-shrink-0 mt-0.5" />
               <p className="text-xs text-slate-500 leading-relaxed">
-                AI will generate ~80% of the content based on your input. Once done, you can freely edit in the editor.
+                AI will generate ~80% of the content based on your input. Once
+                done, you can freely edit in the editor.
               </p>
             </div>
           </div>
@@ -436,7 +533,8 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
                 </div>
               ))}
 
-              {((phase === "questioning" && !current) || phase === "generating") ? (
+              {(phase === "questioning" && !current) ||
+              phase === "generating" ? (
                 <div className="flex items-start gap-2.5">
                   <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center flex-shrink-0">
                     <Sparkles className="w-3.5 h-3.5 text-white" />
@@ -465,7 +563,8 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
                     <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm rounded-2xl rounded-tl-sm px-4 py-3 space-y-1.5">
                       <p className="font-medium">Content has been generated!</p>
                       <p className="text-emerald-400/80 text-xs leading-relaxed">
-                        This is a ~80% draft based on your input. Open the editor to refine and finalize.
+                        This is a ~80% draft based on your input. Open the
+                        editor to refine and finalize.
                       </p>
                     </div>
                   </div>
@@ -474,15 +573,21 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
                     onClick={() => {
                       if (isNavigating) return;
                       setIsNavigating(true);
-                      router.push(projectId ? `/editor?project=${projectId}` : "/editor");
+                      router.push(
+                        projectId ? `/editor?project=${projectId}` : "/editor",
+                      );
                     }}
                     disabled={isNavigating}
                     className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 disabled:opacity-70 disabled:cursor-not-allowed text-white text-sm font-semibold shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98]"
                   >
                     {isNavigating ? (
-                      <><Loader2 className="w-4 h-4 animate-spin" /> Opening...</>
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" /> Opening...
+                      </>
                     ) : (
-                      <>Open Editor <ArrowRight className="w-4 h-4" /></>
+                      <>
+                        Open Editor <ArrowRight className="w-4 h-4" />
+                      </>
                     )}
                   </button>
 
@@ -523,19 +628,30 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
                     <Sparkles className="w-3.5 h-3.5 text-white" />
                   </div>
                   <div className="flex-1">
-                    {current.isConfirm && current.items && current.items.length > 0 && (
-                      <ul className="mb-2 space-y-1">
-                        {current.items.map((item, i) => (
-                          <li key={i} className="flex items-start gap-1.5 text-sm text-slate-300 leading-snug">
-                            <span className="text-indigo-400 mt-0.5 flex-shrink-0">•</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    <p className="text-white text-sm font-medium leading-relaxed">{current.question}</p>
+                    {current.isConfirm &&
+                      current.items &&
+                      current.items.length > 0 && (
+                        <ul className="mb-2 space-y-1">
+                          {current.items.map((item, i) => (
+                            <li
+                              key={i}
+                              className="flex items-start gap-1.5 text-sm text-slate-300 leading-snug"
+                            >
+                              <span className="text-indigo-400 mt-0.5 flex-shrink-0">
+                                •
+                              </span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    <p className="text-white text-sm font-medium leading-relaxed">
+                      {current.question}
+                    </p>
                     {current.hint && (
-                      <p className="text-slate-400 text-xs mt-0.5 leading-relaxed">{current.hint}</p>
+                      <p className="text-slate-400 text-xs mt-0.5 leading-relaxed">
+                        {current.hint}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -566,13 +682,20 @@ export default function CreatePageClient({ plan: _plan = "pro" }: { plan?: strin
                       Or type your own answer
                     </p>
                   )}
-                  <form onSubmit={handleCustomSubmit} className="flex items-end gap-2">
+                  <form
+                    onSubmit={handleCustomSubmit}
+                    className="flex items-end gap-2"
+                  >
                     <textarea
                       ref={customInputRef}
                       value={custom}
                       onChange={(e) => setCustom(e.target.value)}
                       onKeyDown={handleCustomKeyDown}
-                      placeholder={current.options.length > 0 ? "Enter your answer..." : "Enter your answer..."}
+                      placeholder={
+                        current.options.length > 0
+                          ? "Enter your answer..."
+                          : "Enter your answer..."
+                      }
                       rows={1}
                       maxLength={300}
                       className="flex-1 resize-none bg-white/[0.05] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-all"

@@ -14,7 +14,7 @@ const messageSchema = z.object({
 const chatSchema = z.object({
   messages: z.array(messageSchema).min(1).max(40),
   initialPrompt: z.string().max(500).optional(),
-  contentType: z.enum(['content', 'report']).optional(),
+  contentType: z.enum(['content', 'report', 'proposal', 'case-study', 'meeting', 'quotation']).optional(),
 })
 
 export async function POST(req: NextRequest) {
