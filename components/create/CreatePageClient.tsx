@@ -399,8 +399,8 @@ export default function CreatePageClient({
             </div>
 
             {/* content type selector */}
-            <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-3 mb-5">
-              {CONTENT_TYPE_IDS.map((typeId) => {
+            {(() => {
+              const renderCard = (typeId: ContentTypeId) => {
                 const meta = CONTENT_META[typeId];
                 const active = selectedType === typeId;
                 return (
@@ -421,16 +421,27 @@ export default function CreatePageClient({
                       <div className="text-base font-bold leading-tight mb-0.5">
                         {meta.label}
                       </div>
-                      <div
-                        className={`text-xs leading-tight ${active ? "text-indigo-200" : "text-slate-500"}`}
-                      >
+                      <div className={`text-xs leading-tight ${active ? "text-indigo-200" : "text-slate-500"}`}>
                         {meta.desc}
                       </div>
                     </div>
                   </button>
                 );
-              })}
-            </div>
+              };
+              return (
+                <div className="w-full space-y-3 mb-5">
+                  <div className="grid grid-cols-2 gap-3">
+                    {renderCard("report")}
+                    {renderCard("proposal")}
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {renderCard("case-study")}
+                    {renderCard("meeting")}
+                    {renderCard("quotation")}
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* Sample prompts */}
             {selectedType && displayedSamples.length > 0 && (
