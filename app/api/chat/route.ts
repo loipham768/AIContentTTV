@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     const result = await chatWithGemini(messages as GeminiMessage[], contentType as ContentType | undefined)
 
     if (result.type === 'html') {
-      const name = (initialPrompt ?? 'Nội dung mới').slice(0, 50)
+      const name = (initialPrompt ?? 'New Content').slice(0, 50)
       const prompt = (initialPrompt ?? 'Generated via Gemini chat').slice(0, 500)
       let projectId: string | null = null
 
@@ -61,6 +61,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(result)
   } catch (err) {
     console.error('[/api/chat] Gemini error:', err)
-    return NextResponse.json({ error: 'Đã xảy ra lỗi. Vui lòng thử lại.' }, { status: 500 })
+    return NextResponse.json({ error: 'An error occurred. Please try again.' }, { status: 500 })
   }
 }
