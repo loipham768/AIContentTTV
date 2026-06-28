@@ -44,8 +44,8 @@ const gradientPlugin = (editor: Editor) => {
 // ─── "Xem thêm mẫu" buttons ──────────────────────────────────────────────────
 
 const SEE_MORE_DEFS = [
-  { label: 'Content Templates', type: 'content' },
-  { label: 'Report Templates',  type: 'report'  },
+  { label: 'Mẫu bài viết', type: 'content' },
+  { label: 'Mẫu báo cáo',  type: 'report'  },
 ]
 
 function findCategoryContainer(
@@ -97,7 +97,7 @@ function injectSeeMoreLinks(retries = 8) {
       "font-family:'Segoe UI',system-ui,sans-serif", 'cursor:pointer',
       'box-sizing:border-box', 'transition:background .15s,border-color .15s',
     ].join(';')
-    a.textContent = '+ See more templates'
+    a.textContent = '+ Xem thêm mẫu'
     a.addEventListener('mouseenter', () => {
       a.style.background   = '#e0e7ff'
       a.style.borderColor  = '#a5b4fc'
@@ -167,7 +167,7 @@ function buildTagWidget(editor: Editor): HTMLDivElement {
   wrap.style.cssText = "padding:6px 0 10px;";
 
   const lbl = document.createElement("div");
-  lbl.textContent = "HTML Tag";
+  lbl.textContent = "Thẻ HTML";
   lbl.style.cssText =
     "font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px;";
 
@@ -179,7 +179,7 @@ function buildTagWidget(editor: Editor): HTMLDivElement {
   // Placeholder khi chưa chọn element
   const ph = document.createElement("option");
   ph.value = "";
-  ph.textContent = "— No element selected —";
+  ph.textContent = "— Chưa chọn phần tử —";
   ph.disabled = true;
   ph.selected = true;
   sel.appendChild(ph);
@@ -415,7 +415,7 @@ export default function GrapesEditor({
       // ── Icon picker button ─────────────────────────────────────────────
       const btn = document.createElement("span");
       btn.id = "gjs-icon-insert-btn";
-      btn.title = "Insert icon";
+      btn.title = "Chèn icon";
       btn.textContent = "☺";
       btn.style.cssText =
         "display:inline-flex;align-items:center;padding:0 7px;" +
@@ -583,16 +583,16 @@ export default function GrapesEditor({
             messages: {
               en: {
                 styleManager: {
-                  empty: 'Select an element to edit its style',
-                  layer: 'Layer',
-                  fileButton: 'Image',
+                  empty: 'Chọn một phần tử để chỉnh sửa kiểu dáng',
+                  layer: 'Lớp',
+                  fileButton: 'Hình ảnh',
                   sectors: {
-                    typography: 'Typography',
-                    dimension: 'Dimension',
-                    layout: 'Layout (Flex/Grid)',
-                    general: 'General',
-                    decorations: 'Decorations',
-                    extra: 'Extra',
+                    typography: 'Chữ viết',
+                    dimension: 'Kích thước',
+                    layout: 'Bố cục (Flex/Grid)',
+                    general: 'Chung',
+                    decorations: 'Trang trí',
+                    extra: 'Nâng cao',
                     flex: 'Flex',
                   },
                 },

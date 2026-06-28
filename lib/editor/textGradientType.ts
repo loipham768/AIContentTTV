@@ -52,7 +52,7 @@ function buildPickerEl(
 
   const clearBtn = document.createElement('button')
   clearBtn.type = 'button'
-  clearBtn.textContent = '✕ Remove gradient'
+  clearBtn.textContent = '✕ Xóa gradient'
   clearBtn.style.cssText = [
     'font-size:10px;color:#94a3b8;cursor:pointer;',
     'background:none;border:none;padding:0;',
