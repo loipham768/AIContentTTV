@@ -2,6 +2,7 @@
   "name": "ai-content-booster",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@8.6.12",
   "scripts": {
     "dev": "next dev --turbopack",
     "dev:webpack": "next dev",
