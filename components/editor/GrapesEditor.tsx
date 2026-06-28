@@ -6,7 +6,7 @@ import type { Editor } from "grapesjs";
 import grapesjs from "grapesjs";
 import { registerBlocks } from "@/lib/editor/blocks";
 import { styleSectors } from "@/lib/editor/styleConfig";
-import { registerVietnameseTraits } from "@/lib/editor/componentTraits";
+import { registerComponentTraits } from "@/lib/editor/componentTraits";
 import {
   registerTextGradientType,
   registerBgGradientType,
@@ -287,7 +287,7 @@ export default function GrapesEditor({
 }: GrapesEditorProps) {
   function handleEditor(editor: Editor) {
     registerBlocks(editor);
-    registerVietnameseTraits(editor);
+    registerComponentTraits(editor);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     editor.on("rte:enable", (_view: any, rte: any) => {

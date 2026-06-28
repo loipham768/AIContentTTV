@@ -1,22 +1,22 @@
 import type { Editor } from 'grapesjs'
 
-export function registerVietnameseTraits(editor: Editor) {
-  // ── default (base — áp dụng cho mọi component không override traits) ───────
+export function registerComponentTraits(editor: Editor) {
+  // ── default (base — applies to all components that don't override traits) ──
   editor.DomComponents.addType('default', {
     model: {
       defaults: {
         traits: [
           {
             name: 'id',
-            label: 'ID phần tử',
+            label: 'Element ID',
             type: 'text',
-            placeholder: 'vd: hero-section',
+            placeholder: 'e.g. hero-section',
           },
           {
             name: 'title',
-            label: 'Tiêu đề tooltip',
+            label: 'Tooltip title',
             type: 'text',
-            placeholder: 'Hiện khi di chuột vào...',
+            placeholder: 'Shown on hover...',
           },
         ],
       },
@@ -30,19 +30,19 @@ export function registerVietnameseTraits(editor: Editor) {
         traits: [
           {
             name: 'src',
-            label: 'URL hình ảnh',
+            label: 'Image URL',
             type: 'text',
             placeholder: 'https://...',
           },
           {
             name: 'alt',
-            label: 'Mô tả ảnh (alt)',
+            label: 'Image description (alt)',
             type: 'text',
-            placeholder: 'Mô tả nội dung ảnh...',
+            placeholder: 'Describe the image content...',
           },
           {
             name: 'title',
-            label: 'Tiêu đề ảnh',
+            label: 'Image title',
             type: 'text',
           },
         ],
@@ -57,31 +57,31 @@ export function registerVietnameseTraits(editor: Editor) {
         traits: [
           {
             name: 'href',
-            label: 'Địa chỉ liên kết',
+            label: 'Link URL',
             type: 'text',
             placeholder: 'https://...',
           },
           {
             name: 'target',
-            label: 'Mở liên kết',
+            label: 'Open link',
             type: 'select',
             options: [
-              { id: '', label: '— Mặc định —' },
-              { id: '_self', label: 'Cùng tab' },
-              { id: '_blank', label: 'Tab mới' },
+              { id: '', label: '— Default —' },
+              { id: '_self', label: 'Same tab' },
+              { id: '_blank', label: 'New tab' },
             ],
           },
           {
             name: 'title',
-            label: 'Tiêu đề tooltip',
+            label: 'Tooltip title',
             type: 'text',
           },
           {
             name: 'rel',
-            label: 'Quan hệ (rel)',
+            label: 'Relation (rel)',
             type: 'select',
             options: [
-              { id: '', label: '— Không —' },
+              { id: '', label: '— None —' },
               { id: 'noopener noreferrer', label: 'noopener noreferrer' },
               { id: 'nofollow', label: 'nofollow' },
               { id: 'nofollow noopener noreferrer', label: 'nofollow + noopener' },
@@ -99,34 +99,34 @@ export function registerVietnameseTraits(editor: Editor) {
         traits: [
           {
             name: 'src',
-            label: 'URL video',
+            label: 'Video URL',
             type: 'text',
             placeholder: 'https://...',
           },
           {
             name: 'poster',
-            label: 'Ảnh thumbnail',
+            label: 'Thumbnail image',
             type: 'text',
             placeholder: 'https://...',
           },
           {
             name: 'loop',
-            label: 'Lặp lại',
+            label: 'Loop',
             type: 'checkbox',
           },
           {
             name: 'autoplay',
-            label: 'Tự động phát',
+            label: 'Autoplay',
             type: 'checkbox',
           },
           {
             name: 'controls',
-            label: 'Nút điều khiển',
+            label: 'Controls',
             type: 'checkbox',
           },
           {
             name: 'muted',
-            label: 'Tắt tiếng',
+            label: 'Muted',
             type: 'checkbox',
           },
         ],
@@ -141,13 +141,13 @@ export function registerVietnameseTraits(editor: Editor) {
         traits: [
           {
             name: 'id',
-            label: 'ID phần tử',
+            label: 'Element ID',
             type: 'text',
-            placeholder: 'vd: intro-text',
+            placeholder: 'e.g. intro-text',
           },
           {
             name: 'title',
-            label: 'Tiêu đề tooltip',
+            label: 'Tooltip title',
             type: 'text',
           },
         ],

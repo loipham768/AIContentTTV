@@ -31,13 +31,13 @@ export function registerBlocks(editor: Editor) {
     content: `<nav data-toc style="background-color:#f8fafc;border-width:1.5px;border-style:solid;border-color:#e0e7ff;border-radius:14px;padding:20px 24px;max-width:680px;box-sizing:border-box;${FONT}">
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
     <span style="font-size:16px;">📋</span>
-    <span style="font-size:14px;font-weight:700;color:#0f172a;${FONT}">Mục lục bài viết</span>
+    <span style="font-size:14px;font-weight:700;color:#0f172a;${FONT}">Article Table of Contents</span>
   </div>
   <ol style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px;">
-    <li><a href="#section-1" data-toc-link style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;text-decoration:none;color:#374151;font-size:14px;${FONT}"><span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background-color:#4f46e5;color:#fff;border-radius:50%;font-size:11px;font-weight:700;flex-shrink:0;">1</span>Giới thiệu chủ đề</a></li>
-    <li><a href="#section-2" data-toc-link style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;text-decoration:none;color:#374151;font-size:14px;${FONT}"><span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background-color:#4f46e5;color:#fff;border-radius:50%;font-size:11px;font-weight:700;flex-shrink:0;">2</span>Nội dung chính</a></li>
-    <li><a href="#section-3" data-toc-link style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;text-decoration:none;color:#374151;font-size:14px;${FONT}"><span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background-color:#4f46e5;color:#fff;border-radius:50%;font-size:11px;font-weight:700;flex-shrink:0;">3</span>Ví dụ thực tế</a></li>
-    <li><a href="#section-4" data-toc-link style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;text-decoration:none;color:#374151;font-size:14px;${FONT}"><span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background-color:#4f46e5;color:#fff;border-radius:50%;font-size:11px;font-weight:700;flex-shrink:0;">4</span>Kết luận</a></li>
+    <li><a href="#section-1" data-toc-link style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;text-decoration:none;color:#374151;font-size:14px;${FONT}"><span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background-color:#4f46e5;color:#fff;border-radius:50%;font-size:11px;font-weight:700;flex-shrink:0;">1</span>Introduction</a></li>
+    <li><a href="#section-2" data-toc-link style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;text-decoration:none;color:#374151;font-size:14px;${FONT}"><span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background-color:#4f46e5;color:#fff;border-radius:50%;font-size:11px;font-weight:700;flex-shrink:0;">2</span>Main Content</a></li>
+    <li><a href="#section-3" data-toc-link style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;text-decoration:none;color:#374151;font-size:14px;${FONT}"><span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background-color:#4f46e5;color:#fff;border-radius:50%;font-size:11px;font-weight:700;flex-shrink:0;">3</span>Real Examples</a></li>
+    <li><a href="#section-4" data-toc-link style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;text-decoration:none;color:#374151;font-size:14px;${FONT}"><span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background-color:#4f46e5;color:#fff;border-radius:50%;font-size:11px;font-weight:700;flex-shrink:0;">4</span>Conclusion</a></li>
   </ol>
 </nav>
 <script>(function(){
@@ -69,12 +69,12 @@ export function registerBlocks(editor: Editor) {
     media: `<svg viewBox="0 0 32 22" fill="none"><rect x="1" y="1" width="30" height="20" rx="3" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/><rect x="5" y="5" width="14" height="3" rx="1.5" fill="#4f46e5"/><rect x="5" y="10" width="22" height="2" rx="1" fill="#818cf8" opacity="0.5"/><rect x="5" y="14" width="18" height="2" rx="1" fill="#818cf8" opacity="0.35"/><rect x="20" y="5" width="7" height="9" rx="2" fill="#4f46e5"/></svg>`,
     content: `<div style="background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%);border-width:1.5px;border-style:solid;border-color:#c4b5fd;border-radius:16px;padding:28px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:20px;${FONT}">
   <div style="flex:1;min-width:200px;">
-    <p style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c3aed;margin:0 0 8px;${FONT}">Bài viết liên quan</p>
-    <h3 style="${H3}font-size:18px;margin-bottom:8px;">Bạn đang tìm kiếm giải pháp tốt hơn?</h3>
-    <p style="font-size:14px;color:#475569;line-height:1.6;margin:0;${FONT}">Khám phá thêm nội dung hữu ích và các mẹo thực tế giúp bạn đạt kết quả nhanh hơn.</p>
+    <p style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7c3aed;margin:0 0 8px;${FONT}">Related Articles</p>
+    <h3 style="${H3}font-size:18px;margin-bottom:8px;">Looking for a Better Solution?</h3>
+    <p style="font-size:14px;color:#475569;line-height:1.6;margin:0;${FONT}">Discover more useful content and practical tips to help you achieve results faster.</p>
   </div>
   <div style="flex-shrink:0;">
-    <a href="#" style="display:inline-block;padding:12px 24px;background-color:#4f46e5;color:#fff;text-decoration:none;border-radius:10px;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(79,70,229,0.35);white-space:nowrap;${FONT}">Tìm hiểu ngay →</a>
+    <a href="#" style="display:inline-block;padding:12px 24px;background-color:#4f46e5;color:#fff;text-decoration:none;border-radius:10px;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(79,70,229,0.35);white-space:nowrap;${FONT}">Learn More →</a>
   </div>
 </div>`,
   })
@@ -96,11 +96,11 @@ export function registerBlocks(editor: Editor) {
       <span style="font-size:20px;font-weight:800;color:#0f172a;white-space:nowrap;${FONT}">Brand</span>
     </a>
     <ul data-nav-menu style="display:flex;align-items:center;gap:4px;list-style:none;margin:0;padding:0;flex-wrap:nowrap;">
-      <li><a href="#about" style="${LINK}">Giới thiệu</a></li>
-      <li><a href="#services" style="${LINK}">Dịch vụ</a></li>
-      <li><a href="#pricing" style="${LINK}">Bảng giá</a></li>
-      <li><a href="#contact" style="${LINK}">Liên hệ</a></li>
-      <li style="margin-left:8px;"><a href="#contact" style="${LINK_CTA}">Bắt đầu</a></li>
+      <li><a href="#about" style="${LINK}">About</a></li>
+      <li><a href="#services" style="${LINK}">Services</a></li>
+      <li><a href="#pricing" style="${LINK}">Pricing</a></li>
+      <li><a href="#contact" style="${LINK}">Contact</a></li>
+      <li style="margin-left:8px;"><a href="#contact" style="${LINK_CTA}">Get Started</a></li>
     </ul>
     <button data-nav-toggle aria-label="Menu" style="display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;flex-shrink:0;">
       <span style="display:block;width:22px;height:2px;background-color:#334155;border-radius:2px;"></span>
@@ -110,11 +110,11 @@ export function registerBlocks(editor: Editor) {
   </div>
   <div data-nav-mobile style="display:none;border-top-width:1px;border-top-style:solid;border-top-color:#f1f5f9;padding:12px 24px 16px;">
     <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;">
-      <li><a href="#about" style="${LINK}display:block;">Giới thiệu</a></li>
-      <li><a href="#services" style="${LINK}display:block;">Dịch vụ</a></li>
-      <li><a href="#pricing" style="${LINK}display:block;">Bảng giá</a></li>
-      <li><a href="#contact" style="${LINK}display:block;">Liên hệ</a></li>
-      <li style="margin-top:8px;"><a href="#contact" style="${LINK_CTA}display:block;text-align:center;">Bắt đầu</a></li>
+      <li><a href="#about" style="${LINK}display:block;">About</a></li>
+      <li><a href="#services" style="${LINK}display:block;">Services</a></li>
+      <li><a href="#pricing" style="${LINK}display:block;">Pricing</a></li>
+      <li><a href="#contact" style="${LINK}display:block;">Contact</a></li>
+      <li style="margin-top:8px;"><a href="#contact" style="${LINK_CTA}display:block;text-align:center;">Get Started</a></li>
     </ul>
   </div>
 </nav>
@@ -227,28 +227,28 @@ export function registerBlocks(editor: Editor) {
     label: 'Text',
     category: CAT_BASIC,
     media: `¶`,
-    content: `<p style="${BODY}margin:0;">Nhập văn bản của bạn vào đây. Bấm để chỉnh sửa nội dung.</p>`,
+    content: `<p style="${BODY}margin:0;">Enter your text here. Click to edit content.</p>`,
   })
 
   bm.add('heading', {
     label: 'Heading',
     category: CAT_BASIC,
     media: `𝐓`,
-    content: `<h2 style="${H2}">Tiêu đề của bạn</h2>`,
+    content: `<h2 style="${H2}">Your Heading</h2>`,
   })
 
   bm.add('heading-sm', {
     label: 'Subheading',
     category: CAT_BASIC,
     media: `<svg viewBox="0 0 32 22" fill="none"><rect x="2" y="2" width="18" height="4.5" rx="2" fill="#1d4ed8"/><rect x="2" y="9.5" width="28" height="3" rx="1.5" fill="#94a3b8"/><rect x="2" y="15" width="22" height="3" rx="1.5" fill="#e2e8f0"/></svg>`,
-    content: `<h3 style="${H3}">Tiêu đề phụ</h3>`,
+    content: `<h3 style="${H3}">Subheading</h3>`,
   })
 
   bm.add('image', {
     label: 'Image',
     category: CAT_BASIC,
     media: `<svg viewBox="0 0 32 26" fill="none"><rect x="1" y="1" width="30" height="24" rx="3" fill="#bfdbfe"/><rect x="1" y="1" width="30" height="24" rx="3" stroke="#60a5fa" stroke-width="1.5"/><circle cx="9" cy="8.5" r="3.5" fill="#fbbf24"/><path d="M1 19L10 12L17 17L22 13L31 19" fill="#38bdf8"/><rect x="1" y="17" width="30" height="8" rx="0" fill="#38bdf8"/></svg>`,
-    content: `<img src="https://placehold.co/800x420/e0e7ff/6366f1?text=Hình+ảnh" alt="Hình ảnh" style="max-width:100%;height:auto;display:block;border-radius:14px;"/>`,
+    content: `<img src="https://placehold.co/800x420/e0e7ff/6366f1?text=Image" alt="Image" style="max-width:100%;height:auto;display:block;border-radius:14px;"/>`,
     attributes: { class: 'gjs-block-image' },
   })
 
@@ -256,7 +256,7 @@ export function registerBlocks(editor: Editor) {
     label: 'Button',
     category: CAT_BASIC,
     media: `<svg viewBox="0 0 32 18" fill="none"><rect x="1" y="2" width="30" height="14" rx="7" fill="#4f46e5"/><rect x="9" y="6.5" width="14" height="3" rx="1.5" fill="white" opacity="0.85"/></svg>`,
-    content: `<a href="#" style="display:inline-block;padding:13px 30px;background-color:#4f46e5;color:#fff;text-decoration:none;border-radius:10px;font-size:15px;font-weight:600;letter-spacing:0.01em;box-shadow:0 4px 12px rgba(79,70,229,0.35);${FONT}">Nút bấm</a>`,
+    content: `<a href="#" style="display:inline-block;padding:13px 30px;background-color:#4f46e5;color:#fff;text-decoration:none;border-radius:10px;font-size:15px;font-weight:600;letter-spacing:0.01em;box-shadow:0 4px 12px rgba(79,70,229,0.35);${FONT}">Click Me</a>`,
   })
 
   bm.add('divider', {
@@ -280,15 +280,15 @@ export function registerBlocks(editor: Editor) {
     content: `<ul style="list-style:none;padding:0;margin:0;${FONT}">
   <li style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#f1f5f9;font-size:15px;color:#334155;">
     <span style="width:22px;height:22px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:50%;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">✓</span>
-    Điểm nổi bật thứ nhất
+    First key highlight
   </li>
   <li style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#f1f5f9;font-size:15px;color:#334155;">
     <span style="width:22px;height:22px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:50%;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">✓</span>
-    Điểm nổi bật thứ hai
+    Second key highlight
   </li>
   <li style="display:flex;align-items:center;gap:10px;padding:10px 0;font-size:15px;color:#334155;">
     <span style="width:22px;height:22px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:50%;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">✓</span>
-    Điểm nổi bật thứ ba
+    Third key highlight
   </li>
 </ul>`,
   })
@@ -299,8 +299,8 @@ export function registerBlocks(editor: Editor) {
     media: `📢`,
     content: `<div style="background-color:#4f46e5;padding:12px 24px;width:100%;box-sizing:border-box;${FONT}">
   <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;">
-    <span style="color:rgba(255,255,255,0.9);font-size:14px;text-align:center;">🎉 Ưu đãi đặc biệt — Giảm <strong style="color:#fff;">20%</strong> cho khách hàng mới. Kết thúc ngày 31/12!</span>
-    <a href="#" style="display:inline-block;padding:4px 14px;background-color:rgba(255,255,255,0.18);color:#fff;text-decoration:none;border-radius:9999px;font-size:13px;font-weight:600;border-width:1px;border-style:solid;border-color:rgba(255,255,255,0.35);white-space:nowrap;">Đặt ngay →</a>
+    <span style="color:rgba(255,255,255,0.9);font-size:14px;text-align:center;">🎉 Special Offer — Get <strong style="color:#fff;">20%</strong> off for new customers. Ends Dec 31!</span>
+    <a href="#" style="display:inline-block;padding:4px 14px;background-color:rgba(255,255,255,0.18);color:#fff;text-decoration:none;border-radius:9999px;font-size:13px;font-weight:600;border-width:1px;border-style:solid;border-color:rgba(255,255,255,0.35);white-space:nowrap;">Order Now →</a>
   </div>
 </div>`,
   })
@@ -315,12 +315,12 @@ export function registerBlocks(editor: Editor) {
   <div style="position:absolute;top:10%;right:8%;width:180px;height:180px;background-color:rgba(167,139,250,0.15);border-radius:50%;filter:blur(48px);pointer-events:none;"></div>
   <div style="position:absolute;bottom:10%;left:6%;width:140px;height:140px;background-color:rgba(99,102,241,0.2);border-radius:50%;filter:blur(40px);pointer-events:none;"></div>
   <div style="position:relative;max-width:680px;margin:0 auto;">
-    <span style="display:inline-block;padding:6px 18px;background-color:rgba(255,255,255,0.12);border-width:1px;border-style:solid;border-color:rgba(255,255,255,0.22);border-radius:9999px;font-size:13px;font-weight:500;margin-bottom:24px;letter-spacing:0.04em;">🚀 Ra mắt phiên bản mới</span>
-    <h1 style="${H1}color:#fff;margin:0 0 20px;">Tiêu đề ấn tượng</h1>
-    <p style="font-size:clamp(15px,3vw,18px);line-height:1.75;color:rgba(255,255,255,0.82);margin:0 0 40px;max-width:520px;margin-left:auto;margin-right:auto;${FONT}">Mô tả ngắn gọn và cuốn hút về sản phẩm hoặc dịch vụ để thu hút khách hàng</p>
+    <span style="display:inline-block;padding:6px 18px;background-color:rgba(255,255,255,0.12);border-width:1px;border-style:solid;border-color:rgba(255,255,255,0.22);border-radius:9999px;font-size:13px;font-weight:500;margin-bottom:24px;letter-spacing:0.04em;">🚀 New Version Launch</span>
+    <h1 style="${H1}color:#fff;margin:0 0 20px;">Impressive Headline</h1>
+    <p style="font-size:clamp(15px,3vw,18px);line-height:1.75;color:rgba(255,255,255,0.82);margin:0 0 40px;max-width:520px;margin-left:auto;margin-right:auto;${FONT}">A brief and compelling description of your product or service to attract customers</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <a href="#" style="display:inline-block;padding:14px 34px;background-color:#fff;color:#4f46e5;text-decoration:none;border-radius:10px;font-size:15px;font-weight:700;box-shadow:0 6px 20px rgba(0,0,0,0.2);${FONT}">Bắt đầu ngay</a>
-      <a href="#" style="display:inline-block;padding:14px 34px;border-width:2px;border-style:solid;border-color:rgba(255,255,255,0.45);color:#fff;text-decoration:none;border-radius:10px;font-size:15px;font-weight:600;${FONT}">Tìm hiểu thêm →</a>
+      <a href="#" style="display:inline-block;padding:14px 34px;background-color:#fff;color:#4f46e5;text-decoration:none;border-radius:10px;font-size:15px;font-weight:700;box-shadow:0 6px 20px rgba(0,0,0,0.2);${FONT}">Get Started</a>
+      <a href="#" style="display:inline-block;padding:14px 34px;border-width:2px;border-style:solid;border-color:rgba(255,255,255,0.45);color:#fff;text-decoration:none;border-radius:10px;font-size:15px;font-weight:600;${FONT}">Learn More →</a>
     </div>
   </div>
 </section>`,

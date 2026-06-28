@@ -1,26 +1,26 @@
 import type { Editor } from 'grapesjs'
 
 const PRESETS = [
-  { label: 'Tím → Hồng',   value: 'linear-gradient(135deg,#a855f7,#ec4899)' },
-  { label: 'Xanh → Tím',   value: 'linear-gradient(135deg,#6366f1,#8b5cf6)' },
-  { label: 'Vàng → Cam',   value: 'linear-gradient(135deg,#f6d365,#fda085)' },
-  { label: 'Xanh biển',    value: 'linear-gradient(135deg,#4facfe,#00f2fe)' },
-  { label: 'Xanh lá',      value: 'linear-gradient(135deg,#43e97b,#38f9d7)' },
-  { label: 'Hồng → Vàng',  value: 'linear-gradient(135deg,#fa709a,#fee140)' },
-  { label: 'Đỏ → Cam',     value: 'linear-gradient(135deg,#f97316,#ef4444)' },
-  { label: 'Vàng gold',    value: 'linear-gradient(180deg,#fbbf24,#f59e0b,#d97706)' },
-  { label: 'Hồng pastel',  value: 'linear-gradient(135deg,#ff9a9e,#fecfef)' },
-  { label: 'Tím đen',      value: 'linear-gradient(135deg,#1a1a2e,#6366f1)' },
-  { label: 'Cầu vồng',     value: 'linear-gradient(90deg,#ff6b6b,#feca57,#48dbfb,#ff9ff3)' },
-  { label: 'Xám trắng',    value: 'linear-gradient(135deg,#f5f7fa,#c3cfe2)' },
+  { label: 'Purple → Pink',  value: 'linear-gradient(135deg,#a855f7,#ec4899)' },
+  { label: 'Blue → Purple',  value: 'linear-gradient(135deg,#6366f1,#8b5cf6)' },
+  { label: 'Yellow → Orange',value: 'linear-gradient(135deg,#f6d365,#fda085)' },
+  { label: 'Ocean Blue',     value: 'linear-gradient(135deg,#4facfe,#00f2fe)' },
+  { label: 'Mint Green',     value: 'linear-gradient(135deg,#43e97b,#38f9d7)' },
+  { label: 'Pink → Yellow',  value: 'linear-gradient(135deg,#fa709a,#fee140)' },
+  { label: 'Red → Orange',   value: 'linear-gradient(135deg,#f97316,#ef4444)' },
+  { label: 'Gold',           value: 'linear-gradient(180deg,#fbbf24,#f59e0b,#d97706)' },
+  { label: 'Pink Pastel',    value: 'linear-gradient(135deg,#ff9a9e,#fecfef)' },
+  { label: 'Dark Purple',    value: 'linear-gradient(135deg,#1a1a2e,#6366f1)' },
+  { label: 'Rainbow',        value: 'linear-gradient(90deg,#ff6b6b,#feca57,#48dbfb,#ff9ff3)' },
+  { label: 'Gray White',     value: 'linear-gradient(135deg,#f5f7fa,#c3cfe2)' },
 ]
 
 const BG_PRESETS = [
   ...PRESETS,
-  { label: 'Lavender nhạt', value: 'linear-gradient(135deg,#a18cd1,#fbc2eb)' },
-  { label: 'Đêm tối',       value: 'linear-gradient(135deg,#0f172a,#1e1b4b)' },
-  { label: 'Đỏ cam (lửa)',  value: 'linear-gradient(135deg,#e96c1a,#c0392b)' },
-  { label: 'Xám xanh đậm',  value: 'linear-gradient(135deg,#2c3e50,#4ca1af)' },
+  { label: 'Light Lavender', value: 'linear-gradient(135deg,#a18cd1,#fbc2eb)' },
+  { label: 'Dark Night',     value: 'linear-gradient(135deg,#0f172a,#1e1b4b)' },
+  { label: 'Fiery Orange',   value: 'linear-gradient(135deg,#e96c1a,#c0392b)' },
+  { label: 'Dark Slate',     value: 'linear-gradient(135deg,#2c3e50,#4ca1af)' },
 ]
 
 // ─── Shared UI factory ────────────────────────────────────────────────────────
@@ -52,7 +52,7 @@ function buildPickerEl(
 
   const clearBtn = document.createElement('button')
   clearBtn.type = 'button'
-  clearBtn.textContent = '✕ Xóa gradient'
+  clearBtn.textContent = '✕ Remove gradient'
   clearBtn.style.cssText = [
     'font-size:10px;color:#94a3b8;cursor:pointer;',
     'background:none;border:none;padding:0;',
