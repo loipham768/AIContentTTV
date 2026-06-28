@@ -20,8 +20,8 @@ const COL  = `flex:1;min-width:160px;padding:20px;min-height:72px;background-col
 export function registerBlocks(editor: Editor) {
   const bm = editor.BlockManager
   console.log('[DEBUG] registerBlocks called — version 3')
-  registerArticleTemplates(editor)
   registerReportTemplates(editor)
+  registerArticleTemplates(editor)
 
   // ── SEO ─────────────────────────────────────────────────────────────────
   bm.add('toc', {

@@ -19,25 +19,30 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TaoPage — Create beautiful HTML content with AI in 60 seconds",
-  description: "AI tool that helps content creators build standard CSS HTML blocks in 60 seconds. Drag & drop, edit, and paste into your CMS instantly.",
-  keywords: "create landing page, AI content writing, create HTML webpage, AI tool, AI content creation, TaoPage",
+  title:
+    "T-intelligate Editor — Create beautiful HTML content with AI in 60 seconds",
+  description:
+    "AI tool that helps content creators build standard CSS HTML blocks in 60 seconds. Drag & drop, edit, and paste into your CMS instantly.",
+  keywords:
+    "T-intelligate Editor, AI HTML generator, AI content generator, AI content editor, AI content builder, AI content creator, AI content design, AI content development, AI content management, AI content optimization, AI content personalization, AI content strategy, AI content marketing",
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: SITE_URL },
   icons: {
-    icon: [{ url: '/taopage-favicon.svg', type: 'image/svg+xml' }],
+    icon: [{ url: "/taopage-favicon.svg", type: "image/svg+xml" }],
   },
   openGraph: {
-    title: "TaoPage — Create beautiful HTML content with AI in 60 seconds",
-    description: "AI tool that helps content creators build standard CSS HTML blocks in 60 seconds. Drag & drop, edit, and paste into your CMS instantly.",
+    title:
+      "T-intelligate Editor — Create beautiful HTML content with AI in 60 seconds",
+    description:
+      "AI tool that helps content creators build standard CSS HTML blocks in 60 seconds. Drag & drop, edit, and paste into your CMS instantly.",
     url: SITE_URL,
-    siteName: "TaoPage",
+    siteName: "T-intelligate Editor",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "TaoPage — Create HTML content with AI",
+        alt: "T-intelligate Editor — Create HTML content with AI",
       },
     ],
     locale: "en_US",
@@ -45,8 +50,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TaoPage — Create beautiful HTML content with AI in 60 seconds",
-    description: "AI tool that helps content creators build standard CSS HTML blocks in 60 seconds.",
+    title:
+      "T-intelligate Editor — Create beautiful HTML content with AI in 60 seconds",
+    description:
+      "AI tool that helps content creators build standard CSS HTML blocks in 60 seconds.",
     images: ["/og-image.png"],
   },
 };
