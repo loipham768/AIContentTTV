@@ -27,6 +27,10 @@ ${JSON.stringify(MOCK_BLOCK, null, 2)}
 const CLAUDE_ROUTES: Record<ContentType, string> = {
   content: 'claude-sonnet-4-6',
   report: 'claude-sonnet-4-6',
+  proposal: 'claude-sonnet-4-6',
+  'case-study': 'claude-sonnet-4-6',
+  meeting: 'claude-sonnet-4-6',
+  quotation: 'claude-sonnet-4-6',
 }
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
