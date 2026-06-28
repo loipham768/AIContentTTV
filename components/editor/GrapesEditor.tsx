@@ -41,79 +41,6 @@ const gradientPlugin = (editor: Editor) => {
   registerBgGradientType(editor);
 };
 
-// ─── "Xem thêm mẫu" buttons ──────────────────────────────────────────────────
-
-const SEE_MORE_DEFS = [
-  { label: 'Content Templates', type: 'content' },
-  { label: 'Report Templates',  type: 'report'  },
-]
-
-function findCategoryContainer(
-  panel: HTMLElement,
-  label: string,
-): HTMLElement | null {
-  // Walk all text nodes; find the one whose trimmed text === label
-  const walker = document.createTreeWalker(panel, NodeFilter.SHOW_TEXT, null)
-  let textNode: Text | null = null
-  while (walker.nextNode()) {
-    const t = walker.currentNode as Text
-    if (t.textContent?.trim() === label) { textNode = t; break }
-  }
-  if (!textNode) return null
-
-  // Walk up: find first ancestor with ≥ 2 child elements (title + blocks container)
-  let el: HTMLElement | null = textNode.parentElement
-  while (el && el !== panel) {
-    if (el.children.length >= 2) return el
-    el = el.parentElement as HTMLElement
-  }
-  return null
-}
-
-function injectSeeMoreLinks(retries = 8) {
-  const panel = document.getElementById('gjs-blocks-panel')
-  if (!panel) {
-    if (retries > 0) setTimeout(() => injectSeeMoreLinks(retries - 1), 300)
-    return
-  }
-
-  let pendingCount = 0
-  SEE_MORE_DEFS.forEach(({ label, type }) => {
-    if (panel.querySelector(`[data-see-more="${type}"]`)) return // already injected
-
-    const container = findCategoryContainer(panel, label)
-    if (!container) { pendingCount++; return }
-
-    const a = document.createElement('a')
-    a.setAttribute('data-see-more', type)
-    a.href    = `/create`
-    a.target  = '_blank'
-    a.rel     = 'noopener noreferrer'
-    a.style.cssText = [
-      'display:flex', 'align-items:center', 'justify-content:center', 'gap:5px',
-      'margin:3px 8px 8px', 'padding:7px 10px',
-      'background:#f0f4ff', 'border:1.5px dashed #c7d2fe', 'border-radius:8px',
-      'font-size:11px', 'font-weight:700', 'color:#4f46e5', 'text-decoration:none',
-      "font-family:'Segoe UI',system-ui,sans-serif", 'cursor:pointer',
-      'box-sizing:border-box', 'transition:background .15s,border-color .15s',
-    ].join(';')
-    a.textContent = '+ See more templates'
-    a.addEventListener('mouseenter', () => {
-      a.style.background   = '#e0e7ff'
-      a.style.borderColor  = '#a5b4fc'
-    })
-    a.addEventListener('mouseleave', () => {
-      a.style.background   = '#f0f4ff'
-      a.style.borderColor  = '#c7d2fe'
-    })
-    container.appendChild(a)
-  })
-
-  if (pendingCount > 0 && retries > 0) {
-    setTimeout(() => injectSeeMoreLinks(retries - 1), 400)
-  }
-}
-
 // ─────────────────────────────────────────────────────────────────────────────
 
 const PROP_PLACEHOLDERS: Record<string, string> = {
@@ -478,13 +405,6 @@ export default function GrapesEditor({
         setTimeout(() => syncTagSelector(editor), 150);
       }
 
-      // "Xem thêm mẫu" links — inject after blocks render, re-inject on panel changes
-      setTimeout(() => injectSeeMoreLinks(), 400);
-      const blocksPanel = document.getElementById("gjs-blocks-panel");
-      if (blocksPanel) {
-        const blocksObs = new MutationObserver(() => injectSeeMoreLinks(0));
-        blocksObs.observe(blocksPanel, { childList: true, subtree: false });
-      }
     });
 
     // Tag selector luôn sync theo selection (setTimeout(0) để chờ React render style panel)

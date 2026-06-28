@@ -5,7 +5,7 @@ const AH1 = `font-size:clamp(26px,5vw,38px);font-weight:800;letter-spacing:-0.02
 const AH2 = `font-size:clamp(20px,3.5vw,26px);font-weight:800;letter-spacing:-0.02em;line-height:1.3;margin:40px 0 14px;color:#0f172a;padding-bottom:10px;border-bottom:2px solid #e0e7ff;${F}`
 const AH3 = `font-size:19px;font-weight:700;line-height:1.35;margin:28px 0 10px;color:#1e293b;${F}`
 const AP  = `font-size:16px;color:#475569;line-height:1.8;margin:0 0 16px;${F}`
-const CAT = { id: 'content-templates', label: 'Content Templates', order: 8 }
+const CAT = { id: 'content-templates', label: 'Content Templates', order: 9 }
 
 // Shared fragments
 const BREADCRUMB = `<nav aria-label="Breadcrumb" style="margin-bottom:20px;">
