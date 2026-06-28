@@ -41,6 +41,8 @@ export async function POST(req: NextRequest) {
 
   let url: string
 
+  console.log('[/api/upload] BLOB_READ_WRITE_TOKEN present:', !!process.env.BLOB_READ_WRITE_TOKEN)
+
   if (process.env.BLOB_READ_WRITE_TOKEN) {
     const { put } = await import('@vercel/blob')
     try {
@@ -48,9 +50,14 @@ export async function POST(req: NextRequest) {
       url = blob.url
     } catch (err) {
       console.error('[/api/upload] blob error:', err)
-      return NextResponse.json({ error: 'Lỗi lưu file. Vui lòng thử lại.' }, { status: 500 })
+      return NextResponse.json({ error: 'Upload failed. Please try again.' }, { status: 500 })
     }
   } else {
+    // Vercel: filesystem is read-only — BLOB_READ_WRITE_TOKEN must be set
+    if (process.env.VERCEL) {
+      console.error('[/api/upload] Running on Vercel but BLOB_READ_WRITE_TOKEN is not set')
+      return NextResponse.json({ error: 'Storage not configured. Please contact support.' }, { status: 500 })
+    }
     try {
       const uploadDir = path.join(process.cwd(), 'public', 'uploads')
       await fs.mkdir(uploadDir, { recursive: true })
@@ -59,7 +66,7 @@ export async function POST(req: NextRequest) {
       url = `/uploads/${safeName}`
     } catch (err) {
       console.error('[/api/upload] local error:', err)
-      return NextResponse.json({ error: 'Lỗi lưu file. Vui lòng thử lại.' }, { status: 500 })
+      return NextResponse.json({ error: 'Upload failed. Please try again.' }, { status: 500 })
     }
   }
 
